@@ -2,6 +2,10 @@
 
 What to build, why it exists, and what has already been proven. Read `../CLAUDE.md` first.
 
+For the goal, the numbered requirements and — above all — what is **out** of scope, see
+[`SCOPE.md`](SCOPE.md). This brief holds the evidence behind the decisions; the scope holds the
+boundary they are made within.
+
 ---
 
 ## The problem
@@ -63,6 +67,12 @@ A plugin providing a skill plus a CLI, where **the schema is configuration, not 
 **Recommendation: (1) with the defaults of (3)** — zero config gets you the opinionated schema;
 a config file adapts it. Decide this before writing code; it shapes everything.
 
+**Settled in [T-001](../tasks/T-001-decide-how-the-front-matter-schema-is-configured.md)**
+(2026-08-04): (1), with the defaults of (3) **and the pass-through of (2)** — the three were not
+in fact alternatives. The decisions and their rationale live in that task file; the resulting
+schema lives in [`taskmd/defaults/config.md`](../taskmd/defaults/config.md), which is also the
+only documentation of what a config may contain.
+
 ### Commands
 
 `context`, `index`, `check` are the core. `decisions` and `deliverables` proved their worth but
@@ -101,22 +111,27 @@ Learned the expensive way in the source project. Each cost something.
 
 ## Open questions
 
-1. **Schema configuration** — the design question above. Blocks everything.
+1. ~~**Schema configuration**~~ — **closed** by
+   [T-001](../tasks/T-001-decide-how-the-front-matter-schema-is-configured.md), 2026-08-04.
 2. **ID scheme.** The source used `T-NNN`, zero-padded, never reused, with the next id in the
    generated index. Configurable prefix? Configurable width? What happens on a merge conflict?
+   — open, [T-004](../tasks/T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md). The
+   prefix and width are configurable (T-001 D8); the values and the merge behaviour are not settled.
 3. **Scale.** `context` and `index` re-read every task file on each run. Fine at 17 files. At 500?
-   Measure before optimising, but decide where the ceiling is claimed to be.
+   Measure before optimising, but decide where the ceiling is claimed to be. — open,
+   [T-004](../tasks/T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md).
 4. **Sub-tasks vs. dependencies.** The source had `parent` (audit umbrella → findings) *and*
    `blocked_by`. Both earned their place, but the distinction needs explaining in one sentence or
-   users will pick wrongly.
-5. **Should `check` fix?** It currently only reports. A `--fix` for mechanical problems (stale
-   derived fields) is tempting and risks becoming a second source of truth.
+   users will pick wrongly. — open,
+   [T-008](../tasks/T-008-write-the-backend-neutral-method-document.md).
+5. ~~**Should `check` fix?**~~ — **closed**: an automatic fixer that rewrites task content is
+   non-goal 6 in [`SCOPE.md`](SCOPE.md). The reason turned out to be stronger than the original
+   worry: a `--fix` for "stale derived fields" cannot be needed, because derived fields are not
+   stored and so cannot go stale.
 
 ---
 
 ## Definition of done
 
-- Works on a clone with no configuration and no dependencies.
-- `check` demonstrated failing on every class of problem it claims to catch.
-- The measured `context` saving reproduced on a sample project, and stated in the README.
-- No personal, client, or machine data anywhere in the repository.
+Moved to [`SCOPE.md` §9](SCOPE.md#9-definition-of-done), alongside the requirements it is written
+against. This brief keeps the evidence; the scope keeps the boundary.

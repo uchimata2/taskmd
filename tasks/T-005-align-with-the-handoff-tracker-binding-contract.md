@@ -5,7 +5,7 @@ type: research
 status: proposed
 phase: specify
 parent: null
-blocked_by: []
+blocked_by: [T-009]
 related: [T-002]
 work_package: none
 owner: maintainer
@@ -24,10 +24,27 @@ Either a contributed/updated `local-markdown-dir` binding, or a documented state
 **Why this one**
 The binding states *"the folder is the index"*, which is false for any project using a generated one — see the Handoff repo's improvement brief, F1. taskmd is exactly such a project, so it will hit this. Doing it after the binding changes avoids building against a contract about to move.
 
+**Requirements served**
+R-24 (`docs/SCOPE.md`).
+
+**Two binding contracts, not one**
+Kept distinct because they run in opposite directions, and conflating them is the easy mistake
+here:
+
+- **handoff's** contract (`find`/`read`/`create`/`update`/`reference`) lets handoff drive *a*
+  tracker. This task makes taskmd be that tracker.
+- **taskmd's own** contract (T-009) lets taskmd drive *a* backend — local files or GitHub Issues.
+
+They may share vocabulary, and T-009 owns that decision. Hence the new blocker.
+
 **Acceptance criteria**
 - [ ] The handoff F1 outcome is known before this is designed
 - [ ] A taskmd project can be driven by handoff with no hand-written workaround
 - [ ] `tracker_lint` documented as the way the invariant is enforced
+- [ ] Works for a taskmd project on **either** backend — a project on GitHub Issues must be
+      resumable through handoff too, or the limitation is stated (R-14, R-24)
+- [ ] The binding states the assumptions it makes about the adopting project — the F1 fix applied
+      to taskmd's own contribution rather than only asked of others
 
 **Open questions**
 - Contribute a binding upstream, or ship a config recipe? — depends on the F1 outcome

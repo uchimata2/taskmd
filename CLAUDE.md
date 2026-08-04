@@ -9,7 +9,12 @@ real dependency links, and a validator. Extracted from a working implementation 
 consulting project — see `reference/` for the code that already works and `docs/BRIEF.md` for
 what has to change to make it general.
 
-**Status: not started.** `docs/BRIEF.md` is the specification. Read it first.
+**Read in this order:** [`docs/SCOPE.md`](docs/SCOPE.md) — the goal, the numbered requirements and
+what is explicitly **out** of scope — then [`docs/BRIEF.md`](docs/BRIEF.md) for the problem
+evidence and the measured prior art behind them. `tasks/README.md` is the generated backlog.
+
+**Status:** the schema layer exists (`taskmd/`) and is proven by `tests/test_schema.py`. The CLI,
+the method document and the bindings are not written yet.
 
 ## The one design rule
 
@@ -19,8 +24,13 @@ A task file's front-matter is the only place a fact about that task is written. 
 dependents, the index, the deliverable map — all computed. Facts that are computed cannot drift
 from facts that are stored, so no validator is needed to keep them honest.
 
-Every design decision in this plugin should be checked against that rule. If a feature requires
+Every design decision in this plugin should be checked against that rule. If a feature *requires*
 writing the same fact twice, it is the wrong feature.
+
+Note the word "requires". A link written on one task is visible from both ends because the inverse
+is derived — so one write is always sufficient. Writing the other side as well is permitted and
+collapses to a single entry; a two-way reference living in two places is the nature of references,
+not drift. The rule forbids a design that **compels** the second write, not a user who makes one.
 
 ## Working method
 
@@ -32,7 +42,10 @@ This plugin manages tasks, so it uses its own method on itself:
    passes.
 4. The index is **generated**, never hand-edited.
 
-Full standard: `docs/TASK-WORKFLOW.md`. It is also the draft of what the plugin will ship.
+The full standard — and the backend-neutral method the plugin will ship — is **not written yet**;
+[T-008](tasks/T-008-write-the-backend-neutral-method-document.md) owns it. Until it exists, the four
+rules above are the whole method, and `reference/TASK-WORKFLOW.md` shows how they were applied on
+one real project (evidence, not the standard: it names that project's tools and vocabulary).
 
 ## Publishing constraints
 

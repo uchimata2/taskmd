@@ -16,20 +16,26 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Specification: [`../docs/BRIEF.m
 
 | ID | Title | WP | Status | Phase | Blocked by | Blocks |
 | :--- | :--- | :---: | :--- | :--- | :--- | :--- |
-| [T-001](T-001-decide-how-the-front-matter-schema-is-configured.md) | Decide how the front-matter schema is configured | none | `proposed` | specify | - | T-002, T-004 |
-| [T-002](T-002-implement-the-core-cli-context-index-check.md) | Implement the core CLI: context, index, check | none | `proposed` | specify | T-001 | T-003, T-006 |
-| [T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md) | Write the skill that teaches the agent to use the CLI | none | `proposed` | specify | T-002 | T-006 |
-| [T-004](T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md) | Settle the id scheme and the claimed scale ceiling | none | `proposed` | specify | T-001 | - |
-| [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) | Align with the handoff tracker-binding contract | none | `proposed` | specify | - | - |
-| [T-006](T-006-package-document-and-publish.md) | Package, document and publish | none | `proposed` | specify | T-002, T-003 | - |
+| [T-002](T-002-implement-the-core-cli-context-index-check.md) | Implement the core CLI: context, index, check | none | `proposed` | specify | - | T-003, T-006, T-011 |
+| [T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md) | Write the skill that teaches the agent to use the CLI | none | `proposed` | specify | T-002, T-008 | T-006 |
+| [T-004](T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md) | Settle the id scheme and the claimed scale ceiling | none | `proposed` | specify | - | - |
+| [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) | Align with the handoff tracker-binding contract | none | `proposed` | specify | T-009 | - |
+| [T-006](T-006-package-document-and-publish.md) | Package, document and publish | none | `proposed` | specify | T-002, T-003, T-008, T-009, T-010, T-011 | - |
+| [T-008](T-008-write-the-backend-neutral-method-document.md) | Write the backend-neutral method document | none | `proposed` | specify | - | T-003, T-006, T-009 |
+| [T-009](T-009-define-the-backend-binding-contract.md) | Define the backend binding contract and write the local-Markdown binding | none | `proposed` | specify | T-008 | T-005, T-006, T-010 |
+| [T-010](T-010-write-the-github-issues-binding.md) | Write the GitHub Issues binding | none | `proposed` | specify | T-009 | T-006 |
+| [T-011](T-011-runtime-discovery-and-project-hook-commands.md) | Runtime auto-discovery and project hook commands | none | `proposed` | specify | T-002 | T-006 |
 
 ## Closed
 
 | ID | Title | Status | Updated |
 | :--- | :--- | :--- | :--- |
+| [T-001](T-001-decide-how-the-front-matter-schema-is-configured.md) | Decide how the front-matter schema is configured | `done` | 2026-08-04 |
+| [T-007](T-007-define-the-project-scope-goals-and-requirements.md) | Define the project scope, goals and requirements | `done` | 2026-08-04 |
+| [T-012](T-012-decide-whether-soft-edges-are-symmetric.md) | Decide whether soft edges are symmetric | `done` | 2026-08-04 |
 
 ## Next ID
 
-`T-007`
+`T-013`
 
 <!-- end generated -->
