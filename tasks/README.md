@@ -17,7 +17,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 
 | ID | Title | WP | Status | Phase | Blocked by | Blocks |
 | :--- | :--- | :---: | :--- | :--- | :--- | :--- |
-| [T-002](T-002-implement-the-core-cli-context-index-check.md) | Implement the core CLI: context, index, check | none | `specified` | specify | - | T-003, T-006, T-011 |
+| [T-002](T-002-implement-the-core-cli-context-index-check.md) | Implement the core CLI: context, index, check | none | `planned` | plan | - | T-003, T-006, T-011 |
 | [T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md) | Write the skill that teaches the agent to use the CLI | none | `proposed` | specify | T-002 | T-006 |
 | [T-004](T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md) | Settle the id scheme and the claimed scale ceiling | none | `proposed` | specify | - | - |
 | [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) | Align with the handoff tracker-binding contract | none | `proposed` | specify | T-009 | - |

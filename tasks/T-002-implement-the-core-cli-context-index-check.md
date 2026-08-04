@@ -2,8 +2,8 @@
 id: T-002
 title: Implement the core CLI: context, index, check
 type: deliverable
-status: specified
-phase: specify
+status: planned
+phase: plan
 parent: null
 blocked_by: [T-001]
 related: [T-008, T-004]
@@ -119,7 +119,49 @@ permission to proceed.
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | **Fix the R-15 baseline before any of it exists.** Name what a session must read to start one task with no tool, and count the bytes. Doing this first is the point: a denominator chosen after the numerator is known is not a measurement. | The baseline — what was counted, why that set, and the byte total — recorded in `## 3. Implement` |
+| 2 | Add the config key naming the deliverables field (the consequence recorded in `## 1. Specify`), with its setup-time validation. | `taskmd/defaults/config.md` gains the key and its annotation; `taskmd/schema.py` exposes it; `tests/test_schema.py` covers a valid and a malformed declaration |
+| 3 | **Build the eight failure fixtures before `check` exists** — one miniature project per class in *What `check` claims to catch*. Writing them first is what stops the claim shrinking to whatever proved easy. | `tests/fixtures/broken-<class>/` × 8, each a project the real CLI can be pointed at |
+| 4 | Implement `check` and the entry point, then run it against every fixture and confirm each reports its own class and nothing else. | `taskmd/__main__.py`, `taskmd/cli.py`; `tests/test_cli.py` asserting one named failure per fixture, plus a clean pass on this repo |
+| 5 | Implement `index`, including the generated-region markers and the migration of the existing index from the interim tool's marker to the new one. | `index` in `taskmd/cli.py`; a test that regenerating twice is a no-op and that text above the marker survives |
+| 6 | Implement `context`, including the `NEXT:` line that reads status **and** phase. | `context` in `taskmd/cli.py`; a test over a task whose status has moved past its phase, asserting the line does not name that phase back |
+| 7 | Run `context` on a real task and count its bytes against step 1's baseline. | The measured saving — both counts, the task used, and the ratio — recorded in `## 3. Implement` |
+| 8 | Prove the portability criteria: bytes written contain no `\r\n`, console output survives cp1252, and the CLI runs on a copy of the tree with no `.taskmd/` present. | Three recorded results in `## 3. Implement`; the byte and no-config checks as tests |
+| 9 | Switch this project onto the new CLI and delete `tools/tasks/task.py`, so there is one implementation rather than two schemas. | `tasks/_templates/task-template.md` and the index's command block updated; `tools/` gone; `check` clean afterwards |
+
+Steps 5–8 are independent of each other and depend only on 2–4. Step 9 is last because it removes
+the tool this project currently runs on.
+
+**Shape decisions**
+
+- **Entry point is `python -m taskmd`**, via `taskmd/__main__.py` dispatching to `taskmd/cli.py`.
+  *Rejected:* a top-level `taskmd.py` script, which would have to re-find the package it sits beside,
+  and would leave T-011's thin launchers wrapping a file path rather than a module.
+- **The three commands share one module**, `taskmd/cli.py`. *Rejected:* a module per command — they
+  share a loader and a renderer, which would then need a fourth module, and the reference does five
+  commands in 458 lines. Revisit only if one command outgrows the other two together.
+- **The `NEXT:` line says what the task is waiting for, never what to do.** *Rejected:* keeping the
+  interim wording and adding status to it. The imperative *is* the defect — R-6 says a next-step
+  pointer is context, not authorization, so a line that reads as permission is wrong even when the
+  phase it names is right.
+- **Fixtures are whole miniature projects, not broken text inside a test.** *Rejected:* constructing
+  bad front-matter inline. A fixture the real CLI can be pointed at is also the reproduction case a
+  later session needs when the class regresses.
+
+**Assumption, recorded because it limits step 8.** Only one platform is available here, so
+byte-identity across three is verified by its *mechanism* — explicit `newline="\n"` on every write,
+no `os.linesep`, and separators normalised to `/` in anything printed — rather than by three runs.
+That is weaker than the criterion's wording, and a run on macOS or Linux is what would close the
+gap.
+
+**Outputs this task produces**
+
+- `taskmd/__main__.py`, `taskmd/cli.py`
+- `taskmd/defaults/config.md` (one added key), `taskmd/schema.py` (exposing it)
+- `tests/test_cli.py`, `tests/fixtures/broken-<class>/` × 8
+- `tasks/_templates/task-template.md`, `tasks/README.md` (command block and marker)
+- Deleted: `tools/tasks/task.py`
+- Recorded in this file: the baseline, the measured saving, and the three portability results
 
 ## 3. Implement
 
@@ -145,3 +187,4 @@ permission to proceed.
 | 2026-08-04 | → proposed | Seeded from `docs/BRIEF.md` when the project folder was prepared. |
 | 2026-08-04 | (no change) | Second interim-tool limitation recorded: the `NEXT:` hint derives from `phase` alone and contradicts R-3. Found while working T-008, which also gave the CLI its new footer target. `related` gained T-008. |
 | 2026-08-05 | → specified | Specify agreed by the owner. The open question is closed by `docs/SCOPE.md` non-goal 11 — three commands, and the deliverable-existence behaviour survives as a `check` class rather than being dropped. `check`'s eight failure classes enumerated so R-16's criterion is falsifiable before implementation. R-15 gained a criterion (measure here, state in README in T-006). Id format pinned to config, which makes T-004 independent rather than a prerequisite; `related` gained T-004. |
+| 2026-08-05 | → planned | Nine steps. The R-15 baseline is fixed in step 1, before anything that could flatter it exists; the eight failure fixtures are built in step 3, before `check` does. Four shape decisions recorded with what they reject. One assumption recorded against step 8: byte-identity across three platforms is verified by mechanism, not by three runs. |
