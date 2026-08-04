@@ -15,9 +15,10 @@ evidence and the measured prior art behind them. `tasks/README.md` is the genera
 
 **Status:** the schema layer exists (`taskmd/`), the method document exists
 ([`docs/METHOD.md`](docs/METHOD.md), T-008), and the three commands exist — `python -m taskmd
-{context,index,check}`, proven by `tests/`, including `check` shown failing on every class it
-claims to catch. This project runs on them; the interim `tools/tasks/task.py` is gone. The bindings
-and the skill are not written yet.
+{context,index,check}` (T-002). This project runs on them; the interim `tools/tasks/task.py` is
+gone. `check` has been shown failing on seven of the eight classes it claims; the eighth is only
+half proven, and the untested half **fails** — see T-019, which is the most load-bearing thing open.
+The bindings and the skill are not written yet.
 
 ## The one design rule
 

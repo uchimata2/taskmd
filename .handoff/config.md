@@ -34,8 +34,9 @@ questions. Tasks cite the requirements they serve, so coverage is derived rather
 `docs/METHOD.md` is the working method itself — a short always-loaded spine plus `docs/method/`,
 loaded a file at a time. `CLAUDE.md` no longer restates it and neither should anything else.
 
-The schema question that used to block everything is answered (T-001); `taskmd/` exists and is
-proven by `tests/test_schema.py`.
+The schema question that used to block everything is answered (T-001), and the CLI it gated is built
+(T-002): `python -m taskmd {context,index,check}`, proven by `tests/`. Run `check` after any edit to
+a task file — this project uses its own tool on itself, so a regression shows up immediately.
 
 `reference/` holds proven prior art. It is **not** the plugin: it works, but it is written
 around one project's assumptions. Read it for behaviour that is already verified, not for code
