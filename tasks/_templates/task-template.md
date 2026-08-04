@@ -15,8 +15,9 @@ deliverables: []
 ---
 
 <!--
-Schema, statuses, and which edge to use: tasks/TASK-WORKFLOW.md §3-§4. Do not add `children:`
-or `blocks:` — both are derived. After filling this in, run:
+The lifecycle, which edge to use, and where each fact lives: docs/METHOD.md. The field names and
+allowed values are the schema: taskmd/defaults/config.md. Do not add `children:` or `blocks:` —
+both are derived. After filling this in, run:
     python tools/tasks/task.py index
 -->
 

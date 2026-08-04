@@ -38,8 +38,9 @@ to answer "is this in scope?". Six tasks were being worked against an unstated s
 - `docs/BRIEF.md` — problem evidence, prior art, carried lessons
 - Handoff (`bindings/`, `handoff.core.md`, `control/IMPROVEMENT-BRIEF.md`) — core/binding split,
   progressive disclosure, reconcile, the config-validation and binding-assumptions findings
-- Crafted Legends (`.agents/docs/task-workflow.md`, `workflow/5a`–`5e`, `rationale.md`) — the
-  delivery pipeline as actually run, computed task state, one-phase-per-request, lean ceremony
+- the Notion-backed project — the delivery pipeline as actually run against a **non-file backend**:
+  computed task state, one-phase-per-request, lean ceremony. The only prior art here that is not
+  file-based, which is what makes R-13/R-14 testable rather than hoped-for
 - GitHub — native sub-issues, issue dependencies, issue types, milestones, Projects
 
 **Acceptance criteria**
@@ -58,7 +59,7 @@ to answer "is this in scope?". Six tasks were being worked against an unstated s
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 | Study task management as practised in Handoff, Crafted Legends and GitHub | findings, §3 |
+| 1 | Study task management as practised in Handoff, the Notion-backed project and GitHub | findings, §3 |
 | 2 | Reconcile the eight stated requirements against the repository's current specs; surface contradictions | §3 |
 | 3 | Write the goal, requirements, non-goals and definition of done | `docs/SCOPE.md` |
 | 4 | Move the definition of done out of `docs/BRIEF.md` and leave a pointer | `docs/BRIEF.md` |
@@ -128,4 +129,4 @@ to answer "is this in scope?". Six tasks were being worked against an unstated s
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-04 | → proposed | Raised: the project had no scope or requirements document. |
-| 2026-08-04 | → done | Scope written after studying Handoff, Crafted Legends and GitHub. Three assumptions (A1–A3) taken rather than blocking; revisable while T-008–T-011 are still `proposed`. |
+| 2026-08-04 | → done | Scope written after studying Handoff, the Notion-backed project and GitHub. Three assumptions (A1–A3) taken rather than blocking; revisable while T-008–T-011 are still `proposed`. |

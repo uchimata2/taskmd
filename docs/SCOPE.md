@@ -49,6 +49,19 @@ Three rules that every requirement below is an application of. They are listed o
 Numbered so tasks can cite them. Each is written to be **testable** — if you cannot say what would
 falsify it, it is a principle, not a requirement, and belongs in §2.
 
+**These requirements and [`METHOD.md`](METHOD.md) say the same things, and that is correct.** A
+requirement states a property the method must have; the method states the rule that gives it that
+property. Two documents agreeing is what conformance *is* — R-1 governs facts about tasks, not a
+specification restating what it requires, and a requirement that could not be compared against the
+method would be unable to do the one job it has.
+
+What that licenses is narrow, so the boundary is worth stating: a requirement says **what must be
+true**, never **what to do**. A row that reads as an instruction has stopped being a requirement and
+become a second copy of the method — which will drift, and which cannot be used to judge whether the
+method got it right. The test is whether the row survives someone rewriting the method completely: a
+property does, an instruction does not. Decided in
+[T-017](../tasks/T-017-settle-the-overlap-between-scope-requirements-and-the-method.md).
+
 ### A. Method — how work is tracked, independent of where it is stored
 
 | # | Requirement |
@@ -58,9 +71,9 @@ falsify it, it is a principle, not a requirement, and belongs in §2.
 | **R-3** | The mandatory lifecycle is **specify → plan → implement → review**. `phase` records where the work is, `status` records whether it can move; the two are independent. |
 | **R-4** | **Verification is `implement`'s exit criterion.** A task cannot leave `implement` without recorded evidence the outcome was checked by using it. For non-software work, the evidence is whatever shows the deliverable does its job. |
 | **R-5** | **Audit is a task type, not a phase.** An audit produces one umbrella task; each finding becomes a child task. Findings are never fixed inline — that is what makes a fix traceable. |
-| **R-6** | **One phase per request; never auto-advance.** A "next step" pointer, a handoff note, or an obvious continuation is context, not authorization. |
-| **R-7** | **The phase's exit criterion sets the required level of detail.** The agent asks only what is still missing to satisfy it, batched into a single turn, never drip-fed. |
-| **R-8** | **Discovery is surfaced, never absorbed.** Anything found mid-execution that would reasonably improve quality is raised — as a question if it changes the current task's spec, as a new task if it is actionable and out of scope. It is never acted on silently, and never silently dropped. |
+| **R-6** | **A phase is worked only when it was requested.** Falsified by any advance into a following phase that no request asked for; the method must state that a next-step pointer, a resumption note or an obvious continuation does not constitute one. |
+| **R-7** | **Every phase has a stated exit criterion, and it is the measure of "enough".** Falsified by a phase whose exit criterion is not written down, by questions that go beyond what the criterion needs, or by questions arriving across several turns when they could have been asked together. |
+| **R-8** | **Everything found mid-execution leaves a trace.** Falsified by an outcome that changed without the change having been raised, or by a discovery that is actionable and out of scope with no task recording it. Silent absorption and silent dropping are the two failures. |
 | **R-9** | Nothing in the method assumes code, tests, compilers, or version control. It must read sensibly for research, a deck, a training course, or an ops runbook. |
 
 ### B. Storage — where tasks live

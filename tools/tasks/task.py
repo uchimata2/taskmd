@@ -244,7 +244,7 @@ def cmd_context(args):
                       ", ".join(d["id"] for d in open_decisions)))
     else:
         out.append("NEXT: read the file above, then work the '%s' phase." % t.phase)
-    out.append("Rules: tasks/TASK-WORKFLOW.md   Lessons: docs/LESSONS.md")
+    out.append("Method: docs/METHOD.md")
 
     print("\n".join(out))
     return 0

@@ -31,12 +31,11 @@ R-6, R-7, R-8, R-9, R-21, R-22 (`docs/SCOPE.md`).
 The CLI validates files; it cannot govern how the agent behaves. These three are the skill's real
 content, and none of them is a restatement of something the tool checks:
 
-- **R-6 — one phase per request, never auto-advance.** A "next step" note, a handoff pointer or an
-  obvious continuation is context, not authorization.
-- **R-7 — ask to the phase's exit criterion**, batched into one turn, never drip-fed.
-- **R-8 — surface what you discover.** Anything found mid-execution that would reasonably improve
-  quality becomes a question (if it changes the current task's spec) or a task (if it is actionable
-  and out of scope). Never absorbed silently, never dropped.
+They are **[`docs/METHOD.md`](../docs/METHOD.md) §3.1, §3.2 and §3.3** — serving R-6, R-7 and R-8
+respectively. Their wording is not repeated here: this task exists to stop the skill becoming a
+second copy of the method, and a task file that opens by making one would be arguing against itself.
+Read §3 before specifying the skill; what the skill adds is the *mechanism* that makes those rules
+fire on every turn, not the rules.
 
 **Acceptance criteria**
 - [ ] The skill body is short enough to load on every turn without cost
@@ -49,7 +48,10 @@ content, and none of them is a restatement of something the tool checks:
 
 **Open questions**
 - Should the skill be model-invocable, user-invocable, or both?
-- Does the method document (T-008) become the skill's spine, or a file the spine points at?
+- ~~Does the method document (T-008) become the skill's spine, or a file the spine points at?~~
+  **Answered** — [T-008](T-008-write-the-backend-neutral-method-document.md) *Specify → Decisions*
+  **D1**: standalone document at `docs/METHOD.md`; this skill points at it. The rationale lives
+  there, not here.
 
 **Why the new blocker**
 `blocked_by` gained T-008: the skill teaches the method, so it cannot be written before the method

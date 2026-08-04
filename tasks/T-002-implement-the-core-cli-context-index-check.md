@@ -6,7 +6,7 @@ status: proposed
 phase: specify
 parent: null
 blocked_by: [T-001]
-related: []
+related: [T-008]
 work_package: none
 owner: maintainer
 created: 2026-08-04
@@ -37,6 +37,8 @@ R-12, R-15, R-16, R-17, R-20 (`docs/SCOPE.md`).
       bad key, a missing file or an unresolvable reference fails at setup, never inside a task the
       user is trying to finish
 - [ ] Reads the schema through `taskmd/schema.py`, holding no field name or status value of its own
+- [ ] **`context`'s `NEXT:` hint reads phase *and* status** (R-3) — proven on a task whose status has
+      moved past its phase, where the current tool tells you to redo the phase you just finished
 
 **Open questions**
 - Are `decisions` and `deliverables` core commands or config-declared derived views? — see brief
@@ -52,6 +54,24 @@ values a task literally stores, missing the ones derived from the other end. Tha
 limitation of the interim tool, not a defect to chase; this task removes it by building on
 `taskmd/schema.py`. Delete `tools/tasks/task.py` when this lands, or it becomes a second
 implementation with its own idea of the schema.
+
+**Second known limitation — the `NEXT:` hint collapses phase and status.** The interim tool derives
+its closing hint from `phase` alone:
+
+```
+NEXT: read the file above, then work the '%s' phase." % t.phase
+```
+
+`docs/METHOD.md` §2 makes phase and status independent — phase says where the work got to, status
+says whether it can move. So a task that has *finished* a phase and is waiting for the next one to
+be requested (status `review`, phase `implement`) is told to work the phase it just completed.
+Observed 2026-08-04 on T-008 at exactly that state. The hint should read both, and say what the task
+is waiting for rather than naming its phase back at the reader — which is the only part of `context`
+that gives an instruction rather than a fact, so getting it wrong actively misleads.
+
+Note the interaction with R-6: a hint that names the next phase is the kind of "next step pointer"
+the method explicitly says is context, not authorization. Whatever it prints should not read as
+permission to proceed.
 
 ## 2. Plan
 
@@ -81,3 +101,4 @@ implementation with its own idea of the schema.
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-04 | → proposed | Seeded from `docs/BRIEF.md` when the project folder was prepared. |
+| 2026-08-04 | (no change) | Second interim-tool limitation recorded: the `NEXT:` hint derives from `phase` alone and contradicts R-3. Found while working T-008, which also gave the CLI its new footer target. `related` gained T-008. |
