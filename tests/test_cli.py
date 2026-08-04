@@ -274,6 +274,50 @@ class RunsOnACloneWithNoConfiguration(unittest.TestCase):
         self.assertEqual(run("context", "T-001", "--root", tmp)[0], 0)
 
 
+class AbsentTasksDirIsReportedAtSetup(unittest.TestCase):
+    """T-019: a tasks_dir that is not there is a config error, not a project with no tasks.
+
+    Three cases share one code path — a misspelled value, a project that has not created the
+    folder yet, and a folder that exists but is empty. The first two are errors however the value
+    arrived; the third is legal and must stay so. The middle case has no committed fixture because
+    it cannot have one: a project with neither a config nor a tasks folder is an empty directory,
+    and git stores no such thing.
+    """
+
+    def all_three_commands_refuse(self, root, needle):
+        for argv in (("check",), ("index",), ("context", "T-001")):
+            code, out = run(*(argv + ("--root", root)))
+            self.assertEqual(code, 2, "%s exited %d:\n%s" % (argv[0], code, out))
+            self.assertIn("CONFIG ERROR", out)
+            self.assertIn("tasks_dir", out)
+            self.assertIn(needle, out)
+            self.assertNotIn("No such task", out)
+
+    def test_a_misspelled_value_beside_the_real_folder(self):
+        root = os.path.join(FIXTURES, "broken-tasks-dir")
+        self.all_three_commands_refuse(root, "'taks'")
+        self.assertFalse(os.path.isdir(os.path.join(root, "taks")),
+                         "index created the folder named by the typo")
+
+    def test_a_project_that_has_not_created_the_folder_yet(self):
+        """The shipped default names `tasks`; inheriting the value is not an excuse for it to
+        be missing, or `check` would go on exiting 0 on a project it never read."""
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp)
+        self.all_three_commands_refuse(tmp, "shipped default")
+        self.assertFalse(os.path.isdir(os.path.join(tmp, "tasks")),
+                         "index created the folder instead of reporting it")
+
+    def test_a_folder_that_exists_but_is_empty_stays_legal(self):
+        """A new project with nothing in it yet is not an error — the distinction is that the
+        folder is absent, not that it holds no tasks."""
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp)
+        os.makedirs(os.path.join(tmp, "tasks"))
+        self.assertEqual(run("check", "--root", tmp)[0], 0)
+        self.assertEqual(run("index", "--root", tmp)[0], 0)
+
+
 class Usage(unittest.TestCase):
 
     def test_no_command_explains_the_three(self):

@@ -16,9 +16,11 @@ evidence and the measured prior art behind them. `tasks/README.md` is the genera
 **Status:** the schema layer exists (`taskmd/`), the method document exists
 ([`docs/METHOD.md`](docs/METHOD.md), T-008), and the three commands exist — `python -m taskmd
 {context,index,check}` (T-002). This project runs on them; the interim `tools/tasks/task.py` is
-gone. `check` has been shown failing on seven of the eight classes it claims; the eighth is only
-half proven, and the untested half **fails** — see T-019, which is the most load-bearing thing open.
-The bindings and the skill are not written yet.
+gone. `check` has been shown failing on **every** class it claims, the eighth completed by T-019 —
+a config value naming a folder that is not there is now an error when the config is read, so no
+command can report success on a project it never opened. The bindings and the skill are not written
+yet, and the binding contract (T-009) is the largest unproven claim left: `docs/METHOD.md` is
+written to be storage-agnostic and nothing has yet tested that it is.
 
 ## The one design rule
 

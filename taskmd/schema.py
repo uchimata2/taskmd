@@ -339,10 +339,37 @@ def _check_deliverables_field(fields, edges, vocabularies, source):
                           % (source, name))
 
 
+def _check_tasks_dir(root, fields, source, own_config):
+    """The one config value that names a folder, checked here rather than on first use (R-17).
+
+    Absent is an error however the value arrived. Tolerating it for the shipped default was the
+    alternative — only a value someone wrote can be misspelled — and it was rejected because it
+    leaves `check` exiting 0 on a project it never read, which is the failure this rule exists to
+    remove. The cost is one `mkdir` for a project adopting taskmd; there is no command to do it,
+    so the message says so.
+
+    The message names the configured value, not the resolved absolute path: the value is the thing
+    the user can act on, and printing the join would put a machine-specific path into output that
+    R-20 requires to be identical on every platform.
+    """
+    tasks_dir = fields["tasks_dir"]
+    if os.path.isdir(os.path.join(root, tasks_dir)):
+        return
+    if own_config:
+        hint = "Create it, or correct tasks_dir."
+    else:
+        hint = ("This project has no %s, so taskmd is using its shipped default; create the "
+                "folder, or write a config naming a different one."
+                % PROJECT_CONFIG.replace("\\", "/"))
+    raise SchemaError("%s: tasks_dir is '%s', but the project root has no such folder. %s"
+                      % (source, tasks_dir, hint))
+
+
 def load_schema(root="."):
     """Resolve the schema for a project: its own config if it has one, else the shipped default."""
     candidate = os.path.join(root, PROJECT_CONFIG)
-    path = candidate if os.path.exists(candidate) else DEFAULT_CONFIG
+    own_config = os.path.exists(candidate)
+    path = candidate if own_config else DEFAULT_CONFIG
     source = path.replace("\\", "/")
 
     fields, body = split_front_matter(read(path))
@@ -352,6 +379,10 @@ def load_schema(root="."):
     edges = _read_edges(body, source, fields)
     vocabularies = _read_vocabularies(body, source, fields)
     _check_deliverables_field(fields, edges, vocabularies, source)
+    # Last, deliberately: a config that is both malformed and points at a missing folder is
+    # reported as malformed. The `SchemaError` suite builds a project from a config file alone,
+    # with no tasks folder, and stays meaningful only while the earlier errors still win.
+    _check_tasks_dir(root, fields, source, own_config)
     return Schema(source, fields, edges, vocabularies)
 
 

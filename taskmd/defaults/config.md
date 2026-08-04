@@ -4,7 +4,7 @@ id_field: id               # front-matter field holding the task id
 id_prefix: T-              # ids are <prefix><zero-padded number>
 id_width: 3                # pad width, so T-007 rather than T-7
 title_field: title         # one-line name, shown in every generated view
-tasks_dir: tasks           # where task files live, relative to the project root
+tasks_dir: tasks           # where task files live, relative to the project root; must exist
 
 # ------------------------------------------------------------------ status
 status_field: status       # which vocabulary below carries open/closed meaning
@@ -44,6 +44,19 @@ read task files, so the config costs no parser and no dependency.
 Task files are the opposite: a front-matter field this schema does not name is **carried and
 displayed, never interpreted**. That is what lets a project adopt taskmd without first
 rewriting its task files.
+
+## The tasks folder
+
+`tasks_dir` is the only value here that names a folder, and **the folder has to exist**. A value
+pointing at nothing is an error when this file is read, naming the key and the value — not a
+project that silently contains no tasks. Without that rule `tasks_dir: taks` made `check` exit 0 on
+a project it had never opened, which is worse than no validator because a validator is believed.
+
+The rule does not care whether you wrote the value or inherited it from this file: a project
+adopting taskmd creates its tasks folder before the first command works. That is the whole of
+setup, and there is no command to do it — `context`, `index` and `check` are the surface
+(`docs/SCOPE.md` non-goal 11). An **empty** tasks folder is entirely legal; the distinction is that
+the folder is absent, not that it holds nothing yet.
 
 ## The blocked status
 

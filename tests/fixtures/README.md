@@ -21,7 +21,14 @@ where they could not be quietly trimmed to whatever turned out to be easy.
 | `broken-link` | Broken link | A dead Markdown link inside a **dot-directory** |
 | `broken-derived-field` | Stale stored-derived field | A task stores `children:`, which is derived |
 | `broken-deliverable` | Missing deliverable | Declares `out/report.md`, which is not there |
-| `broken-config` | Config error at setup | `id_witdh` — a typo in a key name |
+| `broken-config` | Config error at setup — a **key** | `id_witdh` — a typo in a key name |
+| `broken-tasks-dir` | Config error at setup — a **value** | `tasks_dir: taks`, beside a real `tasks/` |
+
+The two config fixtures are the two halves of one class, and the split is the finding: a misspelled
+**key** was caught from the start, a misspelled **value** was not, and only the first had ever been
+exercised. `broken-tasks-dir` also has no committed sibling for the case where the value is fine and
+the folder simply has not been made yet — a project with neither a config nor a tasks folder is an
+empty directory, which git cannot store, so that one is built in a temp directory by the test.
 
 `broken-link`'s defect is in `.notes/` rather than in a task, and that is the interesting part:
 `glob`'s `**` skips dot-directories, which is how a broken link in a live handoff pointer stayed
