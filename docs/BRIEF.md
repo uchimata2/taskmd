@@ -120,10 +120,10 @@ Learned the expensive way in the source project. Each cost something.
 3. **Scale.** `context` and `index` re-read every task file on each run. Fine at 17 files. At 500?
    Measure before optimising, but decide where the ceiling is claimed to be. — open,
    [T-004](../tasks/T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md).
-4. **Sub-tasks vs. dependencies.** The source had `parent` (audit umbrella → findings) *and*
-   `blocked_by`. Both earned their place, but the distinction needs explaining in one sentence or
-   users will pick wrongly. — open,
-   [T-008](../tasks/T-008-write-the-backend-neutral-method-document.md).
+4. ~~**Sub-tasks vs. dependencies**~~ — **closed** by
+   [T-008](../tasks/T-008-write-the-backend-neutral-method-document.md), 2026-08-04. The distinction
+   is a two-question test in [`METHOD.md`](METHOD.md) §4 *Which edge to use*, and it turned out to
+   need a third answer as much as the first two: if neither question fires, do not link them at all.
 5. ~~**Should `check` fix?**~~ — **closed**: an automatic fixer that rewrites task content is
    non-goal 6 in [`SCOPE.md`](SCOPE.md). The reason turned out to be stronger than the original
    worry: a `--fix` for "stale derived fields" cannot be needed, because derived fields are not

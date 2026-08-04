@@ -31,6 +31,9 @@ Start with `docs/SCOPE.md` — the goal, the numbered requirements (R-1…R-24) 
 non-goals. `docs/BRIEF.md` holds the problem evidence, the carried lessons and the remaining open
 questions. Tasks cite the requirements they serve, so coverage is derived rather than tabulated.
 
+`docs/METHOD.md` is the working method itself — a short always-loaded spine plus `docs/method/`,
+loaded a file at a time. `CLAUDE.md` no longer restates it and neither should anything else.
+
 The schema question that used to block everything is answered (T-001); `taskmd/` exists and is
 proven by `tests/test_schema.py`.
 
