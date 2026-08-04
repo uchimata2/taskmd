@@ -17,14 +17,15 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 
 | ID | Title | WP | Status | Phase | Blocked by | Blocks |
 | :--- | :--- | :---: | :--- | :--- | :--- | :--- |
-| [T-002](T-002-implement-the-core-cli-context-index-check.md) | Implement the core CLI: context, index, check | none | `proposed` | specify | - | T-003, T-006, T-011 |
+| [T-002](T-002-implement-the-core-cli-context-index-check.md) | Implement the core CLI: context, index, check | none | `specified` | specify | - | T-003, T-006, T-011 |
 | [T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md) | Write the skill that teaches the agent to use the CLI | none | `proposed` | specify | T-002 | T-006 |
 | [T-004](T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md) | Settle the id scheme and the claimed scale ceiling | none | `proposed` | specify | - | - |
 | [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) | Align with the handoff tracker-binding contract | none | `proposed` | specify | T-009 | - |
-| [T-006](T-006-package-document-and-publish.md) | Package, document and publish | none | `proposed` | specify | T-002, T-003, T-009, T-010, T-011 | - |
+| [T-006](T-006-package-document-and-publish.md) | Package, document and publish | none | `proposed` | specify | T-002, T-003, T-009, T-010, T-011, T-018 | - |
 | [T-009](T-009-define-the-backend-binding-contract.md) | Define the backend binding contract and write the local-Markdown binding | none | `proposed` | specify | - | T-005, T-006, T-010 |
 | [T-010](T-010-write-the-github-issues-binding.md) | Write the GitHub Issues binding | none | `proposed` | specify | T-009 | T-006 |
 | [T-011](T-011-runtime-discovery-and-project-hook-commands.md) | Runtime auto-discovery and project hook commands | none | `proposed` | specify | T-002 | T-006 |
+| [T-018](T-018-stop-the-pre-publish-fixture-tripping-its-own-check.md) | Stop the pre-publish fixture tripping its own check | none | `proposed` | specify | - | T-006 |
 
 ## Closed
 
@@ -42,6 +43,6 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 
 ## Next ID
 
-`T-018`
+`T-019`
 
 <!-- end generated -->

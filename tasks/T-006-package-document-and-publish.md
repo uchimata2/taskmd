@@ -5,12 +5,12 @@ type: deliverable
 status: proposed
 phase: specify
 parent: null
-blocked_by: [T-002, T-003, T-008, T-009, T-010, T-011]
+blocked_by: [T-002, T-003, T-008, T-009, T-010, T-011, T-018]
 related: [T-004]
 work_package: none
 owner: maintainer
 created: 2026-08-04
-updated: 2026-08-04
+updated: 2026-08-05
 deliverables: []
 ---
 
@@ -73,3 +73,4 @@ installed — publishing before those exist would ship a product that fails its 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-04 | → proposed | Seeded from `docs/BRIEF.md` when the project folder was prepared. |
+| 2026-08-05 | (no change) | `blocked_by` gained T-018: a tracked file carries a real absolute local path, which R-23 and §9 put inside this task's definition of done. |
