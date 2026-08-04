@@ -75,9 +75,14 @@ only documentation of what a config may contain.
 
 ### Commands
 
-`context`, `index`, `check` are the core. `decisions` and `deliverables` proved their worth but
-are arguably separate concerns — decide whether they are built in or left to config-declared
-"derived views".
+`context`, `index`, `check` are the core.
+
+**Settled in [T-002](../tasks/T-002-implement-the-core-cli-context-index-check.md)** (2026-08-05):
+`decisions` and `deliverables` are **neither** built in nor config-declared views —
+[`SCOPE.md`](SCOPE.md) non-goal 11 keeps the surface at three, and anything else is grep. The one
+behaviour of theirs that nothing else replaces, catching a declared output that has been deleted,
+survives as a `check` class rather than as a fourth command. It earned that on its first real run,
+finding a deleted file still declared by T-008.
 
 ### The skill
 

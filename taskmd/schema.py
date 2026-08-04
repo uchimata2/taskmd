@@ -35,8 +35,12 @@ PROJECT_CONFIG = os.path.join(".taskmd", "config.md")
 EDGE_KINDS = ("hierarchy", "dependency", "soft")
 
 SCALAR_KEYS = ("id_field", "id_prefix", "id_width", "title_field", "tasks_dir", "status_field")
+# Required to be present, permitted to be empty: `none` means the project does not track that
+# fact. Absent is still an error — a config replaces the default, so a missing key is a schema
+# nobody wrote.
+NULLABLE_KEYS = ("deliverables_field", "blocked_status")
 LIST_KEYS = ("open_statuses", "context_fields", "index_columns")
-CONFIG_KEYS = SCALAR_KEYS + LIST_KEYS
+CONFIG_KEYS = SCALAR_KEYS + NULLABLE_KEYS + LIST_KEYS
 
 NULLS = ("", "null", "none", "~")
 
@@ -172,6 +176,8 @@ class Schema(object):
         self.title_field = fields["title_field"]
         self.tasks_dir = fields["tasks_dir"]
         self.status_field = fields["status_field"]
+        self.deliverables_field = fields["deliverables_field"]
+        self.blocked_status = fields["blocked_status"]
         self.open_statuses = fields["open_statuses"]
         self.context_fields = fields["context_fields"]
         self.index_columns = fields["index_columns"]
@@ -186,8 +192,10 @@ class Schema(object):
     @property
     def known_fields(self):
         """Fields this schema interprets. Everything else in a task file is pass-through."""
-        return ([self.id_field, self.title_field] + sorted(self.edges) +
-                sorted(self.vocabularies))
+        named = [self.id_field, self.title_field]
+        if self.deliverables_field:
+            named.append(self.deliverables_field)
+        return named + sorted(self.edges) + sorted(self.vocabularies)
 
     @property
     def derived_names(self):
@@ -228,6 +236,10 @@ def _require(fields, source):
     for key in SCALAR_KEYS:
         if not isinstance(fields[key], str) or not fields[key]:
             raise SchemaError("%s: '%s' must be a non-empty scalar" % (source, key))
+    for key in NULLABLE_KEYS:
+        if not isinstance(fields[key], str):
+            raise SchemaError("%s: '%s' must be a field name or 'none', not a list"
+                              % (source, key))
     for key in LIST_KEYS:
         if not isinstance(fields[key], list):
             raise SchemaError("%s: '%s' must be a list" % (source, key))
@@ -294,7 +306,37 @@ def _read_vocabularies(body, source, fields):
     if stray:
         raise SchemaError("%s: open_statuses has value(s) not in the '%s' vocabulary: %s"
                           % (source, status_field, ", ".join(stray)))
+    blocked = fields["blocked_status"]
+    if blocked and blocked not in vocabularies[status_field]:
+        raise SchemaError("%s: blocked_status is '%s', which is not in the '%s' vocabulary: %s"
+                          % (source, blocked, status_field,
+                             ", ".join(vocabularies[status_field])))
     return vocabularies
+
+
+def _check_deliverables_field(fields, edges, vocabularies, source):
+    """The deliverables field holds paths, so it cannot also be an edge or an enumerated value.
+
+    Naming it `parent` would ask one field to be a link and a file list at once; naming it `status`
+    would ask `check` to validate a path against a vocabulary. Both are caught here, at config-read
+    time, rather than inside whichever command trips over it first (R-17).
+    """
+    name = fields["deliverables_field"]
+    if not name:
+        return
+    if name in edges:
+        raise SchemaError("%s: deliverables_field is '%s', which is also declared as an edge — a "
+                          "field holds links or paths, not both" % (source, name))
+    derived = [e.derives for e in edges.values() if e.derives]
+    if name in derived:
+        raise SchemaError("%s: deliverables_field is '%s', which is derived from an edge — the "
+                          "computed value would overwrite the declared paths" % (source, name))
+    if name in vocabularies:
+        raise SchemaError("%s: deliverables_field is '%s', which also has a vocabulary — paths are "
+                          "not an enumerated value" % (source, name))
+    if name in (fields["id_field"], fields["title_field"]):
+        raise SchemaError("%s: deliverables_field is '%s', which collides with id_field/title_field"
+                          % (source, name))
 
 
 def load_schema(root="."):
@@ -309,6 +351,7 @@ def load_schema(root="."):
     _require(fields, source)
     edges = _read_edges(body, source, fields)
     vocabularies = _read_vocabularies(body, source, fields)
+    _check_deliverables_field(fields, edges, vocabularies, source)
     return Schema(source, fields, edges, vocabularies)
 
 
@@ -335,6 +378,19 @@ class Task(object):
 
         # Every inverse edge starts empty and is filled by derive(). Never read from a file.
         self.derived = dict((name, []) for name in schema.derived_names)
+
+    @property
+    def deliverables(self):
+        """Paths this task declares it produces, relative to the project root.
+
+        Empty when the schema sets `deliverables_field: none` — the field name is never written
+        here, so the CLI never learns it either.
+        """
+        if not self.schema.deliverables_field:
+            return []
+        raw = self.fields.get(self.schema.deliverables_field, "")
+        values = [raw] if isinstance(raw, str) else list(raw)
+        return [v for v in values if v and v.lower() not in NULLS]
 
     def links(self, name):
         """Every task linked under `name` — stored here, derived from elsewhere, or both.

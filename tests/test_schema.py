@@ -34,6 +34,8 @@ id_width: 3
 title_field: title
 tasks_dir: tasks
 status_field: status
+deliverables_field: deliverables
+blocked_status: none
 open_statuses: [open]
 context_fields: [status]
 index_columns: [status]
@@ -102,10 +104,13 @@ class DefaultSchema(unittest.TestCase):
     def test_unnamed_fields_are_carried_never_interpreted(self):
         carried = load_tasks(ROOT)["T-001"].extra
         self.assertIn("work_package", carried)
-        self.assertIn("deliverables", carried)
-        self.assertIsInstance(carried["deliverables"], list)
+        self.assertIn("owner", carried)
+        self.assertIsInstance(carried["work_package"], str)
         self.assertNotIn("status", carried)
         self.assertNotIn("blocked_by", carried)
+        # `deliverables` used to be carried; the default schema now names it, so it is
+        # interpreted and must have left the pass-through set.
+        self.assertNotIn("deliverables", carried)
 
     def test_generated_views_are_not_mistaken_for_tasks(self):
         tasks = load_tasks(ROOT)
@@ -151,6 +156,46 @@ class AltSchema(unittest.TestCase):
         extra = self.tasks["ISSUE-0002"].extra
         self.assertEqual(extra["area"], "exterior")
         self.assertEqual(len(extra["notes"]), 2)
+
+
+class DeclaredDeliverables(unittest.TestCase):
+    """The field is named by config, so nothing above the schema learns what it is called."""
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, self.tmp)
+
+    def build(self, config, front_matter):
+        write(os.path.join(self.tmp, ".taskmd", "config.md"), config)
+        write(os.path.join(self.tmp, "tasks", "T-001-x.md"),
+              "---\nid: T-001\ntitle: X\nstatus: open\n%s---\n" % front_matter)
+        return load_tasks(self.tmp)["T-001"]
+
+    def test_declared_paths_are_read_through_the_named_field(self):
+        task = self.build(VALID, "deliverables: [docs/a.md, docs/b.md]\n")
+        self.assertEqual(task.deliverables, ["docs/a.md", "docs/b.md"])
+
+    def test_a_different_project_may_call_it_something_else(self):
+        task = self.build(VALID.replace("deliverables_field: deliverables",
+                                        "deliverables_field: produces"),
+                          "produces: [out/report.pdf]\ndeliverables: [not-this-one.md]\n")
+        self.assertEqual(task.deliverables, ["out/report.pdf"])
+        self.assertIn("deliverables", task.extra)  # now just a carried field
+
+    def test_none_means_the_project_does_not_track_them(self):
+        task = self.build(VALID.replace("deliverables_field: deliverables",
+                                        "deliverables_field: none"),
+                          "deliverables: [docs/a.md]\n")
+        self.assertEqual(task.deliverables, [])
+        self.assertIn("deliverables", task.extra)
+
+    def test_an_empty_declaration_is_not_a_path(self):
+        self.assertEqual(self.build(VALID, "deliverables: []\n").deliverables, [])
+        self.assertEqual(self.build(VALID, "deliverables: null\n").deliverables, [])
+
+    def test_the_alt_project_runs_with_the_key_switched_off(self):
+        self.assertEqual(load_schema(ALT).deliverables_field, "")
+        self.assertEqual(load_tasks(ALT)["ISSUE-0001"].deliverables, [])
 
 
 class LinksAreVisibleFromBothEnds(unittest.TestCase):
@@ -284,6 +329,43 @@ class RejectsBadConfig(unittest.TestCase):
 
     def test_no_front_matter(self):
         self.reject("# just prose\n", "no front-matter block")
+
+    def test_blocked_status_absent(self):
+        self.reject(VALID.replace("blocked_status: none\n", ""),
+                    "missing config key(s): blocked_status")
+
+    def test_blocked_status_outside_the_vocabulary(self):
+        self.reject(VALID.replace("blocked_status: none", "blocked_status: stuck"),
+                    "not in the 'status' vocabulary")
+
+    def test_deliverables_field_absent(self):
+        self.reject(VALID.replace("deliverables_field: deliverables\n", ""),
+                    "missing config key(s): deliverables_field")
+
+    def test_deliverables_field_given_a_list(self):
+        self.reject(VALID.replace("deliverables_field: deliverables",
+                                  "deliverables_field: [a, b]"),
+                    "must be a field name or 'none'")
+
+    def test_deliverables_field_that_is_an_edge(self):
+        self.reject(VALID.replace("deliverables_field: deliverables",
+                                  "deliverables_field: related"),
+                    "also declared as an edge")
+
+    def test_deliverables_field_that_is_derived(self):
+        self.reject(VALID.replace("deliverables_field: deliverables",
+                                  "deliverables_field: blocks"),
+                    "derived from an edge")
+
+    def test_deliverables_field_with_a_vocabulary(self):
+        self.reject(VALID.replace("deliverables_field: deliverables",
+                                  "deliverables_field: status"),
+                    "not an enumerated value")
+
+    def test_deliverables_field_colliding_with_the_id(self):
+        self.reject(VALID.replace("deliverables_field: deliverables",
+                                  "deliverables_field: id"),
+                    "collides with id_field/title_field")
 
 
 if __name__ == "__main__":

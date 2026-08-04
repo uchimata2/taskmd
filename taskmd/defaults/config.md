@@ -9,6 +9,10 @@ tasks_dir: tasks           # where task files live, relative to the project root
 # ------------------------------------------------------------------ status
 status_field: status       # which vocabulary below carries open/closed meaning
 open_statuses: [proposed, specified, planned, in_progress, blocked, review]
+blocked_status: blocked    # the value meaning "held up"; `none` if the project has no such value
+
+# ------------------------------------------------------------- deliverables
+deliverables_field: deliverables   # field listing the paths a task produces; `none` to not track them
 
 # ------------------------------------------------------------------- views
 context_fields: [status, phase, type, work_package, owner]
@@ -40,6 +44,26 @@ read task files, so the config costs no parser and no dependency.
 Task files are the opposite: a front-matter field this schema does not name is **carried and
 displayed, never interpreted**. That is what lets a project adopt taskmd without first
 rewriting its task files.
+
+## The blocked status
+
+`blocked_status` names the one status value that asserts "this is held up by something". `check`
+reports a task carrying it with no dependency recorded — a claim about the graph that the graph
+does not support, which is invisible to every other check because the file is otherwise valid.
+
+It must be a value in the status vocabulary. Set it to `none` if the project has no such value;
+`check` then makes no such claim. Like every key here it is required to be written.
+
+## Deliverables
+
+`deliverables_field` names the front-matter field holding the paths a task produces, relative to
+the project root. `check` reports a declared path that does not exist — the one thing the
+retired `deliverables` command did that nothing else does, kept as a validation rather than as a
+fourth command (`docs/SCOPE.md` non-goal 11).
+
+Set it to `none` if a project does not track outputs that way. It is still a **required** key:
+every key must be written, because a config replaces the default rather than merging with it, and
+a silently absent key would hand you a schema you did not write.
 
 ## Edges
 

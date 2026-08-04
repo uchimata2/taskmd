@@ -10,7 +10,7 @@ related: [T-003, T-013]
 work_package: none
 owner: maintainer
 created: 2026-08-04
-updated: 2026-08-04
+updated: 2026-08-05
 deliverables:
   - docs/METHOD.md
   - docs/method/specify.md
@@ -18,7 +18,6 @@ deliverables:
   - docs/method/implement.md
   - docs/method/review.md
   - docs/method/audit.md
-  - tools/tasks/task.py
   - tasks/_templates/task-template.md
   - tasks/_templates/audit-umbrella-template.md
   - CLAUDE.md
@@ -279,4 +278,5 @@ owners rather than as caveats in a paragraph.
 | 2026-08-04 | → specified | Specify worked. D1–D3 settled the open question and the document's home; the dangling-pointer defect turned out to be four references across three files, not two, so the scope and criterion 8 widened to match. Criteria 6–7 added to make D1 falsifiable. |
 | 2026-08-04 | → done | Review worked. Five criteria met, three not (1, 5, 7), one further defect found beyond the criteria — four child tasks T-014…T-017. Nothing fixed during review. Criterion 5 is the substantive one: the spine is longer than the single-file option D4 rejected, so progressive disclosure currently costs more than it saves. |
 | 2026-08-04 | → review | Implement worked. Six files written; four pointers repaired; `CLAUDE.md` stopped restating the four rules and now points at the method. Verified by use — an issue-tracker read, a no-harness read, and one research task walked through all four procedures — with results recorded in §3. Phase stays `implement`; the §4 verdict is the review phase's (R-6). |
+| 2026-08-05 | (no change) | `tools/tasks/task.py` removed from `deliverables`: T-002 deleted the interim tool it named. Found by `check`'s missing-deliverable class on its first run against this repository — the declaration outlived the file by one commit, which is the whole reason that class exists. |
 | 2026-08-04 | → planned | Plan worked against both prior arts. D4 chose spine + per-phase files. The filter drops the model/effort gate permanently (non-goal 7) and the backend specifics to T-009/T-010; two divergences from the prior art recorded as deliberate. Raised T-013 — the R-23 risk is repo-wide, not T-008's to absorb. |

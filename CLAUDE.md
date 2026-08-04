@@ -13,9 +13,11 @@ what has to change to make it general.
 what is explicitly **out** of scope — then [`docs/BRIEF.md`](docs/BRIEF.md) for the problem
 evidence and the measured prior art behind them. `tasks/README.md` is the generated backlog.
 
-**Status:** the schema layer exists (`taskmd/`) and is proven by `tests/test_schema.py`; the method
-document exists ([`docs/METHOD.md`](docs/METHOD.md), T-008). The CLI and the bindings are not
-written yet.
+**Status:** the schema layer exists (`taskmd/`), the method document exists
+([`docs/METHOD.md`](docs/METHOD.md), T-008), and the three commands exist — `python -m taskmd
+{context,index,check}`, proven by `tests/`, including `check` shown failing on every class it
+claims to catch. This project runs on them; the interim `tools/tasks/task.py` is gone. The bindings
+and the skill are not written yet.
 
 ## The one design rule
 

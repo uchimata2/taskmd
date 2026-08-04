@@ -2,8 +2,8 @@
 id: T-002
 title: Implement the core CLI: context, index, check
 type: deliverable
-status: planned
-phase: plan
+status: review
+phase: implement
 parent: null
 blocked_by: [T-001]
 related: [T-008, T-004]
@@ -11,7 +11,21 @@ work_package: none
 owner: maintainer
 created: 2026-08-04
 updated: 2026-08-05
-deliverables: []
+deliverables:
+  - taskmd/cli.py
+  - taskmd/__main__.py
+  - taskmd/schema.py
+  - taskmd/defaults/config.md
+  - tests/test_cli.py
+  - tests/fixtures/README.md
+  - tests/fixtures/broken-vocabulary
+  - tests/fixtures/broken-dangling
+  - tests/fixtures/broken-missing-blocker
+  - tests/fixtures/broken-cycle
+  - tests/fixtures/broken-link
+  - tests/fixtures/broken-derived-field
+  - tests/fixtures/broken-deliverable
+  - tests/fixtures/broken-config
 ---
 
 # T-002 — Implement the core CLI: context, index, check
@@ -165,11 +179,145 @@ gap.
 
 ## 3. Implement
 
-**Decisions & assumptions**
-- <decision — rationale — date>
+### Step 1 — the R-15 baseline, fixed before the numerator existed
+
+Measured 2026-08-05, on this repository, before a line of the CLI was written. Three candidate
+baselines, because "what a session would otherwise read" has three defensible readings and picking
+one after seeing the result is the failure this step exists to prevent:
+
+| Baseline | What it counts | Bytes |
+| :--- | :--- | ---: |
+| **A — headline** | The task file plus the generated index: `T-002` + `tasks/README.md` | **16,113** |
+| B — link-following | The task file plus every task it links to (6 of them) | 53,630 |
+| C — no derived views at all | Every file in `tasks/` — what you must read when nothing is computed for you, because `blocks` and the far end of a soft link are written nowhere | 119,998 |
+
+**A is the headline, and it is the least flattering of the three on purpose.** It credits `index`
+for the graph work and asks `context` to beat only what is left, which is the honest comparison
+inside a project that already runs taskmd. B and C are recorded because they are the real cost when
+there is no index — C is what `docs/BRIEF.md`'s 37,909-byte figure was measuring on the source
+project — but quoting either as the saving would be choosing a denominator to suit the answer.
+
+Step 7 measures `context T-002` against A.
+
+### Decisions taken while implementing
+
+- **`blocked_status` became a config key** (2026-08-05). Class 3 says "a task is `blocked` with an
+  empty dependency list", and there is no general way to implement it: the schema knows the status
+  *vocabulary* but not which value asserts "held up". Same shape as `deliverables_field` — required,
+  nullable, named by the project. *Rejected:* the literal string `blocked`, which is one project's
+  word and would have made the check silently do nothing for every other project.
+- **`check` skips nested projects** (2026-08-05) — a directory holding its own `.taskmd/` or its own
+  tasks folder is validated on its own, never by its host. *Rejected:* a hardcoded `tests/fixtures/`
+  exclusion, which would put this repository's layout inside the shipped tool. The rule is what lets
+  deliberately-broken fixtures live in the tree at all.
+- **The index omits an edge column no task uses** (2026-08-05), derived from the data rather than
+  configured. A project with no hierarchy should not read a column of dashes, and one that starts
+  using hierarchy should not have to remember to switch a column on. *Rejected:* an `index_edges`
+  config key — configuration for something the data already answers.
+- **The closing line of `context` carries only derived state** — open/closed, and which blockers are
+  open. *Rejected:* repeating the header's fields in the footer, which is what the first draft did
+  and which put one fact on screen twice.
+- **The CLI prints no path to a method document** (2026-08-05). The interim tool ended with
+  `Method: docs/METHOD.md`; that is a fact about *this* project, and general code cannot hold it.
+  Pointing the agent at the method is T-003's job.
+- **The index marker was migrated by hand, once.** The tool recognises its own marker and appends a
+  region when it finds none; it does **not** know the interim tool's marker. *Rejected:* teaching the
+  shipped tool to recognise a retired private marker, which would be permanent migration debt for a
+  one-line one-time edit.
+
+### Escalated rather than absorbed
+
+- **`waiting` in the alternate fixture is not "blocked".** Setting `blocked_status: waiting` there
+  made `check` report an epic as blocked with nothing blocking it — correctly: it waits on its
+  *children*, which is hierarchy, not dependency (`docs/METHOD.md` §4). One status value cannot
+  stand for both edges. The fixture now declares no blocked status and says why; the configurable
+  name is proven by a purpose-built project in `tests/test_cli.py` instead.
+- **T-008 declared a deliverable that step 9 deleted.** `check`'s missing-output class fired on its
+  first real run, on `tools/tasks/task.py`. Removed from T-008's front-matter with a log entry.
+  This is the class earning its place: nothing else in the repository would have noticed.
+
+### A criterion that could not be met as literally worded — for `review` to judge
+
+The criterion reads *"`context`'s `NEXT:` hint reads phase **and** status"*. It cannot, in a general
+tool: `phase` is one project's vocabulary field, and the tool cannot know that status `planned`
+means the `plan` phase is finished — that mapping is the method's, not the schema's.
+
+What was built instead: the header line prints every `context_fields` value, so both axes are on
+screen; the closing line carries only what is derived and **names no phase at all**. The defect the
+criterion was written against — being told to redo the phase you just finished — is gone, because
+nothing instructs. Whether that satisfies the criterion as written is `review`'s call, not this
+phase's.
+
+Both tools on T-002 at `status planned | phase plan`, i.e. planning finished:
+
+```
+interim  NEXT: read the file above, then work the 'plan' phase.
+new      STATE  open, no blocker outstanding
+```
+
+### Verification — by use
+
+**`check` made to fail, one fixture per class** (R-16). Each reports its own class and no other;
+asserted in `tests/test_cli.py::CheckFailsOnEveryClassItClaims`:
+
+```
+broken-vocabulary       VOCABULARY    T-001.status is 'in-progres'; allowed: proposed, ...
+broken-dangling         DANGLING      T-001.blocked_by -> T-404 does not exist
+broken-missing-blocker  NO BLOCKER    T-001 is 'blocked' with nothing in blocked_by
+broken-cycle            CYCLE         dependency loop: T-001 -> T-002 -> T-001
+broken-link             BROKEN LINK   .notes/scratch.md -> gone.md
+broken-derived-field    STORED DERIVED T-001 stores 'children:', which is computed from 'parent'
+broken-deliverable      MISSING OUTPUT T-001 declares 'out/report.md', which does not exist
+broken-config           CONFIG ERROR  ...: unknown config key(s): id_witdh          (exit 2)
+```
+
+The config case exits **before any command runs** (R-17), and names the key.
+
+**Used on this repository**, which is the real case rather than a fixture:
+
+```
+OK - 18 task(s), vocabulary valid, references resolve, no broken links
+71 passed in 0.23s
+```
+
+**Used on a project sharing no vocabulary with the default** — `tests/fixtures/alt-project`, whose
+id prefix, status field, folder, edge names and derived names are all different. `context` printed
+`state doing`, `EPIC`, `DEPENDS ON`, `SEE ALSO` and `ISSUE-0002`, and none of the default names
+appeared anywhere in the output.
+
+**Step 7 — the measured saving** (R-15), against baseline A above:
+
+| | Bytes |
+| :--- | ---: |
+| Baseline A, as fixed in step 1 | 16,113 |
+| `python -m taskmd context T-002` | **1,001** |
+| | **6.2% — 16× smaller** |
+
+Recomputing A at the moment of measurement gives 18,120 (5.5%), because T-002's own file grew by
+this record while the work was done. The step-1 figure is the one quoted: it is the less flattering
+of the two, and it is the one that was fixed before the numerator existed.
+
+**Step 8 — portability.** Three results:
+
+- *Bytes.* The generated index contains **0** carriage returns and 17 line feeds; non-ASCII content
+  survives the round trip. Asserted in `tests/test_cli.py::WritesTheSameBytesEverywhere`.
+- *cp1252.* Run with `PYTHONIOENCODING=cp1252` against a task titled with an em dash, curly quotes
+  and an arrow, the output was byte-for-byte the same as on a UTF-8 terminal and exited 0 — the
+  startup reconfigure overrides the terminal codec rather than depending on it.
+- *No configuration.* A bare folder containing one task file and no `.taskmd/` runs all three
+  commands successfully.
+
+**The assumption from the plan still stands, unclosed.** Byte-identity was verified by mechanism on
+one platform, not by three runs. A run on macOS or Linux is what would close it.
 
 **Outputs produced**
-- <path>
+- `taskmd/cli.py`, `taskmd/__main__.py`
+- `taskmd/defaults/config.md` — two added keys (`deliverables_field`, `blocked_status`)
+- `taskmd/schema.py` — both keys exposed and validated at config-read time
+- `tests/test_cli.py`, `tests/fixtures/README.md`, `tests/fixtures/broken-*/` × 8
+- `tests/test_schema.py`, `tests/fixtures/alt-project/` — extended for the new keys
+- `tasks/README.md`, `tasks/_templates/task-template.md` — switched to `python -m taskmd`
+- Deleted: `tools/tasks/task.py`
 
 ## 4. Review
 
@@ -187,4 +335,5 @@ gap.
 | 2026-08-04 | → proposed | Seeded from `docs/BRIEF.md` when the project folder was prepared. |
 | 2026-08-04 | (no change) | Second interim-tool limitation recorded: the `NEXT:` hint derives from `phase` alone and contradicts R-3. Found while working T-008, which also gave the CLI its new footer target. `related` gained T-008. |
 | 2026-08-05 | → specified | Specify agreed by the owner. The open question is closed by `docs/SCOPE.md` non-goal 11 — three commands, and the deliverable-existence behaviour survives as a `check` class rather than being dropped. `check`'s eight failure classes enumerated so R-16's criterion is falsifiable before implementation. R-15 gained a criterion (measure here, state in README in T-006). Id format pinned to config, which makes T-004 independent rather than a prerequisite; `related` gained T-004. |
+| 2026-08-05 | → review | Implement worked, nine steps in order. Six decisions recorded, two of them adding config keys — `blocked_status` because "blocked with no blocker" cannot be checked without the project naming its own held-up value. Two discoveries escalated rather than absorbed: `waiting` in the alternate fixture is hierarchy not dependency, and T-008 declared a deliverable step 9 deleted — caught by `check`'s own missing-output class on its first real run. `check` shown failing on all eight classes; measured saving 1,001 bytes against the step-1 baseline of 16,113 (6.2%). One criterion could not be met as literally worded and is flagged for review rather than quietly reinterpreted. Phase stays `implement`; the §4 verdict is review's (R-6). |
 | 2026-08-05 | → planned | Nine steps. The R-15 baseline is fixed in step 1, before anything that could flatter it exists; the eight failure fixtures are built in step 3, before `check` does. Four shape decisions recorded with what they reject. One assumption recorded against step 8: byte-identity across three platforms is verified by mechanism, not by three runs. |
