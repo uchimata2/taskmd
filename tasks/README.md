@@ -17,21 +17,24 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 
 | ID | Title | Work Package | Status | Phase | Parent | Children | Blocked By | Blocks | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| [T-002](T-002-implement-the-core-cli-context-index-check.md) | Implement the core CLI: context, index, check | - | `review` | `implement` | - | - | T-001 | T-003, T-006, T-011 | T-004, T-005, T-007, T-008 |
-| [T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md) | Write the skill that teaches the agent to use the CLI | - | `proposed` | `specify` | - | - | T-002, T-008 | T-006 | T-008, T-017 |
+| [T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md) | Write the skill that teaches the agent to use the CLI | - | `proposed` | `specify` | - | - | T-002, T-008 | T-006 | T-008, T-017, T-021 |
 | [T-004](T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md) | Settle the id scheme and the claimed scale ceiling | - | `proposed` | `specify` | - | - | T-001 | - | T-002, T-006, T-007, T-010 |
 | [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) | Align with the handoff tracker-binding contract | - | `proposed` | `specify` | - | - | T-009 | - | T-002, T-007, T-009 |
-| [T-006](T-006-package-document-and-publish.md) | Package, document and publish | - | `proposed` | `specify` | - | - | T-002, T-003, T-008, T-009, T-010, T-011, T-018 | - | T-004, T-013 |
+| [T-006](T-006-package-document-and-publish.md) | Package, document and publish | - | `proposed` | `specify` | - | - | T-002, T-003, T-008, T-009, T-010, T-011, T-018 | - | T-004, T-013, T-020 |
 | [T-009](T-009-define-the-backend-binding-contract.md) | Define the backend binding contract and write the local-Markdown binding | - | `proposed` | `specify` | - | - | T-008 | T-005, T-006, T-010 | T-005, T-010, T-012 |
 | [T-010](T-010-write-the-github-issues-binding.md) | Write the GitHub Issues binding | - | `proposed` | `specify` | - | - | T-009 | T-006 | T-004, T-009 |
 | [T-011](T-011-runtime-discovery-and-project-hook-commands.md) | Runtime auto-discovery and project hook commands | - | `proposed` | `specify` | - | - | T-002 | T-006 | T-013 |
 | [T-018](T-018-stop-the-pre-publish-fixture-tripping-its-own-check.md) | Stop the pre-publish fixture tripping its own check | - | `proposed` | `specify` | - | - | - | T-006 | T-013 |
+| [T-019](T-019-report-a-tasks-dir-that-does-not-exist-at-setup.md) | Report a tasks_dir that does not exist at setup | - | `proposed` | `specify` | T-002 | - | - | - | - |
+| [T-020](T-020-confirm-byte-identical-output-on-macos-and-linux.md) | Confirm byte-identical output on macOS and Linux | - | `proposed` | `specify` | T-002 | - | - | - | T-006 |
+| [T-021](T-021-settle-what-the-context-closing-line-may-say.md) | Settle what the context closing line may say | - | `proposed` | `specify` | T-002 | - | - | - | T-003 |
 
 ## Closed
 
 | ID | Title | Work Package | Status | Phase | Parent | Children | Blocked By | Blocks | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [T-001](T-001-decide-how-the-front-matter-schema-is-configured.md) | Decide how the front-matter schema is configured | - | `done` | `review` | - | - | - | T-002, T-004 | T-012 |
+| [T-002](T-002-implement-the-core-cli-context-index-check.md) | Implement the core CLI: context, index, check | - | `done` | `review` | - | T-019, T-020, T-021 | T-001 | T-003, T-006, T-011 | T-004, T-005, T-007, T-008 |
 | [T-007](T-007-define-the-project-scope-goals-and-requirements.md) | Define the project scope, goals and requirements | - | `done` | `review` | - | - | - | T-008 | T-002, T-004, T-005 |
 | [T-008](T-008-write-the-backend-neutral-method-document.md) | Write the backend-neutral method document | - | `done` | `review` | - | T-014, T-015, T-016, T-017 | T-007 | T-003, T-006, T-009 | T-002, T-003, T-013 |
 | [T-012](T-012-decide-whether-soft-edges-are-symmetric.md) | Decide whether soft edges are symmetric | - | `done` | `review` | - | - | - | - | T-001, T-009 |

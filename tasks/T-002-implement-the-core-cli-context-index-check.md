@@ -2,8 +2,8 @@
 id: T-002
 title: Implement the core CLI: context, index, check
 type: deliverable
-status: review
-phase: implement
+status: done
+phase: review
 parent: null
 blocked_by: [T-001]
 related: [T-008, T-004]
@@ -321,12 +321,37 @@ one platform, not by three runs. A run on macOS or Linux is what would close it.
 
 ## 4. Review
 
+Judged against the criteria as agreed on 2026-08-05, not against what the work turned out to be
+good at. Seven met, three carried.
+
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| Runs on a clone with no configuration and no dependencies | met | `tests/test_cli.py::RunsOnACloneWithNoConfiguration` runs all three commands on a bare folder with one task file and no `.taskmd/`. Imports across `taskmd/` are `os`, `re`, `sys` and nothing else. Running from a *subdirectory* still needs `--root`; that is T-011 by this task's own boundary, not a gap here. |
+| `index` regenerates without touching hand-written regions | met | Two tests: the preamble survives, and the bytes above the marker are identical before and after a task changes. Also exercised for real — this repository's index was migrated off the interim tool's marker and its hand-written head is intact. |
+| `check` proven **failing** on every class it claims | **partly — carried** | Seven of eight fully demonstrated, one fixture each, each reporting its own class and no other. Class 8 lists three sub-cases; only *unknown key* was shown. *A missing file* was tested during this review and **failed** → **T-019**. |
+| Output byte-identical across Windows, macOS and Linux | **not met — carried** | Verified by mechanism on one platform: 0 carriage returns written, no `os.linesep`, separators normalised to `/`. The criterion names three platforms and one was available. Not reinterpreted as "the mechanism is right" → **T-020**. |
+| Console output survives a cp1252 terminal | met | With `PYTHONIOENCODING=cp1252`, a task titled with an em dash, curly quotes and an arrow printed byte-for-byte as on UTF-8 and exited 0. The startup reconfigure overrides the terminal codec rather than depending on it. |
+| Configuration problems reported when the config is read, not mid-command (R-17) | **partly — carried** | A bad *key* is caught: exit 2, the key named, before any command runs. A bad *value* naming a path is not — `tasks_dir: taks` gave `check` **exit 0 on a project it never read**, `index` created the misspelled folder, and `context` reported it as "No such task" inside the task the user was starting. Exactly the failure R-17 names → **T-019**. |
+| Reads the schema through `taskmd/schema.py`, holding no field name or status value of its own | met | Grepped: the only occurrences of `blocked` or `status` in `taskmd/cli.py` are in the docstring that forbids them. Proven positively too — run against `alt-project`, `context` printed `state`, `EPIC`, `DEPENDS ON`, `SEE ALSO` and no default name appeared. One hardcoded convention remains, `README.md` as the index filename; neither a field name nor a status value, so outside this criterion, but noted for T-009. |
+| The id format comes from config and is never hardcoded | met | No id literal or pattern in `cli.py`; ids come from `schema.format_id` / `is_id`. Demonstrated on a project using `W` with width 2 and on one using `ISSUE-` with width 4. T-004 stays independent, as intended. |
+| **`context`'s `NEXT:` hint reads phase *and* status** | **not met — carried** | There is no `NEXT:` hint any more, and the closing line does not read `phase`. It cannot in a backend-neutral tool: knowing that status `planned` means the `plan` phase is finished is the method's mapping, not the schema's, and inferring it would breach the criterion two rows above. The defect the criterion targeted is gone — nothing instructs — but "gone" is not "reads phase and status", and `docs/method/review.md` forbids a reviewer agreeing a criterion change with themselves → **T-021**. |
+| The `context` saving measured on a real case and recorded | met | 1,001 bytes against baseline A of 16,113 — 6.2%, 16× smaller. Baseline fixed in step 1 before the CLI existed, with the two less conservative readings recorded and deliberately not quoted. |
+
+**On the three that were carried.** Two were known before this review: the platform gap was recorded
+as an assumption in `plan`, and the closing line was flagged in `implement` rather than
+reinterpreted. Both were surfaced by the phase that produced them, which is the method working. The
+third was not: class 8's *missing file* half had never been exercised, and testing it here is what
+found T-019 — a `check` that exits 0 on a project it never opened. That one is a genuine review
+catch, and it argues for enumerating a criterion's sub-cases as separate fixtures rather than
+treating one demonstrated example as the class.
 
 **Child fix tasks raised**
-- none
+- [T-019](T-019-report-a-tasks-dir-that-does-not-exist-at-setup.md) — a `tasks_dir` that does not
+  exist must fail at setup; `check` must not exit 0 on a project it never read
+- [T-020](T-020-confirm-byte-identical-output-on-macos-and-linux.md) — run the commands on a
+  non-Windows platform and compare bytes
+- [T-021](T-021-settle-what-the-context-closing-line-may-say.md) — the owner settles criterion 9:
+  replace the wording, make the mapping declarable, or confirm the line as final
 
 ## Log
 
@@ -335,5 +360,6 @@ one platform, not by three runs. A run on macOS or Linux is what would close it.
 | 2026-08-04 | → proposed | Seeded from `docs/BRIEF.md` when the project folder was prepared. |
 | 2026-08-04 | (no change) | Second interim-tool limitation recorded: the `NEXT:` hint derives from `phase` alone and contradicts R-3. Found while working T-008, which also gave the CLI its new footer target. `related` gained T-008. |
 | 2026-08-05 | → specified | Specify agreed by the owner. The open question is closed by `docs/SCOPE.md` non-goal 11 — three commands, and the deliverable-existence behaviour survives as a `check` class rather than being dropped. `check`'s eight failure classes enumerated so R-16's criterion is falsifiable before implementation. R-15 gained a criterion (measure here, state in README in T-006). Id format pinned to config, which makes T-004 independent rather than a prerequisite; `related` gained T-004. |
+| 2026-08-05 | → done | Review worked. Seven criteria met, three carried as child tasks T-019…T-021. Two of the three were already surfaced by the phases that produced them — the platform gap in `plan`, the closing line in `implement`. The third is a review catch: class 8 lists three sub-cases and only one had ever been exercised, so this review exercised another and it failed — `tasks_dir: taks` makes `check` exit 0 on a project it never read. Nothing fixed during review. |
 | 2026-08-05 | → review | Implement worked, nine steps in order. Six decisions recorded, two of them adding config keys — `blocked_status` because "blocked with no blocker" cannot be checked without the project naming its own held-up value. Two discoveries escalated rather than absorbed: `waiting` in the alternate fixture is hierarchy not dependency, and T-008 declared a deliverable step 9 deleted — caught by `check`'s own missing-output class on its first real run. `check` shown failing on all eight classes; measured saving 1,001 bytes against the step-1 baseline of 16,113 (6.2%). One criterion could not be met as literally worded and is flagged for review rather than quietly reinterpreted. Phase stays `implement`; the §4 verdict is review's (R-6). |
 | 2026-08-05 | → planned | Nine steps. The R-15 baseline is fixed in step 1, before anything that could flatter it exists; the eight failure fixtures are built in step 3, before `check` does. Four shape decisions recorded with what they reject. One assumption recorded against step 8: byte-identity across three platforms is verified by mechanism, not by three runs. |
