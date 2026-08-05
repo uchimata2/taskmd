@@ -2,13 +2,15 @@
 id: T-021
 title: Settle what the context closing line may say
 type: decision
-status: proposed
+status: specified
 phase: specify
 parent: T-002
 blocked_by: []
-related: [T-003]
+related: [T-003, T-022]
 work_package: none
 owner: maintainer
+business_value: medium
+effort: xs
 created: 2026-08-05
 updated: 2026-08-05
 deliverables: []
@@ -75,9 +77,28 @@ T-002 §1 criterion 9 and §3 *A criterion that could not be met as literally wo
       with no resolution
 
 **Open questions**
-- Is a closing line that gives *no* direction a loss for an agent starting a task cold, or exactly
-  the R-6 behaviour the method asks for? — maintainer. This is the substantive question; the wording
-  follows from it.
+- none. ~~Is a closing line that gives no direction a loss, or exactly the R-6 behaviour?~~
+  **Answered by the owner on 2026-08-05: exactly the R-6 behaviour.** The owner asked for whichever
+  option causes least trouble in the long term and fits what has since been designed; that is
+  **(a) with (c)** — the criterion is replaced with wording a backend-neutral tool can satisfy, the
+  CLI's closing line is confirmed as final, and direction-giving belongs to the skill.
+
+**Why (a) + (c), and not (b)**
+
+(b) — a config key declaring which status means each phase is finished — is the expensive answer.
+The lifecycle would then be written in two places, `docs/METHOD.md` and every project's config, and
+the copy in the config would be the one nobody re-reads when the method changes. That is the drift
+this plugin exists to remove, bought for one line of output.
+
+What settled it is a decision taken *after* this task was raised.
+[T-022](T-022-filtered-task-listing-for-scripts.md) gives taskmd a command whose entire job is to
+answer "what should I work on next", ordered by business value, effort and dependencies. "What next"
+therefore has a home, and it is not a hint appended to `context`. Had (b) been built, taskmd would
+have shipped two answers to one question — a per-task guess from `context` and a graph-wide answer
+from the listing — which is the same defect one altitude up.
+
+So the division is: **`context` reports state, the listing answers "what next", and the skill says
+what to do about it.** Each fact keeps one home.
 
 ## 2. Plan
 
@@ -106,4 +127,5 @@ T-002 §1 criterion 9 and §3 *A criterion that could not be met as literally wo
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-05 | → specified | Owner chose (a) with (c): criterion 9 is replaced, the CLI's state-only closing line is final, and direction-giving is the skill's. (b) was rejected as a second home for the lifecycle. The deciding argument arrived after this task was raised — T-022 gives "what next" a command of its own, so a hint on `context` would have been a second answer to one question; soft edge added to record that. Implement is two edits: criterion 9's replacement text in T-002 §1 with the original kept, and its §4 row pointing here. |
 | 2026-08-05 | → proposed | Raised by T-002's review. Flagged during `implement` rather than reinterpreted, and carried here rather than ticked — a reviewer cannot agree a criterion change with themselves. |

@@ -9,6 +9,8 @@ blocked_by: []
 related: [T-006]
 work_package: none
 owner: maintainer
+business_value: high
+effort: m
 created: 2026-08-05
 updated: 2026-08-05
 deliverables: []

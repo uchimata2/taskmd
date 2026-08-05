@@ -1,0 +1,17 @@
+# Pre-publish leak-check fixture -- see CLAUDE.md 'The pre-publish check'.
+#
+# Nine lines. The first five MUST be caught by the check's pattern, one per class; the last
+# four MUST NOT be, and they are the half that matters -- two earlier drafts of the pattern
+# were wrong precisely because they tripped on safe text (T-013). Every path below is
+# fabricated: this file is evidence, not a record of anyone's machine.
+
+drive Q:\Projects\example                <- must be caught
+home /home/someone/project               <- must be caught
+users /Users/someone/project             <- must be caught
+unc \\fileserver\share\docs              <- must be caught
+ip 192.0.2.42                            <- must be caught
+
+safe https://example.com/a               <- must be ignored
+safe a python d:\n escape in a string    <- must be ignored
+safe the words drive letters, hostnames  <- must be ignored
+safe version 1.2.3 and a range 1-3       <- must be ignored

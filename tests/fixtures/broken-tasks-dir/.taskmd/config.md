@@ -7,6 +7,8 @@ tasks_dir: taks
 status_field: status
 deliverables_field: none
 blocked_status: none
+value_field: none
+effort_field: none
 open_statuses: [proposed]
 context_fields: [status]
 index_columns: [status]

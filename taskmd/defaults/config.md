@@ -14,6 +14,10 @@ blocked_status: blocked    # the value meaning "held up"; `none` if the project 
 # ------------------------------------------------------------- deliverables
 deliverables_field: deliverables   # field listing the paths a task produces; `none` to not track them
 
+# ---------------------------------------------------------------- ordering
+value_field: business_value  # estimated worth; `none` to not order by it
+effort_field: effort         # estimated cost; `none` to not order by it
+
 # ------------------------------------------------------------------- views
 context_fields: [status, phase, type, work_package, owner]
 index_columns: [work_package, status, phase]
@@ -54,8 +58,9 @@ a project it had never opened, which is worse than no validator because a valida
 
 The rule does not care whether you wrote the value or inherited it from this file: a project
 adopting taskmd creates its tasks folder before the first command works. That is the whole of
-setup, and there is no command to do it — `context`, `index` and `check` are the surface
-(`docs/SCOPE.md` non-goal 11). An **empty** tasks folder is entirely legal; the distinction is that
+setup, and there is no command to do it — no command creates a folder, and `docs/SCOPE.md`
+non-goal 11 still excludes an `init` after its 2026-08-05 amendment, which carved out a task
+listing and nothing else. An **empty** tasks folder is entirely legal; the distinction is that
 the folder is absent, not that it holds nothing yet.
 
 ## The blocked status
@@ -72,7 +77,8 @@ It must be a value in the status vocabulary. Set it to `none` if the project has
 `deliverables_field` names the front-matter field holding the paths a task produces, relative to
 the project root. `check` reports a declared path that does not exist — the one thing the
 retired `deliverables` command did that nothing else does, kept as a validation rather than as a
-fourth command (`docs/SCOPE.md` non-goal 11).
+command of its own (`docs/SCOPE.md` non-goal 11, which still excludes it — the 2026-08-05
+amendment carved out a task listing, not a general licence to add commands).
 
 Set it to `none` if a project does not track outputs that way. It is still a **required** key:
 every key must be written, because a config replaces the default rather than merging with it, and
@@ -118,3 +124,36 @@ itself is written once, here.
 | status | proposed, specified, planned, in_progress, blocked, review, done, cancelled |
 | phase | specify, plan, implement, review |
 | type | analysis, decision, deliverable, research, fix, admin |
+| business_value | critical, high, medium, low |
+| effort | xs, s, m, l, xl |
+
+## Ordering
+
+`list` prints tasks in one order unless asked otherwise, and this is the only description of it.
+The code implements what is written here; it does not restate it.
+
+**The ranking is the vocabulary order — best value first.** The rows above are ordered
+deliberately: `critical` outranks `high`, and `xs` is cheaper than `s`. There is no second table
+mapping a value to a number, because that would be a second copy of a fact this row already
+carries, and the two would disagree the first time someone added a value to one of them.
+
+**A task sorts on four keys, in order:**
+
+1. **Blocked last.** A task with an open dependency cannot be started, so it sorts after every task
+   that can. It is still listed — hiding it would make `list` and `list --limit 1` describe
+   different sets, and would conceal the graph from someone asking why nothing is moving.
+2. **Effective value, best first.** A task's effective value is the best value among **itself and
+   everything it transitively unblocks**. This is what "dependencies first" means: a cheap blocker
+   is pulled ahead *by what it releases*, rather than sitting behind unrelated work while the
+   valuable task waits on it. Effective value is derived per call and stored nowhere.
+3. **Effort, cheapest first.**
+4. **Id**, so the order is total and the same tree always gives the same answer. A tie broken by id
+   is stated rather than arbitrary.
+
+**A task with no estimate still sorts and is still listed**, after every task that has one. Nothing
+in this tool requires a human to fill these in for the answer to be correct — the agent estimates
+them, and a value someone edits by hand is honoured and never overwritten (`docs/SCOPE.md` §1
+*Invisibility*).
+
+Set `value_field` or `effort_field` to `none` to drop that key from the sort. With both set to
+`none` the order is blocked-last, then id.

@@ -1,13 +1,16 @@
 #!/usr/bin/env python
-"""The three commands: `context`, `index`, `check`.
+"""The four commands: `context`, `index`, `check`, `list`.
 
-  python -m taskmd context T-002 [--root PATH]
-  python -m taskmd index          [--root PATH]
-  python -m taskmd check          [--root PATH]
+  python -m taskmd context T-002        [--root PATH]
+  python -m taskmd index                [--root PATH]
+  python -m taskmd check                [--root PATH]
+  python -m taskmd list [--<field> V]   [--open|--closed] [--limit N] [--json] [--root PATH]
 
-Three, and no more — `docs/SCOPE.md` non-goal 11 in this repository, and the reason is that a
-query language is grep's job. What the retired `deliverables` command did that nothing else does
-survives as a `check` class, not as a fourth command.
+Four, and the fourth was argued for rather than added — `docs/SCOPE.md` non-goal 11 was amended on
+2026-08-05 (T-022) after standing at three. Filtering is in; a query language is still out. The
+reason it could not stay grep's job is that grep cannot see a derived edge at all: what a task
+blocks, and the far end of a soft link, exist nowhere on disk. What the retired `deliverables`
+command did that nothing else does still survives as a `check` class rather than as a command.
 
 This module holds **no field name, status value or id format of its own**. Everything it knows
 about a project's shape it asks `taskmd.schema` for, which reads it from the config. If you find a
@@ -356,9 +359,162 @@ def cmd_check(root, schema, tasks, args):
     return 0
 
 
+# ---------------------------------------------------------------------------------- list
+
+def dependency_fields(schema):
+    return [f for f, e in schema.edges.items() if e.kind == "dependency"]
+
+
+def is_blocked(schema, tasks, task):
+    """An open dependency. Not a status value — a task can be marked anything and still be held."""
+    for field in dependency_fields(schema):
+        for target in task.edges[field]:
+            if target in tasks and tasks[target].is_open:
+                return True
+    return False
+
+
+def effective_values(schema, tasks):
+    """Each task's value rank, improved by the best value it transitively unblocks.
+
+    This is "dependencies first": a cheap blocker is pulled ahead *by what it releases* rather
+    than waiting behind unrelated work. Computed per call and stored nowhere. The rule it
+    implements is written in `## Ordering` in the schema config, and is not restated here.
+    """
+    inverses = [schema.edges[f].derives for f in dependency_fields(schema)
+                if schema.edges[f].derives]
+    own = dict((tid, schema.rank(schema.value_field, t.fields.get(schema.value_field, "")))
+               for tid, t in tasks.items()) if schema.value_field else \
+        dict((tid, 0) for tid in tasks)
+
+    memo = {}
+
+    def walk(tid, seen):
+        if tid in memo:
+            return memo[tid]
+        if tid in seen:
+            return own[tid]  # a dependency cycle is `check`'s to report, not this command's to hang on
+        best = own[tid]
+        for name in inverses:
+            for other in tasks[tid].links(name):
+                if other in tasks:
+                    best = min(best, walk(other, seen | {tid}))
+        memo[tid] = best
+        return best
+
+    return dict((tid, walk(tid, frozenset())) for tid in tasks)
+
+
+def order(schema, tasks, selection):
+    """Blocked last, then effective value, then effort, then id — see `## Ordering` in the config."""
+    values = effective_values(schema, tasks)
+
+    def key(task):
+        effort = schema.rank(schema.effort_field, task.fields.get(schema.effort_field, "")) \
+            if schema.effort_field else 0
+        return (is_blocked(schema, tasks, task), values[task.id], effort, task.id)
+
+    return sorted(selection, key=key)
+
+
+def filter_names(schema):
+    """Every `--name` the command accepts, as {name: kind}."""
+    names = dict((f, "vocabulary") for f in schema.vocabularies)
+    for name in link_names(schema):
+        names[name] = "link"
+    return names
+
+
+def parse_filters(schema, args):
+    """(filters, options) or (None, message). Every rejection happens before a line is printed."""
+    known = filter_names(schema)
+    filters, options = [], {"limit": None, "json": False, "state": None}
+    rest = list(args)
+    while rest:
+        arg = rest.pop(0)
+        if arg == "--json":
+            options["json"] = True
+            continue
+        if arg in ("--open", "--closed"):
+            options["state"] = arg[2:]
+            continue
+        if not arg.startswith("--"):
+            return None, ("unexpected argument: %s. Filters are given as --<field> <value>" % arg)
+        name = arg[2:].replace("-", "_")
+        if not rest:
+            return None, "%s needs a value" % arg
+        value = rest.pop(0)
+        if name == "limit":
+            if not value.isdigit():
+                return None, "--limit needs a whole number, not '%s'" % value
+            options["limit"] = int(value)
+            continue
+        if name not in known:
+            return None, ("unknown filter: --%s. This project accepts: %s"
+                          % (name, ", ".join("--" + n for n in sorted(known))))
+        if known[name] == "vocabulary" and value not in schema.vocabularies[name]:
+            return None, ("--%s does not take '%s'. This project's %s values are: %s"
+                          % (name, value, name, ", ".join(schema.vocabularies[name])))
+        filters.append((name, known[name], value))
+    return (filters, options), None
+
+
+def matches(task, filters):
+    for name, kind, value in filters:
+        if kind == "vocabulary":
+            if task.fields.get(name, "") != value:
+                return False
+        elif value not in task.links(name):
+            return False
+    return True
+
+
+def cmd_list(root, schema, tasks, args):
+    """A subset of the tasks, in priority order, rendered so the caller can use it as printed.
+
+    The fourth command. `docs/SCOPE.md` non-goal 11 was amended for it: filtering is in, a query
+    language is not, and the reason is that grep cannot answer these questions at all — a derived
+    edge exists nowhere on disk. Writes nothing.
+    """
+    parsed, problem = parse_filters(schema, args)
+    if problem:
+        print(problem)
+        return 2
+    filters, options = parsed
+
+    chosen = [t for t in tasks.values() if matches(t, filters)]
+    if options["state"]:
+        chosen = [t for t in chosen if t.is_open == (options["state"] == "open")]
+    chosen = order(schema, tasks, chosen)
+    if options["limit"] is not None:
+        chosen = chosen[:options["limit"]]
+
+    columns = [schema.status_field] + [c for c in schema.index_columns if c != schema.status_field]
+    if options["json"]:
+        import json
+        payload = []
+        for task in chosen:
+            row = {"id": task.id, "title": task.title,
+                   "blocked": is_blocked(schema, tasks, task), "open": task.is_open}
+            for column in columns:
+                row[column] = task.fields.get(column, "")
+            for name in link_names(schema):
+                row[name] = task.links(name)
+            payload.append(row)
+        print(json.dumps(payload, indent=2, sort_keys=True))
+        return 0
+
+    # Tab-separated: a line format a caller can read as printed and a script can cut, without
+    # either of them knowing the terminal width. Padding would have made the second impossible.
+    for task in chosen:
+        cells = [task.id] + [task.fields.get(c, "") or "-" for c in columns] + [task.title]
+        print("\t".join(cells))
+    return 0
+
+
 # ---------------------------------------------------------------------------------- main
 
-COMMANDS = {"context": cmd_context, "index": cmd_index, "check": cmd_check}
+COMMANDS = {"context": cmd_context, "index": cmd_index, "check": cmd_check, "list": cmd_list}
 
 
 def main(argv):

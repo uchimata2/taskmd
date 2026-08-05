@@ -4,7 +4,23 @@ Miniature taskmd projects the real CLI is pointed at. They are projects, not tes
 you can run the tool against is also the reproduction case for the day a class regresses.
 
 `alt-project` is the positive case — a schema unlike the default in every configurable dimension,
-which is what proves the schema is configuration rather than code (T-001).
+which is what proves the schema is configuration rather than code (T-001). It also carries the
+renamed-ordering case: its effort field is `size`, and it declares no value field at all, so `list`
+must order without either of the words the default config uses (T-022).
+
+`ordering` is the second positive case, and it is built to be **decisive rather than
+representative**. Four tasks arranged so that the two readings of "highest value, lowest effort,
+dependencies first" give different answers: T-001 is the least valuable and cheapest task and
+blocks T-002, the most valuable. Under the rule taskmd implements, T-001 leads because its
+effective value is T-002's; under the plain reading, T-003 would lead. A fixture where both
+readings agree would have passed either implementation and proved nothing (T-022).
+
+`leak-check` is **not a taskmd project** — the only folder here that is not, which is worth saying
+because every neighbour is, and a reader following the convention would look for a `.taskmd/` that
+is deliberately absent. It is nine lines of text for the pre-publish grep in `CLAUDE.md`: five that
+must be caught and four safe forms that must not. It is excluded by name from the normal run and
+included in the proof run, which is the whole of the arrangement (T-018). Every path in it is
+fabricated.
 
 The `broken-*` projects are the negative cases. **Each holds exactly one defect**, so a `check` run
 that reports two classes on one fixture is itself a finding. They were written **before** `check`

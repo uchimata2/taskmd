@@ -34,9 +34,15 @@ questions. Tasks cite the requirements they serve, so coverage is derived rather
 `docs/METHOD.md` is the working method itself — a short always-loaded spine plus `docs/method/`,
 loaded a file at a time. `CLAUDE.md` no longer restates it and neither should anything else.
 
-The schema question that used to block everything is answered (T-001), and the CLI it gated is built
-(T-002): `python -m taskmd {context,index,check}`, proven by `tests/`. Run `check` after any edit to
-a task file — this project uses its own tool on itself, so a regression shows up immediately.
+The schema question that used to block everything is answered (T-001), and the CLI it gated is built:
+`python -m taskmd {context,index,check,list}`, proven by `tests/`. Run `check` **and** `index` after
+any edit to a task file — this project uses its own tool on itself, so a regression shows up
+immediately, and the generated index goes stale silently until `index` is re-run (T-025).
+`list --open --limit 1` answers "what next" by the project's own ordering rule, so it is not
+something to work out by hand from the index.
+
+`docs/BINDING.md` is the backend contract and `docs/bindings/` holds the bindings. A binding is a
+document, not code — read `docs/BINDING.md` §4 before writing or adopting one.
 
 `reference/` holds proven prior art. It is **not** the plugin: it works, but it is written
 around one project's assumptions. Read it for behaviour that is already verified, not for code

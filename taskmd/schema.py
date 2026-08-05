@@ -38,7 +38,7 @@ SCALAR_KEYS = ("id_field", "id_prefix", "id_width", "title_field", "tasks_dir", 
 # Required to be present, permitted to be empty: `none` means the project does not track that
 # fact. Absent is still an error — a config replaces the default, so a missing key is a schema
 # nobody wrote.
-NULLABLE_KEYS = ("deliverables_field", "blocked_status")
+NULLABLE_KEYS = ("deliverables_field", "blocked_status", "value_field", "effort_field")
 LIST_KEYS = ("open_statuses", "context_fields", "index_columns")
 CONFIG_KEYS = SCALAR_KEYS + NULLABLE_KEYS + LIST_KEYS
 
@@ -178,6 +178,8 @@ class Schema(object):
         self.status_field = fields["status_field"]
         self.deliverables_field = fields["deliverables_field"]
         self.blocked_status = fields["blocked_status"]
+        self.value_field = fields["value_field"]
+        self.effort_field = fields["effort_field"]
         self.open_statuses = fields["open_statuses"]
         self.context_fields = fields["context_fields"]
         self.index_columns = fields["index_columns"]
@@ -212,6 +214,17 @@ class Schema(object):
 
     def is_open(self, status):
         return status in self.open_statuses
+
+    def rank(self, field, value):
+        """Position of `value` in `field`'s vocabulary — lower is preferred.
+
+        The vocabulary row *is* the ranking, best first; see `## Ordering` in the default config,
+        which is the one place the ordering rule is written down. A value that is missing, or not
+        in the vocabulary, ranks after every value that is — so an unestimated task still sorts
+        and is still listed rather than disappearing from a view.
+        """
+        values = self.vocabularies.get(field) or []
+        return values.index(value) if value in values else len(values)
 
     def is_id(self, value):
         return bool(self._id_re.match(value or ""))

@@ -9,6 +9,8 @@ blocked_by: []
 related: [T-003, T-006, T-023, T-024]
 work_package: none
 owner: maintainer
+business_value: high
+effort: m
 created: 2026-08-05
 updated: 2026-08-05
 deliverables:
@@ -88,8 +90,17 @@ R-17 (`docs/SCOPE.md`).
       project config or the shipped default, and all three commands agree — none exits 0
 - [ ] The error says what to do about it, since for a new project creating the folder is the
       correct response and there is no command that will do it
-- [ ] Shown failing on a fixture, per R-16 — the fixture covers all three cases above: typo'd
-      value, absent folder, present-but-empty folder
+- [ ] Shown failing per R-16, on all three cases above — typo'd value, absent folder,
+      present-but-empty folder — each carried by a committed fixture **or, where git cannot store
+      one, by a case the test builds and the fixture README names**
+      <br>*Amended 2026-08-05 by the owner. Original: "Shown failing on a fixture, per R-16 — the
+      fixture covers all three cases above: typo'd value, absent folder, present-but-empty folder."
+      The original demanded a committed fixture for a case that cannot have one: a project with
+      neither a config nor a tasks folder is an empty directory, and git stores no such thing. Kept
+      per [`review`](../docs/method/review.md) — the original text is the record, the amendment is
+      what a future author is held to. Amended rather than left as a review footnote because R-16
+      will be cited by every future validator task, and a criterion demanding the impossible would
+      be either violated or re-argued each time.*
 
 **Open questions**
 - none. **Q1 — a project with no tasks folder yet: error, or tolerated? — answered by the owner
@@ -236,7 +247,7 @@ OK - 23 task(s), vocabulary valid, references resolve, no broken links
 | An existing but **empty** tasks folder is still legal and exits 0 | met | Passed before the fix and after — the same test, unchanged, either side. That is what shows the fix narrowed nothing |
 | A project with no tasks folder at all is the same error whichever way the value arrived, and all three commands agree — none exits 0 | met | Both cases exit 2 from all three commands. Agreement is structural rather than arranged: `cli.main` already routed `SchemaError` to `CONFIG ERROR` / exit 2 before any command runs, which is why `cli.py` was not touched |
 | The error says what to do about it | met | Two hints, chosen on provenance: "Create it, or correct tasks_dir" for a project config; for the shipped default, that the value was inherited and a config may be written instead. Judged on the text, not on a user — no uninvolved reader was available, which is a weaker proof than `implement`'s |
-| Shown failing on a fixture, per R-16 — the fixture covers all three cases | met, **wording overtaken** | All three cases were shown, and the two negative ones shown *failing* first (§3). But only one is a committed fixture: a project with neither a config nor a tasks folder is an empty directory, which git cannot store, so that case is a temp directory built by the test. The criterion was written before `plan` found that constraint. Recorded openly rather than ticked, per [`review`](../docs/method/review.md) — original text kept above, and the substitution is stated in `tests/fixtures/README.md`. **The owner may want the criterion's text amended; the outcome does not change either way** |
+| Shown failing per R-16 on all three cases, each carried by a committed fixture or a test-built case the fixture README names | met | All three cases were shown, and the two negative ones shown *failing* first (§3). Only one is a committed fixture: a project with neither a config nor a tasks folder is an empty directory, which git cannot store, so that case is a temp directory built by the test, and `tests/fixtures/README.md` says so. The criterion was written before `plan` found that constraint and read "the fixture covers all three cases"; **the owner amended it on 2026-08-05** — original text kept in §1, per [`review`](../docs/method/review.md). Nothing about the outcome changed |
 
 **Also checked, beyond the criteria**
 
@@ -260,6 +271,7 @@ OK - 23 task(s), vocabulary valid, references resolve, no broken links
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-05 | → proposed | Raised by T-002's review against criterion 6 and class 8. `implement` proved the unknown-key half of that class and not the missing-file half; the review tested the untested half and it failed. |
+| 2026-08-05 | (no status change) | Criterion 7's wording amended by the owner, closing the one item this task left open. It now accepts a test-built case where git cannot store a fixture; the original text is kept beside it and the §4 row reads plainly *met*. Chosen over leaving a footnote because R-16 is cited by every future validator task, and a criterion demanding a committed fixture for an empty directory would be re-argued each time. No code, test or output changed. |
 | 2026-08-05 | → done | Review worked. All seven criteria met, no child fixes. Review exercised three neighbours `implement` had not: the non-CLI entry point (`taskmd.schema` reports the same sentence, so the check really is at config read), a nested `tasks_dir` whose leaf is missing, and `tasks_dir` naming a file — the last is correctly rejected with a misleading sentence → T-024, raised not fixed. Criterion 7's wording was overtaken by a git constraint the plan found; recorded openly rather than ticked, and the text is the owner's to amend. |
 | 2026-08-05 | → review | Implemented in plan order. `cli.py` needed no change — reusing the existing `SchemaError` → exit 2 path made "all three commands agree" fall out. Negative cases were written and run first: both failed with `check` exit 0, the failure the task was raised for. Suite 71 → 74, all passing; the step 4 sweep found zero tests to update. One thing escalated rather than absorbed: the shipped-default config error prints the absolute install path, which is older than this task but newly in front of new users → T-023. |
 | 2026-08-05 | → planned | Six steps, negative cases first per the `broken-*` precedent. Two things the code decided rather than the plan: the check belongs in `load_schema` (the CLI is not the only caller), and it must run *after* the existing validation, because the `SchemaError` suite builds projects from a config alone. Soft edges added to T-003 and T-006 — the "create the folder" instruction is theirs to carry, and prose in this plan would have been invisible to them. |

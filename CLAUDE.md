@@ -14,13 +14,18 @@ what is explicitly **out** of scope — then [`docs/BRIEF.md`](docs/BRIEF.md) fo
 evidence and the measured prior art behind them. `tasks/README.md` is the generated backlog.
 
 **Status:** the schema layer exists (`taskmd/`), the method document exists
-([`docs/METHOD.md`](docs/METHOD.md), T-008), and the three commands exist — `python -m taskmd
-{context,index,check}` (T-002). This project runs on them; the interim `tools/tasks/task.py` is
-gone. `check` has been shown failing on **every** class it claims, the eighth completed by T-019 —
+([`docs/METHOD.md`](docs/METHOD.md), T-008), and four commands exist — `python -m taskmd
+{context,index,check,list}` (T-002, and `list` from T-022, for which `docs/SCOPE.md` non-goal 11
+was amended). This project runs on them; the interim `tools/tasks/task.py` is gone.
+
+`check` has been shown failing on **every** class it claims, the eighth completed by T-019 —
 a config value naming a folder that is not there is now an error when the config is read, so no
-command can report success on a project it never opened. The bindings and the skill are not written
-yet, and the binding contract (T-009) is the largest unproven claim left: `docs/METHOD.md` is
-written to be storage-agnostic and nothing has yet tested that it is.
+command can report success on a project it never opened. It does **not** yet notice a generated
+index that has gone stale (T-025). The backend contract exists
+([`docs/BINDING.md`](docs/BINDING.md), T-009) with the local-Markdown binding under
+[`docs/bindings/`](docs/bindings/); the method's storage-neutrality is no longer only a claim, since
+the contract was derived from it rule by rule and tested against a backend with no files. The
+GitHub binding (T-010) and the skill (T-003) are still to write.
 
 ## The one design rule
 
@@ -71,7 +76,8 @@ This repository goes to GitHub. Everything written here must be:
   drive letters, no hostnames. Write `<project>/tasks/` not a real path. Where a real identity is
   genuinely load-bearing evidence, it goes in `control/LOCAL-CONTEXT.md` — which is gitignored — and
   the tracked tree refers to it by the label that file defines. **Run the check below before
-  publishing**; it is a grep because `docs/SCOPE.md` non-goal 11 keeps the CLI to three commands.
+  publishing**; it is a grep because a leak check is not one of the things the CLI does — settled in
+  T-013 under `docs/SCOPE.md` non-goal 11, which still excludes it after its 2026-08-05 amendment.
 - **Out-of-the-box.** Someone who clones it must be able to run it with no path editing.
   Resolve paths relative to the repository root, not the working directory.
 - **Dependency-free.** Python standard library only. A tracker that needs `pip install` before it
@@ -86,12 +92,27 @@ Run over the tracked tree. It must print nothing; every hit is either a leak or 
 adding to `control/LOCAL-CONTEXT.md`.
 
 ```bash
-git ls-files -z | xargs -0 grep -nIE '\b[A-Za-z]:[\\/][A-Za-z0-9._-]+[\\/]|/(home|Users)/|[\\]{2}[A-Za-z0-9._-]+[\\]|[0-9]{1,3}(\.[0-9]{1,3}){3}'
+git ls-files -z ':!tests/fixtures/leak-check/' | xargs -0 grep -nIE '\b[A-Za-z]:[\\/][A-Za-z0-9._-]+[\\/]|/(home|Users)/|[\\]{2}[A-Za-z0-9._-]+[\\]|[0-9]{1,3}(\.[0-9]{1,3}){3}'
 ```
 
 Four classes: Windows drive paths, home directories, UNC paths, IP addresses. `git ls-files` is what
 makes it meaningful — it sees exactly what a push would send, so anything gitignored is out of scope
 by construction.
+
+**Run it last, after the task record is written — not before.** The check reads the tracked tree, so
+it cannot see a file that does not exist yet, and the text most likely to trip it is the write-up of
+a task *about* the check: quoting a matched line into a task record re-creates the leak. This has
+now happened twice, in T-013 and again in T-018 while fixing T-013. Describe the result and point at
+the fixture; never paste the lines.
+
+**The excluded path is the check's own fixture, and dropping the exclusion is how the check is
+proven.** `tests/fixtures/leak-check/samples.txt` holds nine deliberately-fabricated lines: five that
+must be caught, one per class, and four safe forms that must not be. So there are two runs of one
+command — with the exclusion, the tree must print **nothing**; without it, the output must be
+**exactly those five lines and nothing else**. The second run is what a clean tree can never prove
+on its own (*Verifying*, below), and keeping it in the same command is what stops the proof drifting
+from the check. The exclusion is one pathspec, not a second contract: any leak outside that one file
+is still caught, and the file's only content is the fixture.
 
 **Two limits, both deliberate.** A drive path is only matched with **two or more segments** after the
 letter; a single-segment one is let through, because that form collides with ordinary text such as a
@@ -102,11 +123,12 @@ real name or a client project is not mechanically detectable at all**: that half
 discipline above, and it holds only if every new identity goes into `control/LOCAL-CONTEXT.md`
 rather than into a task.
 
-The pattern was verified by being made to fail (per *Verifying*, below): a fixture with one line per
-class was caught on all four, plus a Windows drive path, while `https://`, a `d:\n` escape, a version
-string and the prose phrase "drive letters" were correctly ignored. Two earlier drafts were wrong —
-one ended a branch in `\\`, which grep read as an escaped `|` and which silently swallowed the entire
-IP branch. That bug was invisible on a clean tree.
+The pattern was verified by being made to fail (per *Verifying*, below), and the fixture that did it
+is the one named above rather than a transcript pasted into a task — which is what T-018 was raised
+to fix, after the pasted copy left a real drive path in the tracked tree and made the documented
+"prints nothing" unreachable. Two earlier drafts were wrong: one matched `http://` and a `d:\n`
+escape, and one ended a branch in `\\`, which grep read as an escaped `|` and which silently
+swallowed the entire IP branch. Both bugs were invisible on a clean tree.
 
 ## Verifying
 

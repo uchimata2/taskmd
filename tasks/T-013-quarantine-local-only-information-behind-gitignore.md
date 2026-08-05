@@ -9,6 +9,8 @@ blocked_by: []
 related: [T-006, T-008, T-011]
 work_package: none
 owner: maintainer
+business_value: high
+effort: s
 created: 2026-08-04
 updated: 2026-08-04
 deliverables:
@@ -119,19 +121,15 @@ by file, is what let it accumulate; one quarantine file makes the rule checkable
 | The check is written where a future session will run it before publishing | met | `CLAUDE.md` *Publishing constraints*, as the first bullet's consequence rather than a separate appendix. |
 
 **The check, proven by failing** (plan step 5). A fixture with one line per class, plus four lines
-that must **not** trip it:
-
-```
-1:drive C:\Work\AgentPlugins\taskmd          <- caught
-2:home /home/someone/project                 <- caught
-3:users /Users/someone/project               <- caught
-4:unc \\fileserver\share\docs                <- caught
-5:ip 192.168.1.42                            <- caught
-  safe https://example.com/a                 <- correctly ignored
-  safe a python d:\n escape inside a string  <- correctly ignored
-  safe the words drive letters and hostnames <- correctly ignored
-  safe version 1.2.3 and a range 1-3         <- correctly ignored
-```
+that must **not** trip it. **The fixture now lives in
+[`tests/fixtures/leak-check/samples.txt`](../tests/fixtures/leak-check/samples.txt)** and is run by
+the command in `CLAUDE.md` with its exclusion dropped — moved there by
+[T-018](T-018-stop-the-pre-publish-fixture-tripping-its-own-check.md) on 2026-08-05. It was inlined
+here, which had two consequences this review could not see: the check could never print nothing
+again, and line 1 of the pasted copy was a real absolute path from the machine this task ran on —
+an R-23 violation inside the task whose subject is removing exactly that. The lines are not
+reproduced here, because a copy left behind is still a copy and would drift from the file that is
+actually run.
 
 Two earlier drafts were wrong, and **only the failure test found them**. The first matched `http://`
 and a `d:\n` escape — noise that would have trained a reader to ignore the check. The second ended a

@@ -9,6 +9,8 @@ blocked_by: []
 related: []
 work_package: WP<n> | final | none
 owner: the project owner
+business_value: critical | high | medium | low
+effort: xs | s | m | l | xl
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
 deliverables: []

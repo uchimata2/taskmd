@@ -6,6 +6,8 @@ title_field: name
 tasks_dir: issues
 status_field: state
 deliverables_field: none
+value_field: none
+effort_field: size
 blocked_status: none
 open_statuses: [todo, doing, waiting]
 context_fields: [state, size, area]

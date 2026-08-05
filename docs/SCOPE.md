@@ -15,13 +15,19 @@ the measured prior art; this file does not repeat them. Decided in
 generated index, real dependency links, and a validator — usable for any kind of work, not only
 software.**
 
-Two properties make the goal falsifiable rather than decorative:
+Three properties make the goal falsifiable rather than decorative:
 
 - **Token cost.** Starting a task costs one command, not a reading list. The saving is measured and
   stated (`BRIEF.md`), not asserted.
 - **No install.** A clone works: no configuration, no dependencies, no path editing.
+- **Invisibility.** The tool works in the background and asks nothing of the user in order to stay
+  correct. Control exists for anyone who wants it — every value the tool fills in can be overridden
+  — but no correctness may depend on someone remembering to intervene. *Added 2026-08-05 by the
+  maintainer.* It is the property most easily lost by accident: a cache, a stored derived value, a
+  field a human must keep true, a step in a README that someone has to remember. Each is useful and
+  each fails this test, which is why it is written here rather than assumed.
 
-If a change makes either worse, it is against the goal even if it is a good idea.
+If a change makes any of the three worse, it is against the goal even if it is a good idea.
 
 ---
 
@@ -113,8 +119,16 @@ property does, an instruction does not. Decided in
 Not "later" — **not this tool**. Each is something a task tracker plausibly grows into, and each
 would cost the goal in §1.
 
-1. **Project management.** No estimates, time tracking, velocity, burndown, capacity or Gantt.
-   Those need a team process to be meaningful; this needs a folder.
+1. **Project management.** No time tracking, velocity, burndown, capacity or Gantt. Those need a
+   team process to be meaningful; this needs a folder. **Amended 2026-08-05 by the maintainer; the
+   original excluded estimates outright.** Two estimated fields — effort and business value — are in
+   scope for exactly one purpose: ordering the task listing
+   ([T-022](../tasks/T-022-filtered-task-listing-for-scripts.md)). The carve-out is tested by use
+   rather than by intent — **if either field is ever read by something other than the ordering, it
+   has left it**, and that is the moment to re-argue this non-goal rather than quietly widen it.
+   They are filled in by the agent, overridable, and optional (`none` disables them), which is what
+   keeps them on the right side of §1 *Invisibility*: an estimate a human must maintain for the tool
+   to be correct would fail that property and would not be worth having.
 2. **A running process.** No server, daemon, database, watcher or background sync.
 3. **A user interface.** No GUI, no TUI, no web view. The files are the interface; the terminal is
    the view.
@@ -130,7 +144,19 @@ would cost the goal in §1.
 9. **Replacing GitHub Issues** for teams already using them. taskmd's GitHub mode applies its
    method *to* issues; it does not ask anyone to leave them.
 10. **Notifications, reminders, scheduling, recurrence.**
-11. **A query language.** `context`, `index` and `check` are the surface. Anything else is grep.
+11. **A query language** — boolean expressions, saved queries, aggregation, ranking as a feature.
+    **Amended 2026-08-05 by the maintainer; the original read "`context`, `index` and `check` are
+    the surface. Anything else is grep."** A **filtered task listing** is now in scope
+    ([T-022](../tasks/T-022-filtered-task-listing-for-scripts.md)), for two reasons the original
+    wording did not weigh. Grep cannot answer the question at all: `blocks` and the far end of a
+    soft link are derived and exist nowhere on disk, so no pattern will ever find them. And §1's
+    token cost is a goal, not a nicety — an agent that must read every task file to find the next
+    one has already spent what `context` exists to save, so the listing is a token-efficiency
+    instrument (R-15) rather than a convenience. **The carve-out is exactly that**: selecting a
+    subset by stored value or edge, rendered ready to use. Everything else this non-goal named
+    stays out, and the decisions built on it stand — no `init` command (T-019), the pre-publish
+    leak check remains a grep (T-013), and `deliverables` remains a validation rather than a
+    command (T-002).
 
 ---
 

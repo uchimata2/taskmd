@@ -75,14 +75,20 @@ only documentation of what a config may contain.
 
 ### Commands
 
-`context`, `index`, `check` are the core.
+`context`, `index`, `check`, `list` are the core.
 
 **Settled in [T-002](../tasks/T-002-implement-the-core-cli-context-index-check.md)** (2026-08-05):
-`decisions` and `deliverables` are **neither** built in nor config-declared views —
-[`SCOPE.md`](SCOPE.md) non-goal 11 keeps the surface at three, and anything else is grep. The one
+`decisions` and `deliverables` are **neither** built in nor config-declared views — the one
 behaviour of theirs that nothing else replaces, catching a declared output that has been deleted,
-survives as a `check` class rather than as a fourth command. It earned that on its first real run,
-finding a deleted file still declared by T-008.
+survives as a `check` class rather than as a command. It earned that on its first real run, finding
+a deleted file still declared by T-008.
+
+**Amended in [T-022](../tasks/T-022-filtered-task-listing-for-scripts.md)** (2026-08-05): the
+surface stood at three because [`SCOPE.md`](SCOPE.md) non-goal 11 sent everything else to grep, and
+`list` is the exception the maintainer argued for. Grep cannot answer these questions at all — what
+a task blocks and the far end of a soft link are derived, and exist nowhere on disk — and reading
+every task file to find the next one spends exactly what `context` was built to save. The non-goal
+still excludes the query language; it is the *listing* that was carved out.
 
 ### The skill
 
