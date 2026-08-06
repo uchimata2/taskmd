@@ -88,22 +88,28 @@ This repository goes to GitHub. Everything written here must be:
 
 ### The pre-publish check
 
-Run over the tracked tree. It must print nothing; every hit is either a leak or a label that needs
-adding to `control/LOCAL-CONTEXT.md`.
+Run over every file a push would send. It must print nothing; every hit is either a leak or a label
+that needs adding to `control/LOCAL-CONTEXT.md`.
 
 ```bash
-git ls-files -z ':!tests/fixtures/leak-check/' | xargs -0 grep -nIE '\b[A-Za-z]:[\\/][A-Za-z0-9._-]+[\\/]|/(home|Users)/|[\\]{2}[A-Za-z0-9._-]+[\\]|[0-9]{1,3}(\.[0-9]{1,3}){3}'
+git ls-files -z --cached --others --exclude-standard ':!tests/fixtures/leak-check/' | xargs -0 grep -nIE '\b[A-Za-z]:[\\/][A-Za-z0-9._-]+[\\/]|/(home|Users)/|[\\]{2}[A-Za-z0-9._-]+[\\]|[0-9]{1,3}(\.[0-9]{1,3}){3}'
 ```
 
 Four classes: Windows drive paths, home directories, UNC paths, IP addresses. `git ls-files` is what
-makes it meaningful — it sees exactly what a push would send, so anything gitignored is out of scope
-by construction.
+makes it meaningful, but **only with those three flags**: on its own it lists what git already
+*tracks*, which silently omits every file the session just created. `--cached --others
+--exclude-standard` is tracked files **plus** untracked-but-not-ignored ones — so it sees exactly
+what a push would send, and anything gitignored is still out of scope by construction. Do not
+shorten it to `-co`: the point of the line is that a reader can see what it covers. The omission was
+silent for as long as it existed — a check that reads none of the files it was aimed at prints
+nothing, which is also what success looks like (T-034, which measured it and proved the fix by
+making it catch a leak in an untracked file).
 
-**Run it last, after the task record is written — not before.** The check reads the tracked tree, so
-it cannot see a file that does not exist yet, and the text most likely to trip it is the write-up of
-a task *about* the check: quoting a matched line into a task record re-creates the leak. This has
-now happened twice, in T-013 and again in T-018 while fixing T-013. Describe the result and point at
-the fixture; never paste the lines.
+**Run it last, after the task record is written — not before.** The check reads files, so it cannot
+see one that does not exist yet, and the text most likely to trip it is the write-up of a task
+*about* the check: quoting a matched line into a task record re-creates the leak. This has now
+happened twice, in T-013 and again in T-018 while fixing T-013. Describe the result and point at the
+fixture; never paste the lines.
 
 **The excluded path is the check's own fixture, and dropping the exclusion is how the check is
 proven.** `tests/fixtures/leak-check/samples.txt` holds nine deliberately-fabricated lines: five that
