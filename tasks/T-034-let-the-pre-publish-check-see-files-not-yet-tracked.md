@@ -2,7 +2,7 @@
 id: T-034
 title: Let the pre-publish check see files not yet tracked
 type: fix
-status: proposed
+status: specified
 phase: specify
 parent: T-026
 blocked_by: []
@@ -122,4 +122,5 @@ which [T-006](T-006-package-document-and-publish.md) must be able to certify.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-06 | → specified | Agreed by the maintainer as written, with no criterion amended — the specify carried no open questions, so agreement was the only gate. Chosen over T-010 deliberately: the project's own ordering ranks T-010, T-011 and T-003 ahead of this task because each releases T-006, and the maintainer took the cheap task that guards the last check before publication instead. That disagreement between the pointer and the ordering is recorded rather than resolved — it is the second time the ordering's answer has been overridden by hand, which is worth watching if it becomes a pattern. |
 | 2026-08-06 | → proposed | Raised as F-8 from the T-026 audit, clauses 1 and 3 — found in that audit's step 10, while running the check over the audit's own output, which is the situation the blind spot is worst in. Measured before being written up: 83 files seen versus 90 that a push would send. Raised rather than fixed in place (METHOD §5), even though the fix is one flag, because a silent gap in the last check before publication is exactly the kind of change that should carry a record of having been proven. |

@@ -36,7 +36,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-031](T-031-give-the-list-rationale-one-home.md) | Give the list rationale one home | - | `proposed` | `specify` | T-026 | - | - | - | T-022, T-027 |
 | [T-032](T-032-repair-the-audit-template-and-validate-templates.md) | Repair the audit template, and validate templates at all | - | `proposed` | `specify` | T-026 | - | - | - | T-003, T-022 |
 | [T-033](T-033-resolve-the-f1-reference-inside-this-repository.md) | Resolve the F1 reference inside this repository | - | `proposed` | `specify` | T-026 | - | - | - | T-005, T-013 |
-| [T-034](T-034-let-the-pre-publish-check-see-files-not-yet-tracked.md) | Let the pre-publish check see files not yet tracked | - | `proposed` | `specify` | T-026 | - | - | - | T-006, T-013, T-018 |
+| [T-034](T-034-let-the-pre-publish-check-see-files-not-yet-tracked.md) | Let the pre-publish check see files not yet tracked | - | `specified` | `specify` | T-026 | - | - | - | T-006, T-013, T-018 |
 
 ## Closed
 
