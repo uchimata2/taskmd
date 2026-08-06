@@ -2,11 +2,11 @@
 id: T-032
 title: Repair the audit template, and validate templates at all
 type: fix
-status: proposed
+status: specified
 phase: specify
 parent: T-026
 blocked_by: []
-related: [T-003, T-022]
+related: [T-003, T-022, T-036]
 work_package: none
 owner: maintainer
 business_value: high
@@ -94,10 +94,43 @@ R-3, R-5, R-16 (`docs/SCOPE.md`).
       the template and the vocabulary must not disagree again
 
 **Open questions**
-- Does the `type` vocabulary gain `audit`, or does an audit use `analysis`? Adding a value is
-  config, so it is cheap; but METHOD §5 calls audit a task type in a sense the schema's `type` field
-  may not be meant to carry, and T-026 ran fine as `analysis`. — maintainer; it decides what the
-  template says, so it blocks `specify`.
+- None. **Q1 — does `type` gain `audit`? — answered by the maintainer on 2026-08-06: yes.**
+
+  The answer given was that an audit task runs the same pipeline as any other task. That settles the
+  doubt the question was raised on rather than sidestepping it: `type` and `phase` are **orthogonal**
+  fields, and every value already in the vocabulary goes through all four phases. So "it has a full
+  lifecycle" is an argument *for* the value, not the reason to withhold it — `type` records what kind
+  of work a task is, and audit is a kind of work.
+
+  The deciding argument is drift. METHOD §5's first line is *"An audit is a task type, not a
+  phase"*; if the schema's `type` field has no such value, the method's word and the schema's field
+  name different things, which is what this plugin exists to remove. T-026 running as `analysis` is
+  evidence the field tolerates the substitution, not that the substitution is right — and it makes
+  audits unfindable as a class, since `list` filters on the value that is stored.
+
+  *Rejected: keep using `analysis`.* It costs nothing today and leaves the template naming a value
+  the config does not have — which is this finding, unfixed.
+
+**Deliberately not answered here — the audit *workflow*, which is a different subject**
+
+The answer to Q1 arrived with a fuller account of how an audit should run: `specify` carries goals
+and requirements, `plan` researches and produces the audit procedure for that particular audit,
+`implement` performs it and records findings; plus a separate case — a user asking for a **task's
+plan** to be audited.
+
+Most of it is already written, and where it is not, **it does not belong in this task**:
+
+- Scope-first, threshold-before-looking, findings-in-the-umbrella and close-only-when-children-resolve
+  are [`docs/method/audit.md`](../docs/method/audit.md) steps 1–5. The mandatory lifecycle is METHOD
+  rule 2.
+- **Genuinely new:** that the audit *procedure* is designed in `plan`, per audit. That is an addition
+  to `audit.md`.
+- Writing any of it into the template is the defect this task exists to fix. F-6 is a template that
+  had rotted into a stale second copy of the method; repairing it by copying more method into it
+  reproduces the fault at a larger size.
+
+Split out as [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md), which also
+carries the plan-audit case — where the answer given is argued **against**; see that task.
 
 ## 2. Plan
 
@@ -123,4 +156,5 @@ R-3, R-5, R-16 (`docs/SCOPE.md`).
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-06 | → specified | Q1 answered by the maintainer: `type` gains `audit`. The answer's own reasoning — that an audit runs the same pipeline as any other task — is what settles it, since `type` and `phase` are orthogonal and every existing value already runs all four phases; the deciding argument is that METHOD §5 calls audit a task type while the schema has no such value, which is the drift this plugin exists to remove. No criterion amended; criterion 5 already required the rejected alternative to be recorded and it now is. The answer also carried an account of the audit *workflow* — two method changes that would have widened this task into the thing it was raised to fix, so they are split to T-036, one agreed and one argued against there rather than here. |
 | 2026-08-06 | → proposed | Raised as F-6 from the T-026 audit, clauses 1 and 3. Proven by building a task from the template and running `check`, which reported two classes; the other two defects are structural and invisible to it. The audit that found this is the one that would have been created from the template. |

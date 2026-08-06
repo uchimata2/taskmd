@@ -2,7 +2,7 @@
 id: T-030
 title: Settle the schema module's own entry point
 type: decision
-status: proposed
+status: specified
 phase: specify
 parent: T-026
 blocked_by: []
@@ -81,12 +81,26 @@ R-18, R-20 (`docs/SCOPE.md`); non-goal 11, which is about what the surface is.
 - [ ] Checked against T-023 before implementing, so the overlapping half is fixed once
 
 **Open questions**
-- Keep it or remove it? *Recommendation: remove.* Everything it prints is available from `context`
-  and `list --json`, which are supported, tested and documented, so keeping it means maintaining a
-  second renderer of the same derivation for debugging that the supported commands already serve.
-  The argument for keeping it is that it is the only view of the **resolved schema** as opposed to
-  the tasks — if that is worth having, it is worth having as part of the surface rather than beside
-  it. — maintainer; this decides the outcome, so it blocks `specify`.
+- None. **Q1 — keep it or remove it? — answered by the maintainer on 2026-08-06: remove.**
+
+  The recommendation offered here was that everything it prints is available from `context` and
+  `list --json`. That is true of the task-graph half only, and it was the weaker argument. The
+  decisive one is that **the entry point's one distinguishing capability does not exist**: it is the
+  only view of the *resolved schema* as opposed to the tasks — but a taskmd config **replaces** the
+  default rather than merging with it (`taskmd/defaults/config.md` §*Deliverables*, and the same
+  rule stated for every key), so there is no resolution step to inspect. "The resolved schema" is
+  always the config file the reader already has open.
+
+  *Rejected: keeping it as part of the documented surface.* It would have to gain `--root PATH`,
+  test coverage, R-20-clean output and a line in every place that says what the surface is — the
+  cost of a fifth command for a view whose content is a file plus two commands.
+
+  **Not affected by the removal, and to be stated when it lands:** `taskmd/schema.py` remains
+  importable and is exercised directly by `tests/test_schema.py`; T-019's review used this module as
+  evidence that config validation fires for callers that never touch the CLI. That guarantee lives in
+  `load_schema`, not in `main()`, and survives it. The removal closes an undocumented *command*, not
+  the module's API — bindings (`docs/BINDING.md`) reach the schema through the import, which is the
+  path that matters.
 
 ## 2. Plan
 
@@ -112,4 +126,5 @@ R-18, R-20 (`docs/SCOPE.md`); non-goal 11, which is about what the surface is.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-06 | → specified | Q1 answered by the maintainer: remove. The criteria were written to survive either answer and none needed amending — criterion 3 ("if the entry point survives…") is now vacuous rather than wrong, and is kept as written so the review can record that it did not apply. The recommendation's own rationale was replaced by a stronger one found while agreeing it: a config replaces rather than merges, so the resolved-schema view has no content of its own. Noted for `implement`: the module stays importable and `load_schema` keeps the guarantee T-019 rests on — this removes a command, not the API a binding uses. |
 | 2026-08-06 | → proposed | Raised as F-4 from the T-026 audit, clauses 1 and 3. Run before being written up: the entry point works and prints an absolute install path on the success path. Deduped against T-023, which shares the root cause but is scoped to error messages only. Typed `decision` because keep-or-remove changes what the fix is. |
