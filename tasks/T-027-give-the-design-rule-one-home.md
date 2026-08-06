@@ -11,8 +11,8 @@ work_package: none
 owner: maintainer
 business_value: high
 effort: s
-created: 2026-08-05
-updated: 2026-08-05
+created: 2026-08-06
+updated: 2026-08-06
 deliverables: []
 ---
 
@@ -104,4 +104,4 @@ R-1, R-21 (`docs/SCOPE.md`); §1 *Token cost*.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-05 | → proposed | Raised as F-1 from the T-026 audit, clauses 2 and 4. Not fixed where it was found (METHOD §5). The finding is narrow on purpose: two of the three copies are settled by T-017 and are not in scope here. |
+| 2026-08-06 | → proposed | Raised as F-1 from the T-026 audit, clauses 2 and 4. Not fixed where it was found (METHOD §5). The finding is narrow on purpose: two of the three copies are settled by T-017 and are not in scope here. |

@@ -11,8 +11,8 @@ work_package: none
 owner: maintainer
 business_value: high
 effort: s
-created: 2026-08-05
-updated: 2026-08-05
+created: 2026-08-06
+updated: 2026-08-06
 deliverables: []
 ---
 
@@ -106,4 +106,4 @@ R-21 (`docs/SCOPE.md`); §1 *Token cost*, which is a falsifiable property rather
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-05 | → proposed | Raised as F-2 from the T-026 audit, clauses 3 and 4. Measured, not asserted: 139 + 147 = 286 always-loaded lines against the 173-line flat alternative the limit is justified by. Typed `decision` rather than `fix` because what to count is a judgement, and moving content is deliberately out of scope until it is made. |
+| 2026-08-06 | → proposed | Raised as F-2 from the T-026 audit, clauses 3 and 4. Measured, not asserted: 139 + 147 = 286 always-loaded lines against the 173-line flat alternative the limit is justified by. Typed `decision` rather than `fix` because what to count is a judgement, and moving content is deliberately out of scope until it is made. |

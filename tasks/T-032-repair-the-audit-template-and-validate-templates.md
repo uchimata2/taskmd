@@ -11,8 +11,8 @@ work_package: none
 owner: maintainer
 business_value: high
 effort: s
-created: 2026-08-05
-updated: 2026-08-05
+created: 2026-08-06
+updated: 2026-08-06
 deliverables: []
 ---
 
@@ -123,4 +123,4 @@ R-3, R-5, R-16 (`docs/SCOPE.md`).
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-05 | → proposed | Raised as F-6 from the T-026 audit, clauses 1 and 3. Proven by building a task from the template and running `check`, which reported two classes; the other two defects are structural and invisible to it. The audit that found this is the one that would have been created from the template. |
+| 2026-08-06 | → proposed | Raised as F-6 from the T-026 audit, clauses 1 and 3. Proven by building a task from the template and running `check`, which reported two classes; the other two defects are structural and invisible to it. The audit that found this is the one that would have been created from the template. |

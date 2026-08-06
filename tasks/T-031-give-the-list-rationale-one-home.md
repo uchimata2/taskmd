@@ -11,8 +11,8 @@ work_package: none
 owner: maintainer
 business_value: medium
 effort: xs
-created: 2026-08-05
-updated: 2026-08-05
+created: 2026-08-06
+updated: 2026-08-06
 deliverables: []
 ---
 
@@ -98,4 +98,4 @@ R-1 (`docs/SCOPE.md`); §2 principle 3, *point, don't restate*.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-05 | → proposed | Raised as F-5 from the T-026 audit, clause 2. Four live homes located by grep, two of them in one file. Task records deliberately excluded — a dated record of a decision is not a copy to keep in step. |
+| 2026-08-06 | → proposed | Raised as F-5 from the T-026 audit, clause 2. Four live homes located by grep, two of them in one file. Task records deliberately excluded — a dated record of a decision is not a copy to keep in step. |

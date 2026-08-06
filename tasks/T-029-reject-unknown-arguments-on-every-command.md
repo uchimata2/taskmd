@@ -11,8 +11,8 @@ work_package: none
 owner: maintainer
 business_value: high
 effort: s
-created: 2026-08-05
-updated: 2026-08-05
+created: 2026-08-06
+updated: 2026-08-06
 deliverables: []
 ---
 
@@ -115,4 +115,4 @@ arrive before output*, [T-026](T-026-audit-the-whole-project-before-the-remainin
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-05 | → proposed | Raised as F-3 from the T-026 audit, clause 3. Reproduced on all three commands before being written up; the `index` case writes the index and exits 0 on a mistyped invocation. Not fixed where it was found (METHOD §5). |
+| 2026-08-06 | → proposed | Raised as F-3 from the T-026 audit, clause 3. Reproduced on all three commands before being written up; the `index` case writes the index and exits 0 on a mistyped invocation. Not fixed where it was found (METHOD §5). |

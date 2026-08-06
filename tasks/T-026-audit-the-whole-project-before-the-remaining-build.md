@@ -12,7 +12,7 @@ owner: maintainer
 business_value: high
 effort: l
 created: 2026-08-05
-updated: 2026-08-05
+updated: 2026-08-06
 deliverables: []
 ---
 
@@ -64,7 +64,7 @@ findings will cite them.
   examinable, on the condition that the finding shows the cost rather than asserting a preference.
 
   **This overrides `docs/SCOPE.md` §6's "no session should re-raise them", for this audit only.** The
-  override is the maintainer's, given 2026-08-05 when the threshold was set. It is recorded here
+  override is the maintainer's, given 2026-08-06 when the threshold was set. It is recorded here
   rather than edited into `docs/SCOPE.md`, because changing that sentence is a fix and this task
   fixes nothing — if the audit finds §6's wording should soften permanently, that is a child task
   like any other finding.
@@ -76,7 +76,7 @@ findings will cite them.
 - `CLAUDE.md` — the publishing, portability and verification constraints
 - `python -m taskmd list --json` — the whole graph, in one call, without reading 26 files
 
-**The finding threshold — decided by the maintainer, 2026-08-05, before looking**
+**The finding threshold — decided by the maintainer, 2026-08-06, before looking**
 
 A finding is **anything that would cost a later reader or session real work.** Five clauses, numbered
 so every finding can cite the one it meets:
@@ -127,7 +127,7 @@ than it returns?** If the answer needs the auditor's taste to come out yes, it i
       run, or by being run and quietly reordered by hand
 
 **Open questions**
-- ~~What is the finding threshold?~~ **Answered by the maintainer 2026-08-05:** the recommendation,
+- ~~What is the finding threshold?~~ **Answered by the maintainer 2026-08-06:** the recommendation,
   taken with an amendment that widened it — **clause 5**, above. The maintainer's words: go with the
   recommendation *"but not blindly, feel free to derail from the original requirements if it
   simplifies or makes more sense. Step back, understand the purpose of such plugin, and make
@@ -137,7 +137,7 @@ than it returns?** If the answer needs the auditor's taste to come out yes, it i
   changes about this task: the out-list's third bullet, above, no longer shields settled decisions
   from examination, only from preference.
 - ~~Does the audit rank findings by the project's own ordering rule?~~ **Answered by the maintainer
-  2026-08-05: yes**, and it is now the last acceptance criterion. This is the first use of `list` on
+  2026-08-06: yes**, and it is now the last acceptance criterion. This is the first use of `list` on
   tasks nobody has hand-sorted, so the ordering rule is under examination at the same time as the
   files are — which is the reason a bad order counts as a met criterion rather than a failed one.
 
@@ -211,18 +211,18 @@ Worked in plan order. Steps 2–6 were executed as planned; nothing was reordere
 
 ### Decisions & assumptions
 
-- **A finding's severity is judged on cost, not on how wrong it feels** — 2026-08-05, step 7. Two
+- **A finding's severity is judged on cost, not on how wrong it feels** — 2026-08-06, step 7. Two
   findings that read as embarrassing (the design rule written three times; the audit template that
   cannot make a valid task) are High because they are paid for every turn and at every audit
   respectively, not because of how they read. Conversely F-7 stays Medium despite being a dangling
   reference in a contract document, because a reader who ignores the label loses one citation.
-- **Task records were excluded from the duplication findings** — 2026-08-05, step 5. A task record
+- **Task records were excluded from the duplication findings** — 2026-08-06, step 5. A task record
   is a dated account of a decision, not a live claim to keep in step. Counting T-002's and T-022's
   statements of the `list` rationale as copies would have made F-5 look twice as large and would
   have implied rewriting history to match a later document, which destroys the record the method
   exists to keep. Stated here because the opposite choice would have been defensible and would have
   changed the finding count.
-- **Clause 5 produced one finding and one deliberate refusal** — 2026-08-05, step 6. F-2 is the
+- **Clause 5 produced one finding and one deliberate refusal** — 2026-08-06, step 6. F-2 is the
   clause-5 finding, and it names its cost in lines. The four-phase lifecycle was examined under the
   maintainer's explicit licence to derail from settled decisions and was **dropped** — see N-5. That
   refusal is the threshold doing its job, and it is recorded rather than omitted because an audit
@@ -401,7 +401,7 @@ good at ([`review`](../docs/method/review.md) step 1).
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-| The finding threshold is written down **before** looking, and every finding is judged against it | met | Decided by the maintainer on 2026-08-05 before any file was opened, as five numbered clauses. The evidence it was binding rather than decorative is N-5 and N-4: two observations that survived to the write-up and were **dropped** against it. A threshold that excluded nothing would not have been one. |
+| The finding threshold is written down **before** looking, and every finding is judged against it | met | Decided by the maintainer on 2026-08-06 before any file was opened, as five numbered clauses. The evidence it was binding rather than decorative is N-5 and N-4: two observations that survived to the write-up and were **dropped** against it. A threshold that excluded nothing would not have been one. |
 | **Every finding cites the threshold clause it meets** | met | All eight rows carry a clause column; no row cites none. Checked the harder direction too — that no finding's justification is really "the auditor disliked it": each row states a fact (a line count, a command's exit code, a grep result, a `check` failure) that survives the reader disagreeing with me. |
 | **A clause-5 finding shows the weight, not the preference** | met, with a stated residual | F-2 is the only clause-5 finding. Weight: 286 always-loaded lines against the 173-line flat alternative the budget is justified against — arithmetic, so it passes the falsification test decisively (it does not evaporate if a reader disagrees about taste). **Residual:** the criterion also asks for "what the cheaper thing is", and F-2 names the cheaper *measure* (budget the set, not one file) while T-028 deliberately puts choosing what to cut out of scope. If the owner reads clause 5 as requiring the cut to be named too, this is the row to re-open — flagged rather than resolved in my own favour. |
 | Every area in scope is recorded as examined, including the areas that produced **no** finding | met, after correction | 14 areas, 79 in-scope files, every one assigned to exactly one area and the per-area figures summing to the tracked total. **The denominator was wrong when `implement` closed** — it read 82 files and 8 in `reference/`, against a real 84 and 5. Found here, corrected in §3 with the correction recorded in place. Eleven no-action rows carry the other half of this criterion. |
@@ -441,8 +441,8 @@ audit finds they were considered rather than missed.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-05 | (no status change) | Reviewed. Eight of the nine criteria met; the ninth — the umbrella closes only when its children resolve — is upheld by **not** closing, so the task stays open at `phase: review` with all eight children `proposed`. Status deliberately unchanged: the audit is finished, the umbrella is not, and closing it now would erase the link between the examination and its consequences (audit step 5). Review changed one thing, the coverage denominator, which was wrong in `implement` (82/8 against a real 84/5) and is corrected with the correction left visible — criterion 4 rests on it. One residual flagged for the owner rather than resolved in my own favour: F-2 names the cheaper *measure* but not the cut, and if clause 5 is read as requiring both, that row re-opens. No new findings; two candidates were declined as review-is-not-an-audit and recorded so the next audit knows they were considered. |
-| 2026-08-05 | → review | Ten steps worked in order, nothing reordered. Eight findings, eleven no-action rows, eight child tasks (T-027…T-034). The eighth arrived in step 10 and is recorded as escalated rather than folded in silently: running the pre-publish check over this audit's own output showed the documented command reads only tracked files, so it had not read any of them. Two findings were proven by being made to fail rather than asserted: F-6 by building a task from the audit template and watching `check` report two classes, F-3 by running the three commands, one of which wrote the index and exited 0 on a mistyped invocation. The heaviest finding is F-2, and it is the clause-5 one: the always-loaded budget measures 147 of the 286 lines it exists to protect. Clause 5 also produced a deliberate refusal — the four-phase lifecycle was examined under the maintainer's licence to derail and dropped for lack of cost evidence (N-5). Step 9 falsified my own written-up expectation twice: the ordering put T-032 fourth rather than first, and then the eighth task changed the head of the list entirely. Both runs are recorded, because a criterion answered once and early would have concluded the wrong thing about the rule. The rule behaves as documented, so N-11 rather than a finding — the head is a good answer it produced unprompted, the middle is an id tiebreak. |
-| 2026-08-05 | → planned | Ten steps. The plan's one real choice is the sequencing: the mechanical clauses run first and the purpose pass runs last, because clause 5 asks whether a design costs more than it returns and that cannot be judged before the cost is in hand — a plan opening with "is the lifecycle too heavy?" would answer from taste, which the threshold's own test forbids. Planning deliberately stops at step 6, since a large clause-5 finding would change what the child tasks are. The findings live in this task's record rather than in `tasks/_templates/audit-umbrella-template.md`: the template cannot be used as it stands, and correcting it first would be the inline fix this task may not make — so its condition is a step-5 finding and a child task corrects it. Dependencies checked: none needed, the four related tasks are correctly soft links, since a dependency edge would falsely claim the audit cannot proceed. |
-| 2026-08-05 | → specified | Both open questions answered by the maintainer in one turn, so `specify` closes without a second round. The threshold is the recommendation plus a fifth clause the maintainer added: weight the purpose does not need is a finding, and a finding may derail from a stated requirement or a settled decision where that simplifies. That widened the task's own out-list — settled decisions are now examinable for cost, not shielded — and it overrides `docs/SCOPE.md` §6's "no session should re-raise them" for this audit, recorded here rather than edited there, because editing it would be a fix. Clause 5 carries its own test, since it is the clause that makes preference look like a finding. The umbrella will also report the `list` order, which puts the ordering rule under examination alongside the files; a bad order is a finding, not a failed criterion. |
+| 2026-08-06 | (no status change) | Reviewed. Eight of the nine criteria met; the ninth — the umbrella closes only when its children resolve — is upheld by **not** closing, so the task stays open at `phase: review` with all eight children `proposed`. Status deliberately unchanged: the audit is finished, the umbrella is not, and closing it now would erase the link between the examination and its consequences (audit step 5). Review changed one thing, the coverage denominator, which was wrong in `implement` (82/8 against a real 84/5) and is corrected with the correction left visible — criterion 4 rests on it. One residual flagged for the owner rather than resolved in my own favour: F-2 names the cheaper *measure* but not the cut, and if clause 5 is read as requiring both, that row re-opens. No new findings; two candidates were declined as review-is-not-an-audit and recorded so the next audit knows they were considered. |
+| 2026-08-06 | → review | Ten steps worked in order, nothing reordered. Eight findings, eleven no-action rows, eight child tasks (T-027…T-034). The eighth arrived in step 10 and is recorded as escalated rather than folded in silently: running the pre-publish check over this audit's own output showed the documented command reads only tracked files, so it had not read any of them. Two findings were proven by being made to fail rather than asserted: F-6 by building a task from the audit template and watching `check` report two classes, F-3 by running the three commands, one of which wrote the index and exited 0 on a mistyped invocation. The heaviest finding is F-2, and it is the clause-5 one: the always-loaded budget measures 147 of the 286 lines it exists to protect. Clause 5 also produced a deliberate refusal — the four-phase lifecycle was examined under the maintainer's licence to derail and dropped for lack of cost evidence (N-5). Step 9 falsified my own written-up expectation twice: the ordering put T-032 fourth rather than first, and then the eighth task changed the head of the list entirely. Both runs are recorded, because a criterion answered once and early would have concluded the wrong thing about the rule. The rule behaves as documented, so N-11 rather than a finding — the head is a good answer it produced unprompted, the middle is an id tiebreak. |
+| 2026-08-06 | → planned | Ten steps. The plan's one real choice is the sequencing: the mechanical clauses run first and the purpose pass runs last, because clause 5 asks whether a design costs more than it returns and that cannot be judged before the cost is in hand — a plan opening with "is the lifecycle too heavy?" would answer from taste, which the threshold's own test forbids. Planning deliberately stops at step 6, since a large clause-5 finding would change what the child tasks are. The findings live in this task's record rather than in `tasks/_templates/audit-umbrella-template.md`: the template cannot be used as it stands, and correcting it first would be the inline fix this task may not make — so its condition is a step-5 finding and a child task corrects it. Dependencies checked: none needed, the four related tasks are correctly soft links, since a dependency edge would falsely claim the audit cannot proceed. |
+| 2026-08-06 | → specified | Both open questions answered by the maintainer in one turn, so `specify` closes without a second round. The threshold is the recommendation plus a fifth clause the maintainer added: weight the purpose does not need is a finding, and a finding may derail from a stated requirement or a settled decision where that simplifies. That widened the task's own out-list — settled decisions are now examinable for cost, not shielded — and it overrides `docs/SCOPE.md` §6's "no session should re-raise them" for this audit, recorded here rather than edited there, because editing it would be a fix. Clause 5 carries its own test, since it is the clause that makes preference look like a finding. The umbrella will also report the `list` order, which puts the ordering rule under examination alongside the files; a bad order is a finding, not a failed criterion. |
 | 2026-08-05 | → proposed | Requested by the maintainer for the next session. Raised as an umbrella task rather than carried in the handoff, because an audit is a task type (METHOD §5) and its scope is durable content — a handoff points, it does not store. The request's wording is quoted intact so `specify` narrows it deliberately rather than by paraphrase, and the threshold it lacks is the first open question. |

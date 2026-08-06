@@ -11,8 +11,8 @@ work_package: none
 owner: maintainer
 business_value: medium
 effort: xs
-created: 2026-08-05
-updated: 2026-08-05
+created: 2026-08-06
+updated: 2026-08-06
 deliverables: []
 ---
 
@@ -98,4 +98,4 @@ constraints*, [T-026](T-026-audit-the-whole-project-before-the-remaining-build.m
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-05 | → proposed | Raised as F-7 from the T-026 audit, clauses 1 and 3. Checked `control/LOCAL-CONTEXT.md` before writing this up — it exists and does not define F1, so this is a dangling reference rather than the label discipline working as intended. |
+| 2026-08-06 | → proposed | Raised as F-7 from the T-026 audit, clauses 1 and 3. Checked `control/LOCAL-CONTEXT.md` before writing this up — it exists and does not define F1, so this is a dangling reference rather than the label discipline working as intended. |

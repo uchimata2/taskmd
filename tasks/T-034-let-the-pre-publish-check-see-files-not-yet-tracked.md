@@ -11,8 +11,8 @@ work_package: none
 owner: maintainer
 business_value: high
 effort: xs
-created: 2026-08-05
-updated: 2026-08-05
+created: 2026-08-06
+updated: 2026-08-06
 deliverables: []
 ---
 
@@ -122,4 +122,4 @@ which [T-006](T-006-package-document-and-publish.md) must be able to certify.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-05 | → proposed | Raised as F-8 from the T-026 audit, clauses 1 and 3 — found in that audit's step 10, while running the check over the audit's own output, which is the situation the blind spot is worst in. Measured before being written up: 83 files seen versus 90 that a push would send. Raised rather than fixed in place (METHOD §5), even though the fix is one flag, because a silent gap in the last check before publication is exactly the kind of change that should carry a record of having been proven. |
+| 2026-08-06 | → proposed | Raised as F-8 from the T-026 audit, clauses 1 and 3 — found in that audit's step 10, while running the check over the audit's own output, which is the situation the blind spot is worst in. Measured before being written up: 83 files seen versus 90 that a push would send. Raised rather than fixed in place (METHOD §5), even though the fix is one flag, because a silent gap in the last check before publication is exactly the kind of change that should carry a record of having been proven. |
