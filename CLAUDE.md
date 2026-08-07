@@ -27,7 +27,8 @@ index that has gone stale (T-025). The backend contract exists
 ([`docs/BINDING.md`](docs/BINDING.md), T-009) and **both bindings** are written
 ([`docs/bindings/`](docs/bindings/)) — so storage-neutrality is no longer a claim about one backend
 plus a worked example about another: the GitHub binding (T-010) was proven by being walked on a live
-repository, and the method needed no change to carry it. The skill (T-003) is still to write.
+repository, and the method needed no change to carry it. The skill exists (`skills/taskmd/`, T-003)
+and this repository enables it from its own tree; T-050 measures whether a session is handed it.
 
 ## The one design rule
 
@@ -47,7 +48,8 @@ audit mechanism, and how the agent is expected to behave. It is not restated her
 written out somewhere else, that copy is the defect.
 
 **Three tiers, and only the first is budgeted.** Tier 1 is whatever the harness loads unasked —
-here, this file alone, which is a property of the tree rather than a list to maintain. Tier 2 is
+here, this file plus the skill's `description`, which joined it without this paragraph being edited —
+a property of the tree rather than a list to maintain. Tier 2 is
 [`docs/METHOD.md`](docs/METHOD.md), on starting task work; tier 3 is [`docs/method/`](docs/method/),
 a file per phase. **Tier 1 stays shorter than `reference/TASK-WORKFLOW.md`**, the flat
 single-document alternative, because a first tier costing more than the flat version has inverted the

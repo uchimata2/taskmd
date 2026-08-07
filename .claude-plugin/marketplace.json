@@ -1,0 +1,17 @@
+{
+  "name": "taskmd",
+  "owner": {
+    "name": "the taskmd maintainers"
+  },
+  "metadata": {
+    "description": "Markdown files as a task tracker, with a generated index, real dependency links and a validator."
+  },
+  "plugins": [
+    {
+      "name": "taskmd",
+      "source": "./",
+      "description": "Markdown files as a task tracker: one file per task, a generated index, real dependency links, and a validator. For any kind of work, not only software.",
+      "version": "0.1.0"
+    }
+  ]
+}

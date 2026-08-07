@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "taskmd": {
+      "source": {
+        "source": "directory",
+        "path": "."
+      }
+    }
+  },
+  "enabledPlugins": {
+    "taskmd@taskmd": true
+  }
+}
