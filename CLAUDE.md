@@ -27,10 +27,6 @@ index that has gone stale (T-025). The backend contract exists
 plus a worked example about another: the GitHub binding (T-010) was proven by being walked on a live
 repository, and the method needed no change to carry it. The skill (T-003) is still to write.
 
-**The GitHub binding's `update` is known broken — do not adopt it as written.** Following it grows
-the issue body by a byte per edit, and a careless rewrite silently destroys soft edges that have no
-other home (T-041; T-042 fixes it).
-
 ## The one design rule
 
 **Store the forward edge; derive the rest.**

@@ -38,8 +38,8 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-035](T-035-warn-that-a-fabricated-specimen-must-not-cross-a-shell.md) | Warn that a fabricated specimen must not cross a shell | - | `proposed` | `specify` | - | - | - | - | T-013, T-018, T-034 |
 | [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | - | `specified` | `specify` | - | - | - | - | T-026, T-032 |
 | [T-037](T-037-delete-the-throwaway-proof-repository.md) | Delete the throwaway repository the GitHub binding was proven on | - | `proposed` | `specify` | - | - | T-006 | - | T-010, T-041 |
-| [T-042](T-042-make-the-github-bindings-update-preserve-what-it-did-not-touch.md) | Make the GitHub binding's update preserve what it did not touch | - | `proposed` | `specify` | - | - | - | - | T-010, T-041 |
 | [T-043](T-043-make-every-assumption-a-claim-about-the-adopting-project.md) | Make every assumption a claim about the adopting project | - | `proposed` | `specify` | - | - | - | - | T-009, T-010, T-040 |
+| [T-044](T-044-state-the-gh-version-the-github-binding-requires.md) | State the gh version the GitHub binding requires | - | `proposed` | `specify` | - | - | - | - | T-010, T-042 |
 
 ## Closed
 
@@ -50,7 +50,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-007](T-007-define-the-project-scope-goals-and-requirements.md) | Define the project scope, goals and requirements | - | `done` | `review` | - | - | - | T-008 | T-002, T-004, T-005, T-022 |
 | [T-008](T-008-write-the-backend-neutral-method-document.md) | Write the backend-neutral method document | - | `done` | `review` | - | T-014, T-015, T-016, T-017 | T-007 | T-003, T-006, T-009 | T-002, T-003, T-013 |
 | [T-009](T-009-define-the-backend-binding-contract.md) | Define the backend binding contract and write the local-Markdown binding | - | `done` | `review` | - | - | T-008 | T-005, T-006, T-010 | T-005, T-010, T-012, T-025, T-038, T-040, T-043 |
-| [T-010](T-010-write-the-github-issues-binding.md) | Write the GitHub Issues binding | - | `done` | `review` | - | - | T-009 | T-006 | T-004, T-009, T-026, T-037, T-038, T-039, T-040, T-041, T-042, T-043 |
+| [T-010](T-010-write-the-github-issues-binding.md) | Write the GitHub Issues binding | - | `done` | `review` | - | - | T-009 | T-006 | T-004, T-009, T-026, T-037, T-038, T-039, T-040, T-041, T-042, T-043, T-044 |
 | [T-012](T-012-decide-whether-soft-edges-are-symmetric.md) | Decide whether soft edges are symmetric | - | `done` | `review` | - | - | - | - | T-001, T-009 |
 | [T-013](T-013-quarantine-local-only-information-behind-gitignore.md) | Quarantine local-only information behind .gitignore | - | `done` | `review` | - | - | - | - | T-006, T-008, T-011, T-018, T-033, T-034, T-035 |
 | [T-014](T-014-stop-stating-each-phase-exit-criterion-twice.md) | Stop stating each phase exit criterion twice | - | `done` | `review` | T-008 | - | - | - | T-015 |
@@ -65,5 +65,6 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-039](T-039-let-a-plan-name-a-deliverable-that-does-not-exist-yet.md) | Let a plan name a deliverable that does not exist yet | - | `done` | `review` | - | - | - | - | T-010, T-025 |
 | [T-040](T-040-make-the-thirty-second-assumptions-check-real.md) | Make the thirty-second assumptions check real, or change the number | - | `done` | `review` | - | - | - | - | T-009, T-010, T-028, T-043 |
 | [T-041](T-041-prove-the-github-bindings-body-rewrite-rule.md) | Prove the GitHub binding's body-rewrite rule by making it fail | - | `done` | `review` | - | - | - | - | T-010, T-037, T-042 |
+| [T-042](T-042-make-the-github-bindings-update-preserve-what-it-did-not-touch.md) | Make the GitHub binding's update preserve what it did not touch | - | `done` | `review` | - | - | - | - | T-010, T-041, T-044 |
 
 <!-- taskmd:end -->

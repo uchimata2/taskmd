@@ -148,12 +148,34 @@ operation": an audit finding is never briefly parentless, which is the window
 [`../BINDING.md`](../BINDING.md) §1 exists to close. The id is in the returned URL; it did not exist
 before this command, which is assumption 1 in practice.
 
-**update** — `gh issue edit <number>`, changing only what you mean to change. Two rules:
+**update** — `gh issue edit <number>`, changing only what you mean to change. Three rules:
 
-- **Editing the body rewrites all of it**, so read it first and put back everything you are not
-  changing — including fields the schema does not name. This is where the contract's
-  "byte-identical for what you did not touch" guarantee is won or lost, and `gh` gives you no help
-  with it.
+- **Editing the body replaces all of it.** There is no patch. Fetch the body, change your one field
+  in what you fetched, and send the whole thing back:
+
+  ```bash
+  gh issue view <number> --json body --template '{{.body}}' > body.md
+  # edit body.md
+  gh issue edit <number> --body-file body.md
+  ```
+
+  **Fetch it with `--template`, not with `--jq .body` or `-q .body`.** Both jq forms append a
+  newline that is not in the body, and writing that back stores a body one byte longer — every time,
+  compounding, invisible in rendered Markdown. Measured: five `--template` round trips held at 204
+  bytes; the jq form grew 230 → 231 → 232 over three. The `read` operation above is unaffected,
+  because it consumes JSON rather than writing it back; this rule is only for the round trip.
+
+- **What a partial rewrite destroys.** Sending a body containing only the fields you meant to change
+  deletes, silently and unrecoverably:
+  - **soft edges** — `related` lives in the property block and nowhere else on this backend, so
+    there is no far end holding a copy and no derived view that can notice one has gone;
+  - **fields the schema does not name**, which the contract requires be carried unchanged;
+  - **the prose**, and anything else below the block.
+
+  **`gh` exits 0 for the destructive edit exactly as it does for the correct one.** Nothing in the
+  output distinguishes them, and the resulting issue is well-formed — it simply has one fewer edge
+  than it had a moment earlier. Assume no error means nothing.
+
 - **A status change is two writes and one fact.** Set the label, then render `state` from it: if the
   new status is in `open_statuses` the issue is open, otherwise closed.
 
