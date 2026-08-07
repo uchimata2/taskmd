@@ -37,7 +37,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-033](T-033-resolve-the-f1-reference-inside-this-repository.md) | Resolve the F1 reference inside this repository | - | `proposed` | `specify` | T-026 | - | - | - | T-005, T-013 |
 | [T-035](T-035-warn-that-a-fabricated-specimen-must-not-cross-a-shell.md) | Warn that a fabricated specimen must not cross a shell | - | `proposed` | `specify` | - | - | - | - | T-013, T-018, T-034 |
 | [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | - | `specified` | `specify` | - | - | - | - | T-026, T-032 |
-| [T-037](T-037-delete-the-throwaway-proof-repository.md) | Delete the throwaway repository the GitHub binding was proven on | - | `proposed` | `specify` | - | - | T-006 | - | T-010, T-041 |
+| [T-037](T-037-delete-the-throwaway-proof-repository.md) | Delete the throwaway repository the GitHub binding was proven on | - | `planned` | `plan` | - | - | T-006 | - | T-010, T-041 |
 
 ## Closed
 
