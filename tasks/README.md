@@ -17,7 +17,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 
 | ID | Title | Work Package | Status | Phase | Parent | Children | Blocked By | Blocks | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| [T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md) | Write the skill that teaches the agent to use the CLI | - | `specified` | `specify` | - | - | T-002, T-008 | T-006, T-047 | T-008, T-017, T-019, T-021, T-022, T-026, T-028, T-032 |
+| [T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md) | Write the skill that teaches the agent to use the CLI | - | `specified` | `specify` | - | - | T-002, T-008 | T-006, T-047 | T-008, T-017, T-019, T-021, T-022, T-026, T-028, T-032, T-048 |
 | [T-004](T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md) | Settle the id scheme and the claimed scale ceiling | - | `proposed` | `specify` | - | - | T-001 | - | T-002, T-006, T-007, T-010, T-043 |
 | [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) | Align with the handoff tracker-binding contract | - | `specified` | `specify` | - | - | T-009 | - | T-002, T-007, T-009, T-033 |
 | [T-006](T-006-package-document-and-publish.md) | Package, document and publish | - | `specified` | `specify` | - | - | T-002, T-003, T-008, T-009, T-010, T-011, T-018 | T-037 | T-004, T-013, T-019, T-020, T-023, T-026, T-034 |
@@ -37,6 +37,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | - | `specified` | `specify` | - | - | - | - | T-026, T-032 |
 | [T-037](T-037-delete-the-throwaway-proof-repository.md) | Delete the throwaway repository the GitHub binding was proven on | - | `planned` | `plan` | - | - | T-006 | - | T-010, T-041 |
 | [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | - | `specified` | `specify` | - | - | T-003 | - | T-015, T-028 |
+| [T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md) | Say what "always-loaded" means in R-21, before the skill is built against it | - | `proposed` | `specify` | - | - | - | - | T-003, T-028 |
 
 ## Closed
 
@@ -58,7 +59,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-019](T-019-report-a-tasks-dir-that-does-not-exist-at-setup.md) | Report a tasks_dir that does not exist at setup | - | `done` | `review` | T-002 | - | - | - | T-003, T-006, T-023, T-024, T-025 |
 | [T-022](T-022-filtered-task-listing-for-scripts.md) | Filtered task listing for scripts | - | `done` | `review` | - | - | - | - | T-003, T-007, T-021, T-029, T-031, T-032 |
 | [T-027](T-027-give-the-design-rule-one-home.md) | Give the design rule one home | - | `done` | `review` | T-026 | - | - | T-028 | T-017, T-031, T-045, T-046 |
-| [T-028](T-028-budget-the-whole-always-loaded-context-not-one-file.md) | Budget the whole always-loaded context, not one file | - | `done` | `review` | T-026 | - | T-027 | - | T-003, T-015, T-040, T-046, T-047 |
+| [T-028](T-028-budget-the-whole-always-loaded-context-not-one-file.md) | Budget the whole always-loaded context, not one file | - | `done` | `review` | T-026 | - | T-027 | - | T-003, T-015, T-040, T-046, T-047, T-048 |
 | [T-034](T-034-let-the-pre-publish-check-see-files-not-yet-tracked.md) | Let the pre-publish check see files not yet tracked | - | `done` | `review` | T-026 | - | - | - | T-006, T-013, T-018, T-035 |
 | [T-038](T-038-reconcile-bindings-worked-example-with-the-real-binding.md) | Reconcile BINDING section 5's worked example with the binding it predicted | - | `done` | `review` | - | - | - | - | T-009, T-010 |
 | [T-039](T-039-let-a-plan-name-a-deliverable-that-does-not-exist-yet.md) | Let a plan name a deliverable that does not exist yet | - | `done` | `review` | - | - | - | - | T-010, T-025 |

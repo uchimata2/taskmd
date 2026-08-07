@@ -31,8 +31,9 @@ Start with `docs/SCOPE.md` — the goal, the numbered requirements (R-1…R-24) 
 non-goals. `docs/BRIEF.md` holds the problem evidence, the carried lessons and the remaining open
 questions. Tasks cite the requirements they serve, so coverage is derived rather than tabulated.
 
-`docs/METHOD.md` is the working method itself — a short always-loaded spine plus `docs/method/`,
-loaded a file at a time. `CLAUDE.md` no longer restates it and neither should anything else.
+`docs/METHOD.md` is the working method itself. Since T-028 it is **tier 2** — loaded when task work
+starts, not on every turn; tier 1 is `CLAUDE.md` alone, and `docs/method/` is tier 3, a file per
+phase. `CLAUDE.md` no longer restates the method and neither should anything else.
 
 The schema question that used to block everything is answered (T-001), and the CLI it gated is built:
 `python -m taskmd {context,index,check,list}`, proven by `tests/`. Run `check` **and** `index` after

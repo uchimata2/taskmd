@@ -10,8 +10,8 @@ because that differs by more than storage: for local Markdown the operations are
 `taskmd`'s own code, while for a remote tracker they are instructions an agent follows using its own
 tools. A contract that assumed either would exclude the other.
 
-**Load this when writing or adopting a binding.** It is not part of the always-loaded spine — the
-method is what governs every turn, and it needs to know none of this.
+**Load this when writing or adopting a binding.** It is not loaded with the method — the method
+governs the work, and it needs to know none of this.
 
 ---
 
