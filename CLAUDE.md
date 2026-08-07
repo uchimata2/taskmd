@@ -22,10 +22,14 @@ was amended). This project runs on them; the interim `tools/tasks/task.py` is go
 a config value naming a folder that is not there is now an error when the config is read, so no
 command can report success on a project it never opened. It does **not** yet notice a generated
 index that has gone stale (T-025). The backend contract exists
-([`docs/BINDING.md`](docs/BINDING.md), T-009) with the local-Markdown binding under
-[`docs/bindings/`](docs/bindings/); the method's storage-neutrality is no longer only a claim, since
-the contract was derived from it rule by rule and tested against a backend with no files. The
-GitHub binding (T-010) and the skill (T-003) are still to write.
+([`docs/BINDING.md`](docs/BINDING.md), T-009) and **both bindings** are written
+([`docs/bindings/`](docs/bindings/)) — so storage-neutrality is no longer a claim about one backend
+plus a worked example about another: the GitHub binding (T-010) was proven by being walked on a live
+repository, and the method needed no change to carry it. The skill (T-003) is still to write.
+
+**The GitHub binding's `update` is known broken — do not adopt it as written.** Following it grows
+the issue body by a byte per edit, and a careless rewrite silently destroys soft edges that have no
+other home (T-041; T-042 fixes it).
 
 ## The one design rule
 

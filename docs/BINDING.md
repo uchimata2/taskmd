@@ -89,10 +89,17 @@ present both directions themselves. Where that is true, the binding says so and 
 without enumeration — the contract asks for the *result*, never the traversal.
 
 **A materialised derived view is a rendering, never an input.** Where a binding writes a derived view
-down — a generated index file, a saved board — two rules hold without exception: it is reproducible
-from the tasks alone, and **no operation may read it**. The moment an operation takes it as input it
-has become a second home for a fact, and it will be stale exactly when it matters
-(`SCOPE.md` §1 *Invisibility*, §2 principle 1).
+down, two rules hold without exception: it is reproducible from the tasks alone, and **no operation
+may read it**. The moment an operation takes it as input it has become a second home for a fact, and
+it will be stale exactly when it matters (`SCOPE.md` §1 *Invisibility*, §2 principle 1).
+
+**Size is not the test.** A materialised view may be a whole artefact — a generated index file, a
+saved board — or **a single property on a single task**. The second kind is the one that gets
+missed, because it does not look like a view: it looks like an ordinary field, it is written by the
+same operation that writes everything else, and there is no separate file whose staleness anyone
+would think to check. §5 missed exactly this and drew the wrong conclusion from an earlier draft of
+this paragraph that offered only the two large examples. If a backend stores something your schema
+*derives*, that is a materialised view whatever its size, and both rules above apply to it.
 
 ---
 
@@ -102,6 +109,16 @@ A binding is not only a set of instructions; it is a set of **premises about the
 and those are what go wrong. Every binding carries an **"Assumptions this binding makes"** section,
 near the top, that an adopter can check in about thirty seconds. Each entry is a claim about *their*
 project that they can confirm or deny — not a description of the backend.
+
+**What the thirty seconds measures: the claim lines, not the section.** Every entry opens with one
+bold sentence that is the whole claim, and those sentences alone are what an adopter reads to decide
+whether anything here is false for them; the prose under each is for when the answer is "no" or "not
+sure", and is not part of the budget. State it this way because the alternative was tested and
+failed — measured against whole sections, neither existing binding came close (498 and 401 words,
+around two minutes and ninety seconds), and the figure had been carried for as long as it existed
+without anyone measuring it. Against the claim lines, both come in at 65 and 44 words, under twenty
+seconds. To check a binding: read its bold leads, in order, and stop at the first one you cannot
+answer for your project.
 
 This section exists because of a failure that had already happened elsewhere: a binding stated "the
 folder is the index" as a premise. For a project whose index is a *generated file*, that premise is
@@ -135,15 +152,30 @@ work; this is one operation, written to test the contract's wording rather than 
 > §3 in exactly the way described there.**
 >
 > Two derived views need no traversal here: GitHub presents blocked-by and blocking as two views of
-> one relation, and its issue list *is* the index — so this binding materialises nothing, and its
-> assumptions section says so, which is the same sentence that would be false for local Markdown.
+> one relation, and its issue list *is* the index — so this binding materialises **no aggregate**,
+> which is the sentence that would be false for local Markdown.
+>
+> It does materialise one thing, and this paragraph originally denied it. An issue's open/closed
+> `state` is stored, where the schema *derives* open versus closed from the status value; so the
+> binding writes `state` from the status label and, per §3, never reads it back. That is also the
+> reason its enumeration must ask for every state explicitly rather than merely to avoid missing
+> closed work — filtering on `state` would turn a rendering into an input.
 
-**What this changed in the contract: nothing.** Every operation above was already written as a
-guarantee about a result. What it did change is §3, which gained the "may satisfy a derived view
+**What this changed in the contract: §3, twice.** Every operation in §1 was already written as a
+guarantee about a result, and none of them moved. §3 gained the "may satisfy a derived view
 natively" paragraph — GitHub meets the both-ends guarantee without enumerating, and an earlier draft
 that said derived views *are computed from* `enumerate` would have made a conforming backend
 non-conforming for being better at it. That correction is the value of having written this before
 the bindings rather than after.
+
+The second change came the other way round, and is worth more. Writing the real binding
+([`bindings/github-issues.md`](bindings/github-issues.md)) found the `state` property above, which
+this example had confidently said did not exist — so §3 gained *Size is not the test*. **A worked
+example written from documentation mispredicted the binding written from the tool**, and the
+mispredicted part was the one thing on this backend that a project could get wrong without ever
+seeing a symptom. Read that as the limit of exercises like this one: §5 is good evidence that the
+contract's *wording* does not assume a filesystem, and no evidence at all about what a backend
+actually stores.
 
 ---
 

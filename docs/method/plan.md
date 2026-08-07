@@ -30,7 +30,11 @@ outcome, and it does not revisit whether the outcome is right — that was settl
    the next person re-litigates the choice from scratch, or worse, quietly reverses it.
 
 6. **Collect the output paths in one place** at the end of the plan, so the set of things this task
-   will produce can be read without reconstructing it from the steps.
+   will produce can be read without reconstructing it from the steps. **Write them as plain paths,
+   never as links** — at `plan` the file does not exist yet, and a link to a file that is not there
+   is a broken link like any other. For the same reason, the field that records a task's *produced*
+   outputs stays empty until they exist: a plan lists what is promised, and those are two different
+   facts that happen to look alike.
 
 ## Sequencing
 

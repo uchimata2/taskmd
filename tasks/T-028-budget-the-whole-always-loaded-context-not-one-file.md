@@ -12,7 +12,7 @@ owner: maintainer
 business_value: high
 effort: s
 created: 2026-08-06
-updated: 2026-08-06
+updated: 2026-08-07
 deliverables: []
 ---
 
@@ -153,5 +153,6 @@ R-21 (`docs/SCOPE.md`); §1 *Token cost*, which is a falsifiable property rather
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-07 | — | **Measurement moved again, and this task did not.** Now `CLAUDE.md` 149 + `METHOD.md` 147 = **296**, against 286 when this was raised and 292 when it was agreed. The ten lines came from T-010's session: closing the GitHub binding made the *Status* paragraph false, and reconciling it — plus a warning that the binding's `update` destroys data until T-042 lands — cost lines on the always-loaded spine. Recorded rather than absorbed, because the drift is this task's subject: the third measurement in three sessions, every one an edit nobody would call bloat, and the budget still cannot see any of them. `METHOD.md` is unchanged at 147. |
 | 2026-08-06 | → specified | Q1 answered, and the answer changed the task rather than just unblocking it. The maintainer delegated the decision, directing that the sibling `handoff` plugin be studied first — which showed that its "always-loaded spine" is 282 lines that are *not* always loaded: the always-present artifact is a 31-line stub, with the core on activation and a flow on mode. Three tiers, where this project has two and calls both of its files always-loaded. So the outcome moved from *what does the budget count* to *how many tiers are there*, one criterion was added and the four existing ones stand. Two alternatives recorded as rejected, and the one way the decision can be wrong is named: demoting METHOD §3.1 and §3.3, which must bind before the agent knows it is doing task work. Re-measured while agreeing it — 292, not 286; T-034 added six lines to `CLAUDE.md` earlier the same day, which is the budget drifting during the task raised to fix it. Soft edge to T-003, which is the loader tier 2 needs; not a dependency, because this task decides a measure and moves nothing. |
 | 2026-08-06 | → proposed | Raised as F-2 from the T-026 audit, clauses 3 and 4. Measured, not asserted: 139 + 147 = 286 always-loaded lines against the 173-line flat alternative the limit is justified by. Typed `decision` rather than `fix` because what to count is a judgement, and moving content is deliberately out of scope until it is made. |
