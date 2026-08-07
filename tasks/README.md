@@ -17,7 +17,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 
 | ID | Title | Work Package | Status | Phase | Parent | Children | Blocked By | Blocks | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| [T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md) | Write the skill that teaches the agent to use the CLI | - | `proposed` | `specify` | - | - | T-002, T-008 | T-006 | T-008, T-017, T-019, T-021, T-022, T-026, T-028, T-032 |
+| [T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md) | Write the skill that teaches the agent to use the CLI | - | `proposed` | `specify` | - | - | T-002, T-008 | T-006, T-047 | T-008, T-017, T-019, T-021, T-022, T-026, T-028, T-032 |
 | [T-004](T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md) | Settle the id scheme and the claimed scale ceiling | - | `proposed` | `specify` | - | - | T-001 | - | T-002, T-006, T-007, T-010, T-043 |
 | [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) | Align with the handoff tracker-binding contract | - | `proposed` | `specify` | - | - | T-009 | - | T-002, T-007, T-009, T-033 |
 | [T-006](T-006-package-document-and-publish.md) | Package, document and publish | - | `proposed` | `specify` | - | - | T-002, T-003, T-008, T-009, T-010, T-011, T-018 | T-037 | T-004, T-013, T-019, T-020, T-023, T-026, T-034 |
@@ -28,7 +28,6 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-024](T-024-say-so-when-tasks-dir-names-something-that-is-not-a-folder.md) | Say so when tasks_dir names something that is not a folder | - | `proposed` | `specify` | - | - | - | - | T-019, T-023 |
 | [T-025](T-025-let-check-notice-a-stale-generated-index.md) | Let check notice a stale generated index | - | `proposed` | `specify` | - | - | - | - | T-002, T-009, T-019, T-026, T-039 |
 | [T-026](T-026-audit-the-whole-project-before-the-remaining-build.md) | Audit the whole project before the remaining build | - | `review` | `review` | - | T-027, T-028, T-029, T-030, T-031, T-032, T-033, T-034 | - | - | T-003, T-006, T-010, T-025, T-036 |
-| [T-028](T-028-budget-the-whole-always-loaded-context-not-one-file.md) | Budget the whole always-loaded context, not one file | - | `planned` | `plan` | T-026 | - | T-027 | - | T-003, T-015, T-040, T-046 |
 | [T-029](T-029-reject-unknown-arguments-on-every-command.md) | Reject unknown arguments on every command | - | `proposed` | `specify` | T-026 | - | - | - | T-002, T-022 |
 | [T-030](T-030-settle-the-schema-module-s-own-entry-point.md) | Settle the schema module's own entry point | - | `specified` | `specify` | T-026 | - | - | - | T-020, T-023 |
 | [T-031](T-031-give-the-list-rationale-one-home.md) | Give the list rationale one home | - | `proposed` | `specify` | T-026 | - | - | - | T-022, T-027 |
@@ -37,6 +36,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-035](T-035-warn-that-a-fabricated-specimen-must-not-cross-a-shell.md) | Warn that a fabricated specimen must not cross a shell | - | `proposed` | `specify` | - | - | - | - | T-013, T-018, T-034 |
 | [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | - | `specified` | `specify` | - | - | - | - | T-026, T-032 |
 | [T-037](T-037-delete-the-throwaway-proof-repository.md) | Delete the throwaway repository the GitHub binding was proven on | - | `planned` | `plan` | - | - | T-006 | - | T-010, T-041 |
+| [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | - | `proposed` | `specify` | - | - | T-003 | - | T-015, T-028 |
 
 ## Closed
 
@@ -51,13 +51,14 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-012](T-012-decide-whether-soft-edges-are-symmetric.md) | Decide whether soft edges are symmetric | - | `done` | `review` | - | - | - | - | T-001, T-009 |
 | [T-013](T-013-quarantine-local-only-information-behind-gitignore.md) | Quarantine local-only information behind .gitignore | - | `done` | `review` | - | - | - | - | T-006, T-008, T-011, T-018, T-033, T-034, T-035 |
 | [T-014](T-014-stop-stating-each-phase-exit-criterion-twice.md) | Stop stating each phase exit criterion twice | - | `done` | `review` | T-008 | - | - | - | T-015 |
-| [T-015](T-015-bring-the-method-spine-under-the-always-load-threshold.md) | Bring the method spine under the always-load threshold | - | `done` | `review` | T-008 | - | - | - | T-014, T-028 |
+| [T-015](T-015-bring-the-method-spine-under-the-always-load-threshold.md) | Bring the method spine under the always-load threshold | - | `done` | `review` | T-008 | - | - | - | T-014, T-028, T-047 |
 | [T-016](T-016-remove-the-id-format-placeholders-from-the-method.md) | Remove the id-format placeholders from the method | - | `done` | `review` | T-008 | - | - | - | - |
 | [T-017](T-017-settle-the-overlap-between-scope-requirements-and-the-method.md) | Settle the overlap between SCOPE requirements and the method rules | - | `done` | `review` | T-008 | - | - | - | T-003, T-027, T-045 |
 | [T-018](T-018-stop-the-pre-publish-fixture-tripping-its-own-check.md) | Stop the pre-publish fixture tripping its own check | - | `done` | `review` | - | - | - | T-006 | T-013, T-034, T-035 |
 | [T-019](T-019-report-a-tasks-dir-that-does-not-exist-at-setup.md) | Report a tasks_dir that does not exist at setup | - | `done` | `review` | T-002 | - | - | - | T-003, T-006, T-023, T-024, T-025 |
 | [T-022](T-022-filtered-task-listing-for-scripts.md) | Filtered task listing for scripts | - | `done` | `review` | - | - | - | - | T-003, T-007, T-021, T-029, T-031, T-032 |
 | [T-027](T-027-give-the-design-rule-one-home.md) | Give the design rule one home | - | `done` | `review` | T-026 | - | - | T-028 | T-017, T-031, T-045, T-046 |
+| [T-028](T-028-budget-the-whole-always-loaded-context-not-one-file.md) | Budget the whole always-loaded context, not one file | - | `done` | `review` | T-026 | - | T-027 | - | T-003, T-015, T-040, T-046, T-047 |
 | [T-034](T-034-let-the-pre-publish-check-see-files-not-yet-tracked.md) | Let the pre-publish check see files not yet tracked | - | `done` | `review` | T-026 | - | - | - | T-006, T-013, T-018, T-035 |
 | [T-038](T-038-reconcile-bindings-worked-example-with-the-real-binding.md) | Reconcile BINDING section 5's worked example with the binding it predicted | - | `done` | `review` | - | - | - | - | T-009, T-010 |
 | [T-039](T-039-let-a-plan-name-a-deliverable-that-does-not-exist-yet.md) | Let a plan name a deliverable that does not exist yet | - | `done` | `review` | - | - | - | - | T-010, T-025 |

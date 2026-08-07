@@ -6,8 +6,9 @@ particular tracker. A project moving from local files to an issue tracker change
 this. Nothing here assumes software either — a research question, a talk, a training course and an
 operations runbook are all tracked this way, and the worked examples are not code.
 
-**Read this spine; load a phase file when its moment arrives.** Everything in the spine governs
-every turn; the files in §7 do not, so they are not carried around.
+**Read this spine when task work begins; load a phase file when its moment arrives.** This document
+is not loaded on every turn — the project's own always-loaded conventions are, and they say when this
+one arrives. Everything here governs the work; the files in §7 do not, so they are not carried around.
 
 ---
 
@@ -45,7 +46,9 @@ have *used* the outcome and said what happened ([why](method/rationale.md), [how
 
 ## 3. Conduct
 
-Three rules that apply on every turn, in every phase — which is why they are in the spine.
+Three rules that apply on every turn of the work, in every phase. **§3.1 and §3.3 also bind before it
+is clear that there is any task work**, so a project that loads this document on demand has to carry
+those two where they are always visible; §3.2 presupposes a phase and does not.
 
 ### 3.1 One phase per request — never auto-advance
 

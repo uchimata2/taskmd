@@ -44,12 +44,16 @@ This plugin manages tasks, so it uses its own method on itself. **The method has
 audit mechanism, and how the agent is expected to behave. It is not restated here; if you find it
 written out somewhere else, that copy is the defect.
 
-**The spine has a size limit: 150 lines.** It is loaded on every turn, so anything in it is paid for
-on every turn. The number is set below `reference/TASK-WORKFLOW.md` (173 lines — the flat,
-single-document alternative) with headroom, because a spine that costs more than the flat version
-has inverted the point of splitting it at all. Before adding to `docs/METHOD.md`, check the count;
-if the addition would breach the limit, that is the signal it belongs in an on-demand file, not an
-argument for raising the limit.
+**Three tiers, and only the first is budgeted.** Tier 1 is whatever the harness loads unasked —
+here, this file alone, which is a property of the tree rather than a list to maintain. Tier 2 is
+[`docs/METHOD.md`](docs/METHOD.md), on starting task work; tier 3 is [`docs/method/`](docs/method/),
+a file per phase. **Tier 1 stays shorter than `reference/TASK-WORKFLOW.md`**, the flat
+single-document alternative, because a first tier costing more than the flat version has inverted the
+point of splitting it at all. No number is written here — both sides are counted from the tree
+(`wc -l CLAUDE.md reference/TASK-WORKFLOW.md`), so re-measuring never rewrites the rule. It passes,
+with less room than a count of this file shows: METHOD §3.1 and §3.3 bind before an agent knows it is
+doing task work, so they are owed to this tier (T-047). Tiers 2 and 3 carry no line budget — they are
+not paid on every turn, and R-21 with METHOD §7 governs them instead.
 
 What this project adds on top, because the method is deliberately storage-agnostic:
 
