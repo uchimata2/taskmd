@@ -33,14 +33,19 @@ If a change makes any of the three worse, it is against the goal even if it is a
 
 ## 2. Principles
 
-Three rules that every requirement below is an application of. They are listed once, here.
+Three rules that every requirement below is an application of. They govern the **whole product** —
+the schema, the generated index, the config, the code — which is why they are stated here in full
+rather than pointed at. Where a principle *also* holds as a narrower rule about how work is tracked,
+[`METHOD.md`](METHOD.md) states that version and this section points at it. **This is not the
+convention in §3**, which governs requirements and is stated there — a principle is a rule, and a
+requirement is not. Decided in
+[T-045](../tasks/T-045-decide-whether-scope-principles-may-state-the-rule-they-name.md).
 
 1. **One home per fact.** Every fact is written in exactly one place. Anything derivable is
    computed at read time, never stored. A feature that *requires* writing the same fact twice is
-   the wrong feature — the emphasis is on "requires". Where the inverse is derived, one write is
-   always sufficient, so a user who chooses to write the other side as well is not creating drift;
-   a two-way reference living at both ends is the nature of references (R-2). This rule forbids
-   designs that **compel** a second write, not users who make one.
+   the wrong feature — and the emphasis is on "requires". The case where that distinction bites is
+   the inverse of a link, where one write is always sufficient and a second is permitted (R-2); what
+   the rule does and does not forbid there is stated once, in [`METHOD.md`](METHOD.md) §4.
 2. **Store the forward edge, derive the rest.** Recording a relationship on one task is *enough* —
    the other end is computed, so no view can miss it. *Not a local-file quirk:* GitHub exposes
    `--blocked-by` / `--blocking` as two views of one relation, and Notion's `Parent item`
