@@ -56,7 +56,8 @@ What this project adds on top, because the method is deliberately storage-agnost
 - Task files live in `tasks/`, created from `tasks/_templates/task-template.md`.
 - The field names and their allowed values are the schema — `taskmd/defaults/config.md`.
 - The index is **generated**, never hand-edited.
-- A task is `done` only when its deliverables exist, its log is current, and the validator passes.
+- When a task is `done` is [`docs/METHOD.md`](docs/METHOD.md) §1 rule 5; which artifact satisfies
+  each of its conditions here is in [`docs/bindings/local-markdown.md`](docs/bindings/local-markdown.md).
 
 `reference/TASK-WORKFLOW.md` is the pre-split standard from one real project — evidence of what
 worked, not the standard. It hard-codes a folder contract, a work-package vocabulary and specific
