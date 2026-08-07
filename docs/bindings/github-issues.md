@@ -29,8 +29,14 @@ has to be true for the instructions below to be safe.
 3. **Every label the vocabulary needs already exists in the repository.** Labels are created per
    repository, `gh` will not invent one, and a mistyped label name fails the write rather than
    silently mislabelling. Creating them is your one setup action — see *Setup*.
-4. **The repository has issues enabled, with sub-issues and issue dependencies available**, and the
-   token has `repo` scope. Nothing here needs `project` scope, a Projects board, or an organisation.
+4. **Your `gh` is 2.94.0 or newer, your repository has issues enabled with sub-issues and issue
+   dependencies available, and your token has `repo` scope.** One question, three ways to fail it.
+   2.94.0 is where `gh` gained the sub-issue and dependency flags — `--parent`, `--blocked-by`,
+   `--add-blocked-by`, `--remove-parent` — and every other flag used below is older, so that release
+   is the floor for the whole binding. Below it you get an unrecognised-flag error partway through an
+   operation instead of an answer here. Nothing needs `project` scope, a Projects board, or an
+   organisation. Verified on 2.96.0 against GitHub.com; **Enterprise Server is untested** — the
+   features are server-side as well as CLI-side, which is what the middle clause is asking you.
 5. **Soft links live in one designated section of the issue body, and only there.** GitHub raises a
    cross-reference on the far issue for **any** `#N` mention — in a comment, in a commit message, in
    passing prose. Those cross-references are not soft edges. If your project treats "GitHub showed

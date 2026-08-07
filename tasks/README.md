@@ -39,7 +39,6 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | - | `specified` | `specify` | - | - | - | - | T-026, T-032 |
 | [T-037](T-037-delete-the-throwaway-proof-repository.md) | Delete the throwaway repository the GitHub binding was proven on | - | `proposed` | `specify` | - | - | T-006 | - | T-010, T-041 |
 | [T-043](T-043-make-every-assumption-a-claim-about-the-adopting-project.md) | Make every assumption a claim about the adopting project | - | `proposed` | `specify` | - | - | - | - | T-009, T-010, T-040 |
-| [T-044](T-044-state-the-gh-version-the-github-binding-requires.md) | State the gh version the GitHub binding requires | - | `proposed` | `specify` | - | - | - | - | T-010, T-042 |
 
 ## Closed
 
@@ -66,5 +65,6 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-040](T-040-make-the-thirty-second-assumptions-check-real.md) | Make the thirty-second assumptions check real, or change the number | - | `done` | `review` | - | - | - | - | T-009, T-010, T-028, T-043 |
 | [T-041](T-041-prove-the-github-bindings-body-rewrite-rule.md) | Prove the GitHub binding's body-rewrite rule by making it fail | - | `done` | `review` | - | - | - | - | T-010, T-037, T-042 |
 | [T-042](T-042-make-the-github-bindings-update-preserve-what-it-did-not-touch.md) | Make the GitHub binding's update preserve what it did not touch | - | `done` | `review` | - | - | - | - | T-010, T-041, T-044 |
+| [T-044](T-044-state-the-gh-version-the-github-binding-requires.md) | State the gh version the GitHub binding requires | - | `done` | `review` | - | - | - | - | T-010, T-042 |
 
 <!-- taskmd:end -->
