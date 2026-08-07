@@ -2,11 +2,11 @@
 id: T-028
 title: Budget the whole always-loaded context, not one file
 type: decision
-status: specified
-phase: specify
+status: planned
+phase: plan
 parent: T-026
-blocked_by: []
-related: [T-015, T-027, T-003]
+blocked_by: [T-027]
+related: [T-015, T-003]
 work_package: none
 owner: maintainer
 business_value: high
@@ -133,7 +133,53 @@ R-21 (`docs/SCOPE.md`); §1 *Token cost*, which is a falsifiable property rather
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Establish what tier 1 *is* by observation rather than assertion: which documents a session receives without asking for them, and the membership rule that makes the set readable off the tree instead of maintained as a list. | A stated membership rule, and the set it resolves to today, recorded in §3 |
+| 2 | Measure tier 1 against the content it will hold rather than the file as it stands: `CLAUDE.md` once T-027 has removed the duplicated design rule, plus the conduct rules the decision keeps in tier 1 (`docs/METHOD.md` §3.1 and §3.3). Compare the total with `reference/TASK-WORKFLOW.md`. | A table — each component, its line count, the total — and a verdict: under the flat alternative, or over it and by how much |
+| 3 | Set the bound, and choose the form it is written in so that re-measuring never rewrites its justification. | A recorded decision in §3: the bound, how it is derived, and what was rejected |
+| 4 | Write the budget into `CLAUDE.md` — the set, the bound, its justification, and the tier boundary a reader of tier 1 meets on arrival. If step 2's verdict was *over*, the same paragraph carries the gap as dated debt naming the task that closes it. | The edited §*Working method* |
+| 5 | Replace `docs/METHOD.md`'s statement that it is loaded on every turn, and state the boundary where a reader of *that* file meets it. | The edited opening of `docs/METHOD.md` |
+| 6 | Raise the task that moves the conduct rules into tier 1, carrying a dependency edge on T-003 — the loader tier 2 needs. This task decides a measure and moves no content. | A new task file, carrying the edge |
+
+**Sequencing, and what can actually run now.** Step 1 leads because it can invalidate the rest: the
+budget's whole defect is that it counts a file on the strength of that file's own claim, so the first
+move is to stop asserting the set and go and look at it. There is already a reason to expect the
+answer to be interesting — the project instructions a session is handed unasked appear to be
+`CLAUDE.md` alone, with `docs/METHOD.md` reached through a link in it — which would make the
+286/292 figure a measurement of a claim rather than of a load. That is an observation, not step 1's
+result; step 1 is where it gets established or overturned, and either way the number in §1 moves.
+
+**Only step 1 can run before T-027 closes**, which is why that is now a dependency edge rather than a
+sentence in criterion 4. T-027 removes the duplicated design rule from `CLAUDE.md`, so it changes the
+one quantity this task is budgeting; setting a bound against today's total and re-deriving it
+afterwards is the same work twice, with a written-down number in between that was never true.
+T-027 is itself at `proposed` with an open question to the maintainer, so that answer is the gate.
+
+Step 6 is last and deliberately separate. Moving §3.1 and §3.3 into tier 1 is the one way this
+decision goes wrong (§1, *the counter-argument*), and doing it inside this task would be the budget
+choosing its own cut — the thing the scope forbids.
+
+**Shape of the deliverable — decided: the budget lives in `CLAUDE.md`.** Under this task's own
+decision `CLAUDE.md` *is* tier 1, so the rule is written in the file it governs and a reader meets
+the boundary at the moment it starts binding them, which is criterion 5's first half.
+*Rejected: `docs/SCOPE.md` §1* Token cost, where the falsifiable property is already stated — but
+SCOPE is read on demand, so the reader who needs the boundary never reaches it, and the property
+stays a claim about a number written elsewhere.
+*Rejected: `docs/METHOD.md` §7*, the natural home while METHOD was believed to be always-loaded —
+under this decision it becomes tier 2, and a budget for tier 1 stated in a tier-2 file is a rule
+written where the people it binds have not loaded it.
+
+**The bound is stated as a relation, not as a constant.** Criterion 3 asks the number and its
+justification to share one home without having to be updated together, which is this project's own
+design rule turned on itself: express the budget as a relation to `reference/TASK-WORKFLOW.md` — the
+flat alternative it has always been justified against — so that re-measuring either file changes a
+measurement and leaves the rule alone. *Rejected: a hand-set constant with the arithmetic beside it.*
+That is what 150 is today, and it is precisely the pair that has to be edited together: the number
+was set from a comparison, the comparison drifted, and nothing forced the number to follow.
+
+**Output paths**
+- `CLAUDE.md` — the §*Working method* budget paragraph
+- `docs/METHOD.md` — its opening statement of when it is loaded
+- `tasks/` — one new task file for the content move; its id is not known until step 6 raises it
 
 ## 3. Implement
 
@@ -153,6 +199,7 @@ R-21 (`docs/SCOPE.md`); §1 *Token cost*, which is a falsifiable property rather
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-07 | → planned | Six steps, and only the first can run: **T-027 moved from `related` to `blocked_by`.** Criterion 4 already required re-measuring after T-027, which is the METHOD §4 test answered — this task can start while T-027 is open but cannot finish — so it was prose standing in for an edge, invisible to `list` and to anyone asking why this is not moving. T-027 is at `proposed` with an open maintainer question, so that answer now gates this task. §1's measurement table was **left as measured** rather than refreshed: 145 + 147 = 292 is what today's count gives and what the parenthetical already records, and the movement is the log's to carry — rewriting §1 would delete the evidence the task was raised on. Step 1 is placed first on the suspicion that the always-loaded set is `CLAUDE.md` alone and `docs/METHOD.md` is reached by link, which would make every figure so far a measurement of a claim; recorded as the reason for the ordering, not resolved, because settling it is step 1's output and not planning's. |
 | 2026-08-07 | — | **Measured three times in one day: 286 at raise, 292 at agree, 296, then 292 again.** The rise came from T-010's session — closing the GitHub binding made the *Status* paragraph false, and reconciling it plus a warning that the binding's `update` destroyed data cost seven lines on the spine. T-042 then fixed `update`, which made the warning false in turn, and removing it returned `CLAUDE.md` to 145. `METHOD.md` unchanged at 147 throughout. Recorded rather than absorbed, and the round trip is the useful part: the spine grew to carry a temporary fact and shrank when the fact expired, so some of what lands there is transient by nature — which is a question about what the budget is *for*, not only about what it counts. |
 | 2026-08-06 | → specified | Q1 answered, and the answer changed the task rather than just unblocking it. The maintainer delegated the decision, directing that the sibling `handoff` plugin be studied first — which showed that its "always-loaded spine" is 282 lines that are *not* always loaded: the always-present artifact is a 31-line stub, with the core on activation and a flow on mode. Three tiers, where this project has two and calls both of its files always-loaded. So the outcome moved from *what does the budget count* to *how many tiers are there*, one criterion was added and the four existing ones stand. Two alternatives recorded as rejected, and the one way the decision can be wrong is named: demoting METHOD §3.1 and §3.3, which must bind before the agent knows it is doing task work. Re-measured while agreeing it — 292, not 286; T-034 added six lines to `CLAUDE.md` earlier the same day, which is the budget drifting during the task raised to fix it. Soft edge to T-003, which is the loader tier 2 needs; not a dependency, because this task decides a measure and moves nothing. |
 | 2026-08-06 | → proposed | Raised as F-2 from the T-026 audit, clauses 3 and 4. Measured, not asserted: 139 + 147 = 286 always-loaded lines against the 173-line flat alternative the limit is justified by. Typed `decision` rather than `fix` because what to count is a judgement, and moving content is deliberately out of scope until it is made. |

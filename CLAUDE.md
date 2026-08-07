@@ -29,19 +29,13 @@ repository, and the method needed no change to carry it. The skill (T-003) is st
 
 ## The one design rule
 
-**Store the forward edge; derive the rest.**
+**Store the forward edge; derive the rest.** Stated in full — including what the word *requires*
+below does and does not forbid — in [`docs/METHOD.md`](docs/METHOD.md) §4.
 
-A task file's front-matter is the only place a fact about that task is written. Children,
-dependents, the index, the deliverable map — all computed. Facts that are computed cannot drift
-from facts that are stored, so no validator is needed to keep them honest.
-
-Every design decision in this plugin should be checked against that rule. If a feature *requires*
-writing the same fact twice, it is the wrong feature.
-
-Note the word "requires". A link written on one task is visible from both ends because the inverse
-is derived — so one write is always sufficient. Writing the other side as well is permitted and
-collapses to a single entry; a two-way reference living in two places is the nature of references,
-not drift. The rule forbids a design that **compels** the second write, not a user who makes one.
+In this repository it comes out as: a task file's front-matter is the only place a fact about that
+task is written, and children, dependents, the index and the deliverable map are all computed. Check
+every design decision here against it — a feature that *requires* writing the same fact twice is the
+wrong feature.
 
 ## Working method
 
