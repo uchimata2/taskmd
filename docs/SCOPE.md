@@ -112,7 +112,7 @@ property does, an instruction does not. Decided in
 
 | # | Requirement |
 | :--- | :--- |
-| **R-21** | **Progressive disclosure.** The skill is a small always-loaded spine plus files loaded only when their moment arrives — never the whole method up front. |
+| **R-21** | **Progressive disclosure, and "always-loaded" means *before the skill is invoked*.** What a session is handed unasked — for a skill, its description rather than its body — is the only part every session pays for; the body arrives on invocation, and each further file when its moment arrives. Never the whole method up front. **Falsified by measuring a session**, which is the only evidence that counts: a document's statement about when it loads is a claim, and this project believed one for weeks ([T-028](../tasks/T-028-budget-the-whole-always-loaded-context-not-one-file.md)). The referent is named here and the tiers are not, because a count would be an architecture — see [T-048](../tasks/T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md). |
 | **R-22** | The skill **points at the tool** rather than restating what the tool already enforces. |
 | **R-23** | **Publishable.** No personal, client or machine data anywhere: no real names, absolute local paths, drive letters or hostnames. |
 | **R-24** | Interoperates with the **handoff** skill as a tracker binding, so a session can resume into a taskmd project. |

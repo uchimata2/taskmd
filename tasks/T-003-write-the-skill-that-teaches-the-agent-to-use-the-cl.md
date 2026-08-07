@@ -40,10 +40,12 @@ Read §3 before specifying the skill; what the skill adds is the *mechanism* tha
 fire on every turn, not the rules.
 
 **Acceptance criteria**
-- [ ] The skill body is short enough to load on every turn without cost
+- [ ] What a session pays for **without invoking the skill** is small enough to be worth carrying in
+      every session, including every session that never does task work — judged against R-21
 - [ ] No rule stated in the skill is also enforced by the CLI
 - [ ] Creating a task through the skill produces a file `check` accepts
-- [ ] Structured for progressive disclosure — a spine that always loads, the rest on demand (R-21)
+- [ ] Structured for progressive disclosure, with each tier entered only at its moment, and the
+      tiering **measured on a real session** rather than described (R-21)
 - [ ] The three behavioural rules above are present and each is testable by a walked example
 - [ ] Contains no software vocabulary — proven by walking a non-code task through it (R-9)
 - [ ] Points at the method document rather than restating any part of it (R-22)
@@ -91,5 +93,6 @@ document exists without becoming the second copy this task is specifically meant
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-07 | (no status change) | Criteria 1 and 4 corrected by [T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md), which settled what "always-loaded" is relative to. Criterion 1 said the skill body must be short enough to load on every turn, and the body does not load on every turn — measured, not argued: what a session is handed for an un-invoked skill is its description alone. So the criterion was false rather than imprecise, and it now points at R-21 instead of carrying a second copy of the property. Criterion 4 kept its intent and lost the unqualified phrase. Nothing else changed, and the skill's design is still entirely this task's. |
 | 2026-08-07 | → specified | Invocation answered: both. Nothing else was outstanding, and the second question was already closed by T-008 D1. What now rests on this task is worth stating: T-028 made `docs/METHOD.md` tier 2, loaded when task work starts, and this skill is the loader — so T-047 waits on it, and the tiering is a decision rather than a working arrangement until it is built. |
 | 2026-08-04 | → proposed | Seeded from `docs/BRIEF.md` when the project folder was prepared. |
