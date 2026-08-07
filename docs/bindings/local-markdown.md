@@ -15,25 +15,31 @@ Python interpreter.
 Claims about **your project**, not about the backend. Check them before adopting; each one is
 something that has to be true for the instructions below to be safe.
 
-1. **The folder listing is *not* the index.** The index is a generated file that lives inside the
-   task folder, and it goes stale the moment a task's properties change. Any operation that writes
-   must regenerate it — see *update*. If you are coming from a binding that told you the folder is
-   the index and there is no central list to keep in sync, that sentence is false here and is the
-   single most likely way to leave this project inconsistent.
-2. **Nothing else derived is materialised.** Inverse edges, the open/closed split and every listing
-   are computed per read and stored nowhere. The generated index is the only written derived
-   artefact, and nothing reads it back.
-3. **Identity is chosen locally**, before the task exists: the next number after the highest already
-   present. So an id can be written into another task's edges in the same edit that creates it.
-4. **Done tasks stay in the folder.** Status alone carries open versus closed. Moving finished tasks
-   to a second folder is a common variant and this binding does not do it, because every link
-   pointing at a finished task would then have to be rewritten — and `enumerate` would have to know
-   about two places to keep the far end of those links visible.
+1. **Your process regenerates the index after every write.** The folder listing is *not* the index:
+   the index is a generated file inside the task folder, and it goes stale the moment a task's
+   properties change — see *update*. If you are coming from a binding that told you the folder is
+   the index and there is no central list to keep in sync, that sentence is false here, and
+   forgetting this step is the single most likely way to leave your project inconsistent.
+2. **Your project keeps no other derived view of its tasks.** Nothing else here is materialised:
+   inverse edges, the open/closed split and every listing are computed per read and stored nowhere,
+   and the generated index is the only written derived artefact. If you also maintain a board, a
+   spreadsheet or a status page fed from these tasks, this binding does not know about it and will
+   not keep it current.
+3. **Only one person or agent creates tasks at a time.** Identity is chosen locally, before the task
+   exists: the next number after the highest already present. That is what lets an id be written
+   into another task's edges in the same edit that creates it — and it is also why two people
+   creating tasks on separate branches will pick the same number and collide at merge.
+4. **Your project is content for finished tasks to stay in the task folder.** Status alone carries
+   open versus closed. Moving them to an archive folder is a common variant and this binding does
+   not do it, because every link pointing at a finished task would then have to be rewritten — and
+   `enumerate` would have to know about two places to keep the far end of those links visible.
 5. **The task folder already exists.** Creating it is the adopting project's one setup action; no
    command creates it, and every command refuses to run until it is there.
-6. **A file in the task folder whose id does not match the schema is not a task.** That is what
-   keeps the generated index, templates and any notes you keep alongside from being read as work —
-   there is no exclusion list to maintain.
+6. **Nothing you keep alongside your tasks carries a schema-matching id.** A file in the task folder
+   whose id does not match the schema is not a task, which is what keeps the generated index,
+   templates and your own notes from being read as work — and why there is no exclusion list to
+   maintain. The corollary is the checkable half: a stray file that *does* match becomes a task
+   silently.
 
 METHOD §6's homes, assigned: **the task** is the file; **its recorded properties** are the
 front-matter; **which tasks exist and their state** is derived by enumeration; **the method** and

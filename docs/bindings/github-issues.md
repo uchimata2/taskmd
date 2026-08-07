@@ -16,16 +16,18 @@ both are conforming backends, and the method cannot tell them apart.
 Claims about **your project**, not about GitHub. Check them before adopting; each is something that
 has to be true for the instructions below to be safe.
 
-1. **Ids are assigned by GitHub and cannot be chosen.** The issue number *is* the task id. You
-   cannot know it before the issue exists, cannot reserve one, and cannot renumber. The practical
-   consequence is in *create*: a task may carry the edges it owns from birth, but an edge that
-   points **at** a new task is written afterwards, on the task that owns it. If your project needs
-   to write an id into a document before the task exists, that habit does not survive the move.
-2. **The issue's open/closed `state` is a rendering of the status label, and nothing reads it.**
-   This is the one materialised derived view here, and it is the assumption most likely to be
-   violated by muscle memory: closing an issue in the GitHub UI changes the rendering without
-   changing the fact, and the task is then lying in a way no view will flag. Status lives in the
-   `status:` label; `state` is written from it and only from it — see *update*.
+1. **Nothing in your project needs a task's id before that task exists.** Ids are assigned by
+   GitHub: the issue number *is* the task id, and you cannot know it in advance, reserve one, or
+   renumber. So a task may carry the edges it owns from birth, but an edge pointing **at** a new
+   task is written afterwards, on the task that owns it. If you have a habit of writing an id into
+   a document, a branch name or a commit message before the task is real, that habit does not
+   survive the move.
+2. **Nobody on your project closes or reopens an issue in the GitHub UI.** They will want to — it
+   is one click and it looks like finishing the task. Here `state` is a rendering of the `status:`
+   label, written from it and only from it (see *update*), and it is the one materialised derived
+   view this binding has. A click that changes the rendering without changing the fact leaves the
+   task contradicting itself, and no view will flag it. If your team works in the web UI as much as
+   the CLI, answer this one honestly.
 3. **Every label the vocabulary needs already exists in the repository.** Labels are created per
    repository, `gh` will not invent one, and a mistyped label name fails the write rather than
    silently mislabelling. Creating them is your one setup action — see *Setup*.
@@ -37,13 +39,16 @@ has to be true for the instructions below to be safe.
    operation instead of an answer here. Nothing needs `project` scope, a Projects board, or an
    organisation. Verified on 2.96.0 against GitHub.com; **Enterprise Server is untested** — the
    features are server-side as well as CLI-side, which is what the middle clause is asking you.
-5. **Soft links live in one designated section of the issue body, and only there.** GitHub raises a
-   cross-reference on the far issue for **any** `#N` mention — in a comment, in a commit message, in
-   passing prose. Those cross-references are not soft edges. If your project treats "GitHub showed
-   a link" as the record, that reading is false here and will manufacture edges nobody wrote.
-6. **The task is the issue, whole.** Pull requests, commits and branches attached to an issue are
-   not part of the task record. This binding never reads them, and a decision recorded only in a PR
-   description has no home (METHOD §6).
+5. **Your project does not treat a GitHub cross-reference as a recorded link.** Soft links live in
+   one designated section of the issue body and only there. GitHub raises a cross-reference on the
+   far issue for **any** `#N` mention — in a comment, in a commit message, in passing prose — and
+   none of those is a soft edge. If "GitHub showed a link between them" counts as the record where
+   you work, that reading is false here and will manufacture edges nobody wrote.
+6. **Your project records nothing about a task in a pull request, commit message or branch.** The
+   task is the issue, whole. This binding never reads anything attached to an issue, so a decision
+   whose only home is a PR description has no home at all (METHOD §6). Projects that do their
+   thinking in review comments fail this one, and it is worth knowing before adopting rather than
+   after.
 
 METHOD §6's homes, assigned: **the task** is the issue; **its recorded properties** are its labels,
 its native relations and the property block at the top of its body; **which tasks exist and their
