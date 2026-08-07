@@ -32,8 +32,10 @@ non-goals. `docs/BRIEF.md` holds the problem evidence, the carried lessons and t
 questions. Tasks cite the requirements they serve, so coverage is derived rather than tabulated.
 
 `docs/METHOD.md` is the working method itself. Since T-028 it is **tier 2** — loaded when task work
-starts, not on every turn; tier 1 is `CLAUDE.md` alone, and `docs/method/` is tier 3, a file per
-phase. `CLAUDE.md` no longer restates the method and neither should anything else.
+starts, not on every turn; `docs/method/` is tier 3, a file per phase. Tier 1 is whatever the harness
+loads unasked, which since T-003 is `CLAUDE.md` **plus the taskmd skill's `description`** — the skill
+in `skills/taskmd/` is the loader that makes tier 2 real, and this repository enables it from its own
+tree. Do not restate the method here or anywhere else; `CLAUDE.md` does not.
 
 The schema question that used to block everything is answered (T-001), and the CLI it gated is built:
 `python -m taskmd {context,index,check,list}`, proven by `tests/`. Run `check` **and** `index` after
