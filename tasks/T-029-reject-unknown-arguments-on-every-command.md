@@ -2,7 +2,7 @@
 id: T-029
 title: Reject unknown arguments on every command
 type: fix
-status: proposed
+status: specified
 phase: specify
 parent: T-026
 blocked_by: []
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: high
 effort: s
 created: 2026-08-06
-updated: 2026-08-06
+updated: 2026-08-07
 deliverables: []
 ---
 
@@ -86,10 +86,13 @@ arrive before output*, [T-026](T-026-audit-the-whole-project-before-the-remainin
 - [ ] The rejection message is the same bytes on every platform (R-20) and contains no path
 
 **Open questions**
-- Should `--help` print per-command usage, or only the top-level line? The top-level line already
-  exists; per-command help is a second surface to keep true, and `docs/SCOPE.md` §2 principle 3
-  argues against restating what the config already documents. — maintainer. Affects the wording
-  only, so it does not block this phase.
+- None. **Answered by the maintainer on 2026-08-07: the top-level line only.** Their reason goes
+  past the wording: the goal is a lightweight tool, and if it is difficult enough to use that
+  detailed help is needed, that is a reason to stop the project rather than to write the help.
+  Per-command usage would be treating a symptom. It is also `docs/SCOPE.md` §2 principle 3, since it
+  restates what the top-level line and the config already state. *Rejected: per-command help.*
+  Discoverability for someone who mistyped one command is real, and it is bought with a second
+  surface that drifts the first time a flag changes.
 
 ## 2. Plan
 
@@ -115,4 +118,5 @@ arrive before output*, [T-026](T-026-audit-the-whole-project-before-the-remainin
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-07 | → specified | Answered: top-level usage only. The maintainer's reason is recorded because it is stronger than the one the question offered — not that per-command help is a second surface, but that needing it would be evidence against the tool's premise. Kept as a standing test rather than a preference about wording. |
 | 2026-08-06 | → proposed | Raised as F-3 from the T-026 audit, clause 3. Reproduced on all three commands before being written up; the `index` case writes the index and exits 0 on a mistyped invocation. Not fixed where it was found (METHOD §5). |

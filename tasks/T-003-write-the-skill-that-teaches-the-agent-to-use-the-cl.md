@@ -2,7 +2,7 @@
 id: T-003
 title: Write the skill that teaches the agent to use the CLI
 type: deliverable
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: [T-002, T-008]
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: critical
 effort: l
 created: 2026-08-04
-updated: 2026-08-04
+updated: 2026-08-07
 deliverables: []
 ---
 
@@ -49,7 +49,12 @@ fire on every turn, not the rules.
 - [ ] Points at the method document rather than restating any part of it (R-22)
 
 **Open questions**
-- Should the skill be model-invocable, user-invocable, or both?
+- None. **Answered by the maintainer on 2026-08-07: both model-invocable and user-invocable.**
+  Model invocation is what `docs/SCOPE.md` §1 *Invisibility* requires — the tool has to work without
+  being asked for. User invocation costs one line of front-matter and is the only way to force the
+  skill when the model does not trigger, or to find out why it did not. *Rejected: model-invocable
+  only.* It would keep the user surface to the CLI, which is a real preference, but it makes a skill
+  that fails to trigger undiagnosable.
 - ~~Does the method document (T-008) become the skill's spine, or a file the spine points at?~~
   **Answered** — [T-008](T-008-write-the-backend-neutral-method-document.md) *Specify → Decisions*
   **D1**: standalone document at `docs/METHOD.md`; this skill points at it. The rationale lives
@@ -86,4 +91,5 @@ document exists without becoming the second copy this task is specifically meant
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-07 | → specified | Invocation answered: both. Nothing else was outstanding, and the second question was already closed by T-008 D1. What now rests on this task is worth stating: T-028 made `docs/METHOD.md` tier 2, loaded when task work starts, and this skill is the loader — so T-047 waits on it, and the tiering is a decision rather than a working arrangement until it is built. |
 | 2026-08-04 | → proposed | Seeded from `docs/BRIEF.md` when the project folder was prepared. |

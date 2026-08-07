@@ -2,7 +2,7 @@
 id: T-020
 title: Confirm byte-identical output on macOS and Linux
 type: analysis
-status: proposed
+status: specified
 phase: specify
 parent: T-002
 blocked_by: []
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: high
 effort: m
 created: 2026-08-05
-updated: 2026-08-05
+updated: 2026-08-07
 deliverables: []
 ---
 
@@ -21,8 +21,11 @@ deliverables: []
 ## 1. Specify
 
 **Outcome**
-The same commands run on macOS and on Linux against the same tree, with the output compared byte
-for byte against the Windows run — turning T-002's mechanism argument into a measurement.
+The same commands run on Linux against the same tree, with the output compared byte for byte
+against the Windows run — turning T-002's mechanism argument into a measurement. macOS is stated as
+untested rather than claimed. *Amended 2026-08-07 with the answer below, which named the tested pair
+as Windows and Linux; the original read "on macOS and on Linux" and would have promised what the
+answer declines to do. The acceptance criteria are unchanged.*
 
 **Why this one**
 T-002's criterion reads *"output byte-identical across Windows, macOS and Linux"*. Only Windows was
@@ -56,8 +59,13 @@ A macOS or Linux machine with a Python 3 interpreter; this repository at a known
 - [ ] T-002's recorded assumption is marked closed, or replaced by what was actually found
 
 **Open questions**
-- Which non-Windows platform is reachable, and is it both, or one? — maintainer. One closes most of
-  the risk; the criterion names two.
+- None. **Answered by the maintainer on 2026-08-07: Linux, with macOS left explicitly untested.**
+  Windows and Linux are the tested pair. The risk this closes is the one that actually splits by
+  platform — line endings and console encoding are a Windows-versus-POSIX difference rather than a
+  macOS-versus-Linux one. *Rejected: testing both.* The gap is real: macOS differs from Linux in
+  filename Unicode normalisation and in being case-insensitive by default, which is a class Linux
+  cannot expose. So it is **stated as unverified rather than closed**, which criterion 4 already
+  requires and criterion 1 already permits — it asks for at least one non-Windows platform.
 
 ## 2. Plan
 
@@ -86,4 +94,5 @@ A macOS or Linux machine with a Python 3 interpreter; this repository at a known
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-07 | → specified | Answered: Linux, macOS untested and said so. The **Outcome** was amended to match, because it named both platforms and would otherwise have promised what the answer declines to do; the acceptance criteria needed no change, since criterion 1 asks for at least one non-Windows platform and criterion 4 requires the result recorded either way. The macOS gap is named rather than waved through — filename normalisation and default case-insensitivity are a class Linux cannot stand in for, so R-20's third platform stays a claim until someone runs it. |
 | 2026-08-05 | → proposed | Raised by T-002's review. The criterion was not met as written and is carried here rather than reinterpreted as "the mechanism is right". |

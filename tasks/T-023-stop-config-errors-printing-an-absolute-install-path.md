@@ -2,7 +2,7 @@
 id: T-023
 title: Stop config errors printing an absolute install path
 type: fix
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: []
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: medium
 effort: xs
 created: 2026-08-05
-updated: 2026-08-05
+updated: 2026-08-07
 deliverables: []
 ---
 
@@ -67,9 +67,12 @@ R-20, and R-23 in spirit (`docs/SCOPE.md`).
 - [ ] Shown failing on a fixture, per R-16
 
 **Open questions**
-- What the default should be called in output — `taskmd/defaults/config.md` (a repo-relative path
-  that is not relative to the *user's* repo), `<shipped default>`, or something else. Owner:
-  maintainer. It affects the wording only, not the outcome, so it does not block this phase.
+- None. **Answered by the maintainer on 2026-08-07: `<shipped default>`.** The error says which
+  config is in force, and a repo-relative path is relative to *taskmd's* repository rather than the
+  adopter's — so it would still be wrong for the person reading it, while the absolute form is the
+  R-23 leak this task exists to remove. *Rejected: printing `taskmd/defaults/config.md`.* It is the
+  file's real name and findable, which is exactly what the bracketed label costs: a reader learns a
+  default is in force without learning where to read it.
 
 ## 2. Plan
 
@@ -98,4 +101,5 @@ R-20, and R-23 in spirit (`docs/SCOPE.md`).
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-07 | → specified | Answered: `<shipped default>`. The rejected option's cost is recorded rather than glossed — a bracketed label tells a reader a default is in force but not where to read it, and if that turns out to bite, the fix is to name the file next to the label rather than to reverse this. |
 | 2026-08-05 | → proposed | Raised from T-019's implement phase. Pre-existing behaviour, surfaced because T-019 made the fresh-project case an error and so put this string in front of new users. Not fixed where it was found (METHOD §3.3, rule 4). |

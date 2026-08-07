@@ -2,17 +2,17 @@
 id: T-025
 title: Let check notice a stale generated index
 type: fix
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: []
-related: [T-002, T-009, T-019]
+related: [T-002, T-009, T-011, T-019]
 work_package: none
 owner: maintainer
 business_value: high
 effort: s
 created: 2026-08-05
-updated: 2026-08-05
+updated: 2026-08-07
 deliverables: []
 ---
 
@@ -79,10 +79,32 @@ R-12, R-16, R-17 (`docs/SCOPE.md`); §1 *Invisibility*.
       user can fix with one command rather than a project that could not be read
 
 **Open questions**
-- Is a stale index an error or a warning? An error is consistent with T-019 (a validator that says
-  OK over something it did not check is worse than none); a warning avoids failing a run for a
-  condition one command fixes. — maintainer. *Recommendation: an error*, because the only argument
-  for a warning is that the fix is cheap, which is equally an argument that it will be run.
+- None. **Answered by the maintainer on 2026-08-07: an error.** Consistent with T-019 — a validator
+  that reports OK over something it did not check is worse than none — and the generated index is
+  the one written derived artifact, so a stale one is exactly the drift this plugin exists to
+  remove. *Rejected: a warning.* Its only argument is that the fix is cheap, which is equally an
+  argument that the fix will be run.
+
+**Long-term mitigations, recorded 2026-08-07 at the maintainer's request**
+
+The error is a backstop. These are the ways the condition stops arising, written here rather than
+left in a conversation.
+
+1. **The after-write hook removes the condition instead of reporting it.** T-011 was answered the
+   same day with a single invocation point: after a write. Wiring the local-markdown binding's
+   *After any write* step to it makes a stale index unreachable in ordinary use, and leaves this
+   task's error for edits made outside the hook — by hand, by another tool, or arriving in a merge.
+   Recorded as a soft edge; neither task blocks the other.
+2. **Compare by regenerating, never by storing a fingerprint.** The check renders the index in
+   memory and compares it with the file. A stored hash or timestamp would be a written derived
+   value, which the design rule forbids, and a field somebody has to keep true, which §1
+   *Invisibility* forbids. That is a constraint on the fix, not a preference.
+3. **One renderer, used by both commands.** `check` must not carry its own idea of what the index
+   looks like. Two independent renderers eventually disagree, and the failure mode is a validator
+   reporting staleness on a file that is current — which trains people to ignore it.
+
+*Rejected: drop the file and derive the index on read.* It would make the whole class impossible,
+and it costs R-12 and the artifact people browse in the repository without cloning it.
 
 ## 2. Plan
 
@@ -111,4 +133,5 @@ R-12, R-16, R-17 (`docs/SCOPE.md`); §1 *Invisibility*.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-07 | → specified | Answered: an error, not a warning. The maintainer also asked for long-term mitigations to be recorded rather than offered and forgotten, so three are written into §1 with one rejected. The first is the substantive one and it arrived from T-011 being answered the same day: a single after-write hook point makes a stale index unreachable in ordinary use, which turns this task's error into the backstop for edits made outside it. Soft edge to T-011 added. The other two are constraints on the fix rather than alternatives to it — no stored fingerprint, and one renderer shared by both commands. |
 | 2026-08-05 | → proposed | Raised from T-009's `implement`, where the local-Markdown binding was being proven by following it. The binding's *after any write* step was missed, the index went stale, and `check` reported OK — an unstaged reproduction of the thing the binding's first assumption warns about. Raised rather than fixed in place (METHOD §3.3); T-009's own criteria do not cover the validator. |

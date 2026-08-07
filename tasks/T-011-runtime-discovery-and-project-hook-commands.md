@@ -2,7 +2,7 @@
 id: T-011
 title: Runtime auto-discovery and project hook commands
 type: deliverable
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: [T-002]
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: medium
 effort: m
 created: 2026-08-04
-updated: 2026-08-04
+updated: 2026-08-07
 deliverables: []
 ---
 
@@ -60,8 +60,12 @@ check run after every write.
       running from a subdirectory and from outside the repository
 
 **Open questions**
-- Which invocation points earn a hook? `tracker_lint` proved "after a write"; anything more is
-  speculative until asked for.
+- None. **Answered by the maintainer on 2026-08-07: one invocation point — after a write.**
+  `tracker_lint` is the only point with evidence behind it, and every additional point is a config
+  key an adopting project pays to have documented, validated and kept true for a need nobody has
+  stated. *Rejected: a pre-write point as well.* It would catch a bad edit before it lands rather
+  than after, which is a genuine advantage — but it is speculative, and a second point can be added
+  later at the cost of a schema change rather than carried unused from the start.
 
 ## 2. Plan
 
@@ -90,4 +94,5 @@ check run after every write.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-07 | → specified | Hook points answered by the maintainer: one, after a write. The rejected pre-write point is recorded with its real advantage rather than dismissed, so the argument for adding it later is on the record instead of being rediscovered. Nothing else was outstanding at `specify`. Worth noting why this sits first in the project's own ordering despite being `medium`: it is the cheap blocker that releases T-006. |
 | 2026-08-04 | → proposed | Raised by T-007 to carry R-18/R-19 under assumption A1. |

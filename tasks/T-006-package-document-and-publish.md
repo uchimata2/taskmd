@@ -2,7 +2,7 @@
 id: T-006
 title: Package, document and publish
 type: deliverable
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: [T-002, T-003, T-008, T-009, T-010, T-011, T-018]
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: critical
 effort: l
 created: 2026-08-04
-updated: 2026-08-05
+updated: 2026-08-07
 deliverables: []
 ---
 
@@ -38,9 +38,17 @@ R-15, R-20, R-23 (`docs/SCOPE.md`). This task closes the definition of done, `SC
       changing backend changes the binding, not the method (R-13, R-14)
 - [ ] The README claims a supported scale that T-004 measured, and nothing it did not
 - [ ] Every non-goal in `SCOPE.md` §4 still holds at publish — checked, not assumed
+- [ ] **Both** distribution shapes install from a clean clone and are each proven by a command that
+      runs — the marketplace plugin and the plain skill package
+      <br>*Added 2026-08-07 with the answer to the distribution question. The seven above predate it and
+      are unchanged.*
 
 **Open questions**
-- Marketplace plugin, plain skill package, or both?
+- None. **Answered by the maintainer on 2026-08-07: both, with the marketplace plugin primary.**
+  The tree is already a plugin and the marketplace is how it is found; the plain skill package is a
+  subset of the same tree and is what someone not using the marketplace needs. *Rejected: the plugin
+  alone.* Two shapes are two sets of install instructions and paths to keep true — which is the cost
+  this answer accepts, and which the criterion added with it exists to hold.
 
 **Why the new blockers**
 `blocked_by` gained T-008, T-009, T-010 and T-011. The definition of done requires the method
@@ -74,5 +82,6 @@ installed — publishing before those exist would ship a product that fails its 
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-07 | → specified | Answered: both shapes, plugin primary. One acceptance criterion added with the answer — both shapes install from a clean clone and are proven by a command — because shipping two distributions and testing one is how the second becomes stale, and the criteria named no shape at all. The seven that predate this are unchanged. |
 | 2026-08-04 | → proposed | Seeded from `docs/BRIEF.md` when the project folder was prepared. |
 | 2026-08-05 | (no change) | `blocked_by` gained T-018: a tracked file carries a real absolute local path, which R-23 and §9 put inside this task's definition of done. |

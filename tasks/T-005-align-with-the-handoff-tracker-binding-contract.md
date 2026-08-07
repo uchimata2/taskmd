@@ -2,7 +2,7 @@
 id: T-005
 title: Align with the handoff tracker-binding contract
 type: research
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: [T-009]
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: medium
 effort: m
 created: 2026-08-04
-updated: 2026-08-04
+updated: 2026-08-07
 deliverables: []
 ---
 
@@ -49,7 +49,15 @@ They may share vocabulary, and T-009 owns that decision. Hence the new blocker.
       to taskmd's own contribution rather than only asked of others
 
 **Open questions**
-- Contribute a binding upstream, or ship a config recipe? — depends on the F1 outcome
+- None. **Answered by the maintainer on 2026-08-07: ship a config recipe for v1, and propose the
+  binding upstream after publishing.** R-24 asks for interoperation, not for adoption by another
+  project: a recipe is verifiable inside this repository and blocks nothing, where an upstream
+  contribution depends on someone else's review and would sit in T-006's path. *Rejected:
+  contributing upstream now.* It is the better long-term shape — the handoff core resolves its
+  `tracker` key to a file in its own `bindings/`, so a recipe alone is a binding that project cannot
+  load — which is why it is deferred rather than dropped.
+- **What criterion 1's F1 dependency now covers.** It stands, but the answer scopes it: the v1
+  recipe does not wait on the F1 outcome; the upstream contribution does.
 
 ## 2. Plan
 
@@ -78,4 +86,5 @@ They may share vocabulary, and T-009 owns that decision. Hence the new blocker.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-07 | → specified | Answered: recipe for v1, upstream contribution deferred until after publishing. Recorded with the reason the rejected option is the better long-term shape rather than the wrong one — the handoff core loads a `tracker` binding from its own folder, so a recipe is not a substitute for one, only a thing that works without it. Criterion 1 is unchanged and now scoped: the recipe half does not wait on the F1 outcome, the contribution half does. |
 | 2026-08-04 | → proposed | Seeded from `docs/BRIEF.md` when the project folder was prepared. |

@@ -2,7 +2,7 @@
 id: T-047
 title: Move the conduct rules that bind before task work into tier 1
 type: fix
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: [T-003]
@@ -69,13 +69,13 @@ requirements and must still be satisfiable after the move.
       division is not disturbed
 
 **Open questions**
-- What leaves tier 1 to make room, if the arithmetic needs it. Not answerable until the move is
-  drafted and measured, which is `plan`'s first step rather than an owner question.
-
-**Dependency, and why it is an edge.** This task waits on
-[T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md): tier 2 needs a loader, and
-demoting `docs/METHOD.md` before anything reliably loads it on starting task work would leave the
-lifecycle unloaded rather than tiered.
+- **None as an owner question. Confirmed by the maintainer on 2026-08-07: `plan` decides.** The
+  question stands as written and is `plan`'s first step — draft the move, measure it, and only then
+  choose what leaves. One candidate is on the record and is much the largest: `CLAUDE.md`'s
+  pre-publish check section runs to roughly a third of tier 1 for something needed once, before
+  publishing, which makes it a candidate for an on-demand file rather than a conventions one.
+  Recorded as a candidate and not a decision, because measuring the move before choosing the cut is
+  the whole of the sequencing this task inherited from T-028.
 
 ## 2. Plan
 
@@ -101,4 +101,5 @@ lifecycle unloaded rather than tiered.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-07 | → specified | Confirmed by the maintainer that what leaves tier 1 is `plan`'s decision, not theirs. Nothing else was outstanding, so this moves to `specified` with the question intact rather than answered. One sizeable candidate recorded while it was in view: the pre-publish check is about a third of tier 1 and is needed once, before publishing — a candidate, not a plan, since choosing the cut before measuring the move is what T-028 declined to do. |
 | 2026-08-07 | → proposed | Raised by T-028 step 6, which decided the measure and moved no content on purpose. Carries a dependency on T-003 as an edge rather than the sentence T-028's specify had, because tier 2 without a loader is not a tier. The measurement T-028 took is the reason this is `effort: m` rather than `s`: the content is 26 lines, not the dozen the decision's counter-argument estimated, so it does not fit as a straight addition and the task has to find room. |
