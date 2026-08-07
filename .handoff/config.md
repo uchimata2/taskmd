@@ -42,6 +42,12 @@ immediately, and the generated index goes stale silently until `index` is re-run
 `list --open --limit 1` answers "what next" by the project's own ordering rule, so it is not
 something to work out by hand from the index.
 
+Since T-011 the commands find the project by walking up from wherever they are run, so `--root` is
+an override rather than something to remember; `./taskmd.sh` and `./taskmd.ps1` are thin launchers
+that find an interpreter, and are the way to run the tool from a subdirectory. A project may declare
+one `after_write` command in its config, which taskmd runs after **its own** write — that is `index`,
+never a task-file edit, so it cannot be what keeps the index fresh.
+
 `docs/BINDING.md` is the backend contract and `docs/bindings/` holds the bindings. A binding is a
 document, not code — read `docs/BINDING.md` §4 before writing or adopting one.
 
