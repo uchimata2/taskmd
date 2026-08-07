@@ -9,6 +9,7 @@ deliverables_field: none
 blocked_status: none
 value_field: none
 effort_field: none
+after_write: none
 open_statuses: [proposed]
 context_fields: [status]
 index_columns: [status]

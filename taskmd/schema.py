@@ -24,6 +24,8 @@ Pure standard library. Console output is ASCII; task content is UTF-8.
 
 import os
 import re
+import shlex
+import shutil
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -38,7 +40,8 @@ SCALAR_KEYS = ("id_field", "id_prefix", "id_width", "title_field", "tasks_dir", 
 # Required to be present, permitted to be empty: `none` means the project does not track that
 # fact. Absent is still an error — a config replaces the default, so a missing key is a schema
 # nobody wrote.
-NULLABLE_KEYS = ("deliverables_field", "blocked_status", "value_field", "effort_field")
+NULLABLE_KEYS = ("deliverables_field", "blocked_status", "value_field", "effort_field",
+                 "after_write")
 LIST_KEYS = ("open_statuses", "context_fields", "index_columns")
 CONFIG_KEYS = SCALAR_KEYS + NULLABLE_KEYS + LIST_KEYS
 
@@ -168,8 +171,12 @@ class Edge(object):
 
 
 class Schema(object):
-    def __init__(self, source, fields, edges, vocabularies):
+    def __init__(self, source, fields, edges, vocabularies, hook=("", [])):
         self.source = source
+        # What the project wrote, and the same thing ready to run. The declared string is what
+        # any message quotes: it is the line the reader can go and edit, and the resolved one
+        # holds an absolute path that R-20 keeps out of output.
+        self.after_write, self.after_write_argv = hook
         self.id_field = fields["id_field"]
         self.id_prefix = fields["id_prefix"]
         self.id_width = fields["id_width"]
@@ -378,12 +385,75 @@ def _check_tasks_dir(root, fields, source, own_config):
                       % (source, tasks_dir, hint))
 
 
+def _resolve_hook(root, fields, source):
+    """Resolve the one hook when the config is read, so R-17 is structural rather than remembered.
+
+    The declaration is **a program followed by its arguments**, and that shape is what makes the
+    question answerable at all: taskmd can ask whether the program is there without running it. A
+    free shell line was the alternative and is more convenient to write — it was rejected because
+    "is this runnable?" then has no answer short of running it, which is the mid-command report
+    R-17 exists to prevent, and because the shell that would interpret it differs by platform,
+    which R-20 does not allow.
+
+    A first token containing a slash is a path in the project; anything else is looked up on PATH.
+    That is the whole rule, and it is what lets a hook be written in any language: name the
+    interpreter, or name an executable file.
+
+    Returns `(declared, argv)` — empty when the project declares no hook.
+    """
+    declared = fields["after_write"]
+    if not declared:
+        return "", []
+    try:
+        argv = shlex.split(declared)
+    except ValueError as exc:
+        raise SchemaError("%s: after_write is not a command line (%s): %s"
+                          % (source, exc, declared))
+    if not argv:
+        raise SchemaError("%s: after_write is empty. Write a command, or 'none'." % source)
+
+    program = argv[0]
+    if "/" in program or "\\" in program:
+        candidate = os.path.join(root, program.replace("/", os.sep).replace("\\", os.sep))
+        if not os.path.isfile(candidate):
+            raise SchemaError("%s: after_write names '%s', which is not a file in this project. "
+                              "A hook is resolved when the config is read, so a project cannot "
+                              "discover halfway through a command that it had none."
+                              % (source, program))
+        resolved = os.path.abspath(candidate)
+    else:
+        resolved = shutil.which(program)
+        if not resolved:
+            raise SchemaError("%s: after_write starts with '%s', which is not on PATH and is not "
+                              "a path in this project. Name an executable that is installed, or a "
+                              "file the project ships." % (source, program))
+    return declared, [resolved] + argv[1:]
+
+
+def _display(path, root):
+    """A short, machine-independent name for a config file, for messages.
+
+    Every `SchemaError` opens with this, and until the root was resolved rather than assumed it
+    could stay as-written — the root was `.`, so the name already was relative. A resolved root is
+    absolute, so without this every config error would print one machine's disk, which R-20
+    forbids and the pre-publish check in `CLAUDE.md` is aimed at.
+    """
+    for base in (root, os.path.dirname(HERE)):
+        try:
+            name = os.path.relpath(path, base)
+        except ValueError:  # a different drive on Windows: not relative to this base at all
+            continue
+        if not name.startswith(".."):
+            return name.replace("\\", "/")
+    return os.path.basename(path)
+
+
 def load_schema(root="."):
     """Resolve the schema for a project: its own config if it has one, else the shipped default."""
     candidate = os.path.join(root, PROJECT_CONFIG)
     own_config = os.path.exists(candidate)
     path = candidate if own_config else DEFAULT_CONFIG
-    source = path.replace("\\", "/")
+    source = _display(path, root)
 
     fields, body = split_front_matter(read(path))
     if not fields:
@@ -392,11 +462,12 @@ def load_schema(root="."):
     edges = _read_edges(body, source, fields)
     vocabularies = _read_vocabularies(body, source, fields)
     _check_deliverables_field(fields, edges, vocabularies, source)
+    hook = _resolve_hook(root, fields, source)
     # Last, deliberately: a config that is both malformed and points at a missing folder is
     # reported as malformed. The `SchemaError` suite builds a project from a config file alone,
     # with no tasks folder, and stays meaningful only while the earlier errors still win.
     _check_tasks_dir(root, fields, source, own_config)
-    return Schema(source, fields, edges, vocabularies)
+    return Schema(source, fields, edges, vocabularies, hook)
 
 
 # -------------------------------------------------------------------------------- the tasks

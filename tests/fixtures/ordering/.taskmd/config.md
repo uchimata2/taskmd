@@ -5,6 +5,7 @@ id_width: 3
 title_field: title
 tasks_dir: tasks
 status_field: status
+after_write: none
 open_statuses: [proposed, blocked]
 blocked_status: none
 deliverables_field: none

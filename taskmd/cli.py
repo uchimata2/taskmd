@@ -16,14 +16,19 @@ This module holds **no field name, status value or id format of its own**. Every
 about a project's shape it asks `taskmd.schema` for, which reads it from the config. If you find a
 literal like "blocked" or "status" below, that is a defect.
 
+`--root` is an override, not a default: with no flag the project is found by walking up from where
+the command was run, and the rule for that lives in `taskmd.discovery`.
+
 Pure standard library. Files are written with an explicit newline so output is byte-identical on
 every platform; console output is ASCII so a cp1252 terminal cannot mangle it.
 """
 
 import os
 import re
+import subprocess
 import sys
 
+from . import discovery
 from .schema import SchemaError, load_schema, load_tasks
 
 BEGIN = "<!-- taskmd:index - generated, do not edit by hand -->"
@@ -62,10 +67,11 @@ def is_nested_project(schema, folder):
 
     A project inside a project is validated on its own, not by its host — which is what lets this
     repository carry deliberately-broken fixture projects without reporting their defects as its
-    own. The marks are a config of its own, or its own tasks folder.
+    own. What counts as a project is `taskmd.discovery`'s to say, since resolving the root asks
+    the identical question one folder at a time; this passes the *resolved* tasks folder, so a
+    project that renamed it still recognises its own nested projects.
     """
-    return (os.path.isfile(os.path.join(folder, ".taskmd", "config.md")) or
-            os.path.isdir(os.path.join(folder, schema.tasks_dir)))
+    return discovery.is_project(folder, schema.tasks_dir)
 
 
 def markdown_files(root, schema):
@@ -218,6 +224,41 @@ def index_block(root, schema, tasks):
     return "\n".join(out)
 
 
+def run_after_write(root, schema):
+    """Run the project's declared command, and let its failure fail the command that wrote.
+
+    One invocation point, and it is *after* the write: the file is on disk before the hook sees
+    it, so a hook that fails reports a problem rather than leaving the reader guessing whether
+    anything was written. A pre-write point would catch a bad edit before it landed — a real
+    advantage, recorded and deliberately not taken (T-011 §1), because a second point is a second
+    config key every adopting project pays for.
+
+    The output is captured and re-printed rather than inherited. Two reasons: a caller that
+    redirected this command's output would otherwise get the hook's on a different stream, and
+    the console has already been reconfigured to UTF-8 here, which a child process has not.
+    """
+    if not schema.after_write_argv:
+        return 0
+    sys.stdout.flush()
+    print("Hook   %s" % schema.after_write)
+    try:
+        done = subprocess.Popen(schema.after_write_argv, cwd=root,
+                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        out = done.communicate()[0]
+    except OSError as exc:
+        # Resolution happened when the config was read, so reaching here means the world moved
+        # underneath us — the file was deleted, or is not executable after all.
+        print("HOOK ERROR    could not run '%s': %s" % (schema.after_write, exc))
+        return 1
+    for line in out.decode("utf-8", "replace").splitlines():
+        print("  " + line)
+    if done.returncode != 0:
+        print("HOOK FAILED   '%s' exited %d; the write happened, the check did not pass"
+              % (schema.after_write, done.returncode))
+        return 1
+    return 0
+
+
 def cmd_index(root, schema, tasks, args):
     path = os.path.join(root, schema.tasks_dir, "README.md")
     block = index_block(root, schema, tasks)
@@ -238,7 +279,7 @@ def cmd_index(root, schema, tasks, args):
     active = len([t for t in tasks.values() if t.is_open])
     print("Wrote %s - %d active, %d closed"
           % (rel(root, os.path.relpath(path, root)), active, len(tasks) - active))
-    return 0
+    return run_after_write(root, schema)
 
 
 # --------------------------------------------------------------------------------- check
@@ -521,7 +562,7 @@ def main(argv):
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-    root, rest = ".", []
+    root, rest = None, []
     argv = list(argv)
     while argv:
         arg = argv.pop(0)
@@ -537,7 +578,16 @@ def main(argv):
         print("usage: python -m taskmd {%s} [args] [--root PATH]"
               % ",".join(sorted(COMMANDS)))
         return 2
-    if not os.path.isdir(root):
+
+    # `--root` is the override; with no flag the project is found by walking up from where the
+    # command was run (`taskmd.discovery`). That order is what makes a clone work unedited, and
+    # it is why the flag is not simply a default of ".".
+    if root is None:
+        root = discovery.find_root()
+        if root is None:
+            print(discovery.not_found_message())
+            return 2
+    elif not os.path.isdir(root):
         print("No such directory: %s" % root)
         return 2
 

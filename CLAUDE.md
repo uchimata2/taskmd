@@ -16,7 +16,9 @@ evidence and the measured prior art behind them. `tasks/README.md` is the genera
 **Status:** the schema layer exists (`taskmd/`), the method document exists
 ([`docs/METHOD.md`](docs/METHOD.md), T-008), and four commands exist — `python -m taskmd
 {context,index,check,list}` (T-002, and `list` from T-022, for which `docs/SCOPE.md` non-goal 11
-was amended). This project runs on them; the interim `tools/tasks/task.py` is gone.
+was amended). This project runs on them; the interim `tools/tasks/task.py` is gone. Since T-011 they
+find the project by walking up from wherever they are run, `./taskmd.sh` and `./taskmd.ps1` find an
+interpreter, and a project can declare one `after_write` command that taskmd runs and reports on.
 
 `check` has been shown failing on **every** class it claims, the eighth completed by T-019 —
 a config value naming a folder that is not there is now an error when the config is read, so no

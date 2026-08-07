@@ -39,10 +39,14 @@ where they could not be quietly trimmed to whatever turned out to be easy.
 | `broken-deliverable` | Missing deliverable | Declares `out/report.md`, which is not there |
 | `broken-config` | Config error at setup — a **key** | `id_witdh` — a typo in a key name |
 | `broken-tasks-dir` | Config error at setup — a **value** | `tasks_dir: taks`, beside a real `tasks/` |
+| `broken-hook` | Config error at setup — a **command** | `after_write` naming a file the project does not ship |
 
-The two config fixtures are the two halves of one class, and the split is the finding: a misspelled
+The three config fixtures are one class in three parts, and each part was a finding: a misspelled
 **key** was caught from the start, a misspelled **value** was not, and only the first had ever been
-exercised. `broken-tasks-dir` also has no committed sibling for the case where the value is fine and
+exercised. `broken-hook` is the third — a declared command that could never run — and it is
+catchable at all only because a hook is declared as a program plus arguments rather than as a shell
+line, so the question can be asked without running anything (T-011).
+`broken-tasks-dir` also has no committed sibling for the case where the value is fine and
 the folder simply has not been made yet — a project with neither a config nor a tasks folder is an
 empty directory, which git cannot store, so that one is built in a temp directory by the test.
 

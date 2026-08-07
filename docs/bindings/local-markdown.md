@@ -113,3 +113,11 @@ python -m taskmd check
 vocabulary valid, references resolving, declared deliverables present. A write is not finished until
 both have run, and `check` is the reason a mistake here surfaces immediately instead of at the next
 person's turn.
+
+**A project may have the second one run for it, and still owes the first.** Setting `after_write` in
+the config makes taskmd run a command of the project's choosing after **its own** write, so
+`after_write: python -m taskmd check` turns the two steps above into one — a supplement to this
+step, not a replacement for it. The half that cannot be automated this way is `index` itself: taskmd
+never writes a task file, so the edit that made the index stale is one it never saw. Whatever
+performs the edit is what has to run `index` — which is why this step is written as an instruction
+to the agent rather than delegated to the tool.

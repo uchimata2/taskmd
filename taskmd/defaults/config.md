@@ -18,6 +18,9 @@ deliverables_field: deliverables   # field listing the paths a task produces; `n
 value_field: business_value  # estimated worth; `none` to not order by it
 effort_field: effort         # estimated cost; `none` to not order by it
 
+# ------------------------------------------------------------------- hooks
+after_write: none          # command taskmd runs after it writes a file; `none` for no hook
+
 # ------------------------------------------------------------------- views
 context_fields: [status, phase, type, work_package, owner]
 index_columns: [work_package, status, phase]
@@ -83,6 +86,36 @@ amendment carved out a task listing, not a general licence to add commands).
 Set it to `none` if a project does not track outputs that way. It is still a **required** key:
 every key must be written, because a config replaces the default rather than merging with it, and
 a silently absent key would hand you a schema you did not write.
+
+## The hook
+
+`after_write` is a command **the project owns** and taskmd runs — a consistency check, a
+formatter, whatever the project needs. taskmd ships none: a hook that arrived with the tool would
+be the tool doing something the project never asked for.
+
+**Written as a program followed by its arguments**, not as a shell line. That shape is what makes
+the command checkable *before* it runs: a first token containing a slash is a file in the project,
+anything else is looked up on PATH, and either way a hook that could never run is an error when
+this file is read rather than a surprise inside a command someone was trying to finish. It is also
+what makes the hook language-free — name an interpreter (`bash tools/audit.sh`,
+`pwsh -File tools/audit.ps1`) or name an executable the project ships. Write paths with forward
+slashes; they are translated for the platform.
+
+**One invocation point, and it is after the write.** A pre-write point would catch a bad edit
+before it landed rather than after, which is a genuine advantage and was deliberately not taken:
+it is speculative, and every additional point is a key an adopting project pays to have
+documented, validated and kept true. Adding a second later costs a schema change, which is cheaper
+than carrying one nobody asked for.
+
+**A hook that fails fails the command that ran it**, and its output is shown. A tool that ran your
+consistency check and then reported success anyway would be worse than one that never ran it. The
+write has already happened when the hook runs, so a failure reports a problem rather than undoing
+one — the file is on disk either way, and the message says so.
+
+**What it cannot do.** taskmd runs the hook after **its own** write, which today means after
+`index` regenerates the index. It never sees an edit made to a task file by a person, an agent or
+another tool, so it cannot be the thing that reacts to one. That job belongs to whatever runs the
+editing — an agent harness, an editor, a commit hook — and it is the project's to arrange.
 
 ## Edges
 

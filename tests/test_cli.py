@@ -118,7 +118,7 @@ class NothingIsHardcoded(unittest.TestCase):
                   "---\nid_field: id\nid_prefix: W\nid_width: 2\ntitle_field: title\n"
                   "tasks_dir: work\nstatus_field: state\ndeliverables_field: none\n"
                   "blocked_status: stuck\nvalue_field: none\neffort_field: none\n"
-                  "open_statuses: [live, stuck]\ncontext_fields: [state]\n"
+                  "after_write: none\nopen_statuses: [live, stuck]\ncontext_fields: [state]\n"
                   "index_columns: [state]\n---\n\n## Edges\n\n| Field | Kind | Derives |\n"
                   "| :--- | :--- | :--- |\n| needs | dependency | feeds |\n\n"
                   "## Vocabularies\n\n| Field | Values |\n| :--- | :--- |\n"

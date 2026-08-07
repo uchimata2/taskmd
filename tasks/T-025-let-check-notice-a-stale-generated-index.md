@@ -87,14 +87,20 @@ R-12, R-16, R-17 (`docs/SCOPE.md`); §1 *Invisibility*.
 
 **Long-term mitigations, recorded 2026-08-07 at the maintainer's request**
 
-The error is a backstop. These are the ways the condition stops arising, written here rather than
-left in a conversation.
+Written here rather than left in a conversation. **Corrected 2026-08-07 after T-011 was built**: the
+first of these was recorded as a way the condition stops arising, and it is not one. The error is
+therefore the mechanism, not a backstop — confirmed by the maintainer on 2026-08-07, who kept it.
 
-1. **The after-write hook removes the condition instead of reporting it.** T-011 was answered the
-   same day with a single invocation point: after a write. Wiring the local-markdown binding's
-   *After any write* step to it makes a stale index unreachable in ordinary use, and leaves this
-   task's error for edits made outside the hook — by hand, by another tool, or arriving in a merge.
-   Recorded as a soft edge; neither task blocks the other.
+1. ~~**The after-write hook removes the condition instead of reporting it.**~~ **It cannot, and the
+   original wording said otherwise.** T-011 was answered with a single invocation point — after a
+   write — and what it built runs a project's command after **taskmd's own** write, which is `index`
+   regenerating the file. The claim was that this leaves the error "for edits made outside the hook
+   — by hand, by another tool, or arriving in a merge". But taskmd never writes a task file, so
+   *every* task-file edit is outside the hook and the carve-out is the whole set. The hook is still
+   worth declaring — `after_write: python -m taskmd check` collapses the binding's *After any write*
+   step from two commands to one — it simply cannot make a stale index unreachable. What would is a
+   **harness** hook running `index` after an edit, which is the adopting project's to configure and
+   was explicitly outside T-011's scope. The soft edge stands; neither task blocks the other.
 2. **Compare by regenerating, never by storing a fingerprint.** The check renders the index in
    memory and compares it with the file. A stored hash or timestamp would be a written derived
    value, which the design rule forbids, and a field somebody has to keep true, which §1
@@ -133,5 +139,6 @@ and it costs R-12 and the artifact people browse in the repository without cloni
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-07 | (no status change) | Mitigation 1 corrected after T-011 was built and showed it false: the hook runs after taskmd's *own* write, and taskmd never writes a task file, so it cannot catch the edit that makes an index stale. The maintainer confirmed the error stands, which makes it the mechanism rather than the backstop the mitigation described — so this task's value went up, not down. The mitigation is struck through rather than deleted: it was recorded at the maintainer's request, and an argument that turned out to be wrong is worth more on the record than absent, since the next reader will otherwise propose it again. |
 | 2026-08-07 | → specified | Answered: an error, not a warning. The maintainer also asked for long-term mitigations to be recorded rather than offered and forgotten, so three are written into §1 with one rejected. The first is the substantive one and it arrived from T-011 being answered the same day: a single after-write hook point makes a stale index unreachable in ordinary use, which turns this task's error into the backstop for edits made outside it. Soft edge to T-011 added. The other two are constraints on the fix rather than alternatives to it — no stored fingerprint, and one renderer shared by both commands. |
 | 2026-08-05 | → proposed | Raised from T-009's `implement`, where the local-Markdown binding was being proven by following it. The binding's *after any write* step was missed, the index went stale, and `check` reported OK — an unstaged reproduction of the thing the binding's first assumption warns about. Raised rather than fixed in place (METHOD §3.3); T-009's own criteria do not cover the validator. |

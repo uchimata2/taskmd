@@ -38,6 +38,7 @@ deliverables_field: deliverables
 blocked_status: none
 value_field: none
 effort_field: none
+after_write: none
 open_statuses: [open]
 context_fields: [status]
 index_columns: [status]

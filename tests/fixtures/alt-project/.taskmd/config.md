@@ -9,6 +9,7 @@ deliverables_field: none
 value_field: none
 effort_field: size
 blocked_status: none
+after_write: none
 open_statuses: [todo, doing, waiting]
 context_fields: [state, size, area]
 index_columns: [size, state]
