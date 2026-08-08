@@ -132,11 +132,14 @@ on its own (*Verifying*, below), and keeping it in the same command is what stop
 from the check. The exclusion is one pathspec, not a second contract: any leak outside that one file
 is still caught, and the file's only content is the fixture.
 
-**Two limits, both deliberate.** A drive path is only matched with **two or more segments** after the
+**Three limits, all deliberate.** A drive path is only matched with **two or more segments** after the
 letter; a single-segment one is let through, because that form collides with ordinary text such as a
 `d:\n` escape inside a code string — and a check that cries wolf gets ignored, which is worse than a
 narrow one. (Do not write an example drive path here to illustrate that: the check reads this file
-too, and an illustration is indistinguishable from a leak.) And **a
+too, and an illustration is indistinguishable from a leak.) Second, **a dotted four-part version
+number fires the IP branch** — a kernel or build string in a task record will trip it, and nothing
+has leaked when it does; elide a component and move on. Requiring valid octets does not fix it,
+because a version's parts are under 256 too, and it triples the branch (T-058). And third, **a
 real name or a client project is not mechanically detectable at all**: that half is the label
 discipline above, and it holds only if every new identity goes into `control/LOCAL-CONTEXT.md`
 rather than into a task.
