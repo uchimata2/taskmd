@@ -49,8 +49,11 @@ subtree becomes a command an adopter can type from anywhere, with no install ste
 and no path editing — which is what `CLAUDE.md` *Publishing constraints* means by out-of-the-box.
 
 **Requirements served**
-`docs/SCOPE.md` §1 *Invisibility* — a tool the agent cannot invoke is not invisible, it is absent.
-R-19 and the dependency-free constraint in `CLAUDE.md` both bind the shape of the answer.
+**R-18** (`docs/SCOPE.md`) most directly — *"the repository root are auto-discovered so a clone runs
+unedited"*. That requirement is currently **unmet for anyone who is not standing in this repository**,
+which is the whole of this task. Also `docs/SCOPE.md` §1 *Invisibility* — a tool the agent cannot
+invoke is not invisible, it is absent — and R-19 with the dependency-free constraint in `CLAUDE.md`,
+which bind the shape of the answer.
 
 **Scope**
 - In: how an adopter invokes the four commands, and what the skill and `adopt.md` tell them to type.
