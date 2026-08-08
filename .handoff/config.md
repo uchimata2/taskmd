@@ -33,9 +33,11 @@ questions. Tasks cite the requirements they serve, so coverage is derived rather
 
 `docs/METHOD.md` is the working method itself. Since T-028 it is **tier 2** — loaded when task work
 starts, not on every turn; `docs/method/` is tier 3, a file per phase. Tier 1 is whatever the harness
-loads unasked, which since T-003 is `CLAUDE.md` **plus the taskmd skill's `description`** — the skill
-in `skills/taskmd/` is the loader that makes tier 2 real, and this repository enables it from its own
-tree. Do not restate the method here or anywhere else; `CLAUDE.md` does not.
+loads unasked, and **measured on 2026-08-07 that was `CLAUDE.md` alone** (T-050): the skill in
+`skills/taskmd/` is the loader that makes tier 2 real, and declaring the plugin from this tree did
+not install it. It was installed on 2026-08-08, so the expected reading has changed and nobody has
+taken it yet — that is T-050's remaining work, and the first thing a session here should check.
+Do not restate the method here or anywhere else; `CLAUDE.md` does not.
 
 The schema question that used to block everything is answered (T-001), and the CLI it gated is built:
 `python -m taskmd {context,index,check,list}`, proven by `tests/`. Run `check` **and** `index` after

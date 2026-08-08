@@ -19,7 +19,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [T-004](T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md) | Settle the id scheme and the claimed scale ceiling | - | `proposed` | `specify` | - | - | T-001 | - | T-002, T-006, T-007, T-010, T-043 |
 | [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) | Align with the handoff tracker-binding contract | - | `specified` | `specify` | - | - | T-009 | - | T-002, T-007, T-009, T-033 |
-| [T-006](T-006-package-document-and-publish.md) | Package, document and publish | - | `specified` | `specify` | - | - | T-002, T-003, T-008, T-009, T-010, T-011, T-018 | T-037 | T-004, T-013, T-019, T-020, T-023, T-026, T-034, T-049, T-050 |
+| [T-006](T-006-package-document-and-publish.md) | Package, document and publish | - | `specified` | `specify` | - | - | T-002, T-003, T-008, T-009, T-010, T-011, T-018 | T-037 | T-004, T-013, T-019, T-020, T-023, T-026, T-034, T-049, T-050, T-052 |
 | [T-020](T-020-confirm-byte-identical-output-on-macos-and-linux.md) | Confirm byte-identical output on macOS and Linux | - | `specified` | `specify` | T-002 | - | - | - | T-006, T-023, T-030 |
 | [T-021](T-021-settle-what-the-context-closing-line-may-say.md) | Settle what the context closing line may say | - | `specified` | `specify` | T-002 | - | - | - | T-003, T-022 |
 | [T-023](T-023-stop-config-errors-printing-an-absolute-install-path.md) | Stop config errors printing an absolute install path | - | `specified` | `specify` | - | - | - | - | T-006, T-019, T-020, T-024, T-030 |
@@ -36,8 +36,9 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-037](T-037-delete-the-throwaway-proof-repository.md) | Delete the throwaway repository the GitHub binding was proven on | - | `planned` | `plan` | - | - | T-006 | - | T-010, T-041 |
 | [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | - | `specified` | `specify` | - | - | T-003 | - | T-015, T-028 |
 | [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) | Demonstrate a clone running on a second platform | - | `proposed` | `specify` | T-011 | - | - | - | T-006 |
-| [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | - | `proposed` | `specify` | T-003 | - | - | - | T-006 |
+| [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | - | `in_progress` | `implement` | T-003 | - | - | - | T-006, T-052 |
 | [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | - | `proposed` | `specify` | - | - | - | - | T-001, T-003 |
+| [T-052](T-052-decide-what-of-claude-a-published-clone-carries.md) | Decide what of .claude a published clone carries, and ignore the rest | - | `proposed` | `specify` | - | - | - | - | T-003, T-006, T-050 |
 
 ## Closed
 
@@ -45,7 +46,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [T-001](T-001-decide-how-the-front-matter-schema-is-configured.md) | Decide how the front-matter schema is configured | - | `done` | `review` | - | - | - | T-002, T-004 | T-012, T-051 |
 | [T-002](T-002-implement-the-core-cli-context-index-check.md) | Implement the core CLI: context, index, check | - | `done` | `review` | - | T-019, T-020, T-021 | T-001 | T-003, T-006, T-011 | T-004, T-005, T-007, T-008, T-025, T-029 |
-| [T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md) | Write the skill that teaches the agent to use the CLI | - | `done` | `review` | - | T-050 | T-002, T-008 | T-006, T-047 | T-008, T-017, T-019, T-021, T-022, T-026, T-028, T-032, T-048, T-051 |
+| [T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md) | Write the skill that teaches the agent to use the CLI | - | `done` | `review` | - | T-050 | T-002, T-008 | T-006, T-047 | T-008, T-017, T-019, T-021, T-022, T-026, T-028, T-032, T-048, T-051, T-052 |
 | [T-007](T-007-define-the-project-scope-goals-and-requirements.md) | Define the project scope, goals and requirements | - | `done` | `review` | - | - | - | T-008 | T-002, T-004, T-005, T-022 |
 | [T-008](T-008-write-the-backend-neutral-method-document.md) | Write the backend-neutral method document | - | `done` | `review` | - | T-014, T-015, T-016, T-017 | T-007 | T-003, T-006, T-009 | T-002, T-003, T-013 |
 | [T-009](T-009-define-the-backend-binding-contract.md) | Define the backend binding contract and write the local-Markdown binding | - | `done` | `review` | - | - | T-008 | T-005, T-006, T-010 | T-005, T-010, T-012, T-025, T-038, T-040, T-043 |

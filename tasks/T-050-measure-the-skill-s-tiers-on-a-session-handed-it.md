@@ -2,8 +2,8 @@
 id: T-050
 title: Measure the skill's tiers on a session that was handed it
 type: fix
-status: proposed
-phase: specify
+status: in_progress
+phase: implement
 parent: T-003
 blocked_by: []
 related: [T-006]
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: high
 effort: xs
 created: 2026-08-07
-updated: 2026-08-07
+updated: 2026-08-08
 deliverables: []
 ---
 
@@ -75,15 +75,239 @@ this task is checking, and `skills/taskmd/SKILL.md`.
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Before invoking anything, write down what the session was handed — the observation exists only at this moment, so it is taken first and everything else is arranged around it | §3 step 1 |
+| 2 | Exercise the named-invocation path and record the harness's answer verbatim, whichever way it goes | §3 step 2 |
+| 3 | Establish whether the plugin declared in `.claude/settings.json` reached the harness's plugin machinery **at all**, read out of the harness's own state rather than inferred from the declaration | §3 step 3 |
+| 4 | Say which rows of T-003 §3's tier table this session settles and which it cannot, and what the result makes false elsewhere | §3 step 4 |
+
+**Shape decision.**
+
+**D1 — The measurement is taken and recorded; the registration fix is not applied in the same
+pass.** The two halves have opposite perishabilities. The observation is destroyed by the first
+skill invocation of the session, so it cannot wait; the fix cannot be *verified* in the session that
+applies it — a skill registered mid-session is refused by name, which
+[T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md) §3 step 7 established by
+probe and which step 2 below has now seen from the other side. So applying a fix here buys nothing
+this session can check, while choosing the mechanism unasked would pick between options that belong
+to the maintainer and touch [T-006](T-006-package-document-and-publish.md). *Rejected: fix and
+report in one pass* — it reads as faster and it would put an unverified change into the tree under a
+task whose whole point is that this project does not accept unverified claims about behaviour.
 
 ## 3. Implement
 
+### Step 1 — what the session was handed, before anything was invoked
+
+Taken on a session started in this repository on 2026-08-07, reading only what was already in
+context. Three things arrived unasked:
+
+| Arrived unasked | Form |
+| :--- | :--- |
+| `CLAUDE.md`, in full | a project-instructions block, presented as overriding default behaviour |
+| the agent's own cross-project memory index | an unrelated mechanism, outside this project's tier model |
+| a list of available skills, each as name + description | ~45 entries |
+
+**The taskmd skill is not in that list.** Neither `taskmd` nor `taskmd:taskmd` appears, and no text
+from `skills/taskmd/SKILL.md` — description or body — was present anywhere in what the session was
+given.
+
+The list *did* contain skills supplied by two installed plugins, under the `plugin:skill` naming the
+harness uses for them. So plugin-provided skills reach the list in this harness, on this session:
+the failure is specific to this repository's registration and not to the mechanism T-048 measured.
+
+### Step 2 — naming the skill
+
+Both forms of the user-invocation path, and the harness's answer:
+
+```text
+Unknown skill: taskmd. Did you mean tasks?
+```
+
+```text
+Unknown skill: taskmd:taskmd
+```
+
+**Criterion 3 fails.** Criterion 2 — reaching the skill without naming it — cannot fail *on its
+merits* and did not: a skill absent from the session's list has no description in context for a
+request to match, so there was nothing to trigger. That distinction is the one T-050's scope draws,
+and it decides which task owns the fix: this is a registration that never happened, not a trigger
+that did not fire, so the out-of-scope clause for a rewritten description is not reached.
+
+### Step 3 — where the registration stops
+
+Read out of the harness's own plugin state rather than from the declaration:
+
+| Harness state | Holds | taskmd present? |
+| :--- | :--- | :---: |
+| `~/.claude/plugins/known_marketplaces.json` | 2 marketplaces, both `github`-sourced, each with an install location and a fetch timestamp | no |
+| `~/.claude/plugins/installed_plugins.json` | 2 plugins, each with a version-stamped install path and an install time | no |
+| `~/.claude/plugins/cache/` | one folder per marketplace, then plugin, then version | no |
+| `~/.claude/plugins/plugin-catalog-cache.json` | the catalog | no |
+
+Nothing in the machinery has heard of it. Two facts narrow what that means:
+
+- **The settings shape is right, not merely plausible.** `extraKnownMarketplaces` and
+  `enabledPlugins` are the keys the shipped binary validates, and the user-level settings on this
+  machine enable a plugin through exactly the same pair — that plugin's skills are in the session's
+  list. So the declaration is not being rejected as malformed.
+- **The project's trust dialog was accepted**, so this is not the project settings file going
+  unread.
+
+What the four rows above have in common is that every plugin the harness *does* serve was
+**installed** — downloaded into a versioned cache and written into two state files. Declaring a
+marketplace and enabling a plugin in project settings did not produce that install. Whether an
+install is expected to follow from the declaration, or is a separate action the maintainer has to
+take once, is the question the fix turns on, and it is asked at the end of this section rather than
+answered here.
+
+**This is the plainest form of a fact this project keeps re-learning.** `.claude/settings.json` is a
+declaration of intent; the T-003 record reads it as an accomplished state — "the registration is in
+place" — and the registration is what is missing.
+
+### Step 4 — against T-003 §3's tier table, and what this makes false
+
+| Tier | Row's claim | This session |
+| :--- | :--- | :--- |
+| 0 | the `description` arrives every session, unasked | **not observed** — nothing arrived, because nothing is installed. The row is untested, not refuted |
+| 1 | the `SKILL.md` body arrives on invocation | **not reachable** — invocation is refused (step 2) |
+| 2 | `docs/METHOD.md` when the body points at it | **not evidence for the skill.** This session did load it at the right moment, but by way of `CLAUDE.md` and the handoff, not by the body — a different loader, so it says nothing about the skill's routing |
+| 3 | a phase file when its phase begins | same — `specify.md` was loaded at its moment, by the method spine, not by the skill |
+
+So **criterion 1 is not met and not carried onward in the same form**: the tier table cannot be
+confirmed or corrected until the skill is actually served to a session, and the reason it was not is
+now a known, fixable condition rather than an unexamined one. Criterion 4 — that the record says
+what was observed rather than what was expected — is what the three rows above are.
+
+**What the result makes false.** All three descend from one sentence in T-003 §3 step 8: that
+enabling the plugin here put the description into tier 1 by T-028's membership rule.
+
+- **`CLAUDE.md` *Working method*** says tier 1 is "this file plus the skill's `description`".
+  Measured: **this file alone.** The membership rule itself is untouched and still correct — tier 1
+  is whatever the harness loads unasked, and the description would join it the moment the plugin is
+  served. What is wrong is the claim that it currently does.
+- **`.handoff/config.md`** repeats the same pairing.
+- **[T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) is not over its
+  bound.** Its arithmetic went over on 397 characters that are not in tier 1 of any session in this
+  repository. Its margin is whatever it was before T-003's step 8, and the two things its `plan` was
+  handed — how a character count weighs against a line bound, and that tier 1 grows when a skill is
+  added — are premature until the description is actually being served.
+
+### Step 5 — the maintainer's answer, and the reconcile it made writable
+
+**Answered 2026-08-07: leave the declaration and install once by hand.** The maintainer runs the
+harness's marketplace-add and install from an interactive terminal; `.claude/settings.json` stays as
+written and is not the defect. *Rejected: a project-level `.claude/skills/taskmd/`*, which is served
+with no install at all and was already refused by T-003 **D2** for creating a second home for the
+skill — the measurement gives that rejection a cost but does not overturn it. *Rejected: treating it
+purely as [T-006](T-006-package-document-and-publish.md)'s* — that leaves this repository unable to
+run on its own skill until packaging lands, which is the arrangement T-003's scope was written to
+avoid. **T-006 still owes an install line**: an adopter who copies the declaration and stops has
+exactly the tree measured above.
+
+**And that line has to say `./`, not `.`** — read out of the shipped binary rather than assumed. The
+marketplace-add prompt takes one field, a source, and treats it as a local path only when it begins
+with `./`, `../`, `/`, `~`, `.\`, `..\` or a drive letter. A bare `.` matches none of them, falls
+through to the GitHub `owner/repo` branch and is rejected as a malformed source. `.claude/settings.json`
+declares the same directory as `"path": "."` — a different code path, and valid there — so **the one
+character that works in the settings file is the one that fails at the prompt**, which is precisely
+what an adopter copying the declaration would type. The source resolves against the process working
+directory, so the command is also root-only.
+
+Two things this repository cannot do for itself and one it can. It cannot run the install — those
+commands open an interactive panel — and it cannot verify the result, because a skill registered
+mid-session is refused by name. What it can do is stop asserting the state it does not have, which
+is the reconcile below.
+
+**The three statements, corrected — and corrected to survive the install rather than to describe
+today.** Writing "tier 1 is `CLAUDE.md` alone" would be true this morning and false the moment the
+install lands, so each now turns on *whether the harness serves the skill*, with the measurement
+attached as evidence rather than as the rule:
+
+- **[`CLAUDE.md`](../CLAUDE.md)** — the membership sentence keeps its property (a description joins
+  tier 1 when the harness serves the skill, without the paragraph being edited) and gains the
+  measured fact that this file is still the whole of tier 1. *Status* now says **declares** rather
+  than enables.
+- **[`.handoff/config.md`](../.handoff/config.md)** — same pairing, same correction.
+- **[T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md)** — the log
+  entry that put it over its bound gave a **wrong reason and a right conclusion**, and the correction
+  says both. Its margin was not restored: re-measured with `wc -l` after the two edits above landed,
+  `CLAUDE.md` is 151 against 173, so 151 + 26 = **177, over by four on line count alone** with no
+  description counted. Three of those four lines are this task's reconcile — which is T-047's own
+  observation arriving from an unexpected direction, and the reason the number was measured here
+  rather than back-calculated from a figure in an older log.
+
+**What is deliberately not corrected.** Nothing in T-003's own record. Its review carried criteria 4
+and 8 to this task rather than claiming them, which is the thing that worked — the one sentence in
+its §3 step 5 that reads as accomplished state is quoted in step 3 above and left where it is, since
+editing a closed task's evidence to match a later measurement destroys the audit trail the carry
+exists to create.
+
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+- **The measurement was taken before the handoff's own pointers were followed any further than
+  reading them.** — Step 1's observation is destroyed by the first skill invocation of a session,
+  and the resuming session had one chance at it. — 2026-08-07
+- **The registration failure is reported as this task's finding, not raised as a child task.** —
+  T-050's scope names it in advance: "whether the plugin declared in `.claude/settings.json` is
+  picked up from this tree at all. If it is not, that is this task's finding and the registration is
+  what gets fixed." METHOD §5's raise-it-elsewhere rule is for findings a task did not go looking
+  for. — 2026-08-07
+- **The reconcile was held until the maintainer answered, then written to survive the install.** —
+  Each of the three statements is false given today's state, and today's state is what the open
+  question changed. Correcting them to "`CLAUDE.md` alone" would have been a second write on the same
+  sentences the moment the install landed, so each was rewritten to turn on whether the harness
+  serves the skill, with the measurement as evidence. — 2026-08-07
+- **T-003's record is not edited.** — Its review carried the two criteria here rather than claiming
+  them; editing a closed task's evidence to match a later measurement destroys the trail the carry
+  exists to create. METHOD §5's rule read in the direction it is usually read backwards. — 2026-08-07
 
 **Outputs produced**
-- <path>
+- This record — the measurement itself. `deliverables` stays empty: the task produces an observation,
+  not an artifact.
+- [`CLAUDE.md`](../CLAUDE.md), [`.handoff/config.md`](../.handoff/config.md),
+  [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) — the reconcile.
+
+### Step 6 — the install, verified where it lands and where it does not
+
+**Done by the maintainer at user scope on 2026-08-08**, and confirmed by reading the harness's own
+state rather than by being told:
+
+| Harness state | Before (step 3) | After |
+| :--- | :---: | :--- |
+| known marketplaces | absent | present, `directory` source |
+| installed plugins | absent | `taskmd@taskmd`, scope `user`, version `0.1.0` |
+| the plugin cache | 2 marketplaces | 3 — taskmd among them |
+| user-level settings | absent | enabled, and the marketplace declared |
+
+**The probe that matters, and it is stronger than the one T-003 could take.** With the install
+complete and every state file above showing it, this session **still** cannot reach the skill:
+
+```text
+Unknown skill: taskmd:taskmd
+```
+
+T-003 established that the skill list is fixed at session start by writing a throwaway skill
+mid-session and having it refused. That left an objection open — a hand-written file dropped into a
+folder is not an installed plugin, and might simply have been ignored for being irregular. This
+closes it: a plugin installed by the harness's **own** command, registered in all four of its state
+files, is refused by name in the same session on the same terms. The list is fixed at session start,
+and nothing about the artifact's provenance changes that.
+
+**Where the machine path went, and why that was the whole point of the scope question.** The
+harness stored the marketplace source resolved to an absolute path, exactly as step 5 predicted from
+the parser — and because the scope chosen was `user`, it went to the harness's own settings, outside
+this repository. The tracked `.claude/settings.json` is **byte-identical**, still declaring the
+relative `"path": "."` that T-003 **D3** wrote; the working tree gained nothing under `.claude/`; and
+the pre-publish check prints nothing. Had the install been taken at project or local scope, that
+absolute path would now be in a file a push would send — which is
+[T-052](T-052-decide-what-of-claude-a-published-clone-carries.md), raised before the install rather
+than after it.
+
+**Still outstanding, and still not this session's to close.** Criteria 1, 2 and 3 need a session that
+was *handed* the skill, and the install cannot retrofit one. The next session's first act is the
+verification: was `taskmd` in the list it was given, did a request to do task work reach it without
+being named, and does naming it work. That is the same shape this task has had from the start — the
+difference is that the precondition is now satisfied and measured, rather than assumed from a
+declaration.
 
 ## 4. Review
 
@@ -92,10 +316,17 @@ this task is checking, and `skills/taskmd/SKILL.md`.
 |  |  |  |
 
 **Child fix tasks raised**
-- none
+- **[T-052](T-052-decide-what-of-claude-a-published-clone-carries.md)** — raised, not carried. Found
+  while answering which scope to install at: `.claude/settings.local.json` is not ignored, and the
+  harness stores a directory source resolved to an absolute path. METHOD §5's distinction applies —
+  this task did not make it false, and `.gitignore` is not what this task measures. Recorded as
+  `related` rather than `parent`: it is not part of measuring the tiers.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-08 | (no status change) | Installed by the maintainer at **user** scope, and verified from the harness's own four state files rather than from being told — marketplace, installed plugin (`taskmd@taskmd`, `0.1.0`), cache and user settings all now carry it. **The probe this made possible is stronger than the one T-003 could take**: with the install complete, this session still gets `Unknown skill: taskmd:taskmd`. T-003 showed the skill list is fixed at session start using a throwaway skill written mid-session, which left open the objection that an irregular hand-written file might simply have been ignored; a plugin installed by the harness's own command and present in all four state files is refused on identical terms, so provenance is not the variable. The scope choice held: the harness stored the marketplace source resolved to an **absolute** path — as predicted from the parser in step 5 — into its own settings, outside this repository, leaving the tracked `.claude/settings.json` byte-identical with T-003 D3's relative path and the pre-publish check printing nothing. Criteria 1–3 remain open and remain un-closable here by construction. *This entry is dated a day after the ones below because the session spanned the boundary — the earlier entries were written on 2026-08-07 and are not misdated.* |
+| 2026-08-07 | (no status change) | Maintainer answered: keep the declaration, install by hand. So the reconcile became writable and was taken — `CLAUDE.md`, `.handoff/config.md` and T-047's over-bound entry — each phrased to turn on **whether the harness serves the skill** rather than on today's state, so the install does not immediately falsify them again. **T-047 stays over its bound, for a different reason than it recorded**: the 397 characters were never served, but `wc -l` after these edits puts `CLAUDE.md` at 151 against 173, so 151 + 26 = 177 — over by four, three of them added by this reconcile. That figure was measured rather than carried forward from the older entry, which is what caught it. T-003's own record is left alone: it carried these criteria rather than claiming them, and editing a closed task's evidence to match a later measurement destroys the trail the carry exists to create. What stays open is not this session's to close — the install runs in an interactive terminal, and a skill registered mid-session is refused by name, so criteria 1, 2 and 3 are verified by the session **after** the install, in its first act, for the same reason this task exists at all. |
+| 2026-08-07 | → in_progress | Measured, and the answer is the one nobody had checked for: **the plugin is not registered at all**, so the skill was never handed to this session and neither invocation path exists to test. Named invocation is refused by the harness twice, and the harness's own plugin state — known marketplaces, installed plugins, the cache, the catalog — contains no trace of taskmd, while the two plugins it *does* serve are each installed into a versioned cache. The settings shape is not the problem: the same two keys enable a plugin at user level on this machine and that plugin's skills are in the session's list, and the project's trust dialog was accepted. What separates them is an **install**, which the declaration did not produce. So T-003 §3 step 8's consequence is false: the description is not in tier 1, `CLAUDE.md` and `.handoff/config.md` both say it is, and T-047 went over its bound on 397 characters that are not being served. Those three are named as this task's reconcile debt and left uncorrected, because which correction is right depends on the one open question — how this repository should serve its own skill — and because the fix, whichever it is, **cannot be verified by the session that applies it**, which is the same constraint that created this task. Specify and plan were taken in the same pass: the specify was already complete with no open questions, and step 1's observation is destroyed by the first skill invocation of a session, so deferring it a turn would have cost the measurement. |
 | 2026-08-07 | → proposed | Carried from T-003's review rather than counted as met, which is METHOD §2's rule for `review`. `xs` because the whole of the work is starting a session and reporting what it was handed; `high` because the claim it checks is R-21's, and R-21 is the requirement this project has already believed wrongly once. |
