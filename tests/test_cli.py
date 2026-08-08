@@ -11,6 +11,7 @@ and nothing else.
 
 import io
 import os
+import re
 import shutil
 import sys
 import tempfile
@@ -332,6 +333,22 @@ class Usage(unittest.TestCase):
         code, out = run("check", "--root", os.path.join(ROOT, "no-such-folder"))
         self.assertEqual(code, 2)
         self.assertIn("No such directory", out)
+
+    def test_every_usage_line_names_the_command_the_skill_names(self):
+        """T-055. What this pins is not the word `taskmd` but the property T-054 found broken: the
+        tool and the skill naming different commands, so the advice printed to someone already stuck
+        is advice they cannot take. The expected name is therefore read out of SKILL.md rather than
+        written here — two copies that must agree, instead of three that can drift."""
+        skill = os.path.join(PKG, "skills", "taskmd", "SKILL.md")
+        with io.open(skill, encoding="utf-8") as handle:
+            block = re.search(r"```bash\n([^\n]+)\n", handle.read())
+        self.assertIsNotNone(block, "SKILL.md no longer opens its first command in a bash block")
+        named = block.group(1).split()[0]
+
+        for label, out in (("no command", run()[1]),
+                           ("context with no id", run("context", "--root", ROOT)[1])):
+            self.assertTrue(out.startswith("usage: "), "%s: %r" % (label, out))
+            self.assertEqual(named, out[len("usage: "):].split()[0], "%s: %r" % (label, out))
 
 
 if __name__ == "__main__":

@@ -126,7 +126,7 @@ def load(root):
 
 def cmd_context(root, schema, tasks, args):
     if not args:
-        print("usage: context <id>")
+        print("usage: taskmd context <id>")
         return 1
     wanted = args[0]
     if wanted not in tasks:
@@ -575,7 +575,11 @@ def main(argv):
             rest.append(arg)
 
     if not rest or rest[0] not in COMMANDS:
-        print("usage: python -m taskmd {%s} [args] [--root PATH]"
+        # `taskmd`, not `python -m taskmd`: this line is read by someone who has already mistyped,
+        # and the one who needs telling is the adopter, who has the plugin on PATH and no source
+        # tree. It cannot be derived - every route into this module ends in `python -m taskmd`, so
+        # argv[0] is the same however the user got here (T-055).
+        print("usage: taskmd {%s} [args] [--root PATH]"
               % ",".join(sorted(COMMANDS)))
         return 2
 
