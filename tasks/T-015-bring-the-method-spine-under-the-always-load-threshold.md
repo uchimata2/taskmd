@@ -14,9 +14,9 @@ effort: s
 created: 2026-08-04
 updated: 2026-08-04
 deliverables:
-  - docs/METHOD.md
-  - docs/method/rationale.md
-  - docs/method/where-facts-live.md
+  - plugin/docs/METHOD.md
+  - plugin/docs/method/rationale.md
+  - plugin/docs/method/where-facts-live.md
   - CLAUDE.md
 ---
 

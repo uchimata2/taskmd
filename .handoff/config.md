@@ -31,30 +31,33 @@ Start with `docs/SCOPE.md` — the goal, the numbered requirements (R-1…R-24) 
 non-goals. `docs/BRIEF.md` holds the problem evidence, the carried lessons and the remaining open
 questions. Tasks cite the requirements they serve, so coverage is derived rather than tabulated.
 
-`docs/METHOD.md` is the working method itself. Since T-028 it is **tier 2** — loaded when task work
-starts, not on every turn; `docs/method/` is tier 3, a file per phase. Tier 1 is whatever the harness
+`plugin/docs/METHOD.md` is the working method itself. Since T-028 it is **tier 2** — loaded when task work
+starts, not on every turn; `plugin/docs/method/` is tier 3, a file per phase. Tier 1 is whatever the harness
 loads unasked, and **measured on 2026-08-08 that is `CLAUDE.md` plus the taskmd `description`**
-(T-050) — the skill in `skills/taskmd/` is the loader that makes tier 2 real, and it was only served
-once the plugin was installed rather than merely declared. The skill is served from an install-time
-**snapshot** of this repository, so a pointer in it resolves both there and in the working tree, and
-the two have already drifted — [T-053](../tasks/T-053-decide-the-plugin-s-boundary-and-what-its-skill-may-p.md).
+(T-050) — the skill in `plugin/skills/taskmd/` is the loader that makes tier 2 real, and it was only served
+once the plugin was installed rather than merely declared. **Since T-053 the plugin is the `plugin/`
+subtree, not the repository** — the harness has no exclusion mechanism, so the boundary is the
+directory, and what an install copies is exactly what is inside it. A served skill is still a
+snapshot of that subtree, which is a property of installing rather than a defect.
 Do not restate the method here or anywhere else; `CLAUDE.md` does not.
 
 The schema question that used to block everything is answered (T-001), and the CLI it gated is built:
-`python -m taskmd {context,index,check,list}`, proven by `tests/`. Run `check` **and** `index` after
+`./plugin/taskmd.sh {context,index,check,list}` (or `.ps1`), proven by `tests/`. Since T-053 the
+package lives in `plugin/`, so the launchers — which set `PYTHONPATH` to their own folder — are the
+way in; a bare `python -m taskmd` needs that variable set. Run `check` **and** `index` after
 any edit to a task file — this project uses its own tool on itself, so a regression shows up
 immediately, and the generated index goes stale silently until `index` is re-run (T-025).
 `list --open --limit 1` answers "what next" by the project's own ordering rule, so it is not
 something to work out by hand from the index.
 
 Since T-011 the commands find the project by walking up from wherever they are run, so `--root` is
-an override rather than something to remember; `./taskmd.sh` and `./taskmd.ps1` are thin launchers
-that find an interpreter, and are the way to run the tool from a subdirectory. A project may declare
+an override rather than something to remember; `plugin/taskmd.sh` and `plugin/taskmd.ps1` are thin
+launchers that find an interpreter and put the package on the path. A project may declare
 one `after_write` command in its config, which taskmd runs after **its own** write — that is `index`,
 never a task-file edit, so it cannot be what keeps the index fresh.
 
-`docs/BINDING.md` is the backend contract and `docs/bindings/` holds the bindings. A binding is a
-document, not code — read `docs/BINDING.md` §4 before writing or adopting one.
+`plugin/docs/BINDING.md` is the backend contract and `plugin/docs/bindings/` holds the bindings. A binding is a
+document, not code — read `plugin/docs/BINDING.md` §4 before writing or adopting one.
 
 `reference/` holds proven prior art. It is **not** the plugin: it works, but it is written
 around one project's assumptions. Read it for behaviour that is already verified, not for code

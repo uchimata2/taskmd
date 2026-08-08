@@ -14,7 +14,7 @@ effort: s
 created: 2026-08-07
 updated: 2026-08-07
 deliverables:
-  - docs/method/plan.md
+  - plugin/docs/method/plan.md
 ---
 
 # T-039 — Let a plan name a deliverable that does not exist yet
@@ -31,7 +31,7 @@ each be named "precisely enough that someone else could look for it". Doing that
 link — the ordinary way this project writes a path — makes `check` fail:
 
 ```
-BROKEN LINK   tasks/T-010-...md -> ../docs/bindings/github-issues.md
+BROKEN LINK   tasks/T-010-...md -> ../plugin/docs/bindings/github-issues.md
 ```
 
 Which is correct, and also unavoidable: at `plan` the deliverable does not exist yet, by
@@ -139,7 +139,7 @@ is the property the rejected option would have spent.
   that one of them was a defect did not survive step 1. — 2026-08-07
 
 **Outputs produced**
-- [`docs/method/plan.md`](../docs/method/plan.md) — step 6 gains the paths-not-links rule and the
+- [`docs/method/plan.md`](../plugin/docs/method/plan.md) — step 6 gains the paths-not-links rule and the
   promised-versus-produced distinction
 
 ## 4. Review

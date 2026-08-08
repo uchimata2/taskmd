@@ -14,7 +14,7 @@ effort: s
 created: 2026-08-07
 updated: 2026-08-07
 deliverables:
-  - docs/bindings/github-issues.md
+  - plugin/docs/bindings/github-issues.md
 ---
 
 # T-044 — State the gh version the GitHub binding requires
@@ -164,7 +164,7 @@ still fits, which is why it went into assumption 4 rather than becoming a sevent
   an unrecognised-flag error partway through an operation" is the reason to check. — 2026-08-07
 
 **Outputs produced**
-- [`docs/bindings/github-issues.md`](../docs/bindings/github-issues.md) — assumption 4
+- [`docs/bindings/github-issues.md`](../plugin/docs/bindings/github-issues.md) — assumption 4
 
 ## 4. Review
 

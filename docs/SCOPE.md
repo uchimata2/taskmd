@@ -36,7 +36,7 @@ If a change makes any of the three worse, it is against the goal even if it is a
 Three rules that every requirement below is an application of. They govern the **whole product** —
 the schema, the generated index, the config, the code — which is why they are stated here in full
 rather than pointed at. Where a principle *also* holds as a narrower rule about how work is tracked,
-[`METHOD.md`](METHOD.md) states that version and this section points at it. **This is not the
+[`METHOD.md`](../plugin/docs/METHOD.md) states that version and this section points at it. **This is not the
 convention in §3**, which governs requirements and is stated there — a principle is a rule, and a
 requirement is not. Decided in
 [T-045](../tasks/T-045-decide-whether-scope-principles-may-state-the-rule-they-name.md).
@@ -45,7 +45,7 @@ requirement is not. Decided in
    computed at read time, never stored. A feature that *requires* writing the same fact twice is
    the wrong feature — and the emphasis is on "requires". The case where that distinction bites is
    the inverse of a link, where one write is always sufficient and a second is permitted (R-2); what
-   the rule does and does not forbid there is stated once, in [`METHOD.md`](METHOD.md) §4.
+   the rule does and does not forbid there is stated once, in [`METHOD.md`](../plugin/docs/METHOD.md) §4.
 2. **Store the forward edge, derive the rest.** Recording a relationship on one task is *enough* —
    the other end is computed, so no view can miss it. *Not a local-file quirk:* GitHub exposes
    `--blocked-by` / `--blocking` as two views of one relation, and Notion's `Parent item`
@@ -60,7 +60,7 @@ requirement is not. Decided in
 Numbered so tasks can cite them. Each is written to be **testable** — if you cannot say what would
 falsify it, it is a principle, not a requirement, and belongs in §2.
 
-**These requirements and [`METHOD.md`](METHOD.md) say the same things, and that is correct.** A
+**These requirements and [`METHOD.md`](../plugin/docs/METHOD.md) say the same things, and that is correct.** A
 requirement states a property the method must have; the method states the rule that gives it that
 property. Two documents agreeing is what conformance *is* — R-1 governs facts about tasks, not a
 specification restating what it requires, and a requirement that could not be compared against the

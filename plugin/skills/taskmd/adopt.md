@@ -30,8 +30,9 @@ your project's own always-loaded conventions live.
 
 This skill cannot do it for you, and the reason is worth knowing rather than working around: a
 session that has not invoked a skill has been handed its `description` and nothing else. That is a
-measurement, not a claim about this file — [`../../docs/SCOPE.md`](../../docs/SCOPE.md) R-21 says how
-it is falsified.
+measurement rather than a claim about this file — it was taken by starting a session, writing down
+what it had been given before invoking anything, and checking whether an ordinary request reached
+the skill. Re-take it the same way in your own project if you want to know it holds there.
 
 ## 5. Confirm
 

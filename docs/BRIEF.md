@@ -70,7 +70,7 @@ a config file adapts it. Decide this before writing code; it shapes everything.
 **Settled in [T-001](../tasks/T-001-decide-how-the-front-matter-schema-is-configured.md)**
 (2026-08-04): (1), with the defaults of (3) **and the pass-through of (2)** — the three were not
 in fact alternatives. The decisions and their rationale live in that task file; the resulting
-schema lives in [`taskmd/defaults/config.md`](../taskmd/defaults/config.md), which is also the
+schema lives in [`plugin/taskmd/defaults/config.md`](../plugin/taskmd/defaults/config.md), which is also the
 only documentation of what a config may contain.
 
 ### Commands
@@ -92,7 +92,7 @@ still excludes the query language; it is the *listing* that was carved out.
 
 ### The skill
 
-A thin skill (`skills/taskmd/SKILL.md`) that teaches the agent to run the CLI rather than read
+A thin skill (`plugin/skills/taskmd/SKILL.md`) that teaches the agent to run the CLI rather than read
 files, and to create tasks from the template. **Point at the tool; do not restate its rules in
 prose** — a skill that describes what the CLI already enforces is a second copy that will drift.
 
@@ -133,7 +133,7 @@ Learned the expensive way in the source project. Each cost something.
    [T-004](../tasks/T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md).
 4. ~~**Sub-tasks vs. dependencies**~~ — **closed** by
    [T-008](../tasks/T-008-write-the-backend-neutral-method-document.md), 2026-08-04. The distinction
-   is a two-question test in [`METHOD.md`](METHOD.md) §4 *Which edge to use*, and it turned out to
+   is a two-question test in [`METHOD.md`](../plugin/docs/METHOD.md) §4 *Which edge to use*, and it turned out to
    need a third answer as much as the first two: if neither question fires, do not link them at all.
 5. ~~**Should `check` fix?**~~ — **closed**: an automatic fixer that rewrites task content is
    non-goal 6 in [`SCOPE.md`](SCOPE.md). The reason turned out to be stronger than the original

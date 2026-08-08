@@ -14,8 +14,8 @@ effort: m
 created: 2026-08-04
 updated: 2026-08-04
 deliverables:
-  - taskmd/defaults/config.md
-  - taskmd/schema.py
+  - plugin/taskmd/defaults/config.md
+  - plugin/taskmd/schema.py
   - tests/test_schema.py
   - tests/fixtures/alt-project/.taskmd/config.md
 ---
@@ -78,8 +78,8 @@ its task files.
   itself and would force a separate prose copy, which is the exact drift this plugin removes.
   — 2026-08-04
 - **D3 — The default schema is a file the CLI reads, not values in code.**
-  [`taskmd/defaults/config.md`](../taskmd/defaults/config.md) is loaded at run time;
-  [`taskmd/schema.py`](../taskmd/schema.py) holds no default values to disagree with it. This is
+  [`taskmd/defaults/config.md`](../plugin/taskmd/defaults/config.md) is loaded at run time;
+  [`taskmd/schema.py`](../plugin/taskmd/schema.py) holds no default values to disagree with it. This is
   acceptance criterion 3, met by construction rather than by discipline. — 2026-08-04
 - **D4 — A project config *replaces* the default; it is not merged with it.** So the config you
   are reading is your whole schema. Merged defaults would put the effective schema in two files
@@ -112,9 +112,9 @@ its task files.
   The `context`, `index` and `check` commands are T-002 and build on this.
 
 **Outputs produced**
-- [`taskmd/defaults/config.md`](../taskmd/defaults/config.md) — the default schema, and the only
+- [`taskmd/defaults/config.md`](../plugin/taskmd/defaults/config.md) — the default schema, and the only
   documentation of what a config may contain
-- [`taskmd/schema.py`](../taskmd/schema.py) — resolution, validation, task reading, edge derivation
+- [`taskmd/schema.py`](../plugin/taskmd/schema.py) — resolution, validation, task reading, edge derivation
 - [`tests/fixtures/alt-project/`](../tests/fixtures/alt-project) — the second, deliberately
   different schema and three task files written to it
 - [`tests/test_schema.py`](../tests/test_schema.py) — 25 tests; 15 of them are rejections

@@ -14,8 +14,8 @@ effort: s
 created: 2026-08-07
 updated: 2026-08-07
 deliverables:
-  - docs/bindings/github-issues.md
-  - docs/bindings/local-markdown.md
+  - plugin/docs/bindings/github-issues.md
+  - plugin/docs/bindings/local-markdown.md
 ---
 
 # T-043 — Make every assumption a claim about the adopting project
@@ -176,8 +176,8 @@ since every lead got longer:
   was missing was a way to find the form, which is now recorded as step 2's method. — 2026-08-07
 
 **Outputs produced**
-- [`docs/bindings/github-issues.md`](../docs/bindings/github-issues.md) — assumptions 1, 2, 5, 6
-- [`docs/bindings/local-markdown.md`](../docs/bindings/local-markdown.md) — assumptions 1, 2, 3, 4, 6
+- [`docs/bindings/github-issues.md`](../plugin/docs/bindings/github-issues.md) — assumptions 1, 2, 5, 6
+- [`docs/bindings/local-markdown.md`](../plugin/docs/bindings/local-markdown.md) — assumptions 1, 2, 3, 4, 6
 
 ## 4. Review
 

@@ -14,9 +14,9 @@ effort: l
 created: 2026-08-04
 updated: 2026-08-07
 deliverables:
-  - skills/taskmd/SKILL.md
-  - skills/taskmd/adopt.md
-  - .claude-plugin/plugin.json
+  - plugin/skills/taskmd/SKILL.md
+  - plugin/skills/taskmd/adopt.md
+  - plugin/.claude-plugin/plugin.json
   - .claude-plugin/marketplace.json
   - .claude/settings.json
 ---
@@ -40,7 +40,7 @@ R-6, R-7, R-8, R-9, R-21, R-22 (`docs/SCOPE.md`).
 - In: the **tier design and the measurement of it** — what arrives before invocation, on invocation,
   and after that. R-21 leaves the number of tiers to this task and fixes only how the claim is
   falsified ([T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md)).
-- In: the mechanism that makes [`docs/METHOD.md`](../docs/METHOD.md) §3.1–§3.3 fire, and what the
+- In: the mechanism that makes [`docs/METHOD.md`](../plugin/docs/METHOD.md) §3.1–§3.3 fire, and what the
   agent does to create a task and after any write — by pointing at the project's binding.
 - In: **making the skill live in this repository**, far enough to be measured on a real session here.
   This project runs its own method on itself, and a tiering claim that cannot be measured where the
@@ -62,25 +62,25 @@ R-6, R-7, R-8, R-9, R-21, R-22 (`docs/SCOPE.md`).
 - Out: the handoff tracker binding — [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md).
 
 **Inputs**
-- [`docs/METHOD.md`](../docs/METHOD.md) §3 and §7 — the rules the skill must make fire, and the
+- [`docs/METHOD.md`](../plugin/docs/METHOD.md) §3 and §7 — the rules the skill must make fire, and the
   tier-3 files it hands over to.
 - [`docs/SCOPE.md`](../docs/SCOPE.md) R-6…R-9, R-21, R-22, and §1 *Invisibility*.
-- [`docs/BINDING.md`](../docs/BINDING.md) §1 and
-  [`docs/bindings/local-markdown.md`](../docs/bindings/local-markdown.md) — the six operations, and
+- [`docs/BINDING.md`](../plugin/docs/BINDING.md) §1 and
+  [`docs/bindings/local-markdown.md`](../plugin/docs/bindings/local-markdown.md) — the six operations, and
   what the agent still owes after a write.
 - [`CLAUDE.md`](../CLAUDE.md) §*Working method* — this repository's tier model, which the skill fits
   into rather than replaces.
 - [T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md) §3 step 1 — what a
   session is handed for a skill it has not invoked, already measured. Extend it; do not re-derive it.
 - [`tasks/_templates/task-template.md`](_templates/task-template.md) and
-  [`taskmd/defaults/config.md`](../taskmd/defaults/config.md) — what a created task must carry for
+  [`taskmd/defaults/config.md`](../plugin/taskmd/defaults/config.md) — what a created task must carry for
   `check` to accept it.
 
 **What the skill must carry that the CLI cannot enforce**
 The CLI validates files; it cannot govern how the agent behaves. These three are the skill's real
 content, and none of them is a restatement of something the tool checks:
 
-They are **[`docs/METHOD.md`](../docs/METHOD.md) §3.1, §3.2 and §3.3** — serving R-6, R-7 and R-8
+They are **[`docs/METHOD.md`](../plugin/docs/METHOD.md) §3.1, §3.2 and §3.3** — serving R-6, R-7 and R-8
 respectively. Their wording is not repeated here: this task exists to stop the skill becoming a
 second copy of the method, and a task file that opens by making one would be arguing against itself.
 Read §3 before specifying the skill; what the skill adds is the *mechanism* that makes those rules
@@ -150,8 +150,8 @@ document exists without becoming the second copy this task is specifically meant
 
 **Deliverable shape — decided here.**
 
-**D1 — Four tiers, and only one file is new.** description → body → [`docs/METHOD.md`](../docs/METHOD.md)
-→ [`docs/method/<phase>.md`](../docs/method/). The method already had the last two and
+**D1 — Four tiers, and only one file is new.** description → body → [`docs/METHOD.md`](../plugin/docs/METHOD.md)
+→ [`docs/method/<phase>.md`](../plugin/docs/method/). The method already had the last two and
 [T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md) measured the first
 two on a real session; this task supplies the two artifacts in the middle and the routing between
 all four. Two further documents are entered laterally rather than as a tier — the project's binding,
@@ -208,9 +208,9 @@ one — the distinction this whole project is built on.
 | :--- | :--- | :--- | :--- |
 | 0 | every session, unasked | the `description` field | anything but the trigger — it is the only text a session that never does task work pays for |
 | 1 | on invocation | the `SKILL.md` body | the lifecycle, the phase exit criteria, the edge kinds, the field vocabulary, the ordering rule, what `check` catches. All six have homes |
-| 2 | when the body points at it | [`docs/METHOD.md`](../docs/METHOD.md) | anything naming a file, a field or a command — it is backend-neutral by design |
-| 3 | when a phase begins | [`docs/method/<phase>.md`](../docs/method/) | the spine's own rules |
-| — | before a write | the project's binding | the vocabulary, which belongs to the project ([`docs/BINDING.md`](../docs/BINDING.md) §2) |
+| 2 | when the body points at it | [`docs/METHOD.md`](../plugin/docs/METHOD.md) | anything naming a file, a field or a command — it is backend-neutral by design |
+| 3 | when a phase begins | [`docs/method/<phase>.md`](../plugin/docs/method/) | the spine's own rules |
+| — | before a write | the project's binding | the vocabulary, which belongs to the project ([`docs/BINDING.md`](../plugin/docs/BINDING.md) §2) |
 | — | once, ever | `skills/taskmd/adopt.md` | anything needed twice |
 
 The forbidden column is the working half. Every tier's failure mode is absorbing the one below it,
@@ -340,8 +340,8 @@ it are carried in §4 rather than argued from T-048's measurement of skills in g
 
 **Outputs produced**
 
-- [`skills/taskmd/SKILL.md`](../skills/taskmd/SKILL.md) — the skill
-- [`skills/taskmd/adopt.md`](../skills/taskmd/adopt.md) — the once-ever setup path
+- [`skills/taskmd/SKILL.md`](../plugin/skills/taskmd/SKILL.md) — the skill
+- [`skills/taskmd/adopt.md`](../plugin/skills/taskmd/adopt.md) — the once-ever setup path
 - `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json`, `.claude/settings.json` — what
   makes it live here
 - [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md),
@@ -405,7 +405,7 @@ that this project has already believed one such argument for weeks.
 | 2026-08-07 | → done | Six criteria met, two carried by [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md), and the two carried are one fact seen twice: a session cannot be handed a skill it has just written. The deliverable is deliberately small — a 74-word description, a 43-line router, a 43-line setup path — because everything a longer skill would have said already has a home, and the tier table in §3 states what each tier is **forbidden** to carry so a reviewer can check that line by line instead of taking it on trust. Two rules the tool already owns were cut from `adopt.md` during review for exactly that reason. The verification that matters is the workshop walk: a two-day training course, from an empty folder to a graph with a dependency in it, using nothing but the skill, its setup file and the binding — and `list` answering with the cheap blocker rather than the valuable task it releases, on work with no code in it at all. |
 | 2026-08-07 | → review | Eight steps worked in order. The skill is a router: two commands, a four-row load table, one line making a write unfinished until the binding's after-write step has run, and the one hazard nothing else could state — `context` prints a plan nobody asked to be executed, which is where METHOD §3.1 bites hardest with this tool. Three walks are the evidence, and the non-code one did double duty by exercising `adopt.md` from an empty folder. Two tasks raised rather than absorbed: T-051, because the binding's *create* names a template that no project can locate, and T-050, because the harness fixes its skill list at session start. Reconciled on the way out: T-047 is now **over** its bound rather than one line under, since tier 1 gained a member that is not a file, and `CLAUDE.md`'s membership rule admitted it without being edited — the first real test of the property T-028 claimed for it. |
 | 2026-08-07 | → planned | Eight steps and six shape decisions. **The load-bearing one was taken by probe, not by argument:** a skill written mid-session does not register — the harness fixes its skill list at session start, shown by writing a throwaway skill and having it refused by name — and a fresh headless session, the obvious way round, fails on an expired token. So the part of criteria 4 and 8 that needs the harness to hand this skill to a session is carried to a child task, and reading it across from T-048's measurement was rejected: T-048 established the mechanism for skills in general, which is not evidence about this one. Two smaller findings on the way. Both invocation paths are the harness **default** — the front-matter flags are opt-out — so the maintainer's answer costs zero lines, not the one their note estimated. And a `directory` marketplace path is resolved against the project root when it is not absolute, which is what lets this repository run its own plugin from its own tree without writing a drive path R-23 forbids. |
-| 2026-08-07 | (already `specified`) | `specify` re-run against [`docs/method/specify.md`](../docs/method/specify.md) and found two of its six steps had never been done: there was no **Scope** and no **Inputs**, so the boundary that stops the work expanding was missing from a task whose neighbours are T-006 (packaging), T-047 (the tier-1 move) and T-005 (the handoff binding) — three plausible places for it to spread. Both are now written, with each exclusion naming the task that owns it. One criterion corrected and one added, both marked in place. **One discovery, surfaced rather than absorbed:** a skill's `description` is handed to a session unasked, so installing this skill here adds to tier 1 by T-028's own membership rule — which makes T-047's one-line margin wrong. Taken into scope as reconcile debt on T-022's precedent rather than raised as a task, because this task is what falsifies it. |
+| 2026-08-07 | (already `specified`) | `specify` re-run against [`docs/method/specify.md`](../plugin/docs/method/specify.md) and found two of its six steps had never been done: there was no **Scope** and no **Inputs**, so the boundary that stops the work expanding was missing from a task whose neighbours are T-006 (packaging), T-047 (the tier-1 move) and T-005 (the handoff binding) — three plausible places for it to spread. Both are now written, with each exclusion naming the task that owns it. One criterion corrected and one added, both marked in place. **One discovery, surfaced rather than absorbed:** a skill's `description` is handed to a session unasked, so installing this skill here adds to tier 1 by T-028's own membership rule — which makes T-047's one-line margin wrong. Taken into scope as reconcile debt on T-022's precedent rather than raised as a task, because this task is what falsifies it. |
 | 2026-08-07 | (no status change) | Criteria 1 and 4 corrected by [T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md), which settled what "always-loaded" is relative to. Criterion 1 said the skill body must be short enough to load on every turn, and the body does not load on every turn — measured, not argued: what a session is handed for an un-invoked skill is its description alone. So the criterion was false rather than imprecise, and it now points at R-21 instead of carrying a second copy of the property. Criterion 4 kept its intent and lost the unqualified phrase. Nothing else changed, and the skill's design is still entirely this task's. |
 | 2026-08-07 | → specified | Invocation answered: both. Nothing else was outstanding, and the second question was already closed by T-008 D1. What now rests on this task is worth stating: T-028 made `docs/METHOD.md` tier 2, loaded when task work starts, and this skill is the loader — so T-047 waits on it, and the tiering is a decision rather than a working arrangement until it is built. |
 | 2026-08-04 | → proposed | Seeded from `docs/BRIEF.md` when the project folder was prepared. |

@@ -19,7 +19,8 @@ import tempfile
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, ROOT)
+PKG = os.path.join(ROOT, "plugin")   # the plugin subtree: where the taskmd package lives
+sys.path.insert(0, PKG)
 
 from taskmd.schema import (  # noqa: E402
     DEFAULT_CONFIG, SchemaError, load_schema, load_tasks, split_front_matter,
@@ -78,7 +79,11 @@ class DefaultSchema(unittest.TestCase):
             write(os.path.join(tmp, "tasks", "T-001-x.md"),
                   "---\nid: T-001\ntitle: X\nstatus: proposed\nphase: specify\n---\n")
             schema = load_schema(tmp)
-            self.assertEqual(os.path.abspath(schema.source.replace("/", os.sep)),
+            # `source` is deliberately relative to the *plugin* root, so an error message never
+            # prints one machine's disk. Resolve it against PKG, not the working directory —
+            # they were the same folder until the plugin became a subtree, and this assertion
+            # passed on that coincidence rather than on what `_display` promises.
+            self.assertEqual(os.path.abspath(os.path.join(PKG, schema.source.replace("/", os.sep))),
                              os.path.abspath(DEFAULT_CONFIG))
             self.assertEqual(len(load_tasks(tmp, schema)), 1)
         finally:

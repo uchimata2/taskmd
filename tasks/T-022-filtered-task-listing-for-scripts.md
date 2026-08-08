@@ -14,9 +14,9 @@ effort: l
 created: 2026-08-05
 updated: 2026-08-05
 deliverables:
-  - taskmd/cli.py
-  - taskmd/schema.py
-  - taskmd/defaults/config.md
+  - plugin/taskmd/cli.py
+  - plugin/taskmd/schema.py
+  - plugin/taskmd/defaults/config.md
   - tests/test_list.py
   - tests/fixtures/ordering/.taskmd/config.md
   - tasks/_templates/task-template.md

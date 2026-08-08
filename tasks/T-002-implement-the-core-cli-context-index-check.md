@@ -14,10 +14,10 @@ effort: xl
 created: 2026-08-04
 updated: 2026-08-05
 deliverables:
-  - taskmd/cli.py
-  - taskmd/__main__.py
-  - taskmd/schema.py
-  - taskmd/defaults/config.md
+  - plugin/taskmd/cli.py
+  - plugin/taskmd/__main__.py
+  - plugin/taskmd/schema.py
+  - plugin/taskmd/defaults/config.md
   - tests/test_cli.py
   - tests/fixtures/README.md
   - tests/fixtures/broken-vocabulary

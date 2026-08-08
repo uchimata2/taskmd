@@ -22,7 +22,8 @@ import tempfile
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, ROOT)
+PKG = os.path.join(ROOT, "plugin")   # the plugin subtree: where the taskmd package lives
+sys.path.insert(0, PKG)
 
 from taskmd import cli  # noqa: E402
 
@@ -300,14 +301,16 @@ class Launchers(unittest.TestCase):
     """Criterion 2: the launchers carry no logic, so removing one changes nothing but the way in."""
 
     def test_both_launchers_exist_at_the_root_where_a_clone_will_look(self):
+        """The root a clone looks at is the *plugin* root, which is what an install receives —
+        not this repository's root, which also holds material the plugin does not ship."""
         for name in ("taskmd.sh", "taskmd.ps1"):
-            self.assertTrue(os.path.isfile(os.path.join(ROOT, name)), name)
+            self.assertTrue(os.path.isfile(os.path.join(PKG, name)), name)
 
     def test_neither_launcher_names_a_command_a_flag_or_a_field(self):
         """What 'no logic' means, made checkable: a launcher that knew a command name would have
         to be edited whenever the tool grew one, which is the drift this criterion is about."""
         for name in ("taskmd.sh", "taskmd.ps1"):
-            text = cli.read(os.path.join(ROOT, name))
+            text = cli.read(os.path.join(PKG, name))
             body = "\n".join(ln for ln in text.splitlines()
                              if ln.strip() and not ln.strip().startswith("#"))
             for word in sorted(cli.COMMANDS) + ["--root", "tasks_dir", "status"]:
@@ -316,9 +319,12 @@ class Launchers(unittest.TestCase):
     def test_the_shell_launcher_produces_what_the_module_produces(self):
         if not shutil.which("bash"):
             self.skipTest("no bash on this machine; the PowerShell launcher covers the same claim")
-        direct = subprocess.run([sys.executable, "-m", "taskmd", "check"], cwd=ROOT,
+        # `-m taskmd` needs the package on the path; the launcher sets that for itself, which is
+        # the whole of what it does. Both run from ROOT, so both discover the same project.
+        env = dict(os.environ, PYTHONPATH=PKG)
+        direct = subprocess.run([sys.executable, "-m", "taskmd", "check"], cwd=ROOT, env=env,
                                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        viash = subprocess.run(["bash", "taskmd.sh", "check"], cwd=ROOT,
+        viash = subprocess.run(["bash", "plugin/taskmd.sh", "check"], cwd=ROOT,
                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         self.assertEqual(direct.stdout, viash.stdout)
         self.assertEqual(direct.returncode, viash.returncode)

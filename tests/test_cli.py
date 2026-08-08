@@ -17,7 +17,8 @@ import tempfile
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, ROOT)
+PKG = os.path.join(ROOT, "plugin")   # the plugin subtree: where the taskmd package lives
+sys.path.insert(0, PKG)
 
 from taskmd import cli  # noqa: E402
 

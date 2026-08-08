@@ -13,7 +13,7 @@ business_value: high
 effort: s
 created: 2026-08-07
 updated: 2026-08-07
-deliverables: [docs/BINDING.md]
+deliverables: [plugin/docs/BINDING.md]
 ---
 
 # T-038 — Reconcile BINDING section 5's worked example with the binding it predicted
@@ -134,7 +134,7 @@ The enumeration rule is stated in §5 and in the binding with the same reason at
 as a rule in one place and a habit in the other.
 
 **Outputs produced**
-- [`docs/BINDING.md`](../docs/BINDING.md) — §3 gains *Size is not the test*; §5's prediction and
+- [`docs/BINDING.md`](../plugin/docs/BINDING.md) — §3 gains *Size is not the test*; §5's prediction and
   closing paragraph corrected
 
 ## 4. Review

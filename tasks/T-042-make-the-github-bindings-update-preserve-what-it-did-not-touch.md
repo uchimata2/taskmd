@@ -14,7 +14,7 @@ effort: m
 created: 2026-08-07
 updated: 2026-08-07
 deliverables:
-  - docs/bindings/github-issues.md
+  - plugin/docs/bindings/github-issues.md
 ---
 
 # T-042 — Make the GitHub binding's update preserve what it did not touch
@@ -157,7 +157,7 @@ than it looks, though — see the finding below.
   recently-added flags. Out of scope here, which is the `update` operation.
 
 **Outputs produced**
-- [`docs/bindings/github-issues.md`](../docs/bindings/github-issues.md) — the `update` operation:
+- [`docs/bindings/github-issues.md`](../plugin/docs/bindings/github-issues.md) — the `update` operation:
   the byte-exact fetch, the two named-wrong forms, and the destruction warning
 
 ## 4. Review

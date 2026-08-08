@@ -14,8 +14,8 @@ effort: m
 created: 2026-08-05
 updated: 2026-08-05
 deliverables:
-  - taskmd/schema.py
-  - taskmd/defaults/config.md
+  - plugin/taskmd/schema.py
+  - plugin/taskmd/defaults/config.md
   - tests/test_cli.py
   - tests/fixtures/broken-tasks-dir/.taskmd/config.md
   - tests/fixtures/README.md
@@ -97,7 +97,7 @@ R-17 (`docs/SCOPE.md`).
       fixture covers all three cases above: typo'd value, absent folder, present-but-empty folder."
       The original demanded a committed fixture for a case that cannot have one: a project with
       neither a config nor a tasks folder is an empty directory, and git stores no such thing. Kept
-      per [`review`](../docs/method/review.md) — the original text is the record, the amendment is
+      per [`review`](../plugin/docs/method/review.md) — the original text is the record, the amendment is
       what a future author is held to. Amended rather than left as a review footnote because R-16
       will be cited by every future validator task, and a criterion demanding the impossible would
       be either violated or re-argued each time.*
@@ -247,7 +247,7 @@ OK - 23 task(s), vocabulary valid, references resolve, no broken links
 | An existing but **empty** tasks folder is still legal and exits 0 | met | Passed before the fix and after — the same test, unchanged, either side. That is what shows the fix narrowed nothing |
 | A project with no tasks folder at all is the same error whichever way the value arrived, and all three commands agree — none exits 0 | met | Both cases exit 2 from all three commands. Agreement is structural rather than arranged: `cli.main` already routed `SchemaError` to `CONFIG ERROR` / exit 2 before any command runs, which is why `cli.py` was not touched |
 | The error says what to do about it | met | Two hints, chosen on provenance: "Create it, or correct tasks_dir" for a project config; for the shipped default, that the value was inherited and a config may be written instead. Judged on the text, not on a user — no uninvolved reader was available, which is a weaker proof than `implement`'s |
-| Shown failing per R-16 on all three cases, each carried by a committed fixture or a test-built case the fixture README names | met | All three cases were shown, and the two negative ones shown *failing* first (§3). Only one is a committed fixture: a project with neither a config nor a tasks folder is an empty directory, which git cannot store, so that case is a temp directory built by the test, and `tests/fixtures/README.md` says so. The criterion was written before `plan` found that constraint and read "the fixture covers all three cases"; **the owner amended it on 2026-08-05** — original text kept in §1, per [`review`](../docs/method/review.md). Nothing about the outcome changed |
+| Shown failing per R-16 on all three cases, each carried by a committed fixture or a test-built case the fixture README names | met | All three cases were shown, and the two negative ones shown *failing* first (§3). Only one is a committed fixture: a project with neither a config nor a tasks folder is an empty directory, which git cannot store, so that case is a temp directory built by the test, and `tests/fixtures/README.md` says so. The criterion was written before `plan` found that constraint and read "the fixture covers all three cases"; **the owner amended it on 2026-08-05** — original text kept in §1, per [`review`](../plugin/docs/method/review.md). Nothing about the outcome changed |
 
 **Also checked, beyond the criteria**
 

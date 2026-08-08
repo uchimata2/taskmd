@@ -14,12 +14,12 @@ effort: l
 created: 2026-08-04
 updated: 2026-08-05
 deliverables:
-  - docs/METHOD.md
-  - docs/method/specify.md
-  - docs/method/plan.md
-  - docs/method/implement.md
-  - docs/method/review.md
-  - docs/method/audit.md
+  - plugin/docs/METHOD.md
+  - plugin/docs/method/specify.md
+  - plugin/docs/method/plan.md
+  - plugin/docs/method/implement.md
+  - plugin/docs/method/review.md
+  - plugin/docs/method/audit.md
   - tasks/_templates/task-template.md
   - tasks/_templates/audit-umbrella-template.md
   - CLAUDE.md

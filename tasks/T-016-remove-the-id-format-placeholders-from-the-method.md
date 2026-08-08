@@ -14,8 +14,8 @@ effort: xs
 created: 2026-08-04
 updated: 2026-08-04
 deliverables:
-  - docs/method/plan.md
-  - docs/method/review.md
+  - plugin/docs/method/plan.md
+  - plugin/docs/method/review.md
 ---
 
 # T-016 — Remove the id-format placeholders from the method
@@ -43,7 +43,7 @@ which is a local-Markdown convention. A project on an issue tracker has `#412`; 
 URL. The method must not have an opinion.
 
 The fix is small. It is a task rather than an edit because review does not repair what it finds
-([`../docs/method/review.md`](../docs/method/review.md)), and because a two-word fix that skips the
+([`../plugin/docs/method/review.md`](../plugin/docs/method/review.md)), and because a two-word fix that skips the
 record is how the next one becomes invisible.
 
 **Scope**

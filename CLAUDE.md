@@ -13,21 +13,24 @@ what has to change to make it general.
 what is explicitly **out** of scope — then [`docs/BRIEF.md`](docs/BRIEF.md) for the problem
 evidence and the measured prior art behind them. `tasks/README.md` is the generated backlog.
 
-**Status:** the schema layer exists (`taskmd/`), the method document exists
-([`docs/METHOD.md`](docs/METHOD.md), T-008), and four commands exist — `python -m taskmd
-{context,index,check,list}` (T-002, and `list` from T-022, for which `docs/SCOPE.md` non-goal 11
-was amended). This project runs on them; the interim `tools/tasks/task.py` is gone. Since T-011 they
-find the project by walking up from wherever they are run, `./taskmd.sh` and `./taskmd.ps1` find an
-interpreter, and a project can declare one `after_write` command that taskmd runs and reports on.
+**Status:** the schema layer exists (`plugin/taskmd/`), the method document exists
+([`plugin/docs/METHOD.md`](plugin/docs/METHOD.md), T-008), and four commands exist —
+`{context,index,check,list}` (T-002, and `list` from T-022, for which `docs/SCOPE.md` non-goal 11
+was amended). **Run them as `./plugin/taskmd.sh <cmd>` or `./plugin/taskmd.ps1 <cmd>`** — since
+T-053 the package lives in the plugin subtree, so a bare `python -m taskmd` needs `PYTHONPATH` and
+the launchers are what set it. This project runs on them; the interim `tools/tasks/task.py` is gone.
+Since T-011 they find the project by walking up from wherever they are run, so the command works
+from anywhere in the tree, and a project can declare one `after_write` command that taskmd runs and
+reports on.
 
 `check` has been shown failing on **every** class it claims, the eighth completed by T-019 —
 a config value naming a folder that is not there is now an error when the config is read, so no
 command can report success on a project it never opened. It does **not** yet notice a generated
 index that has gone stale (T-025). The backend contract exists
-([`docs/BINDING.md`](docs/BINDING.md), T-009) and **both bindings** are written
-([`docs/bindings/`](docs/bindings/)) — so storage-neutrality is no longer a claim about one backend
+([`plugin/docs/BINDING.md`](plugin/docs/BINDING.md), T-009) and **both bindings** are written
+([`plugin/docs/bindings/`](plugin/docs/bindings/)) — so storage-neutrality is no longer a claim about one backend
 plus a worked example about another: the GitHub binding (T-010) was proven by being walked on a live
-repository, and the method needed no change to carry it. The skill exists (`skills/taskmd/`, T-003)
+repository, and the method needed no change to carry it. The skill exists (`plugin/skills/taskmd/`, T-003)
 and declaring it from this tree turned out not to be the same as installing it (T-050). Installed, it
 is **served**: a session here is handed its `description` unasked, and the body, the method and the
 phase file each arrive at their own later moment.
@@ -35,7 +38,7 @@ phase file each arrive at their own later moment.
 ## The one design rule
 
 **Store the forward edge; derive the rest.** Stated in full — including what the word *requires*
-below does and does not forbid — in [`docs/METHOD.md`](docs/METHOD.md) §4.
+below does and does not forbid — in [`plugin/docs/METHOD.md`](plugin/docs/METHOD.md) §4.
 
 In this repository it comes out as: a task file's front-matter is the only place a fact about that
 task is written, and children, dependents, the index and the deliverable map are all computed. Check
@@ -45,7 +48,7 @@ wrong feature.
 ## Working method
 
 This plugin manages tasks, so it uses its own method on itself. **The method has one home:
-[`docs/METHOD.md`](docs/METHOD.md)** — the lifecycle and its exit criteria, the edge kinds, the
+[`plugin/docs/METHOD.md`](plugin/docs/METHOD.md)** — the lifecycle and its exit criteria, the edge kinds, the
 audit mechanism, and how the agent is expected to behave. It is not restated here; if you find it
 written out somewhere else, that copy is the defect.
 
@@ -55,7 +58,7 @@ the harness actually **serves** that skill, without this paragraph being edited 
 not, which is what T-050 measured. Re-measured after the install (2026-08-08), tier 1 is this file
 **plus the taskmd `description`** — the rule above unedited, the membership moved by the install
 alone, which is the property it was written to have. Tier 2 is
-[`docs/METHOD.md`](docs/METHOD.md), on starting task work; tier 3 is [`docs/method/`](docs/method/),
+[`plugin/docs/METHOD.md`](plugin/docs/METHOD.md), on starting task work; tier 3 is [`plugin/docs/method/`](plugin/docs/method/),
 a file per phase. **Tier 1 stays shorter than `reference/TASK-WORKFLOW.md`**, the flat
 single-document alternative, because a first tier costing more than the flat version has inverted the
 point of splitting it at all. No number is written here — both sides are counted from the tree
@@ -67,14 +70,15 @@ not paid on every turn, and R-21 with METHOD §7 governs them instead.
 What this project adds on top, because the method is deliberately storage-agnostic:
 
 - Task files live in `tasks/`, created from `tasks/_templates/task-template.md`.
-- The field names and their allowed values are the schema — `taskmd/defaults/config.md`.
+- The field names and their allowed values are the schema — `plugin/taskmd/defaults/config.md`.
 - The index is **generated**, never hand-edited.
-- When a task is `done` is [`docs/METHOD.md`](docs/METHOD.md) §1 rule 5; which artifact satisfies
-  each of its conditions here is in [`docs/bindings/local-markdown.md`](docs/bindings/local-markdown.md).
+- When a task is `done` is [`plugin/docs/METHOD.md`](plugin/docs/METHOD.md) §1 rule 5; which artifact satisfies
+  each of its conditions here is in
+  [`plugin/docs/bindings/local-markdown.md`](plugin/docs/bindings/local-markdown.md).
 
 `reference/TASK-WORKFLOW.md` is the pre-split standard from one real project — evidence of what
 worked, not the standard. It hard-codes a folder contract, a work-package vocabulary and specific
-commands, which is precisely what `docs/METHOD.md` had to leave behind.
+commands, which is precisely what `plugin/docs/METHOD.md` had to leave behind.
 
 ## Publishing constraints
 

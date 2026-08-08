@@ -15,7 +15,7 @@ created: 2026-08-07
 updated: 2026-08-07
 deliverables:
   - CLAUDE.md
-  - docs/bindings/local-markdown.md
+  - plugin/docs/bindings/local-markdown.md
 ---
 
 # T-046 — Reconcile the done-condition CLAUDE.md restates from the method
@@ -167,7 +167,7 @@ artifact mapping. It asserts nothing that could drift, and the section stays fou
   scope puts out. — 2026-08-07
 
 **Outputs produced**
-- [`docs/bindings/local-markdown.md`](../docs/bindings/local-markdown.md) — METHOD §1 rule 5's
+- [`docs/bindings/local-markdown.md`](../plugin/docs/bindings/local-markdown.md) — METHOD §1 rule 5's
   conditions assigned, beside METHOD §6's homes
 - [`CLAUDE.md`](../CLAUDE.md) — §*Working method*, the `done` bullet
 

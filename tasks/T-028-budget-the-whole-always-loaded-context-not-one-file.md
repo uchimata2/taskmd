@@ -15,7 +15,7 @@ created: 2026-08-06
 updated: 2026-08-07
 deliverables:
   - CLAUDE.md
-  - docs/METHOD.md
+  - plugin/docs/METHOD.md
 ---
 
 # T-028 — Budget the whole always-loaded context, not one file
@@ -254,7 +254,7 @@ wrong file, which is clause 4 of the finding happening while the fix for it was 
 **Outputs produced**
 - [`CLAUDE.md`](../CLAUDE.md) — §*Working method*: the three tiers, tier 1's membership rule, and the
   bound as a relation
-- [`docs/METHOD.md`](../docs/METHOD.md) — its opening statement of when it loads, and §3's framing
+- [`docs/METHOD.md`](../plugin/docs/METHOD.md) — its opening statement of when it loads, and §3's framing
 
 ## 4. Review
 

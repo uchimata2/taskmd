@@ -28,9 +28,9 @@ told plainly that there is none and what to do instead.
 Found while writing the skill ([T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md))
 and raised rather than absorbed, per `docs/METHOD.md` §3.3.
 
-[`docs/bindings/local-markdown.md`](../docs/bindings/local-markdown.md) *create* says **"Copy the
+[`docs/bindings/local-markdown.md`](../plugin/docs/bindings/local-markdown.md) *create* says **"Copy the
 template"**. Nothing says where the template is. The schema
-([`taskmd/defaults/config.md`](../taskmd/defaults/config.md)) names every key that exists and none of
+([`taskmd/defaults/config.md`](../plugin/taskmd/defaults/config.md)) names every key that exists and none of
 them names a template, and `check` therefore cannot report a missing one. This repository keeps its
 template at `tasks/_templates/task-template.md` and that path appears in `../CLAUDE.md` — so the
 convention exists here and is invisible to an adopting project, which is exactly the shape of defect
@@ -54,9 +54,9 @@ R-11, R-13, R-17 (`docs/SCOPE.md`).
 - Out: adding a command. `docs/SCOPE.md` non-goal 11 still stands after its 2026-08-05 amendment.
 
 **Inputs**
-[`docs/bindings/local-markdown.md`](../docs/bindings/local-markdown.md) *create* and *enumerate*,
-[`taskmd/defaults/config.md`](../taskmd/defaults/config.md),
-[`docs/BINDING.md`](../docs/BINDING.md) §2 and §4,
+[`docs/bindings/local-markdown.md`](../plugin/docs/bindings/local-markdown.md) *create* and *enumerate*,
+[`taskmd/defaults/config.md`](../plugin/taskmd/defaults/config.md),
+[`docs/BINDING.md`](../plugin/docs/BINDING.md) §2 and §4,
 [T-001](T-001-decide-how-the-front-matter-schema-is-configured.md) — the schema-is-configuration
 decision this would extend.
 
