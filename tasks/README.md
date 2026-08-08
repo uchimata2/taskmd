@@ -37,8 +37,8 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | - | `specified` | `specify` | - | - | T-003 | - | T-015, T-028 |
 | [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) | Demonstrate a clone running on a second platform | - | `proposed` | `specify` | T-011 | - | - | - | T-006 |
 | [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | - | `proposed` | `specify` | - | - | - | - | T-001, T-003 |
-| [T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md) | Give an adopter a way to run the commands the skill names | - | `in_progress` | `implement` | - | T-055 | - | - | T-003, T-006, T-053, T-055 |
 | [T-055](T-055-settle-what-the-tool-calls-itself-when-it-prints-its-o.md) | Settle what the tool calls itself when it prints its own usage | - | `proposed` | `specify` | T-054 | - | - | - | T-029, T-054 |
+| [T-056](T-056-make-the-shell-launcher-executable-in-a-unix-clone.md) | Make the shell launcher executable in a Unix clone | - | `proposed` | `specify` | T-054 | - | - | - | T-011, T-054 |
 
 ## Closed
 
@@ -51,7 +51,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-008](T-008-write-the-backend-neutral-method-document.md) | Write the backend-neutral method document | - | `done` | `review` | - | T-014, T-015, T-016, T-017 | T-007 | T-003, T-006, T-009 | T-002, T-003, T-013 |
 | [T-009](T-009-define-the-backend-binding-contract.md) | Define the backend binding contract and write the local-Markdown binding | - | `done` | `review` | - | - | T-008 | T-005, T-006, T-010 | T-005, T-010, T-012, T-025, T-038, T-040, T-043 |
 | [T-010](T-010-write-the-github-issues-binding.md) | Write the GitHub Issues binding | - | `done` | `review` | - | - | T-009 | T-006 | T-004, T-009, T-026, T-037, T-038, T-039, T-040, T-041, T-042, T-043, T-044 |
-| [T-011](T-011-runtime-discovery-and-project-hook-commands.md) | Runtime auto-discovery and project hook commands | - | `done` | `review` | - | T-049 | T-002 | T-006 | T-013, T-025 |
+| [T-011](T-011-runtime-discovery-and-project-hook-commands.md) | Runtime auto-discovery and project hook commands | - | `done` | `review` | - | T-049 | T-002 | T-006 | T-013, T-025, T-056 |
 | [T-012](T-012-decide-whether-soft-edges-are-symmetric.md) | Decide whether soft edges are symmetric | - | `done` | `review` | - | - | - | - | T-001, T-009 |
 | [T-013](T-013-quarantine-local-only-information-behind-gitignore.md) | Quarantine local-only information behind .gitignore | - | `done` | `review` | - | - | - | - | T-006, T-008, T-011, T-018, T-033, T-034, T-035 |
 | [T-014](T-014-stop-stating-each-phase-exit-criterion-twice.md) | Stop stating each phase exit criterion twice | - | `done` | `review` | T-008 | - | - | - | T-015 |
@@ -77,5 +77,6 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | - | `done` | `review` | T-003 | - | - | - | T-006, T-052, T-053 |
 | [T-052](T-052-decide-what-of-claude-a-published-clone-carries.md) | Decide what of .claude a published clone carries, and ignore the rest | - | `done` | `review` | - | - | - | - | T-003, T-006, T-050, T-053 |
 | [T-053](T-053-decide-the-plugin-s-boundary-and-what-its-skill-may-p.md) | Decide the plugin's boundary, and what its skill may point at | - | `done` | `review` | - | - | - | - | T-003, T-006, T-050, T-052, T-054 |
+| [T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md) | Give an adopter a way to run the commands the skill names | - | `done` | `review` | - | T-055, T-056 | - | - | T-003, T-006, T-053, T-055, T-056 |
 
 <!-- taskmd:end -->

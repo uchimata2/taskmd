@@ -2,8 +2,8 @@
 id: T-054
 title: Give an adopter a way to run the commands the skill names
 type: fix
-status: in_progress
-phase: implement
+status: done
+phase: review
 parent: null
 blocked_by: []
 related: [T-053, T-006, T-003]
@@ -13,7 +13,7 @@ business_value: critical
 effort: s
 created: 2026-08-08
 updated: 2026-08-08
-deliverables: []
+deliverables: [plugin/bin/taskmd, plugin/bin/taskmd.cmd, plugin/skills/taskmd/SKILL.md, plugin/skills/taskmd/adopt.md]
 ---
 
 # T-054 — Give an adopter a way to run the commands the skill names
@@ -378,15 +378,48 @@ does not survive the trip to a native Python. It looks exactly like a regression
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| The command the skill names runs from a directory that is **not** this repository and not the plugin folder — demonstrated by running it in a scratch project and showing the output | met | §3 step 3, on both platforms. Plugin copied outside this repository, adopter project elsewhere again, the copy's `bin/` on `PATH` and nothing else joining them; `taskmd list --open --limit 1` and `taskmd check` typed by bare name, output recorded. **Said plainly: the `PATH` entry was placed by hand, which is the harness's job** — see the row below this table. |
+| The failure is demonstrated first, on the current arrangement, so the fix is shown to fix something rather than to coincide with something working | met | §3 step 1, taken before any file was written: the module not importable, `check` the same, the launcher not reachable by a relative path, and no `taskmd` on `PATH` — four commands, four failures, the same fact from four sides. Taken after step 2 in wall-clock order and before step 3, which is the order the criterion is about. |
+| `SKILL.md` and `adopt.md` name one form of the command, not one each | met | Both name `taskmd`, and `grep -c 'python -m taskmd'` returns **0** for each. The sweep went wider than the criterion asked — `plugin/docs/bindings/local-markdown.md` to the same form, this repository's index preamble and task template to `./plugin/taskmd.sh` per **D2** — with one deliberate exception, the CLI's own `usage:` string, carried by [T-055](T-055-settle-what-the-tool-calls-itself-when-it-prints-its-o.md). |
+| The suite still passes and `check` is still clean on this repository | met | `114 passed`; `OK - 55 task(s), vocabulary valid, references resolve, no broken links`. The count is 55 rather than the 54 the criterion was written against because this task raised T-055; nothing else moved. |
+
+**The one thing criterion 1 does not cover, and where it is carried.** The demonstration put the
+plugin's `bin/` on `PATH` explicitly. That is the harness's job, and on this machine the harness
+cannot do it — step 2 found the shell snapshot's `PATH` line truncated mid-value, so the directory
+is written into the file and never loaded. Everything this plugin owns was exercised; the unexercised
+link is upstream of it, and its shape was read out of the shipped binary in step 2. It is **not**
+raised as a new task: [T-006](T-006-package-document-and-publish.md) already carries it in two of its
+own criteria — *"Install instructions end with a command that proves it runs"* and *"Installs from a
+clean clone on a machine that has never seen it"* — and a second task for the same check would be the
+duplicate this method exists to avoid.
 
 **Child fix tasks raised**
-- none
+- [T-055](T-055-settle-what-the-tool-calls-itself-when-it-prints-its-o.md) — what the tool calls
+  itself in its own `usage:` output. Raised during `implement` under METHOD §3.3, not by this review.
+- [T-056](T-056-make-the-shell-launcher-executable-in-a-unix-clone.md) — `plugin/taskmd.sh` is
+  recorded `100644`, so the documented contributor command fails on a Unix clone. Found during
+  `implement` while deciding how the delegate should invoke its target, raised here rather than
+  fixed, per this phase's rule against repairing what it finds. It is outside this task's criteria:
+  no criterion touches the contributor path, and nothing shipped to an adopter depends on it.
+
+**Verdict.** All four criteria met, none carried. The task closes.
+
+`deliverables` was populated with the plan's four planned outputs, which is the only one of the
+binding's three closing conditions a machine can check — and it was confirmed to bite rather than
+assumed to, by declaring a fifth path that does not exist:
+
+```text
+MISSING OUTPUT T-054 declares 'plugin/bin/taskmd.probe-that-does-not-exist', which does not exist
+1 problem(s) over 56 task(s)                                                              exit 1
+```
+
+Reverted immediately; `check` returns `OK - 56 task(s)` on the declaration as it stands.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-08 | → done | Reviewed against the four criteria as written; **all four met, none carried**, so the task closes. Criterion 1's note says plainly what the demonstration did not cover: the `bin/` directory was put on `PATH` by hand, which is the harness's job, and this machine's truncated snapshot stops the harness doing it. That link is upstream of this plugin, its shape was read out of the shipped binary at step 2, and it is deliberately **not** raised as a task — T-006 already carries the same check in two of its own criteria, and a second one would be the duplicate this method exists to avoid. `deliverables` populated with the plan's four planned outputs, so the one mechanical closing condition the binding names is actually checkable rather than vacuous. Two child tasks are carried, **both found during `implement` and neither fixed here**: T-055 for the CLI's own `usage:` string, and T-056 for `plugin/taskmd.sh` being recorded `100644` — a Unix clone gets it non-executable, so the documented contributor command fails on permission, invisible on the Windows machine this is developed on. T-056 is outside this task's criteria: no criterion touches the contributor path, and nothing shipped to an adopter depends on it. |
 | 2026-08-08 | (implement complete) | Steps 1 and 3–5 taken; `implement` is finished and `review` is **not** started (METHOD §3.1 — the handoff's "then review" is a pointer, not a request). Step 1 reproduced §1's claim from four sides in a scratch project outside this repository: the module is not importable, the launcher is not reachable by a relative path, and there was no third way in. Step 3 built `plugin/bin/taskmd` and `plugin/bin/taskmd.cmd` as delegates to the launchers per D3, and **acceptance criterion 1 is met on both platforms** — plugin copied outside the repository, adopter project elsewhere again, nothing joining them but `PATH`, command typed by bare name. The gap step 2 predicted turns out narrower than expected: what cannot be watched here is not the `bin/` mechanism, which ran, but the harness's own `PATH` append, which this machine's truncated snapshot prevents. Step 3 also uncovered a **second, pre-existing defect**: `plugin/taskmd.ps1` probes interpreters with `-c ""`, and Windows PowerShell 5.1 drops empty-string arguments to native commands, so Python gets a bare `-c`, exits 2, and every interpreter on the machine is reported missing. It broke the new `.cmd` entry point and breaks `.\plugin\taskmd.ps1` for any contributor on stock Windows; it survived because this project drives the launcher from PowerShell 7. Maintainer decided to fix it here rather than defer, since without it this task's own output does not work on Windows. Step 4 found four naming sites beyond the plan's two: the shipped binding document moved to `taskmd` (the skill routes to it, so it is one step removed from a command the skill names), this repository's index preamble and task template moved to `./plugin/taskmd.sh` (they carried a form that stopped running at T-053), and the CLI's own `usage:` string was left alone and raised as **T-055**, because D2 made the two audiences different on purpose and a usage line cannot tell which one it is printing to. The binding's instruction was then run rather than only edited — `after_write: taskmd check` resolves through `PATH` in the scratch project. Suite 114 passed, `check` OK on 54 tasks, index regenerated. |
 | 2026-08-08 | → in_progress | Step 2 taken, and **D1 is answered yes** — the opposite of what the probe alone said. The probe was a clean negative (no plugin `bin` on `PATH`, `taskmd-probe` not found), but reading further inverted it: `getEnabledPluginBinPaths` **is** called, from the shell-snapshot builder, which appends every enabled plugin's `bin` to the login `PATH` and writes it as one `export PATH=` line for the agent's shell to source. So D1's two candidate explanations were both false. What is broken is the snapshot **file**: its `PATH` line is truncated mid-value at a fixed 5551 characters, leaving an unmatched quote, so sourcing dies on `unexpected EOF` and the shell silently keeps its inherited `PATH` — the plugin `bin` is written correctly and never loaded. Confirmed by sourcing the newest snapshot in a subshell and watching the entry count not move. The cap is a property of **this machine's long `PATH`**, not of the mechanism: the oldest snapshot here is 2064 characters with matched quotes and sources fine, while every later one is the same 5551 across differing contents. Stated as a hypothesis, unbisected, because it needs a second machine and changes nothing this task builds. Maintainer decided to proceed rather than fall back to D4, which would have swapped what the plugin ships on the strength of a defect that is not in the plugin. Accepted consequence, named: this repository cannot dogfood the shipped entry point. The truncation is an upstream harness bug and is deliberately **not** a task here — taskmd cannot fix it and such a task would never close. No `PATH` listing is quoted anywhere in the record; it is the home-directory class the pre-publish check exists to catch. |
 | 2026-08-08 | → planned | Plan written; §1's open question settled as **D2** — this repository keeps typing `./plugin/taskmd.sh` and the skill names the `bin/` command, because a contributor has the tree and no install while an adopter has an install and no tree, and typing the shipped command here would make it missing for anyone who merely cloned. The plan's own finding is **D1**: §1 calls the `bin/` mechanism "already established" and that overstates the read. `getEnabledPluginBinPaths` is in the shipped binary with exactly the described body, but no plugin `bin` directory is on a live session's `PATH` with this plugin installed and enabled, and creating one mid-session did not add it — so whether anything *calls* it is open, and steps 3–5 assume an answer this session cannot obtain, `PATH` being fixed before the first turn. A probe was planted in the install cache so a later session settles it with one command. |
