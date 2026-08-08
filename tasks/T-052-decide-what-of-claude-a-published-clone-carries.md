@@ -2,8 +2,8 @@
 id: T-052
 title: Decide what of .claude a published clone carries, and ignore the rest
 type: fix
-status: specified
-phase: specify
+status: in_progress
+phase: implement
 parent: null
 blocked_by: []
 related: [T-050, T-006, T-003]
@@ -116,16 +116,72 @@ plugin and is the maintainer's to carry there; it is out of scope here (this tas
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
-| 2 |  |  |
+| 1 | Write the default and its one exception into `.gitignore`, with the direction stated so a later reader knows which way it falls rather than inferring it from two lines | `.gitignore` |
+| 2 | Prove the repository's **own** rule is what excludes a local settings file — not the maintainer's global ignore, which would make a passing test meaningless here for exactly the reason it made the sibling plugin's tree look clean | §3, criteria 1–2 |
+| 3 | Prove a harness file nobody has seen yet is covered with no further edit | §3, criterion 3 |
+| 4 | Remove the empty `.claude/skills/`, or give it a purpose | §3 |
+
+**Shape decision.**
+
+**D1 — Verification neutralises the global ignore rather than trusting a clean result.** The
+measurement that decided this task was that a repository can be protected by a rule outside itself
+and look identical to one that is protected properly. This machine's global ignore carries
+`**/.claude/settings.local.json`, so the obvious test — create the file, see it not listed — passes
+here **whether or not this task does anything at all**. Both `git check-ignore -v`, which names the
+file and line that supplied the rule, and a run with `core.excludesFile` pointed at an empty file are
+used, because the first proves which rule won and the second proves what a contributor without the
+global rule would send. *Rejected: creating the file and reading `git status`* — it is the test the
+sibling plugin would also have passed.
 
 ## 3. Implement
 
+**Step 1 — the rule.** `.claude/*` excluded, `!.claude/settings.json` re-included, with the direction
+and the reason written above it. `.claude/*` and not `.claude/`: git cannot re-include a file whose
+parent directory is excluded, so the exception only works if the *contents* are what is excluded.
+
+**Steps 2–3 — verification, with the global ignore taken out of the picture.**
+
+Which rule actually wins, for the file that has never been protected by this repository before, and
+for one the harness has not invented yet:
+
+```text
+.gitignore:19:.claude/*	.claude/settings.local.json
+.gitignore:19:.claude/*	.claude/some-future-harness-file.json
+```
+
+Both name `.gitignore` and its line — this repository's rule, not the machine's. Then what a clone
+without that global rule would actually send:
+
+```text
+$ git -c core.excludesFile=<empty> ls-files --cached --others --exclude-standard .claude
+.claude/settings.json
+```
+
+One file: the declaration [T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md) **D3**
+wrote, which is what a clone needs. The fabricated local settings file and the fabricated future
+harness file are both absent, and the whole-tree status under the same conditions showed only
+`.gitignore` itself as modified. Both fabricated files were then deleted.
+
+**Step 4 — `.claude/skills/` removed.** It was the residue of T-003's throwaway-skill probe, empty,
+and untrackable by git either way. T-003 **D2** refused a project-level skill home and T-050 §3 step 5
+re-refused it after measuring what it would have cost, so there is no purpose to give it.
+
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+- **The rule lives in this repository even though this machine is already covered.** — The global
+  ignore protects the maintainer and nobody else. A community plugin's contributors clone the
+  repository, not the machine. — 2026-08-08
+- **`specify`, `plan` and `implement` were taken in one pass, at the maintainer's request.** — The
+  specify had no open questions left after the answer, and the plan is one line of `.gitignore`; the
+  compression is recorded here rather than left to be inferred from the log, per METHOD §3.1's
+  requirement that a departure be stated. `review` was **not** taken and is not implied. — 2026-08-08
+- **The same defect in the sibling plugin was fixed there in the same sitting, and is not recorded as
+  this task's output.** — It is a different repository with no tracker of its own; this task owns
+  taskmd's `.gitignore` only. The finding that produced both fixes is in §1. — 2026-08-08
 
 **Outputs produced**
-- `.gitignore`
+- `.gitignore` — the default and its exception.
+- `.claude/skills/` — removed.
 
 ## 4. Review
 
@@ -140,6 +196,7 @@ plugin and is the maintainer's to carry there; it is out of scope here (this tas
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-08 | → in_progress | Written and verified in one pass at the maintainer's request, so `plan` and `implement` share this entry with the specify above — stated rather than inferred, per METHOD §3.1. `.claude/*` out, `!.claude/settings.json` in. **The verification is the part worth keeping**: this machine's global ignore already carries `**/.claude/settings.local.json`, so the natural test — make the file, check it is not listed — passes here regardless of whether this task did anything, which is *exactly* how the sibling plugin's tree looked protected while being protected by nothing in it. So the proof names its own source (`git check-ignore -v` returns `.gitignore:19:.claude/*` for both an existing local settings file and a fabricated future one) and re-runs with `core.excludesFile` pointed at an empty file, where the only thing a clone would receive under `.claude/` is `settings.json` — T-003 D3's declaration, which is the one file that should go. Empty `.claude/skills/` removed: residue of T-003's probe, and D2 plus T-050 §3 step 5 both refused the thing it would have been for. The same fix was applied to the sibling plugin in the same sitting and is deliberately not this task's output. `review` not taken. |
 | 2026-08-08 | → specified | Maintainer answered at the level of the goal — community-maintained plugin, user- and machine-specific material out, project instructions and config in — and pointed at a sibling plugin of theirs as prior art with the same problem. **Checking it is what settled the mechanism, and the answer was the opposite of prior art.** That repository's `.claude/settings.local.json` is excluded by the maintainer's *global* gitignore and by nothing in the repository; `git check-ignore -v` names the global file and the rule. So its tree looks clean, its status is empty, and its protection does not survive being cloned by anyone else — which is precisely the failure a community plugin cannot afford and which no reader of that repository could detect. **ignored-with-exceptions**, therefore, because it is the only one of the two that does not depend on someone continuing to name files: a harness upgrade adding a file is out by default, and what a clone needs is stated once, positively, as an exception. The same finding applies to the sibling plugin and belongs to the maintainer there, not here. |
 | 2026-08-08 | (no status change) | The premise moved from inferred to observed. T-050's install went ahead at **user** scope and the harness wrote the marketplace source as a resolved drive-letter path into its own settings file — so "the harness stores an absolute path" is now a fact about where it landed, not a reading of the parser. The repository was untouched: tracked `.claude/settings.json` byte-identical, nothing new under `.claude/`, pre-publish check silent. That is the counterfactual this task is about, and it held only because the scope question happened to be asked. Also noted while looking: `.claude/skills/` is an empty leftover from T-003's probe, invisible to git and to every check, and in scope here only because this task decides what that folder is for. |
 | 2026-08-07 | → proposed | Raised from an install-scope question during T-050 and not fixed there, since `.gitignore` is not what that task measures. Nothing is leaking today: `.claude/settings.local.json` does not exist. What makes it a task rather than a note is that the file is created by picking one of three menu items during a plugin install, it is not ignored, and the harness resolves a relative directory source to an absolute path before storing it — so the ordinary action writes a machine path into a file a push would send. `medium` and `s`: the fix is one line, the pre-publish check already catches the consequence, and the part that needs a decision is which way `.claude/` should default rather than whether to name one more file. |

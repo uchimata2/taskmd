@@ -7,3 +7,14 @@ __pycache__/
 # Live handoff state is machine-local; the config is not
 .handoff/HANDOFF.md
 .handoff/processed_*
+
+# The harness's own folder defaults to OUT, and a clone's share is named in.
+# Nothing here is written by this project: the harness creates files on its own
+# schedule, and what it stores includes directory sources resolved to absolute
+# machine paths. So a file appearing here is an ordinary upgrade rather than an
+# event anyone notices, and listing offenders one at a time only holds while
+# someone keeps noticing. `.claude/*` rather than `.claude/` — an excluded
+# directory cannot have its contents re-included, so the exception below needs
+# the contents excluded, not the folder.
+.claude/*
+!.claude/settings.json
