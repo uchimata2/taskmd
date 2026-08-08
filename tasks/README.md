@@ -36,7 +36,6 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-037](T-037-delete-the-throwaway-proof-repository.md) | Delete the throwaway repository the GitHub binding was proven on | - | `planned` | `plan` | - | - | T-006 | - | T-010, T-041 |
 | [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | - | `specified` | `specify` | - | - | T-003 | - | T-015, T-028 |
 | [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | - | `proposed` | `specify` | - | - | - | - | T-001, T-003 |
-| [T-057](T-057-let-the-hook-tests-name-an-interpreter-that-exists.md) | Let the hook tests name an interpreter that exists on the platform | - | `proposed` | `specify` | T-049 | - | - | - | T-011, T-049 |
 | [T-058](T-058-say-that-a-four-part-version-trips-the-leak-check.md) | Say that a four-part version number trips the leak check | - | `proposed` | `specify` | T-049 | - | - | - | T-018, T-034, T-035, T-049 |
 
 ## Closed
@@ -80,5 +79,6 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md) | Give an adopter a way to run the commands the skill names | - | `done` | `review` | - | T-055, T-056 | - | - | T-003, T-006, T-049, T-053, T-055, T-056 |
 | [T-055](T-055-settle-what-the-tool-calls-itself-when-it-prints-its-o.md) | Settle what the tool calls itself when it prints its own usage | - | `done` | `review` | T-054 | - | - | - | T-029, T-054 |
 | [T-056](T-056-make-the-shell-launcher-executable-in-a-unix-clone.md) | Make the shell launcher executable in a Unix clone | - | `done` | `review` | T-054 | - | - | - | T-011, T-049, T-054 |
+| [T-057](T-057-let-the-hook-tests-name-an-interpreter-that-exists.md) | Let the hook tests name an interpreter that exists on the platform | - | `done` | `review` | T-049 | - | - | - | T-011, T-049 |
 
 <!-- taskmd:end -->

@@ -189,16 +189,46 @@ def non_python_hook(folder):
     return "cmd /c hooks\\after-write.cmd"
 
 
+def python_on_path():
+    """The interpreter these fixtures name in a config, as a **bare name** (T-057).
+
+    `sys.executable` cannot be used, for two reasons that are both properties of the resolver rather
+    than accidents: it runs the declared line through `shlex.split`, which is POSIX-mode and eats
+    the backslashes of a Windows path, and it treats a program containing a separator as a file
+    *inside the project*, which an interpreter is not. A bare name goes through `shutil.which`,
+    which is the route a real project's hook takes.
+
+    The running interpreter's own basename is tried first, so the hook is the same Python as the
+    suite. `python3` and `python` follow because an interpreter can be launched from a directory
+    that is not on PATH. Both are needed: Ubuntu ships no `python` at all, which is the whole of
+    T-057, and Windows usually has no `python3` that runs.
+    """
+    for name in (os.path.basename(sys.executable), "python3", "python"):
+        if name and shutil.which(name):
+            return name
+    return None
+
+
+PYTHON = python_on_path()
+PYTHON_HOOK = "%s hooks/after-write.py" % PYTHON   # one fact; five call sites read it
+
+
 class RunsTheProjectsHook(Sandbox):
     """Criteria 3 and 4: a declared hook runs, in any language, and its failure surfaces."""
+
+    def setUp(self):
+        if not PYTHON:
+            self.skipTest("no Python resolves under any name a config could name; these tests "
+                          "would be reporting on the machine rather than on the hook mechanism")
+        Sandbox.setUp(self)
 
     def python_hook(self, folder, exit_code=0, says="hook ran"):
         cli.write(os.path.join(folder, "hooks", "after-write.py"),
                   "import sys\nprint(%r)\nsys.exit(%d)\n" % (says, exit_code))
-        return "python hooks/after-write.py"
+        return PYTHON_HOOK
 
     def test_a_declared_hook_runs_after_the_write_and_its_output_is_shown(self):
-        base = self.project(after_write="python hooks/after-write.py")
+        base = self.project(after_write=PYTHON_HOOK)
         self.python_hook(base)
         os.chdir(base)
         code, out = run("index")
@@ -209,7 +239,7 @@ class RunsTheProjectsHook(Sandbox):
                         "the hook is an *after*-write hook:\n%s" % out)
 
     def test_a_hook_that_fails_fails_the_command(self):
-        base = self.project(after_write="python hooks/after-write.py")
+        base = self.project(after_write=PYTHON_HOOK)
         self.python_hook(base, exit_code=3, says="this project is inconsistent")
         os.chdir(base)
         code, out = run("index")
@@ -220,7 +250,7 @@ class RunsTheProjectsHook(Sandbox):
     def test_the_write_still_happened_when_the_hook_failed(self):
         """The hook runs after the write, so failing it reports a problem rather than undoing one.
         A reader who saw the command fail must not be left guessing whether the file was written."""
-        base = self.project(after_write="python hooks/after-write.py")
+        base = self.project(after_write=PYTHON_HOOK)
         self.python_hook(base, exit_code=1)
         os.chdir(base)
         run("index")
@@ -237,7 +267,7 @@ class RunsTheProjectsHook(Sandbox):
         self.assertIn("hook speaking, not python", out)
 
     def test_the_hook_runs_with_the_project_as_its_working_directory(self):
-        base = self.project(after_write="python hooks/after-write.py")
+        base = self.project(after_write=PYTHON_HOOK)
         cli.write(os.path.join(base, "hooks", "after-write.py"),
                   "import os\nprint('cwd-has-tasks:', os.path.isdir('tasks'))\n")
         os.chdir(self.subdir(base, "somewhere", "else"))
@@ -246,7 +276,7 @@ class RunsTheProjectsHook(Sandbox):
         self.assertIn("cwd-has-tasks: True", out)
 
     def test_a_command_that_writes_nothing_does_not_run_the_hook(self):
-        base = self.project(after_write="python hooks/after-write.py")
+        base = self.project(after_write=PYTHON_HOOK)
         self.python_hook(base)
         os.chdir(base)
         for command in ("check", "list", "context"):
