@@ -28,9 +28,9 @@ index that has gone stale (T-025). The backend contract exists
 ([`docs/bindings/`](docs/bindings/)) — so storage-neutrality is no longer a claim about one backend
 plus a worked example about another: the GitHub binding (T-010) was proven by being walked on a live
 repository, and the method needed no change to carry it. The skill exists (`skills/taskmd/`, T-003)
-and this repository **declares** it from its own tree — which T-050 measured and found is not the
-same as installing it. It has since been installed here; whether a session is actually handed the
-skill is the measurement that closes T-050.
+and declaring it from this tree turned out not to be the same as installing it (T-050). Installed, it
+is **served**: a session here is handed its `description` unasked, and the body, the method and the
+phase file each arrive at their own later moment.
 
 ## The one design rule
 
@@ -52,9 +52,9 @@ written out somewhere else, that copy is the defect.
 **Three tiers, and only the first is budgeted.** Tier 1 is whatever the harness loads unasked —
 a property of the tree rather than a list to maintain, so a skill's `description` joins it the moment
 the harness actually **serves** that skill, without this paragraph being edited — declaring one does
-not, which is what T-050 measured. Last measured (2026-08-07) this file was the whole of it; the
-plugin is installed now, so the next measurement is expected to add the taskmd description, and
-T-050 is what takes it rather than this paragraph asserting it. Tier 2 is
+not, which is what T-050 measured. Re-measured after the install (2026-08-08), tier 1 is this file
+**plus the taskmd `description`** — the rule above unedited, the membership moved by the install
+alone, which is the property it was written to have. Tier 2 is
 [`docs/METHOD.md`](docs/METHOD.md), on starting task work; tier 3 is [`docs/method/`](docs/method/),
 a file per phase. **Tier 1 stays shorter than `reference/TASK-WORKFLOW.md`**, the flat
 single-document alternative, because a first tier costing more than the flat version has inverted the

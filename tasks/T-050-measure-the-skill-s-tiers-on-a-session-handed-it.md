@@ -6,7 +6,7 @@ status: in_progress
 phase: implement
 parent: T-003
 blocked_by: []
-related: [T-006]
+related: [T-006, T-053]
 work_package: none
 owner: maintainer
 business_value: high
@@ -309,6 +309,68 @@ being named, and does naming it work. That is the same shape this task has had f
 difference is that the precondition is now satisfied and measured, rather than assumed from a
 declaration.
 
+### Step 7 — the measurement, on a session that was handed the skill
+
+Taken on a session started in this repository on 2026-08-08, after the step 6 install, reading only
+what was already in context before anything was invoked. The same three things arrived unasked as in
+step 1 — `CLAUDE.md` in full, the agent's cross-project memory index, and a list of available skills
+as name + description — but the list is now ~60 entries and **`taskmd:taskmd` is one of them**, under
+the `plugin:skill` naming, carrying the whole of its `description`. No text from the *body* of
+`skills/taskmd/SKILL.md` was present anywhere.
+
+**T-003 §3's tier table, against this session:**
+
+| Tier | Row's claim | This session |
+| :--- | :--- | :--- |
+| 0 | the `description` arrives every session, unasked | **confirmed** — present in the skill list before anything was invoked, body absent |
+| 1 | the `SKILL.md` body arrives on invocation | **confirmed** — invocation returned the body in full, plus a base directory (see below) |
+| 2 | `docs/METHOD.md` when the body points at it | **confirmed, and this time by the skill** — the body's load table says to read it before doing anything to a task, and that is why it was read. Step 4 could only record a different loader |
+| 3 | a phase file when its phase begins | **confirmed** — METHOD §7 named `implement`, which was loaded on entering that phase. `specify.md`, `plan.md` and `review.md` were never loaded |
+
+So **criterion 1 is met**: the table is confirmed, not corrected, on the first session able to test
+it. Each tier arrived at its own moment and no tier arrived early.
+
+**Criterion 3 is met.** Naming the skill reached it — `taskmd:taskmd` resolved and returned the body,
+against the two verbatim refusals recorded in steps 2 and 6 on the same terms. The variable between
+them is the install, and nothing else changed.
+
+**Criterion 2 is not met, and the reason is procedural rather than a property of the description.**
+This session's first request was a handoff resume, not task work. The handoff then supplied
+`python -m taskmd context T-050` literally, so the first task work of the session ran that command
+without any routing decision being made — there was nothing for the description to be matched
+against. By the time task work proper began the skill had been named, deliberately, to take
+criterion 3. **What was observed is that the routing was pre-empted, not that it failed**; a session
+whose *first* substantive request is task work, with the skill unnamed and no handoff supplying the
+commands, is what remains to be run. That is the one thing this task still owes and it is a session,
+not a change.
+
+**What the base directory turned out to be, and the finding in it.** The invocation reported its base
+directory inside `~/.claude/plugins/cache/`, under the marketplace, plugin and version — the
+install-time snapshot, not this working tree. The snapshot is a copy of the **whole repository**:
+`docs/`, `taskmd/`, `tasks/` (52 files, the same count as the tree), `tests/`, `reference/`,
+`.handoff/`, `.pytest_cache/` and the gitignored `control/`. Every relative pointer in `SKILL.md`
+therefore has two resolutions — `../../docs/METHOD.md` names a real file in the snapshot *and* a real
+file in the tree — and they have already diverged: hashed against each other, `docs/METHOD.md`,
+`docs/method/implement.md` and `SKILL.md` are identical, while **`CLAUDE.md` differs**, within hours
+of the install. This session read the tree's copies because it was working in the repository, so the
+divergence changed nothing here; which copy a session gets is currently decided by where it happens
+to be rather than by anything written down. That is a second home for every fact the skill points at,
+and it is raised as [T-053](T-053-decide-the-plugin-s-boundary-and-what-its-skill-may-p.md) rather
+than fixed here — the observation is what this task measures; what the plugin should ship, and
+whether its skill may point outside its own folder, is a packaging decision belonging with
+[T-006](T-006-package-document-and-publish.md).
+
+**Decisions & assumptions (step 7)**
+
+- **The tier observation was written down before the skill was invoked, and the invocation was then
+  made deliberately as the criterion-3 probe.** — Step 1's constraint has not changed: the skill list
+  in context is the evidence, and it survives, but a record written after the fact is a
+  reconstruction. — 2026-08-08
+- **Criterion 2 is recorded as untested rather than argued either way.** — The honest answer to "would
+  the description have routed me there" is unavailable from inside a session that has read the
+  handoff, the task and the skill body. Criterion 4 is the rule that decides this: what was observed
+  is that nothing was routed, and why. — 2026-08-08
+
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
@@ -321,11 +383,17 @@ declaration.
   harness stores a directory source resolved to an absolute path. METHOD §5's distinction applies —
   this task did not make it false, and `.gitignore` is not what this task measures. Recorded as
   `related` rather than `parent`: it is not part of measuring the tiers.
+- **[T-053](T-053-decide-the-plugin-s-boundary-and-what-its-skill-may-p.md)** — raised, not carried.
+  Found in step 7 by reading the base directory the invocation reported: the install snapshot is the
+  whole repository, so every relative pointer in `SKILL.md` resolves twice, and one of the two files
+  has already drifted. Measuring what arrives is this task's; deciding what the plugin ships is not.
+  `related`, for the same reason as T-052.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-08 | (no status change) | **The measurement the task exists for was finally taken**, on the first session the harness actually handed the skill — `taskmd:taskmd` was in the list it was given, description in full, body absent. T-003 §3's tier table is **confirmed rather than corrected**: description unasked, body on invocation, `docs/METHOD.md` because the body said to, `implement.md` on entering that phase and no other phase file. Criterion 3 passes — the same invocation refused verbatim twice before now resolves, with the install as the only variable. **Criterion 2 was pre-empted, not failed**: the session opened on a handoff resume that handed over the `context` command literally, so no routing decision was ever put to the description; that is recorded as an observation rather than argued either way, which is criterion 4 applied to an inconvenient result. What it still owes is a session, not a change. Found while reading the base directory the invocation reported: the install snapshot is a copy of the **whole repository**, gitignored `control/` included, so every relative pointer in `SKILL.md` resolves both there and in the tree — and `CLAUDE.md` already differs between the two, hours after the install. Raised as T-053, not fixed here. |
 | 2026-08-08 | (no status change) | Installed by the maintainer at **user** scope, and verified from the harness's own four state files rather than from being told — marketplace, installed plugin (`taskmd@taskmd`, `0.1.0`), cache and user settings all now carry it. **The probe this made possible is stronger than the one T-003 could take**: with the install complete, this session still gets `Unknown skill: taskmd:taskmd`. T-003 showed the skill list is fixed at session start using a throwaway skill written mid-session, which left open the objection that an irregular hand-written file might simply have been ignored; a plugin installed by the harness's own command and present in all four state files is refused on identical terms, so provenance is not the variable. The scope choice held: the harness stored the marketplace source resolved to an **absolute** path — as predicted from the parser in step 5 — into its own settings, outside this repository, leaving the tracked `.claude/settings.json` byte-identical with T-003 D3's relative path and the pre-publish check printing nothing. Criteria 1–3 remain open and remain un-closable here by construction. *This entry is dated a day after the ones below because the session spanned the boundary — the earlier entries were written on 2026-08-07 and are not misdated.* |
 | 2026-08-07 | (no status change) | Maintainer answered: keep the declaration, install by hand. So the reconcile became writable and was taken — `CLAUDE.md`, `.handoff/config.md` and T-047's over-bound entry — each phrased to turn on **whether the harness serves the skill** rather than on today's state, so the install does not immediately falsify them again. **T-047 stays over its bound, for a different reason than it recorded**: the 397 characters were never served, but `wc -l` after these edits puts `CLAUDE.md` at 151 against 173, so 151 + 26 = 177 — over by four, three of them added by this reconcile. That figure was measured rather than carried forward from the older entry, which is what caught it. T-003's own record is left alone: it carried these criteria rather than claiming them, and editing a closed task's evidence to match a later measurement destroys the trail the carry exists to create. What stays open is not this session's to close — the install runs in an interactive terminal, and a skill registered mid-session is refused by name, so criteria 1, 2 and 3 are verified by the session **after** the install, in its first act, for the same reason this task exists at all. |
 | 2026-08-07 | → in_progress | Measured, and the answer is the one nobody had checked for: **the plugin is not registered at all**, so the skill was never handed to this session and neither invocation path exists to test. Named invocation is refused by the harness twice, and the harness's own plugin state — known marketplaces, installed plugins, the cache, the catalog — contains no trace of taskmd, while the two plugins it *does* serve are each installed into a versioned cache. The settings shape is not the problem: the same two keys enable a plugin at user level on this machine and that plugin's skills are in the session's list, and the project's trust dialog was accepted. What separates them is an **install**, which the declaration did not produce. So T-003 §3 step 8's consequence is false: the description is not in tier 1, `CLAUDE.md` and `.handoff/config.md` both say it is, and T-047 went over its bound on 397 characters that are not being served. Those three are named as this task's reconcile debt and left uncorrected, because which correction is right depends on the one open question — how this repository should serve its own skill — and because the fix, whichever it is, **cannot be verified by the session that applies it**, which is the same constraint that created this task. Specify and plan were taken in the same pass: the specify was already complete with no open questions, and step 1's observation is destroyed by the first skill invocation of a session, so deferring it a turn would have cost the measurement. |
