@@ -37,7 +37,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | - | `specified` | `specify` | - | - | T-003 | - | T-015, T-028 |
 | [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) | Demonstrate a clone running on a second platform | - | `proposed` | `specify` | T-011 | - | - | - | T-006 |
 | [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | - | `proposed` | `specify` | - | - | - | - | T-001, T-003 |
-| [T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md) | Give an adopter a way to run the commands the skill names | - | `proposed` | `specify` | - | - | - | - | T-003, T-006, T-053 |
+| [T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md) | Give an adopter a way to run the commands the skill names | - | `planned` | `plan` | - | - | - | - | T-003, T-006, T-053 |
 
 ## Closed
 
