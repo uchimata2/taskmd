@@ -2,8 +2,8 @@
 id: T-053
 title: Decide the plugin's boundary, and what its skill may point at
 type: decision
-status: specified
-phase: specify
+status: planned
+phase: plan
 parent: null
 blocked_by: []
 related: [T-050, T-006, T-003, T-052]
@@ -111,8 +111,55 @@ observation and the hash comparison; `skills/taskmd/SKILL.md`, for the pointers;
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
-| 2 |  |  |
+| 1 | Establish what the harness actually supports for excluding files at install, read out of the shipped binary rather than assumed — this is the deferred open question and it determines whether the rest of the plan is the right plan at all | **D1**, below |
+| 2 | Put the consequence to the maintainer: the answer chosen in `specify` has a cost nobody had priced, and paying it is not this task's to decide | **D2**, below — *this plan stops here* |
+| 3 | *(shape depends on step 2)* Either restructure so the plugin is a subtree, or record the whole-tree copy as accepted and state the rule that governs it | `.claude-plugin/marketplace.json`, and whatever step 2 chooses |
+| 4 | Demonstrate the criteria against the result: which copy a session gets and why, and what an install contains | §3, and the §4 table |
+
+Step 1 is first because it could invalidate everything after it, which is
+[`../docs/method/plan.md`](../docs/method/plan.md)'s *reduces uncertainty soonest* rule. It did.
+
+**Shape decisions.**
+
+**D1 — There is no exclusion mechanism. The only lever is what is in the source.** Read out of the
+shipped binary, not inferred from the cache's contents:
+
+- A **local directory** source is copied whole. The install function checks the path exists, calls
+  `copyDir`, and then removes exactly one thing afterwards: `.git`. There is no ignore file, no
+  manifest field, and `.gitignore` is not consulted — which is why `control/` and `.pytest_cache/`
+  are in the cache and why the tracked/untracked distinction that governs a push has no bearing here.
+- `copyDir` itself filters nothing. Its only skip is the destination directory when the destination
+  is nested inside the source, which exists to stop it recursing into its own output.
+- The marketplace entry's component fields — `commands`, `agents`, `skills`, `hooks`, `outputStyles`,
+  `themes`, `mcpServers`, `lspServers`, `experimental` — looked like the mechanism and **are not**.
+  They are consumed only on the `archive` source, and there they are *validated*, not applied: the
+  code checks the declared paths **exist** in the archive and errors if they do not, then moves the
+  whole thing. So declaring `skills` narrows nothing.
+- `${CLAUDE_PLUGIN_ROOT}` exists but substitutes into hook and command arguments. It is not available
+  to a Markdown link inside `SKILL.md`, so it cannot make a pointer resolve to one file.
+
+**This settles the deferred open question, and settles it as "not a defect, and not fixable either".**
+A local-directory install is a snapshot by construction — there is no dev-mode or linked install to
+choose instead. The one arrangement that serves a skill without a snapshot is a project-level
+`.claude/skills/`, which [T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md) **D2**
+and [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) §3 step 5 both refused, for
+creating a second home for the skill. So drift between the cache and the tree is a property of
+installing, not a bug to remove.
+
+**D2 — The chosen answer costs a repository restructure, and that is the maintainer's call, so this
+plan stops at step 2 rather than starting step 3.** `specify` chose *ship what the skill points at,
+minus this repository's working material*. Given D1, the only way to deliver it is to make the
+plugin a **subtree** — a directory holding `skills/`, `docs/`, `taskmd/` and the launchers and
+nothing else — and point `marketplace.json`'s `source` at that instead of `./`. That is not a
+packaging tweak: it moves `docs/` and `taskmd/` and rewrites every path that names them, in a
+repository whose documents cite each other constantly. *Rejected: doing it anyway* — METHOD §3.3
+forbids quietly widening the outcome, and "fix it" was asked before this cost was known to anyone,
+including the person who asked. *Rejected: silently downgrading to accept the whole-tree copy* — that
+reverses a decision the maintainer took two turns ago, on evidence they have not seen.
+
+**Planned outputs**
+- `.claude-plugin/marketplace.json` — the `source`, if step 2 goes that way.
+- A stated packaging rule, in whichever document step 2 settles on.
 
 ## 3. Implement
 
@@ -135,5 +182,6 @@ observation and the hash comparison; `skills/taskmd/SKILL.md`, for the pointers;
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-08 | → planned | `plan`, `implement`, `review` and a fix were asked for together — authorized, so not an auto-advance under METHOD §3.1 — but **step 1 invalidated the rest before it ran**, which is why the plan is ordered to find that out first. Read out of the shipped binary: **the harness has no exclusion mechanism.** A local-directory install copies the tree whole and then deletes exactly one thing, `.git`; `copyDir` filters nothing; `.gitignore` is never consulted, which is why `control/` is in the cache. The marketplace entry's component fields looked like the lever and are not — they apply only to the `archive` source and are *validated* rather than applied, so declaring `skills` narrows nothing. `${CLAUDE_PLUGIN_ROOT}` is for hook arguments, not Markdown links. That settles the deferred question as **not a defect and not fixable**: a local-directory install is a snapshot by construction, the only snapshot-free arrangement is the project-level skills folder that D2 and T-050 both refused, so cache/tree drift is a property of installing. It also prices the `specify` answer for the first time: delivering it needs the plugin to become a **subtree**, moving `docs/` and `taskmd/` and rewriting every path that cites them. That is a repository restructure, it was asked for before anyone knew it was one, and METHOD §3.3 says raise it rather than widen quietly — so the plan stops at step 2 and the question goes back. |
 | 2026-08-08 | → specified | Maintainer answered the boundary question: **ship what the skill points at, minus this repository's working material** — `skills/`, `docs/`, `taskmd/` and the launchers in; `tasks/`, `.handoff/`, `tests/`, `reference/`, `control/` out. That keeps `docs/METHOD.md` with one authored home and the relative pointers resolving, which is why the self-contained alternative was rejected — it would have bought a guaranteed single resolution by giving the method a second home, trading the plugin's own design rule for the symptom. The drift question is **deferred to `plan`**: whether a versioned snapshot going stale is a defect at all depends on what the harness supports for a local-directory install, which is a thing to check rather than to reason about. Criterion 2 is the one that now needs care — it asks for a demonstration that a pointer resolves once, and under this answer the honest demonstration is about which copy a session in *this* repository reads, since an adopter has only one. |
 | 2026-08-08 | → proposed | Raised from T-050 §3 step 7 and not fixed there (METHOD §3.3): T-050 measures what a session is handed, and it now has the answer; what the plugin should ship is a packaging decision. The harness serves the skill from an install-time snapshot of the **whole repository**, so every relative pointer in `SKILL.md` has two resolutions, and `CLAUDE.md` already differed between them within hours of the install — duplication nobody wrote, created by installing. `high` because it lands on the tier model R-21 names and on what an adopter receives, and because the two halves pull opposite ways: shipping less breaks the pointers, shipping everything hands an adopter this project's 52 tasks and its gitignored local-context file. `s` because the work is a decision and a packaging rule, not code. Held as `decision` rather than `fix` — nothing is known to be broken for an adopter yet, since nobody has installed it but the maintainer. |
