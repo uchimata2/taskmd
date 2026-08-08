@@ -222,6 +222,158 @@ carry the finding without reproducing it.
 **Outputs produced**
 - This step's verdict. Steps 1 and 3–5 remain.
 
+### Step 1 — the failure, taken after step 2 rather than before it
+
+Step 2 had to run in a session started after its probe was planted, so it was taken first and this
+step second. Nothing in step 1 depends on step 2's answer, which is why the plan already allowed
+either order.
+
+A scratch project was made outside this repository — a folder containing only `tasks/` with one
+task in it, which is what an adopter has after `adopt.md` §1. The commands are the ones `SKILL.md`
+and `adopt.md` named at the time:
+
+```text
+python -m taskmd list --open --limit 1   <python>: No module named taskmd        exit 1
+python -m taskmd check                   <python>: No module named taskmd        exit 1
+./taskmd.sh list --open --limit 1        ./taskmd.sh: No such file or directory  exit 127
+command -v taskmd                        (not found)
+```
+
+The interpreter's own path is redacted above and nowhere in this record: it is under a home
+directory, which is the class the pre-publish check in `CLAUDE.md` exists to catch.
+
+All four lines are the same fact from four sides. The package is not importable because it is in the
+plugin's install cache and the adopter is not; the launcher is not reachable because a relative path
+to it only exists for someone standing in the plugin folder; and there was no third way in. This is
+§1's claim reproduced rather than asserted, and it is the *before* that step 3 is measured against.
+
+### Step 3 — the entry point, and a second defect that had to be fixed for it to work
+
+**Built.** `plugin/bin/taskmd` (POSIX `sh`) and `plugin/bin/taskmd.cmd` (`cmd`/PowerShell), each a
+delegate to the launcher one directory up, per **D3**. Neither repeats interpreter discovery. The
+POSIX one invokes its target through `sh` rather than executing it, so the delegation does not also
+depend on the target's mode bit; `bin/taskmd` itself is recorded in the index as `100755`, which a
+`PATH` lookup on a Unix checkout requires.
+
+**Demonstrated, on both platforms.** The plugin subtree was copied to a scratch location outside
+this repository, the adopter project of step 1 is somewhere else again, and the *only* thing joining
+them is that the copy's `bin/` is on `PATH`. Command typed by bare name, working directory the
+adopter project:
+
+```text
+taskmd list --open --limit 1    T-001  proposed  -  specify  Write the quarterly summary   exit 0
+taskmd check                    OK - 1 task(s), vocabulary valid, references resolve, ...  exit 0
+```
+
+Identical output through `bin/taskmd` from `sh` and through `bin/taskmd.cmd` from PowerShell, each
+resolved by name from `PATH` — confirmed by asking the shell which file it had found.
+
+**What that does and does not settle.** It is the whole of acceptance criterion 1: the command ran
+from a directory that is neither this repository nor the plugin folder, and the output is above. The
+one link still not exercised **on this machine** is narrower than step 2's finding suggested — not
+the `bin/` mechanism, which is what ran, but the harness's own `PATH` append, which the truncated
+shell snapshot recorded in step 2 prevents from arriving. That link is upstream of this plugin and
+its shape was read out of the shipped binary in step 2.
+
+**The second defect: `plugin/taskmd.ps1` reports no Python on a machine with three.** The `.cmd`
+delegate failed on its first run with the launcher's own `taskmd: no Python found` message. The
+cause is not the delegate. `taskmd.ps1` probes each candidate with `-c ""`, and **Windows PowerShell
+5.1 drops an empty-string argument on its way to a native command**, so Python receives a bare `-c`:
+
+```text
+Windows PowerShell 5.1.26100.8972    py -c ""      exit 2   Argument expected for the -c option
+                                     py -c "pass"  exit 0
+PowerShell 7.6.4                     py -c ""      exit 0
+                                     py -c "pass"  exit 0
+```
+
+The probe's verdict is "did it run", so exit 2 reads as "not a working interpreter" and every
+candidate is rejected. It survived because this project drives the launcher from PowerShell 7 and
+5.1 is what a stock Windows machine has — the same shape as
+[T-052](T-052-decide-what-of-claude-a-published-clone-carries.md)'s finding, a thing that worked
+only where it had been tested. It breaks the contributor path too: `.\plugin\taskmd.ps1` from
+`powershell.exe` in a fresh clone reports the same.
+
+`-c "pass"` still executes nothing and still exits 49 on the Store stub, so the probe's original
+purpose is intact. With it, the `.cmd` entry point produces the output shown above.
+
+### Step 4 — one form, and where it had to be named
+
+`taskmd` for the adopter and `./plugin/taskmd.sh` for this repository, which is **D2** unchanged.
+The plan's step 4 named two files; four more turned out to name a command, and each was decided
+rather than swept up:
+
+| File | Now names | Why |
+| :--- | :--- | :--- |
+| `plugin/skills/taskmd/SKILL.md` | `taskmd` | planned output |
+| `plugin/skills/taskmd/adopt.md` | `taskmd` | planned output |
+| `plugin/docs/bindings/local-markdown.md` | `taskmd` | ships in the plugin and `SKILL.md` routes the agent to it before any write, so it is a command the skill names — one step removed |
+| `tasks/README.md` preamble | `./plugin/taskmd.sh` | this repository's own, and since T-053 the form it carried does not run without `PYTHONPATH` |
+| `tasks/_templates/task-template.md` | `./plugin/taskmd.sh` | same, and it is copied into every new task |
+| `plugin/taskmd/cli.py` — `usage:` | unchanged | **not a substitution**; raised as [T-055](T-055-settle-what-the-tool-calls-itself-when-it-prints-its-o.md) |
+
+`SKILL.md`'s line about running the launcher from a subdirectory went with it: `taskmd` is on `PATH`
+everywhere, and the project is already found by walking up (T-011), so the sentence now says that
+rather than naming a second command form.
+
+**The binding's own instruction was then run, not just edited.** In the scratch adopter project, the
+default config was copied to `.taskmd/config.md` per `adopt.md` §2 and `after_write` set to the form
+the binding now documents:
+
+```text
+taskmd index    Wrote tasks/README.md - 1 active, 0 closed
+                Hook   taskmd check
+                  OK - 1 task(s), vocabulary valid, references resolve, no broken links
+```
+
+So the hook resolves `taskmd` through `PATH` the same way a person does, and the binding does not
+need a different form from the one the skill names.
+
+### Step 5 — the suite and this repository
+
+```text
+114 passed
+OK - 54 task(s), vocabulary valid, references resolve, no broken links
+Wrote tasks/README.md - 21 active, 33 closed
+```
+
+**Run the suite with no `PYTHONPATH` set.** The tests put the package on `sys.path` themselves, and
+a *relative* `PYTHONPATH` in the environment makes `test_the_shell_launcher_produces_what_the_module
+_produces` fail spuriously — the launcher prepends its own absolute directory and the resulting list
+does not survive the trip to a native Python. It looks exactly like a regression in the launcher.
+
+**Decisions & assumptions**
+
+- **The 5.1 launcher defect is fixed inside this task rather than deferred.** — It is pre-existing
+  and strictly speaking outside the plan, but without it this task's own planned output does not
+  work on Windows at all, so under METHOD §3.3 it changes what this task must produce rather than
+  being a separate concern. *Rejected: a child task plus an honest gap at `review`* — it would ship
+  a `.cmd` entry point known not to work. *Rejected: making the `.cmd` prefer `pwsh`* — it leaves
+  stock Windows broken and does not help the contributor path. **Decided by the maintainer,
+  2026-08-08**, with the diagnosis and the one-token fix put to them. — 2026-08-08
+- **`plugin/taskmd.sh` keeps `-c ""`.** — No POSIX shell drops an empty argument, so there is
+  nothing to fix there, and changing it for symmetry would make two files differ from what each
+  actually needs. The asymmetry is explained in `taskmd.ps1` where a reader meets it. — 2026-08-08
+- **The binding document is in scope; the `usage:` string is not.** — The binding ships in the
+  plugin and the skill routes to it, so it names commands for the same audience and the same fix
+  applies. The `usage:` line is printed by one process to whoever ran it and cannot tell an adopter
+  from a contributor, which **D2** made two different people on purpose — a choice, not a
+  substitution. *Rejected: deciding it here* — it would settle a D2-adjacent question inside
+  `implement`. **Decided by the maintainer, 2026-08-08.** — 2026-08-08
+- **Assumption, recorded as one: an adopter's `PATH` stays under the snapshot cap.** — Step 2 found
+  this machine's `PATH` too long for the shell snapshot to survive, which is why the harness's
+  append cannot be watched here. Nothing in this task depends on the threshold, and the work
+  survives being wrong about it: the entry point is unchanged either way, only the demonstration
+  route differs. — 2026-08-08
+
+**Outputs produced**
+- `plugin/bin/taskmd`, `plugin/bin/taskmd.cmd` — the entry point, mode `100755` on the first
+- `plugin/taskmd.ps1` — the interpreter probe, fixed for Windows PowerShell 5.1
+- `plugin/skills/taskmd/SKILL.md`, `plugin/skills/taskmd/adopt.md`,
+  `plugin/docs/bindings/local-markdown.md` — the command they name
+- `tasks/README.md` preamble, `tasks/_templates/task-template.md` — this repository's own form
+- [T-055](T-055-settle-what-the-tool-calls-itself-when-it-prints-its-o.md) — raised under METHOD §3.3
+
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
@@ -235,6 +387,7 @@ carry the finding without reproducing it.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-08 | (implement complete) | Steps 1 and 3–5 taken; `implement` is finished and `review` is **not** started (METHOD §3.1 — the handoff's "then review" is a pointer, not a request). Step 1 reproduced §1's claim from four sides in a scratch project outside this repository: the module is not importable, the launcher is not reachable by a relative path, and there was no third way in. Step 3 built `plugin/bin/taskmd` and `plugin/bin/taskmd.cmd` as delegates to the launchers per D3, and **acceptance criterion 1 is met on both platforms** — plugin copied outside the repository, adopter project elsewhere again, nothing joining them but `PATH`, command typed by bare name. The gap step 2 predicted turns out narrower than expected: what cannot be watched here is not the `bin/` mechanism, which ran, but the harness's own `PATH` append, which this machine's truncated snapshot prevents. Step 3 also uncovered a **second, pre-existing defect**: `plugin/taskmd.ps1` probes interpreters with `-c ""`, and Windows PowerShell 5.1 drops empty-string arguments to native commands, so Python gets a bare `-c`, exits 2, and every interpreter on the machine is reported missing. It broke the new `.cmd` entry point and breaks `.\plugin\taskmd.ps1` for any contributor on stock Windows; it survived because this project drives the launcher from PowerShell 7. Maintainer decided to fix it here rather than defer, since without it this task's own output does not work on Windows. Step 4 found four naming sites beyond the plan's two: the shipped binding document moved to `taskmd` (the skill routes to it, so it is one step removed from a command the skill names), this repository's index preamble and task template moved to `./plugin/taskmd.sh` (they carried a form that stopped running at T-053), and the CLI's own `usage:` string was left alone and raised as **T-055**, because D2 made the two audiences different on purpose and a usage line cannot tell which one it is printing to. The binding's instruction was then run rather than only edited — `after_write: taskmd check` resolves through `PATH` in the scratch project. Suite 114 passed, `check` OK on 54 tasks, index regenerated. |
 | 2026-08-08 | → in_progress | Step 2 taken, and **D1 is answered yes** — the opposite of what the probe alone said. The probe was a clean negative (no plugin `bin` on `PATH`, `taskmd-probe` not found), but reading further inverted it: `getEnabledPluginBinPaths` **is** called, from the shell-snapshot builder, which appends every enabled plugin's `bin` to the login `PATH` and writes it as one `export PATH=` line for the agent's shell to source. So D1's two candidate explanations were both false. What is broken is the snapshot **file**: its `PATH` line is truncated mid-value at a fixed 5551 characters, leaving an unmatched quote, so sourcing dies on `unexpected EOF` and the shell silently keeps its inherited `PATH` — the plugin `bin` is written correctly and never loaded. Confirmed by sourcing the newest snapshot in a subshell and watching the entry count not move. The cap is a property of **this machine's long `PATH`**, not of the mechanism: the oldest snapshot here is 2064 characters with matched quotes and sources fine, while every later one is the same 5551 across differing contents. Stated as a hypothesis, unbisected, because it needs a second machine and changes nothing this task builds. Maintainer decided to proceed rather than fall back to D4, which would have swapped what the plugin ships on the strength of a defect that is not in the plugin. Accepted consequence, named: this repository cannot dogfood the shipped entry point. The truncation is an upstream harness bug and is deliberately **not** a task here — taskmd cannot fix it and such a task would never close. No `PATH` listing is quoted anywhere in the record; it is the home-directory class the pre-publish check exists to catch. |
 | 2026-08-08 | → planned | Plan written; §1's open question settled as **D2** — this repository keeps typing `./plugin/taskmd.sh` and the skill names the `bin/` command, because a contributor has the tree and no install while an adopter has an install and no tree, and typing the shipped command here would make it missing for anyone who merely cloned. The plan's own finding is **D1**: §1 calls the `bin/` mechanism "already established" and that overstates the read. `getEnabledPluginBinPaths` is in the shipped binary with exactly the described body, but no plugin `bin` directory is on a live session's `PATH` with this plugin installed and enabled, and creating one mid-session did not add it — so whether anything *calls* it is open, and steps 3–5 assume an answer this session cannot obtain, `PATH` being fixed before the first turn. A probe was planted in the install cache so a later session settles it with one command. |
 | 2026-08-08 | → proposed | Raised from T-053's restructure and **not caused by it**: the same hole predates the move and was hidden by this repository being the only place the plugin had ever run. Every command `SKILL.md` and `adopt.md` name — `python -m taskmd …` — fails for an adopter, because the package is in the install cache and their working directory is their own project. `critical` because it is not a rough edge in the adoption path but the adoption path not working at all, and T-006 would publish it as-is; `s` because the mechanism is already known. Read out of the shipped binary during T-053: the harness puts `<plugin-root>/bin` on `PATH` for every enabled plugin, so a `bin/` entry point is a command an adopter can type from anywhere with no install step and no `PYTHONPATH`. The open question is whether this repository should then type that same command, which proves it continuously but is only on `PATH` when the plugin is installed — the T-052 shape, where a thing works only where it was tested. |

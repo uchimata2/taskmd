@@ -3,9 +3,9 @@
 Generated from each task's front-matter. **Do not hand-edit** between the markers below.
 
 ```
-python -m taskmd index            # regenerate this file
-python -m taskmd context T-001    # everything needed to start a task
-python -m taskmd check            # validate
+./plugin/taskmd.sh index          # regenerate this file
+./plugin/taskmd.sh context T-001  # everything needed to start a task
+./plugin/taskmd.sh check          # validate
 ```
 
 Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
@@ -26,7 +26,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-024](T-024-say-so-when-tasks-dir-names-something-that-is-not-a-folder.md) | Say so when tasks_dir names something that is not a folder | - | `proposed` | `specify` | - | - | - | - | T-019, T-023 |
 | [T-025](T-025-let-check-notice-a-stale-generated-index.md) | Let check notice a stale generated index | - | `specified` | `specify` | - | - | - | - | T-002, T-009, T-011, T-019, T-026, T-039 |
 | [T-026](T-026-audit-the-whole-project-before-the-remaining-build.md) | Audit the whole project before the remaining build | - | `review` | `review` | - | T-027, T-028, T-029, T-030, T-031, T-032, T-033, T-034 | - | - | T-003, T-006, T-010, T-025, T-036 |
-| [T-029](T-029-reject-unknown-arguments-on-every-command.md) | Reject unknown arguments on every command | - | `specified` | `specify` | T-026 | - | - | - | T-002, T-022 |
+| [T-029](T-029-reject-unknown-arguments-on-every-command.md) | Reject unknown arguments on every command | - | `specified` | `specify` | T-026 | - | - | - | T-002, T-022, T-055 |
 | [T-030](T-030-settle-the-schema-module-s-own-entry-point.md) | Settle the schema module's own entry point | - | `specified` | `specify` | T-026 | - | - | - | T-020, T-023 |
 | [T-031](T-031-give-the-list-rationale-one-home.md) | Give the list rationale one home | - | `specified` | `specify` | T-026 | - | - | - | T-022, T-027 |
 | [T-032](T-032-repair-the-audit-template-and-validate-templates.md) | Repair the audit template, and validate templates at all | - | `specified` | `specify` | T-026 | - | - | - | T-003, T-022, T-036 |
@@ -37,7 +37,8 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | - | `specified` | `specify` | - | - | T-003 | - | T-015, T-028 |
 | [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) | Demonstrate a clone running on a second platform | - | `proposed` | `specify` | T-011 | - | - | - | T-006 |
 | [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | - | `proposed` | `specify` | - | - | - | - | T-001, T-003 |
-| [T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md) | Give an adopter a way to run the commands the skill names | - | `in_progress` | `implement` | - | - | - | - | T-003, T-006, T-053 |
+| [T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md) | Give an adopter a way to run the commands the skill names | - | `in_progress` | `implement` | - | T-055 | - | - | T-003, T-006, T-053, T-055 |
+| [T-055](T-055-settle-what-the-tool-calls-itself-when-it-prints-its-o.md) | Settle what the tool calls itself when it prints its own usage | - | `proposed` | `specify` | T-054 | - | - | - | T-029, T-054 |
 
 ## Closed
 

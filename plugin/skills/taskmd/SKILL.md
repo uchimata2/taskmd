@@ -11,19 +11,19 @@ are **derived by the tool** — so run a command, do not read the folder, and ne
 ## Run first
 
 ```bash
-python -m taskmd list --open --limit 1
+taskmd list --open --limit 1
 ```
 
 answers what to work on next, by the project's own ordering rule.
 
 ```bash
-python -m taskmd context <id>
+taskmd context <id>
 ```
 
 returns everything needed to start that one task, and is the only read of it you need.
 
-From a subdirectory, `./taskmd.sh` or `./taskmd.ps1` in place of `python -m taskmd`. Add
-`--root <path>` only to override the project the command found by walking up.
+`taskmd` runs from any directory, including a subdirectory of the project: it finds the project by
+walking up from wherever it is run. Add `--root <path>` only to override the one it finds.
 
 These commands are the local-Markdown backend. If this project keeps its tasks somewhere else, its
 binding supplies the operations instead — and everything below is unchanged, which is the point.
@@ -47,5 +47,5 @@ never saw.
   execute — which is the situation [`../../docs/METHOD.md`](../../docs/METHOD.md) §3.1 exists for.
 - **The field names and their allowed values are configuration, not something to remember**:
   [`../../taskmd/defaults/config.md`](../../taskmd/defaults/config.md) is the schema, and
-  `python -m taskmd check` reports every violation of it by name. Do not carry it in your head, and
+  `taskmd check` reports every violation of it by name. Do not carry it in your head, and
   do not copy any of it into a task or a project document.

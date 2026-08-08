@@ -37,7 +37,7 @@ the skill. Re-take it the same way in your own project if you want to know it ho
 ## 5. Confirm
 
 ```bash
-python -m taskmd check
+taskmd check
 ```
 
 Anything it names is a problem to fix before the first task. If what it names is the configuration,

@@ -1,0 +1,14 @@
+#!/bin/sh
+# taskmd entry point. This is the command an adopter types.
+#
+# It is on PATH because the harness appends every enabled plugin's bin/ directory to the PATH it
+# hands the agent's shell - so there is no install step, no PYTHONPATH to set and no path to a
+# cache directory anyone has to know. `bin/` is the whole mechanism; the file name is the command.
+#
+# It is a delegate, not a second launcher. Interpreter discovery lives one directory up in
+# taskmd.sh and is not repeated here, because the same fact written in two places is the one
+# thing this project's design rule forbids - and it is invoked through `sh` rather than executed
+# directly so the delegation does not also depend on the target's mode bit.
+
+here=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+exec sh "$here/../taskmd.sh" "$@"

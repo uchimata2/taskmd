@@ -76,7 +76,7 @@ id are a conflict rather than a coin toss. For a reference that is not an id, ma
 and report every candidate rather than choosing.
 
 **read** — the file, whole: front-matter and body. Fields the schema does not name are returned
-with the rest and are never interpreted. `python -m taskmd context <id>` is this operation plus the
+with the rest and are never interpreted. `taskmd context <id>` is this operation plus the
 derived edges, which is what makes it enough to start a task.
 
 **create** — take the next id: the highest existing id across the whole folder, plus one, padded to
@@ -102,11 +102,11 @@ includes finished tasks, which is what keeps the far end of a link to finished w
 ### After any write
 
 ```bash
-python -m taskmd index
+taskmd index
 ```
 
 ```bash
-python -m taskmd check
+taskmd check
 ```
 
 `index` regenerates the derived file; `check` confirms the write left the project consistent —
@@ -116,7 +116,7 @@ person's turn.
 
 **A project may have the second one run for it, and still owes the first.** Setting `after_write` in
 the config makes taskmd run a command of the project's choosing after **its own** write, so
-`after_write: python -m taskmd check` turns the two steps above into one — a supplement to this
+`after_write: taskmd check` turns the two steps above into one — a supplement to this
 step, not a replacement for it. The half that cannot be automated this way is `index` itself: taskmd
 never writes a task file, so the edit that made the index stale is one it never saw. Whatever
 performs the edit is what has to run `index` — which is why this step is written as an instruction

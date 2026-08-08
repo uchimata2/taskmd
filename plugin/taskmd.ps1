@@ -16,11 +16,18 @@ $env:PYTHONPATH = if ($env:PYTHONPATH) {
 
 # A candidate has to *run*, not merely exist: the Store stub is on PATH, answers Get-Command, and
 # then exits 49 telling you to visit a shop. Asking it to execute nothing tells the two apart.
+#
+# The no-op is `pass` and not the empty string, which is what taskmd.sh can afford to use. Windows
+# PowerShell 5.1 drops an empty-string argument on its way to a native command, so `-c ""` arrives
+# as a bare `-c`; Python then answers "Argument expected for the -c option" and exits 2, and every
+# interpreter on the machine is reported missing. PowerShell 7 passes it through, which is why the
+# form survived here for as long as it did - this project drives the launcher from 7, and 5.1 is
+# what an adopter has by default.
 foreach ($interpreter in 'py', 'python3', 'python') {
     $found = Get-Command $interpreter -CommandType Application -ErrorAction SilentlyContinue |
         Select-Object -First 1
     if (-not $found) { continue }
-    & $found.Source -c "" *> $null
+    & $found.Source -c "pass" *> $null
     if ($LASTEXITCODE -eq 0) {
         & $found.Source -m taskmd @args
         exit $LASTEXITCODE
