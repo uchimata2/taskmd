@@ -2,8 +2,8 @@
 id: T-054
 title: Give an adopter a way to run the commands the skill names
 type: fix
-status: planned
-phase: plan
+status: in_progress
+phase: implement
 parent: null
 blocked_by: []
 related: [T-053, T-006, T-003]
@@ -161,11 +161,66 @@ ships and what the skill is, so it needs agreement at `specify` rather than a qu
 
 ## 3. Implement
 
+### Step 2 — D1 settled: the mechanism exists and is wired; one machine's shell is broken
+
+**The probe answered no, and the reason is neither of the two readings D1 offered.** A session started
+after the probe was planted reported that no plugin `bin` directory was on `PATH` — 37 entries, none
+matching `plugin`, and `command -v taskmd-probe` not found. Taken alone that reads as "the mechanism
+does not work". Reading further changes the verdict.
+
+**The chain is complete in the shipped binary.** `getEnabledPluginBinPaths` is not an unreached
+export: it is called from the **shell-snapshot builder**, which composes the login shell's `PATH`,
+appends every enabled plugin's `bin` directory (converted to POSIX form on Windows), and writes the
+result into the snapshot as a single `export PATH=…` line inside a heredoc. The snapshot is what the
+agent's shell sources. So a `bin/` entry point is the right shape, and D1's two candidate
+explanations — *kept only directories present at plugin load*, and *the export is unreached* — are
+**both false**.
+
+**What is actually broken is the snapshot file.** Its `export PATH=` line is **truncated mid-value**:
+it opens a single quote, runs to a fixed 5551 characters, and ends part-way through a path with no
+closing quote. Sourcing it fails —
+
+```text
+line 44: unexpected EOF while looking for matching `''
+```
+
+— and the shell silently keeps its inherited `PATH`. That is why the plugin's `bin` directory is
+present *in the file* and absent from every live `PATH`: it is written correctly and then never
+loaded. Verified by sourcing the newest snapshot in a subshell, which left the entry count unchanged.
+
+**And the truncation is a property of this machine, not of the mechanism.** The oldest snapshot on
+disk has a 2064-character `PATH` line, a matched pair of quotes, and sources cleanly. Every snapshot
+since carries exactly 5551 characters and exactly one quote — the *same* length across files whose
+contents differ, which is the signature of a fixed cap rather than of the value itself. This machine
+carries an unusually long `PATH`; a shorter one stays under the cap. **Stated as the strong
+hypothesis it is**: the threshold lies between those two figures and has not been bisected, because
+doing so needs a second machine and does not change what this task builds.
+
+**No evidence is quoted here.** The material is a `PATH` listing, which is the home-directory class
+the pre-publish check in `CLAUDE.md` exists to catch; the counts and the shell's own error message
+carry the finding without reproducing it.
+
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+- **D1 answers *yes*: `bin/` is the mechanism, and step 3 proceeds.** — The plan's stop condition was
+  written for "the mechanism does not exist", and the mechanism does. What fails is one machine's
+  shell snapshot, which no change to this plugin can repair and which an adopter with an ordinary
+  `PATH` never meets. *Rejected: stopping and adopting D4's shape* — it would swap what the plugin
+  ships on the strength of a defect that is not in the plugin. **Decided by the maintainer,
+  2026-08-08**, after the root cause was put to them. — 2026-08-08
+- **The consequence is accepted and named: this repository cannot dogfood the shipped entry point.** —
+  It would not resolve here even once built. D2 had already decided this repository types
+  `./plugin/taskmd.sh` and the skill names the `bin/` command, so the loss is bounded to what D2
+  already accepted; but "we run what we ship" is not available for this one artifact, and saying so
+  is cheaper than a later reader assuming it was checked. — 2026-08-08
+- **The truncation is an upstream defect and is not tracked here.** — It is a harness bug: a snapshot
+  that fails to parse should not silently drop every plugin's `bin`. taskmd cannot fix it, no
+  acceptance criterion depends on it, and a task in this backlog for someone else's code would never
+  close. Recorded in this step so the next reader is not re-deriving it, and in agent memory as the
+  reusable half. — 2026-08-08
 
 **Outputs produced**
-- <not yet decided>
+- This step's verdict. Steps 1 and 3–5 remain.
 
 ## 4. Review
 
@@ -180,5 +235,6 @@ ships and what the skill is, so it needs agreement at `specify` rather than a qu
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-08 | → in_progress | Step 2 taken, and **D1 is answered yes** — the opposite of what the probe alone said. The probe was a clean negative (no plugin `bin` on `PATH`, `taskmd-probe` not found), but reading further inverted it: `getEnabledPluginBinPaths` **is** called, from the shell-snapshot builder, which appends every enabled plugin's `bin` to the login `PATH` and writes it as one `export PATH=` line for the agent's shell to source. So D1's two candidate explanations were both false. What is broken is the snapshot **file**: its `PATH` line is truncated mid-value at a fixed 5551 characters, leaving an unmatched quote, so sourcing dies on `unexpected EOF` and the shell silently keeps its inherited `PATH` — the plugin `bin` is written correctly and never loaded. Confirmed by sourcing the newest snapshot in a subshell and watching the entry count not move. The cap is a property of **this machine's long `PATH`**, not of the mechanism: the oldest snapshot here is 2064 characters with matched quotes and sources fine, while every later one is the same 5551 across differing contents. Stated as a hypothesis, unbisected, because it needs a second machine and changes nothing this task builds. Maintainer decided to proceed rather than fall back to D4, which would have swapped what the plugin ships on the strength of a defect that is not in the plugin. Accepted consequence, named: this repository cannot dogfood the shipped entry point. The truncation is an upstream harness bug and is deliberately **not** a task here — taskmd cannot fix it and such a task would never close. No `PATH` listing is quoted anywhere in the record; it is the home-directory class the pre-publish check exists to catch. |
 | 2026-08-08 | → planned | Plan written; §1's open question settled as **D2** — this repository keeps typing `./plugin/taskmd.sh` and the skill names the `bin/` command, because a contributor has the tree and no install while an adopter has an install and no tree, and typing the shipped command here would make it missing for anyone who merely cloned. The plan's own finding is **D1**: §1 calls the `bin/` mechanism "already established" and that overstates the read. `getEnabledPluginBinPaths` is in the shipped binary with exactly the described body, but no plugin `bin` directory is on a live session's `PATH` with this plugin installed and enabled, and creating one mid-session did not add it — so whether anything *calls* it is open, and steps 3–5 assume an answer this session cannot obtain, `PATH` being fixed before the first turn. A probe was planted in the install cache so a later session settles it with one command. |
 | 2026-08-08 | → proposed | Raised from T-053's restructure and **not caused by it**: the same hole predates the move and was hidden by this repository being the only place the plugin had ever run. Every command `SKILL.md` and `adopt.md` name — `python -m taskmd …` — fails for an adopter, because the package is in the install cache and their working directory is their own project. `critical` because it is not a rough edge in the adoption path but the adoption path not working at all, and T-006 would publish it as-is; `s` because the mechanism is already known. Read out of the shipped binary during T-053: the harness puts `<plugin-root>/bin` on `PATH` for every enabled plugin, so a `bin/` entry point is a command an adopter can type from anywhere with no install step and no `PYTHONPATH`. The open question is whether this repository should then type that same command, which proves it continuously but is only on `PATH` when the plugin is installed — the T-052 shape, where a thing works only where it was tested. |
