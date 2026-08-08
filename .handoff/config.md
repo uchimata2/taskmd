@@ -44,7 +44,9 @@ Do not restate the method here or anywhere else; `CLAUDE.md` does not.
 The schema question that used to block everything is answered (T-001), and the CLI it gated is built:
 `./plugin/taskmd.sh {context,index,check,list}` (or `.ps1`), proven by `tests/`. Since T-053 the
 package lives in `plugin/`, so the launchers — which set `PYTHONPATH` to their own folder — are the
-way in; a bare `python -m taskmd` needs that variable set. Run `check` **and** `index` after
+way in *here*; a bare `python -m taskmd` needs that variable set. An **adopter** types `taskmd`
+instead, the `plugin/bin/` entry point the harness puts on `PATH` (T-054). The difference is
+deliberate, so do not "fix" `SKILL.md` to match this file. Run `check` **and** `index` after
 any edit to a task file — this project uses its own tool on itself, so a regression shows up
 immediately, and the generated index goes stale silently until `index` is re-run (T-025).
 `list --open --limit 1` answers "what next" by the project's own ordering rule, so it is not

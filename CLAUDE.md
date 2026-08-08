@@ -19,6 +19,10 @@ evidence and the measured prior art behind them. `tasks/README.md` is the genera
 was amended). **Run them as `./plugin/taskmd.sh <cmd>` or `./plugin/taskmd.ps1 <cmd>`** — since
 T-053 the package lives in the plugin subtree, so a bare `python -m taskmd` needs `PYTHONPATH` and
 the launchers are what set it. This project runs on them; the interim `tools/tasks/task.py` is gone.
+**An adopter types neither**: since T-054 the plugin ships `plugin/bin/taskmd`, which the harness
+puts on `PATH`, and that is the command the skill names. The two differ on purpose (T-054 D2) — a
+contributor has the tree and no install, an adopter the reverse — so this is not an inconsistency
+to tidy away.
 Since T-011 they find the project by walking up from wherever they are run, so the command works
 from anywhere in the tree, and a project can declare one `after_write` command that taskmd runs and
 reports on.
