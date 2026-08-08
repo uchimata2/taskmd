@@ -15,6 +15,7 @@ rely on it (R-16).
 """
 
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -328,6 +329,40 @@ class Launchers(unittest.TestCase):
                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         self.assertEqual(direct.stdout, viash.stdout)
         self.assertEqual(direct.returncode, viash.returncode)
+
+    def test_every_posix_shell_script_is_recorded_executable(self):
+        """T-056. A shell script has no `python -m` equivalent: a `#!/bin/sh` file exists to be run
+        by path, so a clone must receive it with the bit set. The Python files in this tree also
+        carry shebangs and are all documented to run *through* the interpreter, which is why the
+        subject is derived from the shebang rather than from a list someone maintains.
+
+        Read out of git's index, never the filesystem. `core.fileMode` is false on Windows, so the
+        working tree's bits are not what a clone receives — and Windows is where this defect is
+        invisible and would therefore recur."""
+        listing = subprocess.run(["git", "ls-files", "-s", "-z"], cwd=ROOT,
+                                 stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+        if listing.returncode != 0:
+            self.skipTest("not a git work tree; the recorded mode is what this asserts")
+        offenders = []
+        for entry in listing.stdout.split(b"\0"):
+            if not entry:
+                continue
+            meta, _, path = entry.partition(b"\t")
+            mode = meta.split(b" ")[0].decode()
+            name = path.decode("utf-8")
+            try:
+                with open(os.path.join(ROOT, name), "rb") as handle:
+                    shebang = handle.readline().decode("utf-8", "replace").strip()
+            except OSError:
+                continue
+            if not shebang.startswith("#!"):
+                continue
+            words = re.split(r"[\s/]+", shebang[2:])
+            if not any(word in ("sh", "bash", "dash", "zsh", "ksh") for word in words):
+                continue
+            if mode != "100755":
+                offenders.append("%s is recorded %s" % (name, mode))
+        self.assertEqual([], offenders)
 
 
 if __name__ == "__main__":
