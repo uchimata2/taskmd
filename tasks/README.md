@@ -38,8 +38,8 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) | Demonstrate a clone running on a second platform | - | `proposed` | `specify` | T-011 | - | - | - | T-006 |
 | [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | - | `in_progress` | `implement` | T-003 | - | - | - | T-006, T-052, T-053 |
 | [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | - | `proposed` | `specify` | - | - | - | - | T-001, T-003 |
-| [T-052](T-052-decide-what-of-claude-a-published-clone-carries.md) | Decide what of .claude a published clone carries, and ignore the rest | - | `proposed` | `specify` | - | - | - | - | T-003, T-006, T-050, T-053 |
-| [T-053](T-053-decide-the-plugin-s-boundary-and-what-its-skill-may-p.md) | Decide the plugin's boundary, and what its skill may point at | - | `proposed` | `specify` | - | - | - | - | T-003, T-006, T-050, T-052 |
+| [T-052](T-052-decide-what-of-claude-a-published-clone-carries.md) | Decide what of .claude a published clone carries, and ignore the rest | - | `specified` | `specify` | - | - | - | - | T-003, T-006, T-050, T-053 |
+| [T-053](T-053-decide-the-plugin-s-boundary-and-what-its-skill-may-p.md) | Decide the plugin's boundary, and what its skill may point at | - | `specified` | `specify` | - | - | - | - | T-003, T-006, T-050, T-052 |
 
 ## Closed
 

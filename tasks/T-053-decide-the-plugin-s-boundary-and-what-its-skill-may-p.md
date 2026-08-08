@@ -2,7 +2,7 @@
 id: T-053
 title: Decide the plugin's boundary, and what its skill may point at
 type: decision
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: []
@@ -90,15 +90,22 @@ observation and the hash comparison; `skills/taskmd/SKILL.md`, for the pointers;
       without its exclusion
 
 **Open questions**
-- **Does the skill stop pointing outside its folder, or does the plugin keep shipping what it points
-  at?** The first makes the skill self-contained and duplicates or relocates `docs/METHOD.md`; the
-  second keeps one authored copy of the method and accepts that installs are snapshots. Both are
-  defensible and they produce different trees. The maintainer decides; the criteria above are written
-  to be satisfiable either way.
+- ~~Does the skill stop pointing outside its folder, or does the plugin keep shipping what it points
+  at?~~ **Answered by the maintainer on 2026-08-08: the plugin keeps shipping what it points at,
+  minus this repository's working material.** So `skills/`, `docs/`, `taskmd/` and the launchers are
+  the plugin; `tasks/`, `.handoff/`, `tests/`, `reference/` and `control/` are not. The pointers in
+  `SKILL.md` stay relative and keep resolving, and `docs/METHOD.md` keeps its single authored home.
+  *Rejected: making the skill self-contained* by moving the method under `skills/taskmd/` — it buys
+  one guaranteed resolution by giving the method a second home or a new one, which is the rule this
+  plugin exists to enforce, and it would leave `docs/` a pointer to its own contents. *Rejected:
+  shipping the whole tree* — cheapest to package and it is what an adopter gets today: this project's
+  53 task files, its handoff archive, and `control/` by a route no push-oriented check can see.
 - **Is a stale install acceptable if it is *versioned*?** A snapshot pinned to `0.1.0` is arguably
   correct behaviour rather than drift — the tree is `0.1.0`+work, and an adopter wants the released
   method, not the in-flight one. If that reading is taken, the defect is only that *this* repository
-  reads its own installed copy, and the fix is much smaller.
+  reads its own installed copy, and the fix is much smaller. **Deferred to `plan` by the maintainer
+  on 2026-08-08**, to be settled after checking what the harness actually supports for a
+  local-directory install — the two readings differ in cost only once that is known.
 
 ## 2. Plan
 
@@ -128,4 +135,5 @@ observation and the hash comparison; `skills/taskmd/SKILL.md`, for the pointers;
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-08 | → specified | Maintainer answered the boundary question: **ship what the skill points at, minus this repository's working material** — `skills/`, `docs/`, `taskmd/` and the launchers in; `tasks/`, `.handoff/`, `tests/`, `reference/`, `control/` out. That keeps `docs/METHOD.md` with one authored home and the relative pointers resolving, which is why the self-contained alternative was rejected — it would have bought a guaranteed single resolution by giving the method a second home, trading the plugin's own design rule for the symptom. The drift question is **deferred to `plan`**: whether a versioned snapshot going stale is a defect at all depends on what the harness supports for a local-directory install, which is a thing to check rather than to reason about. Criterion 2 is the one that now needs care — it asks for a demonstration that a pointer resolves once, and under this answer the honest demonstration is about which copy a session in *this* repository reads, since an adopter has only one. |
 | 2026-08-08 | → proposed | Raised from T-050 §3 step 7 and not fixed there (METHOD §3.3): T-050 measures what a session is handed, and it now has the answer; what the plugin should ship is a packaging decision. The harness serves the skill from an install-time snapshot of the **whole repository**, so every relative pointer in `SKILL.md` has two resolutions, and `CLAUDE.md` already differed between them within hours of the install — duplication nobody wrote, created by installing. `high` because it lands on the tier model R-21 names and on what an adopter receives, and because the two halves pull opposite ways: shipping less breaks the pointers, shipping everything hands an adopter this project's 52 tasks and its gitignored local-context file. `s` because the work is a decision and a packaging rule, not code. Held as `decision` rather than `fix` — nothing is known to be broken for an adopter yet, since nobody has installed it but the maintainer. |

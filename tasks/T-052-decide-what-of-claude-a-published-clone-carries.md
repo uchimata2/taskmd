@@ -2,7 +2,7 @@
 id: T-052
 title: Decide what of .claude a published clone carries, and ignore the rest
 type: fix
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: []
@@ -88,10 +88,29 @@ measurement of what the harness writes and why it is absolute.
       without its exclusion
 
 **Open questions**
-- **Does `.claude/` default to ignored-with-exceptions, or to tracked-with-exclusions?** The first is
-  safe against files nobody has seen yet and risks silently dropping something a clone needed; the
-  second is the current arrangement and has the failure above. Both are one line. The maintainer
-  decides, and criterion 3 is written to be satisfiable either way.
+- ~~Does `.claude/` default to ignored-with-exceptions, or to tracked-with-exclusions?~~ **Answered
+  by the maintainer on 2026-08-08, at the level of the goal rather than the mechanism:** this is to be
+  a community-maintained plugin, so *user- and machine-specific material is excluded and project
+  instructions and config are present in the repository*. Only one of the two options serves that
+  under contribution — **ignored-with-exceptions** — and the reason is a finding, below, not a
+  preference. *Rejected: tracked-with-exclusions*, the current arrangement: it is safe exactly while
+  someone keeps naming new harness files, and the person who fails to is a contributor who has never
+  read this task.
+
+**The prior art the maintainer pointed at does not solve this, and that is the evidence.** A sibling
+plugin of theirs — same shape, same publishing intent — has a `.claude/settings.local.json` on disk
+that is neither tracked nor reported as untracked. It is excluded by the **user's global gitignore**
+(`git check-ignore -v` names `~/.config/git/ignore`, rule `**/.claude/settings.local.json`), and by
+nothing in that repository at all. So the protection is real on one machine and absent for every
+contributor who clones it, and it is invisible from inside the repository: the tree looks clean, the
+status is empty, and nothing anyone can read there says why. That is the sharpest possible argument
+for the repository carrying its own rule — a per-machine exclusion is not a project decision, it is a
+project decision that happens to be true where it was tested. The same reasoning applies to that
+plugin and is the maintainer's to carry there; it is out of scope here (this task owns taskmd's
+`.gitignore`).
+
+- **None outstanding.** The mechanism follows from the goal, and criterion 3 was already written to be
+  satisfiable either way.
 
 ## 2. Plan
 
@@ -121,5 +140,6 @@ measurement of what the harness writes and why it is absolute.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-08 | → specified | Maintainer answered at the level of the goal — community-maintained plugin, user- and machine-specific material out, project instructions and config in — and pointed at a sibling plugin of theirs as prior art with the same problem. **Checking it is what settled the mechanism, and the answer was the opposite of prior art.** That repository's `.claude/settings.local.json` is excluded by the maintainer's *global* gitignore and by nothing in the repository; `git check-ignore -v` names the global file and the rule. So its tree looks clean, its status is empty, and its protection does not survive being cloned by anyone else — which is precisely the failure a community plugin cannot afford and which no reader of that repository could detect. **ignored-with-exceptions**, therefore, because it is the only one of the two that does not depend on someone continuing to name files: a harness upgrade adding a file is out by default, and what a clone needs is stated once, positively, as an exception. The same finding applies to the sibling plugin and belongs to the maintainer there, not here. |
 | 2026-08-08 | (no status change) | The premise moved from inferred to observed. T-050's install went ahead at **user** scope and the harness wrote the marketplace source as a resolved drive-letter path into its own settings file — so "the harness stores an absolute path" is now a fact about where it landed, not a reading of the parser. The repository was untouched: tracked `.claude/settings.json` byte-identical, nothing new under `.claude/`, pre-publish check silent. That is the counterfactual this task is about, and it held only because the scope question happened to be asked. Also noted while looking: `.claude/skills/` is an empty leftover from T-003's probe, invisible to git and to every check, and in scope here only because this task decides what that folder is for. |
 | 2026-08-07 | → proposed | Raised from an install-scope question during T-050 and not fixed there, since `.gitignore` is not what that task measures. Nothing is leaking today: `.claude/settings.local.json` does not exist. What makes it a task rather than a note is that the file is created by picking one of three menu items during a plugin install, it is not ignored, and the harness resolves a relative directory source to an absolute path before storing it — so the ordinary action writes a machine path into a file a push would send. `medium` and `s`: the fix is one line, the pre-publish check already catches the consequence, and the part that needs a decision is which way `.claude/` should default rather than whether to name one more file. |
