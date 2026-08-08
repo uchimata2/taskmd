@@ -36,9 +36,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-037](T-037-delete-the-throwaway-proof-repository.md) | Delete the throwaway repository the GitHub binding was proven on | - | `planned` | `plan` | - | - | T-006 | - | T-010, T-041 |
 | [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | - | `specified` | `specify` | - | - | T-003 | - | T-015, T-028 |
 | [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) | Demonstrate a clone running on a second platform | - | `proposed` | `specify` | T-011 | - | - | - | T-006 |
-| [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | - | `in_progress` | `implement` | T-003 | - | - | - | T-006, T-052, T-053 |
 | [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | - | `proposed` | `specify` | - | - | - | - | T-001, T-003 |
-| [T-052](T-052-decide-what-of-claude-a-published-clone-carries.md) | Decide what of .claude a published clone carries, and ignore the rest | - | `in_progress` | `implement` | - | - | - | - | T-003, T-006, T-050, T-053 |
 | [T-053](T-053-decide-the-plugin-s-boundary-and-what-its-skill-may-p.md) | Decide the plugin's boundary, and what its skill may point at | - | `specified` | `specify` | - | - | - | - | T-003, T-006, T-050, T-052 |
 
 ## Closed
@@ -75,5 +73,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-045](T-045-decide-whether-scope-principles-may-state-the-rule-they-name.md) | Decide whether SCOPE §2 principles may state the rule they name | - | `done` | `review` | - | - | - | - | T-017, T-027 |
 | [T-046](T-046-reconcile-the-done-condition-claude-md-restates.md) | Reconcile the done-condition CLAUDE.md restates from the method | - | `done` | `review` | - | - | - | - | T-027, T-028 |
 | [T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md) | Say what "always-loaded" means in R-21, before the skill is built against it | - | `done` | `review` | - | - | - | - | T-003, T-028 |
+| [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | - | `done` | `review` | T-003 | - | - | - | T-006, T-052, T-053 |
+| [T-052](T-052-decide-what-of-claude-a-published-clone-carries.md) | Decide what of .claude a published clone carries, and ignore the rest | - | `done` | `review` | - | - | - | - | T-003, T-006, T-050, T-053 |
 
 <!-- taskmd:end -->
