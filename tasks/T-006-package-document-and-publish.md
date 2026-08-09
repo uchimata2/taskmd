@@ -142,7 +142,17 @@ than a step that produces the outcome.
 
 ## 3. Implement
 
-Worked in plan order. Steps 1 to 4 are below; **step 5 is held**, for the reason step 1 gives.
+Worked in plan order. Steps 1 to 6 are below. Step 5 was held for the reason step 1 gives and
+resumed once [T-083](T-083-make-the-skill-directory-self-contained.md) closed; **steps 7 and 8 are
+the maintainer's and what follows them**, so `implement` stops at 6 rather than being finished.
+
+**One thing found here and raised rather than absorbed.** Grepping the tree for pre-move paths, to
+be sure the README was not about to cite one, turned up three lines in `tasks/README.md`'s
+hand-written preamble that still name a launcher T-083 deleted. It is the one file under `tasks/`
+that describes the tree as it is now rather than as it was, and T-083's residue sweep exempted the
+whole folder as closed records. That is [T-084](T-084-correct-the-generated-index-preamble-after-the-move.md),
+not a quiet fix here: correcting it in passing would leave that task's `outside tasks/ 0` looking
+right.
 
 ### Step 1 — the plain skill package, and why it is not a subset
 
@@ -268,8 +278,92 @@ omitting macOS silently*, which reads as a claim to a reader scanning for their 
 Linux half is [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md)'s, which compared
 the regenerated index against the committed blob two ways.
 
+### Step 5 — the README
+
+[`README.md`](../README.md), at the repository root, written from steps 1 to 4 and from
+[T-083](T-083-make-the-skill-directory-self-contained.md). Every number in it was quoted rather than
+re-taken: the `context` saving from step 2, the scale and platform sentences verbatim from step 4,
+and the 21 files of the copied skill folder from T-083 §3 step 7, re-run here as the install
+instruction rather than trusted.
+
+**What the two shapes say, which is the loose end T-083's review handed forward.** The plugin route
+ends in `taskmd check`, because the harness puts an enabled plugin's `bin/` on `PATH`; the skill
+route ends in `~/.claude/skills/taskmd/taskmd.sh check`, because a copied skill has no such
+mechanism and runs the launcher it contains. The README says both, one line apart, and says why. It
+does **not** describe the difference as a defect or promise to remove it.
+
+**Setup is `mkdir tasks`, and the install instructions say so**, because a fresh directory is not a
+project and `check` will tell the reader that rather than pass. Both branches were run, in a
+directory with no taskmd project above it:
+
+```
+taskmd check          No taskmd project here. Looking upwards from the working directory, …   exit 2
+mkdir tasks
+taskmd check          OK - 0 task(s), vocabulary valid, references resolve, no broken links   exit 0
+```
+
+The second line is what both install sections end on, so the command that proves the install is the
+same command an adopter's project keeps using. The skill shape was proven the same way from a copy
+of the folder, through `taskmd.sh` and through `taskmd.ps1`, on a project that is neither this
+repository nor the copy.
+
+**Decisions taken here**
+
+- **The marketplace source is named rather than left as a placeholder.** Asked and answered by the
+  maintainer on 2026-08-09: `uchimata2/taskmd`. A published README whose first command carries
+  `<owner>/<repo>` reads as unfinished, and nothing mechanical would catch the substitution being
+  missed at step 7. This is not the kind of identity `control/LOCAL-CONTEXT.md` quarantines: it is
+  the address of the thing being published, public the moment step 7 runs. *Rejected: the
+  placeholder*, for the reason above.
+- **The README opens in its own words rather than reusing
+  [`docs/repo-description.txt`](../docs/repo-description.txt).** The two say the same thing about
+  the same product, which is unavoidable, but copying the string would make the file a second home
+  for a value the gate reads. *Rejected: quoting the description verbatim as the first paragraph.*
+- **No claim about macOS, no claim about a ceiling nobody measured.** Step 4's two sentences appear
+  exactly as written, and the em-dash-free form T-004 wrote them in is what let 5a leave them alone.
+
+### Step 5a — humanized, and the gate
+
+Run through the `humanizer` skill in file mode, under
+[`docs/PUBLISHING.md`](../docs/PUBLISHING.md) §2, with the maintainer's exception applied: tables,
+code blocks, heading hierarchy and bolded labels preserved, patterns 15, 16 and 18 skipped, the rest
+applied including 14. Neither escape the skill offers was taken.
+
+What the pass actually changed, since a gate cannot tell: a one-line warm-up under a heading that
+restated it, a run of subjectless fragments in *What it is not*, an opening that reused the
+description's sentence fragments, and one sentence that claimed the command name was *the only*
+difference between the shapes, which contradicted the paragraph above it.
+
+```
+4 file(s) covered
+```
+
+Exit 1, nothing after the count. The count moved from 3 to 4 with this README, which is the half of
+that gate `docs/PUBLISHING.md` §5 says to read.
+
+### Step 6 — the pre-publish check, both ways
+
+Run after this record and the README were written, and after 5a, which is the order
+`../CLAUDE.md` gives and the order `docs/PUBLISHING.md` §3 repeats for the rewrite.
+
+```
+with the exclusion       silent, 165 files read     (163 before this session; +2 is the README and T-084)
+without the exclusion    one file matches, with 5 matching lines: the fixture
+```
+
+The second run is reported as a per-file count rather than as the lines themselves, for the reason
+`../CLAUDE.md` states and this project has paid for twice: quoting a matched line into the record of
+a task about the check re-creates the leak. The count is the evidence; the lines are in
+`tests/fixtures/leak-check/samples.txt`, where they were fabricated to be.
+
+**Read the file count, not the silence.** 165 is what makes the first run mean anything, and it is
+two higher than the last recorded run because this session added exactly two files a push would
+send.
+
 **Outputs produced**
-- Steps 1 to 4 above. `README.md` is held at step 5.
+- Steps 1 to 6 above.
+- [`README.md`](../README.md) — the deliverable.
+- [T-084](T-084-correct-the-generated-index-preamble-after-the-move.md) — raised, not fixed here.
 
 ## 4. Review
 
@@ -284,6 +378,7 @@ the regenerated index against the committed blob two ways.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-09 | (no change) | Steps 5, 5a and 6 worked; `implement` now stops where the maintainer's action begins. The README is written and humanized, and every figure in it is quoted from steps 2 and 4 or from T-083 rather than re-taken. Two things were settled here rather than deferred: the marketplace source is named, `uchimata2/taskmd`, because a placeholder in the first command of a published front door is a substitution nothing would catch at step 7; and the two shapes name different commands, one line apart, with the reason given instead of an apology. Both install sections end in a command that was run, including the branch where the reader has no tasks folder yet, since `check` reports that rather than passing. The humanize gate covers 4 files now rather than 3, which is the number that moves when a covered document is added. One finding was raised rather than absorbed: `tasks/README.md`'s hand-written preamble still names the launcher T-083 moved, exempted by a sweep that treated the whole `tasks/` folder as closed records, and it is T-084. |
 | 2026-08-09 | → in_progress | Steps 1 to 4 worked in plan order; step 5 held. The plan said step 1 came first because it could invalidate the rest, and it did: no subset of this tree is a working skill package. A straight copy leaves seven dangling links, because `SKILL.md`'s `../../` pointers are correct for the plugin layout and escape any other one, and `bin/` on `PATH` is a plugin mechanism a skill install does not have. A self-contained 23-file package does work and was run through both entry points from an unrelated project, but it cannot be produced by copying. So the 2026-08-07 answer's premise is false and its question is re-opened with three ways out and a recommendation, rather than one being chosen here. The `context` saving reproduces at 156,901 bytes to 693, and 1,274,604 to 693 if you count what it takes to learn nothing waits on the task. All eleven non-goals hold, each row naming what was read. Bare `taskmd` failing on this machine is T-054's snapshot defect and is recorded as not re-raised; T-049 proved the bare name on Linux. |
 | 2026-08-09 | (no change) | Reconciled by [T-081](T-081-gate-every-deployment-on-the-humanizer-pass.md). When T-079 closed, this plan was left describing a hand-off to it that could no longer happen, and **no step applied the humanize rule at all** — the blocker had dissolved and taken the step with it. Step 5a now applies it and runs the gate, and a ninth acceptance criterion makes `review` able to fail for skipping it. Step 7 already named where the repository description lives; that home moved from a task record into `docs/repo-description.txt`, and the step's link resolves through `docs/PUBLISHING.md` §4 rather than being restated here. |
 | 2026-08-09 | (no change) | **Answered by the maintainer: T-004 first.** So the question this plan raised is closed by a dependency rather than by the README going silent, and criterion 6 will be met by a measured ceiling instead of vacuously. `blocked_by` gains T-004, which leaves `related` — one relationship shown under two edge kinds is noise in the graph, not the permitted second write. It also gains **T-079**, raised in the same turn: the human-facing documents go through the `humanizer` skill before anything is published, which is a blocker because publication makes the first impression once and because step 5's README is that task's input. Plan steps 4 and 6 are reworded to match; nothing else in the plan moved. |
