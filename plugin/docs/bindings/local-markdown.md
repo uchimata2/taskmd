@@ -90,6 +90,24 @@ Stated because the two are easy to confuse and only one of them satisfies
 task's edges in the same write** — the parent of an audit finding belongs in the file that is being
 created, not in a follow-up edit. Then regenerate the index.
 
+*Which template.* **A project's templates are its `_`-prefixed Markdown files, directly in
+`tasks_dir`** — so listing them is how you find one, and there is no path to be told and none to go
+stale. Both halves of that are load-bearing. The `_` is for the reader, marking a file that is not
+work; sitting **in** `tasks_dir`, rather than in a folder under it, is what makes a template's
+relative links resolve the same way in the template and in the task copied out of it — put it one
+level down and every link you copy is wrong by one level. What keeps such a file out of the task set
+is assumption 6, working on its `id` and not on its name: a template's id is a placeholder, so it is
+not the prefix plus `id_width` digits and is not a task. Two consequences worth having in advance —
+a template is **link-checked** like everything else in the tree, and one whose placeholder id is
+accidentally made real becomes a task silently, which is assumption 6's stated corollary rather than
+a special hazard of templates.
+
+*A project with no template is a normal project*, not one missing a setup step. The rule matches
+nothing, and that is an answer rather than a failure: write the front-matter the schema requires and
+a body carrying the method's four phases, and `check` reports whatever you got wrong. Nothing creates
+a template, nothing reports its absence, and no configuration key names one — the deliberate cost is
+that a project cannot be *told* it has no template, only find that it has none.
+
 **update** — edit the file in place. Change only the front-matter fields and body sections you mean
 to change; everything else stays byte-identical, including unknown fields, blank lines and the order
 of anything you did not touch. Append to the task's log rather than rewriting it. **Then regenerate

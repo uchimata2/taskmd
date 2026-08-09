@@ -12,6 +12,7 @@ Three things are proven by running, not by reading:
   python tests/test_schema.py
 """
 
+import glob
 import os
 import shutil
 import sys
@@ -120,10 +121,25 @@ class DefaultSchema(unittest.TestCase):
         # interpreted and must have left the pass-through set.
         self.assertNotIn("deliverables", carried)
 
-    def test_generated_views_are_not_mistaken_for_tasks(self):
+    def test_generated_views_and_templates_are_not_mistaken_for_tasks(self):
+        """The index and both templates share the task folder and are not tasks.
+
+        This used to match on the string `_templates`, and T-076 moved the templates out of
+        that folder and in beside the tasks they become — so the folder skip in `load_tasks`
+        no longer applies to them at all: the files are read, and discarded on their `id`.
+        The old assertion did not start failing, it started passing **vacuously**, which is
+        the worse outcome. Measured before replacing it, by giving a `_`-prefixed file a real
+        id so it was genuinely loaded as a task: `assertFalse([])` still passed, and the form
+        below caught it.
+
+        The existence check is the same trap one level up — without it, deleting both
+        templates would make this test greener rather than redder.
+        """
+        templates = glob.glob(os.path.join(ROOT, "tasks", "_*.md"))
+        self.assertEqual(len(templates), 2, templates)
         tasks = load_tasks(ROOT)
         self.assertFalse([t for t in tasks.values() if t.name == "README.md"])
-        self.assertFalse([t for t in tasks.values() if "_templates" in t.path])
+        self.assertFalse([t.name for t in tasks.values() if t.name.startswith("_")])
 
 
 class AltSchema(unittest.TestCase):

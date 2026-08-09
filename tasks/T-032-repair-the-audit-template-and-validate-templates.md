@@ -21,7 +21,7 @@ deliverables: []
 ## 1. Specify
 
 **Outcome**
-A task created from `tasks/_templates/audit-umbrella-template.md` passes `check`, follows the
+A task created from `tasks/_audit-umbrella-template.md` passes `check`, follows the
 mandatory lifecycle, and carries the fields every other task carries — and a template that stops
 being valid is noticed by something other than a person reading it.
 
@@ -44,7 +44,7 @@ Four defects, of which `check` can see the first two:
    *type* in the method's sense (METHOD §5) but the schema never gained the value, so the template
    names one the config does not have.
 2. **`children: []`** is a stored derived name — the precise thing `check`'s STORED DERIVED class
-   exists to catch, and the thing `tasks/_templates/task-template.md` warns against by name.
+   exists to catch, and the thing `tasks/_task-template.md` warns against by name.
 3. **No `related`, `business_value` or `effort`.** T-022's backfill updated the other template and
    left this one, so a task made from it sorts after everything estimated and shows no soft links.
 4. **The body is `1. Specify / 2. Findings / 3. Resolution`** — not the four mandatory phases (R-3),
@@ -52,10 +52,19 @@ Four defects, of which `check` can see the first two:
    [`docs/method/audit.md`](../plugin/docs/method/audit.md) step 2, which requires a finding threshold
    stated per audit instead.
 
-**Why nobody saw it.** `load_tasks` skips folders whose name begins with `_`, so `_templates/` is
+**Why nobody saw it.** `load_tasks` skips folders whose name begins with `_`, so `_templates/` was
 never enumerated and never validated — correctly, since a template is not a task, but the
 consequence is that both templates can rot silently. `check_links` walks the whole tree, so a broken
 *link* in a template is caught; nothing checks its front-matter.
+
+> **The mechanism above changed under this task on 2026-08-09, and the conclusion did not** —
+> [T-076](T-076-decide-what-a-template-s-links-resolve-against.md) moved both templates out of
+> `_templates/` and into `tasks/` as `_`-prefixed files. There is no skipped folder any more:
+> `load_tasks` now **reads** each template and discards it because `id: T-NNN` is neither a valid id
+> nor a near miss. Still unvalidated, still silent — but by a rule about the file's *content* rather
+> than about where it sits, which is a much shorter distance to travel for this task's second
+> in-scope item below. Recorded rather than rewritten, because the paragraph is why F-6 went
+> unnoticed for as long as it did, and that is a fact about the past.
 
 **Why it is High.** This is the template for the audit task type, and audit is the one task type
 whose whole product is traceability. [T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md)
@@ -66,7 +75,7 @@ will teach an agent to create tasks from these templates, and
 R-3, R-5, R-16 (`docs/SCOPE.md`).
 
 **Scope**
-- In: `tasks/_templates/audit-umbrella-template.md` — its front-matter and its body structure.
+- In: `tasks/_audit-umbrella-template.md` — its front-matter and its body structure.
 - In: a way for a template's front-matter to be checked, which is what stops this recurring.
 - In: whether the `type` vocabulary gains an `audit` value, or the template uses an existing one.
   [T-026](T-026-audit-the-whole-project-before-the-remaining-build.md) itself used `analysis`, which
@@ -77,7 +86,7 @@ R-3, R-5, R-16 (`docs/SCOPE.md`).
   already walks the tree.
 
 **Inputs**
-`tasks/_templates/audit-umbrella-template.md`, `tasks/_templates/task-template.md`,
+`tasks/_audit-umbrella-template.md`, `tasks/_task-template.md`,
 `taskmd/defaults/config.md` §*Vocabularies*, `taskmd/schema.py` (`load_tasks`),
 `docs/method/audit.md`, [T-026](T-026-audit-the-whole-project-before-the-remaining-build.md) F-6.
 
@@ -156,5 +165,6 @@ carries the plan-audit case — where the answer given is argued **against**; se
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-09 | (no change) | Reconciled by [T-076](T-076-decide-what-a-template-s-links-resolve-against.md), which moved both templates from `tasks/_templates/` to `tasks/` as `_`-prefixed files. Four path references updated — Outcome, defect 2, Scope *In*, Inputs — and *Why nobody saw it* annotated rather than rewritten: its mechanism is now historical, its conclusion still holds, and it is the record of why F-6 survived. **Not a status change**: nothing about this task's four defects or its criteria moved, and the second in-scope item — a way for a template's front-matter to be checked — got closer rather than different, since `load_tasks` now reads the file and rejects it on its id instead of never opening it. |
 | 2026-08-06 | → specified | Q1 answered by the maintainer: `type` gains `audit`. The answer's own reasoning — that an audit runs the same pipeline as any other task — is what settles it, since `type` and `phase` are orthogonal and every existing value already runs all four phases; the deciding argument is that METHOD §5 calls audit a task type while the schema has no such value, which is the drift this plugin exists to remove. No criterion amended; criterion 5 already required the rejected alternative to be recorded and it now is. The answer also carried an account of the audit *workflow* — two method changes that would have widened this task into the thing it was raised to fix, so they are split to T-036, one agreed and one argued against there rather than here. |
 | 2026-08-06 | → proposed | Raised as F-6 from the T-026 audit, clauses 1 and 3. Proven by building a task from the template and running `check`, which reported two classes; the other two defects are structural and invisible to it. The audit that found this is the one that would have been created from the template. |

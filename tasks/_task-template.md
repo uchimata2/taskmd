@@ -18,8 +18,8 @@ deliverables: []
 
 <!--
 The lifecycle, which edge to use, and where each fact lives:
-[`plugin/docs/METHOD.md`](../../plugin/docs/METHOD.md). The field names and allowed values are the
-schema: [`plugin/taskmd/defaults/config.md`](../../plugin/taskmd/defaults/config.md). Do not add
+[`plugin/docs/METHOD.md`](../plugin/docs/METHOD.md). The field names and allowed values are the
+schema: [`plugin/taskmd/defaults/config.md`](../plugin/taskmd/defaults/config.md). Do not add
 `children:` or `blocks:` — both are derived. After filling this in, run:
     ./plugin/taskmd.sh index
 -->

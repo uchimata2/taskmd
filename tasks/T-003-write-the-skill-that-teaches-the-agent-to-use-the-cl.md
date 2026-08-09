@@ -72,7 +72,7 @@ R-6, R-7, R-8, R-9, R-21, R-22 (`docs/SCOPE.md`).
   into rather than replaces.
 - [T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md) §3 step 1 — what a
   session is handed for a skill it has not invoked, already measured. Extend it; do not re-derive it.
-- [`tasks/_templates/task-template.md`](_templates/task-template.md) and
+- [`tasks/_task-template.md`](_task-template.md) and
   [`taskmd/defaults/config.md`](../plugin/taskmd/defaults/config.md) — what a created task must carry for
   `check` to accept it.
 

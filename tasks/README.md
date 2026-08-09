@@ -34,8 +34,6 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-035](T-035-warn-that-a-fabricated-specimen-must-not-cross-a-shell.md) | Warn that a fabricated specimen must not cross a shell | `proposed` | `specify` | - | - | - | - | T-013, T-018, T-034, T-058 |
 | [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | `specified` | `specify` | - | - | - | - | T-026, T-032 |
 | [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `specified` | `specify` | - | - | T-003 | - | T-015, T-028, T-059, T-063 |
-| [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | `specified` | `specify` | - | - | - | - | T-001, T-003, T-060, T-076 |
-| [T-076](T-076-decide-what-a-template-s-links-resolve-against.md) | Decide what a template's links resolve against | `specified` | `specify` | - | - | - | - | T-032, T-051, T-060 |
 | [T-078](T-078-say-what-a-tasks-dir-of-dot-means.md) | Say what a tasks_dir of dot means | `specified` | `specify` | - | - | - | - | T-019, T-024, T-069 |
 
 ## Closed
@@ -75,6 +73,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md) | Say what "always-loaded" means in R-21, before the skill is built against it | `done` | `review` | - | - | - | - | T-003, T-028 |
 | [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) | Demonstrate a clone running on a second platform | `done` | `review` | T-011 | T-057, T-058 | - | - | T-006, T-054, T-056, T-057, T-058, T-061 |
 | [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | `done` | `review` | T-003 | - | - | - | T-006, T-052, T-053 |
+| [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | `done` | `review` | - | - | - | - | T-001, T-003, T-060, T-076 |
 | [T-052](T-052-decide-what-of-claude-a-published-clone-carries.md) | Decide what of .claude a published clone carries, and ignore the rest | `done` | `review` | - | - | - | - | T-003, T-006, T-050, T-053, T-067 |
 | [T-053](T-053-decide-the-plugin-s-boundary-and-what-its-skill-may-p.md) | Decide the plugin's boundary, and what its skill may point at | `done` | `review` | - | - | - | - | T-003, T-006, T-050, T-052, T-054, T-059, T-064, T-067, T-072 |
 | [T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md) | Give an adopter a way to run the commands the skill names | `done` | `review` | - | T-055, T-056 | - | - | T-003, T-006, T-049, T-053, T-055, T-056, T-067, T-068 |
@@ -99,6 +98,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-073](T-073-correct-the-command-surface-local-context-states.md) | Correct the command surface local context still states | `done` | `review` | T-059 | - | - | - | T-013, T-022 |
 | [T-074](T-074-let-the-skill-point-where-it-currently-restates.md) | Let the skill point where it currently restates | `done` | `review` | T-059 | - | - | - | T-003, T-009 |
 | [T-075](T-075-enforce-id-width-when-a-task-file-is-read.md) | Enforce id width when a task file is read | `done` | `review` | T-059 | - | - | - | T-004, T-062 |
+| [T-076](T-076-decide-what-a-template-s-links-resolve-against.md) | Decide what a template's links resolve against | `done` | `review` | - | - | - | - | T-032, T-051, T-060 |
 | [T-077](T-077-delete-the-rehearsal-repository-t-067-installed-from.md) | Delete the rehearsal repository T-067 installed from | `done` | `review` | - | - | - | - | T-037, T-067 |
 
 <!-- taskmd:end -->

@@ -19,7 +19,7 @@ deliverables:
   - plugin/taskmd/defaults/config.md
   - tests/test_list.py
   - tests/fixtures/ordering/.taskmd/config.md
-  - tasks/_templates/task-template.md
+  - tasks/_task-template.md
 ---
 
 # T-022 — Filtered task listing for scripts

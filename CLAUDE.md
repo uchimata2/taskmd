@@ -79,7 +79,8 @@ every turn, and R-21 with METHOD §7 governs them instead.
 
 What this project adds on top, because the method is deliberately storage-agnostic:
 
-- Task files live in `tasks/`, created from `tasks/_templates/task-template.md`.
+- Task files live in `tasks/`, created from `tasks/_task-template.md` — beside the task it becomes,
+  not under it, so links survive the copy (T-076).
 - The field names and their allowed values are the schema — `plugin/taskmd/defaults/config.md`.
 - The index is **generated**, never hand-edited.
 - When a task is `done` is [`plugin/docs/METHOD.md`](plugin/docs/METHOD.md) §1 rule 5; which artifact satisfies

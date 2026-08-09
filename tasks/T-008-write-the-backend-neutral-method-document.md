@@ -20,8 +20,8 @@ deliverables:
   - plugin/docs/method/implement.md
   - plugin/docs/method/review.md
   - plugin/docs/method/audit.md
-  - tasks/_templates/task-template.md
-  - tasks/_templates/audit-umbrella-template.md
+  - tasks/_task-template.md
+  - tasks/_audit-umbrella-template.md
   - CLAUDE.md
 ---
 
