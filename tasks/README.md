@@ -57,7 +57,6 @@ into, not a promise about a date.
 | [T-082](T-082-let-id-width-say-the-backend-allocates-the-ids.md) | Let id_width say that the backend allocates the ids | `v0.3` | `proposed` | `specify` | T-004 | - | - | - | T-010, T-075 |
 | [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) | Install the published plugin on a machine that has never seen it | `v0.3` | `proposed` | `specify` | T-006 | - | - | - | T-020, T-049, T-067 |
 | [T-087](T-087-let-list-filter-on-a-field-the-index-can-show.md) | Let list filter on a field the index can show | `v0.2` | `specified` | `specify` | - | - | - | - | T-022, T-029, T-086 |
-| [T-088](T-088-put-audit-in-the-shipped-type-vocabulary-or-stop-calling-it-a-type.md) | Put audit in the shipped type vocabulary, or stop calling it a type | `v0.2` | `proposed` | `specify` | - | - | - | - | T-001, T-026, T-032 |
 | [T-089](T-089-stop-check-reporting-an-open-task-s-planned-outputs-as-missing.md) | Stop check reporting an open task's planned outputs as missing | `v0.2` | `proposed` | `specify` | - | - | - | - | T-002, T-025, T-032 |
 
 ## Closed
@@ -133,5 +132,6 @@ into, not a promise about a date.
 | [T-083](T-083-make-the-skill-directory-self-contained.md) | Make the skill directory self-contained | `v0.1` | `done` | `review` | - | - | - | T-006 | T-053, T-054, T-064, T-084 |
 | [T-084](T-084-correct-the-generated-index-preamble-after-the-move.md) | Correct the generated index preamble after the directory move | `v0.1` | `done` | `review` | - | - | - | - | T-006, T-025, T-083 |
 | [T-086](T-086-group-the-backlog-into-release-milestones.md) | Group the backlog into release milestones | `v0.2` | `done` | `review` | - | - | - | - | T-006, T-022, T-026, T-087 |
+| [T-088](T-088-put-audit-in-the-shipped-type-vocabulary-or-stop-calling-it-a-type.md) | Put audit in the shipped type vocabulary, or stop calling it a type | `v0.2` | `done` | `review` | - | - | - | - | T-001, T-026, T-032 |
 
 <!-- taskmd:end -->

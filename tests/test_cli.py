@@ -405,6 +405,21 @@ class RunsOnACloneWithNoConfiguration(unittest.TestCase):
         self.assertEqual(run("index", "--root", tmp)[0], 0)
         self.assertEqual(run("context", "T-001", "--root", tmp)[0], 0)
 
+    def test_a_task_typed_the_way_the_method_words_it_validates(self):
+        """T-088. METHOD §5 opens "An audit is a **task type**, not a phase", and until this the
+        shipped vocabulary had no `audit` — so writing the thing the method names failed `check`.
+
+        Built rather than read: the point is that the word survives the round trip through a real
+        project with no config, not that it appears in a table."""
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp)
+        cli.write(os.path.join(tmp, "tasks", "T-001-x.md"),
+                  "---\nid: T-001\ntitle: Audit the whole thing\ntype: audit\nstatus: proposed\n"
+                  "phase: specify\n---\n\n# Audit the whole thing\n")
+        code, out = run("check", "--root", tmp)
+        self.assertEqual(code, 0, out)
+        self.assertNotIn("VOCABULARY", out)
+
 
 class AbsentTasksDirIsReportedAtSetup(unittest.TestCase):
     """T-019: a tasks_dir that is not there is a config error, not a project with no tasks.

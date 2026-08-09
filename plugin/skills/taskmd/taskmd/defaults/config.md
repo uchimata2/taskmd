@@ -153,11 +153,17 @@ enumerate another field; delete a row to stop checking one.
 names the subset that counts as open — everything else in that row is closed. The vocabulary
 itself is written once, here.
 
+**These are defaults worth having, not the set of nouns METHOD uses.** `decision` is here and the
+method never mentions it; `audit` is here *and* METHOD §5 names it, which is a coincidence of
+usefulness rather than a rule that the two must agree. Do not treat this table as derived from the
+method — replace any row that does not suit your project. `audit` was added on 2026-08-09 after two
+independent projects reached for it and neither could validate (T-088).
+
 | Field | Values |
 | :--- | :--- |
 | status | proposed, specified, planned, in_progress, blocked, review, done, cancelled |
 | phase | specify, plan, implement, review |
-| type | analysis, decision, deliverable, research, fix, admin |
+| type | analysis, decision, deliverable, research, fix, admin, audit |
 | business_value | critical, high, medium, low |
 | effort | xs, s, m, l, xl |
 
