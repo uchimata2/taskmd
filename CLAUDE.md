@@ -117,7 +117,7 @@ Run over every file a push would send. It must print nothing; every hit is eithe
 that needs adding to `control/LOCAL-CONTEXT.md`.
 
 ```bash
-git ls-files -z --cached --others --exclude-standard ':!tests/fixtures/leak-check/' | xargs -0 grep -nIE '\b[A-Za-z]:[\\/][A-Za-z0-9._-]+[\\/]|/(home|Users)/|[\\]{2}[A-Za-z0-9._-]+[\\]|[0-9]{1,3}(\.[0-9]{1,3}){3}'
+( cd "$(git rev-parse --show-toplevel)" && git ls-files -z --cached --others --exclude-standard ':!tests/fixtures/leak-check/' | xargs -0 grep -nIE '\b[A-Za-z]:[\\/][A-Za-z0-9._-]+[\\/]|/(home|Users)/|[\\]{2}[A-Za-z0-9._-]+[\\]|[0-9]{1,3}(\.[0-9]{1,3}){3}' )
 ```
 
 Four classes: Windows drive paths, home directories, UNC paths, IP addresses. `git ls-files` is what
@@ -129,6 +129,13 @@ shorten it to `-co`: the point of the line is that a reader can see what it cove
 silent for as long as it existed — a check that reads none of the files it was aimed at prints
 nothing, which is also what success looks like (T-034, which measured it and proved the fix by
 making it catch a leak in an untracked file).
+
+**The `cd` is not decoration.** `ls-files` lists the subtree you are standing in, and the exclusion
+is a pathspec resolved against the same place — so run from a subdirectory the unanchored command
+read a quarter of the tree *and* printed its own fixture as five leaks. Both halves are invisible:
+the alarm hides the under-scan, and anchoring only the exclusion silences the alarm while leaving the
+blindness (T-080, which measured both and rejected that smaller fix for exactly this reason). Judge a
+run by the file count, not by its silence.
 
 **Run it last, after the task record is written — not before.** The check reads files, so it cannot
 see one that does not exist yet, and the text most likely to trip it is the write-up of a task

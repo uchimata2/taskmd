@@ -35,7 +35,6 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | `specified` | `specify` | - | - | - | - | T-026, T-032 |
 | [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `specified` | `specify` | - | - | T-003 | - | T-015, T-028, T-059, T-063 |
 | [T-078](T-078-say-what-a-tasks-dir-of-dot-means.md) | Say what a tasks_dir of dot means | `specified` | `specify` | - | - | - | - | T-019, T-024, T-069 |
-| [T-080](T-080-stop-the-pre-publish-check-reporting-its-own-fixture.md) | Stop the pre-publish check reporting its own fixture from a subdirectory | `proposed` | `specify` | - | - | - | - | T-018, T-034, T-058 |
 
 ## Closed
 
@@ -102,5 +101,6 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-076](T-076-decide-what-a-template-s-links-resolve-against.md) | Decide what a template's links resolve against | `done` | `review` | - | - | - | - | T-032, T-051, T-060 |
 | [T-077](T-077-delete-the-rehearsal-repository-t-067-installed-from.md) | Delete the rehearsal repository T-067 installed from | `done` | `review` | - | - | - | - | T-037, T-067 |
 | [T-079](T-079-humanize-the-human-facing-documents-before-publishing.md) | Humanize the human-facing documents before publishing | `done` | `review` | - | - | - | T-006 | - |
+| [T-080](T-080-stop-the-pre-publish-check-reporting-its-own-fixture.md) | Stop the pre-publish check reporting its own fixture from a subdirectory | `done` | `review` | - | - | - | - | T-018, T-034, T-058 |
 
 <!-- taskmd:end -->

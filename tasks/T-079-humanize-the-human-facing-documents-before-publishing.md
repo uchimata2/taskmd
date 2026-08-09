@@ -236,6 +236,11 @@ waiting on a second pass here.
   working directory, while `git ls-files` does not. Nothing leaked, and the check run from the root
   is silent. Raised rather than fixed here.
 
+  **That last sentence is wrong, and T-080 §1 carries the correction rather than this record being
+  rewritten.** `git ls-files` lists the *subtree*: from `tests/` the check read 37 files of 159. The
+  claim is left standing because it is what was believed when the task was raised, and because the
+  successor measured it.
+
 ## Log
 
 | Date | Status change | Note |
