@@ -227,6 +227,13 @@ so it cites none.
 
 ## 9. Definition of done
 
+**Closed on 2026-08-09 by [T-006](../tasks/T-006-package-document-and-publish.md)**, which published
+the plugin and judged the list below item by item in its review. One thing is carried rather than
+met: nobody has installed it on a machine that has never held it, which is
+[T-085](../tasks/T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md). The
+last bullet was amended at publication, in that task and not here, because the history carries one
+absolute path the working-tree check cannot see.
+
 Moved here from `BRIEF.md`, which now points at this section.
 
 - Works on a clone with no configuration and no dependencies (R-18, R-20).

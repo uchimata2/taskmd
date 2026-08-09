@@ -13,19 +13,12 @@ what has to change to make it general.
 what is explicitly **out** of scope — then [`docs/BRIEF.md`](docs/BRIEF.md) for the problem
 evidence and the measured prior art behind them. `tasks/README.md` is the generated backlog.
 
-**Status:** the schema layer exists (`plugin/skills/taskmd/taskmd/`), the method document exists
-([`plugin/skills/taskmd/docs/METHOD.md`](plugin/skills/taskmd/docs/METHOD.md), T-008), and four commands exist —
-`{context,index,check,list}` (T-002, and `list` from T-022, for which `docs/SCOPE.md` non-goal 11
-was amended). **Run them as `./plugin/bin/taskmd <cmd>`, or `.\plugin\bin\taskmd.cmd <cmd>` on
-Windows** — the shipped entry point, invoked by path. Since T-083 it delegates to the launcher
-inside the skill directory, which is what sets `PYTHONPATH`, so a bare `python -m taskmd` still
-needs that variable and the interim `tools/tasks/task.py` is gone. **An adopter types `taskmd`** —
-the same two files, reached by name because the harness puts `plugin/bin/` on `PATH`. Only the
-lookup differs, and only here: this machine's shell snapshot drops the entry (T-054), so the path
-form is what works in this tree.
-Since T-011 they find the project by walking up from wherever they are run, so the command works
-from anywhere in the tree, and a project can declare one `after_write` command that taskmd runs and
-reports on.
+**Status: published** (T-006), at `github.com/uchimata2/taskmd`, in both shapes — the marketplace
+plugin and the copyable skill folder. `README.md` is the front door and the four commands are listed
+there. **Run them here as `./plugin/bin/taskmd <cmd>`, or `.\plugin\bin\taskmd.cmd <cmd>` on
+Windows**: the shipped entry point, invoked by path because this machine's shell snapshot drops the
+`PATH` entry an adopter gets (T-054). It finds the project by walking up from where it is run, and a
+project may declare one `after_write` command that taskmd runs and reports on.
 
 `check` has been shown failing on **every** class it claims — one deliberately-broken fixture each,
 so the set is `tests/fixtures/broken-*` and not a count written here. It does **not** yet notice a

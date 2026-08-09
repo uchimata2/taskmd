@@ -2,8 +2,8 @@
 id: T-006
 title: Package, document and publish
 type: deliverable
-status: in_progress
-phase: implement
+status: done
+phase: review
 parent: null
 blocked_by: [T-002, T-003, T-004, T-008, T-009, T-010, T-011, T-018, T-079, T-083]
 related: []
@@ -47,6 +47,20 @@ R-15, R-20, R-23 (`docs/SCOPE.md`). This task closes the definition of done, `SC
       <br>*Added 2026-08-09 by [T-081](T-081-gate-every-deployment-on-the-humanizer-pass.md). Without
       it `review` could tick every other box on a README nobody had humanized, which is what the
       maintainer found by asking. The eight above are unchanged.*
+
+**Criterion 3 amended at publication, by the person who agreed the original.** It now reads: *no
+personal, client or machine data in the published tree, and any exposure carried by the history is
+stated and accepted rather than discovered.* The original:
+
+> - [ ] No personal, client or machine data anywhere in the repository
+
+It was written against what the pre-publish check reads, which is the working tree, and the history
+is part of the repository a push sends. §3 step 7 has the scan and the numbers: one line, in two
+commits, carrying this machine's repository path and nothing that identifies a person. No acceptable
+outcome satisfied the original text — both ways of removing the line destroy the commit citations
+these records are built on — so the maintainer accepted the exposure with the alternatives in front
+of them. Recorded here with the original beside it, because a criterion quietly narrowed to fit its
+result is a description.
 
 **Open questions**
 - **What the second shape actually is.** Step 1 falsified the premise the 2026-08-07 answer rests on:
@@ -387,24 +401,126 @@ a task about the check re-creates the leak. The count is the evidence; the lines
 two higher than the last recorded run because this session added exactly two files a push would
 send.
 
+### Step 7 — published
+
+The maintainer instructed publication on 2026-08-09 after reading the README, which is the
+authorization this step was waiting for. `uchimata2/taskmd`, public, description set from
+[`docs/repo-description.txt`](../docs/repo-description.txt) in the same command, `master` at the
+commit that revised the README.
+
+**One thing was found before anything was created, and it changed the decision.** The pre-publish
+check reads the working tree; a push sends the **history**. Scanning all 78 commits found one line
+carrying an absolute local path, added and later removed in the two commits that
+[T-018](T-018-stop-the-pre-publish-fixture-tripping-its-own-check.md) exists because of. Everything
+else that matched was the fixture, or the fabricated specimens in their pre-fixture form.
+
+```
+15  matching lines in the full log stream
+10  of them not a line of the fixture, which is 5 lines seen twice, added then removed
+ 1  distinct line containing this machine's repository path
+ 0  containing its user name, home directory, host name or an address
+```
+
+The classification was produced without printing a single matched line, and the identity test
+reports booleans only, for the reason `../CLAUDE.md` gives about writing up a checker.
+
+**The first instrument was wrong and is recorded rather than replaced quietly.** A one-liner passed
+through the shell mangled two of the four branches, found 6 of the 15, and looked authoritative. The
+gap between it and the plain `grep` count is what exposed it. This is the third time in two days
+that a narrower-than-intended instrument printed a clean answer here.
+
+**Decision — published as is, with the exposure accepted rather than absorbed.** The maintainer's,
+on 2026-08-09, with the finding and the alternatives in front of them. What is public is a drive and
+two folder names with no identity attached. *Rejected: squashing to a single initial commit*, which
+publishes no history at all and leaves every commit hash cited across these task records pointing at
+something no reader can open. *Rejected: rewriting the two commits*, which breaks the same citations,
+since both are ancestors of everything, and needs a tool this project does not carry.
+
+### Step 8 — both shapes, from a clean clone of what was published
+
+The pre-existing install was captured before anything was disturbed, on
+[T-067](T-067-prove-the-install-route-an-adopter-actually-takes.md)'s precedent, and that capture is
+where the unplanned finding came from:
+
+```
+before, directory route   33 files, and the layout from before T-083 moved anything
+after,  git route         24 files, exactly plugin/'s tracked contents
+```
+
+**A directory install is a snapshot taken when it was installed.** The one on this machine was still
+serving `docs/` and `taskmd/` at the plugin root, a layout that stopped existing earlier the same
+day, plus four lock files and five `.pyc`. Nothing warns you: the harness serves what it copied.
+
+Shape one, installed by the route the README names, from the published remote:
+
+```
+claude plugin marketplace add uchimata2/taskmd     Successfully added marketplace: taskmd
+claude plugin install taskmd@taskmd                Successfully installed plugin: taskmd@taskmd
+
+<install>/bin/taskmd check       OK - 1 task(s), vocabulary valid, references resolve, no broken links   exit 0
+<install>/bin/taskmd list        T-001  proposed  -  specify  A task in a project that is …
+<install>/bin/taskmd.cmd check   OK - 1 task(s), …                                                       exit 0
+```
+
+Shape two, copied out of a fresh `git clone` of the published repository:
+
+```
+21 files in plugin/skills/taskmd/
+
+<copy>/taskmd.sh check    OK - 1 task(s), vocabulary valid, references resolve, no broken links   exit 0
+<copy>/taskmd.ps1 check   OK - 1 task(s), …                                                       exit 0
+```
+
+Both run on a project that is neither this repository, nor the clone, nor the install, and both
+platforms' entry points are covered. **Criterion 5 is read from the 24-file list rather than
+assumed**: `skills/taskmd/docs/METHOD.md`, both files under `docs/bindings/`, all six phase files,
+the package and its default config are in it.
+
+**Restored, and the same thing had to be restored as last time.** Uninstall, remove the git
+marketplace, re-add the directory one, reinstall. The harness emptied this repository's
+`.claude/settings.json` during the swap, exactly as T-067 recorded; it showed up in `git status`,
+which is what [T-052](T-052-decide-what-of-claude-a-published-clone-carries.md) tracks the file for,
+and was restored from the index. The restored install is 29 files: the current layout plus the five
+`.pyc` a directory copy takes from the working tree, and none of the stale ones, so an uninstall does
+clear a version rather than merging into it.
+
 **Outputs produced**
-- Steps 1 to 6 above.
+- Steps 1 to 8 above.
 - [`README.md`](../README.md) — the deliverable.
-- [T-084](T-084-correct-the-generated-index-preamble-after-the-move.md) — raised, not fixed here.
+- **https://github.com/uchimata2/taskmd** — public, described.
+- [T-084](T-084-correct-the-generated-index-preamble-after-the-move.md) — raised, and closed the same
+  day on the maintainer's instruction.
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| Install instructions end with a command that proves it runs | met | Both sections end in `check`, and §3 step 8 runs each from the published artefact rather than from this tree. The plugin section also covers the branch before setup, where `check` exits 2 and says there is no project |
+| The measured `context` saving reproduced on a sample project and quoted | met | §3 step 2: 156,901 bytes to 693 on T-029, and 1,274,604 to 693 counting what a session must read to learn nothing waits on it. The README quotes both and re-measures neither |
+| No personal, client or machine data anywhere in the repository | met, **criterion amended** | The published tree is clean: the check reads 165 files and prints nothing, and exactly the fixture without the exclusion. The history is not clean, and §3 step 7 says what is in it, how it was found, and why the maintainer accepted it rather than removing it. The original text is kept in §1 beside the amendment |
+| Installs from a clean clone on a machine that has never seen it | **not met, carried** | Everything except the last five words was done at publication: the harness cloned the published remote, the install materialised 24 files, and both entry points ran. It all happened on the machine the project was written on. → **child task [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md)**, which also carries the bare-`taskmd` question T-054 could not settle locally |
+| The package ships the method document and **both** bindings, and the README states that changing backend changes the binding, not the method | met | Read from the installed file list in §3 step 8, not from the source tree: `docs/METHOD.md`, `docs/bindings/github-issues.md`, `docs/bindings/local-markdown.md` and all six phase files are in the 24. The README's *Backends* section carries the sentence in bold |
+| The README claims a supported scale that T-004 measured, and nothing it did not | met | §3 step 4's sentence appears verbatim, including the 0.83 s at 999 tasks and the two figures past the shipped width. Nothing in the README says "fast" or "scales to thousands" |
+| Every non-goal in `SCOPE.md` §4 still holds at publish — checked, not assumed | met | §3 step 3's eleven rows, each naming what was read. Re-checked at close against the shipped tree: the package's imports are unchanged, and `COMMANDS` is still the four |
+| **Both** distribution shapes install from a clean clone and are each proven by a command that runs | met | §3 step 8. Shape one by the README's own two commands against the published marketplace; shape two by copying one folder out of a fresh clone. Four transcripts, since each shape was run through both platforms' entry points |
+| **Every document `docs/PUBLISHING.md` covers has been through its rule, and its §5 gate passes with a non-zero file count** | met | The README went through the skill at step 5a and again after the maintainer's revision, since a rewritten covered document is new text. `4 file(s) covered`, exit 1, nothing after the count |
+
+Eight met, one carried. The gap is the phrase *a machine that has never seen it*, and it is a task
+with an owner rather than a sentence in a paragraph.
+
+**What this review does not claim.** That the README is correct for a reader who is not the
+maintainer. Every instruction in it was executed here, which is what the criteria asked for, and
+T-085 is where that becomes evidence about someone else's machine.
 
 **Child fix tasks raised**
-- none
+- **[T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md)** — criterion
+  4, carried.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-09 | → done | Published, both shapes proven from a clean clone of what was published, eight criteria met and one carried. **The scan that preceded publication is the part worth remembering**: the pre-publish check reads the working tree, a push sends the history, and nobody here had ever read the history. It holds one line with an absolute local path, in the two commits T-018 exists because of, and nothing identifying a person. The maintainer accepted that with both removals in front of them, since either one breaks every commit hash these records cite, and criterion 3 is amended to say so with its original kept. The first scanning instrument was mangled by the shell and found 6 of 15 while looking authoritative, which is the third such tool in two days. Step 8's unplanned finding came from capturing the local install before disturbing it, again on T-067's precedent: it was still serving the pre-T-083 layout, because a directory install is a snapshot of the moment it was installed and nothing says so. The harness emptied `.claude/settings.json` during the marketplace swap exactly as T-067 recorded, and it was restored from the index. Criterion 4 is carried by [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md): everything but the phrase *a machine that has never seen it* was done, and that phrase is the whole of what a second machine would add. |
 | 2026-08-09 | (no change) | README revised on the maintainer's reading: a left-to-right lifecycle diagram, their section order, and no self-justifying framing around the measurement. Their order omits *Install*, which criteria 1 and 8 require; it is kept, placed after the commands, and reported rather than treated as a deletion. Both gates re-run on the revision, because a rewritten covered document is new text: 4 files covered with nothing after the count, and the leak check silent across 165 files, which is the 166 the tree now holds less its own fixture. |
 | 2026-08-09 | (no change) | Steps 5, 5a and 6 worked; `implement` now stops where the maintainer's action begins. The README is written and humanized, and every figure in it is quoted from steps 2 and 4 or from T-083 rather than re-taken. Two things were settled here rather than deferred: the marketplace source is named, `uchimata2/taskmd`, because a placeholder in the first command of a published front door is a substitution nothing would catch at step 7; and the two shapes name different commands, one line apart, with the reason given instead of an apology. Both install sections end in a command that was run, including the branch where the reader has no tasks folder yet, since `check` reports that rather than passing. The humanize gate covers 4 files now rather than 3, which is the number that moves when a covered document is added. One finding was raised rather than absorbed: `tasks/README.md`'s hand-written preamble still names the launcher T-083 moved, exempted by a sweep that treated the whole `tasks/` folder as closed records, and it is T-084. |
 | 2026-08-09 | → in_progress | Steps 1 to 4 worked in plan order; step 5 held. The plan said step 1 came first because it could invalidate the rest, and it did: no subset of this tree is a working skill package. A straight copy leaves seven dangling links, because `SKILL.md`'s `../../` pointers are correct for the plugin layout and escape any other one, and `bin/` on `PATH` is a plugin mechanism a skill install does not have. A self-contained 23-file package does work and was run through both entry points from an unrelated project, but it cannot be produced by copying. So the 2026-08-07 answer's premise is false and its question is re-opened with three ways out and a recommendation, rather than one being chosen here. The `context` saving reproduces at 156,901 bytes to 693, and 1,274,604 to 693 if you count what it takes to learn nothing waits on the task. All eleven non-goals hold, each row naming what was read. Bare `taskmd` failing on this machine is T-054's snapshot defect and is recorded as not re-raised; T-049 proved the bare name on Linux. |
