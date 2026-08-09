@@ -7,7 +7,7 @@ phase: specify
 parent: null
 blocked_by: []
 related: [T-032, T-026]
-work_package: none
+work_package: v0.3
 owner: maintainer
 business_value: medium
 effort: s
