@@ -322,6 +322,28 @@ repository nor the copy.
 - **No claim about macOS, no claim about a ceiling nobody measured.** Step 4's two sentences appear
   exactly as written, and the em-dash-free form T-004 wrote them in is what let 5a leave them alone.
 
+**Revised on the maintainer's reading, the same day.** Three notes, all applied, and the second one
+is the substantive one:
+
+1. **A lifecycle diagram**, left to right, from a task being created through the four phases to
+   `done`, with a review that fails producing a fix task that re-enters at `specify`. It is a
+   `mermaid` block, so it renders on the repository page and stays a text file in the tree.
+2. **The section order is the maintainer's**, not the one written at step 5: what using it looks
+   like comes before what a task is, and the measurement moved down from second place to seventh.
+   Their list did not include *Install*, which the earlier draft carried and criteria 1 and 8
+   require, so it is kept and placed after *The commands*, and the omission is reported rather than
+   read as a deletion.
+3. **No self-justifying framing.** *"This is the headline claim, and it is measured on this
+   repository rather than asserted"* is gone, and so is the sentence calling the 0.44% a generous
+   reading. The numbers are stated and the reader can judge them. The maintainer's words for the
+   standard: show the benefits, no sales pitch.
+
+A **Using it** section came with the reorder: five things somebody says to Claude, and what happens
+underneath. It is the one part of the README that describes the method rather than the tool, so each
+row is checked against [`METHOD.md`](../plugin/skills/taskmd/docs/METHOD.md) rather than written
+from memory: one phase per request, a full lifecycle only when it is asked for, and an audit that
+raises a child task per finding instead of fixing anything where it was found.
+
 ### Step 5a — humanized, and the gate
 
 Run through the `humanizer` skill in file mode, under
@@ -340,6 +362,11 @@ difference between the shapes, which contradicted the paragraph above it.
 
 Exit 1, nothing after the count. The count moved from 3 to 4 with this README, which is the half of
 that gate `docs/PUBLISHING.md` §5 says to read.
+
+**Run again on the revision**, because a rewritten covered document is new text and the rule is
+about the text rather than about the file having been through once. Same result, and the second pass
+had less to do: the reorder mostly moved prose that had already been through the skill, and what was
+new was four sentences and a table of five rows.
 
 ### Step 6 — the pre-publish check, both ways
 
@@ -378,6 +405,7 @@ send.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-09 | (no change) | README revised on the maintainer's reading: a left-to-right lifecycle diagram, their section order, and no self-justifying framing around the measurement. Their order omits *Install*, which criteria 1 and 8 require; it is kept, placed after the commands, and reported rather than treated as a deletion. Both gates re-run on the revision, because a rewritten covered document is new text: 4 files covered with nothing after the count, and the leak check silent across 165 files, which is the 166 the tree now holds less its own fixture. |
 | 2026-08-09 | (no change) | Steps 5, 5a and 6 worked; `implement` now stops where the maintainer's action begins. The README is written and humanized, and every figure in it is quoted from steps 2 and 4 or from T-083 rather than re-taken. Two things were settled here rather than deferred: the marketplace source is named, `uchimata2/taskmd`, because a placeholder in the first command of a published front door is a substitution nothing would catch at step 7; and the two shapes name different commands, one line apart, with the reason given instead of an apology. Both install sections end in a command that was run, including the branch where the reader has no tasks folder yet, since `check` reports that rather than passing. The humanize gate covers 4 files now rather than 3, which is the number that moves when a covered document is added. One finding was raised rather than absorbed: `tasks/README.md`'s hand-written preamble still names the launcher T-083 moved, exempted by a sweep that treated the whole `tasks/` folder as closed records, and it is T-084. |
 | 2026-08-09 | → in_progress | Steps 1 to 4 worked in plan order; step 5 held. The plan said step 1 came first because it could invalidate the rest, and it did: no subset of this tree is a working skill package. A straight copy leaves seven dangling links, because `SKILL.md`'s `../../` pointers are correct for the plugin layout and escape any other one, and `bin/` on `PATH` is a plugin mechanism a skill install does not have. A self-contained 23-file package does work and was run through both entry points from an unrelated project, but it cannot be produced by copying. So the 2026-08-07 answer's premise is false and its question is re-opened with three ways out and a recommendation, rather than one being chosen here. The `context` saving reproduces at 156,901 bytes to 693, and 1,274,604 to 693 if you count what it takes to learn nothing waits on the task. All eleven non-goals hold, each row naming what was read. Bare `taskmd` failing on this machine is T-054's snapshot defect and is recorded as not re-raised; T-049 proved the bare name on Linux. |
 | 2026-08-09 | (no change) | Reconciled by [T-081](T-081-gate-every-deployment-on-the-humanizer-pass.md). When T-079 closed, this plan was left describing a hand-off to it that could no longer happen, and **no step applied the humanize rule at all** — the blocker had dissolved and taken the step with it. Step 5a now applies it and runs the gate, and a ninth acceptance criterion makes `review` able to fail for skipping it. Step 7 already named where the repository description lives; that home moved from a task record into `docs/repo-description.txt`, and the step's link resolves through `docs/PUBLISHING.md` §4 rather than being restated here. |

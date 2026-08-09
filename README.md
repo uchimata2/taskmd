@@ -5,19 +5,37 @@ them: the index, the far end of every link, what is blocked, and what to do next
 validator, needs no dependencies, and does not assume the work is software. Research, a course, a
 deck and an ops runbook all fit.
 
-## What it costs to start a task
+## Using it
 
-This is the headline claim, and it is measured on this repository rather than asserted:
+You talk to Claude, and the commands below are what it runs underneath.
 
-| Reading | Bytes |
-| :--- | ---: |
-| The task file, the project conventions, the generated index, and every task it links to | 156,901 |
-| `taskmd context T-029` | 693 |
+| What you say | What happens |
+| :--- | :--- |
+| *What should I work on next?* | `taskmd list --open --limit 1` picks the task by the project's ordering rule, and `taskmd context` reads that one task. It never opens the rest of the folder. |
+| *Add a task for drafting the onboarding email sequence* | The next id is taken, the template is copied, and the front-matter and any links are written in the same edit. Then the index is regenerated. |
+| *Specify T-014* | The specify phase is worked and then it stops. One phase per request, so it stops there instead of carrying on into planning just because planning is next. |
+| *Take T-014 through to done* | Asking for the whole lifecycle is what authorizes it: specify, plan, implement, review, in that order. |
+| *Audit the handbook chapters and raise a task per finding* | An audit produces one umbrella task and one child task per finding. Nothing is fixed where it was found, which is what keeps a fix traceable. |
 
-That is 0.44%, and it is the generous reading, because it counts only the links the task stores.
-What waits *on* a task is derived and written nowhere, so a session without the tool cannot know it
-without reading every task file, which here is 1,274,604 bytes. One command replaces somewhere
-between 157 kB and 1.27 MB with 693 bytes.
+## The lifecycle
+
+```mermaid
+flowchart LR
+    C([task created]) --> S[specify] --> P[plan] --> I[implement] --> R[review]
+    R -->|every criterion met| D([done])
+    R -->|criterion not met| F[fix task]
+    F -.->|a task in its own right| S
+```
+
+Four phases, mandatory however small the task. Each one has a written exit criterion, and the
+criterion is what counts as enough: `specify` ends when the acceptance
+criteria are agreed, `plan` ends when every step names an output, `implement` ends when the outcome
+has been checked by being used and the evidence is written down, and `review` ends when every
+criterion is either met or carries a child task that will meet it.
+
+Phase and status are separate. The phase says where the work reached; the status says whether it can
+move. A task waiting on someone keeps the phase it reached and never moves backwards to record an
+obstacle.
 
 ## What a task is
 
@@ -115,6 +133,33 @@ mkdir tasks
 
 Both print the same line as the plugin does. The two shapes name different commands on purpose.
 
+## What it costs to start a task
+
+Starting one task on this repository, with the tool and without it:
+
+| Reading | Bytes |
+| :--- | ---: |
+| The task file, the project conventions, the generated index, and every task it links to | 156,901 |
+| `taskmd context T-029` | 693 |
+
+That is 0.44%, and it counts only the links the task stores. What waits *on* a task is derived and
+written nowhere, so a session without the tool cannot know it without reading every task file, which
+here is 1,274,604 bytes.
+
+Two other things follow from deriving rather than storing. An inverse edge cannot go stale, because
+there is no second copy to update. And a link recorded on either end is visible from both, so nobody
+has to know which end owns it.
+
+## What it is not
+
+taskmd runs no server, daemon, watcher or database. It has no GUI and no web view, because the files
+are the interface and the terminal is the view. It never touches the network. There is no query
+language, no migration tooling, no notifications or scheduling, and no time tracking, velocity or
+capacity. Two estimated fields exist for one purpose, ordering the listing, and either can be
+switched off.
+
+Nor is there an automatic fixer. Derived fields cannot go stale, because they are not stored.
+
 ## Backends
 
 **Changing backend changes the binding, not the method.** A project that moves from local files to
@@ -140,16 +185,6 @@ has run it there.
 
 The implementation is standard-library Python, with bash and PowerShell launchers that hold no
 logic. It needs no install step, no configuration and no dependencies.
-
-## What it is not
-
-taskmd runs no server, daemon, watcher or database. It has no GUI and no web view, because the files
-are the interface and the terminal is the view. It never touches the network. There is no query
-language, no migration tooling, no notifications or scheduling, and no time tracking, velocity or
-capacity. Two estimated fields exist for one purpose, ordering the listing, and either can be
-switched off.
-
-Nor is there an automatic fixer. Derived fields cannot go stale, because they are not stored.
 
 ## Documentation
 
