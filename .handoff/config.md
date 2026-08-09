@@ -35,7 +35,11 @@ Read by the `handoff` skill. Plain Markdown, read by the agent — no parser.
 ## Notes for whoever resumes
 
 **Published on 2026-08-09** at `github.com/uchimata2/taskmd`, tagged `v0.1.0` with a GitHub release,
-in both shapes. The definition of done (`docs/SCOPE.md` §9) is closed. What is left is grouped into
+in both shapes. **The manifest is now `0.1.1`**, pushed but deliberately not tagged — the bump exists
+because `claude plugin update` compares version strings, so a directory install whose manifest never
+changes reports "already at the latest version" and keeps serving the snapshot it copied. Any fix
+that must reach an installed project needs that line to move. The definition of done
+(`docs/SCOPE.md` §9) is closed. What is left is grouped into
 **v0.2 and v0.3**, whose purpose and exit criteria are in `tasks/README.md` and whose membership is
 each task's `work_package` — do not maintain a list of that anywhere.
 
@@ -43,10 +47,12 @@ Start with `docs/SCOPE.md` — the goal, the numbered requirements (R-1…R-24) 
 non-goals. `docs/BRIEF.md` holds the problem evidence, the carried lessons and the remaining open
 questions. Tasks cite the requirements they serve, so coverage is derived rather than tabulated.
 
-**The plugin now has a user outside this repository** — one, labelled in `control/LOCAL-CONTEXT.md`,
-which adopted it the day it shipped. Two open tasks exist only because of that, and both are the
-useful kind: something this repository's own habits had hidden. Expect more of it, and route what it
-finds into tasks rather than into notes.
+**The plugin now has users outside this repository** — four projects as of 2026-08-09, labelled in
+`control/LOCAL-CONTEXT.md`; three run it, and the fourth was assessed against the GitHub binding and
+does not adopt it. **Almost every open task in v0.2 now comes from them rather than from this
+repository's own use**, which is the pattern to expect: an adopter finds in a day what this
+repository's habits had hidden for a week. Route what they report into tasks, not into notes — and
+treat a migration report as evidence, not as a feature request.
 
 `plugin/skills/taskmd/docs/METHOD.md` is the working method itself. Since T-028 it is **tier 2** — loaded when task work
 starts, not on every turn; `plugin/skills/taskmd/docs/method/` is tier 3, a file per phase. Tier 1 is whatever the harness
