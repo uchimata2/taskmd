@@ -14,7 +14,7 @@ effort: m
 created: 2026-08-07
 updated: 2026-08-07
 deliverables:
-  - plugin/docs/BINDING.md
+  - plugin/skills/taskmd/docs/BINDING.md
 ---
 
 # T-040 — Make the thirty-second assumptions check real, or change the number
@@ -146,7 +146,7 @@ with their bindings. Raised as **T-043**.
   have been a change made to match a conclusion rather than to fix a fault. — 2026-08-07
 
 **Outputs produced**
-- [`docs/BINDING.md`](../plugin/docs/BINDING.md) — §4 gains *What the thirty seconds measures*
+- [`docs/BINDING.md`](../plugin/skills/taskmd/docs/BINDING.md) — §4 gains *What the thirty seconds measures*
 
 ## 4. Review
 

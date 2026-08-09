@@ -13,16 +13,16 @@ what has to change to make it general.
 what is explicitly **out** of scope — then [`docs/BRIEF.md`](docs/BRIEF.md) for the problem
 evidence and the measured prior art behind them. `tasks/README.md` is the generated backlog.
 
-**Status:** the schema layer exists (`plugin/taskmd/`), the method document exists
-([`plugin/docs/METHOD.md`](plugin/docs/METHOD.md), T-008), and four commands exist —
+**Status:** the schema layer exists (`plugin/skills/taskmd/taskmd/`), the method document exists
+([`plugin/skills/taskmd/docs/METHOD.md`](plugin/skills/taskmd/docs/METHOD.md), T-008), and four commands exist —
 `{context,index,check,list}` (T-002, and `list` from T-022, for which `docs/SCOPE.md` non-goal 11
-was amended). **Run them as `./plugin/taskmd.sh <cmd>` or `./plugin/taskmd.ps1 <cmd>`** — since
-T-053 the package lives in the plugin subtree, so a bare `python -m taskmd` needs `PYTHONPATH` and
-the launchers are what set it. This project runs on them; the interim `tools/tasks/task.py` is gone.
-**An adopter types neither**: since T-054 the plugin ships `plugin/bin/taskmd`, which the harness
-puts on `PATH`, and that is the command the skill names. The two differ on purpose (T-054 D2) — a
-contributor has the tree and no install, an adopter the reverse — so this is not an inconsistency
-to tidy away.
+was amended). **Run them as `./plugin/bin/taskmd <cmd>`, or `.\plugin\bin\taskmd.cmd <cmd>` on
+Windows** — the shipped entry point, invoked by path. Since T-083 it delegates to the launcher
+inside the skill directory, which is what sets `PYTHONPATH`, so a bare `python -m taskmd` still
+needs that variable and the interim `tools/tasks/task.py` is gone. **An adopter types `taskmd`** —
+the same two files, reached by name because the harness puts `plugin/bin/` on `PATH`. Only the
+lookup differs, and only here: this machine's shell snapshot drops the entry (T-054), so the path
+form is what works in this tree.
 Since T-011 they find the project by walking up from wherever they are run, so the command works
 from anywhere in the tree, and a project can declare one `after_write` command that taskmd runs and
 reports on.
@@ -30,8 +30,8 @@ reports on.
 `check` has been shown failing on **every** class it claims — one deliberately-broken fixture each,
 so the set is `tests/fixtures/broken-*` and not a count written here. It does **not** yet notice a
 generated index that has gone stale (T-025). The backend contract exists
-([`plugin/docs/BINDING.md`](plugin/docs/BINDING.md), T-009) and **both bindings** are written
-([`plugin/docs/bindings/`](plugin/docs/bindings/)) — so storage-neutrality is no longer a claim about one backend
+([`plugin/skills/taskmd/docs/BINDING.md`](plugin/skills/taskmd/docs/BINDING.md), T-009) and **both bindings** are written
+([`plugin/skills/taskmd/docs/bindings/`](plugin/skills/taskmd/docs/bindings/)) — so storage-neutrality is no longer a claim about one backend
 plus a worked example about another: the GitHub binding (T-010) was proven by being walked on a live
 repository, and the method needed no change to carry it. The skill exists (`plugin/skills/taskmd/`, T-003)
 and declaring it from this tree turned out not to be the same as installing it (T-050). Installed, it
@@ -41,7 +41,7 @@ phase file each arrive at their own later moment.
 ## The one design rule
 
 **Store the forward edge; derive the rest.** Stated in full — including what the word *requires*
-below does and does not forbid — in [`plugin/docs/METHOD.md`](plugin/docs/METHOD.md) §4.
+below does and does not forbid — in [`plugin/skills/taskmd/docs/METHOD.md`](plugin/skills/taskmd/docs/METHOD.md) §4.
 
 In this repository it comes out as: a task file's front-matter is the only place a fact about that
 task is written, and children, dependents, the index and the deliverable map are all computed. Check
@@ -51,7 +51,7 @@ wrong feature.
 ## Working method
 
 This plugin manages tasks, so it uses its own method on itself. **The method has one home:
-[`plugin/docs/METHOD.md`](plugin/docs/METHOD.md)** — the lifecycle and its exit criteria, the edge kinds, the
+[`plugin/skills/taskmd/docs/METHOD.md`](plugin/skills/taskmd/docs/METHOD.md)** — the lifecycle and its exit criteria, the edge kinds, the
 audit mechanism, and how the agent is expected to behave. It is not restated here; if you find it
 written out somewhere else, that copy is the defect.
 
@@ -61,7 +61,7 @@ the harness actually **serves** that skill, without this paragraph being edited 
 not, which is what T-050 measured. Re-measured after the install (2026-08-08), tier 1 is this file
 **plus the taskmd `description`** — the rule above unedited, the membership moved by the install
 alone, which is the property it was written to have. Tier 2 is
-[`plugin/docs/METHOD.md`](plugin/docs/METHOD.md), on starting task work; tier 3 is [`plugin/docs/method/`](plugin/docs/method/),
+[`plugin/skills/taskmd/docs/METHOD.md`](plugin/skills/taskmd/docs/METHOD.md), on starting task work; tier 3 is [`plugin/skills/taskmd/docs/method/`](plugin/skills/taskmd/docs/method/),
 a file per phase. **Tier 1 stays smaller than `reference/TASK-WORKFLOW.md`**, the flat
 single-document alternative, because a first tier costing more than the flat version has inverted the
 point of splitting it at all. No number is written here — both sides are counted from the tree, in
@@ -81,15 +81,15 @@ What this project adds on top, because the method is deliberately storage-agnost
 
 - Task files live in `tasks/`, created from `tasks/_task-template.md` — beside the task it becomes,
   not under it, so links survive the copy (T-076).
-- The field names and their allowed values are the schema — `plugin/taskmd/defaults/config.md`.
+- The field names and their allowed values are the schema — `plugin/skills/taskmd/taskmd/defaults/config.md`.
 - The index is **generated**, never hand-edited.
-- When a task is `done` is [`plugin/docs/METHOD.md`](plugin/docs/METHOD.md) §1 rule 5; which artifact satisfies
+- When a task is `done` is [`plugin/skills/taskmd/docs/METHOD.md`](plugin/skills/taskmd/docs/METHOD.md) §1 rule 5; which artifact satisfies
   each of its conditions here is in
-  [`plugin/docs/bindings/local-markdown.md`](plugin/docs/bindings/local-markdown.md).
+  [`plugin/skills/taskmd/docs/bindings/local-markdown.md`](plugin/skills/taskmd/docs/bindings/local-markdown.md).
 
 `reference/TASK-WORKFLOW.md` is the pre-split standard from one real project — evidence of what
 worked, not the standard. It hard-codes a folder contract, a work-package vocabulary and specific
-commands, which is precisely what `plugin/docs/METHOD.md` had to leave behind.
+commands, which is precisely what `plugin/skills/taskmd/docs/METHOD.md` had to leave behind.
 
 ## Publishing constraints
 

@@ -41,7 +41,7 @@ Those two are not the same file. Hashed against each other on the day of the ins
 `docs/METHOD.md`, `docs/method/implement.md` and `SKILL.md` matched, and **`CLAUDE.md` did not** —
 drift inside a few hours, from one ordinary commit. Nothing decides which copy a session reads except
 where it happens to be working. That is a second home for every fact the skill points at, which is
-[`../plugin/docs/METHOD.md`](../plugin/docs/METHOD.md) §4 read in the direction the project usually reads it: the
+[`../plugin/docs/METHOD.md`](../plugin/skills/taskmd/docs/METHOD.md) §4 read in the direction the project usually reads it: the
 duplication was not written by anyone, it was created by installing.
 
 **Two consequences, and they pull in different directions.** For *this* repository, the snapshot is a
@@ -76,7 +76,7 @@ constraints* for the half about what an adopter receives.
 [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) §3 step 7, which holds the
 observation and the hash comparison; `skills/taskmd/SKILL.md`, for the pointers;
 `.claude-plugin/`, for what the packaging currently declares;
-[`../plugin/docs/BINDING.md`](../plugin/docs/BINDING.md) §4 is not involved — this is not a binding question.
+[`../plugin/docs/BINDING.md`](../plugin/skills/taskmd/docs/BINDING.md) §4 is not involved — this is not a binding question.
 
 **Acceptance criteria**
 - [ ] The set of paths the plugin ships is stated somewhere a reader meets it, and is derived from a
@@ -117,7 +117,7 @@ observation and the hash comparison; `skills/taskmd/SKILL.md`, for the pointers;
 | 4 | Demonstrate the criteria against the result: which copy a session gets and why, and what an install contains | §3, and the §4 table |
 
 Step 1 is first because it could invalidate everything after it, which is
-[`../plugin/docs/method/plan.md`](../plugin/docs/method/plan.md)'s *reduces uncertainty soonest* rule. It did.
+[`../plugin/docs/method/plan.md`](../plugin/skills/taskmd/docs/method/plan.md)'s *reduces uncertainty soonest* rule. It did.
 
 **Shape decisions.**
 
@@ -171,7 +171,7 @@ step 1 read the install paths, and both overstate the problem:
   place: the cache. The two-resolutions problem is an artefact of **self-hosting** — this repository's
   tree holds the same files its cache does — and no restructure removes it, because a subtree's
   contents are still copied into the cache. So the criterion needs rewording at `review` under
-  [`../plugin/docs/method/review.md`](../plugin/docs/method/review.md) *Changing a criterion*, with the original
+  [`../plugin/docs/method/review.md`](../plugin/skills/taskmd/docs/method/review.md) *Changing a criterion*, with the original
   recorded; it is not satisfiable as written by any option.
 
 **D4 — `git-subdir` is what makes a subtree pay off, and it exists.** A marketplace entry may declare
@@ -288,7 +288,7 @@ pointer out of `plugin/` returns none.
 | An adopter's install does not contain this project's task files, handoff archive or `control/` | met | The 22 files listed in §3 step 4 are the whole of `plugin/`; a grep for `tasks/`, `.handoff/`, `control/`, `tests/` or `reference/` under it returns nothing. `control/` was never at risk by this route anyway — D3 |
 | The pre-publish check still prints nothing, and still prints exactly the five fixture lines without its exclusion | met | Run after the restructure: nothing with the exclusion, five without. Suite 114/114, `check` clean on 53 tasks |
 
-**The reworded criterion, under [`../plugin/docs/method/review.md`](../plugin/docs/method/review.md)
+**The reworded criterion, under [`../plugin/docs/method/review.md`](../plugin/skills/taskmd/docs/method/review.md)
 *Changing a criterion*.** It measured something no acceptable outcome could deliver, and D3 says why:
 a pointer has two resolutions **only when the working tree is itself a copy of the plugin**, which is
 true here and false for every adopter. No restructure removes it, because a subtree's contents are

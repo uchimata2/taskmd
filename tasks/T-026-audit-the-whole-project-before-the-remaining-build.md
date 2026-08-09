@@ -52,7 +52,7 @@ findings will cite them.
   fixtures (`tests/`), configuration, and the generated index.
 - In: the seven concerns the maintainer named, plus "anything" — which is deliberately open, and is
   why the finding threshold below matters more than usual.
-- Out: **fixing anything**. METHOD §5 and [`audit`](../plugin/docs/method/audit.md) — a finding is never
+- Out: **fixing anything**. METHOD §5 and [`audit`](../plugin/skills/taskmd/docs/method/audit.md) — a finding is never
   fixed where it is found, and the one exception is a finding that makes continuing impossible.
 - Out: `reference/`, which is prior art from another project and is not this repository's to
   correct.
@@ -70,7 +70,7 @@ findings will cite them.
   like any other finding.
 
 **Inputs**
-- [`docs/method/audit.md`](../plugin/docs/method/audit.md) — the procedure, including why the
+- [`docs/method/audit.md`](../plugin/skills/taskmd/docs/method/audit.md) — the procedure, including why the
   no-inline-fix rule is the whole product
 - `docs/SCOPE.md` — the requirements findings will cite, the non-goals, and §1's three properties
 - `CLAUDE.md` — the publishing, portability and verification constraints
@@ -170,7 +170,7 @@ it is raised as a question rather than absorbed into the step-8 list.
 **Dependencies — checked, none needed.** The audit reads; it waits on nothing. T-025 overlaps its
 subject matter but does not gate it, and T-003, T-006 and T-010 are what the audit exists to protect
 rather than things it needs. All four are already recorded as `related`, which is the correct edge
-([`../plugin/docs/METHOD.md`](../plugin/docs/METHOD.md) §4) — a dependency edge here would falsely say the audit
+([`../plugin/skills/taskmd/docs/METHOD.md`](../plugin/skills/taskmd/docs/METHOD.md) §4) — a dependency edge here would falsely say the audit
 cannot proceed.
 
 **Deliverable shape — decided here.**
@@ -186,7 +186,7 @@ template is then corrected by a child task rather than by the auditor.
 finding, severity, and the action — a child task id, or "no action" with the reason. *Rejected:*
 separate tables for actionable and non-actionable findings, which would let a reader consume one
 without the other. The no-action rows are the evidence an area was examined, and
-[`audit.md`](../plugin/docs/method/audit.md) makes them worth as much as the rest; splitting them off is how
+[`audit.md`](../plugin/skills/taskmd/docs/method/audit.md) makes them worth as much as the rest; splitting them off is how
 they get skipped.
 
 **Severity says who pays and when**, so that a reader who was not present can triage without asking:
@@ -280,7 +280,7 @@ Every row cites the threshold clause it meets. Severity is defined in §2.
 ### Examined, no action
 
 These are the evidence that an area was looked at. Without them a reader cannot tell "checked and
-clean" from "not looked at" ([`audit.md`](../plugin/docs/method/audit.md)).
+clean" from "not looked at" ([`audit.md`](../plugin/skills/taskmd/docs/method/audit.md)).
 
 | # | Observation | Why no action |
 | :-- | :--- | :--- |
@@ -397,7 +397,7 @@ and this paragraph records that the table is not in discovery order. Nothing els
 ## 4. Review
 
 Judged against the criteria as `specify` agreed them, not against what the audit turned out to be
-good at ([`review`](../plugin/docs/method/review.md) step 1).
+good at ([`review`](../plugin/skills/taskmd/docs/method/review.md) step 1).
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
@@ -408,7 +408,7 @@ good at ([`review`](../plugin/docs/method/review.md) step 1).
 | Each finding carries a severity and enough detail for someone who was not present to act on it | met | Every row has a severity, and severity is defined in §2 by who pays and when rather than left to feel. The "someone not present" half is tested by the child tasks: each restates the evidence in full — F-6's `check` output, F-3's three transcripts, F-8's two file counts — so a reader who never sees this umbrella can still act. F-4 and F-7 additionally record the dedupe reasoning, which is what a later reader would otherwise have to redo. |
 | Each actionable finding has its own child task pointing back here; each non-actionable one stays recorded with the reason | met | `python -m taskmd list --parent T-026` returns **8**, one per finding, and the count is derived from the `parent` edge rather than from a list I maintained. Eleven no-action rows each carry a reason, including the two deduped against existing tasks (N-2 → T-025, N-3 → T-023) and the two dropped against the threshold (N-4, N-5). |
 | Nothing is fixed in place — falsified by any commit from this task that changes behaviour or wording outside this task's own record | met | Two tracked files modified: `tasks/T-026…md` (this record) and `tasks/README.md` (generated). No source file, no document, and **no other task file** was touched. The index diff is the strongest evidence: 11 existing rows changed while zero existing task files were edited — the soft links written on the new tasks derived onto the far ends, which is the project's own design rule producing the proof for its own audit. The temporary project built to falsify F-6 was created outside the repository and deleted. |
-| The umbrella closes only when every child is resolved or dropped with a reason | **upheld — the umbrella stays open** | Not a criterion this review can tick: it governs closure, and it is satisfied by *not closing*. All eight children are `proposed`. T-026 therefore remains open at `phase: review` with the audit itself complete. Recorded plainly because an umbrella closed over open children erases the link between the examination and its consequences ([`audit`](../plugin/docs/method/audit.md) step 5), and that is the one failure this criterion exists to prevent. |
+| The umbrella closes only when every child is resolved or dropped with a reason | **upheld — the umbrella stays open** | Not a criterion this review can tick: it governs closure, and it is satisfied by *not closing*. All eight children are `proposed`. T-026 therefore remains open at `phase: review` with the audit itself complete. Recorded plainly because an umbrella closed over open children erases the link between the examination and its consequences ([`audit`](../plugin/skills/taskmd/docs/method/audit.md) step 5), and that is the one failure this criterion exists to prevent. |
 | **The umbrella reports the child tasks in the order `python -m taskmd list` computes**, and states whether that order is one a person would actually work in | met | Run and reported in §3 step 9, unmodified. The answer is split and both halves are recorded: the head is a good answer the rule produced unprompted (T-034 — cheapest task *and* the one guarding publication), the middle four tie on both sort keys and break on id, which puts T-032 fourth where a person would put it first. The criterion admitted both outcomes as met; the honest result was one of each. |
 
 **What the review changed.** One thing, and it is the coverage denominator — wrong in `implement`,
@@ -418,7 +418,7 @@ expectation about the ordering, twice. Both are recorded rather than smoothed ov
 that only confirms is indistinguishable from one that did not look.
 
 **What the review did not do.** It raised no new findings. Two candidates were considered and
-declined as out of this phase's remit ([`review`](../plugin/docs/method/review.md) — *not an audit*): that
+declined as out of this phase's remit ([`review`](../plugin/skills/taskmd/docs/method/review.md) — *not an audit*): that
 the status vocabulary has no value for "reviewed, awaiting children", and that an umbrella's blocked
 state is derivable from its open children rather than needing a `blocked_by` written by hand. Neither
 was examined during `implement`, so promoting either now would be auditing under a review heading —

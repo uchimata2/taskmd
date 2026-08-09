@@ -11,4 +11,4 @@
 # directly so the delegation does not also depend on the target's mode bit.
 
 here=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-exec sh "$here/../taskmd.sh" "$@"
+exec sh "$here/../skills/taskmd/taskmd.sh" "$@"

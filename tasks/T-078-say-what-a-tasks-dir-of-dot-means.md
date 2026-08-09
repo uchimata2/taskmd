@@ -71,8 +71,8 @@ validator has to be believable.
 - Out: the nested-project exclusion itself, settled in [T-069](T-069-skip-a-nested-project-at-any-depth.md).
 
 **Inputs**
-`plugin/taskmd/schema.py` (`_check_tasks_dir`), `plugin/taskmd/discovery.py` (`is_project`),
-`plugin/taskmd/cli.py` (`markdown_files`, `is_nested_project`),
+`plugin/skills/taskmd/taskmd/schema.py` (`_check_tasks_dir`), `plugin/skills/taskmd/taskmd/discovery.py` (`is_project`),
+`plugin/skills/taskmd/taskmd/cli.py` (`markdown_files`, `is_nested_project`),
 [T-069](T-069-skip-a-nested-project-at-any-depth.md) §3.
 
 **Acceptance criteria**

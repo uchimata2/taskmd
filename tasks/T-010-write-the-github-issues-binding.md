@@ -13,7 +13,7 @@ business_value: high
 effort: m
 created: 2026-08-04
 updated: 2026-08-07
-deliverables: [plugin/docs/bindings/github-issues.md]
+deliverables: [plugin/skills/taskmd/docs/bindings/github-issues.md]
 ---
 
 # T-010 — Write the GitHub Issues binding
@@ -54,8 +54,8 @@ of the three edge kinds map directly, and both derive their inverse exactly as t
 
 **Inputs**
 - `docs/SCOPE.md` §3B, and T-007 §3 for the mapping evidence already gathered
-- [`docs/BINDING.md`](../plugin/docs/BINDING.md) — the contract this binding implements; §5 is already one
-  operation worked against this exact backend, and [`docs/bindings/local-markdown.md`](../plugin/docs/bindings/local-markdown.md)
+- [`docs/BINDING.md`](../plugin/skills/taskmd/docs/BINDING.md) — the contract this binding implements; §5 is already one
+  operation worked against this exact backend, and [`docs/bindings/local-markdown.md`](../plugin/skills/taskmd/docs/bindings/local-markdown.md)
   is the worked precedent for the shape
 - **Unreachable, so recorded here rather than consulted:** the Handoff project's `PROJECT_BOARD.md`
   is not in this repository and no copy of it is. What was taken from it is one sentence — issues
@@ -94,7 +94,7 @@ of the three edge kinds map directly, and both derive their inverse exactly as t
   closed here as one.** It is mismatch 3's resolution, which criterion 2 already requires the
   binding to decide and criterion 3 already constrains to a single authoritative carrier. A sentence
   naming labels would be false had a different carrier been chosen, so by
-  [`specify`](../plugin/docs/method/specify.md)'s own test it is a later phase's decision, not part of what
+  [`specify`](../plugin/skills/taskmd/docs/method/specify.md)'s own test it is a later phase's decision, not part of what
   the outcome is judged against. Carried forward rather than dropped: the trade is adoptability
   against tidiness — labels need nothing beyond issues being enabled, a Projects field needs a board
   and a token scope — and criterion 4 is what turns whichever cost is chosen into a stated
@@ -134,7 +134,7 @@ repository. Creating and deleting are actions on someone's account, so `implemen
 either — agreed in §1.
 
 **Shape of the deliverable — decided.** One Markdown document, `docs/bindings/github-issues.md`,
-structured as [`local-markdown.md`](../plugin/docs/bindings/local-markdown.md) is: assumptions, then
+structured as [`local-markdown.md`](../plugin/skills/taskmd/docs/bindings/local-markdown.md) is: assumptions, then
 configuration, then the six operations. Two alternatives rejected. Splitting mapping from operations
 into two documents was rejected because it lets an adopter read the operations without the premises
 that make them safe, which is exactly the F1 failure BINDING §4 exists to prevent. Shipping a `gh`
@@ -232,7 +232,7 @@ private, so nothing is exposed while it stands. Carried to **T-037** rather than
   Markdown link to a not-yet-created deliverable as a broken link. Hit while writing §2 above.
 
 **Outputs produced**
-- [`docs/bindings/github-issues.md`](../plugin/docs/bindings/github-issues.md)
+- [`docs/bindings/github-issues.md`](../plugin/skills/taskmd/docs/bindings/github-issues.md)
 
 ## 4. Review
 

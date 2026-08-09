@@ -14,11 +14,11 @@ effort: xs
 created: 2026-08-04
 updated: 2026-08-04
 deliverables:
-  - plugin/docs/METHOD.md
-  - plugin/docs/method/specify.md
-  - plugin/docs/method/plan.md
-  - plugin/docs/method/implement.md
-  - plugin/docs/method/review.md
+  - plugin/skills/taskmd/docs/METHOD.md
+  - plugin/skills/taskmd/docs/method/specify.md
+  - plugin/skills/taskmd/docs/method/plan.md
+  - plugin/skills/taskmd/docs/method/implement.md
+  - plugin/skills/taskmd/docs/method/review.md
 ---
 
 # T-014 — Stop stating each phase exit criterion twice

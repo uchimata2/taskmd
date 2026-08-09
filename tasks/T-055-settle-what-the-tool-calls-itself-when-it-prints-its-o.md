@@ -13,7 +13,7 @@ business_value: medium
 effort: xs
 created: 2026-08-08
 updated: 2026-08-09
-deliverables: [plugin/taskmd/cli.py, tests/test_cli.py]
+deliverables: [plugin/skills/taskmd/taskmd/cli.py, tests/test_cli.py]
 ---
 
 # T-055 — Settle what the tool calls itself when it prints its own usage

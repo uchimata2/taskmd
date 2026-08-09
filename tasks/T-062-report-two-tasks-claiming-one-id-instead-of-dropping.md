@@ -45,7 +45,7 @@ dict keyed by id, so **walk order decides which file is the task** and the other
 prints a warning and nothing exits non-zero.
 
 **The binding promises the opposite, in terms.**
-[`local-markdown.md`](../plugin/docs/bindings/local-markdown.md) *find* says the front-matter is what
+[`local-markdown.md`](../plugin/skills/taskmd/docs/bindings/local-markdown.md) *find* says the front-matter is what
 is matched, *"so a renamed file is still found and two files claiming one id are a conflict rather
 than a coin toss"*. It is a coin toss, decided by `sorted(files)`.
 
@@ -77,7 +77,7 @@ R-16, R-17 (`docs/SCOPE.md`); R-13 — a binding's stated guarantee is what an a
 
 **Inputs**
 `plugin/taskmd/schema.py` (`load_tasks`, `is_id`), `plugin/taskmd/cli.py` (`cmd_check`),
-[`local-markdown.md`](../plugin/docs/bindings/local-markdown.md) *find*,
+[`local-markdown.md`](../plugin/skills/taskmd/docs/bindings/local-markdown.md) *find*,
 [T-059](T-059-audit-the-whole-project-after-the-plugin-restructure.md) F-4,
 [T-004](T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md).
 

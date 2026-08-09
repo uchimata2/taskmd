@@ -19,7 +19,7 @@ import tempfile
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PKG = os.path.join(ROOT, "plugin")   # the plugin subtree: where the taskmd package lives
+PKG = os.path.join(ROOT, "plugin", "skills", "taskmd")   # where the taskmd package lives (T-083)
 sys.path.insert(0, PKG)
 
 from taskmd import cli  # noqa: E402
@@ -173,7 +173,7 @@ class AViewOmitsAnUnusedColumnAndAContractDoesNot(unittest.TestCase):
         """A project on the shipped default, whose tasks carry `work_package` or do not."""
         os.makedirs(os.path.join(folder, "tasks"))
         os.makedirs(os.path.join(folder, ".taskmd"))
-        shutil.copy(os.path.join(ROOT, "plugin", "taskmd", "defaults", "config.md"),
+        shutil.copy(os.path.join(PKG, "taskmd", "defaults", "config.md"),
                     os.path.join(folder, ".taskmd", "config.md"))
         for number, package in enumerate(work_packages, 1):
             cli.write(os.path.join(folder, "tasks", "T-00%d-x.md" % number),
@@ -467,7 +467,7 @@ class Usage(unittest.TestCase):
         tool and the skill naming different commands, so the advice printed to someone already stuck
         is advice they cannot take. The expected name is therefore read out of SKILL.md rather than
         written here — two copies that must agree, instead of three that can drift."""
-        skill = os.path.join(PKG, "skills", "taskmd", "SKILL.md")
+        skill = os.path.join(PKG, "SKILL.md")
         with io.open(skill, encoding="utf-8") as handle:
             block = re.search(r"```bash\n([^\n]+)\n", handle.read())
         self.assertIsNotNone(block, "SKILL.md no longer opens its first command in a bash block")

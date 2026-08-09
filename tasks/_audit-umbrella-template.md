@@ -25,7 +25,7 @@ deliverables: []
 - [ ] Factual accuracy — claims traceable to `docs/` or an external source
 - [ ] Internal consistency — no contradictions across deliverables
 - [ ] Completeness — every required element of the deliverable present
-- [ ] Standard compliance — the work follows [`plugin/docs/METHOD.md`](../plugin/docs/METHOD.md)
+- [ ] Standard compliance — the work follows [`plugin/skills/taskmd/docs/METHOD.md`](../plugin/skills/taskmd/docs/METHOD.md)
 - [ ] Audience fit — understandable by the audience the deliverable names
 - [ ] Link and file hygiene — no broken links, no stray working files
 

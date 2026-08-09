@@ -70,7 +70,7 @@ a config file adapts it. Decide this before writing code; it shapes everything.
 **Settled in [T-001](../tasks/T-001-decide-how-the-front-matter-schema-is-configured.md)**
 (2026-08-04): (1), with the defaults of (3) **and the pass-through of (2)** — the three were not
 in fact alternatives. The decisions and their rationale live in that task file; the resulting
-schema lives in [`plugin/taskmd/defaults/config.md`](../plugin/taskmd/defaults/config.md), which is also the
+schema lives in [`plugin/skills/taskmd/taskmd/defaults/config.md`](../plugin/skills/taskmd/taskmd/defaults/config.md), which is also the
 only documentation of what a config may contain.
 
 ### Commands
@@ -135,7 +135,7 @@ Learned the expensive way in the source project. Each cost something.
    optimised, because nothing needed to be.
 4. ~~**Sub-tasks vs. dependencies**~~ — **closed** by
    [T-008](../tasks/T-008-write-the-backend-neutral-method-document.md), 2026-08-04. The distinction
-   is a two-question test in [`METHOD.md`](../plugin/docs/METHOD.md) §4 *Which edge to use*, and it turned out to
+   is a two-question test in [`METHOD.md`](../plugin/skills/taskmd/docs/METHOD.md) §4 *Which edge to use*, and it turned out to
    need a third answer as much as the first two: if neither question fires, do not link them at all.
 5. ~~**Should `check` fix?**~~ — **closed**: an automatic fixer that rewrites task content is
    non-goal 6 in [`SCOPE.md`](SCOPE.md). The reason turned out to be stronger than the original

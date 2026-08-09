@@ -14,13 +14,13 @@ effort: m
 created: 2026-08-04
 updated: 2026-08-07
 deliverables:
-  - plugin/taskmd/discovery.py
-  - plugin/taskmd/schema.py
-  - plugin/taskmd/cli.py
-  - plugin/taskmd/__main__.py
-  - plugin/taskmd/defaults/config.md
-  - plugin/taskmd.sh
-  - plugin/taskmd.ps1
+  - plugin/skills/taskmd/taskmd/discovery.py
+  - plugin/skills/taskmd/taskmd/schema.py
+  - plugin/skills/taskmd/taskmd/cli.py
+  - plugin/skills/taskmd/taskmd/__main__.py
+  - plugin/skills/taskmd/taskmd/defaults/config.md
+  - plugin/skills/taskmd/taskmd.sh
+  - plugin/skills/taskmd/taskmd.ps1
   - tests/test_runtime.py
   - tests/fixtures/broken-hook/.taskmd/config.md
 ---

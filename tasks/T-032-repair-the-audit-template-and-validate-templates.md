@@ -49,7 +49,7 @@ Four defects, of which `check` can see the first two:
    left this one, so a task made from it sorts after everything estimated and shows no soft links.
 4. **The body is `1. Specify / 2. Findings / 3. Resolution`** — not the four mandatory phases (R-3),
    and its fixed *Review dimensions* checklist predates
-   [`docs/method/audit.md`](../plugin/docs/method/audit.md) step 2, which requires a finding threshold
+   [`docs/method/audit.md`](../plugin/skills/taskmd/docs/method/audit.md) step 2, which requires a finding threshold
    stated per audit instead.
 
 **Why nobody saw it.** `load_tasks` skips folders whose name begins with `_`, so `_templates/` was
@@ -130,7 +130,7 @@ plan** to be audited.
 Most of it is already written, and where it is not, **it does not belong in this task**:
 
 - Scope-first, threshold-before-looking, findings-in-the-umbrella and close-only-when-children-resolve
-  are [`docs/method/audit.md`](../plugin/docs/method/audit.md) steps 1–5. The mandatory lifecycle is METHOD
+  are [`docs/method/audit.md`](../plugin/skills/taskmd/docs/method/audit.md) steps 1–5. The mandatory lifecycle is METHOD
   rule 2.
 - **Genuinely new:** that the audit *procedure* is designed in `plan`, per audit. That is an addition
   to `audit.md`.

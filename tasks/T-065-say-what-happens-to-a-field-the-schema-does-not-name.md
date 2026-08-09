@@ -69,7 +69,7 @@ contain, so a false statement there is unresolvable from anywhere else.
   an unused accessor is recorded.
 - In: whether `BINDING.md` §1 *read* — *"Properties the backend does not understand are returned
   unchanged, not dropped"* — is still satisfied by `context`, which
-  [`local-markdown.md`](../plugin/docs/bindings/local-markdown.md) declares to be that operation.
+  [`local-markdown.md`](../plugin/skills/taskmd/docs/bindings/local-markdown.md) declares to be that operation.
 - Out: adding a command or a flag to display them. `docs/SCOPE.md` non-goal 11 stands.
 - Out: removing the `taskmd.schema` entry point, which is T-030's and is the reason this is worth
   settling now rather than after.

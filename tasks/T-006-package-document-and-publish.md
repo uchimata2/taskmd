@@ -2,10 +2,10 @@
 id: T-006
 title: Package, document and publish
 type: deliverable
-status: planned
-phase: plan
+status: in_progress
+phase: implement
 parent: null
-blocked_by: [T-002, T-003, T-004, T-008, T-009, T-010, T-011, T-018, T-079]
+blocked_by: [T-002, T-003, T-004, T-008, T-009, T-010, T-011, T-018, T-079, T-083]
 related: []
 work_package: none
 owner: maintainer
@@ -49,7 +49,22 @@ R-15, R-20, R-23 (`docs/SCOPE.md`). This task closes the definition of done, `SC
       maintainer found by asking. The eight above are unchanged.*
 
 **Open questions**
-- None. **Answered by the maintainer on 2026-08-07: both, with the marketplace plugin primary.**
+- **What the second shape actually is.** Step 1 falsified the premise the 2026-08-07 answer rests on:
+  no subset of this tree is a working skill package, because `SKILL.md`'s `../../` pointers escape any
+  directory a subset would be copied into, and `bin/` on `PATH` is a plugin mechanism a skill install
+  does not have. Three ways out, and the choice changes what steps 5 and 8 write and prove.
+  **Answered by the maintainer on 2026-08-09: (b)**, and raised as
+  [T-083](T-083-make-the-skill-directory-self-contained.md), which now blocks this task at step 5.
+  *(a) Assemble the package at release time* from the one tree, rewriting four
+  link prefixes — keeps both shapes and keeps one home for the skill body, at the cost of a build step
+  in a project whose pitch is that there is no build. *(b) Move `docs/` and the package under
+  `skills/taskmd/`* so the skill directory is self-contained and shape two becomes a copy of one
+  folder — `bin/` stays at the plugin root as the `PATH` shim and gains one line of relative path.
+  The cost is a directory move at publication, and T-064 already showed that a link checker says
+  nothing about the prose citations a move leaves dangling. *(c) Drop the second shape* and publish
+  the plugin alone, which reverses the 2026-08-07 answer rather than repairing its premise.
+- ~~Which distribution shapes~~ — **answered by the maintainer on 2026-08-07: both, with the
+  marketplace plugin primary.**
   The tree is already a plugin and the marketplace is how it is found; the plain skill package is a
   subset of the same tree and is what someone not using the marketplace needs. *Rejected: the plugin
   alone.* Two shapes are two sets of install instructions and paths to keep true — which is the cost
@@ -74,6 +89,16 @@ installed — publishing before those exist would ship a product that fails its 
 | 7 | Publish to a public remote, setting the repository description from [`docs/repo-description.txt`](../docs/repo-description.txt). The maintainer's action: it is outward-facing and not undoable, and the token this project has already failed twice to delete a repository with (T-037, T-077). | The public repository, described |
 | 8 | Install **both** shapes from a clean clone of what was published, run each shape's proving command, and list what the install carries. | Two transcripts, and the installed file list — which is also how criterion 5's "ships the method document and both bindings" is read rather than assumed |
 
+**Step 1 did invalidate part of the rest, and the plan is revised here rather than quietly.**
+*Added 2026-08-09.* Its answer is in §3 and the maintainer chose the repair the same day, so steps 5
+and 8 now write and prove a shape that does not exist yet:
+[T-083](T-083-make-the-skill-directory-self-contained.md) makes `plugin/skills/taskmd/` self-contained
+and is a new blocker on this task. **Steps 2, 3 and 4 are done and none of them moves** — they measure
+this repository, not the package layout. Step 5 resumes when T-083 closes, and its second set of
+install instructions is then a copy of one folder rather than the assembly step step 1 had to perform
+by hand. The paragraph below is what the plan said before the answer, and it stands: it is the reason
+the answer arrived cheaply.
+
 **Step 1 is first because it can invalidate the rest.** Criterion 8 asks both shapes to be proven by
 a command that runs, and the second shape is a name in an answer rather than anything that exists.
 If a skill-only install cannot put `taskmd` on `PATH`, then steps 5 and 8 are writing and proving a
@@ -93,7 +118,7 @@ a figure nobody took, which is the failure this task was scheduled last to avoid
   per shape* — two homes for one fact, when the shapes differ in about a dozen lines.
 - **The README points at the method; it carries none of it.** Criterion 5's sentence — changing
   backend changes the binding, not the method — is a claim about the *package*, so it belongs there;
-  `plugin/docs/METHOD.md` and `plugin/docs/bindings/` stay the only homes for the thing itself.
+  `plugin/skills/taskmd/docs/METHOD.md` and `plugin/skills/taskmd/docs/bindings/` stay the only homes for the thing itself.
 - **This repository is the sample project of step 2.** It is the only real taskmd project that
   exists, and its tasks are real work. *Rejected: a project built for the measurement*, which would
   produce a ratio chosen rather than found. *Rejected: quoting `reference/`'s 37,909 → 992*, which is
@@ -117,11 +142,134 @@ than a step that produces the outcome.
 
 ## 3. Implement
 
-**Decisions & assumptions**
-- <decision — rationale — date>
+Worked in plan order. Steps 1 to 4 are below; **step 5 is held**, for the reason step 1 gives.
+
+### Step 1 — the plain skill package, and why it is not a subset
+
+The plan put this first because it can invalidate the rest. It did.
+
+**The straight copy fails before the entry point is even reached.** A plain skill is a directory under
+the harness's own `skills/` folder, so `plugin/skills/taskmd/` copied there puts `SKILL.md` two levels
+below that folder — and every pointer it makes is written `../../`, which now escapes the package
+into the harness's root:
+
+```
+DANGLING  taskmd/SKILL.md -> ../../docs/METHOD.md
+DANGLING  taskmd/SKILL.md -> ../../docs/bindings/
+DANGLING  taskmd/SKILL.md -> ../../docs/METHOD.md
+DANGLING  taskmd/SKILL.md -> ../../taskmd/defaults/config.md
+DANGLING  taskmd/adopt.md -> ../../taskmd/defaults/config.md
+DANGLING  taskmd/adopt.md -> ../../docs/bindings/
+DANGLING  taskmd/adopt.md -> ../../docs/METHOD.md
+2 markdown file(s), 7 dangling link(s)
+```
+
+This is [T-064](T-064-stop-the-plugin-citing-documents-it-does-not-ship.md)'s failure arriving from
+the other direction: the plugin ships what it cites, and the skill package would cite what it does
+not ship. The `../../` shape is correct for the plugin layout and is exactly what breaks the copy.
+
+**A self-contained package does work, and it is 23 files.** Assembling `SKILL.md`, `adopt.md`,
+`docs/`, `taskmd/`, `bin/` and both launchers into one directory, with the four link prefixes
+rewritten, resolves everything and runs:
+
+```
+14 markdown file(s), 0 dangling link(s)
+
+<package>/bin/taskmd check      OK - 1 task(s), vocabulary valid, references resolve, no broken links   exit 0
+<package>/bin/taskmd list       T-001  specified  -  plan  Generated task 1
+<package>/bin/taskmd.cmd check  OK - 1 task(s), vocabulary valid, references resolve, no broken links   exit 0
+```
+
+Run from a project that is neither this repository nor the package, through `sh` and through the
+`.cmd`, so both platforms' entry points are covered. Against the marketplace install's 24 files
+([T-067](T-067-prove-the-install-route-an-adopter-actually-takes.md)) the difference is one:
+`.claude-plugin/plugin.json`, which a skill has no use for.
+
+**What it cannot offer is the command the skill names.** `taskmd` is not on `PATH` by this route and
+cannot be: collecting `<plugin-root>/bin` is something the harness does for enabled **plugins**, which
+is [T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md)'s whole mechanism, and a
+skill is not a plugin. What a skill does get is its own base directory, which the harness states to
+the session on invocation — so the command it can honestly name is one relative to that.
+
+*Not a new finding, and not re-raised:* bare `taskmd` also fails on this machine from the installed
+plugin, in both the bash and the PowerShell tool, with no `PATH` entry mentioning a plugin at all.
+That is the truncated shell snapshot T-054 diagnosed and recorded as this machine's rather than the
+plugin's, and [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) settled the question
+elsewhere by running the bare name on `PATH` on Linux. `claude plugin list` reports `taskmd@taskmd`
+version 0.1.0, user scope, enabled — so the install is real and the `PATH` is the known local defect.
+
+**So the maintainer's 2026-08-07 answer rests on a premise this step falsified.** It reads *"the plain
+skill package is a subset of the same tree"*. No subset of the tree is a working skill package: the
+subset's own documentation dangles, and the entry point is a mechanism the route does not have. The
+question that follows is in §1 *Open questions*, because it changes what steps 5 and 8 produce and
+that is not this session's to decide alone.
+
+### Step 2 — the `context` saving, re-measured on this repository
+
+**T-029**, chosen because its shape is ordinary: one parent, three soft links, no blockers. Starting
+it without the tool means the task file, the project's conventions, the generated index, and every
+task it links to.
+
+```
+taskmd context T-029 | wc -c                                    693
+
+wc -c  tasks/T-029-….md  CLAUDE.md  tasks/README.md
+       tasks/T-026-….md  tasks/T-002-….md  tasks/T-022-….md  tasks/T-055-….md
+                                                             156901 total
+```
+
+**156,901 bytes to 693, which is 0.44%.** `docs/BRIEF.md` records the prior art at 37,909 to 992, or
+2.6%; the ratio is better here because this project's task records are far longer, which is a
+property of the sample and not an improvement in the tool.
+
+**And that figure is the generous reading.** It counts the links T-029 stores. The far end of a soft
+link and every `blocks` edge are derived and written nowhere, so a session without the tool cannot
+know what waits on T-029 without reading every task file: `cat tasks/T-*.md | wc -c` is **1,274,604
+bytes**. The honest range is that the tool replaces between 157 kB and 1.27 MB with 693 bytes,
+and the wide end is `docs/BRIEF.md`'s third wall rather than a rhetorical flourish.
+
+### Step 3 — the eleven non-goals, against the tree
+
+Each row names what was looked at. The shipped tree is `plugin/`.
+
+| # | Non-goal | Verdict | What was looked at |
+| :-- | :--- | :---: | :--- |
+| 1 | Project management | holds | `value_field` and `effort_field` are read in exactly two places, `effective_values` and `order` in `cli.py`, both the ordering. The amendment's own test is that either field being read by anything else has left the carve-out; nothing else reads them |
+| 2 | A running process | holds | The package imports `os, re, shlex, shutil, subprocess, sys` and `json`. No socket, no threading, no asyncio, no database |
+| 3 | A user interface | holds | Same import list: no curses, no tkinter, no webbrowser, no server. Output is `print` |
+| 4 | Multi-user coordination | holds | No locking module is imported. [T-004](T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md) §3 D4 settled what a collision does instead: every command reports it and nothing renumbers |
+| 5 | Network access from the core | holds | No `urllib`, `http`, `socket` or `requests` anywhere in the package |
+| 6 | An automatic fixer | holds | One `write()` in the whole package and one call site, `cmd_index` at `cli.py:305`. The tool writes the index and nothing else, so no task content can be rewritten |
+| 7 | Model, effort or cost gates | holds | One occurrence of "model" in the shipped tree, a `rationale.md` heading saying the method says nothing about which model does the work |
+| 8 | Migration tooling | holds | No match for `migrat` anywhere in the package or its docs; `COMMANDS` is `{check, context, index, list}` |
+| 9 | Replacing GitHub Issues | holds | The GitHub binding applies the method to issues through `gh`, and its assumptions section asks whether the project's habits fit rather than asking anyone to leave |
+| 10 | Notifications, scheduling, recurrence | holds | Three prose hits, all innocuous: "recurred" in `audit.md`, "on a schedule" in `rationale.md`, and the heading above. No scheduler, no timer |
+| 11 | A query language | holds | `list`'s filters are `--<field> <value>` over the configured vocabularies and link names, plus `--open`, `--closed`, `--limit`, `--json`. No boolean expressions, no saved queries, no aggregation |
+
+### Step 4 — the two sentences
+
+**Scale**, quoted verbatim from [T-004](T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md)
+§3 D2, which wrote it to be quotable and dash-free so it survives §5a's gate:
+
+> At its shipped id width taskmd handles up to 999 tasks with every command finishing in under a
+> second (measured at 999 tasks: `check`, the slowest, took 0.83 s), and a project that raises
+> `id_width` to go further pays 1.34 s for `check` at 2000 tasks and up to 3.9 s at 5000.
+
+*Rejected: a bare "fast" or "scales to thousands"*, neither of which anything measured.
+
+**Platforms:**
+
+> Run on Windows and on Linux, where a fresh clone regenerated a byte-identical index. macOS is
+> untested rather than unsupported: nothing in the tool is known to depend on the platform, and
+> nobody has run it there.
+
+*Rejected: claiming macOS*, which is what T-020's outcome was amended in order not to do. *Rejected:
+omitting macOS silently*, which reads as a claim to a reader scanning for their own platform. The
+Linux half is [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md)'s, which compared
+the regenerated index against the committed blob two ways.
 
 **Outputs produced**
-- <path>
+- Steps 1 to 4 above. `README.md` is held at step 5.
 
 ## 4. Review
 
@@ -136,6 +284,7 @@ than a step that produces the outcome.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-09 | → in_progress | Steps 1 to 4 worked in plan order; step 5 held. The plan said step 1 came first because it could invalidate the rest, and it did: no subset of this tree is a working skill package. A straight copy leaves seven dangling links, because `SKILL.md`'s `../../` pointers are correct for the plugin layout and escape any other one, and `bin/` on `PATH` is a plugin mechanism a skill install does not have. A self-contained 23-file package does work and was run through both entry points from an unrelated project, but it cannot be produced by copying. So the 2026-08-07 answer's premise is false and its question is re-opened with three ways out and a recommendation, rather than one being chosen here. The `context` saving reproduces at 156,901 bytes to 693, and 1,274,604 to 693 if you count what it takes to learn nothing waits on the task. All eleven non-goals hold, each row naming what was read. Bare `taskmd` failing on this machine is T-054's snapshot defect and is recorded as not re-raised; T-049 proved the bare name on Linux. |
 | 2026-08-09 | (no change) | Reconciled by [T-081](T-081-gate-every-deployment-on-the-humanizer-pass.md). When T-079 closed, this plan was left describing a hand-off to it that could no longer happen, and **no step applied the humanize rule at all** — the blocker had dissolved and taken the step with it. Step 5a now applies it and runs the gate, and a ninth acceptance criterion makes `review` able to fail for skipping it. Step 7 already named where the repository description lives; that home moved from a task record into `docs/repo-description.txt`, and the step's link resolves through `docs/PUBLISHING.md` §4 rather than being restated here. |
 | 2026-08-09 | (no change) | **Answered by the maintainer: T-004 first.** So the question this plan raised is closed by a dependency rather than by the README going silent, and criterion 6 will be met by a measured ceiling instead of vacuously. `blocked_by` gains T-004, which leaves `related` — one relationship shown under two edge kinds is noise in the graph, not the permitted second write. It also gains **T-079**, raised in the same turn: the human-facing documents go through the `humanizer` skill before anything is published, which is a blocker because publication makes the first impression once and because step 5's README is that task's input. Plan steps 4 and 6 are reworded to match; nothing else in the plan moved. |
 | 2026-08-09 | → planned | Eight steps. The plain skill package leads because it is the one shape that has never existed — the marketplace route was installed and listed by T-067, while `bin/` reaching `PATH` is a plugin mechanism T-054 proved for plugins, so a skill-only install may not be able to end its instructions in the command criterion 1 asks for. The plan says so rather than inventing steps 5 and 8 in detail against an unknown. Four shape decisions, each with its rejection: one root README; the README points at the method and carries none of it; this repository is the sample project the `context` saving is re-measured on, because a project built for the measurement chooses its own ratio; and nothing lands in `CLAUDE.md`, which is over its tier-1 bound already. **One thing is raised rather than absorbed**: criterion 6 asks the README to claim a scale that T-004 measured, and T-004 has measured nothing, so on the plan as written that criterion is met by claiming no ceiling at all — vacuously. Whether publication waits for T-004 is a dependency edge, and the maintainer's to add. |

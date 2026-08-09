@@ -10,21 +10,21 @@ setup.
 
 ## 2. Take the default schema, or replace it
 
-[`../../taskmd/defaults/config.md`](../../taskmd/defaults/config.md) is what a project gets with no
+[`taskmd/defaults/config.md`](taskmd/defaults/config.md) is what a project gets with no
 configuration at all, and is also the only description of what a configuration may contain. To
 change any of it, copy that file to `.taskmd/config.md` and edit it there; the rules for writing one
 are in the file itself.
 
 ## 3. Choose a binding
 
-[`../../docs/bindings/`](../../docs/bindings/) holds one document per backend. Read the candidate's
+[`docs/bindings/`](docs/bindings/) holds one document per backend. Read the candidate's
 *Assumptions this binding makes* section before anything else: every entry is a claim about **your**
 project rather than a description of the backend, and a claim that is false for you is how a project
 ends up inconsistent while appearing to comply. Stop at the first one you cannot answer.
 
 ## 4. Carry the conduct rules your harness loads unasked
 
-[`../../docs/METHOD.md`](../../docs/METHOD.md) §3 names which of its rules bind *before* it is clear
+[`docs/METHOD.md`](docs/METHOD.md) §3 names which of its rules bind *before* it is clear
 that there is any task work, and therefore cannot wait for the method to be loaded. Put those where
 your project's own always-loaded conventions live.
 

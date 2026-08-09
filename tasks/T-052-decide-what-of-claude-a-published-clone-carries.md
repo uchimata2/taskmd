@@ -194,7 +194,7 @@ re-refused it after measuring what it would have cost, so there is no purpose to
 
 **On the first criterion, which was weaker than it looked.** It is judged **met on its own text** —
 the demonstration it names was performed and passed — so this is not a criterion being changed under
-[`../plugin/docs/method/review.md`](../plugin/docs/method/review.md) *Changing a criterion*, and its wording stands
+[`../plugin/docs/method/review.md`](../plugin/skills/taskmd/docs/method/review.md) *Changing a criterion*, and its wording stands
 unedited. But it is worth a reader knowing that it could not have failed here: it asks for a
 `git ls-files` result, and a global ignore rule produces that result whether or not the repository
 has one. That is the same blind spot this task was raised to fix, reappearing in the criterion

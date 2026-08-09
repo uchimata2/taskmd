@@ -18,7 +18,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | ID | Title | Status | Phase | Parent | Children | Blocked By | Blocks | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) | Align with the handoff tracker-binding contract | `specified` | `specify` | - | - | T-009 | - | T-002, T-007, T-009, T-033 |
-| [T-006](T-006-package-document-and-publish.md) | Package, document and publish | `planned` | `plan` | - | - | T-002, T-003, T-004, T-008, T-009, T-010, T-011, T-018, T-079 | T-037 | T-013, T-019, T-020, T-023, T-026, T-034, T-049, T-050, T-052, T-053, T-054, T-059, T-064, T-067, T-072 |
+| [T-006](T-006-package-document-and-publish.md) | Package, document and publish | `in_progress` | `implement` | - | - | T-002, T-003, T-004, T-008, T-009, T-010, T-011, T-018, T-079, T-083 | T-037 | T-013, T-019, T-020, T-023, T-026, T-034, T-049, T-050, T-052, T-053, T-054, T-059, T-064, T-067, T-072 |
 | [T-020](T-020-confirm-byte-identical-output-on-macos-and-linux.md) | Confirm byte-identical output on macOS and Linux | `specified` | `specify` | T-002 | - | - | - | T-006, T-023, T-030 |
 | [T-021](T-021-settle-what-the-context-closing-line-may-say.md) | Settle what the context closing line may say | `specified` | `specify` | T-002 | - | - | - | T-003, T-022 |
 | [T-023](T-023-stop-config-errors-printing-an-absolute-install-path.md) | Stop config errors printing an absolute install path | `specified` | `specify` | - | - | - | - | T-006, T-019, T-020, T-024, T-030, T-066 |
@@ -76,8 +76,8 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | `done` | `review` | T-003 | - | - | - | T-006, T-052, T-053 |
 | [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | `done` | `review` | - | - | - | - | T-001, T-003, T-060, T-076 |
 | [T-052](T-052-decide-what-of-claude-a-published-clone-carries.md) | Decide what of .claude a published clone carries, and ignore the rest | `done` | `review` | - | - | - | - | T-003, T-006, T-050, T-053, T-067 |
-| [T-053](T-053-decide-the-plugin-s-boundary-and-what-its-skill-may-p.md) | Decide the plugin's boundary, and what its skill may point at | `done` | `review` | - | - | - | - | T-003, T-006, T-050, T-052, T-054, T-059, T-064, T-067, T-072 |
-| [T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md) | Give an adopter a way to run the commands the skill names | `done` | `review` | - | T-055, T-056 | - | - | T-003, T-006, T-049, T-053, T-055, T-056, T-067, T-068 |
+| [T-053](T-053-decide-the-plugin-s-boundary-and-what-its-skill-may-p.md) | Decide the plugin's boundary, and what its skill may point at | `done` | `review` | - | - | - | - | T-003, T-006, T-050, T-052, T-054, T-059, T-064, T-067, T-072, T-083 |
+| [T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md) | Give an adopter a way to run the commands the skill names | `done` | `review` | - | T-055, T-056 | - | - | T-003, T-006, T-049, T-053, T-055, T-056, T-067, T-068, T-083 |
 | [T-055](T-055-settle-what-the-tool-calls-itself-when-it-prints-its-o.md) | Settle what the tool calls itself when it prints its own usage | `done` | `review` | T-054 | - | - | - | T-029, T-054, T-071 |
 | [T-056](T-056-make-the-shell-launcher-executable-in-a-unix-clone.md) | Make the shell launcher executable in a Unix clone | `done` | `review` | T-054 | - | - | - | T-011, T-049, T-054, T-061 |
 | [T-057](T-057-let-the-hook-tests-name-an-interpreter-that-exists.md) | Let the hook tests name an interpreter that exists on the platform | `done` | `review` | T-049 | - | - | - | T-011, T-049 |
@@ -87,7 +87,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-061](T-061-stop-an-inherited-pythonpath-breaking-the-launcher.md) | Stop an inherited PYTHONPATH breaking the shell launcher | `done` | `review` | T-059 | - | - | - | T-049, T-056, T-068 |
 | [T-062](T-062-report-two-tasks-claiming-one-id-instead-of-dropping.md) | Report two tasks claiming one id instead of dropping one | `done` | `review` | T-059 | - | - | - | T-004, T-075 |
 | [T-063](T-063-measure-the-tier-1-member-the-rule-declares.md) | Measure the tier-1 member the rule declares | `done` | `review` | T-059 | - | - | - | T-028, T-047 |
-| [T-064](T-064-stop-the-plugin-citing-documents-it-does-not-ship.md) | Stop the plugin citing documents it does not ship | `done` | `review` | T-059 | - | - | - | T-006, T-053 |
+| [T-064](T-064-stop-the-plugin-citing-documents-it-does-not-ship.md) | Stop the plugin citing documents it does not ship | `done` | `review` | T-059 | - | - | - | T-006, T-053, T-083 |
 | [T-065](T-065-say-what-happens-to-a-field-the-schema-does-not-name.md) | Say what happens to a field the schema does not name | `done` | `review` | T-059 | - | - | - | T-001, T-030 |
 | [T-066](T-066-reconcile-two-open-tasks-with-the-fix-that-landed.md) | Reconcile two open tasks with the fix that already landed | `done` | `review` | T-059 | - | - | - | T-011, T-023, T-030 |
 | [T-067](T-067-prove-the-install-route-an-adopter-actually-takes.md) | Prove the install route an adopter actually takes | `done` | `review` | T-059 | - | - | - | T-006, T-052, T-053, T-054, T-077 |
@@ -104,5 +104,6 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-079](T-079-humanize-the-human-facing-documents-before-publishing.md) | Humanize the human-facing documents before publishing | `done` | `review` | - | - | - | T-006 | T-081 |
 | [T-080](T-080-stop-the-pre-publish-check-reporting-its-own-fixture.md) | Stop the pre-publish check reporting its own fixture from a subdirectory | `done` | `review` | - | - | - | - | T-018, T-034, T-058, T-081 |
 | [T-081](T-081-gate-every-deployment-on-the-humanizer-pass.md) | Gate every deployment on the humanizer pass, not just the next one | `done` | `review` | - | - | - | - | T-079, T-080 |
+| [T-083](T-083-make-the-skill-directory-self-contained.md) | Make the skill directory self-contained | `done` | `review` | - | - | - | T-006 | T-053, T-054, T-064 |
 
 <!-- taskmd:end -->

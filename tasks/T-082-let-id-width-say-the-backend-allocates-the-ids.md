@@ -22,7 +22,7 @@ deliverables: []
 
 **Outcome**
 A project whose ids are allocated by its backend can write a config that describes them, and
-[`github-issues.md`](../plugin/docs/bindings/github-issues.md) stops claiming the identity keys
+[`github-issues.md`](../plugin/skills/taskmd/docs/bindings/github-issues.md) stops claiming the identity keys
 already do.
 
 **Why this one**
@@ -55,12 +55,12 @@ to describe its own ids.
   as an escape hatch.
 
 **Inputs**
-- [`defaults/config.md`](../plugin/taskmd/defaults/config.md) — `none` is already this config's word
+- [`defaults/config.md`](../plugin/skills/taskmd/taskmd/defaults/config.md) — `none` is already this config's word
   for a key that does not apply, in `blocked_status`, `deliverables_field`, `value_field`,
   `effort_field` and `after_write`. The idiom exists; this is one more use of it.
-- [`schema.py`](../plugin/taskmd/schema.py) — `is_id`, `looks_like_id`, `format_id`, and the
+- [`schema.py`](../plugin/skills/taskmd/taskmd/schema.py) — `is_id`, `looks_like_id`, `format_id`, and the
   `id_width < 1` rejection that a non-numeric value has to pass through.
-- [`github-issues.md`](../plugin/docs/bindings/github-issues.md) — the sentence, and assumption 1
+- [`github-issues.md`](../plugin/skills/taskmd/docs/bindings/github-issues.md) — the sentence, and assumption 1
   around it.
 
 **Acceptance criteria**

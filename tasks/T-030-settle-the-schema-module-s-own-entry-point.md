@@ -86,7 +86,7 @@ R-18, R-20 (`docs/SCOPE.md`); non-goal 11, which is about what the surface is.
 - [x] No entry point prints an absolute path on **any** path, success or failure (R-20); shown on a
       project with no `.taskmd/config.md`, which is the case that produces it — **already met**, by
       `_display()` in `580d22b`. Kept as written, per
-      [`review.md`](../plugin/docs/method/review.md) *Changing a criterion*: it was a real criterion
+      [`review.md`](../plugin/skills/taskmd/docs/method/review.md) *Changing a criterion*: it was a real criterion
       and it is satisfied, but by another task, so it can no longer be evidence for removing this
       entry point
 - [ ] If the entry point survives, it takes `--root PATH` like everything else — two conventions for

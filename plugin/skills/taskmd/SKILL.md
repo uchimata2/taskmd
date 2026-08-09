@@ -32,9 +32,9 @@ binding supplies the operations instead — and everything below is unchanged, w
 
 | Load | When |
 | :--- | :--- |
-| [`../../docs/METHOD.md`](../../docs/METHOD.md) | Now, before doing anything to a task. It is the method. |
+| [`docs/METHOD.md`](docs/METHOD.md) | Now, before doing anything to a task. It is the method. |
 | the phase file it names in its §7 | Beginning that phase |
-| this project's binding, in [`../../docs/bindings/`](../../docs/bindings/) | Before creating or changing any task. It says which artifact plays each role here, and what a write still owes afterwards. |
+| this project's binding, in [`docs/bindings/`](docs/bindings/) | Before creating or changing any task. It says which artifact plays each role here, and what a write still owes afterwards. |
 | [`adopt.md`](adopt.md) | The project has no tasks yet, or a command reports its task folder missing |
 
 A write is not finished until the binding's *after any write* step has run, and it is yours to run —
@@ -43,8 +43,8 @@ the binding says why the tool cannot do it for you.
 ## Two things this tool makes easy to get wrong
 
 - **`context` shows you every phase of a task at once**, including a plan you were not asked to
-  execute — which is the situation [`../../docs/METHOD.md`](../../docs/METHOD.md) §3.1 exists for.
+  execute — which is the situation [`docs/METHOD.md`](docs/METHOD.md) §3.1 exists for.
 - **The field names and their allowed values are configuration, not something to remember**:
-  [`../../taskmd/defaults/config.md`](../../taskmd/defaults/config.md) is the schema, and
+  [`taskmd/defaults/config.md`](taskmd/defaults/config.md) is the schema, and
   `taskmd check` reports every violation of it by name. Do not carry it in your head, and
   do not copy any of it into a task or a project document.

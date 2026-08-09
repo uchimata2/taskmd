@@ -75,11 +75,11 @@ Below the line: style and wording preference, and feature ideas nobody asked for
   Twenty-three memory files plus their index.
 - In: the open tasks' own `specify` sections, judged as live claims about current code — an open
   task's premise is not a dated record, it is what the next session will act on.
-- Out: **fixing anything.** METHOD §5 and [`audit`](../plugin/docs/method/audit.md).
+- Out: **fixing anything.** METHOD §5 and [`audit`](../plugin/skills/taskmd/docs/method/audit.md).
 - ~~Out: **raising the child tasks.**~~ **Back in scope, 2026-08-09.** Deferred at first at the
   maintainer's request — *"we will decide together which one to care about"* — and returned by their
   answer, *"let's make them all"*, given after reading the sixteen findings and the triage. So
-  [`audit.md`](../plugin/docs/method/audit.md) step 4 is performed after all, one turn later than
+  [`audit.md`](../plugin/skills/taskmd/docs/method/audit.md) step 4 is performed after all, one turn later than
   usual, with the finding set approved rather than assumed. The deferral is struck through rather
   than deleted: it is the reason the children were raised in a second pass, and a reader of the
   triage table should be able to see that the ordering was agreed before the tasks existed.
@@ -89,7 +89,7 @@ Below the line: style and wording preference, and feature ideas nobody asked for
   step; this is T-026's own ruling and it is not reopened.
 
 **Inputs**
-[`audit.md`](../plugin/docs/method/audit.md); `docs/SCOPE.md`; `CLAUDE.md`;
+[`audit.md`](../plugin/skills/taskmd/docs/method/audit.md); `docs/SCOPE.md`; `CLAUDE.md`;
 [T-026](T-026-audit-the-whole-project-before-the-remaining-build.md) for the threshold and the
 deduplication baseline; `taskmd list --json` for the graph.
 
@@ -112,7 +112,7 @@ deduplication baseline; `taskmd list --json` for the graph.
   sixteen.** Given after the findings and the triage were put to them, so the approval is of a set
   they had seen rather than of a promise. One shape offered in the triage table was **not** taken:
   folding F-11…F-16 into a single housekeeping task. Sixteen findings therefore became sixteen
-  tasks, one to one, which is what [`audit.md`](../plugin/docs/method/audit.md) step 4 asks for and
+  tasks, one to one, which is what [`audit.md`](../plugin/skills/taskmd/docs/method/audit.md) step 4 asks for and
   what keeps each finding traceable to its own fix. The two that will almost certainly be worked
   together — [T-062](T-062-report-two-tasks-claiming-one-id-instead-of-dropping.md) and
   [T-075](T-075-enforce-id-width-when-a-task-file-is-read.md), same function — carry a soft edge
@@ -258,7 +258,7 @@ Two observations about the shape of this list, offered because they are the part
 ### Examined, no action
 
 The evidence that an area was looked at. Without these a reader cannot tell "checked and clean" from
-"not looked at" ([`audit.md`](../plugin/docs/method/audit.md)).
+"not looked at" ([`audit.md`](../plugin/skills/taskmd/docs/method/audit.md)).
 
 | # | Observation | Why no action |
 | :-- | :--- | :--- |

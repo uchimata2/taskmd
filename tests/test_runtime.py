@@ -23,7 +23,8 @@ import tempfile
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PKG = os.path.join(ROOT, "plugin")   # the plugin subtree: where the taskmd package lives
+PLUGIN = os.path.join(ROOT, "plugin")                    # the plugin root: what an install receives
+PKG = os.path.join(PLUGIN, "skills", "taskmd")           # the skill directory (T-083)
 sys.path.insert(0, PKG)
 
 from taskmd import cli  # noqa: E402
@@ -346,7 +347,10 @@ class ThePluginShipsWhatItCites(unittest.TestCase):
     #: deliberately left outside the plugin. None of the four ships.
     ESCAPES = re.compile(r"\bR-\d+\b|\bnon-goal\b|\bSCOPE\.md\b|\bBRIEF\.md\b|\bCLAUDE\.md\b")
 
-    SUBTREE = PKG  # the plugin root: exactly what an install receives
+    SUBTREE = PLUGIN  # the plugin root: exactly what an install receives. **Not the skill
+    #: directory** — since T-083 the two are different, and narrowing this to the skill would stop
+    #: reading `bin/` and the manifest without failing anything, which is the silent under-scan this
+    #: project has now paid for three times.
 
     def plugin_files(self):
         for base, dirs, files in os.walk(self.SUBTREE):
@@ -400,14 +404,14 @@ class Launchers(unittest.TestCase):
         """Every file a user can invoke, **derived from the tree** rather than written down here.
 
         Two places, and they are two audiences: the plugin root is what a contributor with a clone
-        types (`./plugin/taskmd.sh`), and `bin/` is what the harness puts on an adopter's PATH.
+        types (`./plugin/bin/taskmd`), and `bin/` is also what the harness puts on a PATH.
         Deriving it is the point — a written pair is correct only until someone adds a third entry
         point, and the day that happens is exactly the day nobody remembers to extend the list
         (T-068).
         """
         found = [os.path.join(PKG, n) for n in sorted(os.listdir(PKG))
                  if n.startswith("taskmd.") and os.path.isfile(os.path.join(PKG, n))]
-        bindir = os.path.join(PKG, "bin")
+        bindir = os.path.join(PLUGIN, "bin")
         found += [os.path.join(bindir, n) for n in sorted(os.listdir(bindir))]
         return found
 
@@ -430,9 +434,9 @@ class Launchers(unittest.TestCase):
 
     def test_every_entry_point_exists_where_the_one_who_runs_it_will_look(self):
         """Derived, so this cannot pass by describing a tree that has moved on."""
-        found = [os.path.relpath(p, PKG).replace("\\", "/") for p in self.entry_points()]
-        self.assertIn("taskmd.sh", found)
-        self.assertIn("taskmd.ps1", found)
+        found = [os.path.relpath(p, PLUGIN).replace("\\", "/") for p in self.entry_points()]
+        self.assertIn("skills/taskmd/taskmd.sh", found)
+        self.assertIn("skills/taskmd/taskmd.ps1", found)
         self.assertIn("bin/taskmd", found)
         self.assertIn("bin/taskmd.cmd", found)
 
@@ -443,7 +447,7 @@ class Launchers(unittest.TestCase):
         Now over `bin/` too. Both files there are delegates, and a delegate that learned a command
         name would be a second launcher wearing a thin coat."""
         for path in self.entry_points():
-            name = os.path.relpath(path, PKG).replace("\\", "/")
+            name = os.path.relpath(path, PLUGIN).replace("\\", "/")
             markers = self.COMMENT[os.path.splitext(path)[1]]
             body = "\n".join(ln for ln in cli.read(path).splitlines()
                              if ln.strip() and not ln.strip().lower().startswith(markers))
@@ -462,7 +466,7 @@ class Launchers(unittest.TestCase):
                                   stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         ran = []
         for path in self.entry_points():
-            name = os.path.relpath(path, PKG).replace("\\", "/")
+            name = os.path.relpath(path, PLUGIN).replace("\\", "/")
             with self.subTest(entry=name):
                 argv = self.how_to_run(path)
                 if argv is None:
@@ -484,7 +488,7 @@ class Launchers(unittest.TestCase):
         env = dict(os.environ, PYTHONPATH=PKG)
         direct = subprocess.run([sys.executable, "-m", "taskmd", "check"], cwd=ROOT, env=env,
                                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        viash = subprocess.run(["bash", "plugin/taskmd.sh", "check"], cwd=ROOT,
+        viash = subprocess.run(["bash", "plugin/skills/taskmd/taskmd.sh", "check"], cwd=ROOT,
                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         self.assertEqual(direct.stdout, viash.stdout)
         self.assertEqual(direct.returncode, viash.returncode)

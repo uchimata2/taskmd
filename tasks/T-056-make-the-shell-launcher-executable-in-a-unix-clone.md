@@ -13,7 +13,7 @@ business_value: high
 effort: xs
 created: 2026-08-08
 updated: 2026-08-09
-deliverables: [plugin/taskmd.sh, tests/test_runtime.py]
+deliverables: [plugin/skills/taskmd/taskmd.sh, tests/test_runtime.py]
 ---
 
 # T-056 — Make the shell launcher executable in a Unix clone

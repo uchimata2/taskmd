@@ -36,7 +36,7 @@ T-0001  proposed  -  specify  over-wide id, width is 3
 T-001   proposed  -  specify  SECOND file alphabetically
 ```
 
-`T-0001` is accepted as a task. [`local-markdown.md`](../plugin/docs/bindings/local-markdown.md)
+`T-0001` is accepted as a task. [`local-markdown.md`](../plugin/skills/taskmd/docs/bindings/local-markdown.md)
 *enumerate* says the opposite:
 
 > read every `.md` file; keep the ones whose `id` field matches the configured prefix **and width**.
@@ -68,7 +68,7 @@ R-13 (`docs/SCOPE.md`) — a binding's stated behaviour is what an adopter build
 
 **Inputs**
 `plugin/taskmd/schema.py` (`Schema.is_id`, `format_id`, `number_of`, `load_tasks`),
-[`local-markdown.md`](../plugin/docs/bindings/local-markdown.md) *enumerate*,
+[`local-markdown.md`](../plugin/skills/taskmd/docs/bindings/local-markdown.md) *enumerate*,
 [T-059](T-059-audit-the-whole-project-after-the-plugin-restructure.md) F-16.
 
 **Acceptance criteria**

@@ -28,7 +28,7 @@ is covered or not by the same test, with nothing here to edit.
 parsing.*
 
 - **Commit messages.** Read by people, but after they have arrived, and they are the audit trail.
-- **The plugin's agent-facing instructions** — `plugin/skills/`, `plugin/docs/`, the schema config.
+- **The plugin's agent-facing instructions** — `plugin/skills/`, `plugin/skills/taskmd/docs/`, the schema config.
   The compression that reads as machine-written is the feature there, and `SKILL.md`'s `description`
   is served to every session unasked, where characters are the budget.
 - **Task files.** An audit trail of work already done. Rewriting their prose edits the history

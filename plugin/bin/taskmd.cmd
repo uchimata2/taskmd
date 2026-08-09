@@ -9,5 +9,5 @@ rem It delegates to taskmd.ps1 one directory up rather than repeating interprete
 rem -NoProfile keeps a user's profile out of it; -ExecutionPolicy Bypass is scoped to this one
 rem process and is what lets an adopter on the default Restricted policy run it at all.
 
-powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0..\taskmd.ps1" %*
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0..\skills\taskmd\taskmd.ps1" %*
 exit /b %ERRORLEVEL%

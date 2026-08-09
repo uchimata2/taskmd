@@ -90,7 +90,7 @@ sense that nobody should have to remember which of two open tasks was overtaken.
 - [ ] Neither task's `specify` asserts a behaviour the current code does not have — checked by
       running the commands each one quotes
 - [ ] Where a criterion has become unmeetable, it is marked so with the original kept, per
-      [`review.md`](../plugin/docs/method/review.md) *Changing a criterion* — not silently rewritten
+      [`review.md`](../plugin/skills/taskmd/docs/method/review.md) *Changing a criterion* — not silently rewritten
 - [ ] What each task is actually still for is stated in one sentence a reader meets first
 - [ ] The maintainer's recorded answers survive unchanged in both
 - [ ] No absolute path is written into either record while correcting them (R-23)
@@ -104,7 +104,7 @@ sense that nobody should have to remember which of two open tasks was overtaken.
   its transcript describe a leak that no longer exists; both are corrected. Criterion 1 is marked
   **already met** by T-011, and criterion 4 (*shown failing on a fixture, per R-16*) is marked
   **unmeetable** with the original text kept, per
-  [`review.md`](../plugin/docs/method/review.md) *Changing a criterion* — nothing fails, so nothing
+  [`review.md`](../plugin/skills/taskmd/docs/method/review.md) *Changing a criterion* — nothing fails, so nothing
   can be shown failing.
 
   **The decision that survives is the one that was actually taken.** On 2026-08-07 the maintainer
@@ -150,7 +150,7 @@ last.
 - **D1 — struck through, never deleted** — 2026-08-09. Every overtaken sentence and both criteria are
   kept with the original text visible and marked. A record edited to match what turned out to happen
   is a description, and a reader could no longer tell which parts predated the work — which is
-  [`review.md`](../plugin/docs/method/review.md) *Changing a criterion*, applied to a `specify`
+  [`review.md`](../plugin/skills/taskmd/docs/method/review.md) *Changing a criterion*, applied to a `specify`
   rather than to a `review`.
 
 - **D2 — T-030's dedupe paragraph is rewritten rather than struck** — 2026-08-09. It reasoned about

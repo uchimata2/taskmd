@@ -27,7 +27,7 @@ import sys
 USAGE = "usage: python tests/scale.py <count> <width> <destination>"
 
 DEFAULTS = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                        os.pardir, "plugin", "taskmd", "defaults", "config.md")
+                        os.pardir, "plugin", "skills", "taskmd", "taskmd", "defaults", "config.md")
 
 # The measured shape of this repository, in the order the docstring states it.
 PARENT_IN = 2          # every 2nd task carries a parent, which is the 46%

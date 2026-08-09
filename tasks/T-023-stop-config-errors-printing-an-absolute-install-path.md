@@ -79,7 +79,7 @@ R-20, and R-23 in spirit (`docs/SCOPE.md`).
 **Acceptance criteria**
 
 Criteria 1 and 4 were overtaken by T-011. Both are kept as written and marked, per
-[`review.md`](../plugin/docs/method/review.md) *Changing a criterion* — a criterion edited to match
+[`review.md`](../plugin/skills/taskmd/docs/method/review.md) *Changing a criterion* — a criterion edited to match
 what happened is a description, not a criterion.
 
 - [x] A config error against the shipped default prints the same bytes regardless of where taskmd

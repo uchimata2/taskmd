@@ -14,8 +14,8 @@ effort: xs
 created: 2026-08-04
 updated: 2026-08-04
 deliverables:
-  - plugin/taskmd/schema.py
-  - plugin/taskmd/defaults/config.md
+  - plugin/skills/taskmd/taskmd/schema.py
+  - plugin/skills/taskmd/taskmd/defaults/config.md
   - tests/test_schema.py
 ---
 
@@ -107,8 +107,8 @@ twice.
   fails the stated requirement outright.
 
 **Outputs produced**
-- [`taskmd/schema.py`](../plugin/taskmd/schema.py) — symmetric derivation, `Task.links()`, self-link guard
-- [`taskmd/defaults/config.md`](../plugin/taskmd/defaults/config.md) — the `soft` row and its explanation
+- [`taskmd/schema.py`](../plugin/skills/taskmd/taskmd/schema.py) — symmetric derivation, `Task.links()`, self-link guard
+- [`taskmd/defaults/config.md`](../plugin/skills/taskmd/taskmd/defaults/config.md) — the `soft` row and its explanation
 - [`tests/test_schema.py`](../tests/test_schema.py) — six tests covering both ends and both writings
 
 ## 4. Review

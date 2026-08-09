@@ -14,8 +14,8 @@ effort: l
 created: 2026-08-04
 updated: 2026-08-05
 deliverables:
-  - plugin/docs/BINDING.md
-  - plugin/docs/bindings/local-markdown.md
+  - plugin/skills/taskmd/docs/BINDING.md
+  - plugin/skills/taskmd/docs/bindings/local-markdown.md
 ---
 
 # T-009 — Define the backend binding contract and write the local-Markdown binding
@@ -67,7 +67,7 @@ set rather than over one item.
 - Handoff `control/IMPROVEMENT-BRIEF.md` **F1** — a binding stated "the folder is the index" as a
   premise; an adopting project with a generated index could follow it exactly and still break its
   own single source of truth. The failure was silent and looked like compliance.
-  **Not reachable from this working copy** — recorded per [`specify`](../plugin/docs/method/specify.md)
+  **Not reachable from this working copy** — recorded per [`specify`](../plugin/skills/taskmd/docs/method/specify.md)
   step 3. It is not a dependency in disguise, because the finding's substance is quoted above and
   the instance it describes is readable directly: the handoff package's own `local-markdown-dir`
   binding still says the folder is the index and that there is no central list to keep in sync,
@@ -285,7 +285,7 @@ pre-publish grep over the tracked tree      5 hits, all in T-013's fixture (T-01
 not executed — no repository was called, and `docs/SCOPE.md` A3 means none will be until T-010. It
 proves the contract's wording accommodates a file-less backend, which is what criterion 4 asks; it
 does not prove the GitHub binding works, which is not this task's claim. Recorded per
-[`implement`](../plugin/docs/method/implement.md) rather than left implied.
+[`implement`](../plugin/skills/taskmd/docs/method/implement.md) rather than left implied.
 
 ## 4. Review
 
@@ -294,7 +294,7 @@ does not prove the GitHub binding works, which is not this task's claim. Recorde
 | Every operation the method needs is named with what it must guarantee, and nothing it does not — falsified by an operation no rule requires, or a rule the set cannot carry out | met | The §3 derivation runs both directions over every rule in `docs/METHOD.md`. Residual 1 (operations no rule asked for) is empty. Residual 2 is **not** empty and the plan predicted it would be: §3.1, §3.2 and §6 require nothing of a backend. That is a wrong prediction, not an unserved rule — the three are agent conduct and role assignment — and the contract states it rather than leaving a reader to rediscover it |
 | Guarantees, not mechanisms: no operation names a field, a status value, an id format or a file format — falsified by an operation implementable only one way | met | Checked by grep, not by reading: the contract contains no schema field name, no status value, no id pattern and no file extension; the only filenames in it are the project's own documents. The stronger evidence is that two backends of different shape implement the same six sentences — files with local ids, and a remote tracker with server-assigned ids, labels and no files at all. One marginal call, recorded rather than tidied: the local binding uses "done tasks" as ordinary English in two places, which a grep for status values hits. It describes finished work rather than defining a value, so it passes — a reviewer who disagrees is looking at the right line |
 | Each binding carries an *assumptions this binding makes* section checkable in thirty seconds — falsified concretely by the folder-is-the-index question | met | `docs/bindings/local-markdown.md` opens with it: six numbered claims about the adopting project, plus the METHOD §6 home assignments and an explicit "backend limits: none". 34 lines. Assumption 1 answers the F1 question head-on and names the sentence it contradicts. The contract's §4 makes the section mandatory with five minimum entries, so T-010 inherits it. **Weaker than it reads:** thirty seconds was judged on the text, not measured on an uninvolved reader — the same limitation T-019's review recorded, and for the same reason |
-| Derived views expressed without assuming a filesystem, proven by one operation against a file-less backend, **showing the contract text needed no change** | met — **the wording's prediction was falsified, and that is the result** | The operations needed no change. §3 did: GitHub presents blocked-by and blocking as two views of one relation, so it meets the both-ends guarantee *without* enumerating, and the draft's "derived views are computed from `enumerate`" would have made a conforming backend non-conforming for being better at it. So the contract does not assume a filesystem — which is what the criterion is for — but it reached that state by being corrected, not by having been right. Recorded openly per [`review`](../plugin/docs/method/review.md); had the test found nothing, it would have proved only that the author agreed with himself. **The owner may want the clause amended; the outcome does not change either way** |
+| Derived views expressed without assuming a filesystem, proven by one operation against a file-less backend, **showing the contract text needed no change** | met — **the wording's prediction was falsified, and that is the result** | The operations needed no change. §3 did: GitHub presents blocked-by and blocking as two views of one relation, so it meets the both-ends guarantee *without* enumerating, and the draft's "derived views are computed from `enumerate`" would have made a conforming backend non-conforming for being better at it. So the contract does not assume a filesystem — which is what the criterion is for — but it reached that state by being corrected, not by having been right. Recorded openly per [`review`](../plugin/skills/taskmd/docs/method/review.md); had the test found nothing, it would have proved only that the author agreed with himself. **The owner may want the clause amended; the outcome does not change either way** |
 | The local-Markdown binding proven by being followed — `check` passes, the index differs only by the intended change, and it has been made to fail | met | Made to fail without being staged: the session updated a task's front-matter and skipped the regeneration step, and `check` reported the project consistent while the index disagreed with it (transcript in §3). `create` was then performed from the binding text alone and produced T-025. Review added the check `implement` did not run: `index` is **idempotent** — a second consecutive run leaves the file byte-identical, so "differs only by the intended change" is a property of the generator rather than of how carefully the write was done |
 | Q1 answered in writing with the reason, since T-005 cannot start without it | met | Answered in §1 and carried into §3 with the evidence that one addition is *sufficient* rather than merely convenient. T-005's own text says T-009 owns this decision; closing this task unblocks it |
 

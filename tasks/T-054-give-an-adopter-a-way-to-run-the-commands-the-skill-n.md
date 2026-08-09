@@ -96,7 +96,7 @@ of the harness.
 
 Step 1 is first because §1's second acceptance criterion asks for the failure before the fix, and it costs
 one command. **Step 2 is where this plan can be invalidated**, which is
-[`../plugin/docs/method/plan.md`](../plugin/docs/method/plan.md)'s *reduces uncertainty soonest* rule —
+[`../plugin/docs/method/plan.md`](../plugin/skills/taskmd/docs/method/plan.md)'s *reduces uncertainty soonest* rule —
 it is second rather than first only because step 1 does not depend on it. Steps 3–5 are written at the
 detail step 2 allows and no further: if step 2 answers no, the plan stops there rather than
 substituting D4's shape silently.

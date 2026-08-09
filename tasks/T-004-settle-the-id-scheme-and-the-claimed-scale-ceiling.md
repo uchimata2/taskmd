@@ -52,12 +52,12 @@ comes out of it.
   moving an existing backlog onto it is non-goal 8.
 
 **Inputs**
-- [`plugin/taskmd/defaults/config.md`](../plugin/taskmd/defaults/config.md) — the shipped defaults,
+- [`plugin/taskmd/defaults/config.md`](../plugin/skills/taskmd/taskmd/defaults/config.md) — the shipped defaults,
   and the only description of what the identity keys mean.
-- [`plugin/taskmd/schema.py`](../plugin/taskmd/schema.py) — `is_id`, `format_id`, `load_tasks`.
-- [`local-markdown.md`](../plugin/docs/bindings/local-markdown.md) *create* and *enumerate* —
+- [`plugin/taskmd/schema.py`](../plugin/skills/taskmd/taskmd/schema.py) — `is_id`, `format_id`, `load_tasks`.
+- [`local-markdown.md`](../plugin/skills/taskmd/docs/bindings/local-markdown.md) *create* and *enumerate* —
   allocation, and the two ways a file misses being a task.
-- [`github-issues.md`](../plugin/docs/bindings/github-issues.md) — assumption 1, and the paragraph on
+- [`github-issues.md`](../plugin/skills/taskmd/docs/bindings/github-issues.md) — assumption 1, and the paragraph on
   what the identity keys do on a backend that allocates them.
 - Generated projects at each measured scale. They do not exist and nothing blocks making them, so
   this is an input rather than a dependency; how they are generated is `plan`'s.
@@ -180,7 +180,7 @@ task at all (§1). That is a property of the fixture and settles nothing about s
   a warm interpreter and not the thing an agent actually waits on, which is process start included.
 
 **Not in this plan, deliberately:** editing
-[`defaults/config.md`](../plugin/taskmd/defaults/config.md). Step 5 *decides* the default; changing
+[`defaults/config.md`](../plugin/skills/taskmd/taskmd/defaults/config.md). Step 5 *decides* the default; changing
 the shipped one is a code change, which §1 routes to its own task. If the decision is to keep the
 width at 3 there is nothing to edit and no task to raise, and that asymmetry is the point of putting
 the decision here and the change elsewhere.

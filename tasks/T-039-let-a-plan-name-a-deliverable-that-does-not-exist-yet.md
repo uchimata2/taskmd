@@ -14,7 +14,7 @@ effort: s
 created: 2026-08-07
 updated: 2026-08-07
 deliverables:
-  - plugin/docs/method/plan.md
+  - plugin/skills/taskmd/docs/method/plan.md
 ---
 
 # T-039 — Let a plan name a deliverable that does not exist yet
@@ -139,7 +139,7 @@ is the property the rejected option would have spent.
   that one of them was a defect did not survive step 1. — 2026-08-07
 
 **Outputs produced**
-- [`docs/method/plan.md`](../plugin/docs/method/plan.md) — step 6 gains the paths-not-links rule and the
+- [`docs/method/plan.md`](../plugin/skills/taskmd/docs/method/plan.md) — step 6 gains the paths-not-links rule and the
   promised-versus-produced distinction
 
 ## 4. Review

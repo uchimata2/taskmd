@@ -33,7 +33,7 @@ template would reproduce the exact defect T-032 exists to fix.
 
 **The part that is agreed.** An audit's procedure is not fixed in advance: `specify` carries the
 goals and requirements, and `plan` researches and produces the procedure for *that* audit. This is
-consistent with [`docs/method/audit.md`](../plugin/docs/method/audit.md) step 2, which already requires a
+consistent with [`docs/method/audit.md`](../plugin/skills/taskmd/docs/method/audit.md) step 2, which already requires a
 finding threshold stated per audit rather than a standing checklist, and it is what the retired
 *Review dimensions* checklist in the template got wrong. It needs saying in `audit.md`.
 
@@ -60,7 +60,7 @@ it an audit, and the objection is that the name is what forces the exception:
 **And the behaviour described is already the method, under its own names.** "Do not apply it if the
 change is not obviously authorised" is METHOD §3.3's first branch: *it changes what the current task
 should produce → raise it as a question now, before continuing.* "Add major findings as decisions"
-is [`plan`](../plugin/docs/method/plan.md) step 5: *choose, and write down what was rejected and why.*
+is [`plan`](../plugin/skills/taskmd/docs/method/plan.md) step 5: *choose, and write down what was rejected and why.*
 
 **The real gap** is narrower than either reading: the method never says a plan **may be revised after
 it is written**, nor where the revision is recorded. `plan.md` describes writing a plan once;
@@ -83,7 +83,7 @@ R-3, R-21 (`docs/SCOPE.md`), and METHOD rule 4, whose integrity is the thing at 
   is a task and not a phase* is the record.
 
 **Inputs**
-[`docs/method/audit.md`](../plugin/docs/method/audit.md), [`docs/method/plan.md`](../plugin/docs/method/plan.md),
+[`docs/method/audit.md`](../plugin/skills/taskmd/docs/method/audit.md), [`docs/method/plan.md`](../plugin/skills/taskmd/docs/method/plan.md),
 `docs/METHOD.md` §3.3 and rule 4, [T-032](T-032-repair-the-audit-template-and-validate-templates.md)
 §1 *Deliberately not answered here*.
 

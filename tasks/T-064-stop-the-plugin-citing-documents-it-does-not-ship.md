@@ -117,7 +117,7 @@ reworded, [T-059](T-059-audit-the-whole-project-after-the-plugin-restructure.md)
 
   **What is lost, stated rather than waved past:** the trace from a line of code back to the
   requirement that shaped it. It survives where
-  [`METHOD.md`](../plugin/docs/METHOD.md) §6 says rationale belongs anyway — the task records — and
+  [`METHOD.md`](../plugin/skills/taskmd/docs/METHOD.md) §6 says rationale belongs anyway — the task records — and
   is recoverable with `git log -S` on the removed citation. That is a worse index than a footnote and
   it is the price of the boundary being real.
 
@@ -229,7 +229,7 @@ taskmd context T-064                  renders
 | Every `R-NN` citation inside `plugin/` either resolves for an adopter or has been replaced by the statement it was standing in for — decided once and applied consistently | met | All 21, documents and docstrings alike, on the maintainer's one rule. Five needed a rewritten sentence rather than a deleted prefix; those are D2 |
 | The sweep is written down where the next restructure will meet it, and is shown catching a deliberately reintroduced escape, per R-16 | met | §3 step 4, one escape of each kind. It is a test, so "will meet it" needs nobody to remember |
 | `taskmd/defaults/config.md` is checked as the copied artifact it is | met | §3 step 5 — copied into a fresh project, `check` clean, no dangling reference in the copy |
-| Nothing in the tracked tree outside `plugin/` is changed | **not met, deliberately** | `tests/test_runtime.py` changed. Criterion 4 cannot be satisfied without it: the sweep's subject is the subtree, so it must not live *in* the subtree and ship to every adopter. The two criteria are inconsistent as written and this is the one that gave. Original kept above rather than edited to match, per [`review.md`](../plugin/docs/method/review.md) *Changing a criterion*. Nothing else outside `plugin/` was touched by this task |
+| Nothing in the tracked tree outside `plugin/` is changed | **not met, deliberately** | `tests/test_runtime.py` changed. Criterion 4 cannot be satisfied without it: the sweep's subject is the subtree, so it must not live *in* the subtree and ship to every adopter. The two criteria are inconsistent as written and this is the one that gave. Original kept above rather than edited to match, per [`review.md`](../plugin/skills/taskmd/docs/method/review.md) *Changing a criterion*. Nothing else outside `plugin/` was touched by this task |
 
 **Child fix tasks raised**
 - none. The one unmet criterion is a conflict between two criteria rather than a gap in the work —
