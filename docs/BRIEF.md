@@ -124,13 +124,15 @@ Learned the expensive way in the source project. Each cost something.
 
 1. ~~**Schema configuration**~~ — **closed** by
    [T-001](../tasks/T-001-decide-how-the-front-matter-schema-is-configured.md), 2026-08-04.
-2. **ID scheme.** The source used `T-NNN`, zero-padded, never reused, with the next id in the
-   generated index. Configurable prefix? Configurable width? What happens on a merge conflict?
-   — open, [T-004](../tasks/T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md). The
-   prefix and width are configurable (T-001 D8); the values and the merge behaviour are not settled.
-3. **Scale.** `context` and `index` re-read every task file on each run. Fine at 17 files. At 500?
-   Measure before optimising, but decide where the ceiling is claimed to be. — open,
-   [T-004](../tasks/T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md).
+2. ~~**ID scheme**~~ — **closed** by
+   [T-004](../tasks/T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md), 2026-08-09.
+   Configurable (T-001 D8), defaulting to `T-` at width 3, and a merge collision costs a message
+   rather than a task: every command reports it and none of them renumbers anything.
+3. ~~**Scale**~~ — **closed** by
+   [T-004](../tasks/T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md), 2026-08-09.
+   Measured at seven scales, and the answer is that the two ceilings coincide: the default width
+   stops a project at 999 tasks, which is just short of where `check` crosses a second. Nothing was
+   optimised, because nothing needed to be.
 4. ~~**Sub-tasks vs. dependencies**~~ — **closed** by
    [T-008](../tasks/T-008-write-the-backend-neutral-method-document.md), 2026-08-04. The distinction
    is a two-question test in [`METHOD.md`](../plugin/docs/METHOD.md) §4 *Which edge to use*, and it turned out to

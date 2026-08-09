@@ -17,7 +17,6 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 
 | ID | Title | Status | Phase | Parent | Children | Blocked By | Blocks | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| [T-004](T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md) | Settle the id scheme and the claimed scale ceiling | `proposed` | `specify` | - | - | T-001 | T-006 | T-002, T-007, T-010, T-043, T-059, T-062, T-075 |
 | [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) | Align with the handoff tracker-binding contract | `specified` | `specify` | - | - | T-009 | - | T-002, T-007, T-009, T-033 |
 | [T-006](T-006-package-document-and-publish.md) | Package, document and publish | `planned` | `plan` | - | - | T-002, T-003, T-004, T-008, T-009, T-010, T-011, T-018, T-079 | T-037 | T-013, T-019, T-020, T-023, T-026, T-034, T-049, T-050, T-052, T-053, T-054, T-059, T-064, T-067, T-072 |
 | [T-020](T-020-confirm-byte-identical-output-on-macos-and-linux.md) | Confirm byte-identical output on macOS and Linux | `specified` | `specify` | T-002 | - | - | - | T-006, T-023, T-030 |
@@ -35,6 +34,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | `specified` | `specify` | - | - | - | - | T-026, T-032 |
 | [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `specified` | `specify` | - | - | T-003 | - | T-015, T-028, T-059, T-063 |
 | [T-078](T-078-say-what-a-tasks-dir-of-dot-means.md) | Say what a tasks_dir of dot means | `specified` | `specify` | - | - | - | - | T-019, T-024, T-069 |
+| [T-082](T-082-let-id-width-say-the-backend-allocates-the-ids.md) | Let id_width say that the backend allocates the ids | `proposed` | `specify` | T-004 | - | - | - | T-010, T-075 |
 
 ## Closed
 
@@ -43,10 +43,11 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-001](T-001-decide-how-the-front-matter-schema-is-configured.md) | Decide how the front-matter schema is configured | `done` | `review` | - | - | - | T-002, T-004 | T-012, T-051, T-065, T-070 |
 | [T-002](T-002-implement-the-core-cli-context-index-check.md) | Implement the core CLI: context, index, check | `done` | `review` | - | T-019, T-020, T-021 | T-001 | T-003, T-006, T-011 | T-004, T-005, T-007, T-008, T-025, T-029 |
 | [T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md) | Write the skill that teaches the agent to use the CLI | `done` | `review` | - | T-050 | T-002, T-008 | T-006, T-047 | T-008, T-017, T-019, T-021, T-022, T-026, T-028, T-032, T-048, T-051, T-052, T-053, T-054, T-074 |
+| [T-004](T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md) | Settle the id scheme and the claimed scale ceiling | `done` | `review` | - | T-082 | T-001 | T-006 | T-002, T-007, T-010, T-043, T-059, T-062, T-075 |
 | [T-007](T-007-define-the-project-scope-goals-and-requirements.md) | Define the project scope, goals and requirements | `done` | `review` | - | - | - | T-008 | T-002, T-004, T-005, T-022 |
 | [T-008](T-008-write-the-backend-neutral-method-document.md) | Write the backend-neutral method document | `done` | `review` | - | T-014, T-015, T-016, T-017 | T-007 | T-003, T-006, T-009 | T-002, T-003, T-013 |
 | [T-009](T-009-define-the-backend-binding-contract.md) | Define the backend binding contract and write the local-Markdown binding | `done` | `review` | - | - | T-008 | T-005, T-006, T-010 | T-005, T-010, T-012, T-025, T-038, T-040, T-043, T-074 |
-| [T-010](T-010-write-the-github-issues-binding.md) | Write the GitHub Issues binding | `done` | `review` | - | - | T-009 | T-006 | T-004, T-009, T-026, T-037, T-038, T-039, T-040, T-041, T-042, T-043, T-044 |
+| [T-010](T-010-write-the-github-issues-binding.md) | Write the GitHub Issues binding | `done` | `review` | - | - | T-009 | T-006 | T-004, T-009, T-026, T-037, T-038, T-039, T-040, T-041, T-042, T-043, T-044, T-082 |
 | [T-011](T-011-runtime-discovery-and-project-hook-commands.md) | Runtime auto-discovery and project hook commands | `done` | `review` | - | T-049 | T-002 | T-006 | T-013, T-025, T-056, T-057, T-066, T-069 |
 | [T-012](T-012-decide-whether-soft-edges-are-symmetric.md) | Decide whether soft edges are symmetric | `done` | `review` | - | - | - | - | T-001, T-009 |
 | [T-013](T-013-quarantine-local-only-information-behind-gitignore.md) | Quarantine local-only information behind .gitignore | `done` | `review` | - | - | - | - | T-006, T-008, T-011, T-018, T-033, T-034, T-035, T-073 |
@@ -97,7 +98,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-072](T-072-give-the-description-and-version-one-home-each.md) | Give the plugin's description and version one home each | `done` | `review` | T-059 | - | - | - | T-006, T-053 |
 | [T-073](T-073-correct-the-command-surface-local-context-states.md) | Correct the command surface local context still states | `done` | `review` | T-059 | - | - | - | T-013, T-022 |
 | [T-074](T-074-let-the-skill-point-where-it-currently-restates.md) | Let the skill point where it currently restates | `done` | `review` | T-059 | - | - | - | T-003, T-009 |
-| [T-075](T-075-enforce-id-width-when-a-task-file-is-read.md) | Enforce id width when a task file is read | `done` | `review` | T-059 | - | - | - | T-004, T-062 |
+| [T-075](T-075-enforce-id-width-when-a-task-file-is-read.md) | Enforce id width when a task file is read | `done` | `review` | T-059 | - | - | - | T-004, T-062, T-082 |
 | [T-076](T-076-decide-what-a-template-s-links-resolve-against.md) | Decide what a template's links resolve against | `done` | `review` | - | - | - | - | T-032, T-051, T-060 |
 | [T-077](T-077-delete-the-rehearsal-repository-t-067-installed-from.md) | Delete the rehearsal repository T-067 installed from | `done` | `review` | - | - | - | - | T-037, T-067 |
 | [T-079](T-079-humanize-the-human-facing-documents-before-publishing.md) | Humanize the human-facing documents before publishing | `done` | `review` | - | - | - | T-006 | T-081 |
