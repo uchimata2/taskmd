@@ -7,7 +7,7 @@ Read by the `handoff` skill. Plain Markdown, read by the agent — no parser.
 - `handoff_file`: .handoff/HANDOFF.md
 - `tracker`: local-markdown-dir
 - `project_docs`: CLAUDE.md, docs/ (start with `docs/SCOPE.md` — goal, requirements, non-goals)
-- `reconcile_targets`: `tasks/`, `docs/*.md`, `CLAUDE.md`, `.handoff/config.md` (this file)
+- `reconcile_targets`: `tasks/`, `docs/*.md`, `CLAUDE.md`, `control/`, `.handoff/config.md` (this file)
 - `language`: (omitted — match the source; this project is English)
 
 > **`reconcile_targets` is a pattern, not a list — keep it that way.** It previously named
@@ -17,6 +17,13 @@ Read by the `handoff` skill. Plain Markdown, read by the agent — no parser.
 > of homes is itself a second copy of "what the project docs are", and it goes stale exactly when a
 > home is added, which is the moment the sweep matters most. Resolve the globs against the working
 > tree at sweep time; never hand-maintain the membership.
+>
+> **`control/` is the directory, not a file in it** — added 2026-08-09 by T-073, for the same
+> reason. That folder was outside every sweep because it is gitignored, and a sentence in it
+> claiming a three-command CLI outlived its correction in two tracked files by four days. Naming
+> `control/LOCAL-CONTEXT.md` would have been the enumeration this entry warns against; naming the
+> folder keeps the membership derived. Being swept does not make anything in there publishable —
+> the quarantine that file describes is unchanged.
 
 ## Tracker keys — `local-markdown-dir`
 

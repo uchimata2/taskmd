@@ -2,8 +2,8 @@
 id: T-072
 title: Give the plugin's description and version one home each
 type: fix
-status: proposed
-phase: specify
+status: done
+phase: review
 parent: T-059
 blocked_by: []
 related: [T-006, T-053]
@@ -87,24 +87,83 @@ R-1 (`docs/SCOPE.md`); §1 *Invisibility*; §2 principle 1.
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Establish what the harness actually requires, by removing each field from the marketplace entry and validating - the criterion forbids inferring it | Three validation runs |
+| 2 | Settle the open question about `metadata.description` | The decision in §3 D2 |
+| 3 | Apply: drop from the marketplace entry whatever may be dropped | `.claude-plugin/marketplace.json` |
+| 4 | Reinstall and confirm the harness resolves both fields from the surviving home | The transcript |
+
+**Why step 1 is three runs and not one.** The two fields could differ - a marketplace that needs a
+version to order its entries would plausibly still not need a description. Testing them together
+would have answered a question nobody asked.
 
 ## 3. Implement
 
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+- **D1 - both fields are optional in the marketplace entry, so both leave it** - 2026-08-09.
+  Established by running `claude plugin validate .` against four manifests:
+
+  ```
+  baseline                    Validation passed with warnings
+  without description         Validation passed with warnings
+  without version             Validation passed with warnings
+  without both                Validation passed with warnings
+  ```
+
+  The only warning in every run is the pre-existing *no author information* note, unrelated. So
+  `plugin/.claude-plugin/plugin.json` is now the single home of each, and the release obligation the
+  finding described - *"must move together at every release"* - is gone rather than written down
+  somewhere a release will meet it. One home beats a reminder.
+
+- **D2 - `metadata.description` is a different fact and stays** - 2026-08-09. It describes the
+  **marketplace**, which today holds exactly one plugin; that is why the two sentences resemble each
+  other, and it would stop the moment a second plugin were added. So three homes were never three:
+  they were two facts, one of which had two homes. Its wording is untouched, which §1 puts out of
+  scope.
+
+- **D3 - `plugin/taskmd/__init__.py` stays too** - 2026-08-09. One line:
+  *"taskmd - Markdown files as a task tracker, with a generated index and real dependency links."*
+  It is a **package docstring**, addressed to someone reading the source, and it is already worded
+  differently from the manifest rather than byte-identical to it. Making a Python package import a
+  string from a JSON manifest to avoid restating its own purpose would cost more than the sentence
+  is worth. Recorded per criterion 4 rather than left unexamined.
+
+### Step 4 - it still installs, and both fields still resolve
+
+```
+claude plugin marketplace update taskmd   Successfully updated marketplace: taskmd
+claude plugin uninstall taskmd@taskmd     Successfully uninstalled
+claude plugin install   taskmd@taskmd     Successfully installed (scope: user)
+
+claude plugin list      taskmd@taskmd  Version: 0.1.0   enabled
+claude plugin details   taskmd 0.1.0
+                        Markdown files as a task tracker: one file per task, a generated index,
+                        real dependency links, and a validator. For any kind of work, not only
+                        software.
+```
+
+The version and the description the harness reports are `plugin.json`'s - the marketplace entry no
+longer carries either.
+
+**Outputs produced**
+- `.claude-plugin/marketplace.json` - the plugin entry is now `name` and `source`
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| It is established - by reading what the harness accepts, not by inference - whether either field may be omitted | met | Four validation runs, each field alone and both together. Run, not read |
+| Each field ends with one home, or the obligation to update two is written where a release will meet it | met | The first branch. `plugin.json` is the one home of each; no reminder was needed because nothing is left to remind anyone of |
+| The plugin still installs afterwards, demonstrated rather than assumed | met | Uninstalled and reinstalled; `list` and `details` both resolve version and description from the surviving home |
+| Every copy identified above is accounted for, including the two that may legitimately differ | met | Four copies: two removed, `metadata.description` kept as a different fact (D2), the package docstring kept as a different audience (D3) |
 
 **Child fix tasks raised**
-- none
+- none.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-09 | → done | All four criteria met. Both fields are **optional** in the marketplace entry — established by four `claude plugin validate` runs rather than inferred, which is what criterion 1 asked for — so both were dropped and `plugin/.claude-plugin/plugin.json` is the one home of each. That is better than the outcome the criterion allowed for: no release obligation had to be written down anywhere, because none is left. Reinstalled to prove it, and the harness reports the version and description from the surviving home. The open question resolved as *different fact*: `metadata.description` describes the marketplace, which holds one plugin today, which is why the two sentences resemble each other and would stop doing so on the second. So three homes were never three — two facts, one of which had two homes. |
+| 2026-08-09 | → in_progress | Plan tests the two fields **separately** as well as together: a marketplace that needed a version to order its entries would plausibly still not need a description, and testing them as a pair would have answered a question nobody asked. |
 | 2026-08-09 | → proposed | Raised as F-12 from the T-059 audit, clause 2. Compared before write-up: the marketplace entry's `description` and `plugin.json`'s are byte-identical, and `version` is written twice. `low`/`xs`, and the one thing that must not be guessed is whether the harness permits omission — T-053 D1 is the precedent for reading that rather than inferring it. |

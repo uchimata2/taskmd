@@ -37,9 +37,8 @@ binding supplies the operations instead — and everything below is unchanged, w
 | this project's binding, in [`../../docs/bindings/`](../../docs/bindings/) | Before creating or changing any task. It says which artifact plays each role here, and what a write still owes afterwards. |
 | [`adopt.md`](adopt.md) | The project has no tasks yet, or a command reports its task folder missing |
 
-A write is not finished until the binding's *after any write* step has run. Nothing in the tool can
-do this for you: taskmd never writes a task file, so the edit that made the index stale is one it
-never saw.
+A write is not finished until the binding's *after any write* step has run, and it is yours to run —
+the binding says why the tool cannot do it for you.
 
 ## Two things this tool makes easy to get wrong
 

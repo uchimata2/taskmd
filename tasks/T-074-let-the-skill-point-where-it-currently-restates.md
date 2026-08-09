@@ -2,8 +2,8 @@
 id: T-074
 title: Let the skill point where it currently restates
 type: fix
-status: proposed
-phase: specify
+status: done
+phase: review
 parent: T-059
 blocked_by: []
 related: [T-003, T-009]
@@ -85,24 +85,78 @@ R-22 (`docs/SCOPE.md`) — the skill points at the tool rather than restating wh
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Decide which file keeps the sentence | §3 D1 |
+| 2 | Rewrite the skill's line so it still tells the reader the step is theirs, without carrying the reason | `plugin/skills/taskmd/SKILL.md` |
+| 3 | Build the grep first and make it find **two**, so that finding one afterwards means something | Both counts |
+| 4 | Sweep the two skill files against the method, the binding and the config for any other shared sentence, and record the result even if it is nothing | The sweep output |
+
+**Why step 3 builds the grep before the edit.** A literal search for a wrapped, emphasised sentence
+returns zero, and zero looks exactly like success. The pattern has to be shown finding the
+duplication before it can be trusted to show the duplication gone.
 
 ## 3. Implement
 
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+- **D1 - the binding keeps it, the skill points** - 2026-08-09. The binding owns *After any write*,
+  and the sentence is the reason that step cannot be delegated to `after_write` - it belongs in the
+  paragraph that makes the distinction. R-22 says the skill points at the tool rather than restating
+  what it enforces, and this was the one place it did not. The skill's line now reads: *"A write is
+  not finished until the binding's after any write step has run, and it is yours to run - the
+  binding says why the tool cannot do it for you."* The obligation stays; the explanation moves to
+  its one home.
+
+- **D2 - the third occurrence of the clause is not a copy** - 2026-08-09. `taskmd/defaults/config.md`
+  also says *"taskmd never writes a task file"*, in a sentence about pass-through fields being
+  carried unaltered - written earlier this session by
+  [T-065](T-065-say-what-happens-to-a-field-the-schema-does-not-name.md). It is the same **premise**
+  supporting a different claim, and removing it would leave that sentence incomplete. A shared
+  premise is not a duplicated fact; what F-14 found was a duplicated *conclusion*.
+
+### Step 3 - the grep, shown finding two before it is used to show one
+
+The pattern allows a line break or emphasis between any two words, which a literal search does not:
+
+```
+edit[[:space:]*_]+that[[:space:]*_]+made[[:space:]*_]+the[[:space:]*_]+index[[:space:]*_]+stale
+
+before   plugin/skills/taskmd/SKILL.md            1
+         plugin/docs/bindings/local-markdown.md   1
+after    plugin/docs/bindings/local-markdown.md   1
+```
+
+### Step 4 - the sweep, and its answer
+
+Every sentence of eight words or more in `SKILL.md` and `adopt.md`, normalised for markup and
+compared against every `.md` under `plugin/` outside the skill:
+
+```
+nothing else found - no sentence of 8+ words is shared between the skill and the
+method, the binding or the config
+```
+
+Recorded because "nothing" is a result: the skill restated exactly one thing, and F-14 found it.
+
+**Outputs produced**
+- `plugin/skills/taskmd/SKILL.md` - two lines where three were
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| The sentence exists in one of the two files; a grep for its distinctive phrasing returns one hit under `plugin/` | met | One hit, in the binding. The skill keeps the obligation and drops the reason |
+| The grep pattern tolerates the files' own emphasis and line wrapping | met | Built before the edit and shown returning **two**, which is what licenses reading one afterwards as success rather than as a broken pattern |
+| `SKILL.md` still tells its reader that running `index` is theirs to do, without carrying the explanation | met | *"it is yours to run - the binding says why the tool cannot do it for you"* |
+| The sweep result is recorded, including "nothing else found" if that is the answer | met | That is the answer, and it is recorded. Plus D2, which is the near-miss the sweep surfaced and which is a shared premise rather than a copy |
 
 **Child fix tasks raised**
-- none
+- none.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-09 | → done | All four criteria met. The binding keeps the sentence because it owns *After any write* and the sentence is the reason that step cannot be delegated to `after_write`; the skill keeps the obligation and drops the explanation, which is R-22. The method point is criterion 2: the grep was **built before the edit and shown returning two**, because a literal search for a wrapped, emphasised sentence returns zero and zero looks exactly like success. The sweep for other shared sentences found nothing, which is recorded as a result rather than omitted. One near-miss is recorded as a decision: `config.md` uses the same clause as a **premise** for a different claim about pass-through fields, and a shared premise is not a duplicated conclusion. |
+| 2026-08-09 | → in_progress | Plan decides which file keeps the sentence before touching either, since the answer follows from R-22 and from the binding already owning the section rather than from whichever is easier to edit. |
+| 2026-08-09 | → specified | Criteria stand as raised; no open question, as recorded. |
 | 2026-08-09 | → proposed | Raised as F-14 from the T-059 audit, clause 2. Located by a phrase sweep across live documents: one sentence, verbatim, in two shipped files, two lines after the skill points at the file that holds the other copy. `low`/`xs`. The counter-argument is recorded in §1 rather than left out — the copy does real work where it sits, and R-22 is the reason it loses anyway. |

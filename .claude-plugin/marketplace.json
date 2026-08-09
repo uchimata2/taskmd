@@ -9,9 +9,7 @@
   "plugins": [
     {
       "name": "taskmd",
-      "source": "./plugin",
-      "description": "Markdown files as a task tracker: one file per task, a generated index, real dependency links, and a validator. For any kind of work, not only software.",
-      "version": "0.1.0"
+      "source": "./plugin"
     }
   ]
 }

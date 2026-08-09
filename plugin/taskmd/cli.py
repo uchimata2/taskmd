@@ -110,6 +110,24 @@ def link_names(schema):
     return names
 
 
+def in_use(names, tasks):
+    """Of `names`, the configured field columns some task in this project has a value for.
+
+    The same test `index_block` has always applied to **edge** columns, now applied to field columns
+    too — a project with no work packages should not read a column of dashes, and one that starts
+    using them should not have to remember to switch a column on (T-070).
+
+    Project-wide, never per-task: the question is whether the *project* uses the field, so every
+    task's `context` header has the same shape and a reader is not left wondering why a field
+    disappeared between two tasks.
+
+    **Views only.** `list`'s two machine forms keep every configured column, because a key that
+    vanishes the moment a field falls out of use is a breaking change to a caller that did nothing
+    wrong. A view omits a column no task has a value for; a contract does not.
+    """
+    return [n for n in names if any(t.fields.get(n) for t in tasks.values())]
+
+
 def label(name):
     return name.replace("_", " ").upper()
 
@@ -141,7 +159,7 @@ def cmd_context(root, schema, tasks, args):
     task = tasks[wanted]
 
     out = [RULE, "%s  %s" % (task.id, task.title), RULE]
-    shown = [(f, task.fields.get(f, "")) for f in schema.context_fields]
+    shown = [(f, task.fields.get(f, "")) for f in in_use(schema.context_fields, tasks)]
     out.append(" | ".join("%s %s" % (f, v or "-") for f, v in shown))
     out.append("file   %s" % rel(root, os.path.relpath(task.path, root)))
 
@@ -195,21 +213,24 @@ def table(header, rows):
 
 
 def index_block(root, schema, tasks):
-    """The generated region. Edge columns appear only when some task uses them.
+    """The generated region. A column appears only when some task uses it — edge **or** field.
 
-    Omitting an unused edge is derived from the data rather than configured — a project with no
-    hierarchy should not read a column of dashes, and one that starts using it should not have to
-    remember to switch a column on.
+    Omitting an unused column is derived from the data rather than configured, so a project with no
+    hierarchy does not read a column of dashes and one that starts using it does not have to
+    remember to switch a column on. That rule was here from the start and applied to edges only,
+    which left `work_package` rendering 58 dashes in this repository's own index; T-070 extended it
+    to the half it had always described.
     """
     names = [n for n in link_names(schema)
              if any(t.links(n) for t in tasks.values())]
-    header = ["ID", "Title"] + [c.replace("_", " ").title() for c in schema.index_columns] + \
+    columns = in_use(schema.index_columns, tasks)
+    header = ["ID", "Title"] + [c.replace("_", " ").title() for c in columns] + \
              [n.replace("_", " ").title() for n in names]
 
     def row(task):
         cells = ["[%s](%s)" % (task.id, os.path.basename(task.path)), task.title]
         cells += ["`%s`" % task.fields.get(c, "-") if task.fields.get(c) else "-"
-                  for c in schema.index_columns]
+                  for c in columns]
         cells += [", ".join(task.links(n)) or "-" for n in names]
         return cells
 

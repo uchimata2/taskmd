@@ -10,6 +10,7 @@ and nothing else.
 """
 
 import io
+import json
 import os
 import re
 import shutil
@@ -158,6 +159,60 @@ class ADuplicateIsNeverSilent(unittest.TestCase):
         finally:
             sys.stderr = stderr
         self.assertEqual("", buffer.getvalue())
+
+
+class AViewOmitsAnUnusedColumnAndAContractDoesNot(unittest.TestCase):
+    """T-070. The rule `index_block` already applied to edge columns, now applied to field columns
+    — and deliberately **not** applied to the two machine forms of `list`.
+
+    The distinction is the whole decision: `index` and `context` are read by a person or an agent
+    and a column of dashes costs both for nothing, while a key vanishing from `--json` the moment a
+    field falls out of use is a breaking change to a caller that did nothing wrong."""
+
+    def project(self, folder, work_packages):
+        """A project on the shipped default, whose tasks carry `work_package` or do not."""
+        os.makedirs(os.path.join(folder, "tasks"))
+        os.makedirs(os.path.join(folder, ".taskmd"))
+        shutil.copy(os.path.join(ROOT, "plugin", "taskmd", "defaults", "config.md"),
+                    os.path.join(folder, ".taskmd", "config.md"))
+        for number, package in enumerate(work_packages, 1):
+            cli.write(os.path.join(folder, "tasks", "T-00%d-x.md" % number),
+                      "---\nid: T-00%d\ntitle: Task %d\ntype: deliverable\nstatus: proposed\n"
+                      "phase: specify\nwork_package: %s\nowner: someone\n---\n\n# T-00%d\n"
+                      % (number, number, package, number))
+        return folder
+
+    def test_a_field_no_task_uses_is_absent_from_both_views(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(os.path.join(tmp, "p"), ["none", "none"])
+            code, out = run("context", "T-001", "--root", root)
+            self.assertEqual(code, 0, out)
+            self.assertNotIn("work_package", out)
+            self.assertIn("owner someone", out)          # a used field is still shown
+            run("index", "--root", root)
+            index = cli.read(os.path.join(root, "tasks", "README.md"))
+            self.assertNotIn("Work Package", index)
+
+    def test_one_task_using_it_brings_the_column_back_with_nothing_switched_on(self):
+        """§1 *Invisibility*: nobody edits a config to make a field they started using appear."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(os.path.join(tmp, "p"), ["none", "WP1"])
+            code, out = run("context", "T-001", "--root", root)
+            self.assertIn("work_package", out)
+            run("index", "--root", root)
+            self.assertIn("Work Package", cli.read(os.path.join(root, "tasks", "README.md")))
+
+    def test_list_emits_every_configured_column_even_when_unused(self):
+        """The contract half. Asserted rather than assumed — it is the criterion added with the
+        maintainer's answer, and the one a later change is most likely to break by accident."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(os.path.join(tmp, "p"), ["none", "none"])
+            code, out = run("list", "--json", "--root", root)
+            self.assertEqual(code, 0, out)
+            self.assertIn("work_package", json.loads(out)[0])
+            code, out = run("list", "--root", root)
+            self.assertEqual(len(out.splitlines()[0].split("\t")),
+                             2 + len(cli.load_schema(root).index_columns))
 
 
 class NothingIsHardcoded(unittest.TestCase):
@@ -388,11 +443,19 @@ class AbsentTasksDirIsReportedAtSetup(unittest.TestCase):
 
 class Usage(unittest.TestCase):
 
-    def test_no_command_explains_the_three(self):
+    def test_no_command_explains_every_command_there_is(self):
+        """T-071. The set is **derived** from `cli.COMMANDS`, not written here.
+
+        It used to be the written triple `("context", "index", "check")` — the name said *the
+        three* — so `list` was absent from the assertion for as long as it had existed, and a
+        regression that dropped it from the usage line would have passed. Deriving it is the same
+        treatment the sibling test below already gives the command *name*: two things that must
+        agree, instead of three that can drift."""
         code, out = run()
         self.assertEqual(code, 2)
-        for command in ("context", "index", "check"):
-            self.assertIn(command, out)
+        self.assertTrue(cli.COMMANDS, "no commands to assert; this test would prove nothing")
+        for command in sorted(cli.COMMANDS):
+            self.assertIn(command, out, "usage line omits %r: %r" % (command, out))
 
     def test_a_root_that_does_not_exist_is_reported(self):
         code, out = run("check", "--root", os.path.join(ROOT, "no-such-folder"))

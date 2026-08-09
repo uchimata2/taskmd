@@ -2,8 +2,8 @@
 id: T-059
 title: Audit the whole project after the plugin restructure
 type: analysis
-status: review
-phase: implement
+status: done
+phase: review
 parent: null
 blocked_by: []
 related: [T-026, T-006, T-053, T-047, T-004]
@@ -374,13 +374,42 @@ T-026 left it empty too.
 
 ## 4. Review
 
-Not yet done. The audit is complete through `implement`; `review` waits on the maintainer's decision
-about which findings become child tasks, because the criterion *"each actionable finding has its own
-child task"* cannot be judged before that set exists.
+Done 2026-08-09, in the session that also worked all sixteen children through their own lifecycles.
+The criterion this phase was waiting on — that each actionable finding has its own child task — is
+answerable now: the set exists, and every one of the sixteen is `done`.
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| Every finding cites the threshold clause it meets | met | All sixteen rows in §3 carry a clause. The threshold was inherited from T-026 rather than re-decided, which is what makes it prior to the examination — recorded in §1 rather than claimed |
+| Every finding carries **both** a severity and an effort, on the schema's own vocabularies | met | And it paid off exactly as intended: all sixteen child tasks took both estimates unchanged, so nobody re-estimated on the way into a task |
+| Every finding that asserts a defect in behaviour is **proven by running something** | met | Four proven by making something fail, on scratch projects outside the repository. Each was **re-run** by its child task before any fix — F-3, F-4, F-5 and F-7 all reproduced independently, and none had gone stale |
+| Every area in scope is recorded as examined, including areas that produced no finding | met | The §3 step 1 coverage table: 125 in-scope tracked files, plus `control/` and 24 memory files, plus eleven no-action rows |
+| Nothing is fixed in place | met | Falsifiable and not falsified: the only tracked files this task changed are its own record and the regenerated index. T-023 and T-030 still stated F-9's falsehood when this audit closed, and were corrected later by T-066, which is the task raised for it |
+| Findings already carried by an open task are deduped rather than re-raised, and the dedupe is recorded | met | Four dedupes recorded — N-1 to T-006, N-2 to T-025, N-3 to T-024, N-4 to T-029 — plus F-6 against T-047 and F-15 against T-006 within the findings themselves |
+| The pre-publish check prints nothing, and prints exactly the five fixture lines without its exclusion | met | At close, and re-run after every child task since: silent with the exclusion, exactly five lines without |
+
+**What the child tasks changed about the audit's own conclusions**, recorded because a review that
+only ticked its criteria would lose it:
+
+- **F-6 understated the problem.** It reported tier 1 as passing with a blind measurement.
+  [T-063](T-063-measure-the-tier-1-member-the-rule-declares.md) measured both units and found the
+  rule **fails** — 12,203 characters against 7,919 — because a line count flatters a dense document.
+  The audit's finding was right that the check was blind; it did not know the answer was on the
+  other side of the bound.
+- **F-1 undercounted.** Nineteen requirement citations at examination time, twenty-one by the time
+  [T-064](T-064-stop-the-plugin-citing-documents-it-does-not-ship.md) swept — three arrived from
+  this same session's earlier tasks. That is the strongest argument for the sweep being a test, and
+  it came from the fix rather than from the finding.
+- **F-15 resolved to "no change needed."** The manifest installs by the git route exactly as
+  written; what [T-067](T-067-prove-the-install-route-an-adopter-actually-takes.md) found instead is
+  that the *directory* route accumulates files that are in no clone.
+
+**Child fix tasks raised**
+- Sixteen, all `done`. Three further tasks were raised **by** the children rather than by this
+  audit, under METHOD §3.3: [T-076](T-076-decide-what-a-template-s-links-resolve-against.md),
+  [T-077](T-077-delete-the-rehearsal-repository-t-067-installed-from.md) and
+  [T-078](T-078-say-what-a-tasks-dir-of-dot-means.md). They are not this umbrella's children — an
+  audit's children are its findings, and these are discoveries from the work of fixing them.
 
 **Child fix tasks raised**
 - Sixteen, one per finding, listed with their findings in §3 step 9:
@@ -405,5 +434,6 @@ child task"* cannot be judged before that set exists.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-09 | → done | `review` completed and the umbrella closed, in the session that worked all sixteen children through their own lifecycles. All seven criteria met. Three of them could only be judged now: *each actionable finding has its own child task* needed the set to exist, *nothing is fixed in place* is only falsifiable once the fixes have happened elsewhere, and the four behavioural findings were each **re-run** by their own child task before being fixed — none had gone stale. What the review records beyond the ticks is where the children corrected the audit: F-6 understated the problem (tier 1 does not merely have a blind check, it **fails** the bound once measured in characters), F-1 undercounted by three because this same session added citations to the files it was about, and F-15 resolved to *no change needed* while turning up that the directory install route accumulates files no clone contains. Three tasks raised **by** the children under METHOD §3.3 — T-076, T-077, T-078 — are deliberately not children of this umbrella: an audit's children are its findings. |
 | 2026-08-09 | (no status change) | **All sixteen findings approved by the maintainer and raised as T-060…T-075**, one per finding, each carrying its severity and effort from the findings table unchanged — which is what estimating them in the umbrella was for. The one shape offered and not taken was folding the five `low`/`xs` rows into a single housekeeping task; one-to-one keeps each finding traceable to its own fix, and the two that will be worked together (T-062 and T-075, same function) carry a soft edge instead of being merged. Ids were assigned in triage order so the ordering rule reproduces the agreed sequence through its id tiebreak — recorded in §3 step 9 as a *weaker* result than T-026's step 9, because agreement arranged this way is not agreement discovered. Nothing was fixed on the way past: T-023 and T-030 still state the falsehood F-9 is about, since correcting them here is the inline fix METHOD §5 forbids and T-066 is the task that does it. `specify` §Scope's deferral is struck through rather than deleted, so a reader can see the triage was agreed before the tasks existed. The umbrella stays open at `review` with sixteen children `proposed`. |
 | 2026-08-09 | → review | Audited 125 in-scope tracked files, plus `control/LOCAL-CONTEXT.md` and 24 memory files the request added and T-026's denominator never held. Sixteen findings, five High, and eleven no-action rows. The threshold was **inherited unchanged** from T-026 rather than re-decided, because this session had already read files before the write-up and only a threshold that predates the session can be prior to the examination. Four findings were proven by making something fail on scratch projects outside the repository: an inherited `PYTHONPATH` makes the shell launcher unable to find its own package; two files claiming one id leave `check` reporting OK while one task silently disappears; a field the schema does not name is displayed by none of the four commands, against a config that says it is; and `check` reports a nested project's defects as its own when that project sits one directory below the root. The structural finding underneath five of the sixteen is that **the validator reads links and the documents cite by backtick** — every escape T-053's restructure left behind is prose, which is precisely the class `check` was never built to see. Child tasks were **not** raised: the maintainer asked to choose the set together, so this umbrella stops one step short of `audit.md` step 4 and stays open. Nothing was fixed; the only tracked changes are this record and the regenerated index. |

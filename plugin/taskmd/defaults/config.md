@@ -190,3 +190,24 @@ them, and a value someone edits by hand is honoured and never overwritten.
 
 Set `value_field` or `effort_field` to `none` to drop that key from the sort. With both set to
 `none` the order is blocked-last, then id.
+
+## Views
+
+`context_fields` and `index_columns` name what the two **views** show — the `context` header, and
+the generated index's columns. Both take any field name, including one this schema does not
+interpret.
+
+**A view omits a column no task has a value for; a contract does not.** So a field named here but
+unused by every task in the project is simply absent from `context` and from the index — a column
+of dashes costs a reader, and an agent, and tells them nothing. The moment one task carries a
+value, the column is there, with nothing to switch on and no config to edit. The test is
+project-wide rather than per-task, so every task's `context` header has the same shape.
+
+The contract surfaces are the other half of that sentence. `taskmd list --json` and its
+tab-separated form emit **every** configured column whether it is used or not, because a key that
+disappeared when a field fell out of use would be a breaking change to a script that did nothing
+wrong.
+
+The same rule has always governed **edge** columns — parent, children, blocked_by and the rest —
+which are not configured here at all: they are derived from the `## Edges` table and appear when
+some task uses them.
