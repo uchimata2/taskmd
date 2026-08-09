@@ -540,7 +540,14 @@ class Task(object):
 
     @property
     def extra(self):
-        """Front-matter this schema does not interpret: carried and displayable, never acted on."""
+        """Front-matter this schema does not interpret: carried, never acted on.
+
+        **Nothing in the four commands reads this**, and that is not an oversight. A project that
+        wants to *see* an unnamed field names it in `context_fields` or `index_columns`, and those
+        read `Task.fields` directly — so the display route needs no help from here. The only reader
+        left is this module's own `main()`, which T-030 has decided to remove; when it goes, this
+        accessor goes with it unless a binding implementation has found a use for it by then.
+        """
         known = set(self.schema.known_fields)
         return dict((k, v) for k, v in self.fields.items() if k not in known)
 

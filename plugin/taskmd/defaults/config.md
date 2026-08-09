@@ -48,9 +48,12 @@ read task files, so the config costs no parser and no dependency.
 - Only the keys documented here are accepted. **An unknown config key is an error**, not a
   silent no-op — a typo that was ignored would hand you a schema you did not write.
 
-Task files are the opposite: a front-matter field this schema does not name is **carried and
-displayed, never interpreted**. That is what lets a project adopt taskmd without first
-rewriting its task files.
+Task files are the opposite: a front-matter field this schema does not name is **carried, never
+interpreted**. Carried is literal — taskmd never writes a task file, so an unnamed field cannot
+be altered or dropped by anything the tool does. It is not *shown* by default: name it in
+`context_fields` or `index_columns` below and it appears, with no code change and no schema
+entry, because both keys take any field name at all. That is what lets a project adopt taskmd
+without first rewriting its task files.
 
 ## The tasks folder
 

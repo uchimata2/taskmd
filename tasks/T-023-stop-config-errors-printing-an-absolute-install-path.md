@@ -20,14 +20,31 @@ deliverables: []
 
 ## 1. Specify
 
-**Outcome**
-A `SchemaError` raised against the **shipped default** config names that config in a form that is
-the same on every machine, instead of the absolute path to wherever taskmd happens to be installed.
+> **Read this first — the leak in the title is gone, and what is left is one string.**
+> `_display()` landed in commit `580d22b` (closing
+> [T-011](T-011-runtime-discovery-and-project-hook-commands.md)) **after** this task was raised and
+> after its decision was recorded, and it removed the absolute path from every config error. Run
+> today on a project outside this repository with no `.taskmd/config.md`, the error opens
+> `CONFIG ERROR  taskmd/defaults/config.md: …` — machine-independent already.
+>
+> So this task is **not** the fix its title describes. What remains is the wording the maintainer
+> chose on 2026-08-07 and which the code does not implement: the prefix should read
+> `<shipped default>`, and it currently reads the file's real name — *precisely* the form that
+> answer rejected. That is the whole of the work, and it is one string.
+>
+> Reconciled by [T-066](T-066-reconcile-two-open-tasks-with-the-fix-that-landed.md) on 2026-08-09.
+> Everything below is kept as written, with the two criteria the fix overtook marked in place.
 
-**Why this one**
+**Outcome**
+~~A `SchemaError` raised against the **shipped default** config names that config in a form that is
+the same on every machine, instead of the absolute path to wherever taskmd happens to be installed.~~
+**Achieved by T-011, not by this task.** The live outcome is the one the maintainer's answer names:
+that prefix reads `<shipped default>` rather than the file's own path.
+
+**Why this one** *(as it stood on 2026-08-05 — the code below has since changed; see the note above)*
 Found while verifying [T-019](T-019-report-a-tasks-dir-that-does-not-exist-at-setup.md). Every
-`SchemaError` is prefixed with the config's `source`, and when the project has no `.taskmd/config.md`
-that source is `DEFAULT_CONFIG` — built from `os.path.abspath(__file__)`, so it is an absolute path
+`SchemaError` is prefixed with the config's `source`, and when the project had no `.taskmd/config.md`
+that source was `DEFAULT_CONFIG` — built from `os.path.abspath(__file__)`, so it was an absolute path
 into the installation:
 
 ```
@@ -60,11 +77,19 @@ R-20, and R-23 in spirit (`docs/SCOPE.md`).
 `taskmd/schema.py` (`DEFAULT_CONFIG`, `load_schema`, `SchemaError`), `docs/SCOPE.md` R-20 and R-23.
 
 **Acceptance criteria**
-- [ ] A config error against the shipped default prints the same bytes regardless of where taskmd
-      is installed
+
+Criteria 1 and 4 were overtaken by T-011. Both are kept as written and marked, per
+[`review.md`](../plugin/docs/method/review.md) *Changing a criterion* — a criterion edited to match
+what happened is a description, not a criterion.
+
+- [x] A config error against the shipped default prints the same bytes regardless of where taskmd
+      is installed — **already met**, by `_display()` in `580d22b`, before this task started
 - [ ] It is still unambiguous which file is meant — a reader can find it
 - [ ] The project-config case is unchanged
-- [ ] Shown failing on a fixture, per R-16
+- [ ] ~~Shown failing on a fixture, per R-16~~ — **unmeetable, and kept to say so.** Nothing fails:
+      the behaviour this would have demonstrated no longer exists. The remaining change is a wording
+      preference with no failing case to build, so the fixture that would prove it cannot be written
+      and its absence is not a gap in the work
 
 **Open questions**
 - None. **Answered by the maintainer on 2026-08-07: `<shipped default>`.** The error says which

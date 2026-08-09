@@ -75,9 +75,15 @@ what is matched, never the filename**, so a renamed file is still found and two 
 id are a conflict rather than a coin toss. For a reference that is not an id, match against titles
 and report every candidate rather than choosing.
 
-**read** — the file, whole: front-matter and body. Fields the schema does not name are returned
-with the rest and are never interpreted. `taskmd context <id>` is this operation plus the
-derived edges, which is what makes it enough to start a task.
+**read** — the file, whole: front-matter and body. Fields the schema does not name are returned with
+the rest and are never interpreted, which costs nothing here because reading is **opening the file**
+and no command stands between you and it.
+
+`taskmd context <id>` is **not** this operation. It is a summary: the fields the project named in
+`context_fields`, the derived edges, and the declared outputs. That is enough to *start* a task and
+it is not enough to *read* one — it prints no body, and it prints no field the project did not name.
+Stated because the two are easy to confuse and only one of them satisfies
+[`../BINDING.md`](../BINDING.md) §1 *read*.
 
 **create** — take the next id: the highest existing id across the whole folder, plus one, padded to
 `id_width`. Copy the template, fill identity, title, initial status and phase, and **write the

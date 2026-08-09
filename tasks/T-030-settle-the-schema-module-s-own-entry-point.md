@@ -36,23 +36,33 @@ from `CLAUDE.md`, which says the same; and from `docs/SCOPE.md` non-goal 11, who
 amendment carved out exactly one addition and named it. It also takes a **positional** directory
 where every other entry point takes `--root PATH`.
 
-**The output is the harder half.** On the success path it prints the config's `source`, which for a
-project with no `.taskmd/config.md` is the absolute path to wherever taskmd is installed:
+~~**The output is the harder half.**~~ **The output half is gone.** It was the harder half when this
+task was raised: on the success path the entry point printed the config's `source`, which for a
+project with no `.taskmd/config.md` was the absolute path to wherever taskmd was installed. That
+stopped being true when `_display()` landed in commit `580d22b`, closing
+[T-011](T-011-runtime-discovery-and-project-hook-commands.md) — **after** this task was raised. Run
+today against a project outside this repository:
 
 ```
-schema   <absolute install path>/taskmd/defaults/config.md
+python -m taskmd.schema <a project elsewhere>
+SCHEMA ERROR: taskmd/defaults/config.md: tasks_dir is 'tasks', but the project root has no such
+folder. ...
 ```
 
-R-20 requires byte-identical output across platforms, and `_check_tasks_dir`'s own docstring in the
-same file names this as the reason it prints the configured *value* rather than the resolved path —
-so the module states the rule and then breaks it eleven lines from the bottom.
+Machine-independent, and criterion 2 below is therefore already satisfied and **cannot drive the
+removal**. Reconciled by [T-066](T-066-reconcile-two-open-tasks-with-the-fix-that-landed.md) on
+2026-08-09; the decision this task exists to take is untouched.
+
+**What still stands, and it is the whole task.** The entry point exists, runs, is absent from every
+statement of the command surface, and takes a **positional** directory where everything else takes
+`--root PATH`. One command surface, stated once and true — that is the outcome, and it never
+depended on the output.
 
 **Dedupe — this is not [T-023](T-023-stop-config-errors-printing-an-absolute-install-path.md).**
-T-023 shares the root cause (`schema.source`) but its scope is explicitly *"how the shipped default
-config is named in **error messages**"*, and its out-list keeps to the prefix. What is left here is
-the success path and the existence of the entry point itself. If T-023's fix is to change `source`
-at the point it is built, this finding's output half is resolved with it and this task should say so
-rather than redo it — that check is part of the work.
+T-023 shares the root cause (`schema.source`) and has itself been overtaken: its leak is gone too,
+and what remains there is a wording preference — whether the prefix reads `<shipped default>` or the
+file's real name. If that string changes, this entry point prints it too while it exists, which is a
+reason to check the two together and not a reason to merge them.
 
 **Requirements served**
 R-18, R-20 (`docs/SCOPE.md`); non-goal 11, which is about what the surface is.
@@ -73,8 +83,12 @@ R-18, R-20 (`docs/SCOPE.md`); non-goal 11, which is about what the surface is.
 **Acceptance criteria**
 - [ ] Exactly one statement of what taskmd's command surface is, and it is true — falsified by any
       runnable entry point the documented surface does not name
-- [ ] No entry point prints an absolute path on **any** path, success or failure (R-20); shown on a
-      project with no `.taskmd/config.md`, which is the case that produces it
+- [x] No entry point prints an absolute path on **any** path, success or failure (R-20); shown on a
+      project with no `.taskmd/config.md`, which is the case that produces it — **already met**, by
+      `_display()` in `580d22b`. Kept as written, per
+      [`review.md`](../plugin/docs/method/review.md) *Changing a criterion*: it was a real criterion
+      and it is satisfied, but by another task, so it can no longer be evidence for removing this
+      entry point
 - [ ] If the entry point survives, it takes `--root PATH` like everything else — two conventions for
       the same argument is the drift this project exists to remove
 - [ ] The `link_names` derivation exists in one place
