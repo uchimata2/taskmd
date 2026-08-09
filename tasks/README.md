@@ -3,13 +3,12 @@
 Generated from each task's front-matter. **Do not hand-edit** between the markers below.
 
 ```
-./plugin/taskmd.sh index          # regenerate this file
-./plugin/taskmd.sh context T-001  # everything needed to start a task
-./plugin/taskmd.sh check          # validate
+./plugin/bin/taskmd index          # regenerate this file
 ```
 
-Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
-[`../docs/SCOPE.md`](../docs/SCOPE.md). Problem evidence: [`../docs/BRIEF.md`](../docs/BRIEF.md).
+The other commands, and what the tool is: [`../README.md`](../README.md). Working method:
+[`../CLAUDE.md`](../CLAUDE.md). Scope and requirements: [`../docs/SCOPE.md`](../docs/SCOPE.md).
+Problem evidence: [`../docs/BRIEF.md`](../docs/BRIEF.md).
 
 <!-- taskmd:index - generated, do not edit by hand -->
 
@@ -35,7 +34,6 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `specified` | `specify` | - | - | T-003 | - | T-015, T-028, T-059, T-063 |
 | [T-078](T-078-say-what-a-tasks-dir-of-dot-means.md) | Say what a tasks_dir of dot means | `specified` | `specify` | - | - | - | - | T-019, T-024, T-069 |
 | [T-082](T-082-let-id-width-say-the-backend-allocates-the-ids.md) | Let id_width say that the backend allocates the ids | `proposed` | `specify` | T-004 | - | - | - | T-010, T-075 |
-| [T-084](T-084-correct-the-generated-index-preamble-after-the-move.md) | Correct the generated index preamble after the directory move | `proposed` | `specify` | - | - | - | - | T-006, T-025, T-083 |
 
 ## Closed
 
@@ -106,5 +104,6 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-080](T-080-stop-the-pre-publish-check-reporting-its-own-fixture.md) | Stop the pre-publish check reporting its own fixture from a subdirectory | `done` | `review` | - | - | - | - | T-018, T-034, T-058, T-081 |
 | [T-081](T-081-gate-every-deployment-on-the-humanizer-pass.md) | Gate every deployment on the humanizer pass, not just the next one | `done` | `review` | - | - | - | - | T-079, T-080 |
 | [T-083](T-083-make-the-skill-directory-self-contained.md) | Make the skill directory self-contained | `done` | `review` | - | - | - | T-006 | T-053, T-054, T-064, T-084 |
+| [T-084](T-084-correct-the-generated-index-preamble-after-the-move.md) | Correct the generated index preamble after the directory move | `done` | `review` | - | - | - | - | T-006, T-025, T-083 |
 
 <!-- taskmd:end -->
