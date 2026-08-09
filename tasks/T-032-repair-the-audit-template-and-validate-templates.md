@@ -43,6 +43,15 @@ Four defects, of which `check` can see the first two:
 1. **`type: audit`** is not in the `type` vocabulary. There is no audit type — audit is a task
    *type* in the method's sense (METHOD §5) but the schema never gained the value, so the template
    names one the config does not have.
+
+   > **Resolved 2026-08-09 by [T-088](T-088-put-audit-in-the-shipped-type-vocabulary-or-stop-calling-it-a-type.md),
+   > which carried out Q1's answer below.** The shipped `type` row now contains `audit`, so the
+   > template no longer names a value the config lacks. The finding text is left as written — it is
+   > an audit's product and dating its resolution beside it is the reconcile, not editing it away.
+   > T-088 was raised without knowing Q1 had settled this on 2026-08-06; its record now points here
+   > rather than holding a second copy of the decision. **The other three defects are untouched**,
+   > and so is the criterion that templates be validated mechanically, which is the half that stops
+   > this class recurring.
 2. **`children: []`** is a stored derived name — the precise thing `check`'s STORED DERIVED class
    exists to catch, and the thing `tasks/_task-template.md` warns against by name.
 3. **No `related`, `business_value` or `effort`.** T-022's backfill updated the other template and

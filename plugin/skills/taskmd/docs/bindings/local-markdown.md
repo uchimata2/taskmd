@@ -48,7 +48,9 @@ front-matter; **which tasks exist and their state** is derived by enumeration; *
 METHOD §1 rule 5's closing conditions, assigned: **the outcome** is the paths in `deliverables`;
 **the record** is the task file, and its log in particular; **the `implement` evidence** is what the
 task's implement section says was checked by using the outcome. **Only the first of the three is
-mechanical.** `check` reports a declared path that is missing and can see neither of the others, so
+mechanical, and only once the task is closed** — `deliverables` asserts production, so an open task
+may name what it *will* produce and `check` stays quiet until rule 5 actually applies to it (T-089).
+`check` reports a declared path that is missing and can see neither of the others, so
 it returns OK on a `done` task whose implement section is still the untouched template. Passing the
 validator is necessary for closing and is never the condition — reading it as the condition is how a
 project ends up closing tasks that recorded nothing.

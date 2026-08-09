@@ -387,9 +387,21 @@ def source_of(schema, derived):
 
 
 def check_deliverables(root, schema, tasks, problems):
+    """Declared outputs must exist — but only once the task claims to have produced them.
+
+    `deliverables` asserts production, and METHOD §1 rule 5 is the one place the method requires an
+    outcome to exist: a task closes when its outcome exists. So the check keys on the task being
+    closed, and an open task may name what it *will* produce — which is what makes a deliverable map
+    derivable before the work happens (T-089).
+
+    Keying on the phase reaching `implement` was rejected: a task that has just entered `implement`
+    legitimately has no outputs yet, since producing them is what the phase is for.
+    """
     if not schema.deliverables_field:
         return
     for task in ordered(tasks):
+        if task.is_open:
+            continue
         for path in task.deliverables:
             if not os.path.exists(os.path.join(root, path.replace("/", os.sep))):
                 problems.append("MISSING OUTPUT %s declares '%s', which does not exist"

@@ -22,6 +22,13 @@ must be caught and four safe forms that must not. It is excluded by name from th
 included in the proof run, which is the whole of the arrangement (T-018). Every path in it is
 fabricated.
 
+`planned-deliverable` is the third positive case, and it exists as a **pair** with
+`broken-deliverable`: the same missing `out/report.md`, declared by an open task instead of a closed
+one. One must pass and one must fail, which is the whole of the rule T-089 settled — `deliverables`
+asserts production, so it is only checked once the task claims to have produced. Before that task,
+`broken-deliverable`'s own task was `proposed`, so the negative case was being proved by an *open*
+task and nobody had written the positive one at all.
+
 The `broken-*` projects are the negative cases. **Each holds exactly one defect**, so a `check` run
 that reports two classes on one fixture is itself a finding. They were written **before** `check`
 existed (T-002, plan step 3): a validator is worth what you believe it would catch, and the only
@@ -36,7 +43,7 @@ where they could not be quietly trimmed to whatever turned out to be easy.
 | `broken-cycle` | Dependency cycle | T-001 and T-002 each block the other |
 | `broken-link` | Broken link | A dead Markdown link inside a **dot-directory** |
 | `broken-derived-field` | Stale stored-derived field | A task stores `children:`, which is derived |
-| `broken-deliverable` | Missing deliverable | Declares `out/report.md`, which is not there |
+| `broken-deliverable` | Missing deliverable | A **closed** task declares `out/report.md`, which is not there |
 | `broken-duplicate-id` | Duplicate id | Two files both carrying `id: T-001` |
 | `broken-stale-index` | Stale generated index | The task says `specified`; the generated region still says `proposed` |
 | `broken-id-width` | Id width | `id: T-0001`, one digit too wide for `id_width: 3` |

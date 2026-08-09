@@ -65,8 +65,21 @@ is a schema question rather than a code one.
       reason
 
 **Open questions**
-- **Which of the two moves. Answered by the maintainer on 2026-08-09: add `audit` to the
-  vocabulary.** The method's wording stays as it is.
+- **Which of the two moves. Already answered — on 2026-08-06, in
+  [T-032](T-032-repair-the-audit-template-and-validate-templates.md) §1 Q1, three days before this
+  task was raised.** The maintainer settled it there: `type` gains `audit`, on the argument that
+  `type` and `phase` are orthogonal so a full lifecycle is an argument *for* the value, and that
+  METHOD §5 naming a value the schema lacks is exactly the drift this plugin removes. *Rejected
+  there: keep using `analysis`.* **That record stands and is not restated here** — this task did not
+  know of it, and re-deciding a settled question is how a project ends up with two homes for one
+  decision. Confirmed unchanged on 2026-08-09 before implementing.
+
+  **What this task adds is one argument T-032 did not have**, and it is worth keeping because it
+  answers this task's own scope question: `decision` is already shipped while the method never names
+  it, which settles what the `type` row *is* — a **useful default vocabulary, not a projection of the
+  method's nouns**. So `audit` and `decision` are the same kind of addition, and adding `audit` sets
+  no precedent that the vocabulary must track METHOD's wording. That sentence went into the config's
+  prose; the decision itself remains T-032's.
 
   **The objection to adding it does not survive the scope's own second question.** "It adds a value
   that changes nothing the tool does" is true of *every* value in that row — nothing branches on
@@ -75,7 +88,8 @@ is a schema question rather than a code one.
   nouns**. So `audit` and `decision` are the same kind of addition, and adding `audit` sets no
   precedent that the vocabulary must track METHOD's wording.
 
-  *Rejected: reword §5 to say an audit is a "kind of task".* §5's sentence is built on the contrast
+  *Rejected — and this half was genuinely open, since T-032 never considered it: reword §5 to say an
+  audit is a "kind of task".* §5's sentence is built on the contrast
   *type, not a phase*, and that contrast is the whole point of the line — nothing passes through an
   audit. "Kind" is also already spoken for: §4 uses it for the three edge kinds. Rewording would
   trade a one-word vocabulary gap for a term-of-art collision in the document that defines both

@@ -103,6 +103,9 @@ class CheckFailsOnEveryClassItClaims(unittest.TestCase):
         self.fails("broken-derived-field", "STORED DERIVED", "'children:'")
 
     def test_declared_deliverable_that_is_gone(self):
+        """The task is `done`. T-089 made that load-bearing: the fixture used to be `proposed`, so
+        it proved this class through an open task and the assertion went vacuous the moment the
+        rule became "closed tasks only"."""
         self.fails("broken-deliverable", "MISSING OUTPUT", "out/report.md")
 
     def test_config_error_surfaces_at_setup_naming_the_key(self):
@@ -123,6 +126,25 @@ class CheckFailsOnEveryClassItClaims(unittest.TestCase):
         `specified`, its generated region still says `proposed`, and until this landed the run
         printed `OK - 1 task(s)` at exit 0 — which is how T-009 lost an index edit unnoticed."""
         self.fails("broken-stale-index", "STALE INDEX", "run 'taskmd index'")
+
+
+class AnOpenTaskMayNameWhatItWillProduce(unittest.TestCase):
+    """T-089. The other half of the deliverables rule, and the half that had never been tested.
+
+    `check` reported every declared path that did not exist, whatever the task's status, so a project
+    that fills the field when it *plans* got a permanent complaint about work it had not started.
+    This repository never saw it: its own habit is to leave `deliverables` empty until `implement`,
+    which is a habit rather than a rule, and it is why the case survived to publication."""
+
+    def test_an_open_task_declaring_a_path_that_does_not_exist_passes(self):
+        code, out = run("check", "--root", os.path.join(FIXTURES, "planned-deliverable"))
+        self.assertEqual(code, 0, out)
+        self.assertNotIn("MISSING OUTPUT", out)
+
+    def test_the_same_declaration_fails_once_the_task_closes(self):
+        """The pair is the point — one fixture open, one closed, same missing path."""
+        self.assertIn("out/report.md",
+                      run("check", "--root", os.path.join(FIXTURES, "broken-deliverable"))[1])
 
 
 class ADuplicateIsNeverSilent(unittest.TestCase):

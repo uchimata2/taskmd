@@ -48,7 +48,7 @@ into, not a promise about a date.
 | [T-029](T-029-reject-unknown-arguments-on-every-command.md) | Reject unknown arguments on every command | `v0.2` | `specified` | `specify` | T-026 | - | - | - | T-002, T-022, T-055, T-087 |
 | [T-030](T-030-settle-the-schema-module-s-own-entry-point.md) | Settle the schema module's own entry point | `v0.2` | `specified` | `specify` | T-026 | - | - | - | T-020, T-023, T-065, T-066 |
 | [T-031](T-031-give-the-list-rationale-one-home.md) | Give the list rationale one home | `v0.2` | `specified` | `specify` | T-026 | - | - | - | T-022, T-027 |
-| [T-032](T-032-repair-the-audit-template-and-validate-templates.md) | Repair the audit template, and validate templates at all | `v0.2` | `specified` | `specify` | T-026 | - | - | - | T-003, T-022, T-036, T-060, T-076, T-088, T-089 |
+| [T-032](T-032-repair-the-audit-template-and-validate-templates.md) | Repair the audit template, and validate templates at all | `v0.2` | `specified` | `specify` | T-026 | - | - | - | T-003, T-022, T-036, T-060, T-076, T-088, T-089, T-090 |
 | [T-033](T-033-resolve-the-f1-reference-inside-this-repository.md) | Resolve the F1 reference inside this repository | `v0.2` | `proposed` | `specify` | T-026 | - | - | - | T-005, T-013 |
 | [T-035](T-035-warn-that-a-fabricated-specimen-must-not-cross-a-shell.md) | Warn that a fabricated specimen must not cross a shell | `v0.3` | `proposed` | `specify` | - | - | - | - | T-013, T-018, T-034, T-058 |
 | [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | `v0.3` | `specified` | `specify` | - | - | - | - | T-026, T-032 |
@@ -57,14 +57,14 @@ into, not a promise about a date.
 | [T-082](T-082-let-id-width-say-the-backend-allocates-the-ids.md) | Let id_width say that the backend allocates the ids | `v0.3` | `proposed` | `specify` | T-004 | - | - | - | T-010, T-075 |
 | [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) | Install the published plugin on a machine that has never seen it | `v0.3` | `proposed` | `specify` | T-006 | - | - | - | T-020, T-049, T-067 |
 | [T-087](T-087-let-list-filter-on-a-field-the-index-can-show.md) | Let list filter on a field the index can show | `v0.2` | `specified` | `specify` | - | - | - | - | T-022, T-029, T-086 |
-| [T-089](T-089-stop-check-reporting-an-open-task-s-planned-outputs-as-missing.md) | Stop check reporting an open task's planned outputs as missing | `v0.2` | `proposed` | `specify` | - | - | - | - | T-002, T-025, T-032 |
+| [T-090](T-090-decide-what-a-cancelled-task-s-declared-outputs-assert.md) | Decide what a cancelled task's declared outputs assert | `v0.2` | `proposed` | `specify` | T-089 | - | - | - | T-002, T-032 |
 
 ## Closed
 
 | ID | Title | Work Package | Status | Phase | Parent | Children | Blocked By | Blocks | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [T-001](T-001-decide-how-the-front-matter-schema-is-configured.md) | Decide how the front-matter schema is configured | `v0.1` | `done` | `review` | - | - | - | T-002, T-004 | T-012, T-051, T-065, T-070, T-088 |
-| [T-002](T-002-implement-the-core-cli-context-index-check.md) | Implement the core CLI: context, index, check | `v0.1` | `done` | `review` | - | T-019, T-020, T-021 | T-001 | T-003, T-006, T-011 | T-004, T-005, T-007, T-008, T-025, T-029, T-089 |
+| [T-002](T-002-implement-the-core-cli-context-index-check.md) | Implement the core CLI: context, index, check | `v0.1` | `done` | `review` | - | T-019, T-020, T-021 | T-001 | T-003, T-006, T-011 | T-004, T-005, T-007, T-008, T-025, T-029, T-089, T-090 |
 | [T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md) | Write the skill that teaches the agent to use the CLI | `v0.1` | `done` | `review` | - | T-050 | T-002, T-008 | T-006, T-047 | T-008, T-017, T-019, T-021, T-022, T-026, T-028, T-032, T-048, T-051, T-052, T-053, T-054, T-074 |
 | [T-004](T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md) | Settle the id scheme and the claimed scale ceiling | `v0.1` | `done` | `review` | - | T-082 | T-001 | T-006 | T-002, T-007, T-010, T-043, T-059, T-062, T-075 |
 | [T-006](T-006-package-document-and-publish.md) | Package, document and publish | `v0.1` | `done` | `review` | - | T-085 | T-002, T-003, T-004, T-008, T-009, T-010, T-011, T-018, T-079, T-083 | T-037 | T-013, T-019, T-020, T-023, T-026, T-034, T-049, T-050, T-052, T-053, T-054, T-059, T-064, T-067, T-072, T-084, T-086 |
@@ -133,5 +133,6 @@ into, not a promise about a date.
 | [T-084](T-084-correct-the-generated-index-preamble-after-the-move.md) | Correct the generated index preamble after the directory move | `v0.1` | `done` | `review` | - | - | - | - | T-006, T-025, T-083 |
 | [T-086](T-086-group-the-backlog-into-release-milestones.md) | Group the backlog into release milestones | `v0.2` | `done` | `review` | - | - | - | - | T-006, T-022, T-026, T-087 |
 | [T-088](T-088-put-audit-in-the-shipped-type-vocabulary-or-stop-calling-it-a-type.md) | Put audit in the shipped type vocabulary, or stop calling it a type | `v0.2` | `done` | `review` | - | - | - | - | T-001, T-026, T-032 |
+| [T-089](T-089-stop-check-reporting-an-open-task-s-planned-outputs-as-missing.md) | Stop check reporting an open task's planned outputs as missing | `v0.2` | `done` | `review` | - | T-090 | - | - | T-002, T-025, T-032 |
 
 <!-- taskmd:end -->
