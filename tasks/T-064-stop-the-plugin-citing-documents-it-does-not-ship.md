@@ -2,7 +2,7 @@
 id: T-064
 title: Stop the plugin citing documents it does not ship
 type: fix
-status: proposed
+status: specified
 phase: specify
 parent: T-059
 blocked_by: []
@@ -86,12 +86,40 @@ reworded, [T-059](T-059-audit-the-whole-project-after-the-plugin-restructure.md)
 - [ ] Nothing in the tracked tree outside `plugin/` is changed
 
 **Open questions**
-- **What replaces a requirement citation in a shipped document?** Three shapes, and they cost
-  differently. *(a)* Drop the citation and keep the sentence — cheapest, loses the trace back to why
-  the rule exists. *(b)* State the requirement inline where it is cited — resolves for an adopter and
-  creates a second home for a requirement, which is the rule this plugin exists to enforce. *(c)* Ship
-  a short requirements document inside `plugin/`, which reverses part of T-053's boundary decision.
-  `plan` decides, and the decision applies to all 19 rather than per site.
+- ~~**What replaces a requirement citation in a shipped document?**~~ **Answered by the maintainer on
+  2026-08-09: (a) — drop the citation and keep the sentence.**
+
+  **One rule, no exception for code.** A "code comments may cite, prose may not" split was available
+  and was **not** taken: contributors have the whole repository and adopters do not, so the exception
+  is defensible on its merits and costs something worse — a rule someone has to remember, which
+  `docs/SCOPE.md` §1 *Invisibility* is exactly the property that rejects. So all 19 citations, in
+  documents and in docstrings alike, get the same treatment.
+
+  **The work is smaller than the count suggests, and that is why (a) is cheap.** Most of these
+  sentences already carry themselves and the number is decoration —
+  `plugin/taskmd/cli.py`'s `load()` reads *"R-17: a configuration problem is reported here, when the
+  config is read, and the command never starts"*, which states the property in full. Deleting the
+  prefix loses nothing. Only where a sentence genuinely leans on the number does anything have to be
+  written, and then it is rewritten to state the thing rather than to cite it.
+
+  **This applies a decision already taken rather than making a new one.** T-053 §3 step 4 hit exactly
+  this case once, in `adopt.md`, and resolved it the same way: *"the sentence was rewritten to state
+  the measurement instead of citing R-21."* That is the precedent, it is in-tree, and it is what makes
+  this a consistent application rather than a fresh judgement call.
+
+  *Rejected: (b), stating the requirement inline where it is cited.* It resolves for an adopter and
+  buys that by giving a requirement a second home in a shipped file — the one thing this plugin
+  exists to prevent, traded away for a footnote.
+
+  *Rejected: (c), shipping a short requirements document inside `plugin/`.* It reverses part of
+  T-053's boundary and hands an adopter the requirements list for a tool they are merely using, which
+  is the exact reason `SCOPE.md` and `BRIEF.md` were left at the repository root.
+
+  **What is lost, stated rather than waved past:** the trace from a line of code back to the
+  requirement that shaped it. It survives where
+  [`METHOD.md`](../plugin/docs/METHOD.md) §6 says rationale belongs anyway — the task records — and
+  is recoverable with `git log -S` on the removed citation. That is a worse index than a footnote and
+  it is the price of the boundary being real.
 
 ## 2. Plan
 
@@ -117,4 +145,5 @@ reworded, [T-059](T-059-audit-the-whole-project-after-the-plugin-restructure.md)
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-09 | → specified | Answered: (a), drop the citation and keep the sentence, applied to all 19 with **no exception for code comments** — the exception is defensible and costs a rule someone has to remember, which §1 *Invisibility* rejects. Recorded as an application of T-053's own precedent rather than a new decision: `adopt.md` hit this once and was rewritten to state the measurement instead of citing R-21. The task is cheaper than its count implies, because most of these sentences already state the property and the number is a prefix — which is worth knowing at `plan`, since it changes the work from nineteen rewrites to a sweep plus a handful. What is lost is written down rather than glossed: the trace from code back to requirement, which survives in the task records and `git log -S` and is a worse index than a footnote. Criterion 3 was a fork and is now a plain requirement; kept as written, so `review` can record which branch applied. |
 | 2026-08-09 | → proposed | Raised as F-1 from the T-059 audit, clauses 1 and 3. Counted before write-up: 29 references escape the subtree, one of them broken inside this repository as well. `high` because it costs a release if it survives into T-006 and because the worst carrier is the file every adopter is told to copy; `m` rather than `s` because the 19 requirement citations need one decision applied consistently, not a search and replace. T-053's closure criterion was honest and swept links; every escape here is prose, which is the class it could not see. |

@@ -41,13 +41,13 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-061](T-061-stop-an-inherited-pythonpath-breaking-the-launcher.md) | Stop an inherited PYTHONPATH breaking the shell launcher | - | `proposed` | `specify` | T-059 | - | - | - | T-049, T-056, T-068 |
 | [T-062](T-062-report-two-tasks-claiming-one-id-instead-of-dropping.md) | Report two tasks claiming one id instead of dropping one | - | `proposed` | `specify` | T-059 | - | - | - | T-004, T-075 |
 | [T-063](T-063-measure-the-tier-1-member-the-rule-declares.md) | Measure the tier-1 member the rule declares | - | `proposed` | `specify` | T-059 | - | - | - | T-028, T-047 |
-| [T-064](T-064-stop-the-plugin-citing-documents-it-does-not-ship.md) | Stop the plugin citing documents it does not ship | - | `proposed` | `specify` | T-059 | - | - | - | T-006, T-053 |
+| [T-064](T-064-stop-the-plugin-citing-documents-it-does-not-ship.md) | Stop the plugin citing documents it does not ship | - | `specified` | `specify` | T-059 | - | - | - | T-006, T-053 |
 | [T-065](T-065-say-what-happens-to-a-field-the-schema-does-not-name.md) | Say what happens to a field the schema does not name | - | `proposed` | `specify` | T-059 | - | - | - | T-001, T-030 |
 | [T-066](T-066-reconcile-two-open-tasks-with-the-fix-that-landed.md) | Reconcile two open tasks with the fix that already landed | - | `proposed` | `specify` | T-059 | - | - | - | T-011, T-023, T-030 |
 | [T-067](T-067-prove-the-install-route-an-adopter-actually-takes.md) | Prove the install route an adopter actually takes | - | `proposed` | `specify` | T-059 | - | - | - | T-006, T-053 |
 | [T-068](T-068-cover-the-entry-point-an-adopter-runs.md) | Cover the entry point an adopter runs | - | `proposed` | `specify` | T-059 | - | - | - | T-054, T-061 |
 | [T-069](T-069-skip-a-nested-project-at-any-depth.md) | Skip a nested project at any depth, not below the first | - | `proposed` | `specify` | T-059 | - | - | - | T-011 |
-| [T-070](T-070-decide-whether-an-unused-field-column-is-shown.md) | Decide whether an unused field column is shown at all | - | `proposed` | `specify` | T-059 | - | - | - | T-001, T-022 |
+| [T-070](T-070-decide-whether-an-unused-field-column-is-shown.md) | Decide whether an unused field column is shown at all | - | `specified` | `specify` | T-059 | - | - | - | T-001, T-022 |
 | [T-071](T-071-let-the-usage-test-assert-every-command-there-is.md) | Let the usage test assert every command there is | - | `proposed` | `specify` | T-059 | - | - | - | T-022, T-055 |
 | [T-072](T-072-give-the-description-and-version-one-home-each.md) | Give the plugin's description and version one home each | - | `proposed` | `specify` | T-059 | - | - | - | T-006, T-053 |
 | [T-073](T-073-correct-the-command-surface-local-context-states.md) | Correct the command surface local context still states | - | `proposed` | `specify` | T-059 | - | - | - | T-013, T-022 |
