@@ -70,7 +70,54 @@ new text is exactly what that check exists to read.
 
 ## 4. Where the repository description lives
 
-One home, and it is not this file:
-[T-079](../tasks/T-079-humanize-the-human-facing-documents-before-publishing.md) §3, which holds the
-drafted text along with the before and the audit that produced it. It is set on the repository at
-publication ([T-006](../tasks/T-006-package-document-and-publish.md) §2 step 7).
+**`repo-description.txt`, beside this file.** Its entire content is the value, which is why it is not
+Markdown: nothing in it is prose about the description, so there is nothing to strip before using it.
+It is set on the repository at publication
+([T-006](../tasks/T-006-package-document-and-publish.md) §2 step 7).
+
+It moved here from
+[T-079](../tasks/T-079-humanize-the-human-facing-documents-before-publishing.md) §3, which still
+holds the before and the audit that produced the text and is the reason it reads as it does. A task
+record was the wrong home for a value the gate below has to read: task files are excluded from this
+rule, so a gate would have had to scan what the rule exempts (T-081).
+
+## 5. The gate
+
+Run before publishing, and before any redeployment. It must print a file count and **nothing else**.
+
+```bash
+( cd "$(git rev-parse --show-toplevel)" && set -- $(git ls-files --cached --others --exclude-standard 'README.md' 'docs/repo-description.txt' '.claude-plugin/*.json' '*/.claude-plugin/*.json') && { [ "$#" -gt 0 ] || { echo "covers 0 files - the pathspec is wrong"; exit 2; }; } && echo "$# file(s) covered" && grep -nI -e '—' -e '–' "$@" )
+```
+
+Three outcomes, deliberately distinguishable:
+
+| Exit | Means |
+| :---: | :--- |
+| 1 | Clean. The count printed, no lines after it |
+| 0 | Violations. Every line is a covered document carrying an em or en dash |
+| 2 | **The gate is broken**, not the tree. It resolved to no files at all |
+
+**Read the count, not just the silence.** A run that reports zero files and prints nothing else is
+the failure mode this project has hit three times now — T-034, T-080, and the reason exit 2 exists
+here. The count is why the pathspec cannot rot quietly.
+
+The `cd` is load-bearing for the same reason it is in the leak check: `git ls-files` lists the
+subtree you are standing in, so an unanchored gate run from `plugin/` would cover a smaller set and
+say so only in a number nobody was reading (T-080).
+
+### What passing does **not** prove
+
+It does not prove a document was humanized. Pattern 14 is the only part of §2 a script can judge, so
+the gate is a **proxy**: failing it proves the rewrite did not happen, and passing it proves only
+that one pattern is absent. The rewrite is a judgement and needs the skill and an agent. Treating a
+green gate as evidence of a humanized document is the mistake `../CLAUDE.md` warns about for
+validators generally, and it is written here because this gate is the one most likely to invite it.
+
+### What it covers, and the one thing it cannot derive
+
+The pathspec covers the README, the description above, and **every** plugin or marketplace manifest
+anywhere in the tree, so a second manifest is gated the day it is added, with nothing edited. What it
+cannot do is notice a covered document of a **new kind** — a `CONTRIBUTING.md`, a landing page. The
+test in §1 still governs that, and adding one pattern to the line above is the whole of the work.
+That residue is stated rather than hidden, because a gate believed to be exhaustive is worse than one
+known to be partial.

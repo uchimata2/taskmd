@@ -42,6 +42,11 @@ R-15, R-20, R-23 (`docs/SCOPE.md`). This task closes the definition of done, `SC
       runs — the marketplace plugin and the plain skill package
       <br>*Added 2026-08-07 with the answer to the distribution question. The seven above predate it and
       are unchanged.*
+- [ ] **Every document `docs/PUBLISHING.md` covers has been through its rule, and its §5 gate passes
+      with a non-zero file count** — the count, not the silence
+      <br>*Added 2026-08-09 by [T-081](T-081-gate-every-deployment-on-the-humanizer-pass.md). Without
+      it `review` could tick every other box on a README nobody had humanized, which is what the
+      maintainer found by asking. The eight above are unchanged.*
 
 **Open questions**
 - None. **Answered by the maintainer on 2026-08-07: both, with the marketplace plugin primary.**
@@ -64,8 +69,9 @@ installed — publishing before those exist would ship a product that fails its 
 | 3 | Check each of `SCOPE.md` §4's eleven non-goals against the tree as it stands. | An eleven-row verdict table in §3, each row naming what was looked at rather than asserting the non-goal |
 | 4 | Settle what the README says about scale and about platforms — the ceiling is whatever T-004 measured and nothing past it, and T-020's amended outcome states macOS untested rather than claimed. | The two sentences as they will appear in the README, with what was rejected, in §3 |
 | 5 | Write the README from steps 1–4: what the tool is, both shapes' install instructions each ending in a command that proves it runs, and the backend sentence criterion 5 asks for. | `README.md` |
-| 6 | Run the pre-publish check both ways, after this record and the README are written, after T-079 has returned the README, and before anything is pushed. | The silent run with the exclusion, and the five-line run without it |
-| 7 | Publish to a public remote, setting the repository description [T-079](T-079-humanize-the-human-facing-documents-before-publishing.md) §3 drafted. The maintainer's action: it is outward-facing and not undoable, and the token this project has already failed twice to delete a repository with (T-037, T-077). | The public repository, described |
+| 5a | Humanize the README under [`docs/PUBLISHING.md`](../docs/PUBLISHING.md), then run its §5 gate. The rule names the exception and the skill; this step does not restate either. | The rewritten `README.md`, and the gate's count with nothing after it |
+| 6 | Run the pre-publish check both ways, after this record and the README are written, after step 5a, and before anything is pushed. | The silent run with the exclusion, and the five-line run without it |
+| 7 | Publish to a public remote, setting the repository description from [`docs/repo-description.txt`](../docs/repo-description.txt). The maintainer's action: it is outward-facing and not undoable, and the token this project has already failed twice to delete a repository with (T-037, T-077). | The public repository, described |
 | 8 | Install **both** shapes from a clean clone of what was published, run each shape's proving command, and list what the install carries. | Two transcripts, and the installed file list — which is also how criterion 5's "ships the method document and both bindings" is read rather than assumed |
 
 **Step 1 is first because it can invalidate the rest.** Criterion 8 asks both shapes to be proven by
@@ -97,12 +103,13 @@ a figure nobody took, which is the failure this task was scheduled last to avoid
   on every turn of every session; a README is read once. Whatever `CLAUDE.md` owes at close is a
   pointer, not a summary.
 
-**The README leaves and comes back.** Step 5 writes it and
-[T-079](T-079-humanize-the-human-facing-documents-before-publishing.md) rewrites it, which is why
-that task blocks this one rather than following it: publishing first would make the first impression
-with the draft, and running them the other way round writes one document twice. So step 5 produces
-an input, step 6 checks whatever came back, and the rewrite itself belongs to T-079 — nothing here
-duplicates it.
+**The README is written here and humanized here, under a rule owned elsewhere.** This paragraph
+originally said the README left for T-079 and came back. That was true while T-079 was an open
+blocker and stopped being true the moment it closed, which left this plan describing a hand-off that
+could not happen and no step applying the rule at all — found by the maintainer asking whether
+deployment forces it, and repaired in [T-081](T-081-gate-every-deployment-on-the-humanizer-pass.md).
+Step 5a is that step. The rule, the exception and the gate live in
+[`docs/PUBLISHING.md`](../docs/PUBLISHING.md); nothing here restates them.
 
 **Not in this plan, deliberately:** the remote's identity, which is `control/LOCAL-CONTEXT.md`'s;
 and reconciling `CLAUDE.md`'s status paragraph and `docs/SCOPE.md` §9, which is closing work rather
@@ -129,6 +136,7 @@ than a step that produces the outcome.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-09 | (no change) | Reconciled by [T-081](T-081-gate-every-deployment-on-the-humanizer-pass.md). When T-079 closed, this plan was left describing a hand-off to it that could no longer happen, and **no step applied the humanize rule at all** — the blocker had dissolved and taken the step with it. Step 5a now applies it and runs the gate, and a ninth acceptance criterion makes `review` able to fail for skipping it. Step 7 already named where the repository description lives; that home moved from a task record into `docs/repo-description.txt`, and the step's link resolves through `docs/PUBLISHING.md` §4 rather than being restated here. |
 | 2026-08-09 | (no change) | **Answered by the maintainer: T-004 first.** So the question this plan raised is closed by a dependency rather than by the README going silent, and criterion 6 will be met by a measured ceiling instead of vacuously. `blocked_by` gains T-004, which leaves `related` — one relationship shown under two edge kinds is noise in the graph, not the permitted second write. It also gains **T-079**, raised in the same turn: the human-facing documents go through the `humanizer` skill before anything is published, which is a blocker because publication makes the first impression once and because step 5's README is that task's input. Plan steps 4 and 6 are reworded to match; nothing else in the plan moved. |
 | 2026-08-09 | → planned | Eight steps. The plain skill package leads because it is the one shape that has never existed — the marketplace route was installed and listed by T-067, while `bin/` reaching `PATH` is a plugin mechanism T-054 proved for plugins, so a skill-only install may not be able to end its instructions in the command criterion 1 asks for. The plan says so rather than inventing steps 5 and 8 in detail against an unknown. Four shape decisions, each with its rejection: one root README; the README points at the method and carries none of it; this repository is the sample project the `context` saving is re-measured on, because a project built for the measurement chooses its own ratio; and nothing lands in `CLAUDE.md`, which is over its tier-1 bound already. **One thing is raised rather than absorbed**: criterion 6 asks the README to claim a scale that T-004 measured, and T-004 has measured nothing, so on the plan as written that criterion is met by claiming no ceiling at all — vacuously. Whether publication waits for T-004 is a dependency edge, and the maintainer's to add. |
 | 2026-08-07 | → specified | Answered: both shapes, plugin primary. One acceptance criterion added with the answer — both shapes install from a clean clone and are proven by a command — because shipping two distributions and testing one is how the second becomes stale, and the criteria named no shape at all. The seven that predate this are unchanged. |

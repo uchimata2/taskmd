@@ -1,0 +1,1 @@
+Task tracking in plain Markdown files, one per task, for Claude Code. The index and the far end of every link are generated from those files, so neither can drift. Ships a validator. Runs from a clone with no dependencies, on any kind of work including research and writing.

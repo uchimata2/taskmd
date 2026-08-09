@@ -100,7 +100,8 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-075](T-075-enforce-id-width-when-a-task-file-is-read.md) | Enforce id width when a task file is read | `done` | `review` | T-059 | - | - | - | T-004, T-062 |
 | [T-076](T-076-decide-what-a-template-s-links-resolve-against.md) | Decide what a template's links resolve against | `done` | `review` | - | - | - | - | T-032, T-051, T-060 |
 | [T-077](T-077-delete-the-rehearsal-repository-t-067-installed-from.md) | Delete the rehearsal repository T-067 installed from | `done` | `review` | - | - | - | - | T-037, T-067 |
-| [T-079](T-079-humanize-the-human-facing-documents-before-publishing.md) | Humanize the human-facing documents before publishing | `done` | `review` | - | - | - | T-006 | - |
-| [T-080](T-080-stop-the-pre-publish-check-reporting-its-own-fixture.md) | Stop the pre-publish check reporting its own fixture from a subdirectory | `done` | `review` | - | - | - | - | T-018, T-034, T-058 |
+| [T-079](T-079-humanize-the-human-facing-documents-before-publishing.md) | Humanize the human-facing documents before publishing | `done` | `review` | - | - | - | T-006 | T-081 |
+| [T-080](T-080-stop-the-pre-publish-check-reporting-its-own-fixture.md) | Stop the pre-publish check reporting its own fixture from a subdirectory | `done` | `review` | - | - | - | - | T-018, T-034, T-058, T-081 |
+| [T-081](T-081-gate-every-deployment-on-the-humanizer-pass.md) | Gate every deployment on the humanizer pass, not just the next one | `done` | `review` | - | - | - | - | T-079, T-080 |
 
 <!-- taskmd:end -->
