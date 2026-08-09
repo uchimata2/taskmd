@@ -27,10 +27,9 @@ Since T-011 they find the project by walking up from wherever they are run, so t
 from anywhere in the tree, and a project can declare one `after_write` command that taskmd runs and
 reports on.
 
-`check` has been shown failing on **every** class it claims, the eighth completed by T-019 —
-a config value naming a folder that is not there is now an error when the config is read, so no
-command can report success on a project it never opened. It does **not** yet notice a generated
-index that has gone stale (T-025). The backend contract exists
+`check` has been shown failing on **every** class it claims — one deliberately-broken fixture each,
+so the set is `tests/fixtures/broken-*` and not a count written here. It does **not** yet notice a
+generated index that has gone stale (T-025). The backend contract exists
 ([`plugin/docs/BINDING.md`](plugin/docs/BINDING.md), T-009) and **both bindings** are written
 ([`plugin/docs/bindings/`](plugin/docs/bindings/)) — so storage-neutrality is no longer a claim about one backend
 plus a worked example about another: the GitHub binding (T-010) was proven by being walked on a live
