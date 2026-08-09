@@ -2,8 +2,8 @@
 id: T-025
 title: Let check notice a stale generated index
 type: fix
-status: specified
-phase: specify
+status: planned
+phase: plan
 parent: null
 blocked_by: []
 related: [T-002, T-009, T-011, T-019]
@@ -116,7 +116,39 @@ and it costs R-12 and the artifact people browse in the repository without cloni
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Build `broken-stale-index` — otherwise-valid tasks plus a `tasks/README.md` whose generated region disagrees with them in one field, every link inside it resolving — and run `check` on it **before** touching the code. | The fixture, and the `OK` at exit 0 recorded in §3 |
+| 2 | Compare by rendering: `check` calls the existing `index_block` and matches its output byte-for-byte against what sits between the markers on disk. | `check_stale_index` in `plugin/skills/taskmd/taskmd/cli.py`, called from `cmd_check` |
+| 3 | Re-run the fixture, then this repository twice — once with a task edited and the index left alone, once regenerated. | The failing output and both host runs, in §3 |
+| 4 | Digest the fixture tree either side of a run that reports staleness. | The two digests, in §3 |
+| 5 | Add the class to the suite: `STALE INDEX` in `LABELS`, a test asserting its own class and nothing else, and the fixture's row in the fixtures table. | `tests/test_cli.py`, `tests/fixtures/README.md` |
+| 6 | Reconcile the documents that currently say `check` does not notice this, found by grep rather than from memory. | `CLAUDE.md`, `plugin/skills/taskmd/docs/bindings/local-markdown.md`, and whatever else the grep returns |
+
+**Step 1 is first because its evidence expires.** `check` printing `OK` over a stale index *is* the
+defect, and once step 2 lands that run can never be produced again — a fixture added afterwards is
+only ever seen passing, which proves the assertion runs and not that it was ever false.
+
+**Two decisions taken here, because both change what an adopter sees.**
+
+*Nothing generated is not stale.* Where `tasks_dir/README.md` is absent, or present without the
+markers, `check` says nothing. Otherwise a fresh project is reported on its first run, before
+`index` has ever been asked for, and a project keeping a hand-written index deliberately is reported
+forever. It also follows §1's out-list: the prose outside the markers is nobody's to police, and a
+file with no markers is entirely prose. *Rejected: make "would `index` change this file?" the test.*
+It is the simpler predicate and it is exactly what `cmd_index` already computes, but it turns "you
+have not generated one yet" into a problem.
+
+*It is an ordinary `check` problem at exit 1, not a code of its own.* Criterion 5 asks the exit code
+to separate this from a config error, and 1 against 2 already does: a config error is a project that
+could not be read, and everything `check` reports is a project the user can fix. *Rejected: a third
+exit code for staleness.* Nothing would consume it, and minting one for the newest class implies the
+nine older ones each deserve theirs.
+
+**Outputs this task will produce**
+
+- `tests/fixtures/broken-stale-index/` — a `tasks/` directory and a deliberately stale `tasks/README.md`
+- `plugin/skills/taskmd/taskmd/cli.py`
+- `tests/test_cli.py`
+- `tests/fixtures/README.md`
 
 ## 3. Implement
 
@@ -139,6 +171,7 @@ and it costs R-12 and the artifact people browse in the repository without cloni
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-09 | → planned | Six steps, and the fixture is step 1 rather than step 5: `check` printing OK over a stale index is the defect itself, so that run is unobtainable the moment the comparison lands, and a fixture written afterwards can only ever be watched passing. §1's mitigations 2 and 3 are met by construction — the comparison renders through the existing `index_block` and stores nothing. Two behaviours decided at plan time and recorded with their rejections in §2: a file with no generated markers is not stale, so a fresh project is not reported before `index` has ever been run; and staleness is an ordinary problem at exit 1 rather than a code of its own, which is what criterion 5 asks for since a config error is already 2. |
 | 2026-08-07 | (no status change) | Mitigation 1 corrected after T-011 was built and showed it false: the hook runs after taskmd's *own* write, and taskmd never writes a task file, so it cannot catch the edit that makes an index stale. The maintainer confirmed the error stands, which makes it the mechanism rather than the backstop the mitigation described — so this task's value went up, not down. The mitigation is struck through rather than deleted: it was recorded at the maintainer's request, and an argument that turned out to be wrong is worth more on the record than absent, since the next reader will otherwise propose it again. |
 | 2026-08-07 | → specified | Answered: an error, not a warning. The maintainer also asked for long-term mitigations to be recorded rather than offered and forgotten, so three are written into §1 with one rejected. The first is the substantive one and it arrived from T-011 being answered the same day: a single after-write hook point makes a stale index unreachable in ordinary use, which turns this task's error into the backstop for edits made outside it. Soft edge to T-011 added. The other two are constraints on the fix rather than alternatives to it — no stored fingerprint, and one renderer shared by both commands. |
 | 2026-08-05 | → proposed | Raised from T-009's `implement`, where the local-Markdown binding was being proven by following it. The binding's *after any write* step was missed, the index went stale, and `check` reported OK — an unstaged reproduction of the thing the binding's first assumption warns about. Raised rather than fixed in place (METHOD §3.3); T-009's own criteria do not cover the validator. |

@@ -44,7 +44,7 @@ into, not a promise about a date.
 | [T-021](T-021-settle-what-the-context-closing-line-may-say.md) | Settle what the context closing line may say | `v0.2` | `specified` | `specify` | T-002 | - | - | - | T-003, T-022 |
 | [T-023](T-023-stop-config-errors-printing-an-absolute-install-path.md) | Stop config errors printing an absolute install path | `v0.2` | `specified` | `specify` | - | - | - | - | T-006, T-019, T-020, T-024, T-030, T-066 |
 | [T-024](T-024-say-so-when-tasks-dir-names-something-that-is-not-a-folder.md) | Say so when tasks_dir names something that is not a folder | `v0.2` | `proposed` | `specify` | - | - | - | - | T-019, T-023, T-078 |
-| [T-025](T-025-let-check-notice-a-stale-generated-index.md) | Let check notice a stale generated index | `v0.2` | `specified` | `specify` | - | - | - | - | T-002, T-009, T-011, T-019, T-026, T-039, T-084, T-089 |
+| [T-025](T-025-let-check-notice-a-stale-generated-index.md) | Let check notice a stale generated index | `v0.2` | `planned` | `plan` | - | - | - | - | T-002, T-009, T-011, T-019, T-026, T-039, T-084, T-089 |
 | [T-026](T-026-audit-the-whole-project-before-the-remaining-build.md) | Audit the whole project before the remaining build | `v0.2` | `review` | `review` | - | T-027, T-028, T-029, T-030, T-031, T-032, T-033, T-034 | - | - | T-003, T-006, T-010, T-025, T-036, T-059, T-086, T-088 |
 | [T-029](T-029-reject-unknown-arguments-on-every-command.md) | Reject unknown arguments on every command | `v0.2` | `specified` | `specify` | T-026 | - | - | - | T-002, T-022, T-055, T-087 |
 | [T-030](T-030-settle-the-schema-module-s-own-entry-point.md) | Settle the schema module's own entry point | `v0.2` | `specified` | `specify` | T-026 | - | - | - | T-020, T-023, T-065, T-066 |
