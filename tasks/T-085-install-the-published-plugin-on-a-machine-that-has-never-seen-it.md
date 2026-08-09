@@ -40,6 +40,13 @@ diagnosed as this machine's truncated shell snapshot and not the plugin's defect
 first install section ends in the bare name. And the install cache here already held a stale layout
 from an earlier install, which is a state a fresh machine cannot be in.
 
+**A real adopter has now paid for this, which was not true when this task was raised.** The first
+adopting project (`control/LOCAL-CONTEXT.md`) moved onto the published plugin on 2026-08-09, on this
+machine, and could not use the command the README gives: it had to add a small launcher of its own
+that finds the install and runs it. That is one project's workaround for one machine's defect, and
+it is evidence for the third criterion below rather than a fix to copy — the README says an adopter
+types `taskmd`, and the first one could not.
+
 **Requirements served**
 R-20 (`docs/SCOPE.md`) — runs on a clone with no configuration; `docs/SCOPE.md` §1 *No install*.
 

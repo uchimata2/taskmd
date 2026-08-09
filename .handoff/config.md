@@ -34,9 +34,19 @@ Read by the `handoff` skill. Plain Markdown, read by the agent — no parser.
 
 ## Notes for whoever resumes
 
+**Published on 2026-08-09** at `github.com/uchimata2/taskmd`, tagged `v0.1.0` with a GitHub release,
+in both shapes. The definition of done (`docs/SCOPE.md` §9) is closed. What is left is grouped into
+**v0.2 and v0.3**, whose purpose and exit criteria are in `tasks/README.md` and whose membership is
+each task's `work_package` — do not maintain a list of that anywhere.
+
 Start with `docs/SCOPE.md` — the goal, the numbered requirements (R-1…R-24) and the explicit
 non-goals. `docs/BRIEF.md` holds the problem evidence, the carried lessons and the remaining open
 questions. Tasks cite the requirements they serve, so coverage is derived rather than tabulated.
+
+**The plugin now has a user outside this repository** — one, labelled in `control/LOCAL-CONTEXT.md`,
+which adopted it the day it shipped. Two open tasks exist only because of that, and both are the
+useful kind: something this repository's own habits had hidden. Expect more of it, and route what it
+finds into tasks rather than into notes.
 
 `plugin/skills/taskmd/docs/METHOD.md` is the working method itself. Since T-028 it is **tier 2** — loaded when task work
 starts, not on every turn; `plugin/skills/taskmd/docs/method/` is tier 3, a file per phase. Tier 1 is whatever the harness
