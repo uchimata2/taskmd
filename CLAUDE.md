@@ -108,6 +108,8 @@ This repository goes to GitHub. Everything written here must be:
 - **Cross-platform.** Windows, macOS, Linux. Write files with an explicit `newline="\n"` —
   Python's default text mode rewrites every `\n` on Windows and breaks byte-for-byte comparison.
   Console output should survive a cp1252 terminal: reconfigure stdout to UTF-8 at startup.
+- **Humanized, if a stranger reads it before installing.** The rule, what it covers and the
+  exception it carries: [`docs/PUBLISHING.md`](docs/PUBLISHING.md) (T-079).
 
 ### The pre-publish check
 

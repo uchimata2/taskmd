@@ -65,7 +65,7 @@ installed — publishing before those exist would ship a product that fails its 
 | 4 | Settle what the README says about scale and about platforms — the ceiling is whatever T-004 measured and nothing past it, and T-020's amended outcome states macOS untested rather than claimed. | The two sentences as they will appear in the README, with what was rejected, in §3 |
 | 5 | Write the README from steps 1–4: what the tool is, both shapes' install instructions each ending in a command that proves it runs, and the backend sentence criterion 5 asks for. | `README.md` |
 | 6 | Run the pre-publish check both ways, after this record and the README are written, after T-079 has returned the README, and before anything is pushed. | The silent run with the exclusion, and the five-line run without it |
-| 7 | Publish to a public remote. The maintainer's action: it is outward-facing and not undoable, and the token this project has already failed twice to delete a repository with (T-037, T-077). | The public repository |
+| 7 | Publish to a public remote, setting the repository description [T-079](T-079-humanize-the-human-facing-documents-before-publishing.md) §3 drafted. The maintainer's action: it is outward-facing and not undoable, and the token this project has already failed twice to delete a repository with (T-037, T-077). | The public repository, described |
 | 8 | Install **both** shapes from a clean clone of what was published, run each shape's proving command, and list what the install carries. | Two transcripts, and the installed file list — which is also how criterion 5's "ships the method document and both bindings" is read rather than assumed |
 
 **Step 1 is first because it can invalidate the rest.** Criterion 8 asks both shapes to be proven by
