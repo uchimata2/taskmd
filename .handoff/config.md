@@ -67,7 +67,8 @@ Since T-083 that is the **same file** an adopter reaches by typing `taskmd`; onl
 because this machine's shell snapshot drops the `PATH` entry the harness adds (T-054). So `SKILL.md`
 naming the bare command is not an inconsistency with this file. Run `check` **and** `index` after
 any edit to a task file — this project uses its own tool on itself, so a regression shows up
-immediately, and the generated index goes stale silently until `index` is re-run (T-025).
+immediately. Since T-025 a forgotten `index` is no longer silent: `check` reports the index as stale
+and names the command, so the two commands back each other up rather than one covering for the other.
 `list --open --limit 1` answers "what next" by the project's own ordering rule, so it is not
 something to work out by hand from the index.
 

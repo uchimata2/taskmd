@@ -286,8 +286,13 @@ def run_after_write(root, schema):
     return 0
 
 
+def index_path(root, schema):
+    """Where the generated index lives. One home for the name, because `check` compares against it."""
+    return os.path.join(root, schema.tasks_dir, "README.md")
+
+
 def cmd_index(root, schema, tasks, args):
-    path = os.path.join(root, schema.tasks_dir, "README.md")
+    path = index_path(root, schema)
     block = index_block(root, schema, tasks)
 
     if os.path.exists(path):
@@ -391,6 +396,32 @@ def check_deliverables(root, schema, tasks, problems):
                                 % (task.id, path))
 
 
+def check_stale_index(root, schema, tasks, problems):
+    """The generated index against what the tasks would produce now — rendered, never fingerprinted.
+
+    The comparison re-renders through `index_block`, the same call `cmd_index` writes with, so there
+    is one idea of what the index looks like rather than two that eventually disagree. A stored hash
+    or timestamp would be a written derived value, which the design rule forbids (METHOD §4), and
+    one more field somebody has to remember to keep true — which is the condition this check exists
+    to catch, so paying for it in a second place would be a poor trade (T-025 §1).
+
+    **Nothing generated is not stale.** No file, or a file carrying no markers, reports nothing —
+    otherwise a project is reported on its first run, before `index` has ever been asked for, and one
+    that keeps a hand-written index deliberately is reported forever. The prose outside the markers
+    is nobody's to police in either direction.
+    """
+    path = index_path(root, schema)
+    if not os.path.exists(path):
+        return
+    text = read(path)
+    if BEGIN not in text or END not in text:
+        return
+    on_disk = text[text.index(BEGIN):text.index(END) + len(END)]
+    if on_disk != index_block(root, schema, tasks):
+        problems.append("STALE INDEX   %s no longer matches the tasks it was generated from; "
+                        "run 'taskmd index'" % rel(root, os.path.relpath(path, root)))
+
+
 def check_anomalies(root, schema, tasks, problems):
     """Files under `tasks_dir` that are not the task somebody thought they were.
 
@@ -436,6 +467,7 @@ def cmd_check(root, schema, tasks, args):
     check_cycles(schema, tasks, problems)
     check_stored_derived(schema, tasks, problems)
     check_deliverables(root, schema, tasks, problems)
+    check_stale_index(root, schema, tasks, problems)
     check_links(root, schema, problems)
 
     if problems:

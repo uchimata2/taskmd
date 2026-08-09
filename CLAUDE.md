@@ -21,8 +21,8 @@ Windows**: the shipped entry point, invoked by path because this machine's shell
 project may declare one `after_write` command that taskmd runs and reports on.
 
 `check` has been shown failing on **every** class it claims — one deliberately-broken fixture each,
-so the set is `tests/fixtures/broken-*` and not a count written here. It does **not** yet notice a
-generated index that has gone stale (T-025). The backend contract exists
+so the set is `tests/fixtures/broken-*` and not a count written here — including a generated index
+that has gone stale, which it now notices by re-rendering and comparing (T-025). The backend contract exists
 ([`plugin/skills/taskmd/docs/BINDING.md`](plugin/skills/taskmd/docs/BINDING.md), T-009) and **both bindings** are written
 ([`plugin/skills/taskmd/docs/bindings/`](plugin/skills/taskmd/docs/bindings/)) — so storage-neutrality is no longer a claim about one backend
 plus a worked example about another: the GitHub binding (T-010) was proven by being walked on a live

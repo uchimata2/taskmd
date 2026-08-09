@@ -142,9 +142,14 @@ taskmd check
 ```
 
 `index` regenerates the derived file; `check` confirms the write left the project consistent —
-vocabulary valid, references resolving, declared deliverables present. A write is not finished until
-both have run, and `check` is the reason a mistake here surfaces immediately instead of at the next
-person's turn.
+vocabulary valid, references resolving, declared deliverables present, and the generated index still
+matching the tasks it came from. A write is not finished until both have run, and `check` is the
+reason a mistake here surfaces immediately instead of at the next person's turn.
+
+**Running them in this order costs nothing if you forget the first.** `check` re-renders the index in
+memory and compares it, so an `index` you skipped is reported by name with the command to run
+(T-025). Before that it was the one mistake in this procedure that produced no output at all — the
+project stayed inconsistent and every signal available said it was fine.
 
 **A project may have the second one run for it, and still owes the first.** Setting `after_write` in
 the config makes taskmd run a command of the project's choosing after **its own** write, so

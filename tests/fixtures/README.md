@@ -38,6 +38,7 @@ where they could not be quietly trimmed to whatever turned out to be easy.
 | `broken-derived-field` | Stale stored-derived field | A task stores `children:`, which is derived |
 | `broken-deliverable` | Missing deliverable | Declares `out/report.md`, which is not there |
 | `broken-duplicate-id` | Duplicate id | Two files both carrying `id: T-001` |
+| `broken-stale-index` | Stale generated index | The task says `specified`; the generated region still says `proposed` |
 | `broken-id-width` | Id width | `id: T-0001`, one digit too wide for `id_width: 3` |
 | `broken-config` | Config error at setup — a **key** | `id_witdh` — a typo in a key name |
 | `broken-tasks-dir` | Config error at setup — a **value** | `tasks_dir: taks`, beside a real `tasks/` |

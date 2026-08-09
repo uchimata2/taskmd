@@ -50,9 +50,11 @@ class ChecksThisRepository(unittest.TestCase):
         """T-069. The exclusion used to start one directory down, so a monorepo holding a taskmd
         project at its top level had that project's defects reported as its own.
 
-        It never showed here because all ten `broken-*` fixtures sit two levels down — the shape of
+        It never showed here because every `broken-*` fixture sits two levels down — the shape of
         the fixture set was hiding the shape of the bug. `nested-at-root` is the only fixture whose
-        nested project is a direct child."""
+        nested project is a direct child. (This line used to say "all ten", and by the time T-025
+        read it there were twelve; the set is what it is, and counting it here was a second copy of
+        `ls`.)"""
         code, out = run("check", "--root", os.path.join(FIXTURES, "nested-at-root"))
         self.assertEqual(code, 0, out)
         self.assertNotIn("inner/", out)
@@ -69,7 +71,8 @@ class CheckFailsOnEveryClassItClaims(unittest.TestCase):
     """One fixture per class. Each must report its own class, and only its own."""
 
     LABELS = ["VOCABULARY", "DANGLING", "NO BLOCKER", "CYCLE", "BROKEN LINK",
-              "STORED DERIVED", "MISSING OUTPUT", "CONFIG ERROR", "DUPLICATE ID", "ID WIDTH"]
+              "STORED DERIVED", "MISSING OUTPUT", "CONFIG ERROR", "DUPLICATE ID", "ID WIDTH",
+              "STALE INDEX"]
 
     def fails(self, fixture, label, needle, code=1):
         got, out = run("check", "--root", os.path.join(FIXTURES, fixture))
@@ -114,6 +117,12 @@ class CheckFailsOnEveryClassItClaims(unittest.TestCase):
         """T-075. `id_width` used to be honoured only when composing a new id, never when reading
         one, so a file no `create` could have produced was silently a task."""
         self.fails("broken-id-width", "ID WIDTH", "T-0001")
+
+    def test_a_generated_index_that_no_longer_matches_its_tasks(self):
+        """T-025. The one class where the defect was `check` itself: the fixture's task says
+        `specified`, its generated region still says `proposed`, and until this landed the run
+        printed `OK - 1 task(s)` at exit 0 — which is how T-009 lost an index edit unnoticed."""
+        self.fails("broken-stale-index", "STALE INDEX", "run 'taskmd index'")
 
 
 class ADuplicateIsNeverSilent(unittest.TestCase):
