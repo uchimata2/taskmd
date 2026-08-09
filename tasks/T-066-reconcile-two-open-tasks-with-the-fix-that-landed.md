@@ -2,7 +2,7 @@
 id: T-066
 title: Reconcile two open tasks with the fix that already landed
 type: fix
-status: proposed
+status: specified
 phase: specify
 parent: T-059
 blocked_by: []
@@ -96,11 +96,34 @@ sense that nobody should have to remember which of two open tasks was overtaken.
 - [ ] No absolute path is written into either record while correcting them (R-23)
 
 **Open questions**
-- **Does T-023 stay open?** With the leak gone, what is left is choosing between `<shipped default>`
-  and the file's real name — a wording call the maintainer has already made once, on an argument
-  (*"a repo-relative path is relative to taskmd's repository rather than the adopter's"*) that still
-  holds. Keeping it costs a task in the backlog for one string; cancelling it discards a decision that
-  was taken deliberately. The maintainer's call, and the only one in this task.
+- ~~**Does T-023 stay open?**~~ **Answered by the maintainer on 2026-08-09: it stays open, rescoped to
+  the wording.**
+
+  So T-023 is not the task it says it is, and the fix is to make it say what it is: **one string** —
+  whether a config error names `<shipped default>` or the file's real name. Its outcome sentence and
+  its transcript describe a leak that no longer exists; both are corrected. Criterion 1 is marked
+  **already met** by T-011, and criterion 4 (*shown failing on a fixture, per R-16*) is marked
+  **unmeetable** with the original text kept, per
+  [`review.md`](../plugin/docs/method/review.md) *Changing a criterion* — nothing fails, so nothing
+  can be shown failing.
+
+  **The decision that survives is the one that was actually taken.** On 2026-08-07 the maintainer
+  chose `<shipped default>` and rejected *"printing `taskmd/defaults/config.md`"* — which is precisely
+  what the code prints today, by accident rather than by reversal. The argument they gave (*"a
+  repo-relative path is relative to taskmd's repository rather than the adopter's"*) is untouched by
+  T-011, so keeping the task keeps a live preference rather than a stale one.
+
+  *Rejected: cancelling T-023 and folding the wording into T-030.* T-030 does touch the same output on
+  its success path, so the string would have a home — but it would be a home on a task raised to
+  decide an entry point's existence, which is a different question. A decision parked on the nearest
+  passing task is how a decision gets lost.
+
+  *Rejected: cancelling T-023 outright.* Cheapest, and it would let the rejected string stand as the
+  shipped behaviour by default. Discarding a deliberate decision because the defect that prompted it
+  was fixed by something else is not the same as reversing it.
+
+  **What this costs, stated:** a backlog entry for a one-string change, and a reader who opens T-023
+  expecting the leak fix in its title. The second is what this task removes.
 
 ## 2. Plan
 
@@ -126,4 +149,5 @@ sense that nobody should have to remember which of two open tasks was overtaken.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-09 | → specified | Answered: **T-023 stays open, rescoped to the wording**. So this task's work is not "delete a stale task" but "make two open tasks say what they are for" — T-023's outcome and transcript describe a leak T-011 removed, its criterion 1 is marked already-met and its criterion 4 marked unmeetable with the original kept per `review.md` *Changing a criterion*; T-030 keeps its decision and loses only its stale evidence. The alternatives are recorded with what each would have cost: folding the string into T-030 parks a decision on a task raised for a different question, and cancelling outright would let the string the maintainer explicitly rejected on 2026-08-07 stand as shipped behaviour by default. Criteria unchanged — the answer settles what the correction says, not how it is judged. |
 | 2026-08-09 | → proposed | Raised as F-9 from the T-059 audit, clause 1. Verified before write-up by running both commands against a project outside this repository: neither prints an absolute path, and `git log -S` puts `_display()` in T-011's closing commit, after both tasks were raised. `medium`/`xs` — two `specify` sections, and the cost is a session hunting a defect that is gone. The distinction that makes this a finding at all: T-026 excluded task records as dated accounts, which is right for closed tasks and wrong for open ones, whose premises are instructions rather than history. |

@@ -360,6 +360,51 @@ class Launchers(unittest.TestCase):
         self.assertEqual(direct.stdout, viash.stdout)
         self.assertEqual(direct.returncode, viash.returncode)
 
+    # A drive-lettered value, assembled rather than written out. The pre-publish leak check in
+    # CLAUDE.md matches exactly this shape, and a literal here would be indistinguishable from a
+    # real machine path that leaked into the tree. Fabricated, and it deliberately does not exist.
+    DRIVE_PATH = "C:" + "\\" + "opt" + "\\" + "lib"
+
+    #: The three shapes an adopter's environment may already hold. The first two are what broke
+    #: taskmd.sh: it appended them to its own POSIX path with a hardcoded ':', and the Windows
+    #: shell layer then declined to rewrite the variable at all, so Python got a string it could
+    #: not read and reported taskmd missing. The third always worked and is kept as the control.
+    HOSTILE = ("relative/dir", DRIVE_PATH, "/tmp/nowhere")
+
+    def available_launchers(self):
+        """Every launcher this machine can actually run, as (label, argv-prefix)."""
+        found = []
+        if shutil.which("bash"):
+            found.append(("taskmd.sh", ["bash", os.path.join(PKG, "taskmd.sh")]))
+        for shell in ("pwsh", "powershell"):
+            if shutil.which(shell):
+                found.append(("taskmd.ps1",
+                              [shell, "-NoProfile", "-File", os.path.join(PKG, "taskmd.ps1")]))
+                break
+        return found
+
+    def test_a_launcher_ignores_whatever_pythonpath_the_caller_already_has(self):
+        """T-061. The environment is **set by this test**, never inherited.
+
+        That is the whole point, and it is why the defect this closes stayed invisible: the sibling
+        test above runs the launcher under whatever the runner happens to have, so on a machine
+        with no PYTHONPATH it passed while the launcher was broken for everyone who had one — which
+        is to say, for a Python developer, the likeliest adopter. An assertion that inherits the
+        environment cannot see the case it is closest to.
+        """
+        launchers = self.available_launchers()
+        if not launchers:
+            self.skipTest("neither bash nor PowerShell on this machine")
+        for label, argv in launchers:
+            for value in self.HOSTILE:
+                env = dict(os.environ, PYTHONPATH=value)
+                run = subprocess.run(argv + ["check"], cwd=ROOT, env=env,
+                                     stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                where = "%s with PYTHONPATH=%r" % (label, value)
+                self.assertEqual(0, run.returncode,
+                                 "%s exited %d: %s" % (where, run.returncode, run.stdout))
+                self.assertTrue(run.stdout.startswith(b"OK -"), "%s: %s" % (where, run.stdout))
+
     def test_every_posix_shell_script_is_recorded_executable(self):
         """T-056. A shell script has no `python -m` equivalent: a `#!/bin/sh` file exists to be run
         by path, so a clone must receive it with the bit set. The Python files in this tree also

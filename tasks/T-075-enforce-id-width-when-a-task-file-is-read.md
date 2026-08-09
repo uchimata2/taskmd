@@ -2,7 +2,7 @@
 id: T-075
 title: Enforce id width when a task file is read
 type: fix
-status: proposed
+status: specified
 phase: specify
 parent: T-059
 blocked_by: []
@@ -80,11 +80,29 @@ R-13 (`docs/SCOPE.md`) — a binding's stated behaviour is what an adopter build
       a file dropping out of the project with no signal is the failure T-062 exists to remove
 
 **Open questions**
-- **Does the code change, or the binding?** Enforcing the width makes `id_width` mean what the config
-  says and turns a typo into a diagnosable error. Relaxing the binding's sentence costs nothing and
-  admits mixed-width ids, which a project migrating an existing backlog would have — and non-goal 8
-  puts migration tooling out of v1 while saying nothing about tolerating what a migration produces.
-  `plan` decides; the maintainer's view on migrated backlogs would settle it faster.
+- ~~**Does the code change, or the binding?**~~ **Answered by the maintainer on 2026-08-09: the code —
+  enforce the width, and report the mismatch.**
+
+  So `is_id` honours `id_width`, and a file whose `id` does not match it is **not silently ignored**:
+  it is reported, which is criterion 4 and the same failure mode
+  [T-062](T-062-report-two-tasks-claiming-one-id-instead-of-dropping.md) exists to remove. `id_width`
+  then means one thing in both directions — what `format_id` composes and what `is_id` accepts —
+  instead of being a formatting rule the reader is told is a filter.
+
+  *Rejected: relaxing the binding's* enumerate *sentence to drop "and width".* It costs nothing and
+  tolerates whatever a migration produces, and that is the whole of its appeal. It also leaves
+  `id_width` doing less than the config implies, which is the R-11 half of the finding, and leaves a
+  typo in an id indistinguishable from a deliberate one — the failure this task was raised for.
+
+  *Rejected: accepting the file but warning.* Nothing drops out of the project, which is attractive.
+  It needs the binding **and** the tool reworded to describe a third behaviour that is neither
+  "matches" nor "does not", and it turns `check`'s output into advice on a file that is a task
+  anyway. Two documents changed to avoid changing one function.
+
+  **What a migrating project pays, stated rather than waved past:** an existing backlog with
+  mixed-width ids must normalise them or declare a wider `id_width`. Non-goal 8 puts migration tooling
+  out of v1, so this project offers neither — the error message has to be good enough to make the
+  manual route obvious, which is what criterion 4 is now carrying.
 
 ## 2. Plan
 
@@ -110,4 +128,5 @@ R-13 (`docs/SCOPE.md`) — a binding's stated behaviour is what an adopter build
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-09 | → specified | Answered: **the code changes** — `is_id` honours `id_width`, and a file whose id does not match is **reported**, not silently ignored. That makes criterion 4 the load-bearing one: the failure mode this shares with T-062 is a file leaving the project with no signal, so an enforcement that merely drops the file would trade one silent loss for another. Relaxing the binding was rejected for leaving `id_width` doing less than the config implies (the R-11 half of the finding) and a typo indistinguishable from intent; accept-but-warn was rejected for needing two documents reworded to describe a third behaviour. The cost is stated rather than waved past: a migrating backlog with mixed-width ids must normalise or widen `id_width`, and non-goal 8 ships no tool for it — so the error message has to make the manual route obvious. |
 | 2026-08-09 | → proposed | Raised as F-16 from the T-059 audit, clause 1. Reproduced alongside T-062 on a scratch project: an over-wide id is accepted under `id_width: 3`. `low`/`xs` — nothing is lost, only a rule the config implies and the binding states is not applied. Split from T-062 deliberately: same function and probably the same commit, but different evidence and a different cost, and merging them would hide one behind the other. |

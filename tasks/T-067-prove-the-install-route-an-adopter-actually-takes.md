@@ -2,7 +2,7 @@
 id: T-067
 title: Prove the install route an adopter actually takes
 type: analysis
-status: proposed
+status: specified
 phase: specify
 parent: T-059
 blocked_by: []
@@ -90,11 +90,33 @@ entry, [T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md),
 - [ ] No absolute path from any machine reaches this record (R-23)
 
 **Open questions**
-- **What stands in for "a machine that has never seen it"?** A second checkout on this machine tests
-  the manifest but not the clean-machine claim T-006 owns; a throwaway remote repository tests the
-  git route honestly and creates a second scratch repository, which
-  [T-037](T-037-delete-the-throwaway-proof-repository.md) exists because the first one was hard to
-  remove. `plan` decides, and whichever is chosen has to record its own cleanup.
+- ~~**What stands in for "a machine that has never seen it"?**~~ **Answered by the maintainer on
+  2026-08-09: a throwaway remote repository.**
+
+  So the git route is tested as a git route — clone from a remote the harness has never seen, by the
+  same mechanism an adopter would use — rather than by a path that happens to resolve. That is the
+  only option that can answer the question the task was raised for: whether `"source": "./plugin"`
+  needs to become `git-subdir`, which is a property of how the harness fetches a **remote**
+  marketplace and is unobservable from any local arrangement.
+
+  *Rejected: a second checkout on this machine.* It proves the source resolves outside the original
+  working tree, which is worth something and is not the claim. A local clone is still a directory, so
+  the fetch path — the part T-053 D4 reasoned about and nobody has run — is never exercised.
+
+  *Rejected: a local bare repository as the remote.* It is a real `git clone`, costs nothing to
+  delete, and is the tempting middle. It may also resolve by a code path that a hosted remote does
+  not, and a result that might be an artefact of the transport answers nothing — which is the failure
+  this task exists to avoid committing again.
+
+  *Rejected: folding into [T-006](T-006-package-document-and-publish.md).* Offered in §1 and available;
+  it moves the discovery to publication day, which is the release-day cost the audit's severity scale
+  is about.
+
+  **Cleanup is part of the work, not an afterthought.**
+  [T-037](T-037-delete-the-throwaway-proof-repository.md) exists because the first scratch repository
+  outlived its purpose and was awkward to remove. So this task's plan names the remote's deletion as
+  a step with its own output, and `implement` records the deletion as evidence — not "will be removed
+  later".
 
 ## 2. Plan
 
@@ -120,4 +142,5 @@ entry, [T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md),
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-09 | → specified | Answered: **a throwaway remote repository**, which is the only option that exercises the thing the task was raised about — how the harness fetches a *remote* marketplace, and therefore whether `"source": "./plugin"` has to become `git-subdir`. A second local checkout and a local bare remote were both rejected and why is written down: the first never leaves a directory, and the second may resolve by a transport-specific path, so a pass would not be evidence. Folding into T-006 was rejected because it moves the discovery to publication day. The answer adds an obligation the specify section now carries explicitly: **deletion of the remote is a plan step with its own output**, because T-037 exists for a scratch repository that outlived its purpose. Criteria unchanged. |
 | 2026-08-09 | → proposed | Raised as F-15 from the T-059 audit, clause 3. `medium`/`s`, and typed `analysis` because the honest first move is to find out rather than to add a source declaration on the strength of a design note. Deduped against T-006 criterion 4, which owns the outcome and names no command; recorded separately so the specific unproven thing — a relative subtree source, never installed by any route but a local directory — is visible before publication rather than at it. |

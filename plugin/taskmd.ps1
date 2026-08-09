@@ -9,10 +9,14 @@
 # launcher and picks a real interpreter, while `python3` is often the Store stub that opens a
 # shop instead of running anything; on everything else `python3` is the one that exists.
 
+# PYTHONPATH is replaced, not extended, exactly as in taskmd.sh - a caller's existing value is
+# discarded for this one process. This launcher never had the bug that made taskmd.sh replace it
+# (it joined with the platform's own separator and a native path, and passed all four values it
+# was tested against). It is written the same way regardless, because R-20 says the two behave
+# identically, and two launchers that differ only in what they do with an inherited variable is
+# the kind of difference nobody discovers until it matters.
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
-$env:PYTHONPATH = if ($env:PYTHONPATH) {
-    $here + [IO.Path]::PathSeparator + $env:PYTHONPATH
-} else { $here }
+$env:PYTHONPATH = $here
 
 # A candidate has to *run*, not merely exist: the Store stub is on PATH, answers Get-Command, and
 # then exits 49 telling you to visit a shop. Asking it to execute nothing tells the two apart.
