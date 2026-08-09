@@ -37,6 +37,8 @@ where they could not be quietly trimmed to whatever turned out to be easy.
 | `broken-link` | Broken link | A dead Markdown link inside a **dot-directory** |
 | `broken-derived-field` | Stale stored-derived field | A task stores `children:`, which is derived |
 | `broken-deliverable` | Missing deliverable | Declares `out/report.md`, which is not there |
+| `broken-duplicate-id` | Duplicate id | Two files both carrying `id: T-001` |
+| `broken-id-width` | Id width | `id: T-0001`, one digit too wide for `id_width: 3` |
 | `broken-config` | Config error at setup — a **key** | `id_witdh` — a typo in a key name |
 | `broken-tasks-dir` | Config error at setup — a **value** | `tasks_dir: taks`, beside a real `tasks/` |
 | `broken-hook` | Config error at setup — a **command** | `after_write` naming a file the project does not ship |
@@ -49,6 +51,13 @@ line, so the question can be asked without running anything (T-011).
 `broken-tasks-dir` also has no committed sibling for the case where the value is fine and
 the folder simply has not been made yet — a project with neither a config nor a tasks folder is an
 empty directory, which git cannot store, so that one is built in a temp directory by the test.
+
+`broken-duplicate-id` and `broken-id-width` are the two cases where the defect is that a file is
+**not** the task it looks like, and both were silent before T-062 and T-075. The first is the only
+fixture whose file count and task count differ on purpose: two task files, one task, and before the
+fix the survivor was whichever the filesystem happened to yield last. The second carries an
+ordinary sibling as well, so what it shows is a *file* being rejected rather than a project failing
+to load.
 
 `broken-link`'s defect is in `.notes/` rather than in a task, and that is the interesting part:
 `glob`'s `**` skips dot-directories, which is how a broken link in a live handoff pointer stayed

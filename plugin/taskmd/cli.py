@@ -29,7 +29,7 @@ import subprocess
 import sys
 
 from . import discovery
-from .schema import SchemaError, load_schema, load_tasks
+from .schema import DUPLICATE_ID, SchemaError, load_schema, load_tasks
 
 BEGIN = "<!-- taskmd:index - generated, do not edit by hand -->"
 END = "<!-- taskmd:end -->"
@@ -364,6 +364,26 @@ def check_deliverables(root, schema, tasks, problems):
                                 % (task.id, path))
 
 
+def check_anomalies(root, schema, tasks, problems):
+    """Files under `tasks_dir` that are not the task somebody thought they were.
+
+    `load_tasks` records these rather than raising, so a defect in one file cannot stop a command
+    about another (R-17's own wording). This is where they surface — which is what makes `check`
+    the one place a project's problems are listed, instead of a thing you find out by noticing a
+    task is missing.
+    """
+    for anomaly in tasks.anomalies:
+        where = [rel(root, os.path.relpath(p, root)) for p in anomaly.paths]
+        if anomaly.kind == DUPLICATE_ID:
+            problems.append("DUPLICATE ID  %s is claimed by %s. Only the first is loaded, so the "
+                            "other is in no view and on no edge"
+                            % (anomaly.task_id, " and ".join(where)))
+        else:
+            problems.append("ID WIDTH      %s declares '%s', which is not %s plus %d digit(s), so "
+                            "it is not loaded as a task"
+                            % (where[0], anomaly.task_id, schema.id_prefix, schema.id_width))
+
+
 def check_links(root, schema, problems):
     for md in markdown_files(root, schema):
         base = os.path.dirname(md)
@@ -382,6 +402,7 @@ def ordered(tasks):
 
 def cmd_check(root, schema, tasks, args):
     problems = []
+    check_anomalies(root, schema, tasks, problems)
     check_vocabularies(schema, tasks, problems)
     check_references(schema, tasks, problems)
     check_blocked_without_blocker(schema, tasks, problems)
@@ -600,4 +621,14 @@ def main(argv):
     except SchemaError as exc:
         print("CONFIG ERROR  %s" % exc)
         return 2
-    return COMMANDS[rest[0]](root, schema, tasks, rest[1:])
+
+    command = COMMANDS[rest[0]]
+    if command is not cmd_check and tasks.anomalies:
+        # One line, and not the detail — the detail is `check`'s, and a second copy of it here
+        # would be a second home for one fact. What this removes is the silence: before it, a task
+        # could vanish from `list` with nothing printed anywhere and exit 0. It goes to stderr so
+        # stdout stays byte-for-byte what it was, and a script cutting the tab-separated form or
+        # parsing `--json` is unaffected.
+        sys.stderr.write("taskmd: %d problem(s) with the task files - run 'taskmd check'\n"
+                         % len(tasks.anomalies))
+    return command(root, schema, tasks, rest[1:])

@@ -99,6 +99,14 @@ else in the folder — the generated index, templates — is not a task by assum
 includes finished tasks, which is what keeps the far end of a link to finished work visible
 ([`../BINDING.md`](../BINDING.md) §3).
 
+Two files can leave this step without becoming the task somebody expected, and **neither may do so
+quietly**. A file carrying the prefix at the wrong width is a near-miss rather than a note, so it is
+**reported** and not merely skipped — the alternative drops a file out of the project with no signal,
+which is the same failure as the one below. And two files claiming one id are a **conflict**: the
+first in sorted order is enumerated so the answer is at least reproducible, and the collision is
+reported. Silently keeping one of the two is what makes assumption 3's merge collision cost a task
+rather than a message.
+
 ### After any write
 
 ```bash

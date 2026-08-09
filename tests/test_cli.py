@@ -57,7 +57,7 @@ class CheckFailsOnEveryClassItClaims(unittest.TestCase):
     """One fixture per class. Each must report its own class, and only its own."""
 
     LABELS = ["VOCABULARY", "DANGLING", "NO BLOCKER", "CYCLE", "BROKEN LINK",
-              "STORED DERIVED", "MISSING OUTPUT", "CONFIG ERROR"]
+              "STORED DERIVED", "MISSING OUTPUT", "CONFIG ERROR", "DUPLICATE ID", "ID WIDTH"]
 
     def fails(self, fixture, label, needle, code=1):
         got, out = run("check", "--root", os.path.join(FIXTURES, fixture))
@@ -93,6 +93,60 @@ class CheckFailsOnEveryClassItClaims(unittest.TestCase):
     def test_config_error_surfaces_at_setup_naming_the_key(self):
         """R-17: reported when the config is read, with exit 2 — never from inside a command."""
         self.fails("broken-config", "CONFIG ERROR", "id_witdh", code=2)
+
+    def test_two_files_claiming_one_id(self):
+        """T-062. Before this class, three task files could produce two tasks and `OK`, exit 0."""
+        self.fails("broken-duplicate-id", "DUPLICATE ID", "T-001-second.md")
+
+    def test_an_id_that_is_the_right_prefix_and_the_wrong_width(self):
+        """T-075. `id_width` used to be honoured only when composing a new id, never when reading
+        one, so a file no `create` could have produced was silently a task."""
+        self.fails("broken-id-width", "ID WIDTH", "T-0001")
+
+
+class ADuplicateIsNeverSilent(unittest.TestCase):
+    """T-062's real content. `check` reporting it is half the fix; the other half is that no
+    command answers over a broken project without saying so.
+
+    The failure this closes was not that `check` was wrong — it was that **nothing** was. A task
+    vanished from every view, and the only way to find out was to notice it missing."""
+
+    DUPES = os.path.join(FIXTURES, "broken-duplicate-id")
+
+    def test_the_file_that_loads_is_the_same_one_every_time(self):
+        """Which file wins used to be `os.walk`'s answer, so it could differ between machines.
+        It is a collision either way — this only means a project gives the same answer twice."""
+        for _ in range(3):
+            code, out = run("list", "--root", self.DUPES)
+            self.assertEqual(code, 0, out)
+            self.assertIn("First file alphabetically", out)
+
+    def test_an_unrelated_command_warns_on_stderr_and_still_answers(self):
+        """The open question this settles: not refusal. R-17 is explicit that a problem is never
+        raised "from inside a task the user is trying to finish", and a duplicate id is task
+        content, not configuration — so `list` still answers, and stdout is untouched so a script
+        cutting it sees exactly what it saw before. What changes is that stderr is no longer
+        empty."""
+        buffer = io.StringIO()
+        stderr, sys.stderr = sys.stderr, buffer
+        try:
+            code, out = run("list", "--root", self.DUPES)
+        finally:
+            sys.stderr = stderr
+        self.assertEqual(code, 0, out)
+        self.assertIn("run 'taskmd check'", buffer.getvalue())
+        self.assertNotIn("taskmd:", out)
+
+    def test_check_itself_does_not_also_warn(self):
+        """`check` lists the detail; a stderr line pointing at `check` would be it telling the
+        user to run the command they are already running."""
+        buffer = io.StringIO()
+        stderr, sys.stderr = sys.stderr, buffer
+        try:
+            run("check", "--root", self.DUPES)
+        finally:
+            sys.stderr = stderr
+        self.assertEqual("", buffer.getvalue())
 
 
 class NothingIsHardcoded(unittest.TestCase):

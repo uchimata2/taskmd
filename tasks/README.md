@@ -37,7 +37,6 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | - | `specified` | `specify` | - | - | T-003 | - | T-015, T-028, T-059, T-063 |
 | [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | - | `proposed` | `specify` | - | - | - | - | T-001, T-003, T-060, T-076 |
 | [T-059](T-059-audit-the-whole-project-after-the-plugin-restructure.md) | Audit the whole project after the plugin restructure | - | `review` | `implement` | - | T-060, T-061, T-062, T-063, T-064, T-065, T-066, T-067, T-068, T-069, T-070, T-071, T-072, T-073, T-074, T-075 | - | - | T-004, T-006, T-026, T-047, T-053 |
-| [T-062](T-062-report-two-tasks-claiming-one-id-instead-of-dropping.md) | Report two tasks claiming one id instead of dropping one | - | `proposed` | `specify` | T-059 | - | - | - | T-004, T-075 |
 | [T-063](T-063-measure-the-tier-1-member-the-rule-declares.md) | Measure the tier-1 member the rule declares | - | `proposed` | `specify` | T-059 | - | - | - | T-028, T-047 |
 | [T-064](T-064-stop-the-plugin-citing-documents-it-does-not-ship.md) | Stop the plugin citing documents it does not ship | - | `specified` | `specify` | T-059 | - | - | - | T-006, T-053 |
 | [T-065](T-065-say-what-happens-to-a-field-the-schema-does-not-name.md) | Say what happens to a field the schema does not name | - | `proposed` | `specify` | T-059 | - | - | - | T-001, T-030 |
@@ -50,7 +49,6 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-072](T-072-give-the-description-and-version-one-home-each.md) | Give the plugin's description and version one home each | - | `proposed` | `specify` | T-059 | - | - | - | T-006, T-053 |
 | [T-073](T-073-correct-the-command-surface-local-context-states.md) | Correct the command surface local context still states | - | `proposed` | `specify` | T-059 | - | - | - | T-013, T-022 |
 | [T-074](T-074-let-the-skill-point-where-it-currently-restates.md) | Let the skill point where it currently restates | - | `proposed` | `specify` | T-059 | - | - | - | T-003, T-009 |
-| [T-075](T-075-enforce-id-width-when-a-task-file-is-read.md) | Enforce id width when a task file is read | - | `specified` | `specify` | T-059 | - | - | - | T-004, T-062 |
 | [T-076](T-076-decide-what-a-template-s-links-resolve-against.md) | Decide what a template's links resolve against | - | `proposed` | `specify` | - | - | - | - | T-032, T-051, T-060 |
 
 ## Closed
@@ -98,5 +96,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-058](T-058-say-that-a-four-part-version-trips-the-leak-check.md) | Say that a four-part version number trips the leak check | - | `done` | `review` | T-049 | - | - | - | T-018, T-034, T-035, T-049 |
 | [T-060](T-060-point-the-task-templates-at-paths-that-exist.md) | Point the task templates at paths that exist | - | `done` | `review` | T-059 | - | - | - | T-032, T-051, T-076 |
 | [T-061](T-061-stop-an-inherited-pythonpath-breaking-the-launcher.md) | Stop an inherited PYTHONPATH breaking the shell launcher | - | `done` | `review` | T-059 | - | - | - | T-049, T-056, T-068 |
+| [T-062](T-062-report-two-tasks-claiming-one-id-instead-of-dropping.md) | Report two tasks claiming one id instead of dropping one | - | `done` | `review` | T-059 | - | - | - | T-004, T-075 |
+| [T-075](T-075-enforce-id-width-when-a-task-file-is-read.md) | Enforce id width when a task file is read | - | `done` | `review` | T-059 | - | - | - | T-004, T-062 |
 
 <!-- taskmd:end -->

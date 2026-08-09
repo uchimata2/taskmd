@@ -192,7 +192,8 @@ class Schema(object):
         self.index_columns = fields["index_columns"]
         self.edges = edges                # {field: Edge}
         self.vocabularies = vocabularies  # {field: [values]}
-        self._id_re = re.compile(r"^%s\d+$" % re.escape(self.id_prefix))
+        self._id_re = re.compile(r"^%s\d{%d}$" % (re.escape(self.id_prefix), self.id_width))
+        self._loose_id_re = re.compile(r"^%s\d+$" % re.escape(self.id_prefix))
 
     @property
     def statuses(self):
@@ -234,7 +235,23 @@ class Schema(object):
         return values.index(value) if value in values else len(values)
 
     def is_id(self, value):
+        """Prefix plus **exactly** `id_width` digits.
+
+        The width is enforced here, when a file is read, and not only by `format_id` when a new id
+        is composed — which is what the local-markdown binding's *enumerate* rule has always said
+        and what the code used to leave unsaid (T-075). So a file whose id is the right shape and
+        the wrong width is not quietly a task; `looks_like_id` is how a caller tells that case
+        apart from an ordinary Markdown file, and reports it instead of ignoring it.
+        """
         return bool(self._id_re.match(value or ""))
+
+    def looks_like_id(self, value):
+        """Prefix plus digits of any width — an id as somebody meant to write one.
+
+        Its whole purpose is to make a near-miss reportable. Without it, a mistyped width is
+        indistinguishable from a README, and the file leaves the project with no signal.
+        """
+        return bool(self._loose_id_re.match(value or ""))
 
     def format_id(self, number):
         return "%s%0*d" % (self.id_prefix, self.id_width, number)
@@ -534,20 +551,77 @@ class Task(object):
         return "Task(%s, %s)" % (self.id, self.status)
 
 
+class TaskSet(dict):
+    """The project's tasks, and what was **not** loaded as one.
+
+    A `dict` subclass, so every caller that treats this as `{id: Task}` carries on unchanged. The
+    anomalies ride along because they are facts about this set — which id was claimed twice, which
+    file was rejected — and the alternative was threading a fifth argument through four commands
+    to reach the two places that care.
+    """
+
+    def __init__(self, *args, **kwargs):
+        dict.__init__(self, *args, **kwargs)
+        self.anomalies = []
+
+
+DUPLICATE_ID = "duplicate-id"   # two files claim one id; the first in walk order is loaded
+ID_WIDTH = "id-width"           # right prefix, wrong width: not a task, and said so
+
+
+class Anomaly(object):
+    """One reason a file under `tasks_dir` is not the task somebody thought it was."""
+
+    def __init__(self, kind, task_id, paths):
+        self.kind = kind
+        self.task_id = task_id
+        self.paths = paths
+
+    def __repr__(self):
+        return "Anomaly(%s, %s, %s)" % (self.kind, self.task_id, self.paths)
+
+
 def load_tasks(root=".", schema=None):
-    """Read every task file under the schema's tasks_dir and wire up the derived edges."""
+    """Read every task file under the schema's tasks_dir and wire up the derived edges.
+
+    Two things go wrong while reading a folder of files, and both used to be silent. Two files
+    claiming one id: the second overwrote the first in a plain dict, so a task simply ceased to
+    exist — gone from `list`, from the index, from `context` and from every derived edge on both
+    ends, with nothing printed and exit 0 (T-062). And a file whose id carries the right prefix at
+    the wrong width, accepted as though `id_width` were decoration (T-075).
+
+    **Neither raises.** A defect in one task file is not a configuration problem, and R-17 is
+    explicit that a problem is "never raised from inside a task the user is trying to finish" — so
+    the readable tasks are returned, and the anomalies travel with them on the result for `check`
+    to report and every other command to warn about.
+    """
     schema = schema or load_schema(root)
-    tasks = {}
+    claims, mismatched = {}, []
     base = os.path.join(root, schema.tasks_dir)
     for folder, dirs, files in os.walk(base):
-        dirs[:] = [d for d in dirs if not d.startswith(("_", "."))]
+        # Sorted, so which file wins a collision is reproducible instead of an artefact of the
+        # filesystem's own ordering. It is still a collision, and it is still reported; this only
+        # means the same project gives the same answer twice.
+        dirs[:] = sorted(d for d in dirs if not d.startswith(("_", ".")))
         for name in sorted(files):
             if not name.endswith(".md"):
                 continue
-            fields, _ = split_front_matter(read(os.path.join(folder, name)))
-            task = Task(os.path.join(folder, name), schema, fields)
+            path = os.path.join(folder, name)
+            fields, _ = split_front_matter(read(path))
+            task = Task(path, schema, fields)
             if schema.is_id(task.id):
-                tasks[task.id] = task
+                claims.setdefault(task.id, []).append(task)
+            elif schema.looks_like_id(task.id):
+                mismatched.append(task)
+
+    tasks = TaskSet()
+    for task_id in sorted(claims):
+        claimed = claims[task_id]
+        tasks[task_id] = claimed[0]
+        if len(claimed) > 1:
+            tasks.anomalies.append(Anomaly(DUPLICATE_ID, task_id, [t.path for t in claimed]))
+    for task in sorted(mismatched, key=lambda t: t.path):
+        tasks.anomalies.append(Anomaly(ID_WIDTH, task.id, [task.path]))
     return derive(tasks, schema)
 
 
