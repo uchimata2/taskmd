@@ -23,7 +23,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-020](T-020-confirm-byte-identical-output-on-macos-and-linux.md) | Confirm byte-identical output on macOS and Linux | - | `specified` | `specify` | T-002 | - | - | - | T-006, T-023, T-030 |
 | [T-021](T-021-settle-what-the-context-closing-line-may-say.md) | Settle what the context closing line may say | - | `specified` | `specify` | T-002 | - | - | - | T-003, T-022 |
 | [T-023](T-023-stop-config-errors-printing-an-absolute-install-path.md) | Stop config errors printing an absolute install path | - | `specified` | `specify` | - | - | - | - | T-006, T-019, T-020, T-024, T-030, T-066 |
-| [T-024](T-024-say-so-when-tasks-dir-names-something-that-is-not-a-folder.md) | Say so when tasks_dir names something that is not a folder | - | `proposed` | `specify` | - | - | - | - | T-019, T-023 |
+| [T-024](T-024-say-so-when-tasks-dir-names-something-that-is-not-a-folder.md) | Say so when tasks_dir names something that is not a folder | - | `proposed` | `specify` | - | - | - | - | T-019, T-023, T-078 |
 | [T-025](T-025-let-check-notice-a-stale-generated-index.md) | Let check notice a stale generated index | - | `specified` | `specify` | - | - | - | - | T-002, T-009, T-011, T-019, T-026, T-039 |
 | [T-026](T-026-audit-the-whole-project-before-the-remaining-build.md) | Audit the whole project before the remaining build | - | `review` | `review` | - | T-027, T-028, T-029, T-030, T-031, T-032, T-033, T-034 | - | - | T-003, T-006, T-010, T-025, T-036, T-059 |
 | [T-029](T-029-reject-unknown-arguments-on-every-command.md) | Reject unknown arguments on every command | - | `specified` | `specify` | T-026 | - | - | - | T-002, T-022, T-055 |
@@ -37,8 +37,6 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | - | `specified` | `specify` | - | - | T-003 | - | T-015, T-028, T-059, T-063 |
 | [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | - | `proposed` | `specify` | - | - | - | - | T-001, T-003, T-060, T-076 |
 | [T-059](T-059-audit-the-whole-project-after-the-plugin-restructure.md) | Audit the whole project after the plugin restructure | - | `review` | `implement` | - | T-060, T-061, T-062, T-063, T-064, T-065, T-066, T-067, T-068, T-069, T-070, T-071, T-072, T-073, T-074, T-075 | - | - | T-004, T-006, T-026, T-047, T-053 |
-| [T-068](T-068-cover-the-entry-point-an-adopter-runs.md) | Cover the entry point an adopter runs | - | `proposed` | `specify` | T-059 | - | - | - | T-054, T-061 |
-| [T-069](T-069-skip-a-nested-project-at-any-depth.md) | Skip a nested project at any depth, not below the first | - | `proposed` | `specify` | T-059 | - | - | - | T-011 |
 | [T-070](T-070-decide-whether-an-unused-field-column-is-shown.md) | Decide whether an unused field column is shown at all | - | `specified` | `specify` | T-059 | - | - | - | T-001, T-022 |
 | [T-071](T-071-let-the-usage-test-assert-every-command-there-is.md) | Let the usage test assert every command there is | - | `proposed` | `specify` | T-059 | - | - | - | T-022, T-055 |
 | [T-072](T-072-give-the-description-and-version-one-home-each.md) | Give the plugin's description and version one home each | - | `proposed` | `specify` | T-059 | - | - | - | T-006, T-053 |
@@ -46,6 +44,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-074](T-074-let-the-skill-point-where-it-currently-restates.md) | Let the skill point where it currently restates | - | `proposed` | `specify` | T-059 | - | - | - | T-003, T-009 |
 | [T-076](T-076-decide-what-a-template-s-links-resolve-against.md) | Decide what a template's links resolve against | - | `proposed` | `specify` | - | - | - | - | T-032, T-051, T-060 |
 | [T-077](T-077-delete-the-rehearsal-repository-t-067-installed-from.md) | Delete the rehearsal repository T-067 installed from | - | `proposed` | `specify` | - | - | - | - | T-037, T-067 |
+| [T-078](T-078-say-what-a-tasks-dir-of-dot-means.md) | Say what a tasks_dir of dot means | - | `proposed` | `specify` | - | - | - | - | T-019, T-024, T-069 |
 
 ## Closed
 
@@ -66,7 +65,7 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-016](T-016-remove-the-id-format-placeholders-from-the-method.md) | Remove the id-format placeholders from the method | - | `done` | `review` | T-008 | - | - | - | - |
 | [T-017](T-017-settle-the-overlap-between-scope-requirements-and-the-method.md) | Settle the overlap between SCOPE requirements and the method rules | - | `done` | `review` | T-008 | - | - | - | T-003, T-027, T-045 |
 | [T-018](T-018-stop-the-pre-publish-fixture-tripping-its-own-check.md) | Stop the pre-publish fixture tripping its own check | - | `done` | `review` | - | - | - | T-006 | T-013, T-034, T-035, T-058 |
-| [T-019](T-019-report-a-tasks-dir-that-does-not-exist-at-setup.md) | Report a tasks_dir that does not exist at setup | - | `done` | `review` | T-002 | - | - | - | T-003, T-006, T-023, T-024, T-025 |
+| [T-019](T-019-report-a-tasks-dir-that-does-not-exist-at-setup.md) | Report a tasks_dir that does not exist at setup | - | `done` | `review` | T-002 | - | - | - | T-003, T-006, T-023, T-024, T-025, T-078 |
 | [T-022](T-022-filtered-task-listing-for-scripts.md) | Filtered task listing for scripts | - | `done` | `review` | - | - | - | - | T-003, T-007, T-021, T-029, T-031, T-032, T-070, T-071, T-073 |
 | [T-027](T-027-give-the-design-rule-one-home.md) | Give the design rule one home | - | `done` | `review` | T-026 | - | - | T-028 | T-017, T-031, T-045, T-046 |
 | [T-028](T-028-budget-the-whole-always-loaded-context-not-one-file.md) | Budget the whole always-loaded context, not one file | - | `done` | `review` | T-026 | - | T-027 | - | T-003, T-015, T-040, T-046, T-047, T-048, T-063 |
@@ -98,6 +97,8 @@ Working method: [`../CLAUDE.md`](../CLAUDE.md). Scope and requirements:
 | [T-065](T-065-say-what-happens-to-a-field-the-schema-does-not-name.md) | Say what happens to a field the schema does not name | - | `done` | `review` | T-059 | - | - | - | T-001, T-030 |
 | [T-066](T-066-reconcile-two-open-tasks-with-the-fix-that-landed.md) | Reconcile two open tasks with the fix that already landed | - | `done` | `review` | T-059 | - | - | - | T-011, T-023, T-030 |
 | [T-067](T-067-prove-the-install-route-an-adopter-actually-takes.md) | Prove the install route an adopter actually takes | - | `done` | `review` | T-059 | - | - | - | T-006, T-052, T-053, T-054, T-077 |
+| [T-068](T-068-cover-the-entry-point-an-adopter-runs.md) | Cover the entry point an adopter runs | - | `done` | `review` | T-059 | - | - | - | T-054, T-061 |
+| [T-069](T-069-skip-a-nested-project-at-any-depth.md) | Skip a nested project at any depth, not below the first | - | `done` | `review` | T-059 | - | - | - | T-011, T-078 |
 | [T-075](T-075-enforce-id-width-when-a-task-file-is-read.md) | Enforce id width when a task file is read | - | `done` | `review` | T-059 | - | - | - | T-004, T-062 |
 
 <!-- taskmd:end -->

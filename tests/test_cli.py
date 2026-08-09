@@ -45,6 +45,17 @@ class ChecksThisRepository(unittest.TestCase):
         self.assertEqual(code, 0, out)
         self.assertIn("OK - ", out)
 
+    def test_a_project_directly_inside_the_root_is_still_skipped(self):
+        """T-069. The exclusion used to start one directory down, so a monorepo holding a taskmd
+        project at its top level had that project's defects reported as its own.
+
+        It never showed here because all ten `broken-*` fixtures sit two levels down — the shape of
+        the fixture set was hiding the shape of the bug. `nested-at-root` is the only fixture whose
+        nested project is a direct child."""
+        code, out = run("check", "--root", os.path.join(FIXTURES, "nested-at-root"))
+        self.assertEqual(code, 0, out)
+        self.assertNotIn("inner/", out)
+
     def test_the_broken_fixtures_are_not_reported_as_this_projects_problems(self):
         """They are projects in their own right. If the host reported them, `check` could never
         be clean here and the fixtures would have to live outside the repository."""

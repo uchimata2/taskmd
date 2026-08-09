@@ -79,13 +79,19 @@ def markdown_files(root, schema):
 
     Walking rather than globbing is deliberate: `glob`'s `**` skips dot-directories, and a broken
     link in a dot-directory is exactly the one that stayed hidden long enough to matter.
+
+    **The exclusion applies at every depth, including directly inside the root.** It used to carry a
+    `base != root` guard, which meant a project holding another project at the top level reported
+    that project's problems as its own — invisible here only because every fixture happens to sit two
+    levels down (T-069). Removing it cannot make the walk decline to enter the project it was asked
+    about: the test is applied to *subdirectories* of `base`, never to `root` itself.
     """
     for base, dirs, files in os.walk(root):
         keep = []
         for d in dirs:
             if d in SKIP_DIRS:
                 continue
-            if base != root and is_nested_project(schema, os.path.join(base, d)):
+            if is_nested_project(schema, os.path.join(base, d)):
                 continue
             keep.append(d)
         dirs[:] = sorted(keep)

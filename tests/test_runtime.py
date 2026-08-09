@@ -392,21 +392,89 @@ class ThePluginShipsWhatItCites(unittest.TestCase):
 class Launchers(unittest.TestCase):
     """Criterion 2: the launchers carry no logic, so removing one changes nothing but the way in."""
 
-    def test_both_launchers_exist_at_the_root_where_a_clone_will_look(self):
-        """The root a clone looks at is the *plugin* root, which is what an install receives —
-        not this repository's root, which also holds material the plugin does not ship."""
-        for name in ("taskmd.sh", "taskmd.ps1"):
-            self.assertTrue(os.path.isfile(os.path.join(PKG, name)), name)
+    #: Comment markers, by extension. A launcher's *body* is what carries logic; its prose is
+    #: allowed to say anything, and does.
+    COMMENT = {".ps1": ("#",), ".cmd": ("rem", "@"), ".sh": ("#",), "": ("#",)}
 
-    def test_neither_launcher_names_a_command_a_flag_or_a_field(self):
-        """What 'no logic' means, made checkable: a launcher that knew a command name would have
-        to be edited whenever the tool grew one, which is the drift this criterion is about."""
-        for name in ("taskmd.sh", "taskmd.ps1"):
-            text = cli.read(os.path.join(PKG, name))
-            body = "\n".join(ln for ln in text.splitlines()
-                             if ln.strip() and not ln.strip().startswith("#"))
+    def entry_points(self):
+        """Every file a user can invoke, **derived from the tree** rather than written down here.
+
+        Two places, and they are two audiences: the plugin root is what a contributor with a clone
+        types (`./plugin/taskmd.sh`), and `bin/` is what the harness puts on an adopter's PATH.
+        Deriving it is the point — a written pair is correct only until someone adds a third entry
+        point, and the day that happens is exactly the day nobody remembers to extend the list
+        (T-068).
+        """
+        found = [os.path.join(PKG, n) for n in sorted(os.listdir(PKG))
+                 if n.startswith("taskmd.") and os.path.isfile(os.path.join(PKG, n))]
+        bindir = os.path.join(PKG, "bin")
+        found += [os.path.join(bindir, n) for n in sorted(os.listdir(bindir))]
+        return found
+
+    def how_to_run(self, path):
+        """The argv prefix that runs one entry point here, or None if this platform cannot.
+
+        None is a real answer and the caller must report it: a `.cmd` on a POSIX machine cannot be
+        run, and a test that quietly returned green for it would be worse than no test at all.
+        """
+        name = os.path.basename(path)
+        if name.endswith(".cmd"):
+            if os.name != "nt":
+                return None
+            return [os.environ.get("COMSPEC", "cmd.exe"), "/c", path]
+        if name.endswith(".ps1"):
+            shell = shutil.which("pwsh") or shutil.which("powershell")
+            return [shell, "-NoProfile", "-File", path] if shell else None
+        shell = shutil.which("bash") or shutil.which("sh")
+        return [shell, path] if shell else None
+
+    def test_every_entry_point_exists_where_the_one_who_runs_it_will_look(self):
+        """Derived, so this cannot pass by describing a tree that has moved on."""
+        found = [os.path.relpath(p, PKG).replace("\\", "/") for p in self.entry_points()]
+        self.assertIn("taskmd.sh", found)
+        self.assertIn("taskmd.ps1", found)
+        self.assertIn("bin/taskmd", found)
+        self.assertIn("bin/taskmd.cmd", found)
+
+    def test_no_entry_point_names_a_command_a_flag_or_a_field(self):
+        """What 'no logic' means, made checkable: an entry point that knew a command name would
+        have to be edited whenever the tool grew one, which is the drift this criterion is about.
+
+        Now over `bin/` too. Both files there are delegates, and a delegate that learned a command
+        name would be a second launcher wearing a thin coat."""
+        for path in self.entry_points():
+            name = os.path.relpath(path, PKG).replace("\\", "/")
+            markers = self.COMMENT[os.path.splitext(path)[1]]
+            body = "\n".join(ln for ln in cli.read(path).splitlines()
+                             if ln.strip() and not ln.strip().lower().startswith(markers))
             for word in sorted(cli.COMMANDS) + ["--root", "tasks_dir", "status"]:
                 self.assertNotIn(word, body, "%s mentions %r" % (name, word))
+
+    def test_every_entry_point_produces_what_the_module_produces(self):
+        """T-068. The adopter's own command, run — not inspected, and not verified by hand once.
+
+        The environment is **set by this test**. `bin/taskmd` reaches `taskmd.sh` by delegation, so
+        it inherited T-061's defect in full and no test saw it; an assertion that borrows the
+        runner's environment cannot see the case it is closest to.
+        """
+        expected = subprocess.run([sys.executable, "-m", "taskmd", "check"], cwd=ROOT,
+                                  env=dict(os.environ, PYTHONPATH=PKG),
+                                  stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        ran = []
+        for path in self.entry_points():
+            name = os.path.relpath(path, PKG).replace("\\", "/")
+            with self.subTest(entry=name):
+                argv = self.how_to_run(path)
+                if argv is None:
+                    self.skipTest("%s cannot be run on this platform" % name)
+                got = subprocess.run(argv + ["check"], cwd=ROOT,
+                                     env=dict(os.environ, PYTHONPATH="relative/dir"),
+                                     stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                self.assertEqual(expected.returncode, got.returncode,
+                                 "%s exited %d: %s" % (name, got.returncode, got.stdout))
+                self.assertEqual(expected.stdout.strip(), got.stdout.strip(), name)
+                ran.append(name)
+        self.assertTrue(ran, "no entry point was runnable here; this test proved nothing")
 
     def test_the_shell_launcher_produces_what_the_module_produces(self):
         if not shutil.which("bash"):

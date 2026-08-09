@@ -64,6 +64,14 @@ to load.
 invisible. A fixture that put the dead link in an ordinary folder would pass a walk that misses the
 case that actually bit.
 
+`nested-at-root` is the third positive case, and it exists because of the shape of this folder
+rather than because of a feature. Every `broken-*` project sits **two** levels down, and the nested-
+project exclusion below used to begin one level down — so a project holding another project as a
+*direct* child had that child's defects reported as its own, and no fixture here could show it
+(T-069). Its `inner/` is the only nested project in this tree that is a direct child, and the host
+must report nothing.
+
 **These projects are not part of this one.** `check` skips a nested project — a directory holding
-its own `.taskmd/` or its own tasks folder — so the host repository does not report the defects
-these exist to hold. A taskmd project inside a taskmd project is validated on its own.
+its own `.taskmd/` or its own tasks folder — **at any depth, including directly inside the root**.
+So the host repository does not report the defects these exist to hold. A taskmd project inside a
+taskmd project is validated on its own.
