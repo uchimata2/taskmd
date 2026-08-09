@@ -48,7 +48,7 @@ into, not a promise about a date.
 | [T-029](T-029-reject-unknown-arguments-on-every-command.md) | Reject unknown arguments on every command | `v0.2` | `specified` | `specify` | T-026 | - | - | - | T-002, T-022, T-055, T-087 |
 | [T-030](T-030-settle-the-schema-module-s-own-entry-point.md) | Settle the schema module's own entry point | `v0.2` | `specified` | `specify` | T-026 | - | - | - | T-020, T-023, T-065, T-066 |
 | [T-031](T-031-give-the-list-rationale-one-home.md) | Give the list rationale one home | `v0.2` | `specified` | `specify` | T-026 | - | - | - | T-022, T-027 |
-| [T-032](T-032-repair-the-audit-template-and-validate-templates.md) | Repair the audit template, and validate templates at all | `v0.2` | `specified` | `specify` | T-026 | - | - | - | T-003, T-022, T-036, T-060, T-076, T-088, T-089, T-090 |
+| [T-032](T-032-repair-the-audit-template-and-validate-templates.md) | Repair the audit template, and validate templates at all | `v0.2` | `specified` | `specify` | T-026 | - | - | - | T-003, T-022, T-036, T-060, T-076, T-088, T-089, T-090, T-091 |
 | [T-033](T-033-resolve-the-f1-reference-inside-this-repository.md) | Resolve the F1 reference inside this repository | `v0.2` | `proposed` | `specify` | T-026 | - | - | - | T-005, T-013 |
 | [T-035](T-035-warn-that-a-fabricated-specimen-must-not-cross-a-shell.md) | Warn that a fabricated specimen must not cross a shell | `v0.3` | `proposed` | `specify` | - | - | - | - | T-013, T-018, T-034, T-058 |
 | [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | `v0.3` | `specified` | `specify` | - | - | - | - | T-026, T-032 |
@@ -58,6 +58,7 @@ into, not a promise about a date.
 | [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) | Install the published plugin on a machine that has never seen it | `v0.3` | `proposed` | `specify` | T-006 | - | - | - | T-020, T-049, T-067 |
 | [T-087](T-087-let-list-filter-on-a-field-the-index-can-show.md) | Let list filter on a field the index can show | `v0.2` | `specified` | `specify` | - | - | - | - | T-022, T-029, T-086 |
 | [T-090](T-090-decide-what-a-cancelled-task-s-declared-outputs-assert.md) | Decide what a cancelled task's declared outputs assert | `v0.2` | `proposed` | `specify` | T-089 | - | - | - | T-002, T-032 |
+| [T-091](T-091-make-the-shipped-task-template-survive-being-copied.md) | Make the shipped task template survive being copied into another project | `v0.2` | `proposed` | `specify` | - | - | - | - | T-032, T-051, T-060, T-076 |
 
 ## Closed
 
@@ -99,7 +100,7 @@ into, not a promise about a date.
 | [T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md) | Say what "always-loaded" means in R-21, before the skill is built against it | `v0.1` | `done` | `review` | - | - | - | - | T-003, T-028 |
 | [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) | Demonstrate a clone running on a second platform | `v0.1` | `done` | `review` | T-011 | T-057, T-058 | - | - | T-006, T-054, T-056, T-057, T-058, T-061, T-085 |
 | [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | `v0.1` | `done` | `review` | T-003 | - | - | - | T-006, T-052, T-053 |
-| [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | `v0.1` | `done` | `review` | - | - | - | - | T-001, T-003, T-060, T-076 |
+| [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | `v0.1` | `done` | `review` | - | - | - | - | T-001, T-003, T-060, T-076, T-091 |
 | [T-052](T-052-decide-what-of-claude-a-published-clone-carries.md) | Decide what of .claude a published clone carries, and ignore the rest | `v0.1` | `done` | `review` | - | - | - | - | T-003, T-006, T-050, T-053, T-067 |
 | [T-053](T-053-decide-the-plugin-s-boundary-and-what-its-skill-may-p.md) | Decide the plugin's boundary, and what its skill may point at | `v0.1` | `done` | `review` | - | - | - | - | T-003, T-006, T-050, T-052, T-054, T-059, T-064, T-067, T-072, T-083 |
 | [T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md) | Give an adopter a way to run the commands the skill names | `v0.1` | `done` | `review` | - | T-055, T-056 | - | - | T-003, T-006, T-049, T-053, T-055, T-056, T-067, T-068, T-083 |
@@ -108,7 +109,7 @@ into, not a promise about a date.
 | [T-057](T-057-let-the-hook-tests-name-an-interpreter-that-exists.md) | Let the hook tests name an interpreter that exists on the platform | `v0.1` | `done` | `review` | T-049 | - | - | - | T-011, T-049 |
 | [T-058](T-058-say-that-a-four-part-version-trips-the-leak-check.md) | Say that a four-part version number trips the leak check | `v0.1` | `done` | `review` | T-049 | - | - | - | T-018, T-034, T-035, T-049, T-080 |
 | [T-059](T-059-audit-the-whole-project-after-the-plugin-restructure.md) | Audit the whole project after the plugin restructure | `v0.1` | `done` | `review` | - | T-060, T-061, T-062, T-063, T-064, T-065, T-066, T-067, T-068, T-069, T-070, T-071, T-072, T-073, T-074, T-075 | - | - | T-004, T-006, T-026, T-047, T-053 |
-| [T-060](T-060-point-the-task-templates-at-paths-that-exist.md) | Point the task templates at paths that exist | `v0.1` | `done` | `review` | T-059 | - | - | - | T-032, T-051, T-076 |
+| [T-060](T-060-point-the-task-templates-at-paths-that-exist.md) | Point the task templates at paths that exist | `v0.1` | `done` | `review` | T-059 | - | - | - | T-032, T-051, T-076, T-091 |
 | [T-061](T-061-stop-an-inherited-pythonpath-breaking-the-launcher.md) | Stop an inherited PYTHONPATH breaking the shell launcher | `v0.1` | `done` | `review` | T-059 | - | - | - | T-049, T-056, T-068 |
 | [T-062](T-062-report-two-tasks-claiming-one-id-instead-of-dropping.md) | Report two tasks claiming one id instead of dropping one | `v0.1` | `done` | `review` | T-059 | - | - | - | T-004, T-075 |
 | [T-063](T-063-measure-the-tier-1-member-the-rule-declares.md) | Measure the tier-1 member the rule declares | `v0.1` | `done` | `review` | T-059 | - | - | - | T-028, T-047 |
@@ -124,7 +125,7 @@ into, not a promise about a date.
 | [T-073](T-073-correct-the-command-surface-local-context-states.md) | Correct the command surface local context still states | `v0.1` | `done` | `review` | T-059 | - | - | - | T-013, T-022 |
 | [T-074](T-074-let-the-skill-point-where-it-currently-restates.md) | Let the skill point where it currently restates | `v0.1` | `done` | `review` | T-059 | - | - | - | T-003, T-009 |
 | [T-075](T-075-enforce-id-width-when-a-task-file-is-read.md) | Enforce id width when a task file is read | `v0.1` | `done` | `review` | T-059 | - | - | - | T-004, T-062, T-082 |
-| [T-076](T-076-decide-what-a-template-s-links-resolve-against.md) | Decide what a template's links resolve against | `v0.1` | `done` | `review` | - | - | - | - | T-032, T-051, T-060 |
+| [T-076](T-076-decide-what-a-template-s-links-resolve-against.md) | Decide what a template's links resolve against | `v0.1` | `done` | `review` | - | - | - | - | T-032, T-051, T-060, T-091 |
 | [T-077](T-077-delete-the-rehearsal-repository-t-067-installed-from.md) | Delete the rehearsal repository T-067 installed from | `v0.1` | `done` | `review` | - | - | - | - | T-037, T-067 |
 | [T-079](T-079-humanize-the-human-facing-documents-before-publishing.md) | Humanize the human-facing documents before publishing | `v0.1` | `done` | `review` | - | - | - | T-006 | T-081 |
 | [T-080](T-080-stop-the-pre-publish-check-reporting-its-own-fixture.md) | Stop the pre-publish check reporting its own fixture from a subdirectory | `v0.1` | `done` | `review` | - | - | - | - | T-018, T-034, T-058, T-081 |
