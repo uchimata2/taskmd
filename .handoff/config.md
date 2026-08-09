@@ -45,7 +45,10 @@ loads unasked, and **measured on 2026-08-08 that is `CLAUDE.md` plus the taskmd 
 once the plugin was installed rather than merely declared. **Since T-053 the plugin is the `plugin/`
 subtree, not the repository** — the harness has no exclusion mechanism, so the boundary is the
 directory, and what an install copies is exactly what is inside it. A served skill is still a
-snapshot of that subtree, which is a property of installing rather than a defect.
+snapshot of that subtree, which is a property of installing rather than a defect. **Since T-083
+`plugin/skills/taskmd/` is self-contained**: the docs, the package and the launchers live inside it,
+so copying that one folder is a working skill, and `plugin/bin/` holds only the two shims that must
+sit at the plugin root for the `PATH` mechanism.
 Do not restate the method here or anywhere else; `CLAUDE.md` does not.
 
 The schema question that used to block everything is answered (T-001), and the CLI it gated is built:
