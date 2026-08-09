@@ -2,7 +2,7 @@
 id: T-076
 title: Decide what a template's links resolve against
 type: fix
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: []
@@ -80,13 +80,49 @@ these links is that a breakage is caught rather than read.
       references back out of its reach is a regression, not a fix
 - [ ] Whatever is decided holds for both templates, or the reason they differ is stated in the
       template that differs
+- [ ] **Every reference to the templates' old location is corrected, found by a sweep rather than by
+      memory** — added 2026-08-09 with the answer, because the answer moves two files and the four
+      criteria above all describe the destination rather than the move
 
 **Open questions**
-- **Is the loud break the answer?** Doing nothing is defensible: `check` reports the copied link
-  immediately, the author corrects one `../`, and nothing is silently wrong — which is a better
-  failure than the one T-060 removed. Against it: it is a defect handed to whoever next creates an
-  audit umbrella, and the fix costs them a puzzle before it costs them a keystroke. `specify` needs
-  the maintainer's view on whether a self-announcing defect counts as fixed.
+- ~~**Is the loud break the answer?**~~ **Answered by the maintainer on 2026-08-09: no — put the
+  templates at the same depth as the files they become.**
+
+  A template becomes a file in `tasks_dir`. Put it *in* `tasks_dir`, as an `_`-prefixed file
+  (`tasks/_task-template.md`, `tasks/_audit-umbrella-template.md`), and every relative link is
+  correct in the template **and** in the copy, because there is no longer a difference in depth
+  between them. That dissolves the question rather than answering it: there is no break to be loud
+  about.
+
+  **Tested before being chosen**, on a scratch project holding a real task and a template beside it:
+
+  ```
+  taskmd check     OK - 1 task(s), vocabulary valid, references resolve, no broken links   exit 0
+  taskmd list      T-001  proposed  -  specify  A real task        (the template is not a task)
+  ID WIDTH class   0 hits                       ('T-NNN' is not the prefix plus digits, so it is
+                                                 not a near miss either — T-075)
+  ```
+
+  So the template is link-checked at the right depth, is not loaded as a task, and does not trip the
+  near-miss class T-075 added. Three properties, none of them assumed.
+
+  **What the work now is**, which is more than the question implied: two files move, and every
+  reference to their old location is corrected — `CLAUDE.md`, the binding's *create*, and anything
+  else a sweep turns up. That is why criterion 5 is added below.
+
+  *Rejected: accepting the loud break.* It is genuinely defensible — the failure announces itself,
+  which is better than the silent one T-060 removed — and it was the cheapest answer available. It
+  hands every future audit-umbrella author a puzzle before it costs them a keystroke, permanently,
+  to avoid moving two files once.
+
+  *Rejected: dropping the link from the audit template's checklist line and keeping it in the task
+  template's comment.* It fixes the only line that survives a copy, and it costs the exception
+  [T-060](T-060-point-the-task-templates-at-paths-that-exist.md) D2 declined to make — a rule about
+  which template may carry a link, which somebody has to remember.
+
+  **Decide and write with [T-051](T-051-say-where-a-project-s-task-template-lives.md)**, whose
+  answer is the same convention stated from the other end: the template is an `_`-prefixed Markdown
+  file in `tasks_dir`.
 
 ## 2. Plan
 
@@ -112,4 +148,5 @@ these links is that a breakage is caught rather than read.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-09 | → specified | Answered: **no — move the templates to `tasks_dir`, as `_`-prefixed files**, so a template sits at the same depth as the file it becomes and the question disappears instead of being answered. Tested before being chosen rather than after: on a scratch project the template is link-checked at task depth, is **not** loaded as a task, and does not trip the near-miss id class T-075 added — three properties, none assumed. The loud break was a real alternative and is recorded with what it costs: a permanent puzzle for every future audit-umbrella author, to avoid moving two files once. One criterion added with the answer, because the four already written all describe the destination and none of them covers the move. To be worked with T-051, which is the same convention from the other end. |
 | 2026-08-09 | → proposed | Raised from T-060's `implement` under METHOD §3.3, not from the T-059 audit — so it carries no finding id and no parent. Verified before write-up by copying the audit template's checklist line into `tasks/` and running `check`, which reported the broken link. `low`/`xs`: one line in one template reaches a real file, the other sits in a comment block that 0 of 75 tasks kept. Deliberately not folded into T-060, whose criterion 1 names the template's own location as the base — changing that base is a change to the criterion rather than a way of meeting it. |

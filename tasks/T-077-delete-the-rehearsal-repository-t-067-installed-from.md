@@ -2,7 +2,7 @@
 id: T-077
 title: Delete the rehearsal repository T-067 installed from
 type: admin
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: []
@@ -71,11 +71,19 @@ an account name, which `CLAUDE.md`'s publishing constraint keeps out of the trac
       T-067 removed the remote it added, and that stays true
 
 **Open questions**
-- **Two routes, and the owner picks.** `gh auth refresh -h github.com -s delete_repo` then
-  `gh repo delete`, or the web UI's settings page. The first grants a standing capability to delete
-  any repository from the command line; the second costs a browser and grants nothing. Recorded as a
-  question rather than assumed, because the cheaper-looking one is the one with the lasting
-  consequence.
+- ~~**Two routes, and the owner picks.**~~ **Answered by the maintainer on 2026-08-09: the web
+  UI.**
+
+  It deletes the repository and grants nothing. Refreshing the token's scope would hand a standing
+  *delete any repository* capability to every process that uses it, permanently, to save one browser
+  visit on a one-off cleanup — which is a poor trade for a credential that already carries `repo`.
+
+  *Rejected: `gh auth refresh -h github.com -s delete_repo`.* Not unreasonable, and the case for it
+  is getting stronger rather than weaker: this is the **second** throwaway repository in three days
+  ([T-037](T-037-delete-the-throwaway-proof-repository.md) is the first) and that task needs the same
+  capability. If scratch repositories become routine, granting the scope once and deleting both is
+  the cheaper shape — recorded here so the option is available on evidence rather than rediscovered
+  at the third one.
 
 ## 2. Plan
 
@@ -101,4 +109,5 @@ an account name, which `CLAUDE.md`'s publishing constraint keeps out of the trac
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-09 | → specified | Answered: **the web UI**. It grants nothing; the scope refresh hands a standing delete-any-repository capability to every process using that token, permanently, to save one browser visit. The rejected option is recorded with the reason it may still win later: this is the second throwaway repository in three days and T-037 needs the same capability, so if scratch repositories become routine the scope is worth granting once for both. Criteria unchanged — the route does not change what has to be true at the end. |
 | 2026-08-09 | → proposed | Raised from T-067's `implement`, where cleanup was a plan step with its own output and the step failed on a missing token scope — the same 403 that produced T-037 two days earlier. Deliberately **not** folded into T-037: that repository is alive on purpose until T-006 publishes, and merging would inherit a block this one does not have. `medium`/`xs` — one action, and the reason it is not `low` is that the failure mode being guarded against is a scratch repository nobody remembers to remove. |

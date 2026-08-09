@@ -2,7 +2,7 @@
 id: T-078
 title: Say what a tasks_dir of dot means
 type: fix
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: []
@@ -85,13 +85,33 @@ validator has to be believable.
       exactly one class
 
 **Open questions**
-- **Reject, or support?** Rejecting is one condition in `_check_tasks_dir` and closes the class
-  outright; it also forbids a shape nobody has asked for but which is not obviously wrong — a small
-  project whose tasks simply live at its root. Supporting it means `is_project` can no longer answer
-  "is this a project" by looking for the tasks folder, which is the mechanism
-  [T-011](T-011-runtime-discovery-and-project-hook-commands.md) settled and which T-069 kept out of
-  scope for good reason. `specify` needs the owner's view on whether tasks-at-the-root is a shape
-  taskmd wants at all.
+- ~~**Reject, or support?**~~ **Answered by the maintainer on 2026-08-09: reject, when the config
+  is read.**
+
+  So `tasks-at-the-root` is not a shape taskmd offers. One condition in `_check_tasks_dir`, which is
+  already the place a `tasks_dir` problem surfaces — R-17's own rule, and the same treatment
+  [T-019](T-019-report-a-tasks-dir-that-does-not-exist-at-setup.md) and
+  [T-024](T-024-say-so-when-tasks-dir-names-something-that-is-not-a-folder.md) give the other two bad
+  values. The message has to name the key and say what to do, as those two do.
+
+  **The deciding argument is that the damage is not local.** `discovery.is_project` answers *"is this
+  a project"* by looking for `.taskmd/` **or** the tasks folder. With `tasks_dir: .`, the second test
+  is true of every directory in existence — so the defect is not that this project reads itself
+  oddly, it is that the nested-project exclusion breaks for the whole tree. A configuration that
+  silently makes `check` skip most of the project is the failure this repository has twice named as
+  its worst ([T-019](T-019-report-a-tasks-dir-that-does-not-exist-at-setup.md),
+  [T-025](T-025-let-check-notice-a-stale-generated-index.md)): a validator reporting success over
+  something it never examined.
+
+  *Rejected: supporting it.* Tasks living at a small project's root is not an unreasonable shape and
+  that is the case for it. Making it work means the nesting test can no longer use the tasks folder
+  when `tasks_dir` is `.` — a special case, which is a rule somebody has to remember, which §1
+  *Invisibility* rejects — or replacing `is_project`'s marker outright, which reopens
+  [T-011](T-011-runtime-discovery-and-project-hook-commands.md) for every project in order to serve
+  one that has not been asked for.
+
+  **What this obliges, and it is criterion 3's whole content:** every spelling of "the root" gets the
+  same answer, not just `.`. A rejection one form escapes is not a rejection.
 
 ## 2. Plan
 
@@ -117,4 +137,5 @@ validator has to be believable.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-09 | → specified | Answered: **reject when the config is read**, so tasks-at-the-root is not a shape taskmd offers. The deciding argument is that the damage is not local: `is_project` tests for `.taskmd/` **or** the tasks folder, so `tasks_dir: .` makes every directory a project and breaks the nested-project exclusion for the whole tree — a validator reporting success over something it never examined, which this repository has twice named as its worst failure. Supporting it was a real option and is recorded with its cost: either a special case in the nesting test, which is a rule somebody has to remember, or a new marker for `is_project`, which reopens T-011 for every project to serve one nobody has asked for. Criterion 3 is what the answer leans on — a rejection that one spelling of the root escapes is not a rejection. |
 | 2026-08-09 | → proposed | Raised from T-069's `plan` under METHOD §3.3 — found by the probe that answered whether the `base != root` guard protected anything, and outside that task's scope, which puts `is_project` explicitly out. `low`/`xs` because no project in the tree writes `tasks_dir: .` and the likely fix is one condition; not lower, because the failure shape is the one this project has twice named as its worst — `check` exiting 0 over a tree it never read. Recorded with both transcripts so a later reader can see the guard's removal did not cause it. |

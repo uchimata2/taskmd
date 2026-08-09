@@ -2,7 +2,7 @@
 id: T-051
 title: Say where a project's task template lives
 type: fix
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: []
@@ -66,13 +66,38 @@ decision this would extend.
 - [ ] A project with no template is a supported state, and nothing reports it as a problem
 - [ ] Whatever carries the answer does not become a second copy of a path this repository already
       writes down in `../CLAUDE.md`
-- [ ] If the answer is a new config key, it is a required key like every other one, and
-      `taskmd/defaults/config.md` documents it — the schema has no optional keys, by T-001
+- [ ] ~~If the answer is a new config key, it is a required key like every other one, and
+      `taskmd/defaults/config.md` documents it — the schema has no optional keys, by T-001~~
+      — **moot, and kept to say so.** The answer is a convention, so there is no key. The criterion
+      was a conditional and its condition is now false; deleting it would hide that the key was
+      considered and declined
 
 **Open questions**
-- **Is a config key the right shape, or a convention the binding states?** A key is checkable and
-  costs every adopting project a line they must write; a convention costs nothing and cannot be
-  validated. `plan` decides, after looking at what `check` could actually report in each case.
+- ~~**Is a config key the right shape, or a convention the binding states?**~~ **Answered by the
+  maintainer on 2026-08-09: a convention, stated in the binding.**
+
+  The question asked what `check` could report in each case, and the answer is **nothing useful**.
+  No code reads the template path: there is no `create` command and non-goal 11 keeps it that way,
+  so the binding's *create* step — *"Copy the template"* — is performed by an agent following prose,
+  not by the tool. A key would therefore be a required line in every adopting project's config,
+  naming a file no command opens, which §1 *Invisibility* is exactly the property that rejects.
+
+  **The convention is a rule, not a path**, which is what keeps criterion 3 satisfiable: *the
+  template is an `_`-prefixed Markdown file in `tasks_dir`*. Nothing enumerates it, nothing can go
+  stale, and a project with none is legal by construction because the rule describes where to look
+  rather than what must exist. It also reuses a mechanism the binding already relies on —
+  *enumerate* skips `_`-prefixed names — rather than introducing a second one.
+
+  **Decide the shape with [T-076](T-076-decide-what-a-template-s-links-resolve-against.md).** That
+  task's answer puts templates at the same depth as the tasks they become, as `_`-prefixed **files**
+  in `tasks_dir`. The two answers are the same convention seen from opposite ends, and stating them
+  independently would give one fact two homes.
+
+  *Rejected: a config key.* It is checkable in principle, and that is its whole case. There is
+  nothing to check until [T-032](T-032-repair-the-audit-template-and-validate-templates.md) makes
+  templates validatable, and a key added now buys a line in every project's config against a
+  validation that does not exist. If T-032 gives `check` something real to say about a template, the
+  key can be argued for then, on evidence.
 
 ## 2. Plan
 
@@ -101,4 +126,5 @@ decision this would extend.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-09 | → specified | Answered: **a convention, not a config key**. The open question asked what `check` could report in each case and the answer settled it — nothing useful, because no code reads the template path: there is no `create` command, so the binding's *create* step is followed by an agent rather than executed. A required key naming a file no command opens is what §1 *Invisibility* rejects. The convention is stated as a **rule** — an `_`-prefixed Markdown file in `tasks_dir` — which is what keeps criterion 3 satisfiable, since a rule cannot become a second copy of a path. Criterion 4 is conditional on the answer being a key and is now moot; kept and marked rather than deleted. To be decided and written with T-076, whose answer is the same convention from the other end. |
 | 2026-08-07 | → proposed | Raised from T-003, which needed to tell an agent how to create a task and found that the binding's *create* names a template the project has no way to locate. Not fixed there: T-003's scope puts the CLI and the schema out, and this is a premise about the adopting project rather than something T-003 made false — so METHOD §5's distinction applies and it is a finding, not reconcile debt. `medium`/`s` because nothing is broken until someone adopts taskmd, and T-006 is the task that makes that possible. |

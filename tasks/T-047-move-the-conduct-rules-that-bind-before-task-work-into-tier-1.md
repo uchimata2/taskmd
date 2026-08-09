@@ -77,6 +77,46 @@ requirements and must still be satisfiable after the move.
   Recorded as a candidate and not a decision, because measuring the move before choosing the cut is
   the whole of the sequencing this task inherited from T-028.
 
+- ~~**What leaves tier 1?**~~ **Answered by the maintainer on 2026-08-09, ahead of `plan`: the
+  pre-publish check section leaves, and it is not enough on its own.**
+
+  Taken early because the sequencing this task inherited — *measure the move before choosing the
+  cut* — has had its first half done. [T-063](T-063-measure-the-tier-1-member-the-rule-declares.md)
+  replaced the blind line count with a character count that reads every declared member, so tier 1
+  is now measurable rather than estimated. Measured 2026-08-09, by section:
+
+  ```
+  tier 1 = 11,728 (CLAUDE.md) + 411 (the served description) = 12,139   bound 7,846   over by 4,293
+
+  ### The pre-publish check      3,961   32.6% of tier 1
+  ## Working method              2,815   23.2%
+  ## What this is                2,725   22.4%
+  ## Publishing constraints      1,271   10.5%
+  ## The one design rule           528    4.3%
+  ## Verifying                     347    2.9%
+
+  METHOD §3.1 + §3.3, which this task must ADD           1,722
+  so the cut has to find                                6,015
+  ```
+
+  **The pre-publish check is the cut, and it covers 66% of what is needed.** It is the largest single
+  block in the file by a wide margin, and it is needed **once, before publishing** — which is the
+  definition of an on-demand document rather than an always-loaded one. Everything a turn actually
+  needs from it is that the check exists and where to find it.
+
+  **This does not close the task, and the arithmetic says why.** 6,015 − 3,961 leaves **2,054
+  characters** still to find after the move. `plan` owns where they come from; the measurement above
+  is what it now works against, in place of the estimate it had.
+
+  *Rejected: trimming `## Working method` or `## What this is`.* Together they are 5,540 characters
+  and would close the gap on their own. They are also the two sections read on **every** turn, and
+  are the whole of what tier 1 exists to deliver — cutting them trades the budget for the thing the
+  budget protects. They may still give up some of the remaining 2,054, and that is a different
+  question from making them the primary cut.
+
+  *Rejected: raising the bound, or changing the comparator.* Both are T-028's and are not reopened;
+  and a bound moved to fit the file it measures is not a bound.
+
 ## 2. Plan
 
 | # | Step | Output |
@@ -101,6 +141,7 @@ requirements and must still be satisfiable after the move.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-09 | (no status change) | **The cut is answered ahead of `plan`, on a measurement that did not exist before today.** T-063 replaced the blind line count with a character count over every declared member, so the first half of this task's inherited sequencing — measure, then choose — is done: tier 1 is **12,139 against 7,846**, over by 4,293, and §3.1 and §3.3 add a further 1,722, so the cut has to find **6,015**. `### The pre-publish check` is 3,961 of it — 32.6% of tier 1, for something needed once before publishing. It goes. What this changes for `plan` is that the remaining **2,054** is a stated number rather than an open-ended search, and that the two sections which could close it alone are the two read every turn. Status unchanged: the task was already `specified`, and answering a `plan` question does not re-run `specify`. |
 | 2026-08-08 | (no status change) | **The description is now counted, not projected.** [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) §3 step 7 observed a session actually handed it, so the entry below's last clause — "installed as of today but has never been observed being served" — is settled and the ~397 characters are in tier 1 for real. The line figure is unchanged at **153 against 173**: that session's reconcile of `CLAUDE.md` was six lines in and six out. So nothing about the arithmetic moved, and the finding the entry below carries into `plan` is untouched — what changed is that the projection became a measurement, which is the one thing that was holding the conversion question open. |
 | 2026-08-08 | (no status change) | **Re-measured after the plugin was installed and `CLAUDE.md` reconciled again: 153 against 173, so 153 + 26 = 179, over by six.** The 177 in the entry below was true when written and is superseded by two more lines of reconcile — which is the third different figure this task has been given in two days, all from the same cause and none from anyone editing it. That is the finding worth carrying into `plan` rather than the number: **tier 1 moves whenever a task closes and the tree is made honest, so any cut sized against a measurement is sized against a stale one.** The `plan` should therefore decide what leaves on the grounds of what tier 1 is *for*, and re-measure at the end to state the result — not choose the cut from a figure. The description is still not counted: it is installed as of today but has never been observed being served, which is [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md)'s remaining work, and when it is counted it arrives as ~397 characters against a line bound — the conversion this task still owes. |
 | 2026-08-07 | (no status change) | **The entry below is withdrawn: tier 1 never gained that member.** [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) measured a session in this repository and the taskmd plugin is not installed — declared in `.claude/settings.json`, absent from every one of the harness's plugin state files, and refused by name when invoked. So the 397 characters were never served: **the reason the entry gave for going over is wrong.** What is not wrong is the conclusion. Re-measured rather than back-calculated — `wc -l` on both sides, after T-050's own reconcile edits landed — `CLAUDE.md` is **151** and `reference/TASK-WORKFLOW.md` is 173, so the projection is 151 + 26 = **177 of 173, over by four, on line count alone and with no description counted at all**. Three of those lines are T-050's reconcile of this very statement, which is the entry below's own point arriving from an unexpected direction: tier 1 grows when a task closes and the tree is made honest, so the room this task has to find is not a fixed quantity and is currently larger than any figure yet recorded. The membership rule itself is not what was wrong — a description *does* join tier 1 when the harness serves the skill — so the two things the entry below hands this task's `plan` stand, one of them now conditional: how a character count is weighed against a line bound binds from the moment the plugin is actually installed, which the maintainer is doing by hand and which the next session verifies. |
