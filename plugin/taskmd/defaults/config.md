@@ -61,9 +61,8 @@ a project it had never opened, which is worse than no validator because a valida
 
 The rule does not care whether you wrote the value or inherited it from this file: a project
 adopting taskmd creates its tasks folder before the first command works. That is the whole of
-setup, and there is no command to do it — no command creates a folder, and `docs/SCOPE.md`
-non-goal 11 still excludes an `init` after its 2026-08-05 amendment, which carved out a task
-listing and nothing else. An **empty** tasks folder is entirely legal; the distinction is that
+setup, and there is no command to do it — no command creates a folder, and there is deliberately
+no `init`. An **empty** tasks folder is entirely legal; the distinction is that
 the folder is absent, not that it holds nothing yet.
 
 ## The blocked status
@@ -80,8 +79,7 @@ It must be a value in the status vocabulary. Set it to `none` if the project has
 `deliverables_field` names the front-matter field holding the paths a task produces, relative to
 the project root. `check` reports a declared path that does not exist — the one thing the
 retired `deliverables` command did that nothing else does, kept as a validation rather than as a
-command of its own (`docs/SCOPE.md` non-goal 11, which still excludes it — the 2026-08-05
-amendment carved out a task listing, not a general licence to add commands).
+command of its own.
 
 Set it to `none` if a project does not track outputs that way. It is still a **required** key:
 every key must be written, because a config replaces the default rather than merging with it, and
@@ -185,8 +183,7 @@ carries, and the two would disagree the first time someone added a value to one 
 
 **A task with no estimate still sorts and is still listed**, after every task that has one. Nothing
 in this tool requires a human to fill these in for the answer to be correct — the agent estimates
-them, and a value someone edits by hand is honoured and never overwritten (`docs/SCOPE.md` §1
-*Invisibility*).
+them, and a value someone edits by hand is honoured and never overwritten.
 
 Set `value_field` or `effort_field` to `none` to drop that key from the sort. With both set to
 `none` the order is blocked-last, then id.

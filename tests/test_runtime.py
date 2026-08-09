@@ -328,6 +328,67 @@ class ReportsAnUnrunnableHookAtSetup(unittest.TestCase):
 
 # -------------------------------------------------------------------------------- launchers
 
+class ThePluginShipsWhatItCites(unittest.TestCase):
+    """T-064. Nothing under `plugin/` may send a reader to something an adopter does not receive.
+
+    This is the sweep the boundary never had. T-053 drew the boundary and closed on a sweep for
+    **links** that escape the subtree, which was honest and returned none — every escape it left
+    behind was backticked prose or a code comment, and a link checker cannot see one. So this
+    reads *references*: the requirement numbers, the repository's own papers by name, and any
+    relative path that climbs out of `plugin/`.
+
+    It lives here rather than in the always-loaded conventions because it has to run without
+    anybody remembering to run it, which is the property the last sweep lacked.
+    """
+
+    #: What a reader inside the plugin cannot follow. `R-NN` and the numbered non-goals are
+    #: `docs/SCOPE.md`'s numbering; SCOPE, BRIEF and CLAUDE are this repository's own papers,
+    #: deliberately left outside the plugin. None of the four ships.
+    ESCAPES = re.compile(r"\bR-\d+\b|\bnon-goal\b|\bSCOPE\.md\b|\bBRIEF\.md\b|\bCLAUDE\.md\b")
+
+    SUBTREE = PKG  # the plugin root: exactly what an install receives
+
+    def plugin_files(self):
+        for base, dirs, files in os.walk(self.SUBTREE):
+            dirs[:] = [d for d in dirs if d != "__pycache__"]
+            for name in sorted(files):
+                if name.endswith((".pyc", ".png", ".gif")):
+                    continue
+                yield os.path.join(base, name)
+
+    def test_no_file_in_the_plugin_cites_something_it_does_not_ship(self):
+        offenders = []
+        for path in self.plugin_files():
+            try:
+                text = cli.read(path)
+            except (OSError, UnicodeDecodeError):
+                continue
+            for number, line in enumerate(text.splitlines(), 1):
+                found = self.ESCAPES.search(line)
+                if found:
+                    offenders.append("%s:%d cites %r"
+                                     % (os.path.relpath(path, ROOT).replace("\\", "/"),
+                                        number, found.group(0)))
+        self.assertEqual([], offenders, "\n".join(offenders))
+
+    def test_no_relative_path_in_the_plugin_climbs_out_of_it(self):
+        """The other half, and the one T-053 did sweep — kept so the two cannot drift apart."""
+        offenders = []
+        subtree = os.path.abspath(self.SUBTREE)
+        for path in self.plugin_files():
+            if not path.endswith(".md"):
+                continue
+            base = os.path.dirname(path)
+            for target in cli.LINK.findall(cli.read(path)):
+                if target.startswith(("http://", "https://", "mailto:")):
+                    continue
+                resolved = os.path.abspath(os.path.join(base, target))
+                if os.path.commonpath([resolved, subtree]) != subtree:
+                    offenders.append("%s -> %s"
+                                     % (os.path.relpath(path, ROOT).replace("\\", "/"), target))
+        self.assertEqual([], offenders, "\n".join(offenders))
+
+
 class Launchers(unittest.TestCase):
     """Criterion 2: the launchers carry no logic, so removing one changes nothing but the way in."""
 

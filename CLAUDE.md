@@ -63,13 +63,20 @@ not, which is what T-050 measured. Re-measured after the install (2026-08-08), t
 **plus the taskmd `description`** — the rule above unedited, the membership moved by the install
 alone, which is the property it was written to have. Tier 2 is
 [`plugin/docs/METHOD.md`](plugin/docs/METHOD.md), on starting task work; tier 3 is [`plugin/docs/method/`](plugin/docs/method/),
-a file per phase. **Tier 1 stays shorter than `reference/TASK-WORKFLOW.md`**, the flat
+a file per phase. **Tier 1 stays smaller than `reference/TASK-WORKFLOW.md`**, the flat
 single-document alternative, because a first tier costing more than the flat version has inverted the
-point of splitting it at all. No number is written here — both sides are counted from the tree
-(`wc -l CLAUDE.md reference/TASK-WORKFLOW.md`), so re-measuring never rewrites the rule. It passes,
-with less room than a count of this file shows: METHOD §3.1 and §3.3 bind before an agent knows it is
-doing task work, so they are owed to this tier (T-047). Tiers 2 and 3 carry no line budget — they are
-not paid on every turn, and R-21 with METHOD §7 governs them instead.
+point of splitting it at all. No number is written here — both sides are counted from the tree, in
+**characters**, which is what a turn is billed for. Membership is read from the tree too, so a second
+served skill joins the count with nothing here edited:
+
+```bash
+{ cat CLAUDE.md; sed -n 's/^description: //p' plugin/skills/*/SKILL.md; } | wc -c; wc -c < reference/TASK-WORKFLOW.md
+```
+
+**It does not pass, and it never did** — the retired check counted lines and read only this file, so
+it missed the `description` and flattered a dense one besides (T-063). What comes out is T-047's,
+which also owes this tier METHOD §3.1 and §3.3. Tiers 2 and 3 carry no budget — they are not paid on
+every turn, and R-21 with METHOD §7 governs them instead.
 
 What this project adds on top, because the method is deliberately storage-agnostic:
 

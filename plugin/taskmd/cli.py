@@ -6,8 +6,8 @@
   python -m taskmd check                [--root PATH]
   python -m taskmd list [--<field> V]   [--open|--closed] [--limit N] [--json] [--root PATH]
 
-Four, and the fourth was argued for rather than added — `docs/SCOPE.md` non-goal 11 was amended on
-2026-08-05 (T-022) after standing at three. Filtering is in; a query language is still out. The
+Four, and the fourth was argued for rather than added — the command surface stood at three until
+2026-08-05 (T-022). Filtering is in; a query language is still out. The
 reason it could not stay grep's job is that grep cannot see a derived edge at all: what a task
 blocks, and the far end of a soft link, exist nowhere on disk. What the retired `deliverables`
 command did that nothing else does still survives as a `check` class rather than as a command.
@@ -115,8 +115,8 @@ def summarise(task):
 def load(root):
     """Resolve the schema and the tasks, or explain why not.
 
-    R-17: a configuration problem is reported *here*, when the config is read, and the command
-    never starts. It is never raised from inside a task the user is trying to finish.
+    A configuration problem is reported *here*, when the config is read, and the command never
+    starts. It is never raised from inside a task the user is trying to finish.
     """
     schema = load_schema(root)
     return schema, load_tasks(root, schema)
@@ -160,7 +160,7 @@ def cmd_context(root, schema, tasks, args):
             here = os.path.join(root, path.replace("/", os.sep))
             out.append("  [%s] %s" % ("x" if os.path.exists(here) else " ", path))
 
-    # Facts, not an instruction. R-6: a next-step pointer is context, not authorization, so the
+    # Facts, not an instruction: a next-step pointer is context, not authorization, so the
     # closing line reports state and stops. It carries only what is *derived* — open/closed, and
     # which blockers are still open — because the stored fields are already on the header line and
     # printing them twice would be two homes for one fact.
@@ -368,7 +368,7 @@ def check_anomalies(root, schema, tasks, problems):
     """Files under `tasks_dir` that are not the task somebody thought they were.
 
     `load_tasks` records these rather than raising, so a defect in one file cannot stop a command
-    about another (R-17's own wording). This is where they surface — which is what makes `check`
+    about another — a problem is never raised from inside a task the user is trying to finish. This is where they surface — which is what makes `check`
     the one place a project's problems are listed, instead of a thing you find out by noticing a
     task is missing.
     """
@@ -534,9 +534,9 @@ def matches(task, filters):
 def cmd_list(root, schema, tasks, args):
     """A subset of the tasks, in priority order, rendered so the caller can use it as printed.
 
-    The fourth command. `docs/SCOPE.md` non-goal 11 was amended for it: filtering is in, a query
-    language is not, and the reason is that grep cannot answer these questions at all — a derived
-    edge exists nowhere on disk. Writes nothing.
+    The fourth command, and the one that was argued for: filtering is in, a query language is
+    not, and the reason is that grep cannot answer these questions at all — a derived edge exists
+    nowhere on disk. Writes nothing.
     """
     parsed, problem = parse_filters(schema, args)
     if problem:

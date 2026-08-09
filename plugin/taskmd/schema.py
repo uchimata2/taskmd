@@ -175,7 +175,7 @@ class Schema(object):
         self.source = source
         # What the project wrote, and the same thing ready to run. The declared string is what
         # any message quotes: it is the line the reader can go and edit, and the resolved one
-        # holds an absolute path that R-20 keeps out of output.
+        # holds an absolute path, which never belongs in output.
         self.after_write, self.after_write_argv = hook
         self.id_field = fields["id_field"]
         self.id_prefix = fields["id_prefix"]
@@ -356,7 +356,7 @@ def _check_deliverables_field(fields, edges, vocabularies, source):
 
     Naming it `parent` would ask one field to be a link and a file list at once; naming it `status`
     would ask `check` to validate a path against a vocabulary. Both are caught here, at config-read
-    time, rather than inside whichever command trips over it first (R-17).
+    time, rather than inside whichever command trips over it first.
     """
     name = fields["deliverables_field"]
     if not name:
@@ -377,7 +377,7 @@ def _check_deliverables_field(fields, edges, vocabularies, source):
 
 
 def _check_tasks_dir(root, fields, source, own_config):
-    """The one config value that names a folder, checked here rather than on first use (R-17).
+    """The one config value that names a folder, checked here rather than on first use.
 
     Absent is an error however the value arrived. Tolerating it for the shipped default was the
     alternative — only a value someone wrote can be misspelled — and it was rejected because it
@@ -387,7 +387,7 @@ def _check_tasks_dir(root, fields, source, own_config):
 
     The message names the configured value, not the resolved absolute path: the value is the thing
     the user can act on, and printing the join would put a machine-specific path into output that
-    R-20 requires to be identical on every platform.
+    has to be identical on every platform.
     """
     tasks_dir = fields["tasks_dir"]
     if os.path.isdir(os.path.join(root, tasks_dir)):
@@ -403,14 +403,15 @@ def _check_tasks_dir(root, fields, source, own_config):
 
 
 def _resolve_hook(root, fields, source):
-    """Resolve the one hook when the config is read, so R-17 is structural rather than remembered.
+    """Resolve the one hook when the config is read, so reporting it early is structural rather
+    than remembered.
 
     The declaration is **a program followed by its arguments**, and that shape is what makes the
     question answerable at all: taskmd can ask whether the program is there without running it. A
     free shell line was the alternative and is more convenient to write — it was rejected because
-    "is this runnable?" then has no answer short of running it, which is the mid-command report
-    R-17 exists to prevent, and because the shell that would interpret it differs by platform,
-    which R-20 does not allow.
+    "is this runnable?" then has no answer short of running it, which is the mid-command failure
+    this ordering exists to prevent, and because the shell that would interpret it differs by
+    platform, which output identical everywhere does not allow.
 
     A first token containing a slash is a path in the project; anything else is looked up on PATH.
     That is the whole rule, and it is what lets a hook be written in any language: name the
@@ -452,8 +453,8 @@ def _display(path, root):
 
     Every `SchemaError` opens with this, and until the root was resolved rather than assumed it
     could stay as-written — the root was `.`, so the name already was relative. A resolved root is
-    absolute, so without this every config error would print one machine's disk, which R-20
-    forbids and the pre-publish check in `CLAUDE.md` is aimed at.
+    absolute, so without this every config error would print one machine's disk — which no output
+    of this tool may do, on any path.
     """
     for base in (root, os.path.dirname(HERE)):
         try:
@@ -590,10 +591,10 @@ def load_tasks(root=".", schema=None):
     ends, with nothing printed and exit 0 (T-062). And a file whose id carries the right prefix at
     the wrong width, accepted as though `id_width` were decoration (T-075).
 
-    **Neither raises.** A defect in one task file is not a configuration problem, and R-17 is
-    explicit that a problem is "never raised from inside a task the user is trying to finish" — so
-    the readable tasks are returned, and the anomalies travel with them on the result for `check`
-    to report and every other command to warn about.
+    **Neither raises.** A defect in one task file is not a configuration problem, and a problem is
+    never raised from inside a task the user is trying to finish — so the readable tasks are
+    returned, and the anomalies travel with them on the result for `check` to report and every
+    other command to warn about.
     """
     schema = schema or load_schema(root)
     claims, mismatched = {}, []

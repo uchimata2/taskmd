@@ -3,7 +3,7 @@
 **What a backend must provide for [`METHOD.md`](METHOD.md) to run on it.** The method names no
 field, no file and no command; this document names the operations that make that possible, and each
 *binding* — [`bindings/`](bindings/) — implements them for one backend. Changing backend changes the
-binding, not the method (`SCOPE.md` R-13, R-14).
+binding, not the method.
 
 **This document states guarantees, not mechanisms.** It never says how an operation is carried out,
 because that differs by more than storage: for local Markdown the operations are implemented by
@@ -42,7 +42,7 @@ project can carry one vocabulary across both; `enumerate` is taskmd's addition, 
   silent — see §3.
 - **Identity is assigned once and never changes.** Who assigns it is the binding's business: local
   Markdown picks the next number, a server-backed tracker is handed one. Nothing in the method
-  depends on ids being chosen locally, being numeric, or being ordered (R-14).
+  depends on ids being chosen locally, being numeric, or being ordered.
 
 ### What no operation serves, deliberately
 
@@ -55,7 +55,7 @@ itself implementing anything for §3 has misread the contract.
 ## 2. Fields, values and formats are not here
 
 No operation above names a field, a status value, an id format or a file format. Those come from the
-schema configuration (`SCOPE.md` R-11), which is the project's, not the backend's. Two consequences:
+schema configuration, which is the project's, not the backend's. Two consequences:
 
 - A binding **may not** define the vocabulary. If a binding says "status is one of backlog /
   doing / done", it has taken a decision that belongs to the adopting project.
@@ -91,7 +91,8 @@ without enumeration — the contract asks for the *result*, never the traversal.
 **A materialised derived view is a rendering, never an input.** Where a binding writes a derived view
 down, two rules hold without exception: it is reproducible from the tasks alone, and **no operation
 may read it**. The moment an operation takes it as input it has become a second home for a fact, and
-it will be stale exactly when it matters (`SCOPE.md` §1 *Invisibility*, §2 principle 1).
+it will be stale exactly when it matters — and nothing warns you, because a second home
+looks exactly like a first one.
 
 **Size is not the test.** A materialised view may be a whole artefact — a generated index file, a
 saved board — or **a single property on a single task**. The second kind is the one that gets
@@ -132,7 +133,7 @@ Minimum entries — a binding states its position on each, even when the answer 
 | :--- | :--- |
 | What plays each **home** in METHOD §6 for this backend | The homes are roles; a binding that leaves one unassigned leaves facts homeless |
 | Whether anything **derived** is materialised, and what regenerates it | The F1 failure above |
-| What the backend **cannot** represent, and what the binding does instead | R-14 puts backend limits in the binding; an unstated limit becomes the method's problem |
+| What the backend **cannot** represent, and what the binding does instead | A limit belongs in the binding; unstated, it becomes the method's problem |
 | What must already be true before the first operation works | Setup that is obvious to the binding's author and invisible to everyone else |
 | Whether identity is chosen locally or assigned by the backend | Decides whether ids can be predicted, referenced before creation, or reused |
 
@@ -186,8 +187,8 @@ actually stores.
    you built; doing it first is what catches a premise you were about to leave implicit.
 3. Implement each of the six operations by whatever the backend exposes — code, a CLI, an API, an
    agent following prose. Say which, because it determines who can run it.
-4. State the backend's limits rather than working around them silently (R-14).
+4. State the backend's limits rather than working around them silently.
 5. **Prove it by following it.** A binding that has only been read has not been tested: perform a
    real operation using nothing but the binding's text, and check the project is still consistent
    afterwards. A binding that has never been made to fail is worth what your confidence in it is
-   worth, and no more (`../CLAUDE.md` *Verifying*).
+   worth, and no more.

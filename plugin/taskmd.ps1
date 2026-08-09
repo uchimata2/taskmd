@@ -12,8 +12,8 @@
 # PYTHONPATH is replaced, not extended, exactly as in taskmd.sh - a caller's existing value is
 # discarded for this one process. This launcher never had the bug that made taskmd.sh replace it
 # (it joined with the platform's own separator and a native path, and passed all four values it
-# was tested against). It is written the same way regardless, because R-20 says the two behave
-# identically, and two launchers that differ only in what they do with an inherited variable is
+# was tested against). It is written the same way regardless, because the two launchers are meant
+# to behave identically, and two that differ only in what they do with an inherited variable is
 # the kind of difference nobody discovers until it matters.
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $env:PYTHONPATH = $here
