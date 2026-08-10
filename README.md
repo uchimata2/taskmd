@@ -100,10 +100,12 @@ credentials location — and say where it lives, without the validator calling i
 **Only Markdown link syntax counts as a pointer.** A path written as prose or inside a fenced block —
 `docs/plan.md` in a sentence, or a path a tool printed into output you pasted — is not checked, and
 a dead one will not be reported. If you are retiring your own link checker in favour of this one,
-that is the coverage you give up. The decision is recorded in T-092 with what it cost: switching it
-on over this repository examined 683 such paths and reported 237, of which none was a real defect —
-overwhelmingly task records that correctly described a tree that has since moved. A validator that
-cries wolf gets ignored, which is worse than a narrow one.
+that is the coverage you give up. The decision is recorded in T-092 with what it cost, measured on two
+projects rather than argued. Here: 683 such paths examined, 237 reported, none a real defect. On the
+project that asked for the check: 481 examined, 31 dead, and 19 of those named one file its own
+backlog had retired. Both corpora fail the same way, because a task record is a **dated statement,
+not a promise** — it correctly describes a tree that has since moved, and a path checker cannot tell
+the two apart. A validator that cries wolf gets ignored, which is worse than a narrow one.
 
 ## Install
 

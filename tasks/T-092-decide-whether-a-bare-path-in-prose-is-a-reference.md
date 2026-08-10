@@ -139,10 +139,38 @@ so that quarantined documents were already out of scope:
   measurement is about the rule, not about this project's taste: a key would ship a check this
   project cannot run on itself, and a feature its author never runs rots. A default-off key is also
   the same silent loss for anyone who does not read the config.
-- **Assumption, recorded because the work survives it being wrong**: that the reporting project's
-  ~1000 bare pointers live in documents shaped like its records rather than like `README.md`. If they
-  do not, the restricted variant above becomes worth re-opening — the number that decided against it
-  is 2 false positives, not a principle.
+- ~~**Assumption, recorded because the work survives it being wrong**~~: that the reporting project's
+  bare pointers live in documents shaped like its records rather than like `README.md`. **Verified on
+  its corpus the same day — see below.** It holds, and the verification is worth more than the
+  assumption was.
+
+**Verification on the reporting project — 2026-08-10**
+
+The same rule, run over the deck-building sibling's own tree rather than this one. It answers the
+assumption above and it answers it harder than expected:
+
+| | Here | The reporting project |
+| :--- | ---: | ---: |
+| Markdown links (dead) | 947 (0) | 1561 (**0**) |
+| Distinct bare pointers | 683 | 481 |
+| — of them in the task folder | 235 of 237 dead | 388, holding 27 of 31 dead |
+| Dead bare pointers outside it | 2 | 4 |
+
+**81% of its bare pointers are in task records, and so are 27 of its 31 dead ones — and 19 of those
+27 name one file: the pre-split task tool its own T-062 retired.** That is this task's finding
+reproduced on the project that reported the gap, in a corpus that had never been looked at through
+it: a record naming a tool that has since been removed is a correct dated statement, and the checker
+calls it broken. The remaining 8 are cache artefacts named as evidence, a bare `examples/README`
+without its extension, and an id prefix written with an ellipsis.
+
+The 4 outside the task folder do not rescue the restricted variant either: one is
+`.handoff/config.md` naming where the live handoff file *will* be — **the identical false positive
+this repository produced**, so that class is general rather than local — one is a research id that is
+not a path at all, and two are hook scripts named in config prose. So the restricted rule scores 4
+reports and at best 2 arguable defects on the very project whose loss motivated the request.
+
+**Also worth the record: 1561 Markdown links, none dead.** Everything `check` does cover was already
+clean there, which is why the coverage question felt like the whole question from that side.
 
 **Outputs produced**
 - `tests/test_cli.py` — `ABarePathInProseIsNotAReference`, three cases
@@ -168,6 +196,7 @@ so that quarantined documents were already out of scope:
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-10 | (no change) | The one assumption this record carried was verified rather than left standing, on the reporting project's own corpus — the only place it could be. It holds: 81% of that project's bare pointers, and 27 of its 31 dead ones, are in task records, 19 of them naming the single tool its own T-062 retired. The decision does not move; what moves is that the strongest rival was rejected on two independent corpora instead of one. Its `.handoff/config.md` produces the identical false positive this repository does, which promotes that class from local quirk to general. |
 | 2026-08-10 | → done | Out, and the interesting part is how it was decided: the feature was built, run, and read before the decision, which cost about an hour and produced a number that no amount of reasoning would have. The reasoning available beforehand pointed the other way — the reporting project validates a thousand pointers with this rule and it works for them. What it cannot see from there is that a taskmd corpus is mostly *dated records*, so the same rule that validates a documentation tree cries wolf over a tracker. Shipped with [T-094](T-094-make-check-answer-the-question-a-fresh-clone-would-ask.md) and the manifest bump. |
 | 2026-08-10 | → specified | The open question was left as posed. What changed at specify was the method for answering it: build the rule and measure it rather than weigh the two risks, because both sides of the argument were plausible and neither was checkable from the armchair. |
 | 2026-08-09 | → proposed | Raised from a real migration rather than from review: the deck-building sibling moved 61 tasks off its own checker onto taskmd 0.1.1 and measured what that would cost before doing it. Reproduced here on a throwaway project — a dead bare path in prose is invisible, a dead Markdown link is caught, and `check` reports one problem where two exist. `high` because the loss is silent and the adoption path invites it: the two tools' command lists match and their coverage does not. |
