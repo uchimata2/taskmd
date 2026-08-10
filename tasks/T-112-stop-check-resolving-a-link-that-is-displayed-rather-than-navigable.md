@@ -51,6 +51,17 @@ thing it most wants to quote. This repository passes today because no task here 
 > silently resolves to the tasks folder itself and the link is called good. Run the same tree under
 > WSL and `check` exits 1 on a repository that is clean on the machine it was written on.
 >
+> **Reproduced on a real Linux runner, 2026-08-10, and it is larger than one test.** The CI runner
+> [T-116](T-116-decide-whether-the-published-repository-runs-its-own-suite.md) set up went red on its
+> first run, and **every one of its seven failing assertions is this defect** — six in
+> `tests/test_cli.py` and one in `tests/test_runtime.py`, all of them cases that run `check` over
+> this repository and assert it is clean, all of them reporting the same
+> `BROKEN LINK tasks/T-065-…`. Two things this adds to the paragraph below. It is no longer
+> conditional on which `bash` a session happens to find — an ordinary `ubuntu-latest` checkout
+> reproduces it. And it is what stands between this repository and a green runner: until this closes,
+> the mechanism the maintainer asked for on 2026-08-10 arrives red, which is the state that teaches
+> people to stop reading it.
+>
 > So this is not only a false positive that blocks a practice. **It is an R-20 violation** — output
 > that is not byte-identical across platforms — and it is currently the reason
 > `tests/test_runtime.py` fails when the `bash` a session finds happens to be a Linux one. The

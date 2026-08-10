@@ -9,10 +9,18 @@
 # baseline below is the expected state; a run that fails anything else is a regression, and
 # catching that is the whole point.
 #
-# Baseline: NOT YET OBSERVED ON A RUNNER. Four failures are known, but they were seen on
-# Windows and three of them are that machine's shell rather than the code (T-114), so what
-# fails here cannot be predicted from there. The first real run establishes it and this
-# comment is corrected to say what it actually reported.
+# Baseline, observed on the first run (2026-08-10): two modules fail, `tests/test_cli.py`
+# with 6 and `tests/test_runtime.py` with 1, and all seven assertions have ONE cause -
+# T-112. A task file quotes an `index` row with its target abridged to three dots; Windows
+# resolves that path and Linux does not, so `check` is clean there and exits 1 here. Six of
+# the seven are simply cases that run `check` over this repository and assert it passes.
+#
+# The baseline is therefore NOT the four failures known on Windows, which is what this file
+# said before the first run. Three of those (T-114) do not reproduce here at all. Naming
+# them would have been naming a set nobody had observed.
+#
+# When T-112 closes this job should go green. If it does not, that difference is a finding
+# and belongs in a task, not in this comment.
 
 name: tests
 

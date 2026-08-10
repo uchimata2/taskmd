@@ -2,8 +2,8 @@
 id: T-116
 title: Decide whether the published repository runs its own suite
 type: decision
-status: planned
-phase: plan
+status: done
+phase: review
 parent: null
 blocked_by: []
 related: [T-011, T-049, T-115]
@@ -13,7 +13,7 @@ business_value: high
 effort: s
 created: 2026-08-10
 updated: 2026-08-10
-deliverables: []
+deliverables: [.github/workflows/tests.yml]
 ---
 
 # T-116 — Decide whether the published repository runs its own suite
@@ -113,23 +113,93 @@ disqualified the `after_write` hook in T-115.
 ## 3. Implement
 
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+- **D1 — a GitHub Actions workflow on push, one job, `ubuntu-latest`** — 2026-08-10. Step 1 confirmed
+  the route before anything was built on it: the remote exists and the credential in use carries the
+  `workflow` scope, without which the file cannot be pushed at all. **A matrix was rejected** — the
+  same tree on a second platform, compared for identical output, is
+  [T-020](T-020-confirm-byte-identical-output-on-macos-and-linux.md)'s question, and answering it
+  here would have closed a criterion this task never wrote. **A scheduled run was rejected** for the
+  reason that disqualified the `after_write` hook in T-115: it reports at a moment unrelated to the
+  edit that caused the breach.
+- **The job does not stop at the first failing module** — 2026-08-10. `set -e` would have named only
+  the earliest failure, and the entire value of the first run turned out to be *which* modules fail.
+  Had the loop short-circuited, the finding below would have been a single module and the wrong
+  conclusion.
+- **The baseline is written from the run, not from what this machine knows** — 2026-08-10, and this
+  is the decision the task turned on. `specify` recorded that the four known failures were
+  Windows-observed and could not be assumed to transfer. They did not, and not in the direction
+  anyone would have guessed.
+
+**What the first run actually reported**
+
+```
+failing modules: tests/test_cli.py tests/test_runtime.py
+tests/test_cli.py       FAILED (failures=6)
+tests/test_runtime.py   FAILED (failures=1, skipped=1)
+```
+
+**The four known failures are not the baseline.** Three of them —
+[T-114](T-114-make-the-launcher-tests-say-which-bash-they-found.md)'s — do not reproduce on
+`ubuntu-latest` at all, and `test_cli.py`, which passes on every run on this machine, failed six
+times. Naming the four in the workflow, which is what the file said before the run, would have named
+a set nobody had observed.
+
+**All seven failures are one defect, and it already has a home.** Every one of them reports
+`BROKEN LINK tasks/T-065-…`, which is
+[T-112](T-112-stop-check-resolving-a-link-that-is-displayed-rather-than-navigable.md): a quoted
+`index` row whose target is abridged to three dots, resolved by Windows and not by Linux. Six of the
+seven are cases that run `check` over this repository and assert it is clean, which is why one bad
+link moves the count so far. Confirmed on this machine rather than inferred — a probe for the tasks
+folder with three dots appended answers **True** here and the same probe fails there. **No new task
+was raised**: T-112 owns this, and raising a second would have been the duplicate the tracker exists
+to prevent. It is annotated with the evidence instead, including that it is no longer conditional on
+which `bash` a session finds.
+
+**The runner was shown reporting a *new* failure, not only carrying its baseline**
+
+A branch put tier 1 over its bound and was pushed; the runner added a module to the failing list and
+printed the reason, and the branch was deleted from both ends afterwards:
+
+```
+tier 1 7942 chars over by 96 (bound 7846, reference/TASK-WORKFLOW.md)
+failing modules: tests/test_budget.py tests/test_cli.py tests/test_runtime.py
+```
+
+Against the baseline's two modules, `tests/test_budget.py` is the addition. That is the criterion —
+a red run that was already red proves only that it is red. It also puts T-115's check under a second
+implementation of the same measurement: 7,942 characters on the runner, the same figure this machine
+reports, on a checkout whose line endings were normalised in transit.
 
 **Outputs produced**
-- <path>
+- [`.github/workflows/tests.yml`](../.github/workflows/tests.yml)
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| The decision is recorded with its rejected alternative | met | D1 carries two — a three-platform matrix, which is T-020's question in a workflow's clothes, and a scheduled run, which reports at a moment unrelated to the edit that caused the breach. The maintainer's own answer records the third: waiting for a green tree, rejected against leaving a two-character budget margin unwatched |
+| If something runs the suite: it has been seen reporting a **real** failure, not only a green run | met | Twice, and the second is the one that counts. The first run was red on arrival, which proves only that it is red; a branch pushed over the tier 1 bound then added `tests/test_budget.py` to the failing list with `over by 96`, so the runner was seen reporting a **new** regression against its own baseline. Branch deleted both ends afterwards |
+| The four known failures are either excluded with a stated reason, or the mechanism is explicit about arriving red and says who is expected to act on it | met, differently from how it was written | The criterion assumed the four were the baseline. They are not — three do not reproduce on Linux and a module that always passes here failed six times. The workflow names **what the run observed**, its single cause, and the task that owns it, and says the job should go green when T-112 closes. Recorded as a criterion met by a different route rather than silently reinterpreted |
+| Whatever is decided costs an adopter nothing | met | `.github/` is outside `plugin/`, which T-053 made the plugin boundary and which is what an install copies. Same basis as T-115's equivalent criterion, and no more: this task installed nothing and does not claim to have checked one |
 
 **Child fix tasks raised**
-- <T-NNN or "none">
+- none, and deliberately. The run's seven failures are all
+  [T-112](T-112-stop-check-resolving-a-link-that-is-displayed-rather-than-navigable.md), which was
+  already open with the mechanism correctly diagnosed. It was annotated with the new evidence — a
+  real Linux runner rather than a WSL conjecture, and seven assertions rather than one. Raising a
+  second task would have split one defect across two records.
+
+**What this review will not tick.** The runner is red and will stay red until T-112 closes, which is
+the state the maintainer chose with the trade-off in front of them. It is worth saying plainly that
+the cost is now measured rather than predicted: the thing standing between this repository and a
+green runner is a single abridged link in one closed task's illustrative table, and T-112 is
+currently `medium`.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-10 | → in_progress → review → done | All four criteria met, one of them by a different route than it was written, which is recorded rather than reinterpreted. **The result the plan was built to allow for is the one that happened: the four known failures are not the runner's baseline.** Three of them do not reproduce on `ubuntu-latest`, and `test_cli.py` — which has never failed on this machine — failed six times. Had the file named the four, as it did before the first run, it would have asserted a set nobody had observed, which is the class of claim this project keeps catching in its own documents. All seven failures are one defect, already open and already correctly diagnosed as T-112: a link abridged to three dots that Windows resolves and Linux does not. Annotated there rather than re-raised here, because one defect across two records is how a tracker starts lying. The criterion that mattered most was the second — a runner red on arrival proves only that it is red, so a branch was pushed with tier 1 deliberately 96 characters over, the runner added `tests/test_budget.py` to its failing list, and the branch was deleted both ends. Incidentally that put T-115's measurement on a second platform: 7,942 characters there, 7,942 here. |
 | 2026-08-10 | → specified → planned | The open question was answered the same day it was raised: **set one up now, red, naming the four known failures**, against waiting for T-112 and T-114 to close and adding it green. Whole-lifecycle authorisation carried over from T-115's entry — the maintainer's, covering each open v0.2 task through to a push, one at a time. `specify` gained one thing the raising session had not seen: the four failures are *Windows-observed*, and three of them are this machine's shell rather than the code, so what fails on a Linux runner is not knowable from here. That turns step 4 from "write down the four" into "read the run and write down what it says", and it is why the plan puts the push before the naming rather than after. Step 1 exists because everything else rests on a credential scope this session had not checked. |
 | 2026-08-10 | → proposed | Raised from T-115's `implement`, where the enforcement it built turned out to depend on somebody running the suite and there is no `.github/` in this repository at all. Not folded into T-115: that task's outcome is the budget, and widening it to cover how every test in the tree gets run is the quiet scope growth METHOD §3.3 exists to stop. `high` because two closed tasks carry the same expired premise — *there is no git remote at all* — which stopped being true when the repository was published on 2026-08-09, and nothing re-examined them; `s` because the work is a decision and the rejected alternative is already half-written by T-011 step 3. |
