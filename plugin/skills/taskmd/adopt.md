@@ -34,7 +34,23 @@ measurement rather than a claim about this file — it was taken by starting a s
 what it had been given before invoking anything, and checking whether an ordinary request reached
 the skill. Re-take it the same way in your own project if you want to know it holds there.
 
-## 5. Confirm
+## 5. Write a template, or do not
+
+Optional, and a project with none is a normal project — nothing creates one, nothing reports its
+absence, and no configuration key names one. If you want one, it is a Markdown file whose name
+starts with `_`, sitting **directly in** your tasks folder rather than in a folder under it, and
+carrying a placeholder where a real id would go. All three of those are how the create path finds it
+and how everything else declines to read it as work; [`docs/bindings/local-markdown.md`](docs/bindings/local-markdown.md)
+says why each one is load-bearing.
+
+taskmd ships no template to copy, deliberately — a second one under this skill would sit outside
+your tasks folder, where `check` neither follows its links nor reads its front-matter, and an
+unvalidated template rots in silence and hands you an invalid task every time somebody uses it.
+Yours is checked because of where it lives. Start from the one in taskmd's own repository if you
+want a worked example; it is written to survive the copy, and **it carries no links**, for the
+reason its own comment block gives.
+
+## 6. Confirm
 
 ```bash
 taskmd check

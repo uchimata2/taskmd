@@ -7,7 +7,7 @@ phase: specify
 parent: null
 blocked_by: []
 related: []
-work_package: WP<n> | final | none
+work_package: <the release or grouping this belongs to>
 owner: the project owner
 business_value: critical | high | medium | low
 effort: xs | s | m | l | xl
@@ -17,11 +17,12 @@ deliverables: []
 ---
 
 <!--
-The lifecycle, which edge to use, and where each fact lives:
-[`plugin/skills/taskmd/docs/METHOD.md`](../plugin/skills/taskmd/docs/METHOD.md). The field names and allowed values are the
-schema: [`plugin/skills/taskmd/taskmd/defaults/config.md`](../plugin/skills/taskmd/taskmd/defaults/config.md). Do not add
-`children:` or `blocks:` — both are derived. After filling this in, run:
-    ./plugin/bin/taskmd index
+Named rather than linked, because this file is copied into whichever project uses it and a relative
+link would resolve from there and not from here. The lifecycle, which edge to use and where each
+fact lives are in the taskmd skill's `docs/METHOD.md`. The field names and allowed values are this
+project's schema — its own `.taskmd/config.md`, or the skill's `taskmd/defaults/config.md` if it has
+none. Do not add `children:` or `blocks:` — both are derived. After filling this in, run:
+    taskmd index
 -->
 
 # T-NNN — <title>

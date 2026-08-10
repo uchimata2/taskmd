@@ -17,13 +17,13 @@ deliverables: []
 ---
 
 <!--
-An audit is a task type, not a phase, and it runs the same four phases as anything else:
-[`plugin/skills/taskmd/docs/METHOD.md`](../plugin/skills/taskmd/docs/METHOD.md) §5, procedure in
-[`plugin/skills/taskmd/docs/method/audit.md`](../plugin/skills/taskmd/docs/method/audit.md). Two
-rules to keep in view while filling this in: say what counts as a finding **before** looking, and
-never fix a finding where you find it. Do not add `children:` or `blocks:` — both are derived.
-After filling this in, run:
-    ./plugin/bin/taskmd index
+Named rather than linked, because this file is copied into whichever project uses it and a relative
+link would resolve from there and not from here. An audit is a task type, not a phase, and it runs
+the same four phases as anything else: the taskmd skill's `docs/METHOD.md` §5, procedure in its
+`docs/method/audit.md`. Two rules to keep in view while filling this in: say what counts as a
+finding **before** looking, and never fix a finding where you find it. Do not add `children:` or
+`blocks:` — both are derived. After filling this in, run:
+    taskmd index
 -->
 
 # T-NNN — Audit: <scope>

@@ -65,9 +65,13 @@ class ChecksThisRepository(unittest.TestCase):
         """T-032 criterion 1, and the thing `check` still cannot ask on its own: it validates a
         template's *front-matter*, but only copying one out proves the result is a task.
 
-        Run in this repository rather than a temp folder, because a template's relative links
-        resolve against the project it was copied into — a fresh folder has no `plugin/` and the
-        links break for that reason rather than because the template is wrong (T-091)."""
+        **Run in a temp folder, deliberately** — the one place in this class that is not this
+        repository. It used to run here because a template's relative links resolved against the
+        project it was copied into, so a fresh folder with no `plugin/` broke them for a reason that
+        had nothing to do with the template. T-091 removed the links, and this is what proves it:
+        the failure an adopter reported was `check` on a copied template, and only a project that is
+        not this one can see it. Copy the template in as well as the task made from it, because both
+        are what the adopter had."""
         for template in sorted(glob.glob(os.path.join(ROOT, "tasks", "_*.md"))):
             body = cli.read(template)
             for placeholder, value in (("T-NNN", "T-999"), ("YYYY-MM-DD", "2026-01-01")):
@@ -78,20 +82,17 @@ class ChecksThisRepository(unittest.TestCase):
                               "work_package": "none", "type": "audit",
                               "business_value": "high", "effort": "s"}[m.group(1)]),
                           body, flags=re.M)
-            trial = os.path.join(ROOT, "tasks", "T-999-trial.md")
-            cli.write(trial, body)
+            elsewhere = tempfile.mkdtemp()
             try:
-                code, out = run("check", "--root", ROOT)
-                # The index is stale by construction — a task was just added. Everything else must
-                # be silent, and it is the everything else that this asserts.
-                for line in out.splitlines():
-                    self.assertFalse(line.startswith(("VOCABULARY", "STORED DERIVED", "BROKEN LINK",
-                                                      "DANGLING", "ID WIDTH", "TEMPLATE")),
-                                     "%s produced: %s" % (os.path.basename(template), line))
-                self.assertNotIn("T-999", out)
+                tasks = os.path.join(elsewhere, "tasks")   # the whole of setup, per `adopt.md`
+                os.mkdir(tasks)
+                shutil.copyfile(template, os.path.join(tasks, os.path.basename(template)))
+                cli.write(os.path.join(tasks, "T-999-trial.md"), body)
+                run("index", "--root", elsewhere)          # or STALE INDEX is the only finding
+                code, out = run("check", "--root", elsewhere)
+                self.assertEqual(code, 0, "%s produced:\n%s" % (os.path.basename(template), out))
             finally:
-                os.remove(trial)
-        self.assertEqual(run("check", "--root", ROOT)[0], 0)
+                shutil.rmtree(elsewhere)
 
     def test_the_broken_fixtures_are_not_reported_as_this_projects_problems(self):
         """They are projects in their own right. If the host reported them, `check` could never

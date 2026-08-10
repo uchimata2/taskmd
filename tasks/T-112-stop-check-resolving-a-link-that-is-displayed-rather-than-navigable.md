@@ -6,7 +6,7 @@ status: proposed
 phase: specify
 parent: null
 blocked_by: []
-related: [T-092, T-095]
+related: [T-092, T-095, T-091, T-114]
 work_package: v0.2
 owner: maintainer
 business_value: medium
@@ -40,6 +40,29 @@ fenced text should be scanned; the scan simply never learned that fences exist.
 by construction. A project whose method is to paste what a command actually printed therefore puts
 link syntax inside a fence the moment it quotes a board row — and its own generated index is the
 thing it most wants to quote. This repository passes today because no task here happens to quote one.
+
+> **The last sentence was wrong, found 2026-08-10 under
+> [T-091](T-091-make-the-shipped-task-template-survive-being-copied.md), and how it was wrong raises
+> what this task is worth.** [T-065](T-065-say-what-happens-to-a-field-the-schema-does-not-name.md)
+> quotes an `index` row inside a fence, with the target abridged to three dots — the same
+> abridgement, in the same construction, as the paste that started this. This repository does not
+> pass because it lacks the case. **It passes because Windows resolves that target and Linux does
+> not**: a trailing-dot path component is stripped by the filesystem layer, so the abridged target
+> silently resolves to the tasks folder itself and the link is called good. Run the same tree under
+> WSL and `check` exits 1 on a repository that is clean on the machine it was written on.
+>
+> So this is not only a false positive that blocks a practice. **It is an R-20 violation** — output
+> that is not byte-identical across platforms — and it is currently the reason
+> `tests/test_runtime.py` fails when the `bash` a session finds happens to be a Linux one. The
+> reproduction is one line each way, from the repository root: on Windows a probe for the existence
+> of the tasks folder with three dots appended answers true, and under WSL the same probe answers
+> false.
+>
+> Two consequences for the criteria below rather than for the fix, which does not change: whatever
+> stops scanning fenced text removes this by construction, and after it lands the repository should
+> be checked once under a Linux `bash` — because until then nothing here was ever measuring the
+> thing that was broken. The criteria are not edited; this is the note that says why the fourth one
+> now has a second reason to exist.
 
 **What it cost, 2026-08-10.** An adopting project (htmldeck, `github.com/uchimata2/htmldeck`) was
 writing up a separate proposal and pasted one `index` row as evidence, with the filename abridged.
@@ -113,4 +136,5 @@ that was never navigable.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-10 | (no status change) | Found under T-091 that this repository has carried an instance since T-065, invisibly: the abridged target resolves on Windows and not on Linux, so `check` is clean here and red under WSL on the same commit. Annotated above rather than rewritten, and `related` now carries T-091 and T-114 — the latter is the other half of the same failing run. Worth re-reading `medium` against: this is an R-20 violation in the tree, not only a blocked practice in an adopter's. |
 | 2026-08-10 | → proposed | **Written by an adopting project** — htmldeck — and placed here at the maintainer's request, alongside T-111 from the same source. It is a false positive on the boundary T-092 already decided rather than a new rule, which is why it is argued from T-092 and not from the adopter's preference. `medium`/`s`: it blocks a documented practice rather than corrupting any output, and the change is a scan that knows where code starts plus its negative fixtures. Re-scope, re-estimate or reject freely. |
