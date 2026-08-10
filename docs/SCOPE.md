@@ -144,8 +144,26 @@ would cost the goal in §1.
 6. **An automatic fixer that rewrites task content.** A `--fix` for "stale derived fields" is
    tempting and self-defeating: derived fields cannot go stale, because they are not stored.
 7. **Model, effort or cost gates.** Which model runs a phase is agent-harness policy, not tracking.
-8. **Migration tooling** (v1). Moving an existing backlog into taskmd, or local files into GitHub
-   Issues, is out until the method and both bindings are proven.
+8. **Migration tooling**, in every direction but one. **Amended 2026-08-10 by the maintainer; the
+   original read "Migration tooling (v1). Moving an existing backlog into taskmd, or local files
+   into GitHub Issues, is out until the method and both bindings are proven."** The clause deferred
+   the work until a bar was cleared rather than forever, and **the bar is cleared**: both bindings
+   are written, the GitHub one was walked on a live repository
+   ([T-010](../tasks/T-010-write-the-github-issues-binding.md)) with its body-rewrite rule proven by
+   being made to fail ([T-041](../tasks/T-041-prove-the-github-bindings-body-rewrite-rule.md)), and the method
+   needed no change to carry either.
+
+   **So one direction is now in scope: moving a taskmd project from local Markdown to GitHub Issues**
+   ([T-108](../tasks/T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md)). It is
+   the direction with two proven bindings behind it, and the one an adopter reaches for when a
+   project outgrows a folder.
+
+   **Everything else this non-goal named stays out.** Importing a foreign backlog into taskmd is
+   still v1 — nothing is proven about a source taskmd did not write. So is any continuous two-way
+   sync between a folder and a repository, which is a different product. And the carve-out moves
+   neither of the two non-goals standing next to it: **5** still keeps every network call out of the
+   core, so the agent performs the migration and taskmd only prepares it, and **11** still holds the
+   CLI at four commands.
 9. **Replacing GitHub Issues** for teams already using them. taskmd's GitHub mode applies its
    method *to* issues; it does not ask anyone to leave them.
 10. **Notifications, reminders, scheduling, recurrence.**
