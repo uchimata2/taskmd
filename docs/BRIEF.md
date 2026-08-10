@@ -100,7 +100,14 @@ prose** — a skill that describes what the CLI already enforces is a second cop
 The source project drove this from the handoff skill's `local-markdown-dir` binding, using
 `tracker_lint` to enforce its invariant. That binding assumes "the folder is the index", which
 is false for any project with a generated one. Shipping a **binding contribution** to the handoff
-package alongside this plugin is worth considering — see that repository's improvement brief, F1.
+package alongside this plugin is worth considering.
+
+**What "F1" means, wherever this repository uses it.** The handoff project keeps an improvement
+brief of its own, and numbers the findings in it; **F1** is that brief's first — the one just
+described, a binding stating "the folder is the index" as a premise, which leaves a project with a
+generated index stale while appearing to comply. That brief is the upstream project's and is not in
+this repository, so the label is defined here rather than cited: a reader who has only this clone
+can follow every argument that rests on it without going to look for a document they have not got.
 
 ---
 

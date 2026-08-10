@@ -132,7 +132,7 @@ Minimum entries — a binding states its position on each, even when the answer 
 | Must state | Why it bites |
 | :--- | :--- |
 | What plays each **home** in METHOD §6 for this backend | The homes are roles; a binding that leaves one unassigned leaves facts homeless |
-| Whether anything **derived** is materialised, and what regenerates it | The F1 failure above |
+| Whether anything **derived** is materialised, and what regenerates it | The folder-is-the-index failure described above |
 | What the backend **cannot** represent, and what the binding does instead | A limit belongs in the binding; unstated, it becomes the method's problem |
 | What must already be true before the first operation works | Setup that is obvious to the binding's author and invisible to everyone else |
 | Whether identity is chosen locally or assigned by the backend | Decides whether ids can be predicted, referenced before creation, or reused |

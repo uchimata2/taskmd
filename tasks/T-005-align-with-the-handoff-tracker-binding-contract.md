@@ -40,7 +40,14 @@ here:
 They may share vocabulary, and T-009 owns that decision. Hence the new blocker.
 
 **Acceptance criteria**
-- [ ] The handoff F1 outcome is known before this is designed
+- [ ] ~~The handoff F1 outcome is known before this is designed~~
+      **Replaced on 2026-08-10 by [T-033](T-033-resolve-the-f1-reference-inside-this-repository.md)**,
+      which found it unfalsifiable rather than unmet: nobody could say what "known" meant, and the
+      label was defined nowhere a reader could reach. What replaces it keeps the maintainer's
+      2026-08-07 scoping intact — the recipe half does not wait, the contribution half does.
+- [ ] Before the **upstream contribution** is designed, this task records whether the handoff
+      binding still states "the folder is the index", checked against the binding as it then stands,
+      and names where that was checked. The **v1 recipe** does not wait on it
 - [ ] A taskmd project can be driven by handoff with no hand-written workaround
 - [ ] `tracker_lint` documented as the way the invariant is enforced
 - [ ] Works for a taskmd project on **either** backend — a project on GitHub Issues must be
@@ -57,7 +64,9 @@ They may share vocabulary, and T-009 owns that decision. Hence the new blocker.
   `tracker` key to a file in its own `bindings/`, so a recipe alone is a binding that project cannot
   load — which is why it is deferred rather than dropped.
 - **What criterion 1's F1 dependency now covers.** It stands, but the answer scopes it: the v1
-  recipe does not wait on the F1 outcome; the upstream contribution does.
+  recipe does not wait on the F1 outcome; the upstream contribution does. *(2026-08-10: criterion 1
+  has since been replaced by T-033 with wording that can be checked; this scoping is carried into
+  the replacement unchanged, which is why the note is annotated rather than rewritten.)*
 
 ## 2. Plan
 
