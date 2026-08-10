@@ -52,10 +52,14 @@ questions. Tasks cite the requirements they serve, so coverage is derived rather
 
 **The plugin now has users outside this repository** — four projects as of 2026-08-09, labelled in
 `control/LOCAL-CONTEXT.md`; three run it, and the fourth was assessed against the GitHub binding and
-does not adopt it. **Almost every open task in v0.2 now comes from them rather than from this
-repository's own use**, which is the pattern to expect: an adopter finds in a day what this
-repository's habits had hidden for a week. Route what they report into tasks, not into notes — and
-treat a migration report as evidence, not as a feature request.
+does not adopt it. Expect an adopter to find in a day what this repository's habits had hidden for a
+week: route what they report into tasks, not into notes, and treat a migration report as evidence
+rather than as a feature request. **A written report is worth working straight through.** The first
+adopting project delivered seven recommendations on 2026-08-10; all seven closed the same day, they
+raised two further tasks between them, and two of the seven turned out to rest on premises that were
+wrong in instructive ways — the command they recommended did not run, and the method they said was
+silent had answered them one tier down. So read a report as a set of leads to verify, never as
+findings to implement.
 
 `plugin/skills/taskmd/docs/METHOD.md` is the working method itself. Since T-028 it is **tier 2** — loaded when task work
 starts, not on every turn; `plugin/skills/taskmd/docs/method/` is tier 3, a file per phase. Tier 1 is whatever the harness
