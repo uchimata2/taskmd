@@ -141,6 +141,26 @@ def link_names(schema):
     return names
 
 
+def dependency_fields(schema):
+    return [f for f, e in schema.edges.items() if e.kind == "dependency"]
+
+
+def dependency_names(schema):
+    """Both names a dependency appears under — the stored field *and* its derived inverse.
+
+    `schema.edges` is keyed by the stored field, so `blocks` is not a key in it: asking
+    `name in schema.edges` answers "not a dependency" for one end of every dependency edge. That
+    answer is right in `context`, which flags only the side that holds this task up, and wrong in
+    any view that has to resolve both.
+    """
+    names = []
+    for field in dependency_fields(schema):
+        for name in (field, schema.edges[field].derives):
+            if name and name not in names:
+                names.append(name)
+    return names
+
+
 def in_use(names, tasks):
     """Of `names`, the configured field columns some task in this project has a value for.
 
@@ -251,9 +271,32 @@ def index_block(root, schema, tasks):
     remember to switch a column on. That rule was here from the start and applied to edges only,
     which left `work_package` rendering 58 dashes in this repository's own index; T-070 extended it
     to the half it had always described.
+
+    A **dependency** cell carries what still gates, not what once did (T-111). `context` prints each
+    linked task's status beside its id, so a reader sees a closed blocker for what it is; a cell here
+    is ids alone, so a satisfied edge and a live one are the same string and the artifact people open
+    to choose work overstates what is held. Hierarchy and soft edges are untouched — a closed parent
+    is still a parent, and a soft link gates nothing to begin with.
     """
+    deps = set(dependency_names(schema))
+
+    def shown(task, name):
+        """The ids a cell prints: for a dependency, only those still outstanding.
+
+        An id no task claims is **kept**. `check` reports a dangling reference, and filtering it out
+        here on the grounds that it does not resolve would hide, from the one artifact people read,
+        the very edge `check` is complaining about.
+        """
+        ids = task.links(name)
+        if name in deps:
+            ids = [t for t in ids if t not in tasks or tasks[t].is_open]
+        return ids
+
+    # `shown`, not `links` — filtering the cells alone would leave a project whose dependencies are
+    # all satisfied reading a column of dashes, which is the defect the docstring above records as
+    # fixed for fields. Both halves move together or the fix reintroduces it one edge kind over.
     names = [n for n in link_names(schema)
-             if any(t.links(n) for t in tasks.values())]
+             if any(shown(t, n) for t in tasks.values())]
     columns = in_use(schema.index_columns, tasks)
     header = ["ID", "Title"] + [c.replace("_", " ").title() for c in columns] + \
              [n.replace("_", " ").title() for n in names]
@@ -262,7 +305,7 @@ def index_block(root, schema, tasks):
         cells = ["[%s](%s)" % (task.id, os.path.basename(task.path)), task.title]
         cells += ["`%s`" % task.fields.get(c, "-") if task.fields.get(c) else "-"
                   for c in columns]
-        cells += [", ".join(task.links(n)) or "-" for n in names]
+        cells += [", ".join(shown(task, n)) or "-" for n in names]
         return cells
 
     ordered = [tasks[t] for t in sorted(tasks)]
@@ -650,10 +693,6 @@ def cmd_check(root, schema, tasks, args):
 
 
 # ---------------------------------------------------------------------------------- list
-
-def dependency_fields(schema):
-    return [f for f, e in schema.edges.items() if e.kind == "dependency"]
-
 
 def is_blocked(schema, tasks, task):
     """An open dependency. Not a status value — a task can be marked anything and still be held."""

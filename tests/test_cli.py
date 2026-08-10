@@ -409,6 +409,92 @@ class Index(unittest.TestCase):
         self.assertIn("Parent", text)
         self.assertIn("Children", text)
 
+    def dependent(self, tid, title, blocked_by, status="proposed"):
+        cli.write(os.path.join(self.tmp, "tasks", "%s-x.md" % tid),
+                  "---\nid: %s\ntitle: %s\ntype: deliverable\nstatus: %s\n"
+                  "phase: specify\nblocked_by: [%s]\n---\n\n# %s\n"
+                  % (tid, title, status, ", ".join(blocked_by), title))
+
+    def close(self, tid):
+        path = os.path.join(self.tmp, "tasks", "%s-x.md" % tid)
+        cli.write(path, cli.read(path).replace("status: proposed", "status: done"))
+
+    def index_row(self, tid):
+        for line in cli.read(self.path).splitlines():
+            if line.startswith("| [%s]" % tid):
+                return line
+        self.fail("no row for %s" % tid)
+
+    def test_a_satisfied_blocker_leaves_the_cell_rather_than_reading_as_live(self):
+        """T-111. `context` resolved the far end's status and `index` did not, so one surface said
+        a task was startable while the other named a blocker that had closed the day before."""
+        self.dependent("T-002", "Held by one that finished", ["T-001"])
+        self.close("T-001")
+        run("index", "--root", self.tmp)
+        self.assertNotIn("T-001", self.index_row("T-002"))
+        self.assertIn("no blocker outstanding", run("context", "T-002", "--root", self.tmp)[1])
+
+    def test_one_closed_and_one_open_blocker_leaves_only_the_open_one(self):
+        cli.write(os.path.join(self.tmp, "tasks", "T-003-x.md"),
+                  "---\nid: T-003\ntitle: Three\ntype: deliverable\nstatus: proposed\n"
+                  "phase: specify\n---\n\n# Three\n")
+        self.dependent("T-002", "Held by two", ["T-001", "T-003"])
+        self.close("T-001")
+        run("index", "--root", self.tmp)
+        row = self.index_row("T-002")
+        self.assertIn("T-003", row)
+        self.assertNotIn("T-001", row)
+
+    def test_a_project_whose_dependencies_are_all_satisfied_loses_the_column(self):
+        """The column-in-use rule has to see the filtered view. Filtering only the cells would
+        leave a column of dashes — the defect T-070 removed, one edge kind over."""
+        self.dependent("T-002", "Held by one that finished", ["T-001"])
+        run("index", "--root", self.tmp)
+        self.assertIn("Blocked By", cli.read(self.path))
+
+        # Closing the blocker satisfies one direction and not the other: nothing is held any more,
+        # but finishing T-001 still releases T-002, which is open. The two resolve independently.
+        self.close("T-001")
+        run("index", "--root", self.tmp)
+        text = cli.read(self.path)
+        self.assertNotIn("Blocked By", text)
+        self.assertIn("Blocks", text)
+
+        self.close("T-002")
+        run("index", "--root", self.tmp)
+        self.assertNotIn("Blocks", cli.read(self.path))
+
+    def test_the_derived_side_is_filtered_too(self):
+        """`blocks` is not a key in `schema.edges` — a membership test against it answers "not a
+        dependency" for the whole derived half, and a closed downstream task keeps overstating
+        what finishing this one releases."""
+        self.dependent("T-002", "Downstream, and finished", ["T-001"])
+        self.dependent("T-003", "Downstream, still open", ["T-001"])
+        self.close("T-002")
+        run("index", "--root", self.tmp)
+        row = self.index_row("T-001")
+        self.assertIn("T-003", row)
+        self.assertNotIn("T-002", row)
+
+    def test_a_closed_parent_is_still_a_parent(self):
+        """Out of scope on purpose: hierarchy and soft edges say nothing about being held."""
+        cli.write(os.path.join(self.tmp, "tasks", "T-002-y.md"),
+                  "---\nid: T-002\ntitle: Two\ntype: deliverable\nstatus: proposed\n"
+                  "phase: specify\nparent: T-001\nrelated: [T-001]\n---\n\n# Two\n")
+        self.close("T-001")
+        run("index", "--root", self.tmp)
+        row = self.index_row("T-002")
+        self.assertIn("T-001", row)
+        self.assertIn("Parent", cli.read(self.path))
+        self.assertIn("Related", cli.read(self.path))
+
+    def test_a_blocker_no_task_claims_is_still_shown(self):
+        """It cannot be resolved to closed, and `check` reports it. Dropping it here would hide a
+        broken edge from the artifact people read while the validator complains about it."""
+        self.dependent("T-002", "Held by a ghost", ["T-404"])
+        run("index", "--root", self.tmp)
+        self.assertIn("T-404", self.index_row("T-002"))
+
 
 class WritesTheSameBytesEverywhere(unittest.TestCase):
     """R-20. Only one platform is available here, so this proves the *mechanism*: nothing the
