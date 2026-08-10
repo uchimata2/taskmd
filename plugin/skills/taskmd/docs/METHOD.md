@@ -48,23 +48,15 @@ have *used* the outcome and said what happened ([why](method/rationale.md), [how
 
 ## 3. Conduct
 
-Three rules that apply on every turn of the work, in every phase. **§3.1 and §3.3 also bind before it
-is clear that there is any task work**, so a project that loads this document on demand has to carry
-those two where they are always visible; §3.2 presupposes a phase and does not.
+Three rules apply on every turn of the work, in every phase. **Two of them bind before it is clear
+that there is any task work** — *one phase per request, never auto-advance*, and *surface what you
+discover, never absorb it, never drop it*. This document is loaded when task work begins, which is
+already too late for those two, so they are **not stated here**: they belong wherever your project's
+always-loaded conventions live, and a copy here would be a second home for a rule that must have one.
+[`../adopt.md`](../adopt.md) §4 carries the text to put there, and
+[rationale](method/rationale.md) carries the argument behind both.
 
-### 3.1 One phase per request — never auto-advance
-
-Do the phase that was asked for, then stop and report. Do not continue into the next one because it
-is obvious, because the plan already describes it, or because a note said it was next.
-
-**A pointer is context, not authorization.** A "next step" line, a resumption note, an unfinished
-checklist, the rhythm of the last three tasks — none of these is a request
-([why](method/rationale.md)).
-
-**Asking for more is.** A request for two phases, or for the whole lifecycle, is as valid as a
-request for one; write it into the task's own record, naming who gave it and what it covers, because
-an authorization kept anywhere else is one a later session can miss or stretch to a task it never
-reached.
+Only §3.2 is stated below, because it presupposes a phase and so cannot bind before one exists.
 
 ### 3.2 Ask to the phase's exit criterion — and batch it
 
@@ -79,19 +71,6 @@ question. Work out everything you need, then ask once.
 
 Do not guess in place of asking. An assumption is acceptable when it is *recorded as an assumption*
 and the work would survive being wrong; otherwise it is a question.
-
-### 3.3 Surface what you discover — never absorb it, never drop it
-
-Work turns up things nobody anticipated: a better approach, a flawed premise, an unrelated defect,
-a missing prerequisite. Each one goes to exactly one of two places:
-
-- **It changes what the current task should produce** → raise it as a question now, before
-  continuing. Quietly widening or narrowing the outcome substitutes your judgement for the owner's.
-- **It is actionable but outside this task** → raise a new task for it. This costs one record and
-  keeps the current task honest.
-
-What must never happen is the third option: fixing it silently, or noticing it and moving on. A
-silent fix makes the task's record false; a dropped observation is lost the moment the session ends.
 
 ---
 

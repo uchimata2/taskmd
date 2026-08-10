@@ -6,10 +6,12 @@ publication rather than on every turn, and a rule paid for on every turn of ever
 charged for a moment that happens rarely. Decided in
 [T-079](../tasks/T-079-humanize-the-human-facing-documents-before-publishing.md).
 
-`../CLAUDE.md` *Publishing constraints* holds the other publish-time rule — the pre-publish leak
-check — and is not restated here. The two eventually belong together; consolidating them is a
-tier-1 restructure owned by [T-047](../tasks/T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md),
-not something to do in passing.
+**The pre-publish leak check now lives here too** (§6), moved out of `../CLAUDE.md` by
+[T-047](../tasks/T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) for the same
+reason this file exists: it binds at publication, and a rule paid for on every turn is charged for a
+moment that happens rarely. It was the single largest block in tier 1, for something needed once.
+`../CLAUDE.md` keeps the constraints themselves — what may not be written down — and points here for
+the check that enforces them.
 
 ---
 
@@ -121,3 +123,65 @@ cannot do is notice a covered document of a **new kind** — a `CONTRIBUTING.md`
 test in §1 still governs that, and adding one pattern to the line above is the whole of the work.
 That residue is stated rather than hidden, because a gate believed to be exhaustive is worse than one
 known to be partial.
+
+---
+
+## 6. The pre-publish check
+
+Run over every file a push would send. It must print nothing; every hit is either a leak or a label
+that needs adding to `control/LOCAL-CONTEXT.md`.
+
+```bash
+( cd "$(git rev-parse --show-toplevel)" && git ls-files -z --cached --others --exclude-standard ':!tests/fixtures/leak-check/' | xargs -0 grep -nIE '\b[A-Za-z]:[\\/][A-Za-z0-9._-]+[\\/]|/(home|Users)/|[\\]{2}[A-Za-z0-9._-]+[\\]|[0-9]{1,3}(\.[0-9]{1,3}){3}' )
+```
+
+Four classes: Windows drive paths, home directories, UNC paths, IP addresses. `git ls-files` is what
+makes it meaningful, but **only with those three flags**: on its own it lists what git already
+*tracks*, which silently omits every file the session just created. `--cached --others
+--exclude-standard` is tracked files **plus** untracked-but-not-ignored ones — so it sees exactly
+what a push would send, and anything gitignored is still out of scope by construction. Do not
+shorten it to `-co`: the point of the line is that a reader can see what it covers. The omission was
+silent for as long as it existed — a check that reads none of the files it was aimed at prints
+nothing, which is also what success looks like ([T-034](../tasks/T-034-let-the-pre-publish-check-see-files-not-yet-tracked.md),
+which measured it and proved the fix by making it catch a leak in an untracked file).
+
+**The `cd` is not decoration.** `ls-files` lists the subtree you are standing in, and the exclusion
+is a pathspec resolved against the same place — so run from a subdirectory the unanchored command
+read a quarter of the tree *and* printed its own fixture as five leaks. Both halves are invisible:
+the alarm hides the under-scan, and anchoring only the exclusion silences the alarm while leaving the
+blindness (T-080, which measured both and rejected that smaller fix for exactly this reason). Judge a
+run by the file count, not by its silence.
+
+**Run it last, after the task record is written — not before.** The check reads files, so it cannot
+see one that does not exist yet, and the text most likely to trip it is the write-up of a task
+*about* the check: quoting a matched line into a task record re-creates the leak. This has now
+happened twice, in T-013 and again in T-018 while fixing T-013. Describe the result and point at the
+fixture; never paste the lines.
+
+**The excluded path is the check's own fixture, and dropping the exclusion is how the check is
+proven.** `tests/fixtures/leak-check/samples.txt` holds nine deliberately-fabricated lines: five that
+must be caught, one per class, and four safe forms that must not be. So there are two runs of one
+command — with the exclusion, the tree must print **nothing**; without it, the output must be
+**exactly those five lines and nothing else**. The second run is what a clean tree can never prove
+on its own, and keeping it in the same command is what stops the proof drifting from the check. The
+exclusion is one pathspec, not a second contract: any leak outside that one file is still caught, and
+the file's only content is the fixture.
+
+**Three limits, all deliberate.** A drive path is only matched with **two or more segments** after the
+letter; a single-segment one is let through, because that form collides with ordinary text such as a
+`d:\n` escape inside a code string — and a check that cries wolf gets ignored, which is worse than a
+narrow one. (Do not write an example drive path here to illustrate that: the check reads this file
+too, and an illustration is indistinguishable from a leak.) Second, **a dotted four-part version
+number fires the IP branch** — a kernel or build string in a task record will trip it, and nothing
+has leaked when it does; elide a component and move on. Requiring valid octets does not fix it,
+because a version's parts are under 256 too, and it triples the branch (T-058). And third, **a
+real name or a client project is not mechanically detectable at all**: that half is the label
+discipline in `../CLAUDE.md`, and it holds only if every new identity goes into
+`control/LOCAL-CONTEXT.md` rather than into a task.
+
+The pattern was verified by being made to fail, and the fixture that did it is the one named above
+rather than a transcript pasted into a task — which is what T-018 was raised to fix, after the pasted
+copy left a real drive path in the tracked tree and made the documented "prints nothing" unreachable.
+Two earlier drafts were wrong: one matched `http://` and a `d:\n` escape, and one ended a branch in
+`\\`, which grep read as an escaped `|` and which silently swallowed the entire IP branch. Both bugs
+were invisible on a clean tree.

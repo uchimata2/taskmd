@@ -185,9 +185,30 @@ would cost the goal in §1.
 
 ## 5. Constraints
 
-The publishing, portability and verification constraints have one home: **`../CLAUDE.md`**. They
-are not repeated here. In short — dependency-free, cross-platform, no personal or machine data, and
-behaviour is proven by running the thing, never by reading it.
+**This is their home** — moved here from `../CLAUDE.md` by
+[T-047](../tasks/T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md), which
+needed the room for two rules that bind on every turn. These do not: they bind when something is
+being written or built, and this is the first document that file tells you to read. It keeps the
+one-line form and points here for the detail.
+
+Everything this repository publishes must be:
+
+- **Free of personal, client and machine data.** No real names, no absolute local paths, no drive
+  letters, no hostnames. Write `<project>/tasks/` not a real path. Where a real identity is genuinely
+  load-bearing evidence, it goes in `control/LOCAL-CONTEXT.md` — which is gitignored — and the tracked
+  tree refers to it by the label that file defines. The check that enforces this is
+  [`PUBLISHING.md`](PUBLISHING.md) §6; it is a grep rather than a CLI command because a leak check is
+  not one of the things the CLI does, settled in T-013 under non-goal 11 above and still excluded
+  after that non-goal's 2026-08-05 amendment.
+- **Out-of-the-box.** Someone who clones it must be able to run it with no path editing. Resolve
+  paths relative to the repository root, not the working directory.
+- **Dependency-free.** Python standard library only. A tracker that needs `pip install` before it
+  can list your tasks is a tracker people abandon.
+- **Cross-platform.** Windows, macOS, Linux. Write files with an explicit `newline="\n"` — Python's
+  default text mode rewrites every `\n` on Windows and breaks byte-for-byte comparison. Console
+  output should survive a cp1252 terminal: reconfigure stdout to UTF-8 at startup.
+- **Humanized, if a stranger reads it before installing.** The rule, what it covers and the exception
+  it carries: [`PUBLISHING.md`](PUBLISHING.md) (T-079).
 
 ---
 

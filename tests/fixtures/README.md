@@ -17,7 +17,8 @@ readings agree would have passed either implementation and proved nothing (T-022
 
 `leak-check` is **not a taskmd project** — the only folder here that is not, which is worth saying
 because every neighbour is, and a reader following the convention would look for a `.taskmd/` that
-is deliberately absent. It is nine lines of text for the pre-publish grep in `CLAUDE.md`: five that
+is deliberately absent. It is nine lines of text for the pre-publish grep in `docs/PUBLISHING.md`
+§6 — moved there from `CLAUDE.md` by T-047 — five that
 must be caught and four safe forms that must not. It is excluded by name from the normal run and
 included in the proof run, which is the whole of the arrangement (T-018). Every path in it is
 fabricated.

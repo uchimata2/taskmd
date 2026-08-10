@@ -24,9 +24,40 @@ ends up inconsistent while appearing to comply. Stop at the first one you cannot
 
 ## 4. Carry the conduct rules your harness loads unasked
 
-[`docs/METHOD.md`](docs/METHOD.md) §3 names which of its rules bind *before* it is clear
-that there is any task work, and therefore cannot wait for the method to be loaded. Put those where
-your project's own always-loaded conventions live.
+Two of the method's conduct rules bind *before* it is clear that there is any task work, so they
+cannot wait for the method to be loaded — [`docs/METHOD.md`](docs/METHOD.md) §3 says which and why.
+They are below. **Copy them into wherever your project's own always-loaded conventions live**, and
+copy them whole: each carries the sentence that stops the obvious misreading, and a version trimmed
+to the heading is one an agent talks itself out of.
+
+> ### One phase per request — never auto-advance
+>
+> Do the phase that was asked for, then stop and report. Do not continue into the next one because it
+> is obvious, because the plan already describes it, or because a note said it was next.
+>
+> **A pointer is context, not authorization.** A "next step" line, a resumption note, an unfinished
+> checklist, the rhythm of the last three tasks — none of these is a request.
+>
+> **Asking for more is.** A request for two phases, or for the whole lifecycle, is as valid as a
+> request for one; write it into the task's own record, naming who gave it and what it covers, because
+> an authorization kept anywhere else is one a later session can miss or stretch to a task it never
+> reached.
+>
+> ### Surface what you discover — never absorb it, never drop it
+>
+> Work turns up things nobody anticipated: a better approach, a flawed premise, an unrelated defect,
+> a missing prerequisite. Each one goes to exactly one of two places:
+>
+> - **It changes what the current task should produce** → raise it as a question now, before
+>   continuing. Quietly widening or narrowing the outcome substitutes your judgement for the owner's.
+> - **It is actionable but outside this task** → raise a new task for it. This costs one record and
+>   keeps the current task honest.
+>
+> What must never happen is the third option: fixing it silently, or noticing it and moving on. A
+> silent fix makes the task's record false; a dropped observation is lost the moment the session ends.
+
+The two cross-references the originals carried are dropped on purpose: they point into the method's
+own `method/rationale.md`, which resolves from the skill and not from wherever you paste this.
 
 This skill cannot do it for you, and the reason is worth knowing rather than working around: a
 session that has not invoked a skill has been handed its `description` and nothing else. That is a

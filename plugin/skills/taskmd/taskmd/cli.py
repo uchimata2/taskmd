@@ -117,7 +117,8 @@ def clone_would_receive(root):
 
     `git ls-files --cached --others --exclude-standard` is tracked files *plus* untracked ones that
     are not ignored — exactly what a push would send. It is the same flag combination this project's
-    own pre-publish check is built on, argued for there at length; `check` standing next to that
+    own pre-publish check is built on, argued for at length where that check lives (T-047 moved it
+    out of the always-loaded conventions into the publishing document); `check` standing next to that
     check and answering a different question about the same tree is what T-094 was raised to settle.
     `-z` because a path may contain anything, including a newline.
 
