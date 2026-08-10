@@ -82,7 +82,10 @@ snapshot of that subtree, which is a property of installing rather than a defect
 `plugin/skills/taskmd/` is self-contained**: the docs, the package and the launchers live inside it,
 so copying that one folder is a working skill, and `plugin/bin/` holds only the two shims that must
 sit at the plugin root for the `PATH` mechanism.
-Do not restate the method here or anywhere else; `CLAUDE.md` does not.
+Do not restate the method here or anywhere else. `CLAUDE.md` carries exactly two of its rules —
+METHOD §3.1 and §3.3, verbatim, since T-047 — and that is not an exception to the rule but the only
+way to obey it: those two bind *before* the method is loaded, so tier 2 cannot be their home. Every
+other part of the method is pointed at, never copied.
 
 The schema question that used to block everything is answered (T-001), and the CLI it gated is built:
 `./plugin/bin/taskmd {context,index,check,list}` (or `.\plugin\bin\taskmd.cmd`), proven by `tests/`.
