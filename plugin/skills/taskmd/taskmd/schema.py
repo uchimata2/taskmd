@@ -12,12 +12,15 @@ A project's `.taskmd/config.md` **replaces** the default; it is not merged with 
 config you are reading is your whole schema — the same single-source property the plugin is
 built on. A config missing a key is an error naming the key, not a silent fallback.
 
-Task front-matter, by contrast, is permissive: a field the schema does not name is carried and
-displayed but never interpreted, so a project can adopt taskmd without rewriting its files.
+Task front-matter, by contrast, is permissive: a field the schema does not name is carried, never
+interpreted — not shown by default, and shown by naming it in `context_fields` or `index_columns`.
+That is what lets a project adopt taskmd without rewriting its files.
 
-Usage
------
-  python -m taskmd.schema [project_dir]     print the resolved schema and the task graph
+This module has **no command of its own**. It is imported — by the CLI, by the tests, and by
+anything else that needs a project's rules — and `load_schema` is where a bad config is caught, so
+that guarantee holds for callers that never touch the CLI. It used to carry a `main()` printing the
+resolved schema and the task graph; that was a fifth entry point no statement of the surface named,
+and T-030 removed it.
 
 Pure standard library. Console output is ASCII; task content is UTF-8.
 """
@@ -26,7 +29,6 @@ import os
 import re
 import shlex
 import shutil
-import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DEFAULT_CONFIG = os.path.join(HERE, "defaults", "config.md")
@@ -764,49 +766,3 @@ def derive(tasks, schema):
         for name in task.derived:
             task.derived[name].sort()
     return tasks
-
-
-# -------------------------------------------------------------------------------------- main
-
-def main(argv):
-    if hasattr(sys.stdout, "reconfigure"):
-        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-    root = argv[0] if argv else "."
-    try:
-        schema = load_schema(root)
-    except SchemaError as exc:
-        print("SCHEMA ERROR: %s" % exc)
-        return 1
-
-    print("schema   %s" % schema.source)
-    print("ids      %s (width %d), e.g. %s"
-          % (schema.id_prefix, schema.id_width, schema.format_id(7)))
-    print("tasks    %s/" % schema.tasks_dir)
-    print("status   %s = %s" % (schema.status_field, ", ".join(schema.statuses)))
-    print("open     %s" % ", ".join(schema.open_statuses))
-    print("edges    " + "; ".join("%s (%s) -> %s" % (e.field, e.kind, e.derives or "-")
-                                  for e in schema.edges.values()))
-    print("vocab    " + "; ".join(sorted(schema.vocabularies)))
-
-    # Every name a link can appear under, stored or derived — this is what a view shows.
-    names = []
-    for field, edge in schema.edges.items():
-        for name in (field, edge.derives):
-            if name and name not in names:
-                names.append(name)
-
-    tasks = load_tasks(root, schema)
-    print("\n%d task(s) in %s/" % (len(tasks), schema.tasks_dir))
-    for tid in sorted(tasks):
-        t = tasks[tid]
-        print("  %-12s %-11s %s" % (tid, t.status, t.title))
-        shown = "; ".join("%s=%s" % (n, ",".join(t.links(n))) for n in names if t.links(n))
-        if shown:
-            print("      links    %s" % shown)
-        if t.extra:
-            print("      carried  %s" % ", ".join(sorted(t.extra)))
-    return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main(sys.argv[1:]))
