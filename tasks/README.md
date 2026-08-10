@@ -77,7 +77,7 @@ into, not a promise about a date.
 | [T-113](T-113-name-an-unknown-filter-before-complaining-it-has-no-value.md) | Name an unknown filter before complaining it has no value | `v0.2` | `proposed` | `specify` | - | - | - | T-022, T-029 |
 | [T-114](T-114-make-the-launcher-tests-say-which-bash-they-found.md) | Make the launcher tests say which bash they found | `v0.2` | `proposed` | `specify` | - | - | - | T-091, T-112 |
 | [T-117](T-117-decide-whether-the-command-surface-needs-one-statement.md) | Decide whether the command surface needs one statement | `v0.3` | `proposed` | `specify` | - | - | - | T-030, T-031 |
-| [T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md) | Decide what leaves tier 1 when the budget binds | `v0.2` | `specified` | `specify` | - | - | - | T-026, T-028, T-047, T-115 |
+| [T-119](T-119-put-the-stranded-paragraph-under-a-heading-that-owns-it.md) | Put the stranded paragraph under a heading that owns it | `v0.2` | `proposed` | `specify` | - | - | - | T-047, T-118 |
 
 ## Closed
 
@@ -124,10 +124,10 @@ into, not a promise about a date.
 | [T-044](T-044-state-the-gh-version-the-github-binding-requires.md) | State the gh version the GitHub binding requires | `v0.1` | `done` | `review` | - | - | - | T-010, T-042 |
 | [T-045](T-045-decide-whether-scope-principles-may-state-the-rule-they-name.md) | Decide whether SCOPE §2 principles may state the rule they name | `v0.1` | `done` | `review` | - | - | - | T-017, T-027 |
 | [T-046](T-046-reconcile-the-done-condition-claude-md-restates.md) | Reconcile the done-condition CLAUDE.md restates from the method | `v0.1` | `done` | `review` | - | - | - | T-027, T-028 |
-| [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `v0.2` | `done` | `review` | - | - | - | T-015, T-028, T-059, T-063, T-105, T-115, T-118 |
+| [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `v0.2` | `done` | `review` | - | - | - | T-015, T-028, T-059, T-063, T-105, T-115, T-118, T-119 |
 | [T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md) | Say what "always-loaded" means in R-21, before the skill is built against it | `v0.1` | `done` | `review` | - | - | - | T-003, T-028 |
 | [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) | Demonstrate a clone running on a second platform | `v0.1` | `done` | `review` | T-011 | T-057, T-058 | - | T-006, T-054, T-056, T-057, T-058, T-061, T-085, T-116 |
-| [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | `v0.1` | `done` | `review` | T-003 | - | - | T-006, T-052, T-053 |
+| [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | `v0.1` | `done` | `review` | T-003 | - | - | T-006, T-052, T-053, T-118 |
 | [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | `v0.1` | `done` | `review` | - | - | - | T-001, T-003, T-060, T-076, T-091, T-101 |
 | [T-052](T-052-decide-what-of-claude-a-published-clone-carries.md) | Decide what of .claude a published clone carries, and ignore the rest | `v0.1` | `done` | `review` | - | - | - | T-003, T-006, T-050, T-053, T-067 |
 | [T-053](T-053-decide-the-plugin-s-boundary-and-what-its-skill-may-p.md) | Decide the plugin's boundary, and what its skill may point at | `v0.1` | `done` | `review` | - | - | - | T-003, T-006, T-050, T-052, T-054, T-059, T-064, T-067, T-072, T-083, T-103 |
@@ -140,7 +140,7 @@ into, not a promise about a date.
 | [T-060](T-060-point-the-task-templates-at-paths-that-exist.md) | Point the task templates at paths that exist | `v0.1` | `done` | `review` | T-059 | - | - | T-032, T-051, T-076, T-091 |
 | [T-061](T-061-stop-an-inherited-pythonpath-breaking-the-launcher.md) | Stop an inherited PYTHONPATH breaking the shell launcher | `v0.1` | `done` | `review` | T-059 | - | - | T-049, T-056, T-068 |
 | [T-062](T-062-report-two-tasks-claiming-one-id-instead-of-dropping.md) | Report two tasks claiming one id instead of dropping one | `v0.1` | `done` | `review` | T-059 | - | - | T-004, T-075, T-107 |
-| [T-063](T-063-measure-the-tier-1-member-the-rule-declares.md) | Measure the tier-1 member the rule declares | `v0.1` | `done` | `review` | T-059 | - | - | T-028, T-047, T-105, T-115 |
+| [T-063](T-063-measure-the-tier-1-member-the-rule-declares.md) | Measure the tier-1 member the rule declares | `v0.1` | `done` | `review` | T-059 | - | - | T-028, T-047, T-105, T-115, T-118 |
 | [T-064](T-064-stop-the-plugin-citing-documents-it-does-not-ship.md) | Stop the plugin citing documents it does not ship | `v0.1` | `done` | `review` | T-059 | - | - | T-006, T-053, T-083 |
 | [T-065](T-065-say-what-happens-to-a-field-the-schema-does-not-name.md) | Say what happens to a field the schema does not name | `v0.1` | `done` | `review` | T-059 | - | - | T-001, T-030 |
 | [T-066](T-066-reconcile-two-open-tasks-with-the-fix-that-landed.md) | Reconcile two open tasks with the fix that already landed | `v0.1` | `done` | `review` | T-059 | - | - | T-011, T-023, T-030 |
@@ -184,5 +184,6 @@ into, not a promise about a date.
 | [T-112](T-112-stop-check-resolving-a-link-that-is-displayed-rather-than-navigable.md) | Stop check resolving a link that is displayed rather than navigable | `v0.2` | `done` | `review` | - | - | - | T-091, T-092, T-095, T-114 |
 | [T-115](T-115-give-the-tier-1-budget-something-that-enforces-it.md) | Give the tier 1 budget something that enforces it | `v0.2` | `done` | `review` | - | - | - | T-028, T-047, T-063, T-116, T-118 |
 | [T-116](T-116-decide-whether-the-published-repository-runs-its-own-suite.md) | Decide whether the published repository runs its own suite | `v0.2` | `done` | `review` | - | - | - | T-011, T-049, T-115 |
+| [T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md) | Decide what leaves tier 1 when the budget binds | `v0.2` | `done` | `review` | - | - | - | T-026, T-028, T-047, T-050, T-063, T-115, T-119 |
 
 <!-- taskmd:end -->

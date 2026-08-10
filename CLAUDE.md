@@ -12,18 +12,12 @@ consulting project; `reference/` is that code.
 what is explicitly **out** of scope — then [`docs/BRIEF.md`](docs/BRIEF.md) for the problem evidence
 and the measured prior art behind them. `tasks/README.md` is the generated backlog.
 
-**Status: published**, at `github.com/uchimata2/taskmd`, in both shapes — the marketplace plugin and
-the copyable skill folder. `README.md` is the front door and lists the four commands. **Run them here
-as `./plugin/bin/taskmd <cmd>`, or `.\plugin\bin\taskmd.cmd <cmd>` on Windows**: the shipped entry
-point, invoked by path because this machine's shell snapshot drops the `PATH` entry an adopter gets
-(T-054). It finds the project by walking up from where it is run, and a project may declare one
-`after_write` command that taskmd runs and reports on.
+**Run the commands here as `./plugin/bin/taskmd <cmd>`, or `.\plugin\bin\taskmd.cmd <cmd>` on
+Windows**: the shipped entry point, invoked by path because this machine's shell snapshot drops the
+`PATH` entry an adopter gets (T-054). A project may declare one `after_write` command that taskmd
+runs and reports on.
 
-`check` has been shown failing on **every** class it claims — one deliberately-broken fixture each,
-so the set is `tests/fixtures/broken-*` and not a count written here. The backend contract is
-[`BINDING.md`](plugin/skills/taskmd/docs/BINDING.md) and both bindings are written
-([`bindings/`](plugin/skills/taskmd/docs/bindings/)). Everything else about where the project stands
-is in the tasks that got it there.
+Where the project stands is in the tasks that got it there — never here.
 
 ## The one design rule
 
@@ -51,9 +45,15 @@ a first tier costing more than the flat version has inverted the point of splitt
 are counted from the tree, in **characters**, so nothing here is edited when membership changes, and
 `tests/test_budget.py` fails when tier 1 is over — run the suite rather than remember a command.
 
-Why membership is derived rather than listed, why characters rather than lines, why the bound is that
-file, and why a test: T-028, T-050, T-063 and T-115 — not restated here, which is the same rule this
-section opens with.
+**What earns a place here.** Every character is paid on every turn of every session, so a line
+qualifies only if it changes what a session does *before it has chosen what to work on*. Anything
+scoped to an activity the session knows it has started — a phase, publishing, adopting, writing a
+binding — is reachable from a pointer at that moment, so tier 1 carries the pointer and never the
+thing. **An activity nobody announces is the exception**: editing this file happens while doing
+something else, which is why this paragraph is here and not one tier down. Two consequences do the
+cutting: **where the project has got to never qualifies**, being derived from the tasks that
+got it there; and **nothing qualifies for being important**, or this file would be the repository.
+The rule, what survived it, and why the bound is another file's length: T-118.
 
 ### Two rules that bind before there is any task
 
@@ -87,16 +87,6 @@ a missing prerequisite. Each one goes to exactly one of two places:
 What must never happen is the third option: fixing it silently, or noticing it and moving on. A
 silent fix makes the task's record false; a dropped observation is lost the moment the session ends.
 
-What this project adds on top, because the method is deliberately storage-agnostic:
-
-- Task files live in `tasks/`, created from `tasks/_task-template.md` — beside the task it becomes,
-  not under it, so links survive the copy (T-076).
-- The field names and their allowed values are the schema — `plugin/skills/taskmd/taskmd/defaults/config.md`.
-- The index is **generated**, never hand-edited.
-- When a task is `done` is [`plugin/skills/taskmd/docs/METHOD.md`](plugin/skills/taskmd/docs/METHOD.md) §1 rule 5; which artifact satisfies
-  each of its conditions here is in
-  [`plugin/skills/taskmd/docs/bindings/local-markdown.md`](plugin/skills/taskmd/docs/bindings/local-markdown.md).
-
 `reference/TASK-WORKFLOW.md` is the pre-split standard from one real project — evidence of what
 worked, not the standard, and the bound above. It hard-codes a folder contract, a work-package
 vocabulary and specific commands, which is what the method had to leave behind.
@@ -108,10 +98,7 @@ client or machine data**; **out-of-the-box** on a fresh clone; **dependency-free
 only; **cross-platform**; and **humanized** wherever a stranger reads it before installing. Each in
 full, with what it costs to get wrong, is [`docs/SCOPE.md`](docs/SCOPE.md) §5.
 
-**Before publishing, run the pre-publish check** — [`docs/PUBLISHING.md`](docs/PUBLISHING.md) §6. One
-grep over every file a push would send, run last, and proven by a second run against its own fixture.
-Read it at publication rather than on every turn; it was the largest thing this file carried, for a
-moment that happens rarely (T-047).
+**Before publishing, run the pre-publish check** — [`docs/PUBLISHING.md`](docs/PUBLISHING.md) §6.
 
 ## Verifying
 
