@@ -36,10 +36,9 @@ Nothing else here waits on anything.
 worth naming by its outcome. Done when byte-identical output is demonstrated on
 macOS and Linux, the published plugin has been installed on a machine that never held it, taskmd
 works as a tracker binding for the handoff skill, what `check` does with a section reference is
-settled, and a project can move its backlog from local files to GitHub Issues. That last one
-**contradicts [`../docs/SCOPE.md`](../docs/SCOPE.md) non-goal 8**, which defers migration tooling to
-v1; it is named here as membership and not as a commitment, and nothing can be planned on it until
-the maintainer amends the non-goal or drops the task.
+settled, and a project can move its backlog from local files to GitHub Issues — the one direction
+[`../docs/SCOPE.md`](../docs/SCOPE.md) non-goal 8 carves out, and the largest single piece of work
+here by some way.
 
 **The two state "done" differently on purpose.** v0.3 has a handful of outcomes worth naming; v0.2
 holds everything else, whose only common property is being small, and enumerating those would rebuild
