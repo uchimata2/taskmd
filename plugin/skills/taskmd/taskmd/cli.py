@@ -744,8 +744,16 @@ def cmd_list(root, schema, tasks, args):
 
     # Tab-separated: a line format a caller can read as printed and a script can cut, without
     # either of them knowing the terminal width. Padding would have made the second impossible.
+    #
+    # The blocked column is appended last so no existing field moves, and only when the project
+    # has a blocked task at all — the omit-when-unused rule `## Views` states, tested project-wide
+    # so every call has the same shape. `--json` carries it unconditionally for callers that need
+    # it whatever the project looks like. The rule is in `## Ordering`; this does not restate it.
+    marked = any(is_blocked(schema, tasks, t) for t in tasks.values())
     for task in chosen:
         cells = [task.id] + [task.fields.get(c, "") or "-" for c in columns] + [task.title]
+        if marked:
+            cells.append("blocked" if is_blocked(schema, tasks, task) else "-")
         print("\t".join(cells))
     return 0
 

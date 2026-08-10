@@ -90,6 +90,100 @@ class OrdersByTheRule(unittest.TestCase):
         self.assertEqual(first, second)
 
 
+class MarksWhatCannotBeStarted(unittest.TestCase):
+    """T-102 — the sort key `order` already computes, printed instead of discarded.
+
+    Blocked-last says a boundary exists without saying where it falls, and `list --open` is the
+    view that answers *what do I work on next*. The project that reported this checked by hand and
+    then had to write the answer into a handoff so the next session would not start a task that
+    cannot move.
+
+    The shape rules are `## Ordering` in the schema config; these tests assert them, and in
+    particular that the title stays the last field for anyone who cuts it.
+    """
+
+    FIXTURE = os.path.join(FIXTURES, "ordering")
+    UNBLOCKED = os.path.join(FIXTURES, "alt-project")
+
+    def cells(self, out):
+        return [line.split("\t") for line in out.splitlines() if line.strip()]
+
+    def titles(self, root):
+        return dict((t["id"], t["title"]) for t in json.loads(run("list", "--json",
+                                                                  "--root", root)[1]))
+
+    def test_the_blocked_row_says_so(self):
+        code, out = run("list", "--root", self.FIXTURE)
+        self.assertEqual(code, 0, out)
+        self.assertEqual(dict((c[0], c[-1]) for c in self.cells(out))["T-002"], "blocked", out)
+
+    def test_every_startable_row_says_it_is_not(self):
+        code, out = run("list", "--root", self.FIXTURE)
+        marks = dict((c[0], c[-1]) for c in self.cells(out))
+        for tid in ("T-001", "T-003", "T-004"):
+            self.assertEqual(marks[tid], "-", out)
+
+    def test_the_title_is_still_the_field_before_it(self):
+        """Appending after the title is what keeps this a non-breaking change: every field a
+        caller already cuts stays where it was."""
+        code, out = run("list", "--root", self.FIXTURE)
+        titles = self.titles(self.FIXTURE)
+        for row in self.cells(out):
+            self.assertEqual(row[-2], titles[row[0]], out)
+
+    def test_limit_one_has_the_same_shape(self):
+        """Project-wide rather than per-call — `--limit 1` must not drop the column because the
+        single row it returned happens to be startable."""
+        code, out = run("list", "--limit", "1", "--root", self.FIXTURE)
+        self.assertEqual(self.cells(out)[0][-1], "-", out)
+
+    def test_a_project_with_nothing_blocked_is_unchanged(self):
+        """The omit-when-unused rule under `## Views`: no blocked task, no column, so the title
+        is last exactly as it was before this existed."""
+        self.assertFalse(any(t["blocked"] for t in
+                             json.loads(run("list", "--json", "--root", self.UNBLOCKED)[1])),
+                         "this fixture is only useful while nothing in it is blocked")
+        code, out = run("list", "--root", self.UNBLOCKED)
+        self.assertEqual(code, 0, out)
+        titles = self.titles(self.UNBLOCKED)
+        for row in self.cells(out):
+            self.assertEqual(row[-1], titles[row[0]], out)
+
+    def test_the_mark_is_derived_and_not_the_status_column_echoed(self):
+        """The reported case exactly: the task that could not be started was `proposed`.
+
+        `is_blocked` is an open dependency and never a status value, so a project whose blocked
+        task is marked anything at all must still see it. In `ordering/` the two coincide, which
+        would let a wrong implementation pass every test above.
+        """
+        temp = tempfile.mkdtemp()
+        try:
+            for name in os.listdir(self.FIXTURE):
+                s, d = os.path.join(self.FIXTURE, name), os.path.join(temp, name)
+                shutil.copytree(s, d) if os.path.isdir(s) else shutil.copy2(s, d)
+            held = [os.path.join(temp, "tasks", n) for n in os.listdir(os.path.join(temp, "tasks"))
+                    if n.startswith("T-002")][0]
+            with open(held, encoding="utf-8") as fh:
+                text = fh.read()
+            with open(held, "w", encoding="utf-8", newline="\n") as fh:
+                fh.write(text.replace("status: blocked", "status: proposed", 1))
+
+            code, out = run("list", "--root", temp)
+            self.assertEqual(code, 0, out)
+            row = [c for c in self.cells(out) if c[0] == "T-002"][0]
+            self.assertNotIn("blocked", row[1:-1],
+                             "the fixture must no longer say blocked in any field but the mark")
+            self.assertEqual(row[-1], "blocked", out)
+        finally:
+            shutil.rmtree(temp, ignore_errors=True)
+
+    def test_json_carries_it_whatever_the_project_looks_like(self):
+        """The contract surface does not omit — a caller should not have to know what the
+        project looks like today."""
+        for task in json.loads(run("list", "--json", "--root", self.UNBLOCKED)[1]):
+            self.assertIn("blocked", task)
+
+
 class WorksWithoutEstimates(unittest.TestCase):
     """Both keys `none`: the tool must still list, and must not invent a ranking."""
 

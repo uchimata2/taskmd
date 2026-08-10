@@ -179,9 +179,15 @@ carries, and the two would disagree the first time someone added a value to one 
 
 **A task sorts on four keys, in order:**
 
-1. **Blocked last.** A task with an open dependency cannot be started, so it sorts after every task
-   that can. It is still listed — hiding it would make `list` and `list --limit 1` describe
-   different sets, and would conceal the graph from someone asking why nothing is moving.
+1. **Blocked last, and marked.** A task with an open dependency cannot be started, so it sorts after
+   every task that can. It is still listed — hiding it would make `list` and `list --limit 1`
+   describe different sets, and would conceal the graph from someone asking why nothing is moving.
+   Order alone is not the answer, though: it says a boundary exists without saying where it falls, so
+   `list` appends a trailing column carrying `blocked`. That column is **absent from a project that
+   has no blocked task**, which is the omit-when-unused rule under *Views*, and present on every row
+   otherwise — the test is project-wide, so every call has the same shape. `list --json` carries
+   `blocked` on every task unconditionally, because a caller should not have to know what the project
+   looks like today.
 2. **Effective value, best first.** A task's effective value is the best value among **itself and
    everything it transitively unblocks**. This is what "dependencies first" means: a cheap blocker
    is pulled ahead *by what it releases*, rather than sitting behind unrelated work while the
