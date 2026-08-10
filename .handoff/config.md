@@ -41,9 +41,12 @@ and pushed; `v0.3.0` is **not** tagged, unlike the two versions before it — th
 exists because `claude plugin update` compares version strings, so a directory install whose manifest
 never changes reports "already at the latest version" and keeps serving the snapshot it copied. Any
 fix that must reach an installed project needs that line to move; the standing suggestion is to spend
-one bump on a batch rather than on a single fix. **Minor, not patch**: `check` reads fewer documents
-than it did, so a project can see its own counts fall, which is a behaviour change rather than a
-correction. The definition of done
+one bump on a batch rather than on a single fix. **Minor, not patch**, and the reasons keep
+accumulating: `check` reads fewer documents than it did, so a project can see its own counts fall;
+since T-032 it also reports a **new class** against a file it never used to read at all, so an
+adopter whose template has rotted will see `check` start failing on a tree that passed yesterday.
+That is the change most worth a version number, and it is still waiting on the batch. The
+definition of done
 (`docs/SCOPE.md` §9) is closed. What is left is grouped into
 **v0.2 and v0.3**, whose purpose and exit criteria are in `tasks/README.md` and whose membership is
 each task's `work_package` — do not maintain a list of that anywhere.
@@ -85,7 +88,9 @@ any edit to a task file — this project uses its own tool on itself, so a regre
 immediately. Since T-025 a forgotten `index` is no longer silent: `check` reports the index as stale
 and names the command, so the two commands back each other up rather than one covering for the other.
 `list --open --limit 1` answers "what next" by the project's own ordering rule, so it is not
-something to work out by hand from the index.
+something to work out by hand from the index. Since T-087 `list` also filters on any field the
+schema *names* rather than only the ones it enumerates, so `list --work_package v0.2 --open` is how
+a release's membership is read — there is no list of it to maintain anywhere, which is the point.
 
 Since T-011 the commands find the project by walking up from wherever they are run, so `--root` is
 an override rather than something to remember; `plugin/skills/taskmd/taskmd.sh` and its `.ps1` twin

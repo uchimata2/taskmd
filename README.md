@@ -78,13 +78,19 @@ shipped schema or copies it to `.taskmd/config.md` and edits it there.
 | `taskmd context <id>` | Everything needed to start that one task, and nothing else |
 | `taskmd list --open --limit 1` | What to work on next, by the project's own ordering rule |
 | `taskmd index` | Regenerates the task index |
-| `taskmd check` | Validates ids, vocabularies, references and links |
+| `taskmd check` | Validates ids, vocabularies, references, links — and your task templates |
 
 They find the project by walking up from wherever they are run, so they work from a subdirectory
 too. Pass `--root <path>` to override the project they find.
 
-`list` filters on any stored field or link name (`taskmd list --status blocked`,
-`taskmd list --parent T-009`), and `--json` turns it into a script's input.
+`list` filters on any link name and on **any field your schema names** — the ones it enumerates and
+the ones it only shows, so a field the tool does not interpret is still one you can select on
+(`taskmd list --status blocked`, `taskmd list --parent T-009`,
+`taskmd list --work_package v0.2 --open`). `--json` turns it into a script's input. An unknown
+field is an error listing what your project accepts; a value nothing carries is simply no rows.
+
+Every command rejects an argument it does not understand *before* it reads or writes anything, so a
+mistyped flag cannot come back as a successful run. `taskmd --help` prints the list of commands.
 
 ### Which documents `check` reads, and which pointers in them
 
