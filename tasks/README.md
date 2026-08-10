@@ -34,7 +34,13 @@ intent — so the clause is widened rather than the tasks deferred.
 byte-identical output is demonstrated on macOS and Linux, the published plugin has been installed on
 a machine that never held it, the always-loaded tier carries what binds before task work, the
 boundary between revising a plan and auditing one is written down, a backend that allocates its own
-ids can be configured, and taskmd works as a tracker binding for the handoff skill.
+ids can be configured, and taskmd works as a tracker binding for the handoff skill. **Extended on
+2026-08-10**, by the same report that widened v0.2: also done when the method says where a decision
+is recorded and what a decisions register is, whether a closed task's declared output may follow the
+file it names, and where an authorisation to run several phases is written down — plus two things
+that report did not ask for and its findings uncovered, that adding a key to the shipped config
+breaks every project that wrote one, and what happens to a task file parked where nothing reads it.
+Each is the second half of *the method's documents settle*, which the clause already claimed.
 
 Neither is a version until the maintainer tags one. A milestone here is what the work is grouped
 into, not a promise about a date.
@@ -68,7 +74,6 @@ into, not a promise about a date.
 | [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `v0.3` | `proposed` | `specify` | - | - | - | - | T-092, T-095 |
 | [T-097](T-097-decide-whether-a-published-document-may-point-at-a-file-no-clone-receives.md) | Decide whether a published document may point at a file no clone receives | `v0.2` | `proposed` | `specify` | - | - | - | - | T-013, T-034, T-092, T-094 |
 | [T-098](T-098-decide-who-checks-the-links-in-a-document-only-a-successor-reads.md) | Decide who checks the links in a document only a successor reads | `v0.2` | `proposed` | `specify` | - | - | - | - | T-002, T-034, T-080, T-094, T-095 |
-| [T-104](T-104-say-whether-the-method-has-an-opinion-on-where-a-decision-is-recorded.md) | Say whether the method has an opinion on where a decision is recorded | `v0.3` | `proposed` | `specify` | - | - | - | - | T-008, T-088, T-103 |
 | [T-107](T-107-say-so-when-a-valid-task-file-is-parked-where-nothing-reads-it.md) | Say so when a valid task file is parked where nothing reads it | `v0.3` | `proposed` | `specify` | - | - | - | - | T-062, T-069, T-075, T-101 |
 
 ## Closed
@@ -136,7 +141,7 @@ into, not a promise about a date.
 | [T-073](T-073-correct-the-command-surface-local-context-states.md) | Correct the command surface local context still states | `v0.1` | `done` | `review` | T-059 | - | - | - | T-013, T-022 |
 | [T-074](T-074-let-the-skill-point-where-it-currently-restates.md) | Let the skill point where it currently restates | `v0.1` | `done` | `review` | T-059 | - | - | - | T-003, T-009 |
 | [T-075](T-075-enforce-id-width-when-a-task-file-is-read.md) | Enforce id width when a task file is read | `v0.1` | `done` | `review` | T-059 | - | - | - | T-004, T-062, T-082, T-107 |
-| [T-076](T-076-decide-what-a-template-s-links-resolve-against.md) | Decide what a template's links resolve against | `v0.1` | `done` | `review` | - | - | - | - | T-032, T-051, T-060, T-091, T-101, T-103 |
+| [T-076](T-076-decide-what-a-template-s-links-resolve-against.md) | Decide what a template's links resolve against | `v0.1` | `done` | `review` | - | - | - | - | T-032, T-051, T-060, T-091, T-101, T-103, T-104 |
 | [T-077](T-077-delete-the-rehearsal-repository-t-067-installed-from.md) | Delete the rehearsal repository T-067 installed from | `v0.1` | `done` | `review` | - | - | - | - | T-037, T-067 |
 | [T-079](T-079-humanize-the-human-facing-documents-before-publishing.md) | Humanize the human-facing documents before publishing | `v0.1` | `done` | `review` | - | - | - | T-006 | T-081 |
 | [T-080](T-080-stop-the-pre-publish-check-reporting-its-own-fixture.md) | Stop the pre-publish check reporting its own fixture from a subdirectory | `v0.1` | `done` | `review` | - | - | - | - | T-018, T-034, T-058, T-081, T-095, T-098 |
@@ -155,6 +160,7 @@ into, not a promise about a date.
 | [T-101](T-101-report-a-template-the-create-path-cannot-see.md) | Report a template the create path cannot see | `v0.2` | `done` | `review` | - | - | - | - | T-032, T-051, T-076, T-091, T-095, T-107 |
 | [T-102](T-102-show-which-rows-list-has-already-worked-out-are-blocked.md) | Show which rows list has already worked out are blocked | `v0.2` | `done` | `review` | - | - | - | - | T-022, T-031, T-070, T-087 |
 | [T-103](T-103-say-whether-a-closed-task-s-declared-output-may-be-repointed.md) | Say whether a closed task's declared output may be repointed when the file moves | `v0.3` | `done` | `review` | - | - | - | - | T-053, T-076, T-083, T-089, T-090, T-092, T-104 |
+| [T-104](T-104-say-whether-the-method-has-an-opinion-on-where-a-decision-is-recorded.md) | Say whether the method has an opinion on where a decision is recorded | `v0.3` | `done` | `review` | - | - | - | - | T-008, T-076, T-088, T-103 |
 | [T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md) | Say where an authorised multi-phase run is recorded | `v0.3` | `done` | `review` | - | - | - | - | T-005, T-036, T-047, T-063 |
 | [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) | Say that the shipped config cannot gain a key without breaking every project that wrote one | `v0.3` | `done` | `review` | - | - | - | - | T-001, T-011, T-023, T-100 |
 

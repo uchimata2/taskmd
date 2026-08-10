@@ -23,6 +23,22 @@ care which.
 | A lesson that outlives the task that taught it | the project's conventions document, not the task |
 | Where to resume next session | the resumption note — pointers only, never content |
 
+## A register of decisions is a view
+
+Two rows above are about decisions, and they divide on one question: has it been taken? A decision
+taken while doing the work lives in **that task**. A decision waiting on someone else lives wherever
+the project registers open ones, because no task can carry a fact nobody has supplied yet.
+
+The case projects get wrong is the third one. **A register of decisions already taken is a view of
+those tasks, not a second home for them** — including when each decision was its own task, raised to
+settle one question. Keep such a register if it helps a reader, and know what it is: nothing derives
+it, so it is a copy, and the section below says what copies do. The tasks stay the source and the
+register points at them.
+
+Stated because a project that has both a register and a task per decision has two places holding one
+fact and no rule saying which — and will read the same question out of the tracker and out of the
+register, and eventually get two answers.
+
 ## When it seems to belong in two places
 
 The tie-break is in [`../METHOD.md`](../METHOD.md) §6. What follows is why it is worth obeying when

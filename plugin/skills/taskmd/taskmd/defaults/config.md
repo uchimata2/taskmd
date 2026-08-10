@@ -206,11 +206,19 @@ enumerate another field; delete a row to stop checking one.
 names the subset that counts as open — everything else in that row is closed. The vocabulary
 itself is written once, here.
 
-**These are defaults worth having, not the set of nouns METHOD uses.** `decision` is here and the
+**These are defaults worth having, not the set of nouns METHOD uses.** `research` is here and the
 method never mentions it; `audit` is here *and* METHOD §5 names it, which is a coincidence of
 usefulness rather than a rule that the two must agree. Do not treat this table as derived from the
 method — replace any row that does not suit your project. `audit` was added on 2026-08-09 after two
 independent projects reached for it and neither could validate (T-088).
+
+**If you keep a decisions register beside your tasks, read where the method puts a decision before
+deciding which of the two holds what** — METHOD §6, *where facts live*. A project that adopts
+`decision` here and keeps a register as well has two homes for one fact and no rule choosing between
+them, which is the failure this schema exists to avoid (T-104).
+
+*Named rather than linked, like every other pointer in this file: it is copied into your project as
+`.taskmd/config.md`, and a relative link would resolve from there and not from here.*
 
 | Field | Values |
 | :--- | :--- |
