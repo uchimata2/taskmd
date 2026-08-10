@@ -35,7 +35,9 @@ Read by the `handoff` skill. Plain Markdown, read by the agent — no parser.
 ## Notes for whoever resumes
 
 **Published on 2026-08-09** at `github.com/uchimata2/taskmd`, tagged `v0.1.0` with a GitHub release,
-in both shapes. **The manifest is now `0.2.0`**, raised on 2026-08-10 with T-094 and T-092 — the bump
+in both shapes. **The manifest is now `0.3.0`**, raised on 2026-08-10 for the adopter-report batch
+and pushed; `v0.3.0` is **not** tagged, unlike the two versions before it — the bump
+
 exists because `claude plugin update` compares version strings, so a directory install whose manifest
 never changes reports "already at the latest version" and keeps serving the snapshot it copied. Any
 fix that must reach an installed project needs that line to move; the standing suggestion is to spend
