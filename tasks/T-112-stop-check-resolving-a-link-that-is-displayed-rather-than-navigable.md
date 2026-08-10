@@ -2,8 +2,8 @@
 id: T-112
 title: Stop check resolving a link that is displayed rather than navigable
 type: fix
-status: proposed
-phase: specify
+status: done
+phase: review
 parent: null
 blocked_by: []
 related: [T-092, T-095, T-091, T-114]
@@ -203,6 +203,20 @@ string that was never a pointer leaving the denominator, which is the T-065 row 
 finally raised over. Measured across the fix alone, before this record's own links were written; the
 figure a reader sees today is larger and that difference is this file, not a regression.
 
+**Checked once under a real Linux runner, which is what this task has been owed since it was
+raised.** The annotation in §1 asked for exactly this, on the grounds that nothing on the
+development machine was ever measuring the thing that was broken. The CI job
+[T-116](T-116-decide-whether-the-published-repository-runs-its-own-suite.md) built went from seven
+failing assertions to none on the commit carrying this fix:
+
+```
+Ran 5 tests    Ran 89 tests    Ran 29 tests    Ran 27 tests    Ran 45 tests
+every module passed
+```
+
+All 195 pass on `ubuntu-latest`. The three `test_runtime.py` failures this machine reports are
+absent there, which is T-114's whole point and is not this task's to close.
+
 **Outputs produced**
 - [`plugin/skills/taskmd/taskmd/cli.py`](../plugin/skills/taskmd/taskmd/cli.py) — `FENCE`,
   `CODE_SPAN`, `blanked`, `without_code`, and one call site in `check_links`
@@ -212,14 +226,26 @@ figure a reader sees today is larger and that difference is this file, not a reg
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| A fixture holds a fenced block containing link syntax whose target does not exist, and `check` does not report it | met | `FENCED`, and it took two attempts to make it mean anything — the first target was the abridged `...`, which resolves on Windows, so the test passed before the fix. The one that ships names a file absent on every platform and was seen failing first |
+| The same for an inline code span | met | `SPANNED`, and the document count is asserted alongside it so it cannot pass by the document not being read — the same trap one level down |
+| A real link on the line before and the line after the fence is still reported when broken, so the fix cannot be a blanket loosening | met | Same fixture as the first, one run: two `BROKEN LINK` reports, the fenced one absent. This is also what decided D2 and D3 — a line-crossing span or an indented-block rule would each have failed this criterion on real documents |
+| A document quoting the full output of `taskmd index` passes | met | Built by running `index` on a scratch project and quoting what it actually wrote, rather than a hand-made imitation of it. Fails before the fix on `quoted.md -> T-001-x.md` |
+| The reported link count excludes what was not examined | met | Two projects differing only by the quoted block report the same count. On this repository, 1,137 to 1,136 |
+
+**The criterion that was not written, and was owed.** §1's annotation asked for the repository to be
+checked once under Linux, on the grounds that nothing here had ever measured the defect. Done, and
+it is the strongest evidence this task produced: seven failing assertions to zero, all 195 green on
+`ubuntu-latest`. Recorded as evidence rather than as a criterion invented after the fact.
 
 **Child fix tasks raised**
-- none
+- none. The `medium` this was raised at was wrong and the log below already said so; it was raised
+  to `critical` by the maintainer on 2026-08-10 once the runner made the cost visible. That is a
+  correction to this task, not a new one.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-10 | → in_progress → review → done | Raised to `critical` by the maintainer and taken next, on the evidence that it was the only thing between this repository and a green runner. All five criteria met, plus the Linux check §1 asked for: **seven failing assertions to zero, 195 green on `ubuntu-latest`**. Two things are worth more than the fix, which is twenty lines. **The first two tests passed against the unfixed scanner** — written the obvious way, asserting the abridged target is not reported, they were satisfied by Windows resolving that target rather than by any fence-skipping, and after a repair such a test leaves no trace of having been vacuous. They were rewritten to fail on every platform, and the abridged case kept as its own guard asserted on the *count*, which was wrong everywhere. **And the open question was answered against extending the fix**: ten lines here are indented four spaces and carry link syntax, and every one sampled is a list continuation holding a real link, so legislating indented blocks would have blinded the checker to genuine links on the day it landed. Measured on the corpus rather than reasoned from the specification, which is the only reason it came out that way. |
 | 2026-08-10 | (no status change) | Found under T-091 that this repository has carried an instance since T-065, invisibly: the abridged target resolves on Windows and not on Linux, so `check` is clean here and red under WSL on the same commit. Annotated above rather than rewritten, and `related` now carries T-091 and T-114 — the latter is the other half of the same failing run. Worth re-reading `medium` against: this is an R-20 violation in the tree, not only a blocked practice in an adopter's. |
 | 2026-08-10 | → proposed | **Written by an adopting project** — htmldeck — and placed here at the maintainer's request, alongside T-111 from the same source. It is a false positive on the boundary T-092 already decided rather than a new rule, which is why it is argued from T-092 and not from the adopter's preference. `medium`/`s`: it blocks a documented practice rather than corrupting any output, and the change is a scan that knows where code starts plus its negative fixtures. Re-scope, re-estimate or reject freely. |

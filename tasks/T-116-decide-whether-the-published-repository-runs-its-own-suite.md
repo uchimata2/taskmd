@@ -190,6 +190,11 @@ reports, on a checkout whose line endings were normalised in transit.
   real Linux runner rather than a WSL conjecture, and seven assertions rather than one. Raising a
   second task would have split one defect across two records.
 
+> **Resolved the same day.** T-112 was raised to `critical` and closed, and this job went green —
+> seven failing assertions to zero, 195 passing on `ubuntu-latest`. The paragraph below is left as
+> written because it was true when this task closed and the prediction it makes is the one that came
+> out; what follows it is the state that no longer holds.
+
 **What this review will not tick.** The runner is red and will stay red until T-112 closes, which is
 the state the maintainer chose with the trade-off in front of them. It is worth saying plainly that
 the cost is now measured rather than predicted: the thing standing between this repository and a
