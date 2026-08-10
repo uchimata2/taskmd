@@ -167,6 +167,27 @@ on its own, and keeping it in the same command is what stops the proof drifting 
 exclusion is one pathspec, not a second contract: any leak outside that one file is still caught, and
 the file's only content is the fixture.
 
+**A fabricated specimen must not reach the file through a shell.** The fixture above crosses none, so
+this bites only where a run needs a specimen the fixture does not hold — an untracked file, a one-off
+reproduction, a class being added. Sent through a command line, such a line can arrive one backslash
+short and stop being the form it was meant to be. **Quoting is not the escape:** the byte is gone
+before any shell construct sees the text, so a quoted heredoc — the device whose entire purpose is to
+be literal — loses it too, and so does escaping the escape. Write the specimen with something that
+never puts it on a command line. Two of the five must-catch lines carry backslashes, and the UNC one
+is where this was first hit
+([T-035](../tasks/T-035-warn-that-a-fabricated-specimen-must-not-cross-a-shell.md) reproduced all
+three shell routes failing and the direct write surviving).
+
+**So make the specimen prove itself before it judges anything.** Damaged text is indistinguishable
+from intended text by reading, which is the whole difficulty: match the pattern against the specimen
+file first and confirm every class fires, and compare the stored bytes against the text as written —
+that comparison is what identified it originally
+([T-034](../tasks/T-034-let-the-pre-publish-check-see-files-not-yet-tracked.md)). Until it passes, a
+class that stays quiet is a transport failure and not a finding. This matters because the damage
+presents as a **false negative attributed to the pattern**: a run catching every class but one reads
+as a hole in the branch that did not fire, and the repair it invites is loosening a branch that was
+already correct.
+
 **Three limits, all deliberate.** A drive path is only matched with **two or more segments** after the
 letter; a single-segment one is let through, because that form collides with ordinary text such as a
 `d:\n` escape inside a code string — and a check that cries wolf gets ignored, which is worse than a

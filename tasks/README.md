@@ -64,7 +64,6 @@ into, not a promise about a date.
 | [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) | Align with the handoff tracker-binding contract | `v0.3` | `specified` | `specify` | - | - | - | T-002, T-007, T-009, T-033, T-105 |
 | [T-020](T-020-confirm-byte-identical-output-on-macos-and-linux.md) | Confirm byte-identical output on macOS and Linux | `v0.3` | `specified` | `specify` | T-002 | - | - | T-006, T-023, T-030, T-085 |
 | [T-024](T-024-say-so-when-tasks-dir-names-something-that-is-not-a-folder.md) | Say so when tasks_dir names something that is not a folder | `v0.2` | `proposed` | `specify` | - | - | - | T-019, T-023, T-078 |
-| [T-035](T-035-warn-that-a-fabricated-specimen-must-not-cross-a-shell.md) | Warn that a fabricated specimen must not cross a shell | `v0.2` | `proposed` | `specify` | - | - | - | T-013, T-018, T-034, T-058 |
 | [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | `v0.2` | `specified` | `specify` | - | - | - | T-026, T-032, T-105 |
 | [T-078](T-078-say-what-a-tasks-dir-of-dot-means.md) | Say what a tasks_dir of dot means | `v0.2` | `specified` | `specify` | - | - | - | T-019, T-024, T-069 |
 | [T-082](T-082-let-id-width-say-the-backend-allocates-the-ids.md) | Let id_width say that the backend allocates the ids | `v0.2` | `proposed` | `specify` | T-004 | - | - | T-010, T-075, T-108 |
@@ -114,6 +113,7 @@ into, not a promise about a date.
 | [T-032](T-032-repair-the-audit-template-and-validate-templates.md) | Repair the audit template, and validate templates at all | `v0.2` | `done` | `review` | T-026 | - | - | T-003, T-022, T-036, T-060, T-076, T-088, T-089, T-090, T-091, T-101 |
 | [T-033](T-033-resolve-the-f1-reference-inside-this-repository.md) | Resolve the F1 reference inside this repository | `v0.2` | `done` | `review` | T-026 | - | - | T-005, T-013 |
 | [T-034](T-034-let-the-pre-publish-check-see-files-not-yet-tracked.md) | Let the pre-publish check see files not yet tracked | `v0.1` | `done` | `review` | T-026 | - | - | T-006, T-013, T-018, T-035, T-058, T-080, T-092, T-094, T-095, T-097, T-098 |
+| [T-035](T-035-warn-that-a-fabricated-specimen-must-not-cross-a-shell.md) | Warn that a fabricated specimen must not cross a shell | `v0.2` | `done` | `review` | - | - | - | T-013, T-018, T-034, T-047, T-058, T-118 |
 | [T-037](T-037-delete-the-throwaway-proof-repository.md) | Delete the throwaway repository the GitHub binding was proven on | `v0.1` | `done` | `review` | - | - | - | T-010, T-041, T-077 |
 | [T-038](T-038-reconcile-bindings-worked-example-with-the-real-binding.md) | Reconcile BINDING section 5's worked example with the binding it predicted | `v0.1` | `done` | `review` | - | - | - | T-009, T-010 |
 | [T-039](T-039-let-a-plan-name-a-deliverable-that-does-not-exist-yet.md) | Let a plan name a deliverable that does not exist yet | `v0.1` | `done` | `review` | - | - | - | T-010, T-025 |
@@ -124,7 +124,7 @@ into, not a promise about a date.
 | [T-044](T-044-state-the-gh-version-the-github-binding-requires.md) | State the gh version the GitHub binding requires | `v0.1` | `done` | `review` | - | - | - | T-010, T-042 |
 | [T-045](T-045-decide-whether-scope-principles-may-state-the-rule-they-name.md) | Decide whether SCOPE §2 principles may state the rule they name | `v0.1` | `done` | `review` | - | - | - | T-017, T-027 |
 | [T-046](T-046-reconcile-the-done-condition-claude-md-restates.md) | Reconcile the done-condition CLAUDE.md restates from the method | `v0.1` | `done` | `review` | - | - | - | T-027, T-028 |
-| [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `v0.2` | `done` | `review` | - | - | - | T-015, T-028, T-059, T-063, T-105, T-115, T-118, T-119 |
+| [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `v0.2` | `done` | `review` | - | - | - | T-015, T-028, T-035, T-059, T-063, T-105, T-115, T-118, T-119 |
 | [T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md) | Say what "always-loaded" means in R-21, before the skill is built against it | `v0.1` | `done` | `review` | - | - | - | T-003, T-028 |
 | [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) | Demonstrate a clone running on a second platform | `v0.1` | `done` | `review` | T-011 | T-057, T-058 | - | T-006, T-054, T-056, T-057, T-058, T-061, T-085, T-116 |
 | [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | `v0.1` | `done` | `review` | T-003 | - | - | T-006, T-052, T-053, T-118 |
@@ -184,6 +184,6 @@ into, not a promise about a date.
 | [T-112](T-112-stop-check-resolving-a-link-that-is-displayed-rather-than-navigable.md) | Stop check resolving a link that is displayed rather than navigable | `v0.2` | `done` | `review` | - | - | - | T-091, T-092, T-095, T-114 |
 | [T-115](T-115-give-the-tier-1-budget-something-that-enforces-it.md) | Give the tier 1 budget something that enforces it | `v0.2` | `done` | `review` | - | - | - | T-028, T-047, T-063, T-116, T-118 |
 | [T-116](T-116-decide-whether-the-published-repository-runs-its-own-suite.md) | Decide whether the published repository runs its own suite | `v0.2` | `done` | `review` | - | - | - | T-011, T-049, T-115 |
-| [T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md) | Decide what leaves tier 1 when the budget binds | `v0.2` | `done` | `review` | - | - | - | T-026, T-028, T-047, T-050, T-063, T-115, T-119 |
+| [T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md) | Decide what leaves tier 1 when the budget binds | `v0.2` | `done` | `review` | - | - | - | T-026, T-028, T-035, T-047, T-050, T-063, T-115, T-119 |
 
 <!-- taskmd:end -->
