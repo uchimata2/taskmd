@@ -2,18 +2,18 @@
 id: T-105
 title: Say where an authorised multi-phase run is recorded
 type: fix
-status: proposed
-phase: specify
+status: done
+phase: review
 parent: null
 blocked_by: []
-related: [T-005, T-036, T-047]
+related: [T-005, T-036, T-047, T-063]
 work_package: v0.3
 owner: maintainer
 business_value: medium
 effort: xs
 created: 2026-08-10
 updated: 2026-08-10
-deliverables: []
+deliverables: [plugin/skills/taskmd/docs/METHOD.md]
 ---
 
 # T-105 — Say where an authorised multi-phase run is recorded
@@ -75,37 +75,143 @@ R-8, since an authorisation is exactly the kind of thing that must leave a trace
 - [ ] `check` is clean on this repository
 
 **Open questions**
-- **§3.1 or a phase file?** *Recommended: one sentence in §3.1.* The waiver is met at the moment the
-  rule is, and a reader who has only tier 1 is exactly the reader who needs it. *Alternative: a
-  paragraph in `method/implement.md`*, which costs the always-loaded tier nothing and is not read
-  until after the moment it was needed.
+- None. **Q1 — §3.1 or a phase file? — decided 2026-08-10 under the standing authorization: §3.1.**
+  The waiver is met at the moment the rule is, and a reader carrying only tier 1 is exactly the
+  reader who needs it — a rule that forbids something without saying what permits it sends that
+  reader to a document they have not loaded. *Rejected: a paragraph in `method/implement.md`* — free
+  for the always-loaded tier, and not read until after the moment it was needed.
 
 ## 2. Plan
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Measure tier 1 and `METHOD.md` before the edit, so the cost is a difference and not an estimate | Recorded figures in §3 |
+| 2 | Write the two sentences into §3.1 | `plugin/skills/taskmd/docs/METHOD.md` |
+| 3 | Re-measure, and state what the addition costs now and what it will cost once T-047 lands | Recorded figures |
+| 4 | Reconcile the sentence already published in `README.md` with the rule now written in METHOD | A decision, and the two shown to agree |
+| 5 | `index`, `check`, suite, pre-publish check | Recorded output |
+
+Step 4 exists because this task's own log found that half the answer was **already published**: the
+README's worked-examples table says asking for the whole lifecycle is what authorizes it, while
+METHOD — the document that states the rule — said nothing about granting or recording one. A task
+that writes the missing half without looking at the published half produces two statements of one
+fact, which is what this method exists to prevent.
+
+**Shape decisions.**
+
+**D1 — Two sentences, in the paragraph that already says what is *not* authorization.** §3.1's
+existing text is entirely negative: a pointer, a resumption note, an unfinished checklist, the rhythm
+of the last three tasks — none of these is a request. It never says what one *is*. The addition is
+the positive counterpart in the same place, which is why it reads as a completion rather than an
+appendix. *Rejected: a subsection of its own* — a heading costs more than the text under it and
+implies a procedure where there is a sentence.
+
+**D2 — METHOD says "the task's own record", never "the log".** *Record* is a role (§6); which
+artifact plays it is the binding's to say, and the local-Markdown binding already assigns it — the
+task file, and its log in particular. Naming the log here would put a backend word in the
+backend-neutral document and would be a second copy of an assignment that already exists. *Rejected:
+adding a matching line to the binding* — nothing to add; the mapping is already there.
+
+**D3 — It says what the record must name, and does not say "it does not generalise".** Requiring the
+record to name *what it covers* carries that, and the third clause would be a third sentence in the
+one place this project pays for every turn.
+
+**Planned outputs**
+- `plugin/skills/taskmd/docs/METHOD.md` — §3.1
 
 ## 3. Implement
 
+### Steps 1–3 — the edit, and what it costs
+
+```text
+                     before    after
+tier 1               12736     12736      the flat alternative it must stay under: 7919
+METHOD.md             8078      8382      +304 characters
+```
+
+**Tier 1 does not move today, and the reason matters more than the number.** §3.1 lives in
+`METHOD.md`, which is tier 2 — the always-loaded set is `CLAUDE.md` plus the served skill's
+`description`, and neither changed. What
+[T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) will do is move §3.1
+into tier 1, and **at that point these 304 characters are billed on every turn of every session**,
+against a budget that already fails by 4817. So the cost is real, deferred, and known in advance
+rather than discovered by T-047 — which is why criterion 3 asked for the measurement rather than for
+a promise to keep it short.
+
+### Step 4 — the half that was already published
+
+`README.md`'s worked-examples table has carried this since it was written:
+
+> *Take T-014 through to done* — Asking for the whole lifecycle is what authorizes it: specify, plan,
+> implement, review, in that order.
+
+Checked against the new text, and the two agree: a request for the whole lifecycle authorizes it, and
+the phases still run in order. **The README row stays.** It is an *example* — the table's whole shape
+is "what you say" against "what happens" — and its authority is now §3.1 rather than nothing. The
+alternative was to cut it down to a pointer at METHOD; rejected, because the README is read by
+someone who has installed nothing, and a front door that answers a question with a citation to a
+document the reader cannot open has not answered it.
+
+What the README does **not** say, and should not, is where the authorization is written down. That is
+an instruction to whoever is doing the work, not a description of what the user gets.
+
+### Step 5 — this repository
+
+```text
+Ran 167 tests in 6.525s                                                                      OK
+```
+
+No test was added or removed: this task changed one document and no behaviour.
+
+**The rule was in use before it was written.** Four waivers were given in this session — one covering
+[T-099](T-099-give-an-adopter-a-command-that-runs-without-bin-on-path.md) and
+[T-102](T-102-show-which-rows-list-has-already-worked-out-are-blocked.md) together, then one each for
+[T-100](T-100-report-a-project-config-that-has-drifted-from-the-shipped-default.md),
+[T-101](T-101-report-a-template-the-create-path-cannot-see.md) and
+[T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) — and each was recorded in the shape
+the report recommended, naming who gave it, which tasks it covered, and that it did not generalise.
+Five task records carry such a row. So what §3.1 now says is not a proposal: it is a description of
+something that ran five times and was legible enough to cite from a sixth task, which is the only
+evidence a rule about record-keeping can have.
+
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+- **No guard test.** — [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) added one for
+  a constraint that leaves no evidence anywhere, so its documentation vanishing would be silent. This
+  is the opposite: every waiver leaves a row in a task record, so a rule that quietly disappeared
+  would be contradicted by the tree itself. Considered and not done rather than not considered. —
+  2026-08-10
+- **Nothing structural, exactly as the report recommended.** — No field, no status, no command. A
+  waiver is an authorization about a *request*, and storing it as task state would make it a pointer
+  — which is the thing §3.1's own first paragraph says is not authorization. — 2026-08-10
 
 **Outputs produced**
-- <path>
+- `plugin/skills/taskmd/docs/METHOD.md` — §3.1, two sentences
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| The method says where a waiver is recorded, in one place | met | §3.1, in the paragraph that already said what is *not* authorization. **D2**: it says *the task's own record*, a role, leaving the artifact to the binding that already assigns it. |
+| It says what the record must name — who gave it and which tasks it covers — so it cannot be read as general | met | Both named. **D3** records why "it does not generalise" is not a third clause: naming what it covers carries it, and §3.1 is the one text billed on every turn once T-047 lands. |
+| If it lands in §3.1, the tier-1 measurement in `CLAUDE.md` is re-run and the cost is stated | met | §3 steps 1–3: re-run, **unchanged at 12736** — because §3.1 is tier 2 until T-047 moves it — and the deferred cost stated as the +304 characters T-047 will inherit, against a budget already failing by 4817. |
+| `check` is clean on this repository | met | §3 step 5, and the suite unchanged at 167. |
 
 **Child fix tasks raised**
-- <T-NNN or "none">
+- none. Step 4's finding was reconciled inside this task rather than raised, because the README
+  sentence is this task's own subject rather than a separate defect — it is *the answer, published in
+  the wrong place*, and leaving it to a child would have meant closing this one while the duplication
+  it exists to resolve was still open.
+
+**Verdict.** All four criteria met, none carried. The task closes.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-10 | → done | Reviewed against the four criteria as written; **all four met, none carried**, so the task closes. Criterion 3 is the interesting one: the tier-1 measurement was re-run and is **unchanged at 12736**, because §3.1 lives in `METHOD.md` which is tier 2 until [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) moves it — so the honest answer is not "it cost nothing" but "+304 characters that T-047 will inherit, on a budget already failing by 4817". Stated that way so T-047 meets a known figure rather than a surprise. No child raised, and the reason is recorded: the README sentence step 4 found is this task's own subject rather than a separate defect, so leaving it to a child would have closed this task with the duplication it exists to resolve still open. `deliverables` names the one file. Pre-publish check run last, after this record was written: **193 files scanned, nothing printed**, and the fixture-included run still returns exactly its five lines. |
+| 2026-08-10 | → in_progress | All five steps taken. **The rule was in use before it was written**, which is the strongest thing this record has: four waivers were given in this session and each was recorded in the shape R-7 recommended, before §3.1 said anything about it — five task records carry such a row, and they were legible enough to cite from this task. So what landed is a description of something that ran, not a proposal. Step 4 was the plan's own addition and it earned its place: half the answer was already published in `README.md`'s worked-examples table, and a task writing the missing half without looking would have produced two statements of one fact. Checked, they agree; the README row **stays**, because it is an example and its reader has installed nothing, so answering them with a citation to a document they cannot open is not an answer. **D2** keeps METHOD saying *the task's own record* rather than *the log* — record is a role, and the local-Markdown binding already assigns it, so naming the log here would put a backend word in the backend-neutral document. A guard test was considered and deliberately not added: unlike T-106's constraint, every waiver leaves a row in a task record, so a rule that quietly vanished would be contradicted by the tree itself. |
+| 2026-08-10 | → planned | Plan written; Q1 answered under the standing authorization — **§3.1**, because the waiver is met at the moment the rule is, and a reader carrying only tier 1 who is told what is forbidden without being told what permits it has been sent to a document they have not loaded. Rejected: `method/implement.md`, free for the always-loaded tier and not read until after the moment it was needed. **D1** puts the text in the paragraph that already lists what is *not* authorization — §3.1's existing text is entirely negative and never says what a request *is*, so this reads as the completion of that paragraph rather than as an appendix. **D3** leaves out "it does not generalise" as a third clause: requiring the record to name what it covers already carries it. |
+| 2026-08-10 | (no change) | **METHOD §3.1 waived for this task by the maintainer, 2026-08-10** — *"keep going with T-105, full lifecycle"*. It covers this task alone and **does not generalise**; the fifth such waiver in this session, and the last one given before the rule about recording them existed. |
 | 2026-08-10 | (no change) | **Two things this task did not have when it was raised, both found the same day and neither actioned here.** First, it now has live specimens rather than a second-hand report: the maintainer waived §3.1 for [T-099](T-099-give-an-adopter-a-command-that-runs-without-bin-on-path.md) and [T-102](T-102-show-which-rows-list-has-already-worked-out-are-blocked.md) — *"move on in the suggested order. Full lifecycle."* — and each task carries a log row naming who gave it, which tasks it covers and that it does not generalise. That is R-7's own recommended shape, applied once, so `specify` can judge a real record instead of a proposal. Second, **part of the answer is already published and in the wrong place**: `README.md`'s worked-examples table says *"Asking for the whole lifecycle is what authorizes it: specify, plan, implement, review, in that order."* So the front door already tells a reader how a waiver is granted, while METHOD — the document that states the rule — says nothing about granting or recording one. That is a fact for `specify` to reconcile, and it narrows the task: the question is now where the existing sentence's other half belongs, not whether to invent one. Surfaced under METHOD §3.3 rather than fixed, since fixing it here is the phase this task has not reached. |
 | 2026-08-10 | → proposed | Raised as R-7 from the first adopting project's recommendations, which ranks it last of seven and asks for nothing structural. `medium` because the failure is silent in both directions — a later session can miss a permission already given, or apply it to a task it never covered — and `xs` because the whole work is a sentence and where to put it. Two things recorded here rather than left to `specify`: a waiver is *state* while §3.1 is a rule about *requests*, which is why the rule's own "a pointer is context, not authorization" line has to survive whatever is written; and T-047 moves §3.1 into the always-loaded tier, so anything added there is billed on every turn against a budget that already does not pass. That is the constraint on the size of the answer, and it is what makes the placement a decision rather than a formality. |

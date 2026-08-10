@@ -59,6 +59,11 @@ is obvious, because the plan already describes it, or because a note said it was
 checklist, the rhythm of the last three tasks — none of these is a request
 ([why](method/rationale.md)).
 
+**Asking for more is.** A request for two phases, or for the whole lifecycle, is as valid as a
+request for one; write it into the task's own record, naming who gave it and what it covers, because
+an authorization kept anywhere else is one a later session can miss or stretch to a task it never
+reached.
+
 ### 3.2 Ask to the phase's exit criterion — and batch it
 
 The exit criterion in §2 defines how much detail is *enough*. Ask for what is still missing to reach

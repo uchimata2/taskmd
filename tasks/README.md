@@ -70,7 +70,6 @@ into, not a promise about a date.
 | [T-098](T-098-decide-who-checks-the-links-in-a-document-only-a-successor-reads.md) | Decide who checks the links in a document only a successor reads | `v0.2` | `proposed` | `specify` | - | - | - | - | T-002, T-034, T-080, T-094, T-095 |
 | [T-103](T-103-say-whether-a-closed-task-s-declared-output-may-be-repointed.md) | Say whether a closed task's declared output may be repointed when the file moves | `v0.3` | `proposed` | `specify` | - | - | - | - | T-076, T-089, T-090, T-104 |
 | [T-104](T-104-say-whether-the-method-has-an-opinion-on-where-a-decision-is-recorded.md) | Say whether the method has an opinion on where a decision is recorded | `v0.3` | `proposed` | `specify` | - | - | - | - | T-008, T-088, T-103 |
-| [T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md) | Say where an authorised multi-phase run is recorded | `v0.3` | `proposed` | `specify` | - | - | - | - | T-005, T-036, T-047 |
 | [T-107](T-107-say-so-when-a-valid-task-file-is-parked-where-nothing-reads-it.md) | Say so when a valid task file is parked where nothing reads it | `v0.3` | `proposed` | `specify` | - | - | - | - | T-062, T-069, T-075, T-101 |
 
 ## Closed
@@ -125,7 +124,7 @@ into, not a promise about a date.
 | [T-060](T-060-point-the-task-templates-at-paths-that-exist.md) | Point the task templates at paths that exist | `v0.1` | `done` | `review` | T-059 | - | - | - | T-032, T-051, T-076, T-091 |
 | [T-061](T-061-stop-an-inherited-pythonpath-breaking-the-launcher.md) | Stop an inherited PYTHONPATH breaking the shell launcher | `v0.1` | `done` | `review` | T-059 | - | - | - | T-049, T-056, T-068 |
 | [T-062](T-062-report-two-tasks-claiming-one-id-instead-of-dropping.md) | Report two tasks claiming one id instead of dropping one | `v0.1` | `done` | `review` | T-059 | - | - | - | T-004, T-075, T-107 |
-| [T-063](T-063-measure-the-tier-1-member-the-rule-declares.md) | Measure the tier-1 member the rule declares | `v0.1` | `done` | `review` | T-059 | - | - | - | T-028, T-047 |
+| [T-063](T-063-measure-the-tier-1-member-the-rule-declares.md) | Measure the tier-1 member the rule declares | `v0.1` | `done` | `review` | T-059 | - | - | - | T-028, T-047, T-105 |
 | [T-064](T-064-stop-the-plugin-citing-documents-it-does-not-ship.md) | Stop the plugin citing documents it does not ship | `v0.1` | `done` | `review` | T-059 | - | - | - | T-006, T-053, T-083 |
 | [T-065](T-065-say-what-happens-to-a-field-the-schema-does-not-name.md) | Say what happens to a field the schema does not name | `v0.1` | `done` | `review` | T-059 | - | - | - | T-001, T-030 |
 | [T-066](T-066-reconcile-two-open-tasks-with-the-fix-that-landed.md) | Reconcile two open tasks with the fix that already landed | `v0.1` | `done` | `review` | T-059 | - | - | - | T-011, T-023, T-030 |
@@ -156,6 +155,7 @@ into, not a promise about a date.
 | [T-100](T-100-report-a-project-config-that-has-drifted-from-the-shipped-default.md) | Report a project config that has drifted from the shipped default | `v0.2` | `done` | `review` | - | - | - | - | T-001, T-023, T-088, T-095, T-106 |
 | [T-101](T-101-report-a-template-the-create-path-cannot-see.md) | Report a template the create path cannot see | `v0.2` | `done` | `review` | - | - | - | - | T-032, T-051, T-076, T-091, T-095, T-107 |
 | [T-102](T-102-show-which-rows-list-has-already-worked-out-are-blocked.md) | Show which rows list has already worked out are blocked | `v0.2` | `done` | `review` | - | - | - | - | T-022, T-031, T-070, T-087 |
+| [T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md) | Say where an authorised multi-phase run is recorded | `v0.3` | `done` | `review` | - | - | - | - | T-005, T-036, T-047, T-063 |
 | [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) | Say that the shipped config cannot gain a key without breaking every project that wrote one | `v0.3` | `done` | `review` | - | - | - | - | T-001, T-011, T-023, T-100 |
 
 <!-- taskmd:end -->
