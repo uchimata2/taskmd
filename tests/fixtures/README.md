@@ -47,6 +47,7 @@ where they could not be quietly trimmed to whatever turned out to be easy.
 | `broken-duplicate-id` | Duplicate id | Two files both carrying `id: T-001` |
 | `broken-stale-index` | Stale generated index | The task says `specified`; the generated region still says `proposed` |
 | `broken-id-width` | Id width | `id: T-0001`, one digit too wide for `id_width: 3` |
+| `broken-unreachable-template` | Unreachable template | A template in `tasks/_templates/`, which nothing lists |
 | `broken-config` | Config error at setup — a **key** | `id_witdh` — a typo in a key name |
 | `broken-tasks-dir` | Config error at setup — a **value** | `tasks_dir: taks`, beside a real `tasks/` |
 | `broken-hook` | Config error at setup — a **command** | `after_write` naming a file the project does not ship |
@@ -59,6 +60,12 @@ line, so the question can be asked without running anything (T-011).
 `broken-tasks-dir` also has no committed sibling for the case where the value is fine and
 the folder simply has not been made yet — a project with neither a config nor a tasks folder is an
 empty directory, which git cannot store, so that one is built in a temp directory by the test.
+
+`broken-unreachable-template` is the one fixture whose defect is a file the tool is *right* to skip:
+`tasks/_templates/` is excluded by the same rule that keeps a template out of the task set, so the
+listing that finds templates came back empty — and empty is the documented shape of a project that
+has none. It is placed where an adopter naturally puts templates rather than somewhere contrived;
+this repository used that folder itself until T-076.
 
 `broken-duplicate-id` and `broken-id-width` are the two cases where the defect is that a file is
 **not** the task it looks like, and both were silent before T-062 and T-075. The first is the only

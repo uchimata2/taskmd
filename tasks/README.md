@@ -68,11 +68,11 @@ into, not a promise about a date.
 | [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `v0.3` | `proposed` | `specify` | - | - | - | - | T-092, T-095 |
 | [T-097](T-097-decide-whether-a-published-document-may-point-at-a-file-no-clone-receives.md) | Decide whether a published document may point at a file no clone receives | `v0.2` | `proposed` | `specify` | - | - | - | - | T-013, T-034, T-092, T-094 |
 | [T-098](T-098-decide-who-checks-the-links-in-a-document-only-a-successor-reads.md) | Decide who checks the links in a document only a successor reads | `v0.2` | `proposed` | `specify` | - | - | - | - | T-002, T-034, T-080, T-094, T-095 |
-| [T-101](T-101-report-a-template-the-create-path-cannot-see.md) | Report a template the create path cannot see | `v0.2` | `proposed` | `specify` | - | - | - | - | T-032, T-051, T-076, T-091 |
 | [T-103](T-103-say-whether-a-closed-task-s-declared-output-may-be-repointed.md) | Say whether a closed task's declared output may be repointed when the file moves | `v0.3` | `proposed` | `specify` | - | - | - | - | T-076, T-089, T-090, T-104 |
 | [T-104](T-104-say-whether-the-method-has-an-opinion-on-where-a-decision-is-recorded.md) | Say whether the method has an opinion on where a decision is recorded | `v0.3` | `proposed` | `specify` | - | - | - | - | T-008, T-088, T-103 |
 | [T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md) | Say where an authorised multi-phase run is recorded | `v0.3` | `proposed` | `specify` | - | - | - | - | T-005, T-036, T-047 |
 | [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) | Say that the shipped config cannot gain a key without breaking every project that wrote one | `v0.3` | `proposed` | `specify` | - | - | - | - | T-001, T-011, T-023, T-100 |
+| [T-107](T-107-say-so-when-a-valid-task-file-is-parked-where-nothing-reads-it.md) | Say so when a valid task file is parked where nothing reads it | `v0.3` | `proposed` | `specify` | - | - | - | - | T-062, T-069, T-075, T-101 |
 
 ## Closed
 
@@ -125,20 +125,20 @@ into, not a promise about a date.
 | [T-059](T-059-audit-the-whole-project-after-the-plugin-restructure.md) | Audit the whole project after the plugin restructure | `v0.1` | `done` | `review` | - | T-060, T-061, T-062, T-063, T-064, T-065, T-066, T-067, T-068, T-069, T-070, T-071, T-072, T-073, T-074, T-075 | - | - | T-004, T-006, T-026, T-047, T-053 |
 | [T-060](T-060-point-the-task-templates-at-paths-that-exist.md) | Point the task templates at paths that exist | `v0.1` | `done` | `review` | T-059 | - | - | - | T-032, T-051, T-076, T-091 |
 | [T-061](T-061-stop-an-inherited-pythonpath-breaking-the-launcher.md) | Stop an inherited PYTHONPATH breaking the shell launcher | `v0.1` | `done` | `review` | T-059 | - | - | - | T-049, T-056, T-068 |
-| [T-062](T-062-report-two-tasks-claiming-one-id-instead-of-dropping.md) | Report two tasks claiming one id instead of dropping one | `v0.1` | `done` | `review` | T-059 | - | - | - | T-004, T-075 |
+| [T-062](T-062-report-two-tasks-claiming-one-id-instead-of-dropping.md) | Report two tasks claiming one id instead of dropping one | `v0.1` | `done` | `review` | T-059 | - | - | - | T-004, T-075, T-107 |
 | [T-063](T-063-measure-the-tier-1-member-the-rule-declares.md) | Measure the tier-1 member the rule declares | `v0.1` | `done` | `review` | T-059 | - | - | - | T-028, T-047 |
 | [T-064](T-064-stop-the-plugin-citing-documents-it-does-not-ship.md) | Stop the plugin citing documents it does not ship | `v0.1` | `done` | `review` | T-059 | - | - | - | T-006, T-053, T-083 |
 | [T-065](T-065-say-what-happens-to-a-field-the-schema-does-not-name.md) | Say what happens to a field the schema does not name | `v0.1` | `done` | `review` | T-059 | - | - | - | T-001, T-030 |
 | [T-066](T-066-reconcile-two-open-tasks-with-the-fix-that-landed.md) | Reconcile two open tasks with the fix that already landed | `v0.1` | `done` | `review` | T-059 | - | - | - | T-011, T-023, T-030 |
 | [T-067](T-067-prove-the-install-route-an-adopter-actually-takes.md) | Prove the install route an adopter actually takes | `v0.1` | `done` | `review` | T-059 | - | - | - | T-006, T-052, T-053, T-054, T-077, T-085, T-099 |
 | [T-068](T-068-cover-the-entry-point-an-adopter-runs.md) | Cover the entry point an adopter runs | `v0.1` | `done` | `review` | T-059 | - | - | - | T-054, T-061 |
-| [T-069](T-069-skip-a-nested-project-at-any-depth.md) | Skip a nested project at any depth, not below the first | `v0.1` | `done` | `review` | T-059 | - | - | - | T-011, T-078 |
+| [T-069](T-069-skip-a-nested-project-at-any-depth.md) | Skip a nested project at any depth, not below the first | `v0.1` | `done` | `review` | T-059 | - | - | - | T-011, T-078, T-107 |
 | [T-070](T-070-decide-whether-an-unused-field-column-is-shown.md) | Decide whether an unused field column is shown at all | `v0.1` | `done` | `review` | T-059 | - | - | - | T-001, T-022, T-102 |
 | [T-071](T-071-let-the-usage-test-assert-every-command-there-is.md) | Let the usage test assert every command there is | `v0.1` | `done` | `review` | T-059 | - | - | - | T-022, T-055 |
 | [T-072](T-072-give-the-description-and-version-one-home-each.md) | Give the plugin's description and version one home each | `v0.1` | `done` | `review` | T-059 | - | - | - | T-006, T-053 |
 | [T-073](T-073-correct-the-command-surface-local-context-states.md) | Correct the command surface local context still states | `v0.1` | `done` | `review` | T-059 | - | - | - | T-013, T-022 |
 | [T-074](T-074-let-the-skill-point-where-it-currently-restates.md) | Let the skill point where it currently restates | `v0.1` | `done` | `review` | T-059 | - | - | - | T-003, T-009 |
-| [T-075](T-075-enforce-id-width-when-a-task-file-is-read.md) | Enforce id width when a task file is read | `v0.1` | `done` | `review` | T-059 | - | - | - | T-004, T-062, T-082 |
+| [T-075](T-075-enforce-id-width-when-a-task-file-is-read.md) | Enforce id width when a task file is read | `v0.1` | `done` | `review` | T-059 | - | - | - | T-004, T-062, T-082, T-107 |
 | [T-076](T-076-decide-what-a-template-s-links-resolve-against.md) | Decide what a template's links resolve against | `v0.1` | `done` | `review` | - | - | - | - | T-032, T-051, T-060, T-091, T-101, T-103 |
 | [T-077](T-077-delete-the-rehearsal-repository-t-067-installed-from.md) | Delete the rehearsal repository T-067 installed from | `v0.1` | `done` | `review` | - | - | - | - | T-037, T-067 |
 | [T-079](T-079-humanize-the-human-facing-documents-before-publishing.md) | Humanize the human-facing documents before publishing | `v0.1` | `done` | `review` | - | - | - | T-006 | T-081 |
@@ -151,10 +151,11 @@ into, not a promise about a date.
 | [T-089](T-089-stop-check-reporting-an-open-task-s-planned-outputs-as-missing.md) | Stop check reporting an open task's planned outputs as missing | `v0.2` | `done` | `review` | - | T-090 | - | - | T-002, T-025, T-032, T-103 |
 | [T-092](T-092-decide-whether-a-bare-path-in-prose-is-a-reference.md) | Decide whether a bare path in prose is a reference check must resolve | `v0.2` | `done` | `review` | - | - | - | - | T-034, T-093, T-094, T-095, T-097 |
 | [T-094](T-094-make-check-answer-the-question-a-fresh-clone-would-ask.md) | Make check answer the question a fresh clone would ask | `v0.2` | `done` | `review` | - | - | - | - | T-013, T-034, T-092, T-095, T-097, T-098 |
-| [T-095](T-095-report-what-check-examined-not-only-that-it-passed.md) | Report what check examined, not only that it passed | `v0.2` | `done` | `review` | - | T-096 | - | - | T-025, T-034, T-080, T-092, T-093, T-094, T-098, T-100 |
+| [T-095](T-095-report-what-check-examined-not-only-that-it-passed.md) | Report what check examined, not only that it passed | `v0.2` | `done` | `review` | - | T-096 | - | - | T-025, T-034, T-080, T-092, T-093, T-094, T-098, T-100, T-101 |
 | [T-096](T-096-decide-whether-a-narrower-walk-of-a-counted-class-needs-its-own-number.md) | Decide whether a narrower walk of a counted class needs its own number | `v0.2` | `done` | `review` | T-095 | - | - | - | T-025 |
 | [T-099](T-099-give-an-adopter-a-command-that-runs-without-bin-on-path.md) | Give an adopter a command that runs when the plugin's bin is not on PATH | `v0.2` | `done` | `review` | - | - | - | - | T-054, T-055, T-067, T-083, T-085 |
 | [T-100](T-100-report-a-project-config-that-has-drifted-from-the-shipped-default.md) | Report a project config that has drifted from the shipped default | `v0.2` | `done` | `review` | - | - | - | - | T-001, T-023, T-088, T-095, T-106 |
+| [T-101](T-101-report-a-template-the-create-path-cannot-see.md) | Report a template the create path cannot see | `v0.2` | `done` | `review` | - | - | - | - | T-032, T-051, T-076, T-091, T-095, T-107 |
 | [T-102](T-102-show-which-rows-list-has-already-worked-out-are-blocked.md) | Show which rows list has already worked out are blocked | `v0.2` | `done` | `review` | - | - | - | - | T-022, T-031, T-070, T-087 |
 
 <!-- taskmd:end -->

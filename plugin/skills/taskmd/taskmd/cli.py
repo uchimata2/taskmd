@@ -29,7 +29,8 @@ import subprocess
 import sys
 
 from . import discovery
-from .schema import DUPLICATE_ID, SchemaError, drift_from_default, load_schema, load_tasks
+from .schema import (DUPLICATE_ID, SchemaError, drift_from_default, load_schema, load_tasks,
+                     templates)
 
 BEGIN = "<!-- taskmd:index - generated, do not edit by hand -->"
 END = "<!-- taskmd:end -->"
@@ -568,6 +569,31 @@ def examined(counted):
     return ", ".join("%d %s(s)" % (count, noun) for noun, count in merged)
 
 
+def check_unreachable_templates(root, schema, problems):
+    """A template the create path can never find — reported, because its absence is legal (T-101).
+
+    The failure this exists for is silent in both directions. A project that keeps its templates in
+    `tasks/_templates/` gets an empty listing, and the documented reading of empty is *a project
+    with no template is a normal project* — so a template that is present and unreachable is
+    indistinguishable from one that was never written. `_templates/` is not a careless place to put
+    them either; it is the obvious one, and this repository used it until T-076.
+
+    The count is the other half. Templates are counted whether reachable or not, so a project is
+    told it has none by a number rather than by silence — the gap was reported in both directions,
+    and the absent one must not become a failure because the binding says a project with no template
+    is a normal project. What counts as a template is `schema.templates`.
+    """
+    found = 0
+    for path, reachable in templates(root, schema):
+        found += 1
+        if not reachable:
+            problems.append("TEMPLATE UNREACHABLE %s carries a placeholder id, so it is a "
+                            "template - but create lists '_'-prefixed files directly in %s/, so "
+                            "nothing will find it" % (rel(root, os.path.relpath(path, root)),
+                                                      schema.tasks_dir))
+    return [("template", found)]
+
+
 def check_config_drift(root, schema, advisories):
     """A pinned config that has fallen behind the shipped default — advisory, never a problem.
 
@@ -594,6 +620,7 @@ def cmd_check(root, schema, tasks, args):
     counted += check_deliverables(root, schema, tasks, problems)
     counted += check_stale_index(root, schema, tasks, problems)
     counted += check_links(root, schema, problems, notes)
+    counted += check_unreachable_templates(root, schema, problems)
     counted += check_config_drift(root, schema, advisories)
 
     if problems:

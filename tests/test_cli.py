@@ -73,7 +73,7 @@ class CheckFailsOnEveryClassItClaims(unittest.TestCase):
 
     LABELS = ["VOCABULARY", "DANGLING", "NO BLOCKER", "CYCLE", "BROKEN LINK",
               "STORED DERIVED", "MISSING OUTPUT", "CONFIG ERROR", "DUPLICATE ID", "ID WIDTH",
-              "STALE INDEX"]
+              "STALE INDEX", "TEMPLATE UNREACHABLE"]
 
     def fails(self, fixture, label, needle, code=1):
         got, out = run("check", "--root", os.path.join(FIXTURES, fixture))
@@ -121,6 +121,12 @@ class CheckFailsOnEveryClassItClaims(unittest.TestCase):
         """T-075. `id_width` used to be honoured only when composing a new id, never when reading
         one, so a file no `create` could have produced was silently a task."""
         self.fails("broken-id-width", "ID WIDTH", "T-0001")
+
+    def test_a_template_the_create_path_cannot_see(self):
+        """T-101. Silent in both directions before this: the folder is skipped by the same rule that
+        keeps templates out of the task set, so the listing that finds a template came back empty —
+        and empty is the documented shape of a project that simply has none."""
+        self.fails("broken-unreachable-template", "TEMPLATE UNREACHABLE", "_templates/")
 
     def test_a_generated_index_that_no_longer_matches_its_tasks(self):
         """T-025. The one class where the defect was `check` itself: the fixture's task says
@@ -790,6 +796,54 @@ class ABarePathInProseIsNotAReference(ScratchProject):
             readme = handle.read()
         self.assertIn("Markdown link syntax", readme)
         self.assertIn("T-092", readme)
+
+
+class ATemplateIsCountedRatherThanInferred(ScratchProject):
+    """T-101, the half that is deliberately **not** a failure.
+
+    *A project with no template is a normal project* — the binding says so, and that stays true. But
+    before this, a project could not be told it had none; it could only find that it had none, by
+    running the listing and reading nothing. The count says it, without making a legal state fail.
+    """
+
+    TEMPLATE = ("---\nid: T-NNN\ntitle: <one line>\ntype: fix\nstatus: proposed\n"
+                "phase: specify\nblocked_by: []\nowner: someone\n---\n\n# T-NNN\n")
+
+    def counted(self, out):
+        found = re.search(r"(\d+) template\(s\)", out)
+        self.assertIsNotNone(found, out)
+        return int(found.group(1))
+
+    def test_a_project_with_none_is_told_so_by_a_number(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            code, out = run("check", "--root", self.project(tmp, {}))
+            self.assertEqual(code, 0, out)
+            self.assertEqual(self.counted(out), 0)
+
+    def test_a_compliant_template_is_counted_and_not_reported(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(tmp, {"tasks/_task-template.md": self.TEMPLATE})
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 0, out)
+            self.assertEqual(self.counted(out), 1)
+            self.assertNotIn("TEMPLATE UNREACHABLE", out)
+
+    def test_a_file_in_a_hidden_folder_that_is_not_a_template_is_left_alone(self):
+        """The rule is the placeholder id, not the folder. A project's own notes live there too,
+        and reporting them would make the class the noise it was raised to remove."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(tmp, {"tasks/_notes/scratch.md": "Just notes.\n"})
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 0, out)
+            self.assertEqual(self.counted(out), 0)
+
+    def test_this_repository_carries_reachable_templates(self):
+        """The live case, and the one that would have broken if the rule keyed on the folder: both
+        templates here sit directly in `tasks/` since T-076."""
+        code, out = run("check", "--root", ROOT)
+        self.assertEqual(code, 0, out)
+        self.assertGreater(self.counted(out), 0)
+        self.assertNotIn("TEMPLATE UNREACHABLE", out)
 
 
 class APinnedConfigIsToldWhenTheDefaultMovesOn(ScratchProject):

@@ -491,6 +491,41 @@ def drift_from_default(root, schema):
     return drifted, len(compared)
 
 
+def templates(root, schema):
+    """Every template under `tasks_dir`, and whether the create path can find each one.
+
+    A template is a Markdown file carrying the id field with a **placeholder** in it — a value that
+    is neither an id nor a near miss, which is exactly the test `load_tasks` applies when it
+    declines to read `_task-template.md` as work. Name and location are deliberately not part of
+    that test: they are what *reachability* is about, and keeping the two apart is what lets a
+    project be told which of them it got wrong.
+
+    Reachable means what the local-Markdown binding's *create* rule means by it: a `_`-prefixed
+    file directly in `tasks_dir`. One level down, a template's relative links resolve differently
+    from those of the task copied out of it (T-076), and the folder is skipped by the same rule
+    that keeps templates out of the task set — so the listing comes back empty and *a project with
+    no template is a normal project* is the documented reading of empty.
+
+    Yields `(path, reachable)`, in a stable order.
+    """
+    base = os.path.join(root, schema.tasks_dir)
+    for folder, subfolders, names in os.walk(base):
+        subfolders[:] = sorted(d for d in subfolders if not d.startswith("."))
+        here = os.path.relpath(folder, base)
+        for name in sorted(names):
+            if not name.endswith(".md"):
+                continue
+            path = os.path.join(folder, name)
+            try:
+                fields = split_front_matter(read(path))[0]
+            except (OSError, ValueError, UnicodeDecodeError):
+                continue
+            value = fields.get(schema.id_field)
+            if not value or schema.is_id(value) or schema.looks_like_id(value):
+                continue
+            yield path, here == os.curdir and name.startswith("_")
+
+
 def load_schema(root="."):
     """Resolve the schema for a project: its own config if it has one, else the shipped default."""
     candidate = os.path.join(root, PROJECT_CONFIG)
