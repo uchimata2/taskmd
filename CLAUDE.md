@@ -48,14 +48,12 @@ Tier 2 is [`plugin/skills/taskmd/docs/METHOD.md`](plugin/skills/taskmd/docs/METH
 [`plugin/skills/taskmd/docs/method/`](plugin/skills/taskmd/docs/method/), a file per phase, and neither is budgeted because neither is
 paid every turn. **Tier 1 stays smaller than `reference/TASK-WORKFLOW.md`**, the flat alternative —
 a first tier costing more than the flat version has inverted the point of splitting it. Both sides
-are counted from the tree, in **characters**, so nothing here is edited when membership changes:
+are counted from the tree, in **characters**, so nothing here is edited when membership changes, and
+`tests/test_budget.py` fails when tier 1 is over — run the suite rather than remember a command.
 
-```bash
-{ cat CLAUDE.md; sed -n 's/^description: //p' plugin/skills/*/SKILL.md; } | wc -c; wc -c < reference/TASK-WORKFLOW.md
-```
-
-Why membership is derived rather than listed, why characters rather than lines, and why the bound is
-that file: T-028, T-050 and T-063 — not restated here, which is the same rule this section opens with.
+Why membership is derived rather than listed, why characters rather than lines, why the bound is that
+file, and why a test: T-028, T-050, T-063 and T-115 — not restated here, which is the same rule this
+section opens with.
 
 ### Two rules that bind before there is any task
 

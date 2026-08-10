@@ -83,7 +83,7 @@ into, not a promise about a date.
 | [T-112](T-112-stop-check-resolving-a-link-that-is-displayed-rather-than-navigable.md) | Stop check resolving a link that is displayed rather than navigable | `v0.2` | `proposed` | `specify` | - | - | - | T-091, T-092, T-095, T-114 |
 | [T-113](T-113-name-an-unknown-filter-before-complaining-it-has-no-value.md) | Name an unknown filter before complaining it has no value | `v0.2` | `proposed` | `specify` | - | - | - | T-022, T-029 |
 | [T-114](T-114-make-the-launcher-tests-say-which-bash-they-found.md) | Make the launcher tests say which bash they found | `v0.2` | `proposed` | `specify` | - | - | - | T-091, T-112 |
-| [T-115](T-115-give-the-tier-1-budget-something-that-enforces-it.md) | Give the tier 1 budget something that enforces it | `v0.2` | `proposed` | `specify` | - | - | - | T-028, T-047, T-063 |
+| [T-116](T-116-decide-whether-the-published-repository-runs-its-own-suite.md) | Decide whether the published repository runs its own suite | `v0.2` | `proposed` | `specify` | - | - | - | T-011, T-049, T-115 |
 
 ## Closed
 
@@ -98,7 +98,7 @@ into, not a promise about a date.
 | [T-008](T-008-write-the-backend-neutral-method-document.md) | Write the backend-neutral method document | `v0.1` | `done` | `review` | - | T-014, T-015, T-016, T-017 | - | T-002, T-003, T-013, T-104 |
 | [T-009](T-009-define-the-backend-binding-contract.md) | Define the backend binding contract and write the local-Markdown binding | `v0.1` | `done` | `review` | - | - | T-005 | T-005, T-010, T-012, T-025, T-038, T-040, T-043, T-074, T-108 |
 | [T-010](T-010-write-the-github-issues-binding.md) | Write the GitHub Issues binding | `v0.1` | `done` | `review` | - | - | - | T-004, T-009, T-026, T-037, T-038, T-039, T-040, T-041, T-042, T-043, T-044, T-082, T-108 |
-| [T-011](T-011-runtime-discovery-and-project-hook-commands.md) | Runtime auto-discovery and project hook commands | `v0.1` | `done` | `review` | - | T-049 | - | T-013, T-025, T-056, T-057, T-066, T-069, T-106 |
+| [T-011](T-011-runtime-discovery-and-project-hook-commands.md) | Runtime auto-discovery and project hook commands | `v0.1` | `done` | `review` | - | T-049 | - | T-013, T-025, T-056, T-057, T-066, T-069, T-106, T-116 |
 | [T-012](T-012-decide-whether-soft-edges-are-symmetric.md) | Decide whether soft edges are symmetric | `v0.1` | `done` | `review` | - | - | - | T-001, T-009 |
 | [T-013](T-013-quarantine-local-only-information-behind-gitignore.md) | Quarantine local-only information behind .gitignore | `v0.1` | `done` | `review` | - | - | - | T-006, T-008, T-011, T-018, T-033, T-034, T-035, T-073, T-094, T-097 |
 | [T-014](T-014-stop-stating-each-phase-exit-criterion-twice.md) | Stop stating each phase exit criterion twice | `v0.1` | `done` | `review` | T-008 | - | - | T-015 |
@@ -126,7 +126,7 @@ into, not a promise about a date.
 | [T-046](T-046-reconcile-the-done-condition-claude-md-restates.md) | Reconcile the done-condition CLAUDE.md restates from the method | `v0.1` | `done` | `review` | - | - | - | T-027, T-028 |
 | [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `v0.2` | `done` | `review` | - | - | - | T-015, T-028, T-059, T-063, T-105, T-115 |
 | [T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md) | Say what "always-loaded" means in R-21, before the skill is built against it | `v0.1` | `done` | `review` | - | - | - | T-003, T-028 |
-| [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) | Demonstrate a clone running on a second platform | `v0.1` | `done` | `review` | T-011 | T-057, T-058 | - | T-006, T-054, T-056, T-057, T-058, T-061, T-085 |
+| [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) | Demonstrate a clone running on a second platform | `v0.1` | `done` | `review` | T-011 | T-057, T-058 | - | T-006, T-054, T-056, T-057, T-058, T-061, T-085, T-116 |
 | [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | `v0.1` | `done` | `review` | T-003 | - | - | T-006, T-052, T-053 |
 | [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | `v0.1` | `done` | `review` | - | - | - | T-001, T-003, T-060, T-076, T-091, T-101 |
 | [T-052](T-052-decide-what-of-claude-a-published-clone-carries.md) | Decide what of .claude a published clone carries, and ignore the rest | `v0.1` | `done` | `review` | - | - | - | T-003, T-006, T-050, T-053, T-067 |
@@ -181,5 +181,6 @@ into, not a promise about a date.
 | [T-107](T-107-say-so-when-a-valid-task-file-is-parked-where-nothing-reads-it.md) | Say so when a valid task file is parked where nothing reads it | `v0.2` | `done` | `review` | - | - | - | T-062, T-069, T-075, T-101 |
 | [T-110](T-110-re-group-the-open-backlog-by-the-maintainers-release-rule.md) | Re-group the open backlog by the maintainer's release rule | `v0.2` | `done` | `review` | - | - | - | T-026, T-086, T-109 |
 | [T-111](T-111-stop-the-index-showing-a-closed-task-as-a-live-blocker.md) | Stop the index showing a closed task as a live blocker | `v0.2` | `done` | `review` | - | - | - | T-102 |
+| [T-115](T-115-give-the-tier-1-budget-something-that-enforces-it.md) | Give the tier 1 budget something that enforces it | `v0.2` | `done` | `review` | - | - | - | T-028, T-047, T-063, T-116 |
 
 <!-- taskmd:end -->
