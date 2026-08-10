@@ -792,5 +792,91 @@ class ABarePathInProseIsNotAReference(ScratchProject):
         self.assertIn("T-092", readme)
 
 
+class APinnedConfigIsToldWhenTheDefaultMovesOn(ScratchProject):
+    """T-100. A config replaces the shipped default rather than merging with it, so a project that
+    copied one and stopped looking cannot see a value added afterwards.
+
+    That is not hypothetical: the reporting project copied the default the day before `audit`
+    joined the `type` row, could not see the change, and raised work to fix a defect that had
+    already stopped existing. These tests reconstruct that file's two states.
+
+    The half that needed deciding is what is *not* reported. A configured project differs from the
+    default in every way it chose to, and reporting choices would make the line noise on its first
+    run — so `test_a_choice_is_not_drift` and `test_a_deleted_row_is_left_alone` carry as much of
+    the rule as the positive case does.
+    """
+
+    TYPE = "| type | analysis, decision, deliverable, research, fix, admin, audit |"
+
+    def pinned(self, tmp, before=None, after=None):
+        root = self.project(tmp, {})
+        if before is not None:
+            path = os.path.join(root, ".taskmd", "config.md")
+            with io.open(path, encoding="utf-8") as handle:
+                text = handle.read()
+            self.assertIn(before, text, "the shipped default no longer contains this row")
+            cli.write(path, text.replace(before, after, 1))
+        return root
+
+    def test_a_row_missing_a_shipped_value_is_named(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.pinned(tmp, self.TYPE, self.TYPE.replace(", audit", ""))
+            code, out = run("check", "--root", root)
+            self.assertIn("CONFIG DRIFT", out)
+            self.assertIn("type:", out)
+            self.assertIn("'audit'", out)
+
+    def test_it_is_advisory_and_does_not_move_the_exit_status(self):
+        """The whole of the decision: pinning is legal, so a validator that failed on it is one a
+        project starts passing flags to."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.pinned(tmp, self.TYPE, self.TYPE.replace(", audit", ""))
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 0, out)
+            self.assertIn("OK -", out)
+            self.assertNotIn("problem(s)", out)
+
+    def test_a_current_copy_says_nothing(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            code, out = run("check", "--root", self.pinned(tmp))
+            self.assertEqual(code, 0, out)
+            self.assertNotIn("CONFIG DRIFT", out)
+
+    def test_a_choice_is_not_drift(self):
+        """Extra values and extra rows are what a config exists to express."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.pinned(tmp, self.TYPE,
+                               self.TYPE.replace(" |", ", chore |")
+                               + "\n| work_package | WP1, WP2, none |")
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 0, out)
+            self.assertNotIn("CONFIG DRIFT", out)
+
+    def test_a_deleted_row_is_left_alone(self):
+        """`delete a row to stop checking one` is documented as a choice, so it is not a lag."""
+        with tempfile.TemporaryDirectory() as tmp:
+            code, out = run("check", "--root", self.pinned(tmp, self.TYPE + "\n", ""))
+            self.assertEqual(code, 0, out)
+            self.assertNotIn("CONFIG DRIFT", out)
+
+    def test_the_comparison_reports_its_own_reach(self):
+        """T-095's rule applied to this walk: a comparison that reads nothing must not look like
+        one that read everything and found nothing."""
+        with tempfile.TemporaryDirectory() as tmp:
+            code, out = run("check", "--root", self.pinned(tmp))
+            self.assertIn("5 vocabulary row(s)", out)
+
+    def test_a_project_with_no_config_is_not_compared(self):
+        """And it cannot be behind: it is *using* the default. The count says so rather than the
+        walk being silently absent."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(tmp, {})
+            shutil.rmtree(os.path.join(root, ".taskmd"))
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 0, out)
+            self.assertIn("0 vocabulary row(s)", out)
+            self.assertNotIn("CONFIG DRIFT", out)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

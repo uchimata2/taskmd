@@ -55,6 +55,36 @@ be altered or dropped by anything the tool does. It is not *shown* by default: n
 entry, because both keys take any field name at all. That is what lets a project adopt taskmd
 without first rewriting its task files.
 
+## When this file moves ahead of yours
+
+A config **replaces** this file rather than merging with it, which is the rule above and is not
+changing. Its price is that a project which copied this file and then stopped looking cannot see a
+value added here afterwards — and that is not hypothetical: a project copied it the day before
+`audit` joined the `type` row, could not see the change, and raised work to fix a defect that had
+already been fixed here.
+
+So `check` says so. **One line per drifted row**, naming the row and the difference:
+
+```
+CONFIG DRIFT  type: shipped default adds 'audit'; this project's row does not carry it
+```
+
+**It is advisory and never a problem.** The exit status does not move and the count of problems does
+not change, because pinning is legal — a validator that failed on a legal state is one a project
+starts passing flags to.
+
+**Only one shape is reported: a row you still keep, missing a value this file has since gained.**
+Everything else a config does is a choice rather than a lag, and reporting choices would make every
+configured project noisy from its first run — extra values, extra rows, renamed fields and every
+front-matter setting are the whole point of writing a config. A row you deleted is *delete a row to
+stop checking one*, above, and is left alone. A project using this file with no config of its own is
+not compared at all: it cannot be behind what it is using.
+
+**There is no key to switch it off**, and that is a constraint rather than a preference: every key
+here is required to be written, so adding one would make every existing project's config invalid on
+upgrade. A project that pinned deliberately reads one line that names exactly what it decided not to
+have.
+
 ## The tasks folder
 
 `tasks_dir` is the only value here that names a folder, and **the folder has to exist**. A value

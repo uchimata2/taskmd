@@ -128,7 +128,7 @@ taskmd check
 ```
 
 ```
-OK - 0 task(s), 0 field value(s), 0 reference(s), 0 dependency edge(s), 0 declared output(s), 0 index file(s), 0 document(s), 0 link(s)
+OK - 0 task(s), 0 field value(s), 0 reference(s), 0 dependency edge(s), 0 declared output(s), 0 index file(s), 0 document(s), 0 link(s), 0 vocabulary row(s)
 Scope  every document read; no git here, so .gitignore was not consulted
 structure and references only - it cannot tell you whether a spec or an outcome is good
 ```
@@ -138,6 +138,14 @@ visible, and a clean run on an empty project reads as the nothing it is rather t
 endorsement. The `Scope` line is the same idea aimed at what was *skipped*, and it prints on a
 failing run too, because an exclusion hides behind a problem as easily as behind a pass. Run outside
 a project, `taskmd check` says so and exits 2 instead of reporting a clean tree it never opened.
+
+**If you write your own config, `check` also tells you when the shipped default moves ahead of it.**
+A config replaces the default rather than merging with it, so a copy taken today cannot see a value
+added tomorrow — a real project raised work to fix a defect that had already been fixed upstream for
+exactly this reason. One `CONFIG DRIFT` line names the row and the difference. It is advisory: the
+exit status does not move, because pinning is a choice and not a fault. What counts as drift, and the
+much longer list of differences that deliberately do *not*, is in the shipped config under *When this
+file moves ahead of yours*.
 
 ### As a plain skill
 

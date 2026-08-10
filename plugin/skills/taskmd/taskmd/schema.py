@@ -466,6 +466,31 @@ def _display(path, root):
     return os.path.basename(path)
 
 
+def drift_from_default(root, schema):
+    """Vocabulary values the shipped default carries that this project's own config does not.
+
+    What counts as drift, and why only this shape, is `## When this file moves ahead of yours` in
+    the default config — the one description of it, not restated here.
+
+    Returns `[(field, [missing values])]` and the number of rows compared, so the caller can report
+    the reach of the comparison and not only its findings. A project with no config of its own is
+    not examined and the count is zero: it is *using* the default, so there is nothing it can be
+    behind — a vacuous case with a mechanical guarantee, rather than a walk that quietly read
+    nothing.
+    """
+    if not os.path.exists(os.path.join(root, PROJECT_CONFIG)):
+        return [], 0
+    fields, body = split_front_matter(read(DEFAULT_CONFIG))
+    shipped = _read_vocabularies(body, _display(DEFAULT_CONFIG, root), fields)
+    compared = [f for f in sorted(shipped) if f in schema.vocabularies]
+    drifted = []
+    for field in compared:
+        missing = [v for v in shipped[field] if v not in schema.vocabularies[field]]
+        if missing:
+            drifted.append((field, missing))
+    return drifted, len(compared)
+
+
 def load_schema(root="."):
     """Resolve the schema for a project: its own config if it has one, else the shipped default."""
     candidate = os.path.join(root, PROJECT_CONFIG)

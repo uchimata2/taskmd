@@ -29,7 +29,7 @@ import subprocess
 import sys
 
 from . import discovery
-from .schema import DUPLICATE_ID, SchemaError, load_schema, load_tasks
+from .schema import DUPLICATE_ID, SchemaError, drift_from_default, load_schema, load_tasks
 
 BEGIN = "<!-- taskmd:index - generated, do not edit by hand -->"
 END = "<!-- taskmd:end -->"
@@ -568,8 +568,23 @@ def examined(counted):
     return ", ".join("%d %s(s)" % (count, noun) for noun, count in merged)
 
 
+def check_config_drift(root, schema, advisories):
+    """A pinned config that has fallen behind the shipped default — advisory, never a problem.
+
+    It appends to `advisories` and never to `problems`, so the exit status does not move. That and
+    the rule for what counts as drift are in `## When this file moves ahead of yours` in the
+    default config; this does not restate them (T-100).
+    """
+    drifted, compared = drift_from_default(root, schema)
+    for field, missing in drifted:
+        advisories.append("%s: shipped default adds %s; this project's row does not carry %s"
+                          % (field, ", ".join("'%s'" % v for v in missing),
+                             "it" if len(missing) == 1 else "them"))
+    return [("vocabulary row", compared)]
+
+
 def cmd_check(root, schema, tasks, args):
-    problems, counted, notes = [], [], []
+    problems, counted, notes, advisories = [], [], [], []
     counted += check_anomalies(root, schema, tasks, problems)
     counted += check_vocabularies(schema, tasks, problems)
     counted += check_references(schema, tasks, problems)
@@ -579,6 +594,7 @@ def cmd_check(root, schema, tasks, args):
     counted += check_deliverables(root, schema, tasks, problems)
     counted += check_stale_index(root, schema, tasks, problems)
     counted += check_links(root, schema, problems, notes)
+    counted += check_config_drift(root, schema, advisories)
 
     if problems:
         for problem in problems:
@@ -587,6 +603,10 @@ def cmd_check(root, schema, tasks, args):
         print("%d problem(s) - %s" % (len(problems), examined(counted)))
     else:
         print("OK - %s" % examined(counted))
+    # Advisories before scope, and on both branches: a project whose config has fallen behind is
+    # in a legal state, so the line has to survive a run that also found real problems.
+    for advisory in advisories:
+        print("CONFIG DRIFT  %s" % advisory)
     # What was *not* looked at, on both branches for the reason the denominators are on both: a
     # scan narrowed by an exclusion hides behind a problem exactly as well as behind a pass.
     for note in notes:

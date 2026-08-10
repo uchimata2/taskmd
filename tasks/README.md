@@ -48,7 +48,7 @@ into, not a promise about a date.
 | [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) | Align with the handoff tracker-binding contract | `v0.3` | `specified` | `specify` | - | - | T-009 | - | T-002, T-007, T-009, T-033, T-105 |
 | [T-020](T-020-confirm-byte-identical-output-on-macos-and-linux.md) | Confirm byte-identical output on macOS and Linux | `v0.3` | `specified` | `specify` | T-002 | - | - | - | T-006, T-023, T-030, T-085 |
 | [T-021](T-021-settle-what-the-context-closing-line-may-say.md) | Settle what the context closing line may say | `v0.2` | `specified` | `specify` | T-002 | - | - | - | T-003, T-022 |
-| [T-023](T-023-stop-config-errors-printing-an-absolute-install-path.md) | Stop config errors printing an absolute install path | `v0.2` | `specified` | `specify` | - | - | - | - | T-006, T-019, T-020, T-024, T-030, T-066, T-100 |
+| [T-023](T-023-stop-config-errors-printing-an-absolute-install-path.md) | Stop config errors printing an absolute install path | `v0.2` | `specified` | `specify` | - | - | - | - | T-006, T-019, T-020, T-024, T-030, T-066, T-100, T-106 |
 | [T-024](T-024-say-so-when-tasks-dir-names-something-that-is-not-a-folder.md) | Say so when tasks_dir names something that is not a folder | `v0.2` | `proposed` | `specify` | - | - | - | - | T-019, T-023, T-078 |
 | [T-026](T-026-audit-the-whole-project-before-the-remaining-build.md) | Audit the whole project before the remaining build | `v0.2` | `review` | `review` | - | T-027, T-028, T-029, T-030, T-031, T-032, T-033, T-034 | - | - | T-003, T-006, T-010, T-025, T-036, T-059, T-086, T-088 |
 | [T-029](T-029-reject-unknown-arguments-on-every-command.md) | Reject unknown arguments on every command | `v0.2` | `specified` | `specify` | T-026 | - | - | - | T-002, T-022, T-055, T-087 |
@@ -68,17 +68,17 @@ into, not a promise about a date.
 | [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `v0.3` | `proposed` | `specify` | - | - | - | - | T-092, T-095 |
 | [T-097](T-097-decide-whether-a-published-document-may-point-at-a-file-no-clone-receives.md) | Decide whether a published document may point at a file no clone receives | `v0.2` | `proposed` | `specify` | - | - | - | - | T-013, T-034, T-092, T-094 |
 | [T-098](T-098-decide-who-checks-the-links-in-a-document-only-a-successor-reads.md) | Decide who checks the links in a document only a successor reads | `v0.2` | `proposed` | `specify` | - | - | - | - | T-002, T-034, T-080, T-094, T-095 |
-| [T-100](T-100-report-a-project-config-that-has-drifted-from-the-shipped-default.md) | Report a project config that has drifted from the shipped default | `v0.2` | `proposed` | `specify` | - | - | - | - | T-001, T-023, T-088 |
 | [T-101](T-101-report-a-template-the-create-path-cannot-see.md) | Report a template the create path cannot see | `v0.2` | `proposed` | `specify` | - | - | - | - | T-032, T-051, T-076, T-091 |
 | [T-103](T-103-say-whether-a-closed-task-s-declared-output-may-be-repointed.md) | Say whether a closed task's declared output may be repointed when the file moves | `v0.3` | `proposed` | `specify` | - | - | - | - | T-076, T-089, T-090, T-104 |
 | [T-104](T-104-say-whether-the-method-has-an-opinion-on-where-a-decision-is-recorded.md) | Say whether the method has an opinion on where a decision is recorded | `v0.3` | `proposed` | `specify` | - | - | - | - | T-008, T-088, T-103 |
 | [T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md) | Say where an authorised multi-phase run is recorded | `v0.3` | `proposed` | `specify` | - | - | - | - | T-005, T-036, T-047 |
+| [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) | Say that the shipped config cannot gain a key without breaking every project that wrote one | `v0.3` | `proposed` | `specify` | - | - | - | - | T-001, T-011, T-023, T-100 |
 
 ## Closed
 
 | ID | Title | Work Package | Status | Phase | Parent | Children | Blocked By | Blocks | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| [T-001](T-001-decide-how-the-front-matter-schema-is-configured.md) | Decide how the front-matter schema is configured | `v0.1` | `done` | `review` | - | - | - | T-002, T-004 | T-012, T-051, T-065, T-070, T-088, T-100 |
+| [T-001](T-001-decide-how-the-front-matter-schema-is-configured.md) | Decide how the front-matter schema is configured | `v0.1` | `done` | `review` | - | - | - | T-002, T-004 | T-012, T-051, T-065, T-070, T-088, T-100, T-106 |
 | [T-002](T-002-implement-the-core-cli-context-index-check.md) | Implement the core CLI: context, index, check | `v0.1` | `done` | `review` | - | T-019, T-020, T-021 | T-001 | T-003, T-006, T-011 | T-004, T-005, T-007, T-008, T-025, T-029, T-089, T-090, T-098 |
 | [T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md) | Write the skill that teaches the agent to use the CLI | `v0.1` | `done` | `review` | - | T-050 | T-002, T-008 | T-006, T-047 | T-008, T-017, T-019, T-021, T-022, T-026, T-028, T-032, T-048, T-051, T-052, T-053, T-054, T-074 |
 | [T-004](T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md) | Settle the id scheme and the claimed scale ceiling | `v0.1` | `done` | `review` | - | T-082 | T-001 | T-006 | T-002, T-007, T-010, T-043, T-059, T-062, T-075 |
@@ -87,7 +87,7 @@ into, not a promise about a date.
 | [T-008](T-008-write-the-backend-neutral-method-document.md) | Write the backend-neutral method document | `v0.1` | `done` | `review` | - | T-014, T-015, T-016, T-017 | T-007 | T-003, T-006, T-009 | T-002, T-003, T-013, T-104 |
 | [T-009](T-009-define-the-backend-binding-contract.md) | Define the backend binding contract and write the local-Markdown binding | `v0.1` | `done` | `review` | - | - | T-008 | T-005, T-006, T-010 | T-005, T-010, T-012, T-025, T-038, T-040, T-043, T-074 |
 | [T-010](T-010-write-the-github-issues-binding.md) | Write the GitHub Issues binding | `v0.1` | `done` | `review` | - | - | T-009 | T-006 | T-004, T-009, T-026, T-037, T-038, T-039, T-040, T-041, T-042, T-043, T-044, T-082 |
-| [T-011](T-011-runtime-discovery-and-project-hook-commands.md) | Runtime auto-discovery and project hook commands | `v0.1` | `done` | `review` | - | T-049 | T-002 | T-006 | T-013, T-025, T-056, T-057, T-066, T-069 |
+| [T-011](T-011-runtime-discovery-and-project-hook-commands.md) | Runtime auto-discovery and project hook commands | `v0.1` | `done` | `review` | - | T-049 | T-002 | T-006 | T-013, T-025, T-056, T-057, T-066, T-069, T-106 |
 | [T-012](T-012-decide-whether-soft-edges-are-symmetric.md) | Decide whether soft edges are symmetric | `v0.1` | `done` | `review` | - | - | - | - | T-001, T-009 |
 | [T-013](T-013-quarantine-local-only-information-behind-gitignore.md) | Quarantine local-only information behind .gitignore | `v0.1` | `done` | `review` | - | - | - | - | T-006, T-008, T-011, T-018, T-033, T-034, T-035, T-073, T-094, T-097 |
 | [T-014](T-014-stop-stating-each-phase-exit-criterion-twice.md) | Stop stating each phase exit criterion twice | `v0.1` | `done` | `review` | T-008 | - | - | - | T-015 |
@@ -151,9 +151,10 @@ into, not a promise about a date.
 | [T-089](T-089-stop-check-reporting-an-open-task-s-planned-outputs-as-missing.md) | Stop check reporting an open task's planned outputs as missing | `v0.2` | `done` | `review` | - | T-090 | - | - | T-002, T-025, T-032, T-103 |
 | [T-092](T-092-decide-whether-a-bare-path-in-prose-is-a-reference.md) | Decide whether a bare path in prose is a reference check must resolve | `v0.2` | `done` | `review` | - | - | - | - | T-034, T-093, T-094, T-095, T-097 |
 | [T-094](T-094-make-check-answer-the-question-a-fresh-clone-would-ask.md) | Make check answer the question a fresh clone would ask | `v0.2` | `done` | `review` | - | - | - | - | T-013, T-034, T-092, T-095, T-097, T-098 |
-| [T-095](T-095-report-what-check-examined-not-only-that-it-passed.md) | Report what check examined, not only that it passed | `v0.2` | `done` | `review` | - | T-096 | - | - | T-025, T-034, T-080, T-092, T-093, T-094, T-098 |
+| [T-095](T-095-report-what-check-examined-not-only-that-it-passed.md) | Report what check examined, not only that it passed | `v0.2` | `done` | `review` | - | T-096 | - | - | T-025, T-034, T-080, T-092, T-093, T-094, T-098, T-100 |
 | [T-096](T-096-decide-whether-a-narrower-walk-of-a-counted-class-needs-its-own-number.md) | Decide whether a narrower walk of a counted class needs its own number | `v0.2` | `done` | `review` | T-095 | - | - | - | T-025 |
 | [T-099](T-099-give-an-adopter-a-command-that-runs-without-bin-on-path.md) | Give an adopter a command that runs when the plugin's bin is not on PATH | `v0.2` | `done` | `review` | - | - | - | - | T-054, T-055, T-067, T-083, T-085 |
+| [T-100](T-100-report-a-project-config-that-has-drifted-from-the-shipped-default.md) | Report a project config that has drifted from the shipped default | `v0.2` | `done` | `review` | - | - | - | - | T-001, T-023, T-088, T-095, T-106 |
 | [T-102](T-102-show-which-rows-list-has-already-worked-out-are-blocked.md) | Show which rows list has already worked out are blocked | `v0.2` | `done` | `review` | - | - | - | - | T-022, T-031, T-070, T-087 |
 
 <!-- taskmd:end -->
