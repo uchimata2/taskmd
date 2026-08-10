@@ -2,17 +2,17 @@
 id: T-026
 title: Audit the whole project before the remaining build
 type: audit
-status: review
+status: done
 phase: review
 parent: null
 blocked_by: []
-related: [T-003, T-006, T-010, T-025]
+related: [T-003, T-006, T-010, T-025, T-118]
 work_package: v0.2
 owner: maintainer
 business_value: high
 effort: l
 created: 2026-08-05
-updated: 2026-08-06
+updated: 2026-08-11
 deliverables: []
 ---
 
@@ -408,7 +408,7 @@ good at ([`review`](../plugin/skills/taskmd/docs/method/review.md) step 1).
 | Each finding carries a severity and enough detail for someone who was not present to act on it | met | Every row has a severity, and severity is defined in §2 by who pays and when rather than left to feel. The "someone not present" half is tested by the child tasks: each restates the evidence in full — F-6's `check` output, F-3's three transcripts, F-8's two file counts — so a reader who never sees this umbrella can still act. F-4 and F-7 additionally record the dedupe reasoning, which is what a later reader would otherwise have to redo. |
 | Each actionable finding has its own child task pointing back here; each non-actionable one stays recorded with the reason | met | `python -m taskmd list --parent T-026` returns **8**, one per finding, and the count is derived from the `parent` edge rather than from a list I maintained. Eleven no-action rows each carry a reason, including the two deduped against existing tasks (N-2 → T-025, N-3 → T-023) and the two dropped against the threshold (N-4, N-5). |
 | Nothing is fixed in place — falsified by any commit from this task that changes behaviour or wording outside this task's own record | met | Two tracked files modified: `tasks/T-026…md` (this record) and `tasks/README.md` (generated). No source file, no document, and **no other task file** was touched. The index diff is the strongest evidence: 11 existing rows changed while zero existing task files were edited — the soft links written on the new tasks derived onto the far ends, which is the project's own design rule producing the proof for its own audit. The temporary project built to falsify F-6 was created outside the repository and deleted. |
-| The umbrella closes only when every child is resolved or dropped with a reason | **upheld — the umbrella stays open** | Not a criterion this review can tick: it governs closure, and it is satisfied by *not closing*. All eight children are `proposed`. T-026 therefore remains open at `phase: review` with the audit itself complete. Recorded plainly because an umbrella closed over open children erases the link between the examination and its consequences ([`audit`](../plugin/skills/taskmd/docs/method/audit.md) step 5), and that is the one failure this criterion exists to prevent. |
+| The umbrella closes only when every child is resolved or dropped with a reason | **upheld — the umbrella stays open** → **discharged 2026-08-11, met** | *Judged 2026-08-06:* not a criterion this review can tick: it governs closure, and it is satisfied by *not closing*. All eight children are `proposed`. T-026 therefore remains open at `phase: review` with the audit itself complete. Recorded plainly because an umbrella closed over open children erases the link between the examination and its consequences ([`audit`](../plugin/skills/taskmd/docs/method/audit.md) step 5), and that is the one failure this criterion exists to prevent. **2026-08-11:** all eight are now `done`, none dropped, so the condition is met and the umbrella closes. Read from the `parent` edge rather than from a list — `taskmd list --parent T-026` returns eight rows and eight `done`, and no list of the membership exists anywhere to have gone stale. Five days, five sessions, and the last three children closed in one. |
 | **The umbrella reports the child tasks in the order `python -m taskmd list` computes**, and states whether that order is one a person would actually work in | met | Run and reported in §3 step 9, unmodified. The answer is split and both halves are recorded: the head is a good answer the rule produced unprompted (T-034 — cheapest task *and* the one guarding publication), the middle four tie on both sort keys and break on id, which puts T-032 fourth where a person would put it first. The criterion admitted both outcomes as met; the honest result was one of each. |
 
 **What the review changed.** One thing, and it is the coverage denominator — wrong in `implement`,
@@ -425,6 +425,32 @@ was examined during `implement`, so promoting either now would be auditing under
 and the second is a feature proposal that clause 5 would ask for a cost on. Recorded here so the next
 audit finds they were considered rather than missed.
 
+### Closing the umbrella — 2026-08-11
+
+The review was worked on 2026-08-06 and left exactly one criterion open, by design. Nothing is
+re-judged here: the eight verdicts above stand as written, and this section discharges the ninth.
+
+**The condition, checked the way the criterion phrases it.** Every child resolved or dropped with a
+reason: eight children, eight `done`, none dropped. The children were never listed anywhere — the
+set comes from the `parent` edge each of them stores — so there is no membership record that could
+have drifted while they were being worked.
+
+**The one thing that would have been buried, and was not.** Criterion 3's row carries a residual
+flagged for the owner on 2026-08-06 and never answered: F-2 named the cheaper *measure* but not the
+cut, and if clause 5 is read as requiring both, that row re-opens. Its state today is not the state
+it was flagged in. The measure was built (T-028), tier 1 was measured (T-050), and
+[T-115](T-115-give-the-tier-1-budget-something-that-enforces-it.md) made it a test that passes — so
+**no cut was ever required**, which answers the residual as posed without anyone's taste being
+involved. What that answer left behind is a two-character margin and a cut still unnamed, declined in
+passing by two tasks and owned by none, and that is raised as
+[T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md) rather than left inside a task
+about to close. A residual inside a closed task is one no sweep will ever read again.
+
+**Nothing else was re-opened.** The two candidates the 2026-08-06 review declined as
+review-is-not-an-audit are still declined and still recorded, and this close does not promote them:
+five days of their subject matter changing is a reason for the *next* audit to look, not for this one
+to grow a tenth criterion at its close.
+
 **Child fix tasks raised**
 - Eight, one per finding — [T-027](T-027-give-the-design-rule-one-home.md),
   [T-028](T-028-budget-the-whole-always-loaded-context-not-one-file.md),
@@ -436,11 +462,15 @@ audit finds they were considered rather than missed.
   [T-034](T-034-let-the-pre-publish-check-see-files-not-yet-tracked.md).
 - None raised by the review itself: every criterion is met or, in criterion 8's case, upheld by the
   task staying open.
+- **One raised at the close, 2026-08-11** — [T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md),
+  carrying criterion 3's residual out of this record before it closes over it. Not a ninth finding:
+  the audit found F-2, F-2 was carried by T-028 and is fixed; this is what the fix's own margin left.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | → done | Closed under the maintainer's `v0.2` whole-lifecycle authorisation of 2026-08-10, extended to this task by name. The review itself was worked on 2026-08-06 and is not re-judged: eight verdicts stand as written and the ninth, which could only be satisfied by *not* closing, is discharged now that all eight children are `done` and none was dropped. Read from the `parent` edge, not from a list — the set was never written down, which is why five days of work on it could not make the membership stale. One task raised at the close, [T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md): criterion 3's residual was answered by events (the cheaper measure was built, enforced, and needed no cut) but left a two-character margin and an unnamed cut that two tasks had declined in passing, and a residual inside a closed task is one no sweep reads again. The two candidates declined in 2026-08-06 as review-is-not-an-audit stay declined. |
 | 2026-08-09 | (no status change) | Retyped `analysis` -> `audit`, now that the shipped vocabulary has the word (T-088). `analysis` was a substitute reached for because no better value existed, and this repository never noticed it was one -- which is half of T-088's evidence. Retyped rather than left: `type` says what a task is, nothing branches on it, and leaving the workaround in place in the repository that removed it would be the clearest possible way to lose the lesson. The Log is where the history lives. |
 | 2026-08-06 | (no status change) | Reviewed. Eight of the nine criteria met; the ninth — the umbrella closes only when its children resolve — is upheld by **not** closing, so the task stays open at `phase: review` with all eight children `proposed`. Status deliberately unchanged: the audit is finished, the umbrella is not, and closing it now would erase the link between the examination and its consequences (audit step 5). Review changed one thing, the coverage denominator, which was wrong in `implement` (82/8 against a real 84/5) and is corrected with the correction left visible — criterion 4 rests on it. One residual flagged for the owner rather than resolved in my own favour: F-2 names the cheaper *measure* but not the cut, and if clause 5 is read as requiring both, that row re-opens. No new findings; two candidates were declined as review-is-not-an-audit and recorded so the next audit knows they were considered. |
 | 2026-08-06 | → review | Ten steps worked in order, nothing reordered. Eight findings, eleven no-action rows, eight child tasks (T-027…T-034). The eighth arrived in step 10 and is recorded as escalated rather than folded in silently: running the pre-publish check over this audit's own output showed the documented command reads only tracked files, so it had not read any of them. Two findings were proven by being made to fail rather than asserted: F-6 by building a task from the audit template and watching `check` report two classes, F-3 by running the three commands, one of which wrote the index and exited 0 on a mistyped invocation. The heaviest finding is F-2, and it is the clause-5 one: the always-loaded budget measures 147 of the 286 lines it exists to protect. Clause 5 also produced a deliberate refusal — the four-phase lifecycle was examined under the maintainer's licence to derail and dropped for lack of cost evidence (N-5). Step 9 falsified my own written-up expectation twice: the ordering put T-032 fourth rather than first, and then the eighth task changed the head of the list entirely. Both runs are recorded, because a criterion answered once and early would have concluded the wrong thing about the rule. The rule behaves as documented, so N-11 rather than a finding — the head is a good answer it produced unprompted, the middle is an id tiebreak. |
