@@ -83,7 +83,7 @@ into, not a promise about a date.
 | [T-112](T-112-stop-check-resolving-a-link-that-is-displayed-rather-than-navigable.md) | Stop check resolving a link that is displayed rather than navigable | `v0.2` | `proposed` | `specify` | - | - | - | T-091, T-092, T-095, T-114 |
 | [T-113](T-113-name-an-unknown-filter-before-complaining-it-has-no-value.md) | Name an unknown filter before complaining it has no value | `v0.2` | `proposed` | `specify` | - | - | - | T-022, T-029 |
 | [T-114](T-114-make-the-launcher-tests-say-which-bash-they-found.md) | Make the launcher tests say which bash they found | `v0.2` | `proposed` | `specify` | - | - | - | T-091, T-112 |
-| [T-116](T-116-decide-whether-the-published-repository-runs-its-own-suite.md) | Decide whether the published repository runs its own suite | `v0.2` | `proposed` | `specify` | - | - | - | T-011, T-049, T-115 |
+| [T-116](T-116-decide-whether-the-published-repository-runs-its-own-suite.md) | Decide whether the published repository runs its own suite | `v0.2` | `planned` | `plan` | - | - | - | T-011, T-049, T-115 |
 
 ## Closed
 

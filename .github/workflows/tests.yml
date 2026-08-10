@@ -1,0 +1,45 @@
+# Runs this repository's own test suite (T-116).
+#
+# It is not part of what an install copies: `plugin/` is the plugin boundary (T-053), and
+# nothing in this file reaches an adopter.
+#
+# It arrives RED on purpose. The maintainer chose a runner that starts failing over one that
+# waits for a clean tree, because the tier 1 budget check added by T-115 leaves a two-character
+# margin and nothing else bounds how long a breach goes unseen. A run that fails ONLY the
+# baseline below is the expected state; a run that fails anything else is a regression, and
+# catching that is the whole point.
+#
+# Baseline: NOT YET OBSERVED ON A RUNNER. Four failures are known, but they were seen on
+# Windows and three of them are that machine's shell rather than the code (T-114), so what
+# fails here cannot be predicted from there. The first real run establishes it and this
+# comment is corrected to say what it actually reported.
+
+name: tests
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  suite:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run every test module
+        # Deliberately does not stop at the first failure. The value of this job is which
+        # modules fail, and `set -e` would report only the earliest one.
+        run: |
+          failed=""
+          for module in tests/test_*.py; do
+            echo "::group::$module"
+            python "$module" || failed="$failed $module"
+            echo "::endgroup::"
+          done
+          if [ -n "$failed" ]; then
+            echo "failing modules:$failed" | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+          echo "every module passed" | tee -a "$GITHUB_STEP_SUMMARY"
