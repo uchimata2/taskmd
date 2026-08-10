@@ -56,7 +56,7 @@ into, not a promise about a date.
 | [T-021](T-021-settle-what-the-context-closing-line-may-say.md) | Settle what the context closing line may say | `v0.2` | `specified` | `specify` | T-002 | - | - | - | T-003, T-022 |
 | [T-023](T-023-stop-config-errors-printing-an-absolute-install-path.md) | Stop config errors printing an absolute install path | `v0.2` | `specified` | `specify` | - | - | - | - | T-006, T-019, T-020, T-024, T-030, T-066, T-100, T-106 |
 | [T-024](T-024-say-so-when-tasks-dir-names-something-that-is-not-a-folder.md) | Say so when tasks_dir names something that is not a folder | `v0.2` | `proposed` | `specify` | - | - | - | - | T-019, T-023, T-078 |
-| [T-026](T-026-audit-the-whole-project-before-the-remaining-build.md) | Audit the whole project before the remaining build | `v0.2` | `review` | `review` | - | T-027, T-028, T-029, T-030, T-031, T-032, T-033, T-034 | - | - | T-003, T-006, T-010, T-025, T-036, T-059, T-086, T-088 |
+| [T-026](T-026-audit-the-whole-project-before-the-remaining-build.md) | Audit the whole project before the remaining build | `v0.2` | `review` | `review` | - | T-027, T-028, T-029, T-030, T-031, T-032, T-033, T-034 | - | - | T-003, T-006, T-010, T-025, T-036, T-059, T-086, T-088, T-110 |
 | [T-029](T-029-reject-unknown-arguments-on-every-command.md) | Reject unknown arguments on every command | `v0.2` | `specified` | `specify` | T-026 | - | - | - | T-002, T-022, T-055, T-087 |
 | [T-030](T-030-settle-the-schema-module-s-own-entry-point.md) | Settle the schema module's own entry point | `v0.2` | `specified` | `specify` | T-026 | - | - | - | T-020, T-023, T-065, T-066 |
 | [T-031](T-031-give-the-list-rationale-one-home.md) | Give the list rationale one home | `v0.2` | `specified` | `specify` | T-026 | - | - | - | T-022, T-027, T-102 |
@@ -76,7 +76,8 @@ into, not a promise about a date.
 | [T-098](T-098-decide-who-checks-the-links-in-a-document-only-a-successor-reads.md) | Decide who checks the links in a document only a successor reads | `v0.2` | `proposed` | `specify` | - | - | - | - | T-002, T-034, T-080, T-094, T-095, T-109 |
 | [T-107](T-107-say-so-when-a-valid-task-file-is-parked-where-nothing-reads-it.md) | Say so when a valid task file is parked where nothing reads it | `v0.3` | `proposed` | `specify` | - | - | - | - | T-062, T-069, T-075, T-101 |
 | [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `v0.3` | `proposed` | `specify` | - | - | - | - | T-004, T-009, T-010, T-041, T-082 |
-| [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md) | Decide whether a task that settles a question must be typed decision | `v0.2` | `proposed` | `specify` | - | - | - | - | T-088, T-090, T-093, T-097, T-098, T-104 |
+| [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md) | Decide whether a task that settles a question must be typed decision | `v0.2` | `proposed` | `specify` | - | - | - | - | T-088, T-090, T-093, T-097, T-098, T-104, T-110 |
+| [T-110](T-110-re-group-the-open-backlog-by-the-maintainers-release-rule.md) | Re-group the open backlog by the maintainer's release rule | `v0.2` | `proposed` | `specify` | - | - | - | - | T-026, T-086, T-109 |
 
 ## Closed
 
@@ -150,7 +151,7 @@ into, not a promise about a date.
 | [T-081](T-081-gate-every-deployment-on-the-humanizer-pass.md) | Gate every deployment on the humanizer pass, not just the next one | `v0.1` | `done` | `review` | - | - | - | - | T-079, T-080 |
 | [T-083](T-083-make-the-skill-directory-self-contained.md) | Make the skill directory self-contained | `v0.1` | `done` | `review` | - | - | - | T-006 | T-053, T-054, T-064, T-084, T-099, T-103 |
 | [T-084](T-084-correct-the-generated-index-preamble-after-the-move.md) | Correct the generated index preamble after the directory move | `v0.1` | `done` | `review` | - | - | - | - | T-006, T-025, T-083 |
-| [T-086](T-086-group-the-backlog-into-release-milestones.md) | Group the backlog into release milestones | `v0.2` | `done` | `review` | - | - | - | - | T-006, T-022, T-026, T-087 |
+| [T-086](T-086-group-the-backlog-into-release-milestones.md) | Group the backlog into release milestones | `v0.2` | `done` | `review` | - | - | - | - | T-006, T-022, T-026, T-087, T-110 |
 | [T-088](T-088-put-audit-in-the-shipped-type-vocabulary-or-stop-calling-it-a-type.md) | Put audit in the shipped type vocabulary, or stop calling it a type | `v0.2` | `done` | `review` | - | - | - | - | T-001, T-026, T-032, T-100, T-104, T-109 |
 | [T-089](T-089-stop-check-reporting-an-open-task-s-planned-outputs-as-missing.md) | Stop check reporting an open task's planned outputs as missing | `v0.2` | `done` | `review` | - | T-090 | - | - | T-002, T-025, T-032, T-103 |
 | [T-092](T-092-decide-whether-a-bare-path-in-prose-is-a-reference.md) | Decide whether a bare path in prose is a reference check must resolve | `v0.2` | `done` | `review` | - | - | - | - | T-034, T-093, T-094, T-095, T-097, T-103 |
