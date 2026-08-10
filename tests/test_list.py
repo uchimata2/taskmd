@@ -241,6 +241,46 @@ class UsesTheProjectsOwnVocabulary(unittest.TestCase):
         self.assertIn("todo", out, "the error must name what this project does accept")
 
 
+class FiltersOnAFieldNoVocabularyEnumerates(unittest.TestCase):
+    """T-087. The schema promises that a field it does not enumerate is carried, and that naming it
+    in a view surfaces it with no code change. That held for both views and broke at the filter —
+    the one place a reader goes once the view is long. `work_package` was the field that found it,
+    on the day this repository published.
+
+    Every other filter test here uses a vocabulary, which is why the gap survived: the case that
+    fails is the one no test had a shape for."""
+
+    def test_a_stored_field_the_schema_does_not_enumerate_can_be_selected_on(self):
+        code, out = run("list", "--work_package", "v0.2", "--open", "--root", ROOT)
+        self.assertEqual(code, 0, out)
+        self.assertTrue(ids(out), "no rows; the filter matched nothing at all")
+        for line in out.splitlines():
+            if line.strip():
+                self.assertIn("v0.2", line)
+
+    def test_a_value_nothing_carries_is_an_empty_answer_not_an_error(self):
+        """The maintainer's ruling: with no list to check against, the tool cannot tell a typo from
+        an empty bucket, so any error it printed would be a guess. Exit 0, no rows."""
+        code, out = run("list", "--work_package", "v0.22", "--root", ROOT)
+        self.assertEqual(code, 0, out)
+        self.assertEqual([], ids(out))
+
+    def test_the_field_name_is_still_checked_and_the_new_ones_are_offered(self):
+        """The half that stays validated — the likelier typo — and the place a reader finds the
+        spelling of the half that does not."""
+        code, out = run("list", "--work_pakcage", "v0.2", "--root", ROOT)
+        self.assertEqual(code, 2, out)
+        self.assertIn("--work_package", out)
+
+    def test_the_accepted_set_comes_from_the_config_not_from_the_tasks(self):
+        """An accepted set read off current contents would make a command's validity depend on when
+        it runs. `alt-project` names its own view fields, and they are what it must offer."""
+        schema = cli.load_schema(os.path.join(FIXTURES, "alt-project"))
+        offered = cli.filter_names(schema)
+        for name in list(schema.context_fields) + list(schema.index_columns):
+            self.assertIn(name, offered, "a field this project shows but cannot filter on")
+
+
 class RejectsWhatItCannotAnswer(unittest.TestCase):
 
     def test_an_unknown_filter_value_names_what_is_accepted(self):

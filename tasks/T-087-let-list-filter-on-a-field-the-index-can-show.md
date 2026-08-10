@@ -2,8 +2,8 @@
 id: T-087
 title: Let list filter on a field the index can show
 type: fix
-status: specified
-phase: specify
+status: done
+phase: review
 parent: null
 blocked_by: []
 related: [T-022, T-086, T-029]
@@ -12,8 +12,8 @@ owner: maintainer
 business_value: high
 effort: s
 created: 2026-08-09
-updated: 2026-08-09
-deliverables: []
+updated: 2026-08-10
+deliverables: [plugin/skills/taskmd/taskmd/cli.py, tests/test_list.py]
 ---
 
 # T-087 — Let list filter on a field the index can show
@@ -104,29 +104,75 @@ configuration.
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
-| 2 |  |  |
+| 1 | Decide which fields the filter accepts, and derive the set from configuration | `filter_names` in `cli.py` |
+| 2 | Match an unenumerated value literally; leave the name check alone | `matches` in `cli.py` |
+| 3 | Cover the unenumerated case, which no existing filter test had a shape for | `tests/test_list.py` |
+| 4 | Complete the promise where it is written, rather than beside the code | `defaults/config.md` §Views |
 
 ## 3. Implement
 
 **Decisions & assumptions**
-- <decision — rationale — date>
+- **The accepted set is "any field a view names"** — 2026-08-10. `context_fields` and
+  `index_columns` are exactly where the schema already promises that an uninterpreted field can be
+  surfaced, so extending the filter to that same set keeps both halves of one promise in one place
+  and needs **no new config key** — which matters, because T-106 established that the shipped config
+  cannot gain one without breaking every project that has written its own. In this repository that
+  admits `work_package` and `owner`, both of which are wanted. Rejected: a new key naming the
+  filterable fields, which is a second copy of "which fields this project uses" and the key the
+  schema cannot afford.
+- **Rejected: every field any task happens to carry** — 2026-08-10. It would have accepted more, and
+  it is the same defect the open question's rejected alternative was rejected for, one level up: an
+  accepted set read off current contents makes a command's validity depend on when it runs. The
+  answer that governs values governs names.
+- **`vocabulary` and `field` differ at parse time, not at match time** — 2026-08-10. The kinds exist
+  to say whether the *value* was validated; both then compare literally against the stored value. So
+  `matches` was reorganised around `link` being the exception rather than `vocabulary` being the
+  rule, which is what the two non-link kinds actually have in common.
 
 **Outputs produced**
-- `plugin/skills/taskmd/taskmd/cli.py`
+- `plugin/skills/taskmd/taskmd/cli.py` — `filter_names`, `matches`.
+- `tests/test_list.py` — four tests in a new class.
+- `plugin/skills/taskmd/taskmd/defaults/config.md` §*Views* — the promise, completed where it is
+  made. The same edit reconciled the edge-column sentence with
+  [T-111](T-111-stop-the-index-showing-a-closed-task-as-a-live-blocker.md), which changed what
+  *uses* means for a dependency column earlier the same day.
+
+**Evidence**
+
+The command [T-086](T-086-group-the-backlog-into-release-milestones.md)'s plan could not use, run:
+
+```
+taskmd list --work_package v0.2 --open      -> 20 rows, exit 0
+taskmd list --work_package v0.22            -> no rows, exit 0
+taskmd list --owner maintainer --open       -> rows, exit 0
+taskmd list --wat x                         -> exit 2, unknown filter: --wat. This project
+   accepts: --blocked_by, --blocks, --business_value, --children, --effort, --owner, --parent,
+   --phase, --related, --status, --type, --work_package
+```
+
+The last line is the third criterion's other half: the accepted list now names `--work_package` and
+`--owner`, which is where a reader finds the spelling of the values nothing validates.
+
+Suite **185 passed** (181 before), `check` clean on 113 tasks.
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| `list` filters on a stored field no vocabulary enumerates, shown on this repository's `work_package` | met | 20 open v0.2 rows, above. |
+| A value matching nothing exits 0 with no rows; a field that does not exist exits 2 naming what the project accepts — both run | met | `--work_package v0.22` → exit 0, silent. `--wat x` → exit 2 with the full accepted list. |
+| `taskmd list --work_package v0.2 --open` returns the v0.2 tasks | met | It is now the way the release's membership is read, which is what T-110 left with no command. |
+| The tests cover the unenumerated case, since every existing filter test uses a vocabulary | met | A class of four, including one asserting the accepted set is derived from `alt-project`'s **config** rather than from its contents — the property the rejected alternative would have broken, and the one a test on this repository alone could not see. |
 
 **Child fix tasks raised**
-- <T-NNN or "none">
+- none. [T-113](T-113-name-an-unknown-filter-before-complaining-it-has-no-value.md), raised earlier
+  today by T-029, is in this same code and stays separate: it is about the order of two rejections,
+  not about which fields are accepted.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-10 | → done | Plan through review in one session, under the maintainer's `v0.2` whole-lifecycle authorisation of 2026-08-10 (METHOD §3.1). The set of filterable fields is now the set a view may name, so the schema's promise about an uninterpreted field holds at all three surfaces instead of two. |
 | 2026-08-09 | → specified | Open question answered: the filter matches literally, so an unenumerated value is not validated at all. Settled by behaviour that already ships rather than by preference — `--status blocked` is a valid value nothing carries and exits 0 silently, so erroring on an unenumerated value would make the tool stricter exactly where it has less to go on, and the error would be a guess at a typo it cannot detect. The rejected alternative is recorded in §1 with what breaks it: its accepted set could only come from current contents, so `--work_package v0.1` starts erroring when the last v0.1 task goes and `--work_package v0.4` errors until the first one arrives, which makes a script's validity depend on when it runs. Criterion 2 sharpened to name the exit codes, since the answer is precisely about that boundary. |
 | 2026-08-09 | → proposed | Raised by [T-086](T-086-group-the-backlog-into-release-milestones.md), whose second acceptance criterion this is: the release plan was written against a command that does not exist, because `list` accepts only vocabulary fields and link names. The gap is not about `work_package` in particular. The schema promises that an unnamed field is carried and can be surfaced by naming it in a view, and that promise stops at the filter, which is where an adopter goes once the view is long. `high` because it contradicts a documented property rather than missing a feature, and `s` because `parse_filters` is where all of it lives. |

@@ -281,6 +281,16 @@ tab-separated form emit **every** configured column whether it is used or not, b
 disappeared when a field fell out of use would be a breaking change to a script that did nothing
 wrong.
 
+**A field named here can also be selected on.** `taskmd list --<field> <value>` accepts any field
+either key names, not only the ones a vocabulary below enumerates — otherwise a field could be
+*shown* and not *filtered*, which is where a reader goes the moment a view gets long. A value that
+no vocabulary enumerates is matched literally and is not validated: with no list to check it
+against, an empty result is the honest answer and an error would be a guess at a typo the tool
+cannot detect. The field **name** is still checked, and an unknown one is reported with everything
+the project does accept.
+
 The same rule has always governed **edge** columns — parent, children, blocked_by and the rest —
 which are not configured here at all: they are derived from the `## Edges` table and appear when
-some task uses them.
+some task uses them. For a **dependency** edge, *uses* means an edge that is still outstanding: a
+cell shows only the blockers and blocked tasks that are still open, and the column goes when none
+are, because a cell that cannot show the far end's status has to resolve it.

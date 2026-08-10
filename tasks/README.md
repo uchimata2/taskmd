@@ -13,7 +13,12 @@ Problem evidence: [`../docs/BRIEF.md`](../docs/BRIEF.md).
 ## Releases
 
 What each one is for. **Which tasks are in it is not written here** — that is each task's
-`work_package`, and the **Work Package** column below is generated from it.
+`work_package`, and the **Work Package** column below is generated from it. Read a release's
+membership with the tool rather than off this page:
+
+```
+./plugin/bin/taskmd list --work_package v0.2 --open
+```
 
 **v0.1 — published, 2026-08-09.** The four commands, the method document, both bindings, the skill,
 the plugin and the README, at `github.com/uchimata2/taskmd`. Its content is every task that was
@@ -71,7 +76,6 @@ into, not a promise about a date.
 | [T-078](T-078-say-what-a-tasks-dir-of-dot-means.md) | Say what a tasks_dir of dot means | `v0.2` | `specified` | `specify` | - | - | - | T-019, T-024, T-069 |
 | [T-082](T-082-let-id-width-say-the-backend-allocates-the-ids.md) | Let id_width say that the backend allocates the ids | `v0.2` | `proposed` | `specify` | T-004 | - | - | T-010, T-075, T-108 |
 | [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) | Install the published plugin on a machine that has never seen it | `v0.3` | `proposed` | `specify` | T-006 | - | - | T-020, T-049, T-067, T-099 |
-| [T-087](T-087-let-list-filter-on-a-field-the-index-can-show.md) | Let list filter on a field the index can show | `v0.2` | `specified` | `specify` | - | - | - | T-022, T-029, T-086, T-102 |
 | [T-090](T-090-decide-what-a-cancelled-task-s-declared-outputs-assert.md) | Decide what a cancelled task's declared outputs assert | `v0.2` | `proposed` | `specify` | T-089 | - | - | T-002, T-032, T-103, T-109 |
 | [T-091](T-091-make-the-shipped-task-template-survive-being-copied.md) | Make the shipped task template survive being copied into another project | `v0.2` | `proposed` | `specify` | - | - | - | T-032, T-051, T-060, T-076, T-101 |
 | [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `v0.3` | `proposed` | `specify` | - | - | - | T-092, T-095, T-109 |
@@ -157,6 +161,7 @@ into, not a promise about a date.
 | [T-083](T-083-make-the-skill-directory-self-contained.md) | Make the skill directory self-contained | `v0.1` | `done` | `review` | - | - | - | T-053, T-054, T-064, T-084, T-099, T-103 |
 | [T-084](T-084-correct-the-generated-index-preamble-after-the-move.md) | Correct the generated index preamble after the directory move | `v0.1` | `done` | `review` | - | - | - | T-006, T-025, T-083 |
 | [T-086](T-086-group-the-backlog-into-release-milestones.md) | Group the backlog into release milestones | `v0.2` | `done` | `review` | - | - | - | T-006, T-022, T-026, T-087, T-110 |
+| [T-087](T-087-let-list-filter-on-a-field-the-index-can-show.md) | Let list filter on a field the index can show | `v0.2` | `done` | `review` | - | - | - | T-022, T-029, T-086, T-102 |
 | [T-088](T-088-put-audit-in-the-shipped-type-vocabulary-or-stop-calling-it-a-type.md) | Put audit in the shipped type vocabulary, or stop calling it a type | `v0.2` | `done` | `review` | - | - | - | T-001, T-026, T-032, T-100, T-104, T-109 |
 | [T-089](T-089-stop-check-reporting-an-open-task-s-planned-outputs-as-missing.md) | Stop check reporting an open task's planned outputs as missing | `v0.2` | `done` | `review` | - | T-090 | - | T-002, T-025, T-032, T-103 |
 | [T-092](T-092-decide-whether-a-bare-path-in-prose-is-a-reference.md) | Decide whether a bare path in prose is a reference check must resolve | `v0.2` | `done` | `review` | - | - | - | T-034, T-093, T-094, T-095, T-097, T-103, T-112 |

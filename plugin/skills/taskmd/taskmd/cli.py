@@ -792,10 +792,25 @@ def order(schema, tasks, selection):
 
 
 def filter_names(schema):
-    """Every `--name` the command accepts, as {name: kind}."""
+    """Every `--name` the command accepts, as {name: kind}.
+
+    Vocabularies and link names were the whole set (T-022), which left the schema's own promise
+    half-kept: a field taskmd does not enumerate is *carried*, and naming it in a view makes it
+    appear with no code change — but not selectable, which is the one thing wanted once the view
+    gets long. So **a field the project has named in a view is a field the project can filter on**
+    (T-087). It needs no new config key, and it keeps the two halves of one promise together.
+
+    Read from the config, never from what the tasks happen to hold. An accepted set derived from
+    current contents would make a command's validity depend on when it runs — the argument that
+    settled this task's open question about *values*, which applies to names just as squarely.
+    """
     names = dict((f, "vocabulary") for f in schema.vocabularies)
     for name in link_names(schema):
         names[name] = "link"
+    for name in list(schema.context_fields) + list(schema.index_columns):
+        # `setdefault`: a field that is both enumerated and shown keeps its vocabulary kind, so its
+        # value is still validated. Only the ones nothing enumerates arrive as a plain field.
+        names.setdefault(name, "field")
     return names
 
 
@@ -835,10 +850,14 @@ def parse_filters(schema, args):
 
 def matches(task, filters):
     for name, kind, value in filters:
-        if kind == "vocabulary":
-            if task.fields.get(name, "") != value:
+        if kind == "link":
+            if value not in task.links(name):
                 return False
-        elif value not in task.links(name):
+        # `vocabulary` and `field` compare the same way — the kinds differ in whether the *value*
+        # was validated at parse time, not in how it is matched. An unenumerated value is matched
+        # literally and an empty result at exit 0 is the answer (T-087): with no list to check
+        # against, the tool cannot tell a typo from an empty bucket, so any error would be a guess.
+        elif task.fields.get(name, "") != value:
             return False
     return True
 
