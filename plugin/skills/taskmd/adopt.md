@@ -41,4 +41,5 @@ taskmd check
 ```
 
 Anything it names is a problem to fix before the first task. If what it names is the configuration,
-the file to fix is the one from step 2.
+the file to fix is the one from step 2. If the **name itself** is not found, that is not a problem
+with your project — [`SKILL.md`](SKILL.md) says what to run instead.

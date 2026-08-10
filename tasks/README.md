@@ -68,7 +68,6 @@ into, not a promise about a date.
 | [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `v0.3` | `proposed` | `specify` | - | - | - | - | T-092, T-095 |
 | [T-097](T-097-decide-whether-a-published-document-may-point-at-a-file-no-clone-receives.md) | Decide whether a published document may point at a file no clone receives | `v0.2` | `proposed` | `specify` | - | - | - | - | T-013, T-034, T-092, T-094 |
 | [T-098](T-098-decide-who-checks-the-links-in-a-document-only-a-successor-reads.md) | Decide who checks the links in a document only a successor reads | `v0.2` | `proposed` | `specify` | - | - | - | - | T-002, T-034, T-080, T-094, T-095 |
-| [T-099](T-099-give-an-adopter-a-command-that-runs-without-bin-on-path.md) | Give an adopter a command that runs when the plugin's bin is not on PATH | `v0.2` | `proposed` | `specify` | - | - | - | - | T-054, T-055, T-067, T-085 |
 | [T-100](T-100-report-a-project-config-that-has-drifted-from-the-shipped-default.md) | Report a project config that has drifted from the shipped default | `v0.2` | `proposed` | `specify` | - | - | - | - | T-001, T-023, T-088 |
 | [T-101](T-101-report-a-template-the-create-path-cannot-see.md) | Report a template the create path cannot see | `v0.2` | `proposed` | `specify` | - | - | - | - | T-032, T-051, T-076, T-091 |
 | [T-102](T-102-show-which-rows-list-has-already-worked-out-are-blocked.md) | Show which rows list has already worked out are blocked | `v0.2` | `proposed` | `specify` | - | - | - | - | T-022, T-031, T-070, T-087 |
@@ -146,7 +145,7 @@ into, not a promise about a date.
 | [T-079](T-079-humanize-the-human-facing-documents-before-publishing.md) | Humanize the human-facing documents before publishing | `v0.1` | `done` | `review` | - | - | - | T-006 | T-081 |
 | [T-080](T-080-stop-the-pre-publish-check-reporting-its-own-fixture.md) | Stop the pre-publish check reporting its own fixture from a subdirectory | `v0.1` | `done` | `review` | - | - | - | - | T-018, T-034, T-058, T-081, T-095, T-098 |
 | [T-081](T-081-gate-every-deployment-on-the-humanizer-pass.md) | Gate every deployment on the humanizer pass, not just the next one | `v0.1` | `done` | `review` | - | - | - | - | T-079, T-080 |
-| [T-083](T-083-make-the-skill-directory-self-contained.md) | Make the skill directory self-contained | `v0.1` | `done` | `review` | - | - | - | T-006 | T-053, T-054, T-064, T-084 |
+| [T-083](T-083-make-the-skill-directory-self-contained.md) | Make the skill directory self-contained | `v0.1` | `done` | `review` | - | - | - | T-006 | T-053, T-054, T-064, T-084, T-099 |
 | [T-084](T-084-correct-the-generated-index-preamble-after-the-move.md) | Correct the generated index preamble after the directory move | `v0.1` | `done` | `review` | - | - | - | - | T-006, T-025, T-083 |
 | [T-086](T-086-group-the-backlog-into-release-milestones.md) | Group the backlog into release milestones | `v0.2` | `done` | `review` | - | - | - | - | T-006, T-022, T-026, T-087 |
 | [T-088](T-088-put-audit-in-the-shipped-type-vocabulary-or-stop-calling-it-a-type.md) | Put audit in the shipped type vocabulary, or stop calling it a type | `v0.2` | `done` | `review` | - | - | - | - | T-001, T-026, T-032, T-100, T-104 |
@@ -155,5 +154,6 @@ into, not a promise about a date.
 | [T-094](T-094-make-check-answer-the-question-a-fresh-clone-would-ask.md) | Make check answer the question a fresh clone would ask | `v0.2` | `done` | `review` | - | - | - | - | T-013, T-034, T-092, T-095, T-097, T-098 |
 | [T-095](T-095-report-what-check-examined-not-only-that-it-passed.md) | Report what check examined, not only that it passed | `v0.2` | `done` | `review` | - | T-096 | - | - | T-025, T-034, T-080, T-092, T-093, T-094, T-098 |
 | [T-096](T-096-decide-whether-a-narrower-walk-of-a-counted-class-needs-its-own-number.md) | Decide whether a narrower walk of a counted class needs its own number | `v0.2` | `done` | `review` | T-095 | - | - | - | T-025 |
+| [T-099](T-099-give-an-adopter-a-command-that-runs-without-bin-on-path.md) | Give an adopter a command that runs when the plugin's bin is not on PATH | `v0.2` | `done` | `review` | - | - | - | - | T-054, T-055, T-067, T-083, T-085 |
 
 <!-- taskmd:end -->

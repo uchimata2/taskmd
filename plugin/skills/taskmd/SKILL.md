@@ -25,6 +25,12 @@ returns everything needed to start that one task, and is the only read of it you
 `taskmd` runs from any directory, including a subdirectory of the project: it finds the project by
 walking up from wherever it is run. Add `--root <path>` only to override the one it finds.
 
+**If that name is not found**, the harness has not put this plugin's `bin/` on `PATH` — a fact about
+the machine, not about the project. The launcher sits beside this file, in the skill directory the
+harness named when it served this skill. Run `sh <that directory>/taskmd.sh <verb>`, or
+`powershell -File <that directory>\taskmd.ps1 <verb>` on Windows. It takes the same commands, and it
+is how every `taskmd <verb>` below — and in the documents this skill points at — is reached.
+
 These commands are the local-Markdown backend. If this project keeps its tasks somewhere else, its
 binding supplies the operations instead — and everything below is unchanged, which is the point.
 
