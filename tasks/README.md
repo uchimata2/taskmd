@@ -66,7 +66,7 @@ into, not a promise about a date.
 | [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | `v0.3` | `specified` | `specify` | - | - | - | - | T-026, T-032, T-105 |
 | [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `v0.3` | `specified` | `specify` | - | - | T-003 | - | T-015, T-028, T-059, T-063, T-105 |
 | [T-078](T-078-say-what-a-tasks-dir-of-dot-means.md) | Say what a tasks_dir of dot means | `v0.2` | `specified` | `specify` | - | - | - | - | T-019, T-024, T-069 |
-| [T-082](T-082-let-id-width-say-the-backend-allocates-the-ids.md) | Let id_width say that the backend allocates the ids | `v0.3` | `proposed` | `specify` | T-004 | - | - | - | T-010, T-075 |
+| [T-082](T-082-let-id-width-say-the-backend-allocates-the-ids.md) | Let id_width say that the backend allocates the ids | `v0.3` | `proposed` | `specify` | T-004 | - | - | - | T-010, T-075, T-108 |
 | [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) | Install the published plugin on a machine that has never seen it | `v0.3` | `proposed` | `specify` | T-006 | - | - | - | T-020, T-049, T-067, T-099 |
 | [T-087](T-087-let-list-filter-on-a-field-the-index-can-show.md) | Let list filter on a field the index can show | `v0.2` | `specified` | `specify` | - | - | - | - | T-022, T-029, T-086, T-102 |
 | [T-090](T-090-decide-what-a-cancelled-task-s-declared-outputs-assert.md) | Decide what a cancelled task's declared outputs assert | `v0.2` | `proposed` | `specify` | T-089 | - | - | - | T-002, T-032, T-103 |
@@ -75,6 +75,7 @@ into, not a promise about a date.
 | [T-097](T-097-decide-whether-a-published-document-may-point-at-a-file-no-clone-receives.md) | Decide whether a published document may point at a file no clone receives | `v0.2` | `proposed` | `specify` | - | - | - | - | T-013, T-034, T-092, T-094 |
 | [T-098](T-098-decide-who-checks-the-links-in-a-document-only-a-successor-reads.md) | Decide who checks the links in a document only a successor reads | `v0.2` | `proposed` | `specify` | - | - | - | - | T-002, T-034, T-080, T-094, T-095 |
 | [T-107](T-107-say-so-when-a-valid-task-file-is-parked-where-nothing-reads-it.md) | Say so when a valid task file is parked where nothing reads it | `v0.3` | `proposed` | `specify` | - | - | - | - | T-062, T-069, T-075, T-101 |
+| [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `v0.3` | `proposed` | `specify` | - | - | - | - | T-004, T-009, T-010, T-041, T-082 |
 
 ## Closed
 
@@ -83,12 +84,12 @@ into, not a promise about a date.
 | [T-001](T-001-decide-how-the-front-matter-schema-is-configured.md) | Decide how the front-matter schema is configured | `v0.1` | `done` | `review` | - | - | - | T-002, T-004 | T-012, T-051, T-065, T-070, T-088, T-100, T-106 |
 | [T-002](T-002-implement-the-core-cli-context-index-check.md) | Implement the core CLI: context, index, check | `v0.1` | `done` | `review` | - | T-019, T-020, T-021 | T-001 | T-003, T-006, T-011 | T-004, T-005, T-007, T-008, T-025, T-029, T-089, T-090, T-098 |
 | [T-003](T-003-write-the-skill-that-teaches-the-agent-to-use-the-cl.md) | Write the skill that teaches the agent to use the CLI | `v0.1` | `done` | `review` | - | T-050 | T-002, T-008 | T-006, T-047 | T-008, T-017, T-019, T-021, T-022, T-026, T-028, T-032, T-048, T-051, T-052, T-053, T-054, T-074 |
-| [T-004](T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md) | Settle the id scheme and the claimed scale ceiling | `v0.1` | `done` | `review` | - | T-082 | T-001 | T-006 | T-002, T-007, T-010, T-043, T-059, T-062, T-075 |
+| [T-004](T-004-settle-the-id-scheme-and-the-claimed-scale-ceiling.md) | Settle the id scheme and the claimed scale ceiling | `v0.1` | `done` | `review` | - | T-082 | T-001 | T-006 | T-002, T-007, T-010, T-043, T-059, T-062, T-075, T-108 |
 | [T-006](T-006-package-document-and-publish.md) | Package, document and publish | `v0.1` | `done` | `review` | - | T-085 | T-002, T-003, T-004, T-008, T-009, T-010, T-011, T-018, T-079, T-083 | T-037 | T-013, T-019, T-020, T-023, T-026, T-034, T-049, T-050, T-052, T-053, T-054, T-059, T-064, T-067, T-072, T-084, T-086 |
 | [T-007](T-007-define-the-project-scope-goals-and-requirements.md) | Define the project scope, goals and requirements | `v0.1` | `done` | `review` | - | - | - | T-008 | T-002, T-004, T-005, T-022 |
 | [T-008](T-008-write-the-backend-neutral-method-document.md) | Write the backend-neutral method document | `v0.1` | `done` | `review` | - | T-014, T-015, T-016, T-017 | T-007 | T-003, T-006, T-009 | T-002, T-003, T-013, T-104 |
-| [T-009](T-009-define-the-backend-binding-contract.md) | Define the backend binding contract and write the local-Markdown binding | `v0.1` | `done` | `review` | - | - | T-008 | T-005, T-006, T-010 | T-005, T-010, T-012, T-025, T-038, T-040, T-043, T-074 |
-| [T-010](T-010-write-the-github-issues-binding.md) | Write the GitHub Issues binding | `v0.1` | `done` | `review` | - | - | T-009 | T-006 | T-004, T-009, T-026, T-037, T-038, T-039, T-040, T-041, T-042, T-043, T-044, T-082 |
+| [T-009](T-009-define-the-backend-binding-contract.md) | Define the backend binding contract and write the local-Markdown binding | `v0.1` | `done` | `review` | - | - | T-008 | T-005, T-006, T-010 | T-005, T-010, T-012, T-025, T-038, T-040, T-043, T-074, T-108 |
+| [T-010](T-010-write-the-github-issues-binding.md) | Write the GitHub Issues binding | `v0.1` | `done` | `review` | - | - | T-009 | T-006 | T-004, T-009, T-026, T-037, T-038, T-039, T-040, T-041, T-042, T-043, T-044, T-082, T-108 |
 | [T-011](T-011-runtime-discovery-and-project-hook-commands.md) | Runtime auto-discovery and project hook commands | `v0.1` | `done` | `review` | - | T-049 | T-002 | T-006 | T-013, T-025, T-056, T-057, T-066, T-069, T-106 |
 | [T-012](T-012-decide-whether-soft-edges-are-symmetric.md) | Decide whether soft edges are symmetric | `v0.1` | `done` | `review` | - | - | - | - | T-001, T-009 |
 | [T-013](T-013-quarantine-local-only-information-behind-gitignore.md) | Quarantine local-only information behind .gitignore | `v0.1` | `done` | `review` | - | - | - | - | T-006, T-008, T-011, T-018, T-033, T-034, T-035, T-073, T-094, T-097 |
@@ -107,7 +108,7 @@ into, not a promise about a date.
 | [T-038](T-038-reconcile-bindings-worked-example-with-the-real-binding.md) | Reconcile BINDING section 5's worked example with the binding it predicted | `v0.1` | `done` | `review` | - | - | - | - | T-009, T-010 |
 | [T-039](T-039-let-a-plan-name-a-deliverable-that-does-not-exist-yet.md) | Let a plan name a deliverable that does not exist yet | `v0.1` | `done` | `review` | - | - | - | - | T-010, T-025 |
 | [T-040](T-040-make-the-thirty-second-assumptions-check-real.md) | Make the thirty-second assumptions check real, or change the number | `v0.1` | `done` | `review` | - | - | - | - | T-009, T-010, T-028, T-043 |
-| [T-041](T-041-prove-the-github-bindings-body-rewrite-rule.md) | Prove the GitHub binding's body-rewrite rule by making it fail | `v0.1` | `done` | `review` | - | - | - | - | T-010, T-037, T-042 |
+| [T-041](T-041-prove-the-github-bindings-body-rewrite-rule.md) | Prove the GitHub binding's body-rewrite rule by making it fail | `v0.1` | `done` | `review` | - | - | - | - | T-010, T-037, T-042, T-108 |
 | [T-042](T-042-make-the-github-bindings-update-preserve-what-it-did-not-touch.md) | Make the GitHub binding's update preserve what it did not touch | `v0.1` | `done` | `review` | - | - | - | - | T-010, T-041, T-044 |
 | [T-043](T-043-make-every-assumption-a-claim-about-the-adopting-project.md) | Make every assumption a claim about the adopting project | `v0.1` | `done` | `review` | - | - | - | - | T-004, T-009, T-010, T-040 |
 | [T-044](T-044-state-the-gh-version-the-github-binding-requires.md) | State the gh version the GitHub binding requires | `v0.1` | `done` | `review` | - | - | - | - | T-010, T-042 |
