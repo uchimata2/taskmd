@@ -1133,5 +1133,102 @@ class APinnedConfigIsToldWhenTheDefaultMovesOn(ScratchProject):
             self.assertNotIn("CONFIG DRIFT", out)
 
 
+class LinkSyntaxShownRatherThanMade(ScratchProject):
+    """T-112. `check_links` ran one flat regex over the whole document, so a project that quotes
+    taskmd's own output had its quoted rows resolved as if they were its own links — and `index`
+    emits a Markdown link per row, so the output such a project most wants to quote is exactly the
+    output it cannot.
+
+    The negative cases come first, because this is a *false positive* being removed and the way that
+    goes wrong is a blanket loosening. A fence must not become a place where real links stop being
+    checked.
+
+    This repository did not lack the case. It had one and passed anyway, because a target abridged
+    to three dots resolves on Windows and does not on Linux: `check` exited 0 here and 1 on a Linux
+    runner, on the same tree.
+    """
+
+    FENCED = {"notes.md": ("A [real one](nowhere-above.md) above the fence.\n"
+                           "\n"
+                           "```\n"
+                           "taskmd index  ->  | ID | Title |\n"
+                           "                  | [T-001](nowhere-inside.md) | Carries two |\n"
+                           "```\n"
+                           "\n"
+                           "A [real one](nowhere-below.md) below the fence.\n")}
+
+    SPANNED = {"notes.md": "Write it as `[T-001](nowhere-in-a-span.md)` and it is shown.\n"}
+
+    # The abridgement this repository actually contained. Its target is three dots, which Windows
+    # resolves and Linux does not - so a test asserting it is *not reported* passes on Windows
+    # whether or not the defect is fixed. Both were written that way first and both passed against
+    # the unfixed scanner; the count below is what makes the case provable on either platform,
+    # because an unfollowable string was counted as a link checked regardless of where it ran.
+    ABRIDGED = {"notes.md": ("```\n"
+                             "taskmd index  ->  | [T-001](...) | Carries two fields ... |\n"
+                             "```\n")}
+
+    PLAIN = {"notes.md": "Nothing quoted here at all.\n"}
+
+    def links(self, out):
+        found = re.search(r"(\d+) link\(s\)", out)
+        self.assertIsNotNone(found, out)
+        return int(found.group(1))
+
+    def test_a_fenced_link_is_left_alone_and_the_real_ones_around_it_are_not(self):
+        """Criteria 1 and 3 in one run, deliberately: proving the fence is skipped is worth nothing
+        unless the same document proves links immediately above and below it are still resolved."""
+        with tempfile.TemporaryDirectory() as tmp:
+            code, out = run("check", "--root", self.project(tmp, self.FENCED))
+            self.assertEqual(code, 1, out)
+            self.assertIn("nowhere-above.md", out)
+            self.assertIn("nowhere-below.md", out)
+            self.assertNotIn("nowhere-inside.md", out)
+            self.assertEqual(out.count("BROKEN LINK"), 2, out)
+
+    def test_a_link_inside_a_code_span_is_left_alone(self):
+        """Criterion 2. The document count is asserted so this cannot pass by not being read."""
+        with tempfile.TemporaryDirectory() as tmp:
+            code, out = run("check", "--root", self.project(tmp, self.SPANNED))
+            self.assertEqual(code, 0, out)
+            self.assertNotIn("BROKEN LINK", out)
+            self.assertEqual(self.documents(out), 3, out)
+
+    def test_the_abridged_target_this_repository_carried_stops_being_a_link(self):
+        """The regression guard for the case that was actually here, asserted on the count rather
+        than on the report — see the note on ABRIDGED for why the obvious assertion is untestable
+        on half the platforms this runs on."""
+        with tempfile.TemporaryDirectory() as tmp:
+            quiet = self.links(run("check", "--root", self.project(tmp, self.PLAIN))[1])
+        with tempfile.TemporaryDirectory() as tmp:
+            code, out = run("check", "--root", self.project(tmp, self.ABRIDGED))
+        self.assertEqual(code, 0, out)
+        self.assertEqual(self.links(out), quiet, "an abridged target was counted as a link checked")
+
+    def test_a_document_quoting_the_whole_generated_index_passes(self):
+        """Criterion 4, and the one that matters to an adopter: `index` writes a link per row, so
+        quoting what it printed is the ordinary case rather than a contrived one."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(tmp, self.PLAIN)
+            code, out = run("index", "--root", root)
+            self.assertEqual(code, 0, out)
+            board = cli.read(os.path.join(root, "tasks", "README.md"))
+            cli.write(os.path.join(root, "quoted.md"),
+                      "What the board looked like:\n\n```\n" + board + "```\n")
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 0, out)
+            self.assertNotIn("BROKEN LINK", out)
+
+    def test_the_link_count_excludes_what_was_never_a_pointer(self):
+        """Criterion 5. `links += 1` ran on every match with no filter in front of it, so a project
+        that quoted output had its coverage figure inflated by strings no reader could follow."""
+        with tempfile.TemporaryDirectory() as tmp:
+            quiet = self.links(run("check", "--root", self.project(tmp, self.PLAIN))[1])
+        with tempfile.TemporaryDirectory() as tmp:
+            spanned = self.links(run("check", "--root", self.project(tmp, self.SPANNED))[1])
+        self.assertEqual(spanned, quiet,
+                         "a link shown in a code span was counted as a link checked")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

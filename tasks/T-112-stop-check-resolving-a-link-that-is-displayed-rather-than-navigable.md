@@ -9,7 +9,7 @@ blocked_by: []
 related: [T-092, T-095, T-091, T-114]
 work_package: v0.2
 owner: maintainer
-business_value: medium
+business_value: critical
 effort: s
 created: 2026-08-10
 updated: 2026-08-10
@@ -115,8 +115,13 @@ that was never navigable.
 - [ ] The reported link count excludes what was not examined.
 
 **Open questions**
-- Indented (four-space) code blocks — not measured, and this task should not legislate one it has
-  not seen. Worth measuring while the fenced case is in hand.
+- ~~Indented (four-space) code blocks — not measured, and this task should not legislate one it has
+  not seen.~~ **Measured 2026-08-10, and the answer is to leave them out.** Ten lines in this
+  repository are indented four spaces and carry link syntax, and every one sampled is a **list or
+  table continuation holding a real, resolvable link** — not a code block at all. Treating that
+  indentation as code would stop checking ten genuine links here alone, which is precisely the
+  blanket loosening criterion 3 exists to prevent. The question is answered by the corpus rather
+  than by a reading of the specification, and it is answered *against* extending the fix.
 
 ## 2. Plan
 
@@ -129,10 +134,79 @@ that was never navigable.
 ## 3. Implement
 
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+- **D1 — blank the code regions before matching, rather than filter matches after** — 2026-08-10.
+  `without_code` returns the document with fences and spans replaced by spaces, character for
+  character, and `LINK.finditer` runs on that. Filtering afterwards would have needed the same
+  region information to decide each match, and would have left `links += 1` counting things it then
+  discarded — criterion 5 is a count, not a report, so the exclusion has to happen before the match
+  exists. Blanking rather than deleting keeps every other offset where it was.
+- **D2 — code spans are line-scoped** — 2026-08-10. A span regex allowed to cross lines lets one
+  stray backtick swallow the rest of a document and take every real link in it out of the check.
+  That is a **false negative**, which is worse than the false positive being fixed and is what
+  criterion 3 exists to catch. A span that genuinely wraps a line is not scanned as code; that costs
+  a false positive of the kind already being removed, in a case nobody has produced.
+- **D3 — indented code blocks stay out, and this is measured rather than assumed** — 2026-08-10. See
+  the answered open question above: ten lines here are indented four spaces and carry link syntax,
+  and every one sampled is a list or table continuation with a real link. Extending the fix to them
+  would blind the checker to genuine links in this repository on the day it landed.
+- **An unclosed fence runs to the end of the document**, which is what Markdown does with one. Noted
+  as an assumption rather than a decision: no case in this corpus depends on it.
+
+**The first two tests passed against the unfixed scanner, and that is worth more than the fix.**
+
+Both were written the obvious way — a fenced link whose target is `...`, asserted not to be reported
+— and both went green *before* any code changed. The reason is the defect itself: `...` resolves on
+Windows, so there was nothing for the unfixed scanner to report, and the test could not tell a
+working fence-skip from a filesystem that fabricates the target. **A test can be invalidated by the
+very bug it is written for.** Recorded here because after the repair it leaves no trace: the tests
+pass either way and nothing in the diff shows they once passed for the wrong reason.
+
+Rewritten twice over: the fenced and span cases now use a target absent on every platform, so they
+fail before the fix and pass after it *anywhere*; and the abridged `...` case is kept as its own
+regression guard asserted on the **link count** rather than on the report, because the count is
+wrong on Windows too — an unfollowable string was being counted as a link checked regardless of
+where it ran.
+
+**Verification**
+
+Five tests, shown failing against the unfixed scanner first:
+
+```
+FAIL: test_a_fenced_link_is_left_alone_and_the_real_ones_around_it_are_not
+  AssertionError: 'nowhere-inside.md' unexpectedly found in 'BROKEN LINK ...'
+FAIL: test_a_link_inside_a_code_span_is_left_alone
+  AssertionError: 1 != 0 : BROKEN LINK   notes.md -> nowhere-in-a-span.md
+FAIL: test_a_document_quoting_the_whole_generated_index_passes
+  AssertionError: 1 != 0 : BROKEN LINK   quoted.md -> T-001-x.md
+FAIL: test_the_abridged_target_this_repository_carried_stops_being_a_link
+  AssertionError: 1 != 0 : an abridged target was counted as a link checked
+FAIL: test_the_link_count_excludes_what_was_never_a_pointer
+  AssertionError: 1 != 0 : a link shown in a code span was counted as a link checked
+Ran 5 tests in 0.240s
+FAILED (failures=5)
+```
+
+and passing after it, with the rest of the suite unmoved — the four in `test_runtime.py` are
+T-114's and are this machine's:
+
+```
+test_budget.py     Ran 5 tests   OK
+test_cli.py        Ran 89 tests  OK
+test_list.py       Ran 29 tests  OK
+test_runtime.py    Ran 27 tests  FAILED (failures=4)
+test_schema.py     Ran 45 tests  OK
+```
+
+`check` on this repository still exits 0, and **the link count moved from 1,137 to 1,136** — one
+string that was never a pointer leaving the denominator, which is the T-065 row this task was
+finally raised over. Measured across the fix alone, before this record's own links were written; the
+figure a reader sees today is larger and that difference is this file, not a regression.
 
 **Outputs produced**
-- <none yet>
+- [`plugin/skills/taskmd/taskmd/cli.py`](../plugin/skills/taskmd/taskmd/cli.py) — `FENCE`,
+  `CODE_SPAN`, `blanked`, `without_code`, and one call site in `check_links`
+- [`tests/test_cli.py`](../tests/test_cli.py) — `LinkSyntaxShownRatherThanMade`, five cases
 
 ## 4. Review
 

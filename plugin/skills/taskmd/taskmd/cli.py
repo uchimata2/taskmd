@@ -37,6 +37,14 @@ END = "<!-- taskmd:end -->"
 
 LINK = re.compile(r"\[[^\]]*\]\(([^)#\s]+)(?:#[^)\s]*)?\)")
 
+# Link syntax inside a fence or a code span is text being *shown*, not a pointer being made: it
+# renders as literal characters, nobody can follow it, and it cannot be broken. So it is neither
+# resolved nor counted — T-112, which is the same boundary as the comment below, one syntax over.
+# Spans are line-scoped on purpose: a stray backtick then costs one line rather than swallowing the
+# rest of a document and hiding the real links in it.
+FENCE = re.compile(r"^ {0,3}(`{3,}|~{3,})")
+CODE_SPAN = re.compile(r"(`+)[^\n]*?\1")
+
 # A path written as prose rather than as a Markdown link is **not** a reference this command
 # resolves, and that is a decision rather than an omission — T-092 measured the alternative on this
 # repository and `README.md` tells an adopter what is not covered.
@@ -559,6 +567,32 @@ def check_anomalies(root, schema, tasks, problems):
     return [("task", len(tasks))]
 
 
+def blanked(text):
+    return re.sub(r"[^\n]", " ", text)
+
+
+def without_code(text):
+    """`text` with fenced blocks and inline code spans blanked out, character for character.
+
+    Blanked rather than deleted so every other offset stays where it was. An unclosed fence runs to
+    the end of the document, which is what Markdown itself does with one.
+    """
+    out, fence = [], None
+    for line in text.splitlines(True):
+        opener = FENCE.match(line)
+        if fence is None:
+            if opener:
+                fence = opener.group(1)
+                out.append(blanked(line))
+            else:
+                out.append(CODE_SPAN.sub(lambda found: blanked(found.group(0)), line))
+        else:
+            out.append(blanked(line))
+            if opener and opener.group(1)[0] == fence[0] and len(opener.group(1)) >= len(fence):
+                fence = None
+    return "".join(out)
+
+
 def check_links(root, schema, problems, notes):
     """Every Markdown link in every document a clone would receive.
 
@@ -581,7 +615,7 @@ def check_links(root, schema, problems, notes):
             continue
         base, where = os.path.dirname(md), rel(root, os.path.relpath(md, root))
         documents += 1
-        for match in LINK.finditer(read(md)):
+        for match in LINK.finditer(without_code(read(md))):
             target = match.group(1)
             if target.startswith(("http://", "https://", "mailto:")):
                 continue
