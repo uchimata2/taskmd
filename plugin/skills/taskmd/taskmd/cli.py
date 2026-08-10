@@ -7,10 +7,10 @@
   python -m taskmd list [--<field> V]   [--open|--closed] [--limit N] [--json] [--root PATH]
 
 Four, and the fourth was argued for rather than added — the command surface stood at three until
-2026-08-05 (T-022). Filtering is in; a query language is still out. The
-reason it could not stay grep's job is that grep cannot see a derived edge at all: what a task
-blocks, and the far end of a soft link, exist nowhere on disk. What the retired `deliverables`
-command did that nothing else does still survives as a `check` class rather than as a command.
+2026-08-05 (T-022). Filtering is in; a query language is still out, and the argument for the
+difference is T-022's — not restated here, and not nameable here either: it lives in a paper this
+plugin deliberately does not ship (T-031). What the retired `deliverables` command did that nothing
+else does still survives as a `check` class rather than as a command.
 
 This module holds **no field name, status value or id format of its own**. Everything it knows
 about a project's shape it asks `taskmd.schema` for, which reads it from the config. If you find a
@@ -907,9 +907,8 @@ def matches(task, filters):
 def cmd_list(root, schema, tasks, args):
     """A subset of the tasks, in priority order, rendered so the caller can use it as printed.
 
-    The fourth command, and the one that was argued for: filtering is in, a query language is
-    not, and the reason is that grep cannot answer these questions at all — a derived edge exists
-    nowhere on disk. Writes nothing.
+    The fourth command, and the one that was argued for: filtering is in, a query language is not.
+    The module docstring says where that was settled. Writes nothing.
     """
     parsed, problem = parse_filters(schema, args)
     if problem:

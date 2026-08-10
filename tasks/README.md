@@ -66,7 +66,6 @@ into, not a promise about a date.
 | [T-024](T-024-say-so-when-tasks-dir-names-something-that-is-not-a-folder.md) | Say so when tasks_dir names something that is not a folder | `v0.2` | `proposed` | `specify` | - | - | - | T-019, T-023, T-078 |
 | [T-026](T-026-audit-the-whole-project-before-the-remaining-build.md) | Audit the whole project before the remaining build | `v0.2` | `review` | `review` | - | T-027, T-028, T-029, T-030, T-031, T-032, T-033, T-034 | - | T-003, T-006, T-010, T-025, T-036, T-059, T-086, T-088, T-110 |
 | [T-030](T-030-settle-the-schema-module-s-own-entry-point.md) | Settle the schema module's own entry point | `v0.2` | `specified` | `specify` | T-026 | - | - | T-020, T-023, T-065, T-066 |
-| [T-031](T-031-give-the-list-rationale-one-home.md) | Give the list rationale one home | `v0.2` | `specified` | `specify` | T-026 | - | - | T-022, T-027, T-102 |
 | [T-033](T-033-resolve-the-f1-reference-inside-this-repository.md) | Resolve the F1 reference inside this repository | `v0.2` | `proposed` | `specify` | T-026 | - | - | T-005, T-013 |
 | [T-035](T-035-warn-that-a-fabricated-specimen-must-not-cross-a-shell.md) | Warn that a fabricated specimen must not cross a shell | `v0.2` | `proposed` | `specify` | - | - | - | T-013, T-018, T-034, T-058 |
 | [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | `v0.2` | `specified` | `specify` | - | - | - | T-026, T-032, T-105 |
@@ -110,6 +109,7 @@ into, not a promise about a date.
 | [T-027](T-027-give-the-design-rule-one-home.md) | Give the design rule one home | `v0.1` | `done` | `review` | T-026 | - | - | T-017, T-031, T-045, T-046 |
 | [T-028](T-028-budget-the-whole-always-loaded-context-not-one-file.md) | Budget the whole always-loaded context, not one file | `v0.1` | `done` | `review` | T-026 | - | - | T-003, T-015, T-040, T-046, T-047, T-048, T-063, T-115 |
 | [T-029](T-029-reject-unknown-arguments-on-every-command.md) | Reject unknown arguments on every command | `v0.2` | `done` | `review` | T-026 | - | - | T-002, T-022, T-055, T-087, T-113 |
+| [T-031](T-031-give-the-list-rationale-one-home.md) | Give the list rationale one home | `v0.2` | `done` | `review` | T-026 | - | - | T-022, T-027, T-102 |
 | [T-032](T-032-repair-the-audit-template-and-validate-templates.md) | Repair the audit template, and validate templates at all | `v0.2` | `done` | `review` | T-026 | - | - | T-003, T-022, T-036, T-060, T-076, T-088, T-089, T-090, T-091, T-101 |
 | [T-034](T-034-let-the-pre-publish-check-see-files-not-yet-tracked.md) | Let the pre-publish check see files not yet tracked | `v0.1` | `done` | `review` | T-026 | - | - | T-006, T-013, T-018, T-035, T-058, T-080, T-092, T-094, T-095, T-097, T-098 |
 | [T-037](T-037-delete-the-throwaway-proof-repository.md) | Delete the throwaway repository the GitHub binding was proven on | `v0.1` | `done` | `review` | - | - | - | T-010, T-041, T-077 |
