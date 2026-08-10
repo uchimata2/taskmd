@@ -77,7 +77,7 @@ into, not a promise about a date.
 | [T-113](T-113-name-an-unknown-filter-before-complaining-it-has-no-value.md) | Name an unknown filter before complaining it has no value | `v0.2` | `proposed` | `specify` | - | - | - | T-022, T-029 |
 | [T-114](T-114-make-the-launcher-tests-say-which-bash-they-found.md) | Make the launcher tests say which bash they found | `v0.2` | `proposed` | `specify` | - | - | - | T-091, T-112 |
 | [T-117](T-117-decide-whether-the-command-surface-needs-one-statement.md) | Decide whether the command surface needs one statement | `v0.3` | `proposed` | `specify` | - | - | - | T-030, T-031 |
-| [T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md) | Decide what leaves tier 1 when the budget binds | `v0.2` | `proposed` | `specify` | - | - | - | T-026, T-028, T-047, T-115 |
+| [T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md) | Decide what leaves tier 1 when the budget binds | `v0.2` | `specified` | `specify` | - | - | - | T-026, T-028, T-047, T-115 |
 
 ## Closed
 

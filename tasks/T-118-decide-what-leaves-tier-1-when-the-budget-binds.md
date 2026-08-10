@@ -2,7 +2,7 @@
 id: T-118
 title: Decide what leaves tier 1 when the budget binds
 type: decision
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: []
@@ -80,12 +80,20 @@ R-15 (`docs/SCOPE.md`); `CLAUDE.md` *Three tiers, and only the first is budgeted
       the margin at two characters has deferred the problem rather than taken it
 
 **Open questions**
-- Is the answer a cut, or a different bound? *Recommended: state the rule first and let the cut fall
-  out of it.* Tier 1's membership is already derived from the tree rather than listed, so a rule
-  about what may be there is the same shape as everything else here, and it is what makes the next
-  addition decidable. *Alternative: raise the bound.* Defensible — the bound is another file's byte
-  count, not a measured cost — but it converts a constraint into a number somebody chose, which is
-  what the flat-file comparison exists to avoid.
+- ~~Is the answer a cut, or a different bound?~~ **Answered by the maintainer on 2026-08-11: state
+  the rule first and let the cut fall out of it.** Tier 1's membership is already derived from the
+  tree rather than listed, so a rule about what may be there is the same shape as everything else
+  here, and it is what makes the *next* addition decidable rather than only this one. *Rejected:
+  raising the bound.* It was defensible — the bound is another file's byte count, not a measured cost
+  — but it converts a constraint into a number somebody chose, which is what the flat-file comparison
+  exists to avoid, and it would have to be re-chosen every time the pressure returned.
+
+  **What the answer settles, and what it deliberately does not.** It fixes the *order*: no paragraph
+  is cut until the rule that would justify cutting it is written down. It does not pre-judge whether
+  anything is cut at all — a rule may well find tier 1 already correct at 7,844 characters, in which
+  case the finding is that the bound is the thing under pressure and criterion 2 is where that gets
+  argued. Either outcome satisfies criterion 1; what it forbids is reaching for the largest paragraph
+  under deadline, which is the failure this task was raised to prevent.
 
 ## 2. Plan
 
@@ -114,4 +122,5 @@ R-15 (`docs/SCOPE.md`); `CLAUDE.md` *Three tiers, and only the first is budgeted
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | → specified | Answered by the maintainer the day it was raised: state the rule first, let the cut follow. Criteria stand as written — they were drafted to survive either answer, and criterion 2 is where the rejected option keeps its say, since "why the flat file is or is not the right thing to be measured against" is exactly the argument raising the bound would have made. Nothing here needed the owner beyond that: the remaining questions are `plan`'s. Handed to a clean session at the maintainer's request with `specify` complete and no work started. |
 | 2026-08-11 | → proposed | Raised at T-026's close, so the umbrella's one unanswered residual gets an open home instead of expiring inside a closed task. The residual as posed is answered by events — F-2's cheaper measure was built, is enforced, and passes with no cut — so this is not that question re-asked; it is the two-character margin that answer left behind, and the fact that two tasks have now declined the cut in passing without anyone raising it. |
