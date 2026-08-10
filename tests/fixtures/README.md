@@ -86,9 +86,15 @@ ordinary sibling as well, so what it shows is a *file* being rejected rather tha
 to load.
 
 `broken-link`'s defect is in `.notes/` rather than in a task, and that is the interesting part:
-`glob`'s `**` skips dot-directories, which is how a broken link in a live handoff pointer stayed
-invisible. A fixture that put the dead link in an ordinary folder would pass a walk that misses the
-case that actually bit.
+`glob`'s `**` skips dot-directories, so a fixture that put the dead link in an ordinary folder would
+pass a walk that never opens one. What it pins is the **tracked** half of that problem — its
+`.notes/scratch.md` is committed, so a clone receives it and `check` reads it.
+
+**It no longer covers the case that motivated it**, and the wording above used to say it did
+(T-098). That case was a live handoff pointer, which is gitignored as well as hidden, and since
+T-094 the document side of the link walk reads only what a clone would receive. Nothing validates
+the links in a document a clone would not receive — decided, with the alternatives priced, in T-098.
+So this fixture proves the walk, not the exclusion, and the two must not be read as one.
 
 `nested-at-root` is the third positive case, and it exists because of the shape of this folder
 rather than because of a feature. Every `broken-*` project sits **two** levels down, and the nested-

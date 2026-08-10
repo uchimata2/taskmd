@@ -82,8 +82,15 @@ def is_nested_project(schema, folder):
 def markdown_files(root, schema):
     """Every .md in the project, including dot-directories, excluding nested projects.
 
-    Walking rather than globbing is deliberate: `glob`'s `**` skips dot-directories, and a broken
-    link in a dot-directory is exactly the one that stayed hidden long enough to matter.
+    Walking rather than globbing is deliberate: `glob`'s `**` skips dot-directories, and a project
+    keeps tracked documents in them — config, workflows, templates — which a glob would silently
+    never open.
+
+    **The case this walk was originally written for no longer reaches `check_links`** (T-098). It was
+    a live handoff pointer, in a dot-directory *and* gitignored, and the document-side filter there
+    now removes it: nothing validates the links in a document a clone would not receive, which is a
+    decision with the alternatives priced in T-098 and not an oversight. The walk keeps its job
+    because the tracked half of a dot-directory is real; do not read it as covering the other half.
 
     **The exclusion applies at every depth, including directly inside the root.** It used to carry a
     `base != root` guard, which meant a project holding another project at the top level reported

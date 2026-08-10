@@ -103,6 +103,14 @@ The *targets* are judged differently on purpose: a pointer resolves when the fil
 or not. That is what lets a published document name a local-only file — a machine-specific note, a
 credentials location — and say where it lives, without the validator calling it broken.
 
+**So the pointers inside your machine-local documents are validated by nothing, and that is a
+decision rather than a gap nobody noticed.** If you keep working state a clone never sees — a
+resumption note, a scratch plan, local context — its links are unchecked, and a dead one there is
+found by the next person who follows it. It belongs to whatever writes that document: a tool that
+generates one can resolve its own pointers at the moment it has them, and a hand-written one is
+hand-checked. The alternatives — a flag, a config key naming paths to read anyway, reading everything
+and demoting the findings — were each priced and rejected in T-098, which is also where to reopen it.
+
 **Only Markdown link syntax counts as a pointer.** A path written as prose or inside a fenced block —
 `docs/plan.md` in a sentence, or a path a tool printed into output you pasted — is not checked, and
 a dead one will not be reported. If you are retiring your own link checker in favour of this one,
