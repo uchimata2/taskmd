@@ -80,12 +80,11 @@ class DefaultSchema(unittest.TestCase):
             write(os.path.join(tmp, "tasks", "T-001-x.md"),
                   "---\nid: T-001\ntitle: X\nstatus: proposed\nphase: specify\n---\n")
             schema = load_schema(tmp)
-            # `source` is deliberately relative to the *plugin* root, so an error message never
-            # prints one machine's disk. Resolve it against PKG, not the working directory —
-            # they were the same folder until the plugin became a subtree, and this assertion
-            # passed on that coincidence rather than on what `_display` promises.
-            self.assertEqual(os.path.abspath(os.path.join(PKG, schema.source.replace("/", os.sep))),
-                             os.path.abspath(DEFAULT_CONFIG))
+            # `source` is a label, not a name (T-023). It used to be a path relative to the plugin
+            # root — machine-independent, but pointing into *taskmd's* tree rather than the tree of
+            # the person reading the error, who has no such file to open. Asserted as an equality
+            # so that going back to any path form fails here rather than in someone's terminal.
+            self.assertEqual(schema.source, "<shipped default>")
             self.assertEqual(len(load_tasks(tmp, schema)), 1)
         finally:
             shutil.rmtree(tmp)
@@ -140,6 +139,22 @@ class DefaultSchema(unittest.TestCase):
         tasks = load_tasks(ROOT)
         self.assertFalse([t for t in tasks.values() if t.name == "README.md"])
         self.assertFalse([t.name for t in tasks.values() if t.name.startswith("_")])
+
+
+class TheConfigInForceIsNamedForItsReader(unittest.TestCase):
+    """T-023: every config error opens with the name of the config in force, and the two cases
+    are named differently on purpose — the shipped default by a label, because its real path is
+    inside taskmd's own tree and the reader has no such file to open; a project's own config by
+    its root-relative path, because that one the reader does have. The label half is asserted in
+    `DefaultSchema` on `source` itself; this is the half that must not move with it."""
+
+    def test_a_projects_own_config_is_still_named_by_its_path(self):
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp)
+        write(os.path.join(tmp, ".taskmd", "config.md"), VALID)
+        write(os.path.join(tmp, "tasks", "T-001-x.md"),
+              "---\nid: T-001\ntitle: X\nstatus: open\n---\n")
+        self.assertEqual(load_schema(tmp).source, ".taskmd/config.md")
 
 
 class AltSchema(unittest.TestCase):

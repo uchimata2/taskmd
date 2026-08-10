@@ -458,7 +458,15 @@ def _display(path, root):
     could stay as-written — the root was `.`, so the name already was relative. A resolved root is
     absolute, so without this every config error would print one machine's disk — which no output
     of this tool may do, on any path.
+
+    The shipped default gets a label rather than a name. Its real name is relative to *taskmd's*
+    own tree, so it points somewhere the person reading the error does not have and cannot open,
+    while telling them which config is in force is the whole job. What it costs — a reader learns a
+    default is in force without learning where to read it — was priced and accepted (T-023); if it
+    ever bites, the answer is to name the file beside the label, not to go back to the path.
     """
+    if os.path.abspath(path) == os.path.abspath(DEFAULT_CONFIG):
+        return "<shipped default>"
     for base in (root, os.path.dirname(HERE)):
         try:
             name = os.path.relpath(path, base)
