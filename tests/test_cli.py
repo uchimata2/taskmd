@@ -630,6 +630,60 @@ class Usage(unittest.TestCase):
             self.assertTrue(out.startswith("usage: "), "%s: %r" % (label, out))
             self.assertEqual(named, out[len("usage: "):].split()[0], "%s: %r" % (label, out))
 
+    def test_every_command_rejects_an_argument_it_does_not_understand(self):
+        """T-029, raised as F-3 by the T-026 audit. Three of the four commands took an `args`
+        parameter and never read it past the first element, so a mistyped flag was discarded in
+        silence and the command reported success.
+
+        The set is **derived** from `cli.COMMANDS` for the reason T-071 gives: a written list is one
+        that stops covering a command the moment one is added. An unknown *flag* is the probe that
+        is unknown to all four alike — an unknown positional would be a valid id to `context`.
+
+        The probe carries a value because `list` reports an unknown flag as *needing a value* when
+        it has none, checking the shape before the name; that ordering is [T-113], not this."""
+        self.assertTrue(cli.COMMANDS, "no commands to assert; this test would prove nothing")
+        for command in sorted(cli.COMMANDS):
+            code, out = run(command, "--definitely-not-a-flag", "value", "--root", ROOT)
+            self.assertEqual(code, 2, "%s accepted it: %r" % (command, out))
+            self.assertTrue("usage:" in out or "accepts:" in out,
+                            "%s refused without naming what it takes: %r" % (command, out))
+
+    def test_index_writes_nothing_before_rejecting(self):
+        """The sharp case. `index nonsense --wat` performed the write and exited 0, so a user's
+        evidence that their flag had done something was the same output as if it had."""
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp)
+        cli.write(os.path.join(tmp, "tasks", "T-001-x.md"),
+                  "---\nid: T-001\ntitle: One\ntype: deliverable\nstatus: proposed\n"
+                  "phase: specify\n---\n\n# One\n")
+        path = os.path.join(tmp, "tasks", "README.md")
+
+        code, out = run("index", "nonsense", "--wat", "--root", tmp)
+        self.assertEqual(code, 2)
+        self.assertFalse(os.path.exists(path), "the rejected call still wrote the index")
+        self.assertNotIn("Wrote", out)
+
+        # The same invocation without the junk does write — so what the assertion above pins is the
+        # rejection, not a project that could not have produced an index anyway.
+        self.assertEqual(run("index", "--root", tmp)[0], 0)
+        self.assertTrue(os.path.exists(path))
+
+    def test_asking_what_the_tool_does_is_not_misuse(self):
+        """It printed the right line and exited 2. The intended caller is an agent working out the
+        surface, and the conventional probe told it the tool had failed."""
+        for args in (("--help",), ("-h",), ("check", "--help"), ("context", "--help")):
+            code, out = run(*args)
+            self.assertEqual(code, 0, "%r: %r" % (args, out))
+            self.assertEqual(cli.usage_line(), out.strip(), "%r" % (args,))
+
+    def test_a_rejection_names_no_path(self):
+        """R-20. The same bytes on every platform, which a path could not be — and the reader of
+        this line is being told what the tool accepts, not where it is installed."""
+        for command in sorted(cli.COMMANDS):
+            out = run(command, "--definitely-not-a-flag", "--root", ROOT)[1]
+            self.assertNotIn("\\", out)
+            self.assertNotIn("/", out)
+
 
 class CheckReportsWhatItExamined(unittest.TestCase):
     """T-095. The summary said what passed and not what was looked at, so `no broken links` over

@@ -200,9 +200,9 @@ def load(root):
 # ------------------------------------------------------------------------------- context
 
 def cmd_context(root, schema, tasks, args):
-    if not args:
-        print("usage: taskmd context <id>")
-        return 1
+    # No arity guard here: `main` rejects a wrong argument count for every command before dispatch,
+    # so a second one would be a second home for "context takes an id" — and the copy that used to
+    # be here is the one that would have drifted, since it named the shape in a printed string.
     wanted = args[0]
     if wanted not in tasks:
         print("No such task: %s" % wanted)
@@ -853,12 +853,32 @@ def cmd_list(root, schema, tasks, args):
 
 COMMANDS = {"context": cmd_context, "index": cmd_index, "check": cmd_check, "list": cmd_list}
 
+# What each command accepts after its own name, as the placeholders its rejection line shows.
+# `list` is absent on purpose: its flags *are* the project's vocabulary, read from the config at
+# run time, so it validates its own arguments and names the project's own values when it refuses
+# (T-022). A second table here could not know those values and would be a second home for the ones
+# it did know.
+ARGUMENTS = {"check": (), "index": (), "context": ("<id>",)}
+
+
+def usage_line(command=None):
+    """The one usage line. `taskmd`, not `python -m taskmd`.
+
+    It is read by someone who has already mistyped, and the one who needs telling is the adopter,
+    who has the plugin on PATH and no source tree. It cannot be derived — every route into this
+    module ends in `python -m taskmd`, so argv[0] is the same however the user got here (T-055).
+    """
+    if command is None:
+        return "usage: taskmd {%s} [args] [--root PATH]" % ",".join(sorted(COMMANDS))
+    return "usage: taskmd %s%s [--root PATH]" \
+        % (command, "".join(" " + placeholder for placeholder in ARGUMENTS[command]))
+
 
 def main(argv):
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-    root, rest = None, []
+    root, rest, asked_for_help = None, [], False
     argv = list(argv)
     while argv:
         arg = argv.pop(0)
@@ -867,16 +887,33 @@ def main(argv):
                 print("--root needs a path")
                 return 2
             root = argv.pop(0)
+        elif arg in ("--help", "-h"):
+            asked_for_help = True
         else:
             rest.append(arg)
 
+    # Asking a tool what it does is not misuse. This printed the right line and exited 2, so the
+    # conventional probe was reported as a failure — which costs more here than usual, because the
+    # intended caller is an agent working out the surface. The top-level line only: per-command help
+    # was offered and rejected by the maintainer (T-029), on the ground that a tool needing it would
+    # be evidence against its own premise rather than a tool short of documentation.
+    if asked_for_help:
+        print(usage_line())
+        return 0
+
     if not rest or rest[0] not in COMMANDS:
-        # `taskmd`, not `python -m taskmd`: this line is read by someone who has already mistyped,
-        # and the one who needs telling is the adopter, who has the plugin on PATH and no source
-        # tree. It cannot be derived - every route into this module ends in `python -m taskmd`, so
-        # argv[0] is the same however the user got here (T-055).
-        print("usage: taskmd {%s} [args] [--root PATH]"
-              % ",".join(sorted(COMMANDS)))
+        print(usage_line())
+        return 2
+
+    # Before discovery, before the config is read, before anything is printed or written. An
+    # argument the tool does not understand used to be dropped in silence by three of the four
+    # commands, and `index` would go on to *perform its write* and report success — so the evidence
+    # that a mistyped flag had done something was the same output as the evidence that it had
+    # (T-029). The reasoning that puts a configuration error at setup, applied at the command
+    # layer: a tool that is believed must not report success over something it never looked at.
+    if rest[0] in ARGUMENTS and (len(rest) - 1 != len(ARGUMENTS[rest[0]])
+                                 or any(a.startswith("-") for a in rest[1:])):
+        print(usage_line(rest[0]))
         return 2
 
     # `--root` is the override; with no flag the project is found by walking up from where the
