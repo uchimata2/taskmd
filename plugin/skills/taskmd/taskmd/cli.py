@@ -317,26 +317,32 @@ def cmd_index(root, schema, tasks, args):
 # --------------------------------------------------------------------------------- check
 
 def check_vocabularies(schema, tasks, problems):
+    examined = 0
     for task in ordered(tasks):
         for field, values in sorted(schema.vocabularies.items()):
             value = task.fields.get(field, "")
             if value and value not in values:
                 problems.append("VOCABULARY    %s.%s is '%s'; allowed: %s"
                                 % (task.id, field, value, ", ".join(values)))
+            examined += 1
+    return [("field value", examined)]
 
 
 def check_references(schema, tasks, problems):
+    examined = 0
     for task in ordered(tasks):
         for field in sorted(task.edges):
             for target in task.edges[field]:
                 if target not in tasks:
                     problems.append("DANGLING      %s.%s -> %s does not exist"
                                     % (task.id, field, target))
+                examined += 1
+    return [("reference", examined)]
 
 
 def check_blocked_without_blocker(schema, tasks, problems):
     if not schema.blocked_status:
-        return
+        return []   # nothing walked; claiming the task count would be the very thing T-095 fixed
     dependencies = [f for f, e in schema.edges.items() if e.kind == "dependency"]
     for task in ordered(tasks):
         if task.status != schema.blocked_status:
@@ -344,6 +350,7 @@ def check_blocked_without_blocker(schema, tasks, problems):
         if not any(task.edges[f] for f in dependencies):
             problems.append("NO BLOCKER    %s is '%s' with nothing in %s"
                             % (task.id, schema.blocked_status, ", ".join(sorted(dependencies))))
+    return [("task", len(tasks))]
 
 
 def check_cycles(schema, tasks, problems):
@@ -369,6 +376,7 @@ def check_cycles(schema, tasks, problems):
 
     for tid in sorted(tasks):
         walk(tid)
+    return [("dependency edge", sum(len(tasks[t].edges[f]) for t in tasks for f in dependencies))]
 
 
 def check_stored_derived(schema, tasks, problems):
@@ -377,6 +385,7 @@ def check_stored_derived(schema, tasks, problems):
         for name in sorted(derived & set(task.fields)):
             problems.append("STORED DERIVED %s stores '%s:', which is computed from '%s'; remove it"
                             % (task.id, name, source_of(schema, name)))
+    return [("task", len(tasks))]
 
 
 def source_of(schema, derived):
@@ -398,7 +407,8 @@ def check_deliverables(root, schema, tasks, problems):
     legitimately has no outputs yet, since producing them is what the phase is for.
     """
     if not schema.deliverables_field:
-        return
+        return [("declared output", 0)]
+    examined = 0
     for task in ordered(tasks):
         if task.is_open:
             continue
@@ -406,6 +416,8 @@ def check_deliverables(root, schema, tasks, problems):
             if not os.path.exists(os.path.join(root, path.replace("/", os.sep))):
                 problems.append("MISSING OUTPUT %s declares '%s', which does not exist"
                                 % (task.id, path))
+            examined += 1
+    return [("declared output", examined)]
 
 
 def check_stale_index(root, schema, tasks, problems):
@@ -421,17 +433,22 @@ def check_stale_index(root, schema, tasks, problems):
     otherwise a project is reported on its first run, before `index` has ever been asked for, and one
     that keeps a hand-written index deliberately is reported forever. The prose outside the markers
     is nobody's to police in either direction.
+
+    **It is a denominator all the same.** Reporting nothing and comparing nothing were the same
+    output until T-095: `0 index file(s)` is how a run says it had nothing to compare, which on a
+    project that believes it generates an index is the whole finding.
     """
     path = index_path(root, schema)
     if not os.path.exists(path):
-        return
+        return [("index file", 0)]
     text = read(path)
     if BEGIN not in text or END not in text:
-        return
+        return [("index file", 0)]
     on_disk = text[text.index(BEGIN):text.index(END) + len(END)]
     if on_disk != index_block(root, schema, tasks):
         problems.append("STALE INDEX   %s no longer matches the tasks it was generated from; "
                         "run 'taskmd index'" % rel(root, os.path.relpath(path, root)))
+    return [("index file", 1)]
 
 
 def check_anomalies(root, schema, tasks, problems):
@@ -452,11 +469,14 @@ def check_anomalies(root, schema, tasks, problems):
             problems.append("ID WIDTH      %s declares '%s', which is not %s plus %d digit(s), so "
                             "it is not loaded as a task"
                             % (where[0], anomaly.task_id, schema.id_prefix, schema.id_width))
+    return [("task", len(tasks))]
 
 
 def check_links(root, schema, problems):
+    documents = links = 0
     for md in markdown_files(root, schema):
         base = os.path.dirname(md)
+        documents += 1
         for match in LINK.finditer(read(md)):
             target = match.group(1)
             if target.startswith(("http://", "https://", "mailto:")):
@@ -464,31 +484,61 @@ def check_links(root, schema, problems):
             if not os.path.exists(os.path.normpath(os.path.join(base, target))):
                 problems.append("BROKEN LINK   %s -> %s"
                                 % (rel(root, os.path.relpath(md, root)), target))
+            links += 1
+    return [("document", documents), ("link", links)]
 
 
 def ordered(tasks):
     return [tasks[t] for t in sorted(tasks)]
 
 
+def examined(counted):
+    """The denominators, merged by noun in the order the checks ran.
+
+    Every check returns what it looked at, so the summary is assembled from the checks that actually
+    ran rather than from a list somebody maintains — add a check without a `return` and the merge
+    raises here rather than quietly reporting a coverage the run never had (T-095).
+
+    Merged by **largest**, never summed: three checks walk the task set, and summing would report
+    288 tasks over a project that has 96.
+
+    **A narrower walk gets its own noun rather than merging into the wider one** (T-096). The first
+    cut let `check_cycles` report its dependency edges as `reference`s, on the argument that the
+    wider count would witness any narrowing — which is false, and measurably: reclassify one edge
+    field from `dependency` to `soft` and the cycle walk covers nothing while the edge stays in
+    `task.edges`, so the reference count does not move and the two summaries are byte-identical.
+    """
+    merged = []
+    for noun, count in counted:
+        for i, (seen, before) in enumerate(merged):
+            if seen == noun:
+                merged[i] = (noun, max(before, count))
+                break
+        else:
+            merged.append((noun, count))
+    return ", ".join("%d %s(s)" % (count, noun) for noun, count in merged)
+
+
 def cmd_check(root, schema, tasks, args):
-    problems = []
-    check_anomalies(root, schema, tasks, problems)
-    check_vocabularies(schema, tasks, problems)
-    check_references(schema, tasks, problems)
-    check_blocked_without_blocker(schema, tasks, problems)
-    check_cycles(schema, tasks, problems)
-    check_stored_derived(schema, tasks, problems)
-    check_deliverables(root, schema, tasks, problems)
-    check_stale_index(root, schema, tasks, problems)
-    check_links(root, schema, problems)
+    problems, counted = [], []
+    counted += check_anomalies(root, schema, tasks, problems)
+    counted += check_vocabularies(schema, tasks, problems)
+    counted += check_references(schema, tasks, problems)
+    counted += check_blocked_without_blocker(schema, tasks, problems)
+    counted += check_cycles(schema, tasks, problems)
+    counted += check_stored_derived(schema, tasks, problems)
+    counted += check_deliverables(root, schema, tasks, problems)
+    counted += check_stale_index(root, schema, tasks, problems)
+    counted += check_links(root, schema, problems)
 
     if problems:
         for problem in problems:
             print(problem)
         print("")
-        print("%d problem(s) over %d task(s)" % (len(problems), len(tasks)))
+        print("%d problem(s) - %s" % (len(problems), examined(counted)))
         return 1
-    print("OK - %d task(s), vocabulary valid, references resolve, no broken links" % len(tasks))
+    print("OK - %s" % examined(counted))
+    print("structure and references only - it cannot tell you whether a spec or an outcome is good")
     return 0
 
 

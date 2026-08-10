@@ -107,11 +107,14 @@ taskmd check
 ```
 
 ```
-OK - 0 task(s), vocabulary valid, references resolve, no broken links
+OK - 0 task(s), 0 field value(s), 0 reference(s), 0 dependency edge(s), 0 declared output(s), 0 index file(s), 0 document(s), 0 link(s)
+structure and references only - it cannot tell you whether a spec or an outcome is good
 ```
 
-Run outside a project, `taskmd check` says so and exits 2 instead of reporting a clean tree it never
-opened.
+**The summary carries what was examined, not only what passed** — so a scan that quietly shrinks is
+visible, and a clean run on an empty project reads as the nothing it is rather than as an
+endorsement. Run outside a project, `taskmd check` says so and exits 2 instead of reporting a clean
+tree it never opened.
 
 ### As a plain skill
 

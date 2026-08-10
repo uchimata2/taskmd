@@ -525,5 +525,116 @@ class Usage(unittest.TestCase):
             self.assertEqual(named, out[len("usage: "):].split()[0], "%s: %r" % (label, out))
 
 
+class CheckReportsWhatItExamined(unittest.TestCase):
+    """T-095. The summary said what passed and not what was looked at, so `no broken links` over
+    zero links read exactly like `no broken links` over a thousand.
+
+    This project had already written the rule — judge a run by the file count, not by its silence
+    (T-034, T-080) — and aimed it at a command that printed no file count. The reporting sibling had
+    been bitten twice: a summary reading `0 broken` while two documents the tool pointed at were
+    missing, and later while six pointers had dropped out of scope."""
+
+    NOUNS = ("task", "field value", "reference", "dependency edge", "declared output",
+             "index file", "document", "link")
+
+    def counted(self, out, noun):
+        found = re.search(r"(\d+) %s\(s\)" % re.escape(noun), out)
+        self.assertIsNotNone(found, "no denominator for %r in %r" % (noun, out))
+        return int(found.group(1))
+
+    def test_the_passing_summary_carries_every_denominator(self):
+        code, out = run("check", "--root", ROOT)
+        self.assertEqual(code, 0, out)
+        for noun in self.NOUNS:
+            self.counted(out, noun)
+
+    def test_the_failing_summary_carries_them_too(self):
+        """A narrowed scan hides behind an unrelated problem exactly as well as behind a pass, so
+        the branch that reports problems needs the same numbers as the one that does not."""
+        code, out = run("check", "--root", os.path.join(FIXTURES, "broken-link"))
+        self.assertEqual(code, 1, out)
+        self.assertIn("1 problem(s) - ", out)
+        for noun in self.NOUNS:
+            self.counted(out, noun)
+
+    def test_a_narrowed_scan_shows_a_smaller_number(self):
+        """The failure the task exists to make visible, reproduced rather than described: one scan
+        narrowed on the same tree, **both runs still OK at exit 0**, and the count is the only thing
+        that says anything happened. Before this landed the two lines were byte-identical.
+
+        It runs against this repository rather than a fixture, and that is not laziness: the first
+        draft used `nested-at-root`, which scans exactly one document, so halving its scan produced
+        the same number and the test failed for the right reason on its first run. A test of a
+        shrinking denominator needs something big enough to shrink."""
+        _, wide = run("check", "--root", ROOT)
+        full = cli.markdown_files
+        try:
+            cli.markdown_files = lambda r, s: list(full(r, s))[:1]
+            _, narrow = run("check", "--root", ROOT)
+        finally:
+            cli.markdown_files = full
+
+        self.assertIn("OK - ", wide)
+        self.assertIn("OK - ", narrow)
+        self.assertGreater(self.counted(wide, "document"), self.counted(narrow, "document"))
+
+    def test_a_project_with_no_generated_index_says_so(self):
+        """`check_stale_index` returns early when there is nothing generated, which is right —
+        but reporting nothing and comparing nothing used to be the same output."""
+        _, out = run("check", "--root", os.path.join(FIXTURES, "broken-dangling"))
+        self.assertEqual(self.counted(out, "index file"), 0)
+
+    def test_a_check_that_records_no_denominator_is_not_silent(self):
+        """What keeps the class list derived from the checks that ran instead of hand-maintained.
+        A check added without a return fails at its call site, rather than leaving the summary
+        claiming a coverage the run never had — which is this task's own bug, one level up."""
+        original = cli.check_vocabularies
+        try:
+            cli.check_vocabularies = lambda *args: None
+            self.assertRaises(TypeError, run, "check", "--root", ROOT)
+        finally:
+            cli.check_vocabularies = original
+
+    def test_a_narrower_walk_of_a_counted_class_has_its_own_number(self):
+        """T-096. `check_cycles` first reported its dependency edges as `reference`s, on the argument
+        that the wider walk would witness any narrowing. It does not: reclassifying an edge field
+        from `dependency` to `soft` leaves it in `task.edges`, so the reference count holds steady
+        while cycle-checking drops to nothing — and the two summaries came out byte-identical, which
+        is the failure T-095 exists to remove, surviving inside T-095's own fix."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root, config = os.path.join(tmp, "p"), None
+            os.makedirs(os.path.join(root, "tasks"))
+            os.makedirs(os.path.join(root, ".taskmd"))
+            config = os.path.join(root, ".taskmd", "config.md")
+            shutil.copy(os.path.join(PKG, "taskmd", "defaults", "config.md"), config)
+            cli.write(os.path.join(root, "tasks", "T-001-x.md"),
+                      "---\nid: T-001\ntitle: One\ntype: fix\nstatus: proposed\nphase: specify\n"
+                      "blocked_by: []\nowner: someone\n---\n\n# T-001\n")
+            cli.write(os.path.join(root, "tasks", "T-002-x.md"),
+                      "---\nid: T-002\ntitle: Two\ntype: fix\nstatus: proposed\nphase: specify\n"
+                      "blocked_by: [T-001]\nowner: someone\n---\n\n# T-002\n")
+
+            _, before = run("check", "--root", root)
+            with io.open(config, encoding="utf-8") as handle:
+                text = handle.read()
+            cli.write(config, text.replace("| blocked_by | dependency | blocks |",
+                                           "| blocked_by | soft | - |"))
+            _, after = run("check", "--root", root)
+
+            self.assertEqual(self.counted(before, "reference"),
+                             self.counted(after, "reference"),
+                             "the edge did not leave the graph, so this must not move")
+            self.assertGreater(self.counted(before, "dependency edge"),
+                               self.counted(after, "dependency edge"))
+
+    def test_the_caveat_names_what_check_cannot_decide(self):
+        """A validator that passes silently is read as an endorsement. It prints on the passing
+        path only — a failing run is not being read as one."""
+        _, passing = run("check", "--root", ROOT)
+        _, failing = run("check", "--root", os.path.join(FIXTURES, "broken-link"))
+        self.assertIn("structure and references only", passing)
+        self.assertNotIn("structure and references only", failing)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

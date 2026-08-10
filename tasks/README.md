@@ -62,7 +62,6 @@ into, not a promise about a date.
 | [T-092](T-092-decide-whether-a-bare-path-in-prose-is-a-reference.md) | Decide whether a bare path in prose is a reference check must resolve | `v0.2` | `proposed` | `specify` | - | - | - | - | T-034, T-093, T-094, T-095 |
 | [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `v0.3` | `proposed` | `specify` | - | - | - | - | T-092, T-095 |
 | [T-094](T-094-make-check-answer-the-question-a-fresh-clone-would-ask.md) | Make check answer the question a fresh clone would ask | `v0.2` | `proposed` | `specify` | - | - | - | - | T-013, T-034, T-092, T-095 |
-| [T-095](T-095-report-what-check-examined-not-only-that-it-passed.md) | Report what check examined, not only that it passed | `v0.2` | `proposed` | `specify` | - | - | - | - | T-025, T-034, T-080, T-092, T-093, T-094 |
 
 ## Closed
 
@@ -87,7 +86,7 @@ into, not a promise about a date.
 | [T-018](T-018-stop-the-pre-publish-fixture-tripping-its-own-check.md) | Stop the pre-publish fixture tripping its own check | `v0.1` | `done` | `review` | - | - | - | T-006 | T-013, T-034, T-035, T-058, T-080 |
 | [T-019](T-019-report-a-tasks-dir-that-does-not-exist-at-setup.md) | Report a tasks_dir that does not exist at setup | `v0.1` | `done` | `review` | T-002 | - | - | - | T-003, T-006, T-023, T-024, T-025, T-078 |
 | [T-022](T-022-filtered-task-listing-for-scripts.md) | Filtered task listing for scripts | `v0.1` | `done` | `review` | - | - | - | - | T-003, T-007, T-021, T-029, T-031, T-032, T-070, T-071, T-073, T-086, T-087 |
-| [T-025](T-025-let-check-notice-a-stale-generated-index.md) | Let check notice a stale generated index | `v0.2` | `done` | `review` | - | - | - | - | T-002, T-009, T-011, T-019, T-026, T-039, T-084, T-089, T-095 |
+| [T-025](T-025-let-check-notice-a-stale-generated-index.md) | Let check notice a stale generated index | `v0.2` | `done` | `review` | - | - | - | - | T-002, T-009, T-011, T-019, T-026, T-039, T-084, T-089, T-095, T-096 |
 | [T-027](T-027-give-the-design-rule-one-home.md) | Give the design rule one home | `v0.1` | `done` | `review` | T-026 | - | - | T-028 | T-017, T-031, T-045, T-046 |
 | [T-028](T-028-budget-the-whole-always-loaded-context-not-one-file.md) | Budget the whole always-loaded context, not one file | `v0.1` | `done` | `review` | T-026 | - | T-027 | - | T-003, T-015, T-040, T-046, T-047, T-048, T-063 |
 | [T-034](T-034-let-the-pre-publish-check-see-files-not-yet-tracked.md) | Let the pre-publish check see files not yet tracked | `v0.1` | `done` | `review` | T-026 | - | - | - | T-006, T-013, T-018, T-035, T-058, T-080, T-092, T-094, T-095 |
@@ -139,5 +138,7 @@ into, not a promise about a date.
 | [T-086](T-086-group-the-backlog-into-release-milestones.md) | Group the backlog into release milestones | `v0.2` | `done` | `review` | - | - | - | - | T-006, T-022, T-026, T-087 |
 | [T-088](T-088-put-audit-in-the-shipped-type-vocabulary-or-stop-calling-it-a-type.md) | Put audit in the shipped type vocabulary, or stop calling it a type | `v0.2` | `done` | `review` | - | - | - | - | T-001, T-026, T-032 |
 | [T-089](T-089-stop-check-reporting-an-open-task-s-planned-outputs-as-missing.md) | Stop check reporting an open task's planned outputs as missing | `v0.2` | `done` | `review` | - | T-090 | - | - | T-002, T-025, T-032 |
+| [T-095](T-095-report-what-check-examined-not-only-that-it-passed.md) | Report what check examined, not only that it passed | `v0.2` | `done` | `review` | - | T-096 | - | - | T-025, T-034, T-080, T-092, T-093, T-094 |
+| [T-096](T-096-decide-whether-a-narrower-walk-of-a-counted-class-needs-its-own-number.md) | Decide whether a narrower walk of a counted class needs its own number | `v0.2` | `done` | `review` | T-095 | - | - | - | T-025 |
 
 <!-- taskmd:end -->
