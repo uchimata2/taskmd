@@ -55,6 +55,21 @@ it returns OK on a `done` task whose implement section is still the untouched te
 validator is necessary for closing and is never the condition — reading it as the condition is how a
 project ends up closing tasks that recorded nothing.
 
+**A closed task's declared outputs follow the artefact; its body does not.** Move a file that a
+closed task declared, and update the declaration — that is METHOD rule 5's *current*, applied to the
+present. The path is a live pointer here for the same reason a Markdown link is one and a path
+written in prose is not: something resolves it (T-092). The task's implement section keeps the path
+as it was written, because that is a dated statement about what was produced and where, and
+rewriting it destroys the record the section exists to be. So a project reorganising its files edits
+front-matter and leaves bodies alone, at any scale, without either half being a judgement call.
+
+**A deletion is not a move and must not be repaired as one.** `check` cannot tell them apart — both
+are a declared path that is not there — but you can. A move leaves the assertion true and changes
+only how it is written; a deletion makes it false, and a closed task whose outcome no longer exists
+is a thing to know rather than a message to clear. Restore the artefact, or record what happened in
+the task and take the consequence deliberately. Editing the field until `check` goes quiet is the one
+response that loses the information.
+
 **Backend limits: none that reach the method.** A file holds any field, any edge and any content,
 so nothing in METHOD is absorbed or approximated here. That is what makes this binding the wrong
 one to generalise from — see [`../BINDING.md`](../BINDING.md) §2.

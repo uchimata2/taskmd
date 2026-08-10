@@ -21,7 +21,9 @@ one arrives. Everything here governs the work; the files in §7 do not, so they 
 3. **One home per fact.** Anything derivable is derived, never written down a second time (§4).
 4. **Audit findings become their own tasks** and are never fixed where they are found (§5).
 5. **Done means consistent.** A task closes when its outcome exists, its record is current, and the
-   `implement` evidence is written down — undocumented progress did not happen.
+   `implement` evidence is written down — undocumented progress did not happen. *Current* keeps
+   binding after it closes: correct what the record says about the **present**, and never rewrite
+   what it says about the **past** — annotate that instead.
 
 ---
 
