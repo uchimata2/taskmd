@@ -45,8 +45,13 @@ one bump on a batch rather than on a single fix. **Minor, not patch**, and the r
 accumulating: `check` reads fewer documents than it did, so a project can see its own counts fall;
 since T-032 it also reports a **new class** against a file it never used to read at all, so an
 adopter whose template has rotted will see `check` start failing on a tree that passed yesterday.
-That is the change most worth a version number, and it is still waiting on the batch. The
-definition of done
+**That last one was put to the maintainer on 2026-08-10 as a reason to bump early, and declined:
+wait for the batch.** So the question is settled rather than open — do not raise it again per fix.
+The argument it survived is the strongest one available, and worth knowing because it is the only
+change of the run that turns a *passing* tree red rather than merely changing an output: an adopter
+updating for something unrelated meets a new failure class. Answered anyway, because a bump per fix
+is the thing the batch policy exists to prevent, and the surprise is bounded — `check` names the
+file and the field. The definition of done
 (`docs/SCOPE.md` §9) is closed. What is left is grouped into
 **v0.2 and v0.3**, whose purpose and exit criteria are in `tasks/README.md` and whose membership is
 each task's `work_package` — do not maintain a list of that anywhere.
