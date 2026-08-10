@@ -10,7 +10,7 @@ related: [T-088, T-090, T-093, T-097, T-098, T-104]
 work_package: v0.2
 owner: maintainer
 business_value: medium
-effort: xs
+effort: s
 created: 2026-08-10
 updated: 2026-08-10
 deliverables: []
@@ -46,6 +46,34 @@ finds again from scratch.
 *outcome* is an answer is a decision; a task that will also change a file once the answer is known is
 plausibly a fix. All four of the mistyped set are both. The value has no stated test.
 
+### The maintainer's steer, 2026-08-10 — and the angle it opens
+
+**Carrying an unanswered question does not make a task a decision.** Stated by the maintainer against
+this task's own first recommendation, and it is the right correction: every task carries open
+questions at `specify`, so a test that fires on "has a question" fires on nearly everything and
+distinguishes nothing. Whatever test the value gets has to be about the task's *outcome*, not about
+its uncertainty.
+
+**But there is a real distinction underneath, and it is one of degree.** When a task has more
+questions than answers, or when its questions could change its scope *significantly*, it is a
+different kind of work from one that merely has a detail to settle — closer to a **spike** in the
+agile sense: work undertaken to reduce uncertainty, whose product is knowledge rather than the thing
+itself. That is worth researching from that perspective, alongside the narrow typing question.
+
+**The research is deliberately not done here**, and is `plan`'s to carry out.
+
+**Two constraints on it, and the second is the one that will be tempting to skip.**
+
+- taskmd tracks **any kind of work, not only software** (R-9): the method assumes no code, no tests,
+  no version control, and reads for a research question, a talk, a training course or an ops runbook.
+  Software projects are welcome and supported — the maintainer's words — but they are not the case
+  the vocabulary is shaped around.
+- So *spike* is an input, not a candidate name. It is a software word carrying a software practice's
+  assumptions, and `docs/BRIEF.md` already lists what that costs: **an imported convention carries
+  its author's assumptions.** If the concept survives the research, it needs a name a training
+  course would recognise. The question the research answers is whether the **distinction** is real
+  and worth a vocabulary value, not whether taskmd should adopt someone else's word for it.
+
 **It matters more since [T-104](T-104-say-whether-the-method-has-an-opinion-on-where-a-decision-is-recorded.md).**
 That task settled that a decision lives in the task it belongs to, and that a register of taken
 decisions is a view of those tasks. A view nobody can build — because the tasks holding decisions are
@@ -60,9 +88,15 @@ whatever is decided is a statement about what a vocabulary value means, which is
 - In: retyping the four, or leaving them, as the decision requires.
 - In: whether the shipped schema's `type` row gains a word about it — the vocabulary is documented
   there and currently says nothing about what any value means.
+- In: **the uncertainty-reducing kind of work**, per the maintainer's steer above — whether a task
+  whose questions outnumber its answers, or whose questions could move its scope, is a distinct kind
+  worth naming, and whether the agile *spike* is a useful comparison or a misleading one for a method
+  that is not about software. Researched at `plan`, not here.
 - Out: adding a field. A task that is both a decision and a fix does not need two type values; if the
   vocabulary cannot express it, that is the answer, not a schema change.
-- Out: the vocabulary itself. `decision` stays; this is about when it applies.
+- Out: `decision` being removed. It stays; this is about when it applies and whether it has company.
+- Out: adopting *spike* as a value name. If the concept lands, its name is chosen for a reader who has
+  never shipped software — the word is an input to the research, never its conclusion.
 
 **Inputs**
 - `plugin/skills/taskmd/taskmd/defaults/config.md` §*Vocabularies*, and the pointer T-104 added.
@@ -84,6 +118,17 @@ whatever is decided is a statement about what a vocabulary value means, which is
   it. That makes the filter complete and costs four field edits. *Alternative: leave the value
   untested and say so* — honest, cheap, and it means the vocabulary carries a value that cannot be
   used to find anything, which is what T-088 was raised to remove.
+
+  **What is already settled, by the maintainer on 2026-08-10: carrying an unanswered question is not
+  the test.** *Rejected: "a task with open questions is a decision"* — this task's own first
+  recommendation, and wrong: every task has open questions at `specify`, so the test would fire on
+  nearly all of them.
+- **Is there a second kind of work here, and does it need a name?** Raised by the maintainer with the
+  steer above: a task whose questions outnumber its answers, or whose questions could significantly
+  move its scope, may be a different kind rather than a badly-typed one. *No recommendation yet — the
+  research it needs has deliberately not been done.* Whoever plans this weighs whether the
+  distinction survives outside software at all, since a training course and an ops runbook are the
+  cases the vocabulary has to read for.
 
 ## 2. Plan
 
@@ -112,4 +157,5 @@ whatever is decided is a statement about what a vocabulary value means, which is
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-10 | (no change) | **Maintainer's steer, recorded and not acted on.** Two parts. First, a correction to this task's own opening recommendation: *carrying an unanswered question does not make a task a decision* — right, and for a reason the task had not weighed, since every task has open questions at `specify` and a test that fires on all of them distinguishes nothing. Q1's rejected alternative now records it. Second, a genuinely new angle: when a task's questions outnumber its answers, or could move its scope significantly, that may be **a different kind of work** rather than a mistyped one — near to an agile *spike*, work whose product is knowledge rather than the thing itself. **The research was explicitly not to be performed**, so it is recorded as `plan`'s and the scope gained an *In* item for it. Two constraints written down with it, the second being the one most likely to be skipped: taskmd tracks any kind of work and not only software (R-9), the maintainer confirming software projects are supported but not the case the vocabulary is shaped around; and *spike* is therefore an **input to the research, never a candidate name**, because an imported convention carries its author's assumptions — `docs/BRIEF.md` lists that as a lesson already paid for. Effort **xs → s**: the narrow typing answer is still a sentence, but a second candidate kind is a vocabulary question with a research step in front of it. The title still reads correctly and is deliberately not widened yet — if the second kind survives, renaming is `specify`'s call, not a guess made now. **Status unchanged**: this is input to a specify nobody has agreed, not an agreement. |
 | 2026-08-10 | → proposed | Found in the project status review of 2026-08-10, surfaced to the maintainer, and **not acted on** — raised as a parked task rather than pressed, because an observation with no record is one the next review re-derives from nothing. `medium` because nothing is broken and the cost is a filter that quietly under-answers; `xs` because the work is a sentence and four field edits. Sized against the wrong reading deliberately: it looks like a typo to fix, and it is not — all four of the mistyped tasks are genuinely both a decision and a fix, and the vocabulary has never stated a test for which wins. Worth settling in the same pass as any re-grouping of `work_package`, since that touches every task's front-matter anyway. |
