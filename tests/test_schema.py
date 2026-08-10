@@ -301,6 +301,20 @@ class RejectsBadConfig(unittest.TestCase):
     def test_missing_key(self):
         self.reject(VALID.replace("tasks_dir: tasks\n", ""), "missing config key(s): tasks_dir")
 
+    def test_the_shipped_config_warns_that_a_new_key_breaks_every_existing_one(self):
+        """T-106. `test_missing_key` above is the mechanism; this is the warning that has to reach
+        whoever is about to cause it.
+
+        The constraint exists only as a conjunction — replace-not-merge, every key written, a
+        missing key is an error — each documented separately and each individually right. A fact
+        that is nowhere stated whole is one that gets rediscovered by being hit, which is how it
+        surfaced (mid-plan, in T-100). So the sentence is asserted rather than trusted."""
+        with open(DEFAULT_CONFIG, encoding="utf-8") as handle:
+            shipped = handle.read()
+        self.assertIn("Adding a key to this file is a breaking change", shipped)
+        for premise in ("replaces", "must be **written**", "**missing** key is an error"):
+            self.assertIn(premise, shipped)
+
     def test_id_width_not_a_number(self):
         self.reject(VALID.replace("id_width: 3", "id_width: wide"), "must be a whole number")
 

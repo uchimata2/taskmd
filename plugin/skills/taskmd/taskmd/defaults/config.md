@@ -80,10 +80,33 @@ front-matter setting are the whole point of writing a config. A row you deleted 
 stop checking one*, above, and is left alone. A project using this file with no config of its own is
 not compared at all: it cannot be behind what it is using.
 
-**There is no key to switch it off**, and that is a constraint rather than a preference: every key
-here is required to be written, so adding one would make every existing project's config invalid on
-upgrade. A project that pinned deliberately reads one line that names exactly what it decided not to
-have.
+**There is no key to switch it off**, and that is a constraint rather than a preference — for the
+reason the next section gives. A project that pinned deliberately reads one line that names exactly
+what it decided not to have.
+
+## Adding a key to this file is a breaking change
+
+Three rules already stated here compose into a fourth that is easy to meet only by being bitten:
+
+1. A config **replaces** this file rather than merging with it.
+2. So every key must be **written**, including the ones set to `none`.
+3. So a **missing** key is an error naming the key — not a silent fallback.
+
+Therefore **the moment this file gains a key, every project that wrote its own config fails on the
+next upgrade**, with an error naming a key nobody there has heard of, in a project that changed
+nothing. Read the rules in the other order and it is obvious; read them in the order they arrive and
+it is a surprise, which is what happened while designing the drift line above.
+
+That is the price of the three, not a defect in any of them. Each does the job it was written for,
+and without them a silently absent key hands you a schema you did not write.
+
+**If it happens to you**, the error names the key. Add it, with the value and meaning documented
+here — this file is the only description of what any key means, so the line to copy is in it. That
+is the whole of the upgrade.
+
+**It is deliberately not automated.** An optional key, a merge on upgrade, or a version marker in
+every config would each be larger than the problem — no key has been added since this schema shipped
+— and each would weaken rule 1, which is what makes a config say exactly what a project meant.
 
 ## The tasks folder
 

@@ -44,6 +44,9 @@ NULLABLE_KEYS = ("deliverables_field", "blocked_status", "value_field", "effort_
                  "after_write")
 LIST_KEYS = ("open_statuses", "context_fields", "index_columns")
 CONFIG_KEYS = SCALAR_KEYS + NULLABLE_KEYS + LIST_KEYS
+# Adding a name to any of the three tuples above breaks every project that wrote its own config,
+# the next time it upgrades — read `## Adding a key to this file is a breaking change` in
+# defaults/config.md before you do. It is the one thing this list cannot be changed casually.
 
 NULLS = ("", "null", "none", "~")
 

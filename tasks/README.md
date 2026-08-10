@@ -71,7 +71,6 @@ into, not a promise about a date.
 | [T-103](T-103-say-whether-a-closed-task-s-declared-output-may-be-repointed.md) | Say whether a closed task's declared output may be repointed when the file moves | `v0.3` | `proposed` | `specify` | - | - | - | - | T-076, T-089, T-090, T-104 |
 | [T-104](T-104-say-whether-the-method-has-an-opinion-on-where-a-decision-is-recorded.md) | Say whether the method has an opinion on where a decision is recorded | `v0.3` | `proposed` | `specify` | - | - | - | - | T-008, T-088, T-103 |
 | [T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md) | Say where an authorised multi-phase run is recorded | `v0.3` | `proposed` | `specify` | - | - | - | - | T-005, T-036, T-047 |
-| [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) | Say that the shipped config cannot gain a key without breaking every project that wrote one | `v0.3` | `proposed` | `specify` | - | - | - | - | T-001, T-011, T-023, T-100 |
 | [T-107](T-107-say-so-when-a-valid-task-file-is-parked-where-nothing-reads-it.md) | Say so when a valid task file is parked where nothing reads it | `v0.3` | `proposed` | `specify` | - | - | - | - | T-062, T-069, T-075, T-101 |
 
 ## Closed
@@ -157,5 +156,6 @@ into, not a promise about a date.
 | [T-100](T-100-report-a-project-config-that-has-drifted-from-the-shipped-default.md) | Report a project config that has drifted from the shipped default | `v0.2` | `done` | `review` | - | - | - | - | T-001, T-023, T-088, T-095, T-106 |
 | [T-101](T-101-report-a-template-the-create-path-cannot-see.md) | Report a template the create path cannot see | `v0.2` | `done` | `review` | - | - | - | - | T-032, T-051, T-076, T-091, T-095, T-107 |
 | [T-102](T-102-show-which-rows-list-has-already-worked-out-are-blocked.md) | Show which rows list has already worked out are blocked | `v0.2` | `done` | `review` | - | - | - | - | T-022, T-031, T-070, T-087 |
+| [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) | Say that the shipped config cannot gain a key without breaking every project that wrote one | `v0.3` | `done` | `review` | - | - | - | - | T-001, T-011, T-023, T-100 |
 
 <!-- taskmd:end -->
