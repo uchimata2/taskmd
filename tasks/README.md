@@ -19,28 +19,34 @@ What each one is for. **Which tasks are in it is not written here** — that is 
 the plugin and the README, at `github.com/uchimata2/taskmd`. Its content is every task that was
 closed when it shipped.
 
-**v0.2 — the tool holds up in a project that is not this one.** Done when `check` notices a
-generated index that has gone stale, every command rejects an argument it does not understand, a
-task created from any shipped template validates, config errors name something the reader can act
-on, and the audit umbrella closes because all of its findings are resolved. **Extended on
-2026-08-10**, when the first project outside this repository reported what adopting cost it: also
-done when the documented command runs for an adopter whose harness never put it on `PATH`, a project
-that pinned the schema is told when the shipped default moves past it, a template nothing can find is
-reported rather than read as an absent one, and `list` says which of its rows are blocked. Those four
-are what the milestone's own sentence was always claiming, arriving as evidence rather than as
-intent — so the clause is widened rather than the tasks deferred.
+**Grouped by size and by what blocks what**, on the maintainer's rule of 2026-08-10: v0.2 takes all
+dependencies plus every minor-to-moderate correction, v0.3 the bigger work and the new capabilities.
+That replaced grouping by theme, which is what the two headlines used to be — the change and what it
+cost are in [T-110](T-110-re-group-the-open-backlog-by-the-maintainers-release-rule.md).
 
-**v0.3 — the claims are proven off this machine, and the method's documents settle.** Done when
-byte-identical output is demonstrated on macOS and Linux, the published plugin has been installed on
-a machine that never held it, the always-loaded tier carries what binds before task work, the
-boundary between revising a plan and auditing one is written down, a backend that allocates its own
-ids can be configured, and taskmd works as a tracker binding for the handoff skill. **Extended on
-2026-08-10**, by the same report that widened v0.2: also done when the method says where a decision
-is recorded and what a decisions register is, whether a closed task's declared output may follow the
-file it names, and where an authorisation to run several phases is written down — plus two things
-that report did not ask for and its findings uncovered, that adding a key to the shipped config
-breaks every project that wrote one, and what happens to a task file parked where nothing reads it.
-Each is the second half of *the method's documents settle*, which the clause already claimed.
+**v0.2 — the one dependency chain, and every small correction.** **Done when every task grouped here
+is closed.** One criterion, not a list: a list of outcomes here would be a second copy of the
+membership the *Work Package* column already carries, and that copy is exactly what the previous
+clause set turned out to be — widened twice rather than tasks being moved, and still leaving eleven
+open tasks it did not require. The chain is worth naming because it is the only one: **the audit
+umbrella closes because all of its findings are resolved** — its open children, in the table below.
+Nothing else here waits on anything.
+
+**v0.3 — the bigger work, and the capabilities that are not corrections.** Few enough that each is
+worth naming by its outcome. Done when byte-identical output is demonstrated on
+macOS and Linux, the published plugin has been installed on a machine that never held it, taskmd
+works as a tracker binding for the handoff skill, what `check` does with a section reference is
+settled, and a project can move its backlog from local files to GitHub Issues. That last one
+**contradicts [`../docs/SCOPE.md`](../docs/SCOPE.md) non-goal 8**, which defers migration tooling to
+v1; it is named here as membership and not as a commitment, and nothing can be planned on it until
+the maintainer amends the non-goal or drops the task.
+
+**The two state "done" differently on purpose.** v0.3 has a handful of outcomes worth naming; v0.2
+holds everything else, whose only common property is being small, and enumerating those would rebuild
+the drift the re-grouping removed. The trade is real and worth stating: grouping by size cannot claim anything
+about the product, so v0.2 no longer asserts that the tool holds up elsewhere, and v0.3 no longer
+asserts that the method's documents settle. Both claims were true of the sets that carried them and
+are not exit criteria any more.
 
 Neither is a version until the maintainer tags one. A milestone here is what the work is grouped
 into, not a promise about a date.
@@ -62,11 +68,11 @@ into, not a promise about a date.
 | [T-031](T-031-give-the-list-rationale-one-home.md) | Give the list rationale one home | `v0.2` | `specified` | `specify` | T-026 | - | - | - | T-022, T-027, T-102 |
 | [T-032](T-032-repair-the-audit-template-and-validate-templates.md) | Repair the audit template, and validate templates at all | `v0.2` | `specified` | `specify` | T-026 | - | - | - | T-003, T-022, T-036, T-060, T-076, T-088, T-089, T-090, T-091, T-101 |
 | [T-033](T-033-resolve-the-f1-reference-inside-this-repository.md) | Resolve the F1 reference inside this repository | `v0.2` | `proposed` | `specify` | T-026 | - | - | - | T-005, T-013 |
-| [T-035](T-035-warn-that-a-fabricated-specimen-must-not-cross-a-shell.md) | Warn that a fabricated specimen must not cross a shell | `v0.3` | `proposed` | `specify` | - | - | - | - | T-013, T-018, T-034, T-058 |
-| [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | `v0.3` | `specified` | `specify` | - | - | - | - | T-026, T-032, T-105 |
-| [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `v0.3` | `specified` | `specify` | - | - | T-003 | - | T-015, T-028, T-059, T-063, T-105 |
+| [T-035](T-035-warn-that-a-fabricated-specimen-must-not-cross-a-shell.md) | Warn that a fabricated specimen must not cross a shell | `v0.2` | `proposed` | `specify` | - | - | - | - | T-013, T-018, T-034, T-058 |
+| [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | `v0.2` | `specified` | `specify` | - | - | - | - | T-026, T-032, T-105 |
+| [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `v0.2` | `specified` | `specify` | - | - | T-003 | - | T-015, T-028, T-059, T-063, T-105 |
 | [T-078](T-078-say-what-a-tasks-dir-of-dot-means.md) | Say what a tasks_dir of dot means | `v0.2` | `specified` | `specify` | - | - | - | - | T-019, T-024, T-069 |
-| [T-082](T-082-let-id-width-say-the-backend-allocates-the-ids.md) | Let id_width say that the backend allocates the ids | `v0.3` | `proposed` | `specify` | T-004 | - | - | - | T-010, T-075, T-108 |
+| [T-082](T-082-let-id-width-say-the-backend-allocates-the-ids.md) | Let id_width say that the backend allocates the ids | `v0.2` | `proposed` | `specify` | T-004 | - | - | - | T-010, T-075, T-108 |
 | [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) | Install the published plugin on a machine that has never seen it | `v0.3` | `proposed` | `specify` | T-006 | - | - | - | T-020, T-049, T-067, T-099 |
 | [T-087](T-087-let-list-filter-on-a-field-the-index-can-show.md) | Let list filter on a field the index can show | `v0.2` | `specified` | `specify` | - | - | - | - | T-022, T-029, T-086, T-102 |
 | [T-090](T-090-decide-what-a-cancelled-task-s-declared-outputs-assert.md) | Decide what a cancelled task's declared outputs assert | `v0.2` | `proposed` | `specify` | T-089 | - | - | - | T-002, T-032, T-103, T-109 |
@@ -74,10 +80,9 @@ into, not a promise about a date.
 | [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `v0.3` | `proposed` | `specify` | - | - | - | - | T-092, T-095, T-109 |
 | [T-097](T-097-decide-whether-a-published-document-may-point-at-a-file-no-clone-receives.md) | Decide whether a published document may point at a file no clone receives | `v0.2` | `proposed` | `specify` | - | - | - | - | T-013, T-034, T-092, T-094, T-109 |
 | [T-098](T-098-decide-who-checks-the-links-in-a-document-only-a-successor-reads.md) | Decide who checks the links in a document only a successor reads | `v0.2` | `proposed` | `specify` | - | - | - | - | T-002, T-034, T-080, T-094, T-095, T-109 |
-| [T-107](T-107-say-so-when-a-valid-task-file-is-parked-where-nothing-reads-it.md) | Say so when a valid task file is parked where nothing reads it | `v0.3` | `proposed` | `specify` | - | - | - | - | T-062, T-069, T-075, T-101 |
+| [T-107](T-107-say-so-when-a-valid-task-file-is-parked-where-nothing-reads-it.md) | Say so when a valid task file is parked where nothing reads it | `v0.2` | `proposed` | `specify` | - | - | - | - | T-062, T-069, T-075, T-101 |
 | [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `v0.3` | `proposed` | `specify` | - | - | - | - | T-004, T-009, T-010, T-041, T-082 |
 | [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md) | Decide whether a task that settles a question must be typed decision | `v0.2` | `proposed` | `specify` | - | - | - | - | T-088, T-090, T-093, T-097, T-098, T-104, T-110 |
-| [T-110](T-110-re-group-the-open-backlog-by-the-maintainers-release-rule.md) | Re-group the open backlog by the maintainer's release rule | `v0.2` | `proposed` | `specify` | - | - | - | - | T-026, T-086, T-109 |
 
 ## Closed
 
@@ -166,5 +171,6 @@ into, not a promise about a date.
 | [T-104](T-104-say-whether-the-method-has-an-opinion-on-where-a-decision-is-recorded.md) | Say whether the method has an opinion on where a decision is recorded | `v0.3` | `done` | `review` | - | - | - | - | T-008, T-076, T-088, T-103, T-109 |
 | [T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md) | Say where an authorised multi-phase run is recorded | `v0.3` | `done` | `review` | - | - | - | - | T-005, T-036, T-047, T-063 |
 | [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) | Say that the shipped config cannot gain a key without breaking every project that wrote one | `v0.3` | `done` | `review` | - | - | - | - | T-001, T-011, T-023, T-100 |
+| [T-110](T-110-re-group-the-open-backlog-by-the-maintainers-release-rule.md) | Re-group the open backlog by the maintainer's release rule | `v0.2` | `done` | `review` | - | - | - | - | T-026, T-086, T-109 |
 
 <!-- taskmd:end -->

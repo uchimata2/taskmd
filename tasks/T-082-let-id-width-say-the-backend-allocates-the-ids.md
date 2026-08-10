@@ -7,12 +7,12 @@ phase: specify
 parent: T-004
 blocked_by: []
 related: [T-075, T-010]
-work_package: v0.3
+work_package: v0.2
 owner: maintainer
 business_value: medium
 effort: s
 created: 2026-08-09
-updated: 2026-08-09
+updated: 2026-08-10
 deliverables: []
 ---
 

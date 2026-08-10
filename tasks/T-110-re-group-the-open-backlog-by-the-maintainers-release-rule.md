@@ -2,8 +2,8 @@
 id: T-110
 title: Re-group the open backlog by the maintainer's release rule
 type: admin
-status: proposed
-phase: specify
+status: done
+phase: review
 parent: null
 blocked_by: []
 related: [T-026, T-086, T-109]
@@ -13,7 +13,7 @@ business_value: high
 effort: m
 created: 2026-08-10
 updated: 2026-08-10
-deliverables: []
+deliverables: [tasks/README.md]
 ---
 
 # T-110 — Re-group the open backlog by the maintainer's release rule
@@ -130,29 +130,98 @@ to take off them.
 
 ## 2. Plan
 
+**Authorisation.** The maintainer accepted all four recommendations above and asked for the full
+lifecycle on this task, on 2026-08-10. Recorded here per METHOD §3.1: it covers `plan`, `implement`
+and `review` **of T-110 only**, and nothing about the tasks whose `work_package` this moves.
+
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Allocate all 27 open tasks by the accepted rule, one recorded reason each | §3 *Allocation* |
+| 2 | Move `work_package` on every task the allocation relocates, and bump its `updated` | the moved task files |
+| 3 | Rewrite `tasks/README.md` *Releases* — both purpose statements and both criteria sets, in one edit | `tasks/README.md` |
+| 4 | Regenerate the index and validate | `index` and `check` output |
+| 5 | Pair every open task to a criterion of its milestone and count what is left unpaired | §4 |
 
 ## 3. Implement
 
+**Allocation, 2026-08-10.** Each open task appears once, under the clause of the rule that placed it.
+
+| Reason | Tasks |
+| :--- | :--- |
+| Dependency — an open task cannot close without it (T-026's unresolved findings) | T-029, T-030, T-031, T-032, T-033 |
+| Head of that one chain — see D2 | T-026 |
+| Minor or moderate correction: `xs`–`m`, and its outcome corrects or settles something already shipped | T-021, T-023, T-024, T-035, T-036, T-047, T-078, T-082, T-087, T-090, T-091, T-097, T-098, T-107, T-109, T-110 |
+| Bigger — `l` | T-093 |
+| A capability added or a claim proven, rather than a correction | T-005, T-020, T-085, T-108 (also `l`) |
+
+Five moved, all from v0.3 to v0.2: T-035, T-036, T-047, T-082, T-107. Nothing moved the other way.
+
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+- **D1 — the four answers are the owner's, taken as given.** Accepted 2026-08-10. Size is the test
+  and `fix` and `decision` both qualify; a dependency is what an **open** task cannot close without;
+  where the rule and a naming clause disagree the rule wins and the clause moves; moderate `analysis`
+  and `research` stay in v0.3. The rejected alternatives are recorded in §1 beside each question and
+  are not repeated here.
+- **D2 — T-026 stays in v0.2 although it is `l`, and this is the one placement the rule does not
+  make on its own.** Two reasons. Its `l` is the audit that was already performed; what remains is
+  closing when its findings close, and re-estimating a task to make a filing rule come out right
+  would be the tail wagging the dog. And a milestone holding all five of a task's open children but
+  not the task would close with an umbrella open that has no unresolved findings — an incoherent
+  state, and one that D1's first answer was justified by avoiding. *Rejected: send T-026 to v0.3 on
+  its estimate* — arithmetically clean, and it separates a parent from every one of its children.
+- **D3 — v0.2's exit criterion is its membership, not a list of outcomes.** The substantive change,
+  and the reason the eleven unpaired tasks existed. A prose list of outcomes is a second copy of the
+  membership that each task's `work_package` already carries, so it drifts the moment a task is
+  added — which is what happened twice, both times resolved by widening the prose. The project's own
+  design rule says store the forward edge and derive the rest; the *Work Package* column is that
+  derivation, so the criterion points at it. *Rejected: write out twenty-two outcomes* — it satisfies
+  the letter of the acceptance criterion, restores the drift on the next task raised, and is a task
+  list in prose in everything but name, which the file's own preamble forbids. *Also rejected: a
+  catch-all clause appended to the existing list* — that is the widening move a third time.
+  **[T-086](T-086-group-the-backlog-into-release-milestones.md) predicted this cost and was right.**
+  Its Step 1 rejected splitting by effort because it *produces two releases nobody can describe*, and
+  that is precisely what happened: v0.2 can no longer be described by an outcome, only by a size. The
+  rule came from the maintainer, so the cost is accepted rather than discovered — but it was a known
+  cost and is recorded here as one, not as a surprise.
+- **D4 — T-087 and T-082 are corrections, not features, and stay or move accordingly.** Both are
+  `s` and typed `fix`, and both were read against D1's second half rather than their size alone.
+  T-087 makes `list` filter on a field the schema already promises is carried and displayable — a
+  broken promise, not a new one. T-082 makes a sentence in the shipped GitHub binding stop being
+  false. The capability that *uses* T-082 is T-108, which is `l` and stays in v0.3.
+- **D5 — no closed task was touched**, per §1 *Scope*. v0.1's content is defined as every task closed
+  when it shipped, and the closed v0.2 tasks still carry the outcomes the retired clauses named, so
+  removing those clauses lost nothing that was not already in the Closed table.
+- **Assumption — the eleven count is the defect, not the number.** It was re-derived here at 11 and
+  the review that found it reported 10. Neither was reconciled to the other; both are correct as
+  dated, and the point of the work is that the count can move at all.
 
 **Outputs produced**
-- <path>
+- `tasks/README.md` — *Releases* rewritten; the generated block below the marker is regenerated.
+- `tasks/T-035-…`, `T-036-…`, `T-047-…`, `T-082-…`, `T-107-…` — `work_package` and `updated`.
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| Every open task's milestone justified by one clause of the rule, recorded per task | met | §3 *Allocation*; each of the 27 appears exactly once, so one row can be disputed alone |
+| No open task in a milestone none of whose criteria require it — unpaired count zero | met | v0.2: all 22 by its single criterion. v0.3: T-020 byte-identical, T-085 fresh machine, T-005 handoff binding, T-093 section reference, T-108 GitHub Issues. **Achieved by changing what kind of criterion v0.2 has (D3), not by pairing the old list** |
+| No exit clause survives that no open or closed task delivers | met | The retired v0.2 clauses were delivered by T-025, T-099, T-100, T-101, T-102; all closed and all still filed `v0.2`, so membership carries them |
+| README still says membership is not written there, and its prose names no task | partly | The first half holds. The second does not, literally: the prose now links **T-110** as the record of the change. Kept deliberately — the criterion was aimed at membership leaking into prose, and a pointer to where the rationale lives is the opposite of that. Recorded rather than softened |
+| `index` regenerated and `check` clean | met | `OK - 110 task(s) … 1 index file(s), 138 document(s), 1065 link(s)` |
+| The new split stated as counts read off the regenerated index | met | **22 open in v0.2 including this task, 5 in v0.3** — from 16 / 10 before, and 21 / 5 once this task closed |
 
 **Child fix tasks raised**
-- <T-NNN or "none">
+- none. Two things were noticed and both already have homes: the stale `type` row in
+  `tasks/_task-template.md` is inside [T-032](T-032-repair-the-audit-template-and-validate-templates.md),
+  and `taskmd list --work_package v0.2` exiting 2 — hit while trying to count this task's own result —
+  is exactly [T-087](T-087-let-list-filter-on-a-field-the-index-can-show.md), which is what it was
+  raised for. Neither is re-raised.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-10 | (no change) | **The first draft of the rewrite re-created the defect it removed**, and it is annotated rather than quietly repaired. Three derived counts were written into the *Releases* prose — that v0.2 holds twenty-two tasks, that v0.3 holds five, and that the umbrella has five findings still open — every one of them a second copy of what the generated table two paragraphs below already carries. The first went stale within the same session, when this task closed and 22 became 21. So the prose now says *everything else*, *few enough*, and *its open children, in the table below*. Worth recording because the drift arrived inside the paragraph arguing against it, written by whoever had just made the argument: a number is the easiest thing to reach for when a sentence wants to sound concrete, and D3 does not stop the reflex, it only says where the number belongs. |
+| 2026-08-10 | → done | Full lifecycle in one session, on the maintainer's authorisation recorded in §2. Five tasks moved v0.3 → v0.2, and the split is now 22 / 5 from 16 / 10. The substantive change is not the moves: it is **D3**, which makes v0.2's exit criterion its membership instead of a list of outcomes. That list was a second copy of the membership each task's `work_package` already carries, which is why it drifted twice and why eleven open tasks sat outside it — the same defect the file's own preamble was written to prevent, appearing in the prose the preamble introduces. What it costs is stated in the file rather than buried: grouping by size cannot claim anything about the product, so neither milestone asserts one any more. One acceptance criterion is recorded as **partly met** rather than softened — the prose names T-110, which the criterion forbade and which is worth keeping. |
 | 2026-08-10 | → proposed | Raised to carry out the maintainer's release rule of the same day, which had no task and lived only in a machine-local handoff. Written down here because that is the input the work is judged against and a gitignored file is not a home. `admin` because nothing about the product changes — this is the backlog's own filing. `high` because until it lands every answer to "what is in v0.2" is wrong, and two milestone clauses have already been widened twice to avoid the question. `m` for 26 front-matter edits plus a rewrite of both purpose statements and both clause sets; the edits are trivial and the rewrite is not. The eleven unpaired tasks were re-derived here rather than carried over from the status review's ten — the review was right when it counted, and T-108 arrived afterwards. **Specify only, and stopped here**: the resumption note asking for the restructure is context and not authorization to run further phases (METHOD §3.1), and the four questions below are the owner's, not the writer's. |
