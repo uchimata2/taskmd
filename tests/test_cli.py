@@ -73,7 +73,7 @@ class CheckFailsOnEveryClassItClaims(unittest.TestCase):
 
     LABELS = ["VOCABULARY", "DANGLING", "NO BLOCKER", "CYCLE", "BROKEN LINK",
               "STORED DERIVED", "MISSING OUTPUT", "CONFIG ERROR", "DUPLICATE ID", "ID WIDTH",
-              "STALE INDEX", "TEMPLATE UNREACHABLE"]
+              "STALE INDEX", "TEMPLATE UNREACHABLE", "PARKED TASK"]
 
     def fails(self, fixture, label, needle, code=1):
         got, out = run("check", "--root", os.path.join(FIXTURES, fixture))
@@ -127,6 +127,19 @@ class CheckFailsOnEveryClassItClaims(unittest.TestCase):
         keeps templates out of the task set, so the listing that finds a template came back empty —
         and empty is the documented shape of a project that simply has none."""
         self.fails("broken-unreachable-template", "TEMPLATE UNREACHABLE", "_templates/")
+
+    def test_a_valid_task_parked_where_the_walk_never_reaches_it(self):
+        """T-107. Two task files, one task, `OK` and exit 0 — the parked one's only trace was the
+        document count, which is the same silent-loss shape as DUPLICATE ID and ID WIDTH."""
+        self.fails("broken-parked-task", "PARKED TASK", "T-002")
+
+    def test_a_projects_own_material_in_the_same_folder_is_not_reported(self):
+        """The other half of T-107, and the half that can regress unnoticed. The `_` skip is what
+        lets a project keep notes beside its tasks with no exclusion list; a check that fired on
+        `notes.md` would have stopped being about lost work and become one about filing."""
+        _, out = run("check", "--root", os.path.join(FIXTURES, "broken-parked-task"))
+        self.assertNotIn("notes.md", out)
+        self.assertEqual(out.count("PARKED TASK"), 1, out)
 
     def test_a_generated_index_that_no_longer_matches_its_tasks(self):
         """T-025. The one class where the defect was `check` itself: the fixture's task says

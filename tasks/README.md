@@ -79,7 +79,6 @@ into, not a promise about a date.
 | [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `v0.3` | `proposed` | `specify` | - | - | - | - | T-092, T-095, T-109 |
 | [T-097](T-097-decide-whether-a-published-document-may-point-at-a-file-no-clone-receives.md) | Decide whether a published document may point at a file no clone receives | `v0.2` | `proposed` | `specify` | - | - | - | - | T-013, T-034, T-092, T-094, T-109 |
 | [T-098](T-098-decide-who-checks-the-links-in-a-document-only-a-successor-reads.md) | Decide who checks the links in a document only a successor reads | `v0.2` | `proposed` | `specify` | - | - | - | - | T-002, T-034, T-080, T-094, T-095, T-109 |
-| [T-107](T-107-say-so-when-a-valid-task-file-is-parked-where-nothing-reads-it.md) | Say so when a valid task file is parked where nothing reads it | `v0.2` | `proposed` | `specify` | - | - | - | - | T-062, T-069, T-075, T-101 |
 | [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `v0.3` | `proposed` | `specify` | - | - | - | - | T-004, T-009, T-010, T-041, T-082 |
 | [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md) | Decide whether a task that settles a question must be typed decision | `v0.2` | `proposed` | `specify` | - | - | - | - | T-088, T-090, T-093, T-097, T-098, T-104, T-110 |
 
@@ -170,6 +169,7 @@ into, not a promise about a date.
 | [T-104](T-104-say-whether-the-method-has-an-opinion-on-where-a-decision-is-recorded.md) | Say whether the method has an opinion on where a decision is recorded | `v0.3` | `done` | `review` | - | - | - | - | T-008, T-076, T-088, T-103, T-109 |
 | [T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md) | Say where an authorised multi-phase run is recorded | `v0.3` | `done` | `review` | - | - | - | - | T-005, T-036, T-047, T-063 |
 | [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) | Say that the shipped config cannot gain a key without breaking every project that wrote one | `v0.3` | `done` | `review` | - | - | - | - | T-001, T-011, T-023, T-100 |
+| [T-107](T-107-say-so-when-a-valid-task-file-is-parked-where-nothing-reads-it.md) | Say so when a valid task file is parked where nothing reads it | `v0.2` | `done` | `review` | - | - | - | - | T-062, T-069, T-075, T-101 |
 | [T-110](T-110-re-group-the-open-backlog-by-the-maintainers-release-rule.md) | Re-group the open backlog by the maintainer's release rule | `v0.2` | `done` | `review` | - | - | - | - | T-026, T-086, T-109 |
 
 <!-- taskmd:end -->

@@ -638,6 +638,7 @@ class TaskSet(dict):
 
 DUPLICATE_ID = "duplicate-id"   # two files claim one id; the first in walk order is loaded
 ID_WIDTH = "id-width"           # right prefix, wrong width: not a task, and said so
+PARKED = "parked"               # a valid id under a folder the walk skips: not loaded, and said so
 
 
 class Anomaly(object):
@@ -652,6 +653,37 @@ class Anomaly(object):
         return "Anomaly(%s, %s, %s)" % (self.kind, self.task_id, self.paths)
 
 
+def _parked_under(folder, schema):
+    """Task files under a folder `enumerate` skips — read for their id and for nothing else.
+
+    Descending into a skipped folder is not a change of mind about skipping it. The skip is what
+    lets a project keep templates and its own material beside its tasks with no exclusion list to
+    maintain (binding assumption 6), and nothing found here is loaded, linked or counted as a task.
+    It answers the one question the skip cannot: whether a file that is a task by every other test
+    has been moved somewhere no view reaches (T-107).
+
+    **Only a schema-valid id counts.** A draft written before its id is allocated carries a
+    placeholder, and a project's notes carry no id at all — neither is work that has gone missing.
+    Unreadable files are passed over rather than raised on, because this walk is over material the
+    project never offered as tasks.
+    """
+    found = []
+    for here, dirs, names in os.walk(folder):
+        dirs[:] = sorted(dirs)
+        for name in sorted(names):
+            if not name.endswith(".md"):
+                continue
+            path = os.path.join(here, name)
+            try:
+                fields = split_front_matter(read(path))[0]
+            except (OSError, ValueError, UnicodeDecodeError):
+                continue
+            value = fields.get(schema.id_field, "")
+            if isinstance(value, str) and schema.is_id(value):
+                found.append((value, path))
+    return found
+
+
 def load_tasks(root=".", schema=None):
     """Read every task file under the schema's tasks_dir and wire up the derived edges.
 
@@ -661,18 +693,24 @@ def load_tasks(root=".", schema=None):
     ends, with nothing printed and exit 0 (T-062). And a file whose id carries the right prefix at
     the wrong width, accepted as though `id_width` were decoration (T-075).
 
-    **Neither raises.** A defect in one task file is not a configuration problem, and a problem is
-    never raised from inside a task the user is trying to finish — so the readable tasks are
-    returned, and the anomalies travel with them on the result for `check` to report and every
+    A third was silent for the same reason and had a different cause: a complete, valid task sitting
+    under a folder the walk prunes, which is in no view and on no edge and whose only trace was the
+    document count (T-107).
+
+    **None of the three raises.** A defect in one task file is not a configuration problem, and a
+    problem is never raised from inside a task the user is trying to finish — so the readable tasks
+    are returned, and the anomalies travel with them on the result for `check` to report and every
     other command to warn about.
     """
     schema = schema or load_schema(root)
-    claims, mismatched = {}, []
+    claims, mismatched, parked = {}, [], []
     base = os.path.join(root, schema.tasks_dir)
     for folder, dirs, files in os.walk(base):
         # Sorted, so which file wins a collision is reproducible instead of an artefact of the
         # filesystem's own ordering. It is still a collision, and it is still reported; this only
         # means the same project gives the same answer twice.
+        for name in sorted(d for d in dirs if d.startswith(("_", "."))):
+            parked.extend(_parked_under(os.path.join(folder, name), schema))
         dirs[:] = sorted(d for d in dirs if not d.startswith(("_", ".")))
         for name in sorted(files):
             if not name.endswith(".md"):
@@ -693,6 +731,8 @@ def load_tasks(root=".", schema=None):
             tasks.anomalies.append(Anomaly(DUPLICATE_ID, task_id, [t.path for t in claimed]))
     for task in sorted(mismatched, key=lambda t: t.path):
         tasks.anomalies.append(Anomaly(ID_WIDTH, task.id, [task.path]))
+    for task_id, path in sorted(parked, key=lambda pair: pair[1]):
+        tasks.anomalies.append(Anomaly(PARKED, task_id, [path]))
     return derive(tasks, schema)
 
 

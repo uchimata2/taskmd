@@ -140,13 +140,22 @@ else in the folder — the generated index, templates — is not a task by assum
 includes finished tasks, which is what keeps the far end of a link to finished work visible
 ([`../BINDING.md`](../BINDING.md) §3).
 
-Two files can leave this step without becoming the task somebody expected, and **neither may do so
+Three files can leave this step without becoming the task somebody expected, and **none may do so
 quietly**. A file carrying the prefix at the wrong width is a near-miss rather than a note, so it is
 **reported** and not merely skipped — the alternative drops a file out of the project with no signal,
-which is the same failure as the one below. And two files claiming one id are a **conflict**: the
+which is the same failure as the two below. Two files claiming one id are a **conflict**: the
 first in sorted order is enumerated so the answer is at least reproducible, and the collision is
 reported. Silently keeping one of the two is what makes assumption 3's merge collision cost a task
-rather than a message.
+rather than a message. And a file carrying a **valid** id under one of the skipped folders is
+**parked** — reported, because it is a task by every test but its location, so it is in no view and
+on no edge while the project still believes it has it (T-107).
+
+**Parking is not thereby forbidden, and the skip is unchanged**: the skipped folders are still read
+by nothing, and what is reported is one line naming the file. The line is only reachable by a file
+whose id has already been *allocated* — a draft written before it has one carries a placeholder, and
+a project's own notes carry no id at all, so neither is reported and the exclusion-free arrangement
+assumption 6 buys is intact. A project that wants a task out of the way and out of the report closes
+or cancels it, which is what those statuses are for.
 
 ### After any write
 

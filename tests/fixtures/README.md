@@ -48,6 +48,7 @@ where they could not be quietly trimmed to whatever turned out to be easy.
 | `broken-stale-index` | Stale generated index | The task says `specified`; the generated region still says `proposed` |
 | `broken-id-width` | Id width | `id: T-0001`, one digit too wide for `id_width: 3` |
 | `broken-unreachable-template` | Unreachable template | A template in `tasks/_templates/`, which nothing lists |
+| `broken-parked-task` | Parked task | A valid `T-002` in `tasks/_drafts/`, beside a `notes.md` that must stay unreported |
 | `broken-config` | Config error at setup — a **key** | `id_witdh` — a typo in a key name |
 | `broken-tasks-dir` | Config error at setup — a **value** | `tasks_dir: taks`, beside a real `tasks/` |
 | `broken-hook` | Config error at setup — a **command** | `after_write` naming a file the project does not ship |

@@ -29,7 +29,7 @@ import subprocess
 import sys
 
 from . import discovery
-from .schema import (DUPLICATE_ID, SchemaError, drift_from_default, load_schema, load_tasks,
+from .schema import (DUPLICATE_ID, PARKED, SchemaError, drift_from_default, load_schema, load_tasks,
                      templates)
 
 BEGIN = "<!-- taskmd:index - generated, do not edit by hand -->"
@@ -496,6 +496,11 @@ def check_anomalies(root, schema, tasks, problems):
             problems.append("DUPLICATE ID  %s is claimed by %s. Only the first is loaded, so the "
                             "other is in no view and on no edge"
                             % (anomaly.task_id, " and ".join(where)))
+        elif anomaly.kind == PARKED:
+            problems.append("PARKED TASK   %s declares '%s', a valid id, but it sits under a "
+                            "folder beginning with '_' or '.', which enumerate skips - so it is "
+                            "loaded by nothing, is in no view and is on no edge"
+                            % (where[0], anomaly.task_id))
         else:
             problems.append("ID WIDTH      %s declares '%s', which is not %s plus %d digit(s), so "
                             "it is not loaded as a task"
