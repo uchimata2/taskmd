@@ -224,6 +224,14 @@ was raised, for two reasons that could both be wrong: the general rule's home is
 the maintainer at close rather than resolved, because "leave a known gap unwritten" is the owner's
 call and not the reviewer's.
 
+**Answered by the maintainer, 2026-08-11: leave the gap as it is.** No general home, no task. Written
+here after close because this is where the question was asked, and a question answered somewhere else
+is a question the next reader finds still open. **The premise it rests on is that the leak check is
+the only place in this project needing a backslash-bearing specimen**, which is true today and is not
+guaranteed to stay true — a second such validator is the event that reopens this, and nothing will
+announce it, because a closed task is not read by any sweep. Stated as the expiry condition rather
+than left implicit, since the decision is sound only while the premise holds.
+
 **Step 6 — the §6 check over the whole tree, run last.**
 
 ```
