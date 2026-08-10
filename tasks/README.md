@@ -59,9 +59,8 @@ into, not a promise about a date.
 | [T-087](T-087-let-list-filter-on-a-field-the-index-can-show.md) | Let list filter on a field the index can show | `v0.2` | `specified` | `specify` | - | - | - | - | T-022, T-029, T-086 |
 | [T-090](T-090-decide-what-a-cancelled-task-s-declared-outputs-assert.md) | Decide what a cancelled task's declared outputs assert | `v0.2` | `proposed` | `specify` | T-089 | - | - | - | T-002, T-032 |
 | [T-091](T-091-make-the-shipped-task-template-survive-being-copied.md) | Make the shipped task template survive being copied into another project | `v0.2` | `proposed` | `specify` | - | - | - | - | T-032, T-051, T-060, T-076 |
-| [T-092](T-092-decide-whether-a-bare-path-in-prose-is-a-reference.md) | Decide whether a bare path in prose is a reference check must resolve | `v0.2` | `proposed` | `specify` | - | - | - | - | T-034, T-093, T-094, T-095 |
 | [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `v0.3` | `proposed` | `specify` | - | - | - | - | T-092, T-095 |
-| [T-094](T-094-make-check-answer-the-question-a-fresh-clone-would-ask.md) | Make check answer the question a fresh clone would ask | `v0.2` | `proposed` | `specify` | - | - | - | - | T-013, T-034, T-092, T-095 |
+| [T-097](T-097-decide-whether-a-published-document-may-point-at-a-file-no-clone-receives.md) | Decide whether a published document may point at a file no clone receives | `v0.2` | `proposed` | `specify` | - | - | - | - | T-013, T-034, T-092, T-094 |
 
 ## Closed
 
@@ -78,7 +77,7 @@ into, not a promise about a date.
 | [T-010](T-010-write-the-github-issues-binding.md) | Write the GitHub Issues binding | `v0.1` | `done` | `review` | - | - | T-009 | T-006 | T-004, T-009, T-026, T-037, T-038, T-039, T-040, T-041, T-042, T-043, T-044, T-082 |
 | [T-011](T-011-runtime-discovery-and-project-hook-commands.md) | Runtime auto-discovery and project hook commands | `v0.1` | `done` | `review` | - | T-049 | T-002 | T-006 | T-013, T-025, T-056, T-057, T-066, T-069 |
 | [T-012](T-012-decide-whether-soft-edges-are-symmetric.md) | Decide whether soft edges are symmetric | `v0.1` | `done` | `review` | - | - | - | - | T-001, T-009 |
-| [T-013](T-013-quarantine-local-only-information-behind-gitignore.md) | Quarantine local-only information behind .gitignore | `v0.1` | `done` | `review` | - | - | - | - | T-006, T-008, T-011, T-018, T-033, T-034, T-035, T-073, T-094 |
+| [T-013](T-013-quarantine-local-only-information-behind-gitignore.md) | Quarantine local-only information behind .gitignore | `v0.1` | `done` | `review` | - | - | - | - | T-006, T-008, T-011, T-018, T-033, T-034, T-035, T-073, T-094, T-097 |
 | [T-014](T-014-stop-stating-each-phase-exit-criterion-twice.md) | Stop stating each phase exit criterion twice | `v0.1` | `done` | `review` | T-008 | - | - | - | T-015 |
 | [T-015](T-015-bring-the-method-spine-under-the-always-load-threshold.md) | Bring the method spine under the always-load threshold | `v0.1` | `done` | `review` | T-008 | - | - | - | T-014, T-028, T-047 |
 | [T-016](T-016-remove-the-id-format-placeholders-from-the-method.md) | Remove the id-format placeholders from the method | `v0.1` | `done` | `review` | T-008 | - | - | - | - |
@@ -89,7 +88,7 @@ into, not a promise about a date.
 | [T-025](T-025-let-check-notice-a-stale-generated-index.md) | Let check notice a stale generated index | `v0.2` | `done` | `review` | - | - | - | - | T-002, T-009, T-011, T-019, T-026, T-039, T-084, T-089, T-095, T-096 |
 | [T-027](T-027-give-the-design-rule-one-home.md) | Give the design rule one home | `v0.1` | `done` | `review` | T-026 | - | - | T-028 | T-017, T-031, T-045, T-046 |
 | [T-028](T-028-budget-the-whole-always-loaded-context-not-one-file.md) | Budget the whole always-loaded context, not one file | `v0.1` | `done` | `review` | T-026 | - | T-027 | - | T-003, T-015, T-040, T-046, T-047, T-048, T-063 |
-| [T-034](T-034-let-the-pre-publish-check-see-files-not-yet-tracked.md) | Let the pre-publish check see files not yet tracked | `v0.1` | `done` | `review` | T-026 | - | - | - | T-006, T-013, T-018, T-035, T-058, T-080, T-092, T-094, T-095 |
+| [T-034](T-034-let-the-pre-publish-check-see-files-not-yet-tracked.md) | Let the pre-publish check see files not yet tracked | `v0.1` | `done` | `review` | T-026 | - | - | - | T-006, T-013, T-018, T-035, T-058, T-080, T-092, T-094, T-095, T-097 |
 | [T-037](T-037-delete-the-throwaway-proof-repository.md) | Delete the throwaway repository the GitHub binding was proven on | `v0.1` | `done` | `review` | - | - | T-006 | - | T-010, T-041, T-077 |
 | [T-038](T-038-reconcile-bindings-worked-example-with-the-real-binding.md) | Reconcile BINDING section 5's worked example with the binding it predicted | `v0.1` | `done` | `review` | - | - | - | - | T-009, T-010 |
 | [T-039](T-039-let-a-plan-name-a-deliverable-that-does-not-exist-yet.md) | Let a plan name a deliverable that does not exist yet | `v0.1` | `done` | `review` | - | - | - | - | T-010, T-025 |
@@ -138,6 +137,8 @@ into, not a promise about a date.
 | [T-086](T-086-group-the-backlog-into-release-milestones.md) | Group the backlog into release milestones | `v0.2` | `done` | `review` | - | - | - | - | T-006, T-022, T-026, T-087 |
 | [T-088](T-088-put-audit-in-the-shipped-type-vocabulary-or-stop-calling-it-a-type.md) | Put audit in the shipped type vocabulary, or stop calling it a type | `v0.2` | `done` | `review` | - | - | - | - | T-001, T-026, T-032 |
 | [T-089](T-089-stop-check-reporting-an-open-task-s-planned-outputs-as-missing.md) | Stop check reporting an open task's planned outputs as missing | `v0.2` | `done` | `review` | - | T-090 | - | - | T-002, T-025, T-032 |
+| [T-092](T-092-decide-whether-a-bare-path-in-prose-is-a-reference.md) | Decide whether a bare path in prose is a reference check must resolve | `v0.2` | `done` | `review` | - | - | - | - | T-034, T-093, T-094, T-095, T-097 |
+| [T-094](T-094-make-check-answer-the-question-a-fresh-clone-would-ask.md) | Make check answer the question a fresh clone would ask | `v0.2` | `done` | `review` | - | - | - | - | T-013, T-034, T-092, T-095, T-097 |
 | [T-095](T-095-report-what-check-examined-not-only-that-it-passed.md) | Report what check examined, not only that it passed | `v0.2` | `done` | `review` | - | T-096 | - | - | T-025, T-034, T-080, T-092, T-093, T-094 |
 | [T-096](T-096-decide-whether-a-narrower-walk-of-a-counted-class-needs-its-own-number.md) | Decide whether a narrower walk of a counted class needs its own number | `v0.2` | `done` | `review` | T-095 | - | - | - | T-025 |
 

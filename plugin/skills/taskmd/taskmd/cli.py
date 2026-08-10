@@ -35,6 +35,10 @@ BEGIN = "<!-- taskmd:index - generated, do not edit by hand -->"
 END = "<!-- taskmd:end -->"
 
 LINK = re.compile(r"\[[^\]]*\]\(([^)#\s]+)(?:#[^)\s]*)?\)")
+
+# A path written as prose rather than as a Markdown link is **not** a reference this command
+# resolves, and that is a decision rather than an omission — T-092 measured the alternative on this
+# repository and `README.md` tells an adopter what is not covered.
 SKIP_DIRS = (".git", "node_modules", "__pycache__", ".venv")
 
 RULE = "=" * 72
@@ -98,6 +102,32 @@ def markdown_files(root, schema):
         for name in sorted(files):
             if name.endswith(".md"):
                 yield os.path.join(base, name)
+
+
+def clone_would_receive(root):
+    """The set of files a clone of `root` would contain, or **None** if there is no git to ask.
+
+    `git ls-files --cached --others --exclude-standard` is tracked files *plus* untracked ones that
+    are not ignored — exactly what a push would send. It is the same flag combination this project's
+    own pre-publish check is built on, argued for there at length; `check` standing next to that
+    check and answering a different question about the same tree is what T-094 was raised to settle.
+    `-z` because a path may contain anything, including a newline.
+
+    **None is not the empty set.** "git says nothing here would be published" and "there is no git
+    here to ask" are different answers, and only the first is an exclusion — a project with no
+    version control gets the whole tree read, and is told so rather than quietly getting less.
+    """
+    try:
+        done = subprocess.Popen(["git", "ls-files", "-z", "--cached", "--others",
+                                 "--exclude-standard"],
+                                cwd=root, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        out = done.communicate()[0]
+    except OSError:
+        return None                     # no git on PATH at all
+    if done.returncode != 0:
+        return None                     # a directory, but not inside a work tree
+    return set(os.path.normpath(os.path.join(root, name.decode("utf-8", "replace")))
+               for name in out.split(b"\0") if name)
 
 
 def link_names(schema):
@@ -472,19 +502,38 @@ def check_anomalies(root, schema, tasks, problems):
     return [("task", len(tasks))]
 
 
-def check_links(root, schema, problems):
-    documents = links = 0
+def check_links(root, schema, problems, notes):
+    """Every Markdown link in every document a clone would receive.
+
+    **Two questions, answered differently on purpose** (T-094). On the *document* side the question
+    is "would someone who cloned this find it?", so a gitignored document is not read: a dead link
+    inside something no reader can reach is a promise to nobody. On the *target* side it stays "is
+    this file here?", so a published document may point at a gitignored one — a project that
+    quarantines machine-local material still has to be able to say where it lives, and reporting
+    that pointer would make the convention unrepresentable. The rule as an adopter meets it is in
+    the project's own README; this is the mechanism.
+
+    The excluded count goes to `notes` rather than into the denominators, because a document that
+    was skipped was not examined and reporting it as one would be the very claim T-095 removed.
+    """
+    visible = clone_would_receive(root)
+    documents = links = excluded = 0
     for md in markdown_files(root, schema):
-        base = os.path.dirname(md)
+        if visible is not None and os.path.normpath(md) not in visible:
+            excluded += 1
+            continue
+        base, where = os.path.dirname(md), rel(root, os.path.relpath(md, root))
         documents += 1
         for match in LINK.finditer(read(md)):
             target = match.group(1)
             if target.startswith(("http://", "https://", "mailto:")):
                 continue
             if not os.path.exists(os.path.normpath(os.path.join(base, target))):
-                problems.append("BROKEN LINK   %s -> %s"
-                                % (rel(root, os.path.relpath(md, root)), target))
+                problems.append("BROKEN LINK   %s -> %s" % (where, target))
             links += 1
+    notes.append("every document read; no git here, so .gitignore was not consulted"
+                 if visible is None else
+                 "%d document(s) not read: a clone would not receive them" % excluded)
     return [("document", documents), ("link", links)]
 
 
@@ -520,7 +569,7 @@ def examined(counted):
 
 
 def cmd_check(root, schema, tasks, args):
-    problems, counted = [], []
+    problems, counted, notes = [], [], []
     counted += check_anomalies(root, schema, tasks, problems)
     counted += check_vocabularies(schema, tasks, problems)
     counted += check_references(schema, tasks, problems)
@@ -529,15 +578,21 @@ def cmd_check(root, schema, tasks, args):
     counted += check_stored_derived(schema, tasks, problems)
     counted += check_deliverables(root, schema, tasks, problems)
     counted += check_stale_index(root, schema, tasks, problems)
-    counted += check_links(root, schema, problems)
+    counted += check_links(root, schema, problems, notes)
 
     if problems:
         for problem in problems:
             print(problem)
         print("")
         print("%d problem(s) - %s" % (len(problems), examined(counted)))
+    else:
+        print("OK - %s" % examined(counted))
+    # What was *not* looked at, on both branches for the reason the denominators are on both: a
+    # scan narrowed by an exclusion hides behind a problem exactly as well as behind a pass.
+    for note in notes:
+        print("Scope  %s" % note)
+    if problems:
         return 1
-    print("OK - %s" % examined(counted))
     print("structure and references only - it cannot tell you whether a spec or an outcome is good")
     return 0
 

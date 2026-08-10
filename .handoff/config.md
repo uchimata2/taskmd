@@ -35,10 +35,13 @@ Read by the `handoff` skill. Plain Markdown, read by the agent — no parser.
 ## Notes for whoever resumes
 
 **Published on 2026-08-09** at `github.com/uchimata2/taskmd`, tagged `v0.1.0` with a GitHub release,
-in both shapes. **The manifest is now `0.1.1`**, pushed but deliberately not tagged — the bump exists
-because `claude plugin update` compares version strings, so a directory install whose manifest never
-changes reports "already at the latest version" and keeps serving the snapshot it copied. Any fix
-that must reach an installed project needs that line to move. The definition of done
+in both shapes. **The manifest is now `0.2.0`**, raised on 2026-08-10 with T-094 and T-092 — the bump
+exists because `claude plugin update` compares version strings, so a directory install whose manifest
+never changes reports "already at the latest version" and keeps serving the snapshot it copied. Any
+fix that must reach an installed project needs that line to move; the standing suggestion is to spend
+one bump on a batch rather than on a single fix. **Minor, not patch**: `check` reads fewer documents
+than it did, so a project can see its own counts fall, which is a behaviour change rather than a
+correction. The definition of done
 (`docs/SCOPE.md` §9) is closed. What is left is grouped into
 **v0.2 and v0.3**, whose purpose and exit criteria are in `tasks/README.md` and whose membership is
 each task's `work_package` — do not maintain a list of that anywhere.

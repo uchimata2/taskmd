@@ -14,6 +14,7 @@ import json
 import os
 import re
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -634,6 +635,161 @@ class CheckReportsWhatItExamined(unittest.TestCase):
         _, failing = run("check", "--root", os.path.join(FIXTURES, "broken-link"))
         self.assertIn("structure and references only", passing)
         self.assertNotIn("structure and references only", failing)
+
+
+def git_is_available():
+    try:
+        done = subprocess.Popen(["git", "--version"],
+                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        done.communicate()
+    except OSError:
+        return False
+    return done.returncode == 0
+
+
+GIT = git_is_available()
+
+
+class ScratchProject(unittest.TestCase):
+    """A throwaway project on disk, because these two questions are about files and `.gitignore`
+    rather than about task shape — a fixture committed to this repository would be governed by
+    *this* repository's ignore rules, which is the thing under test."""
+
+    def project(self, tmp, documents):
+        root = os.path.join(tmp, "p")
+        os.makedirs(os.path.join(root, "tasks"))
+        os.makedirs(os.path.join(root, ".taskmd"))
+        shutil.copy(os.path.join(PKG, "taskmd", "defaults", "config.md"),
+                    os.path.join(root, ".taskmd", "config.md"))
+        cli.write(os.path.join(root, "tasks", "T-001-x.md"),
+                  "---\nid: T-001\ntitle: One\ntype: fix\nstatus: proposed\nphase: specify\n"
+                  "blocked_by: []\nowner: someone\n---\n\n# T-001\n")
+        for name, text in sorted(documents.items()):
+            cli.write(os.path.join(root, name.replace("/", os.sep)), text)
+        return root
+
+    def git(self, root, *argv):
+        done = subprocess.Popen(("git",) + argv, cwd=root,
+                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        out = done.communicate()[0]
+        self.assertEqual(done.returncode, 0, out)
+
+    def documents(self, out):
+        found = re.search(r"(\d+) document\(s\)", out)
+        self.assertIsNotNone(found, out)
+        return int(found.group(1))
+
+
+class CheckAnswersTheQuestionAFreshCloneWouldAsk(ScratchProject):
+    """T-094. `check` walked every `.md` in the tree, while the pre-publish grep standing next to it
+    in `CLAUDE.md` is built on `git ls-files --cached --others --exclude-standard` *precisely* so it
+    sees what a push would send. Two checks over one tree answering different questions, with nothing
+    saying which — so a project that quarantines machine-local documents (R-23) was handed failures
+    no reader of the published repository could ever encounter."""
+
+    DEAD = {".gitignore": "private/\n",
+            "private/notes.md": "A [dead one](../nowhere.md) nobody can reach.\n"}
+
+    @unittest.skipUnless(GIT, "git is not available")
+    def test_a_gitignored_document_is_not_read_and_the_exclusion_is_counted(self):
+        """Both halves of the flag combination, in one run each. `--others --exclude-standard` is
+        what makes an uncommitted project work at all; adding `--cached` must not change the answer
+        once the same files are staged. T-034 is the reason both are asserted rather than the first:
+        the shorter form was silently blind to exactly the files a session had just created."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(tmp, self.DEAD)
+            self.git(root, "init")
+            code, staged_none = run("check", "--root", root)
+            self.assertEqual(code, 0, staged_none)
+            self.assertIn("1 document(s) not read: a clone would not receive them", staged_none)
+            self.assertNotIn("BROKEN LINK", staged_none)
+
+            self.git(root, "add", "-A")
+            code, staged_all = run("check", "--root", root)
+            self.assertEqual(code, 0, staged_all)
+            self.assertEqual(self.documents(staged_none), self.documents(staged_all))
+
+    def test_the_same_project_without_git_reads_everything_and_says_so(self):
+        """The other way round, which is what makes the run above evidence rather than a tautology —
+        and the answer for a project with no version control at all, of which there is one among the
+        projects onboarded on 2026-08-09. Degrading to the old behaviour is the degradation; going
+        silent, or failing, would not be."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(tmp, self.DEAD)
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 1, out)
+            self.assertIn("BROKEN LINK", out)
+            self.assertIn("private/notes.md", out)
+            self.assertIn("no git here, so .gitignore was not consulted", out)
+
+    @unittest.skipUnless(GIT, "git is not available")
+    def test_a_published_document_may_still_point_at_a_gitignored_one(self):
+        """The target side deliberately keeps answering the *other* question, "is this file here?".
+        R-23 quarantines local-only material behind `.gitignore` and requires the tracked tree to
+        refer to it by name; reporting that pointer would make this project's own convention
+        unrepresentable. Rejected alternative, recorded in T-094 rather than only here."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(tmp, {".gitignore": "private/\n",
+                                      "private/local.md": "Local only.\n",
+                                      "docs/guide.md": "See [the local note](../private/local.md).\n"})
+            self.git(root, "init")
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 0, out)
+            self.assertNotIn("BROKEN LINK", out)
+
+    @unittest.skipUnless(GIT, "git is not available")
+    def test_the_scope_line_is_printed_on_a_failing_run_too(self):
+        """A scan narrowed by an exclusion hides behind an unrelated problem exactly as well as
+        behind a pass — which is T-095's finding, arriving at the mechanism T-094 added."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(tmp, dict(self.DEAD, **{
+                "docs/guide.md": "A [real problem](./gone.md).\n"}))
+            self.git(root, "init")
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 1, out)
+            self.assertIn("1 problem(s) - ", out)
+            self.assertIn("1 document(s) not read", out)
+
+
+class ABarePathInProseIsNotAReference(ScratchProject):
+    """T-092. Decided **out**, and this pins the decision so the documentation cannot drift away
+    from the behaviour it describes.
+
+    It was decided by measurement rather than by argument. Turned on over this repository with the
+    reporting project's own rule — a token is a pointer when its first segment names a real
+    directory here — `check` examined 683 bare paths and reported 237, of which 235 sat in task
+    records that correctly described a tree since moved, and the remaining two were a config naming
+    where the live handoff will go and frozen prior art citing its original project's layout. No
+    defect among them. `CLAUDE.md` had already settled the trade for the leak check: a check that
+    cries wolf gets ignored, which is worse than a narrow one."""
+
+    def test_a_dead_path_written_as_prose_is_not_reported(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(tmp, {
+                "docs/guide.md": "The generator writes tasks/gone.md, which is not there.\n"})
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 0, out)
+            self.assertNotIn("gone.md", out)
+
+    def test_the_same_target_as_a_markdown_link_is_reported(self):
+        """The boundary from the other side: nothing about the target changed, only how it was
+        written. Without this the test above would pass just as well if links had stopped working."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(tmp, {
+                "docs/guide.md": "The generator writes [tasks/gone.md](../tasks/gone.md).\n"})
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 1, out)
+            self.assertIn("BROKEN LINK", out)
+
+    def test_the_readme_tells_an_adopter_what_is_not_covered(self):
+        """The gap's cost falls on adopters, not here — a project retiring its own checker has to be
+        able to read what it is giving up. Asserted against the shipped front door rather than
+        trusted, because a documented gap that quietly loses its documentation is the silent loss
+        T-092 was raised about, one level up."""
+        with io.open(os.path.join(ROOT, "README.md"), encoding="utf-8") as handle:
+            readme = handle.read()
+        self.assertIn("Markdown link syntax", readme)
+        self.assertIn("T-092", readme)
 
 
 if __name__ == "__main__":

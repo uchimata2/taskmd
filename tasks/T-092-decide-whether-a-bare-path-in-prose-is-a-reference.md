@@ -2,8 +2,8 @@
 id: T-092
 title: Decide whether a bare path in prose is a reference check must resolve
 type: fix
-status: proposed
-phase: specify
+status: done
+phase: review
 parent: null
 blocked_by: []
 related: [T-093, T-094, T-095, T-034]
@@ -12,8 +12,8 @@ owner: maintainer
 business_value: high
 effort: m
 created: 2026-08-09
-updated: 2026-08-09
-deliverables: []
+updated: 2026-08-10
+deliverables: [tests/test_cli.py, README.md]
 ---
 
 # T-092 — Decide whether a bare path in prose is a reference check must resolve
@@ -80,35 +80,94 @@ R-16, and R-13 in the sense that a reference that resolves is what the validator
       project to retire its own checker is told
 
 **Open questions**
-- **In or out.** Turning it on makes `check` meaningfully stronger and risks a class of false positive
-  this project has argued is worse than a narrow check. Leaving it out is defensible only if the gap
-  is documented, because the cost falls on adopters rather than here. The maintainer's.
+- ~~**In or out.**~~ **Answered 2026-08-10 (§3): out**, and answered by measurement rather than by
+  argument — the rule was built, run over this repository, and read.
 
 ## 2. Plan
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Build the reporting project's rule for real — path-shaped token, first segment names a real directory here — and run it over this repository before deciding anything | a number, below |
+| 2 | Read what it reported and classify it, rather than counting it | §3 *The measurement* |
+| 3 | Decide, and record the rejected alternatives where the decision is | §3 |
+| 4 | Pin the decision so the documentation cannot drift from the behaviour | `ABarePathInProseIsNotAReference` in `tests/test_cli.py` |
+| 5 | Tell an adopter what they are giving up, on the front door rather than in a task | `README.md` |
 
 ## 3. Implement
 
+**The measurement**
+
+The rule was implemented, not estimated: a path-shaped token counts when its first segment names a
+real directory in the project, with glob metacharacters excluded and Markdown links blanked first so
+nothing is validated twice. Run over this repository, on top of [T-094](T-094-make-check-answer-the-question-a-fresh-clone-would-ask.md)
+so that quarantined documents were already out of scope:
+
+```
+237 problem(s) - ..., 124 document(s), 947 link(s), 683 bare path(s)
+```
+
+**Of the 237, none was a defect.** They fall into three classes, and the first is the finding:
+
+- **235 sat in task records that correctly described a tree that has since moved** — a July record
+  naming the file it edited, before [T-083](T-083-make-the-skill-directory-self-contained.md)
+  relocated the package or [T-076](T-076-decide-what-a-template-s-links-resolve-against.md) moved the
+  template. A task record is a **dated statement, not a promise**, and a tracker accumulates them
+  structurally. This is not this repository being untidy; it is what a tracker is.
+- Fabricated example filenames written to explain a rule — the id-width probe, the ordering example.
+- The 2 outside `tasks/`: a config naming where the live handoff file *will* be, and frozen prior art
+  citing its original project's layout. The second is exactly the class `CLAUDE.md` names when it
+  argues the leak check must not cry wolf — another project's paths, quoted, colliding with a
+  directory that happens to exist here.
+
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+- **Out: a bare path in prose is not a reference `check` resolves** — 2026-08-10. `CLAUDE.md` had
+  already settled this trade for the leak check — a check that cries wolf gets ignored, which is
+  worse than a narrow one — and 237 alarms with no defect among them is not a threshold question.
+  The cost falls on adopters, so the gap is documented on the front door and held by a test.
+- **Rejected: in, always on** — 2026-08-10. The measurement above. Note what it does *not* say: the
+  rule is not badly built and the tokens are not ambiguous — 446 of the 683 resolved correctly. The
+  rule works and the corpus is wrong for it, which is the more useful finding and the harder one to
+  reach by reasoning.
+- **Rejected: in, restricted to documents outside the task folder** — 2026-08-10. The strongest
+  rival on the numbers, and it was measured rather than assumed: it takes 237 reports down to 2. Both
+  survivors are still false, so the signal is zero either way — and it would exclude precisely the
+  corpus that motivated the request, since the reporting project's bare paths are in fenced blocks
+  inside records.
+- **Rejected: in, behind a config key, default off** — 2026-08-10. It preserves the reporting
+  project's coverage and answers the silence, which is the real complaint. Rejected because the
+  measurement is about the rule, not about this project's taste: a key would ship a check this
+  project cannot run on itself, and a feature its author never runs rots. A default-off key is also
+  the same silent loss for anyone who does not read the config.
+- **Assumption, recorded because the work survives it being wrong**: that the reporting project's
+  ~1000 bare pointers live in documents shaped like its records rather than like `README.md`. If they
+  do not, the restricted variant above becomes worth re-opening — the number that decided against it
+  is 2 false positives, not a principle.
 
 **Outputs produced**
-- <path>
+- `tests/test_cli.py` — `ABarePathInProseIsNotAReference`, three cases
+- `README.md` — the coverage statement in *Which documents `check` reads, and which pointers in them*
+- No change to `plugin/skills/taskmd/taskmd/cli.py`. The rule was written to be measured and then
+  removed; what survives is the number and the test that the number stays true.
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| The decision is recorded with its rejected alternative, whichever way it goes | met | Three rejections in §3, two of them with their own measurement rather than a reason. |
+| If it is in: a fixture holds a dead bare path and `check` reports it, shown failing first | n/a | It is out. The negative is held instead: a dead bare path in a throwaway project is asserted **not** reported, and a companion case writes the same target as a Markdown link and asserts it **is** — without that, the first test would pass equally well if link-checking had stopped working altogether. |
+| If it is in: a fixture holds a path-shaped token that must not be reported, so the false-positive boundary is proven rather than asserted | met, in the form the answer allows | The boundary was proven at a scale no fixture reaches: 683 tokens over this repository's real corpus, classified rather than counted. That measurement is what decided the task, so the criterion did its job even though the branch it was written for did not happen. |
+| If it is out: the adopter-facing documentation says what `check` does not look at, so the next project to retire its own checker is told | met | `README.md`, with the number, so a reader can judge the trade instead of taking the omission on trust. Asserted by a test against the shipped file — a documented gap that quietly loses its documentation is this task's own finding, one level up. |
 
 **Child fix tasks raised**
-- <T-NNN or "none">
+- none. [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) was already the sibling
+  question about section references and is unchanged by this; it is now the only one of the pair
+  still open, and this record is the evidence it should read first.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-10 | → done | Out, and the interesting part is how it was decided: the feature was built, run, and read before the decision, which cost about an hour and produced a number that no amount of reasoning would have. The reasoning available beforehand pointed the other way — the reporting project validates a thousand pointers with this rule and it works for them. What it cannot see from there is that a taskmd corpus is mostly *dated records*, so the same rule that validates a documentation tree cries wolf over a tracker. Shipped with [T-094](T-094-make-check-answer-the-question-a-fresh-clone-would-ask.md) and the manifest bump. |
+| 2026-08-10 | → specified | The open question was left as posed. What changed at specify was the method for answering it: build the rule and measure it rather than weigh the two risks, because both sides of the argument were plausible and neither was checkable from the armchair. |
 | 2026-08-09 | → proposed | Raised from a real migration rather than from review: the deck-building sibling moved 61 tasks off its own checker onto taskmd 0.1.1 and measured what that would cost before doing it. Reproduced here on a throwaway project — a dead bare path in prose is invisible, a dead Markdown link is caught, and `check` reports one problem where two exist. `high` because the loss is silent and the adoption path invites it: the two tools' command lists match and their coverage does not. |

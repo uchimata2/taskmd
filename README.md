@@ -86,6 +86,25 @@ too. Pass `--root <path>` to override the project they find.
 `list` filters on any stored field or link name (`taskmd list --status blocked`,
 `taskmd list --parent T-009`), and `--json` turns it into a script's input.
 
+### Which documents `check` reads, and which pointers in them
+
+**It reads the documents a clone of your project would receive.** Anything `.gitignore` excludes is
+not read, and the count of what was skipped is printed on every run, so the exclusion cannot quietly
+grow. A project with no git gets the whole tree read and is told so on the same line. This is the
+question the command answers, and it is the same one the repository's own publishing checks ask.
+
+The *targets* are judged differently on purpose: a pointer resolves when the file is on disk, ignored
+or not. That is what lets a published document name a local-only file — a machine-specific note, a
+credentials location — and say where it lives, without the validator calling it broken.
+
+**Only Markdown link syntax counts as a pointer.** A path written as prose or inside a fenced block —
+`docs/plan.md` in a sentence, or a path a tool printed into output you pasted — is not checked, and
+a dead one will not be reported. If you are retiring your own link checker in favour of this one,
+that is the coverage you give up. The decision is recorded in T-092 with what it cost: switching it
+on over this repository examined 683 such paths and reported 237, of which none was a real defect —
+overwhelmingly task records that correctly described a tree that has since moved. A validator that
+cries wolf gets ignored, which is worse than a narrow one.
+
 ## Install
 
 There are two shapes. Both carry the method document and both backend bindings; the plugin adds the
@@ -108,13 +127,15 @@ taskmd check
 
 ```
 OK - 0 task(s), 0 field value(s), 0 reference(s), 0 dependency edge(s), 0 declared output(s), 0 index file(s), 0 document(s), 0 link(s)
+Scope  every document read; no git here, so .gitignore was not consulted
 structure and references only - it cannot tell you whether a spec or an outcome is good
 ```
 
 **The summary carries what was examined, not only what passed** — so a scan that quietly shrinks is
 visible, and a clean run on an empty project reads as the nothing it is rather than as an
-endorsement. Run outside a project, `taskmd check` says so and exits 2 instead of reporting a clean
-tree it never opened.
+endorsement. The `Scope` line is the same idea aimed at what was *skipped*, and it prints on a
+failing run too, because an exclusion hides behind a problem as easily as behind a pass. Run outside
+a project, `taskmd check` says so and exits 2 instead of reporting a clean tree it never opened.
 
 ### As a plain skill
 
