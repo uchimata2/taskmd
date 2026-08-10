@@ -9,6 +9,7 @@ and nothing else.
   python tests/test_cli.py
 """
 
+import glob
 import io
 import json
 import os
@@ -60,6 +61,38 @@ class ChecksThisRepository(unittest.TestCase):
         self.assertEqual(code, 0, out)
         self.assertNotIn("inner/", out)
 
+    def test_a_task_built_from_each_shipped_template_passes(self):
+        """T-032 criterion 1, and the thing `check` still cannot ask on its own: it validates a
+        template's *front-matter*, but only copying one out proves the result is a task.
+
+        Run in this repository rather than a temp folder, because a template's relative links
+        resolve against the project it was copied into — a fresh folder has no `plugin/` and the
+        links break for that reason rather than because the template is wrong (T-091)."""
+        for template in sorted(glob.glob(os.path.join(ROOT, "tasks", "_*.md"))):
+            body = cli.read(template)
+            for placeholder, value in (("T-NNN", "T-999"), ("YYYY-MM-DD", "2026-01-01")):
+                body = body.replace(placeholder, value)
+            body = re.sub(r"^(title|owner|work_package|type|business_value|effort): .*$",
+                          lambda m: "%s: %s" % (m.group(1), {
+                              "title": "A trial task", "owner": "someone",
+                              "work_package": "none", "type": "audit",
+                              "business_value": "high", "effort": "s"}[m.group(1)]),
+                          body, flags=re.M)
+            trial = os.path.join(ROOT, "tasks", "T-999-trial.md")
+            cli.write(trial, body)
+            try:
+                code, out = run("check", "--root", ROOT)
+                # The index is stale by construction — a task was just added. Everything else must
+                # be silent, and it is the everything else that this asserts.
+                for line in out.splitlines():
+                    self.assertFalse(line.startswith(("VOCABULARY", "STORED DERIVED", "BROKEN LINK",
+                                                      "DANGLING", "ID WIDTH", "TEMPLATE")),
+                                     "%s produced: %s" % (os.path.basename(template), line))
+                self.assertNotIn("T-999", out)
+            finally:
+                os.remove(trial)
+        self.assertEqual(run("check", "--root", ROOT)[0], 0)
+
     def test_the_broken_fixtures_are_not_reported_as_this_projects_problems(self):
         """They are projects in their own right. If the host reported them, `check` could never
         be clean here and the fixtures would have to live outside the repository."""
@@ -73,7 +106,7 @@ class CheckFailsOnEveryClassItClaims(unittest.TestCase):
 
     LABELS = ["VOCABULARY", "DANGLING", "NO BLOCKER", "CYCLE", "BROKEN LINK",
               "STORED DERIVED", "MISSING OUTPUT", "CONFIG ERROR", "DUPLICATE ID", "ID WIDTH",
-              "STALE INDEX", "TEMPLATE UNREACHABLE", "PARKED TASK"]
+              "STALE INDEX", "TEMPLATE UNREACHABLE", "TEMPLATE FIELD", "PARKED TASK"]
 
     def fails(self, fixture, label, needle, code=1):
         got, out = run("check", "--root", os.path.join(FIXTURES, fixture))
@@ -102,6 +135,20 @@ class CheckFailsOnEveryClassItClaims(unittest.TestCase):
 
     def test_task_storing_a_field_that_is_derived(self):
         self.fails("broken-derived-field", "STORED DERIVED", "'children:'")
+
+    def test_template_whose_front_matter_has_rotted(self):
+        """T-032. `load_tasks` reads a template and discards it on its placeholder id, so both
+        shipped templates could rot in silence — and one had, naming a `type` the config did not
+        have and storing a derived field. The fixture carries all three forms, because the class is
+        one class and the third is the one that hides longest: a menu that has fallen behind by a
+        single value, every value it still offers being legal."""
+        self.fails("broken-template-field", "TEMPLATE FIELD", "'children:'")
+        out = run("check", "--root", os.path.join(FIXTURES, "broken-template-field"))[1]
+        self.assertIn("sets 'type' to 'nonsense'", out)
+        self.assertIn("offers 'critical | high | low' for 'business_value'", out)
+        # The angle-bracket slots are placeholders, not defects — a check that reported them would
+        # be unusable on any real template.
+        self.assertNotIn("imperative", out)
 
     def test_declared_deliverable_that_is_gone(self):
         """The task is `done`. T-089 made that load-bearing: the fixture used to be `proposed`, so

@@ -48,6 +48,7 @@ where they could not be quietly trimmed to whatever turned out to be easy.
 | `broken-stale-index` | Stale generated index | The task says `specified`; the generated region still says `proposed` |
 | `broken-id-width` | Id width | `id: T-0001`, one digit too wide for `id_width: 3` |
 | `broken-unreachable-template` | Unreachable template | A template in `tasks/_templates/`, which nothing lists |
+| `broken-template-field` | Rotted template front-matter | A reachable template storing `children:`, naming a `type` the schema lacks, and offering a `business_value` menu one value short |
 | `broken-parked-task` | Parked task | A valid `T-002` in `tasks/_drafts/`, beside a `notes.md` that must stay unreported |
 | `broken-config` | Config error at setup — a **key** | `id_witdh` — a typo in a key name |
 | `broken-tasks-dir` | Config error at setup — a **value** | `tasks_dir: taks`, beside a real `tasks/` |
@@ -67,6 +68,15 @@ empty directory, which git cannot store, so that one is built in a temp director
 listing that finds templates came back empty — and empty is the documented shape of a project that
 has none. It is placed where an adopter naturally puts templates rather than somewhere contrived;
 this repository used that folder itself until T-076.
+
+`broken-template-field` is its pair, and the split is the same one the class rests on: that fixture
+is a good template in the wrong **place**, this one a template in the right place with the wrong
+**content**. It carries three defects rather than one — the deliberate exception to the rule above,
+because they are one class and dropping any of them would leave the fixture proving less than the
+check claims. The third is the one that matters: a menu one value short, where everything it still
+offers is legal, so nothing a reader could spot distinguishes it from a correct template. That is
+the form that had gone unnoticed in this repository's own shipped task template, and the new check
+found it on its first run (T-032).
 
 `broken-duplicate-id` and `broken-id-width` are the two cases where the defect is that a file is
 **not** the task it looks like, and both were silent before T-062 and T-075. The first is the only

@@ -30,7 +30,7 @@ import sys
 
 from . import discovery
 from .schema import (DUPLICATE_ID, PARKED, SchemaError, drift_from_default, load_schema, load_tasks,
-                     templates)
+                     read, split_front_matter, templates)
 
 BEGIN = "<!-- taskmd:index - generated, do not edit by hand -->"
 END = "<!-- taskmd:end -->"
@@ -642,6 +642,50 @@ def check_unreachable_templates(root, schema, problems):
     return [("template", found)]
 
 
+def check_template_fields(root, schema, problems):
+    """A template's front-matter, held to the rules the task made from it will be held to (T-032).
+
+    `load_tasks` reads a template and discards it, because a placeholder id is neither an id nor a
+    near miss. That is right — a template is not work — and it is why both shipped templates could
+    rot in silence: the audit one named a `type` the config did not have and stored a derived field,
+    and the only thing that ever noticed was a person copying it out and running `check` on the
+    result. Two of the four defects in that template were of exactly the classes `check` already
+    reports for tasks; they were simply never asked of the file that produces them.
+
+    **A placeholder is not a defect.** A value in angle brackets is a slot for the author to fill and
+    is skipped. A `|`-separated value is a menu of what may go in the slot, and a menu is held to the
+    *whole* vocabulary rather than to mere membership — a menu that has quietly fallen behind is the
+    drift this exists to catch, and when this was written the shipped task template was still
+    offering five of the seven types.
+    """
+    derived = set(e.derives for e in schema.edges.values() if e.derives)
+    examined = 0
+    for path, _ in templates(root, schema):
+        where = rel(root, os.path.relpath(path, root))
+        try:
+            fields = split_front_matter(read(path))[0]
+        except (OSError, ValueError, UnicodeDecodeError):
+            continue    # `templates` already parsed it to get here; a race is not this check's to report
+        for name in sorted(derived & set(fields)):
+            problems.append("TEMPLATE FIELD %s stores '%s:', which is computed from '%s'; every "
+                            "task copied from it starts invalid"
+                            % (where, name, source_of(schema, name)))
+        for field, values in sorted(schema.vocabularies.items()):
+            examined += 1
+            value = (fields.get(field) or "").strip()
+            if not value or (value.startswith("<") and value.endswith(">")):
+                continue
+            if "|" in value:
+                offered = sorted(v.strip() for v in value.split("|"))
+                if offered != sorted(values):
+                    problems.append("TEMPLATE FIELD %s offers '%s' for '%s'; the schema allows %s"
+                                    % (where, " | ".join(offered), field, ", ".join(values)))
+            elif value not in values:
+                problems.append("TEMPLATE FIELD %s sets '%s' to '%s'; allowed: %s"
+                                % (where, field, value, ", ".join(values)))
+    return [("template field value", examined)]
+
+
 def check_config_drift(root, schema, advisories):
     """A pinned config that has fallen behind the shipped default — advisory, never a problem.
 
@@ -669,6 +713,7 @@ def cmd_check(root, schema, tasks, args):
     counted += check_stale_index(root, schema, tasks, problems)
     counted += check_links(root, schema, problems, notes)
     counted += check_unreachable_templates(root, schema, problems)
+    counted += check_template_fields(root, schema, problems)
     counted += check_config_drift(root, schema, advisories)
 
     if problems:

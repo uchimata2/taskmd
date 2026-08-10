@@ -114,10 +114,19 @@ work; sitting **in** `tasks_dir`, rather than in a folder under it, is what make
 relative links resolve the same way in the template and in the task copied out of it — put it one
 level down and every link you copy is wrong by one level. What keeps such a file out of the task set
 is assumption 6, working on its `id` and not on its name: a template's id is a placeholder, so it is
-not the prefix plus `id_width` digits and is not a task. Two consequences worth having in advance —
-a template is **link-checked** like everything else in the tree, and one whose placeholder id is
+not the prefix plus `id_width` digits and is not a task. Three consequences worth having in advance.
+A template is **link-checked** like everything else in the tree. Its **front-matter is checked too**,
+against the same vocabulary and the same ban on storing a derived field that a task is held to —
+because the file is not read as work, so nothing else would ever ask, and a template that has rotted
+produces an invalid task every time somebody copies it (T-032). And one whose placeholder id is
 accidentally made real becomes a task silently, which is assumption 6's stated corollary rather than
 a special hazard of templates.
+
+*Placeholders are not defects.* A value in angle brackets is a slot for the author to fill and is
+skipped. A `|`-separated value is a menu of what may go in the slot, and for a field with a
+vocabulary the menu must be that vocabulary — not a subset of it, because a menu quietly falling
+behind is the form of rot that survives longest: every value it still offers is legal, so nothing a
+reader could notice separates it from a correct template.
 
 *A project with no template is a normal project*, not one missing a setup step. The rule matches
 nothing, and that is an answer rather than a failure: write the front-matter the schema requires and

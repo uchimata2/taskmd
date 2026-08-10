@@ -1,7 +1,7 @@
 ---
 id: T-NNN
 title: <imperative, one line — it appears in every generated view, so make it read out of context>
-type: analysis | deliverable | research | fix | admin
+type: admin | analysis | audit | decision | deliverable | fix | research
 status: proposed
 phase: specify
 parent: null

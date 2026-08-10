@@ -2,8 +2,8 @@
 id: T-032
 title: Repair the audit template, and validate templates at all
 type: fix
-status: specified
-phase: specify
+status: done
+phase: review
 parent: T-026
 blocked_by: []
 related: [T-003, T-022, T-036]
@@ -12,8 +12,8 @@ owner: maintainer
 business_value: high
 effort: s
 created: 2026-08-06
-updated: 2026-08-06
-deliverables: []
+updated: 2026-08-10
+deliverables: [plugin/skills/taskmd/taskmd/cli.py, tasks/_audit-umbrella-template.md, tests/fixtures/broken-template-field/tasks/_task-template.md]
 ---
 
 # T-032 — Repair the audit template, and validate templates at all
@@ -154,26 +154,118 @@ carries the plan-audit case — where the answer given is argued **against**; se
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Rebuild a task from the template and run `check`, before changing anything | evidence in §3 |
+| 2 | The mechanical half **first**, so the repair is proved by the check rather than by reading | `check_template_fields` in `cli.py` |
+| 3 | Repair whatever it reports, plus the two defects it cannot see | `tasks/_audit-umbrella-template.md` |
+| 4 | A fixture holding the class, and the class in the failure set | `tests/fixtures/broken-template-field/`, `tests/test_cli.py` |
+| 5 | Copy each shipped template out and check the result — the half front-matter validation cannot ask | `tests/test_cli.py` |
+| 6 | Reconcile the binding, which says a template is link-checked | `docs/bindings/local-markdown.md` |
+
+Step 2 before step 3 is the point of the ordering: writing the check first means the repair is
+verified by the mechanism that has to keep verifying it, rather than by the same reading that missed
+the defects for two months.
 
 ## 3. Implement
 
+**Reproduced first.** A task built from the audit template with only its placeholders filled:
+
+```
+STORED DERIVED T-001 stores 'children:', which is computed from 'parent'; remove it
+2 problem(s) - 1 task(s), ...
+exit=1
+```
+
+Defect 1 is gone, as §1 records — T-088 put `audit` in the vocabulary. Defects 2, 3 and 4 stood.
+
 **Decisions & assumptions**
-- <decision — rationale — date>
+- **The check was written before the repair** — 2026-08-10. Both were in scope and either order
+  would have closed the task; this one makes the repair's proof mechanical. It paid immediately:
+  on its first run against this repository it reported **two** defects, and only one of them was
+  known. The other was `tasks/_task-template.md` offering `analysis | deliverable | research | fix |
+  admin` — five of the seven types, missing `decision` and `audit`. Nobody had noticed, and criterion
+  5 is exactly *the template and the vocabulary must not disagree again*.
+- **A placeholder is not a defect, and a menu is held to the whole vocabulary** — 2026-08-10. Angle
+  brackets are a slot and are skipped. A `|`-separated value is a menu, and it must equal the
+  vocabulary rather than merely be contained in it. Membership alone would have passed the drifted
+  `type` line above, which is the case that motivated the rule: a menu falling behind is the form of
+  rot that lasts longest, because every value it still offers is legal and nothing a reader could
+  spot distinguishes it from a correct template. Rejected: skipping any value containing `|`, which
+  is simpler and would have found nothing.
+- **Missing fields and body structure are repaired, not made mechanical** — 2026-08-10, and stated
+  because criterion 4 is about the class. `check` does not require `business_value` of a *task*, so
+  requiring it of a template would invent a rule the tool does not otherwise hold anyone to; and the
+  four phases are a body convention the method deliberately does not impose as a format. So two of
+  the four defects are now class-proof and two are instance repairs. What closes the gap for the
+  latter is step 5 — copying each shipped template out and checking the result — which is a weaker
+  guarantee than a rule and is the honest one available.
+- **The trial copy is made in this repository, not a temp folder** — 2026-08-10. A template's
+  relative links resolve against the project it is copied into, so a fresh folder breaks them for
+  want of a `plugin/` directory rather than because the template is wrong. That is
+  [T-091](T-091-make-the-shipped-task-template-survive-being-copied.md)'s subject and was left to it.
+
+**Outputs produced**
+- `plugin/skills/taskmd/taskmd/cli.py` — `check_template_fields`, wired into `cmd_check`.
+- `tasks/_audit-umbrella-template.md` — rewritten: `children:` gone; `related`, `business_value` and
+  `effort` added; body now the four mandatory phases, with the findings table inside `implement` and
+  the closing rule inside `review`. The fixed *Review dimensions* checklist is replaced by a
+  **what counts as a finding** slot, per `docs/method/audit.md` step 2.
+- `tasks/_task-template.md` — the `type` menu, corrected to the vocabulary.
+- `tests/fixtures/broken-template-field/`, `tests/fixtures/README.md`, `tests/test_cli.py`.
+- `plugin/skills/taskmd/docs/bindings/local-markdown.md` — *create* now says a template's
+  front-matter is checked, and what a placeholder is.
+
+**Evidence**
+
+The check, on this repository, before the repair — one known defect and one nobody had found:
+
+```
+TEMPLATE FIELD tasks/_audit-umbrella-template.md stores 'children:', which is computed from
+'parent'; every task copied from it starts invalid
+TEMPLATE FIELD tasks/_task-template.md offers 'admin | analysis | deliverable | fix | research'
+for 'type'; the schema allows analysis, decision, deliverable, research, fix, admin, audit
+```
+
+A task built from the repaired audit template, in this repository, after regenerating the index —
+criterion 1, run rather than asserted:
+
+```
+OK - 114 task(s), 570 field value(s), 355 reference(s), 22 dependency edge(s), 158 declared
+output(s), 1 index file(s), 142 document(s), 1086 link(s), 2 template(s), 10 template field
+value(s), 0 vocabulary row(s)
+```
+
+Shown failing on the class, per R-16 — `tests/fixtures/broken-template-field`, three forms:
+
+```
+TEMPLATE FIELD tasks/_task-template.md stores 'children:', ...
+TEMPLATE FIELD tasks/_task-template.md offers 'critical | high | low' for 'business_value'; the
+schema allows critical, high, medium, low
+TEMPLATE FIELD tasks/_task-template.md sets 'type' to 'nonsense'; allowed: ...
+```
+
+Suite **181 passed** (179 before), `check` clean on 113 tasks.
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| A task created from the template, placeholders filled and nothing else changed, passes `check` — demonstrated by running it | met | Run in this repository, exit 0 on 114 tasks, output above. `test_a_task_built_from_each_shipped_template_passes` does it for **both** shipped templates on every run, so it is not a one-off demonstration. |
+| The body carries the four mandatory phases, findings inside that structure rather than replacing it | met | `1. Specify / 2. Plan / 3. Implement / 4. Review`; the findings table is inside `implement`, where the findings are produced, and the closing rule inside `review`. `plan` now says the audit procedure is designed there, per audit. |
+| Every front-matter field `task-template.md` carries, or why one is absent | met | `related`, `business_value` and `effort` added. Every field the task template carries is now present; none is absent, so nothing needs excusing. |
+| The failure is caught mechanically from now on — shown by breaking a template on purpose | met, with a stated limit | Two of the four defect classes are mechanical and have a fixture. Missing fields and body structure are not, for the reasons in §3 — `check` requires neither of a task either, so requiring them of a template would invent a rule. Step 5 covers what is left, weakly and honestly. |
+| The audit-type decision is recorded with the alternative rejected — template and vocabulary must not disagree again | met | The decision and its rejected alternative were already in §1 (Q1, 2026-08-06). *Must not disagree again* is now enforced rather than intended, and it caught a live disagreement in `_task-template.md` on its first run. |
 
 **Child fix tasks raised**
-- none
+- none. The one thing found and not fixed here — a template's links breaking when it is copied into
+  a project without this one's directory layout — is already
+  [T-091](T-091-make-the-shipped-task-template-survive-being-copied.md), open and in this same
+  release.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-10 | → done | Plan through review in one session, under the maintainer's `v0.2` whole-lifecycle authorisation of 2026-08-10 (METHOD §3.1). The check was built before the repair, and found a second, unknown defect on its first run — the shipped **task** template's `type` menu, five values of seven. So the log entry above, which recorded a second project wanting this criterion, understated it: the repository asking for the check was itself failing it. |
 | 2026-08-10 | (no change) | **Independent evidence for the second in-scope item**, from the first adopting project's recommendations (`control/LOCAL-CONTEXT.md`, raised there as R-3): a `_`-prefixed Markdown file in `tasks_dir` whose front-matter fails the schema is a template that will produce a failing task, and nothing reports it. That is this task's *"a way for a template's front-matter to be checked"* reached from outside, by a project that hit the consequence rather than by an audit of this one — so the criterion is now wanted by two projects and no criterion is amended. The other half of R-3, a template the create path cannot see at all, is **not** here: it is [T-101](T-101-report-a-template-the-create-path-cannot-see.md), because the file is never opened and the silence reads as the legal "this project has no template". **Not a status change**: nothing about the four defects or the five criteria moved. |
 | 2026-08-09 | (no change) | Reconciled by [T-076](T-076-decide-what-a-template-s-links-resolve-against.md), which moved both templates from `tasks/_templates/` to `tasks/` as `_`-prefixed files. Four path references updated — Outcome, defect 2, Scope *In*, Inputs — and *Why nobody saw it* annotated rather than rewritten: its mechanism is now historical, its conclusion still holds, and it is the record of why F-6 survived. **Not a status change**: nothing about this task's four defects or its criteria moved, and the second in-scope item — a way for a template's front-matter to be checked — got closer rather than different, since `load_tasks` now reads the file and rejects it on its id instead of never opening it. |
 | 2026-08-06 | → specified | Q1 answered by the maintainer: `type` gains `audit`. The answer's own reasoning — that an audit runs the same pipeline as any other task — is what settles it, since `type` and `phase` are orthogonal and every existing value already runs all four phases; the deciding argument is that METHOD §5 calls audit a task type while the schema has no such value, which is the drift this plugin exists to remove. No criterion amended; criterion 5 already required the rejected alternative to be recorded and it now is. The answer also carried an account of the audit *workflow* — two method changes that would have widened this task into the thing it was raised to fix, so they are split to T-036, one agreed and one argued against there rather than here. |
