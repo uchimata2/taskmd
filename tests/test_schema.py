@@ -28,6 +28,8 @@ from taskmd.schema import (  # noqa: E402
 )
 
 ALT = os.path.join(ROOT, "tests", "fixtures", "alt-project")
+ALLOCATED = os.path.join(ROOT, "tests", "fixtures", "backend-allocated-ids")
+NARROW = os.path.join(ROOT, "tests", "fixtures", "broken-id-width")
 
 VALID = """---
 id_field: id
@@ -336,6 +338,20 @@ class RejectsBadConfig(unittest.TestCase):
     def test_id_width_zero(self):
         self.reject(VALID.replace("id_width: 3", "id_width: 0"), "at least 1")
 
+    def test_a_near_miss_of_none_is_still_rejected(self):
+        """T-082. `none` turns the width off, so the failure mode this pins is a value that turns
+        it off *by being misspelt* — the escape hatch the task's scope rules out, arrived at by
+        accident rather than by decision. `nonce` must still be a number that is not one."""
+        self.reject(VALID.replace("id_width: 3", "id_width: nonce"), "must be a whole number")
+
+    def test_both_id_width_rejections_now_name_the_way_out(self):
+        """T-082. A validator that rejects a value without naming the legal alternative sends the
+        reader to the config doc to find out there is one. Asserted on both branches because only
+        one of them was reachable by a typo before `none` existed."""
+        for text, expected in ((VALID.replace("id_width: 3", "id_width: wide"), "'none'"),
+                               (VALID.replace("id_width: 3", "id_width: 0"), "'none'")):
+            self.reject(text, expected)
+
     def test_list_key_given_a_scalar(self):
         self.reject(VALID.replace("open_statuses: [open]", "open_statuses: open"),
                     "'open_statuses' must be a list")
@@ -419,6 +435,59 @@ class RejectsBadConfig(unittest.TestCase):
         self.reject(VALID.replace("deliverables_field: deliverables",
                                   "deliverables_field: id"),
                     "collides with id_field/title_field")
+
+
+class BackendAllocatedIds(unittest.TestCase):
+    """T-082. `id_width: none` — a project whose ids are handed out by its backend.
+
+    The fixture's ids are `#7`, `#41` and `#1024`, so no single width describes them and a schema
+    that still imposed one would drop two of the three. Both directions are proven here: the
+    mixed-width project loads, and the project that *does* choose a width still catches a file
+    that breaks it.
+    """
+
+    def setUp(self):
+        self.schema = load_schema(ALLOCATED)
+        self.tasks = load_tasks(ALLOCATED, self.schema)
+
+    def test_mixed_widths_all_load(self):
+        self.assertIsNone(self.schema.id_width)
+        self.assertEqual(sorted(self.tasks), ["#1024", "#41", "#7"])
+        self.assertEqual(self.tasks.anomalies, [])
+
+    def test_the_derived_edges_still_work_across_the_widths(self):
+        """Not decoration: `children` is derived by matching the parent's id, so a task the width
+        rule had dropped would show up here as a parent with one child instead of two."""
+        self.assertEqual(sorted(self.tasks["#1024"].derived["children"]), ["#41", "#7"])
+        self.assertEqual(self.tasks["#7"].derived["blocks"], ["#41"])
+
+    def test_is_id_and_looks_like_id_accept_the_same_set(self):
+        """§1 Q1, asserted rather than assumed. The two collapse, which is what makes the id-width
+        anomaly unreachable here — and unreachable is what keeps `check`'s message, which formats
+        the width with %d, from meeting a width of None."""
+        for value in ("#7", "#41", "#1024", "#0"):
+            self.assertTrue(self.schema.is_id(value), value)
+            self.assertTrue(self.schema.looks_like_id(value), value)
+        for value in ("#", "#7a", "README", "<id>", ""):
+            self.assertFalse(self.schema.is_id(value), value)
+            self.assertFalse(self.schema.looks_like_id(value), value)
+
+    def test_format_id_pads_to_nothing_and_stays_a_valid_id(self):
+        """The padder with no width to pad to. Zero is chosen so this property holds; any other
+        answer makes `format_id` produce something `is_id` would have to reject."""
+        for number in (7, 41, 1024):
+            self.assertEqual(self.schema.format_id(number), "#%d" % number)
+            self.assertTrue(self.schema.is_id(self.schema.format_id(number)))
+            self.assertEqual(self.schema.number_of(self.schema.format_id(number)), number)
+
+    def test_a_project_that_chose_a_width_still_catches_a_file_that_breaks_it(self):
+        """The other direction, in the same class so neither can be relaxed without the other
+        being read. `broken-id-width` holds `T-0001` against the default's `id_width: 3`."""
+        schema = load_schema(NARROW)
+        self.assertEqual(schema.id_width, 3)
+        tasks = load_tasks(NARROW, schema)
+        self.assertEqual([(a.kind, a.task_id) for a in tasks.anomalies], [("id-width", "T-0001")])
+        self.assertEqual(sorted(tasks), ["T-002"])
 
 
 if __name__ == "__main__":

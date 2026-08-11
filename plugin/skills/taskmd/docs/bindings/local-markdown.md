@@ -82,6 +82,13 @@ All of it from the schema config (`taskmd/defaults/config.md`, or the project's 
 — this binding introduces no settings of its own, and defines no field names or status values.
 It needs `tasks_dir`, the identity keys (`id_field`, `id_prefix`, `id_width`), and the edge table.
 
+**Give `id_width` a number here.** Its other value, `none`, says the ids are allocated by a backend
+— and on this one *you* allocate them: `create` below composes the next id from the ones already
+there. That is exactly the case where a width earns its keep, because an id you compose is an id you
+can mistype, and the width is what makes a mistyped one reportable rather than a file that silently
+exists in no view. Nothing stops a project setting `none` anyway; what it buys is the loss of the
+check `tests/fixtures/broken-id-width` exists to prove, in return for nothing this binding offers.
+
 ---
 
 ## Operations

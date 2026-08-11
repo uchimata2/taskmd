@@ -197,8 +197,11 @@ class Schema(object):
         self.index_columns = fields["index_columns"]
         self.edges = edges                # {field: Edge}
         self.vocabularies = vocabularies  # {field: [values]}
-        self._id_re = re.compile(r"^%s\d{%d}$" % (re.escape(self.id_prefix), self.id_width))
         self._loose_id_re = re.compile(r"^%s\d+$" % re.escape(self.id_prefix))
+        # With no width, an id is the prefix plus digits and nothing narrower is being claimed —
+        # so the exact and the loose pattern are the same object, deliberately (T-082 §1 Q1).
+        self._id_re = (self._loose_id_re if self.id_width is None else
+                       re.compile(r"^%s\d{%d}$" % (re.escape(self.id_prefix), self.id_width)))
 
     @property
     def statuses(self):
@@ -247,6 +250,9 @@ class Schema(object):
         and what the code used to leave unsaid (T-075). So a file whose id is the right shape and
         the wrong width is not quietly a task; `looks_like_id` is how a caller tells that case
         apart from an ordinary Markdown file, and reports it instead of ignoring it.
+
+        **Unless `id_width` is `none`**, which says the backend allocates the ids: then there is no
+        width to be wrong about, and this accepts the prefix plus any number of digits (T-082).
         """
         return bool(self._id_re.match(value or ""))
 
@@ -255,11 +261,23 @@ class Schema(object):
 
         Its whole purpose is to make a near-miss reportable. Without it, a mistyped width is
         indistinguishable from a README, and the file leaves the project with no signal.
+
+        Under `id_width: none` this and `is_id` accept the same set, so no caller ever reaches its
+        near-miss branch and no id-width anomaly can be raised. That is the outcome rather than a
+        casualty of it: a near-miss is defined by the width, and with no width there is no third
+        case between "a task" and "not a task". Both are kept because on every other config this
+        one carries the whole of the T-075 report.
         """
         return bool(self._loose_id_re.match(value or ""))
 
     def format_id(self, number):
-        return "%s%0*d" % (self.id_prefix, self.id_width, number)
+        """The prefix plus the number, padded to `id_width` — unpadded when there is no width.
+
+        A padder with nothing to pad to is where this would otherwise break. Zero is the width that
+        keeps `is_id(format_id(n))` true for every n, which is the property worth protecting; on a
+        backend that allocates its own ids nothing should be calling this at all.
+        """
+        return "%s%0*d" % (self.id_prefix, self.id_width or 0, number)
 
     def number_of(self, task_id):
         return int(task_id[len(self.id_prefix):])
@@ -276,7 +294,10 @@ def _require(fields, source):
                           "rather than merging with it, so every key must be present."
                           % (source, ", ".join(missing)))
     for key in SCALAR_KEYS:
-        if not isinstance(fields[key], str) or not fields[key]:
+        # `id_width` is the one scalar permitted to be empty, and only because empty *means*
+        # something here: `none` says the backend allocates the ids, so there is no width to
+        # impose (T-082). Every other scalar names a field or a folder, where empty is a typo.
+        if not isinstance(fields[key], str) or (not fields[key] and key != "id_width"):
             raise SchemaError("%s: '%s' must be a non-empty scalar" % (source, key))
     for key in NULLABLE_KEYS:
         if not isinstance(fields[key], str):
@@ -285,13 +306,17 @@ def _require(fields, source):
     for key in LIST_KEYS:
         if not isinstance(fields[key], list):
             raise SchemaError("%s: '%s' must be a list" % (source, key))
-    try:
-        fields["id_width"] = int(fields["id_width"])
-    except ValueError:
-        raise SchemaError("%s: 'id_width' must be a whole number, got '%s'"
-                          % (source, fields["id_width"]))
-    if fields["id_width"] < 1:
-        raise SchemaError("%s: 'id_width' must be at least 1" % source)
+    if fields["id_width"] == "":
+        fields["id_width"] = None       # `none`: the backend allocates them; impose no width
+    else:
+        try:
+            fields["id_width"] = int(fields["id_width"])
+        except ValueError:
+            raise SchemaError("%s: 'id_width' must be a whole number, or 'none' if the backend "
+                              "allocates the ids, got '%s'" % (source, fields["id_width"]))
+        if fields["id_width"] < 1:
+            raise SchemaError("%s: 'id_width' must be at least 1, or 'none' if the backend "
+                              "allocates the ids" % source)
 
 
 def _read_edges(body, source, fields):

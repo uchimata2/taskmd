@@ -30,6 +30,17 @@ asserts production, so it is only checked once the task claims to have produced.
 `broken-deliverable`'s own task was `proposed`, so the negative case was being proved by an *open*
 task and nobody had written the positive one at all.
 
+`backend-allocated-ids` is the fourth positive case, and the second **pair**: it sets
+`id_width: none` and carries `#7`, `#41` and `#1024`, which no number could describe, while
+`broken-id-width` keeps `id_width: 3` and still catches `T-0001`. Both directions have to hold at
+once — the value exists for a backend that hands ids out, and it must not become a way to switch
+off the check that catches a typo where you compose them yourself (T-082). It is also the one
+fixture whose `check` run prints a `CONFIG DRIFT` line while passing: its status vocabulary is
+`open, closed`, which is a **choice** rather than a lag, and the drift line reports it anyway
+because the row is still called `status`. Expected, advisory, exit 0 — and
+[T-123](../../tasks/T-123-decide-whether-a-replaced-vocabulary-row-is-drift.md) is where
+that is being decided, not here.
+
 The `broken-*` projects are the negative cases. **Each holds exactly one defect**, so a `check` run
 that reports two classes on one fixture is itself a finding. They were written **before** `check`
 existed (T-002, plan step 3): a validator is worth what you believe it would catch, and the only

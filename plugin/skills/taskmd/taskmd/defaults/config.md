@@ -2,7 +2,7 @@
 # ---------------------------------------------------------------- identity
 id_field: id               # front-matter field holding the task id
 id_prefix: T-              # ids are <prefix><zero-padded number>
-id_width: 3                # pad width, so T-007 rather than T-7
+id_width: 3                # pad width, so T-007 rather than T-7; `none` if a backend allocates them
 title_field: title         # one-line name, shown in every generated view
 tasks_dir: tasks           # where task files live, relative to the project root; must exist
 
@@ -107,6 +107,25 @@ is the whole of the upgrade.
 **It is deliberately not automated.** An optional key, a merge on upgrade, or a version marker in
 every config would each be larger than the problem — no key has been added since this schema shipped
 — and each would weaken rule 1, which is what makes a config say exactly what a project meant.
+
+## Ids a backend allocates
+
+`id_width` is a number, and `none` when the ids are **not yours to shape** — handed out by whatever
+backend holds the tasks. Set that way, an id is the prefix plus any number of digits, so `#7`, `#41`
+and `#1024` are all ids in one project, which no number can describe.
+
+**It is not a way to switch the width check off**, and the difference is not a matter of taste.
+Where you compose your own ids, the width is what makes a mistyped one reportable: a file carrying
+`T-0001` under `id_width: 3` is not quietly a task, it is named and left out, and that is the only
+thing standing between a typo and a task that silently exists in no view. Where the backend
+allocates, an id **cannot** be mistyped, because it is never composed — `create` returns it and the
+project reads it back. So `none` removes a rule that has nothing to catch, and a project that sets
+it while still writing its own ids has removed one that has.
+
+Two consequences follow, and neither needs configuring. Nothing can report a wrong-width id in such
+a project, because there is no width to be wrong about. And composing an id pads to nothing —
+`#7`, not `#007` — which keeps a composed id a legal one, though on a backend that allocates there
+is no reason to compose one at all.
 
 ## The tasks folder
 

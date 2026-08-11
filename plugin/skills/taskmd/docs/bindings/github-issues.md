@@ -73,7 +73,10 @@ table and the vocabularies.
 Two keys mean something different here, and neither is this binding's to change:
 
 - **the identity keys** describe the issue number rather than a chosen format. A project on this
-  backend has ids like `#41`; `id_prefix` and `id_width` describe that, they do not impose it.
+  backend has ids like `#7`, `#41` and `#1024`: set `id_prefix: #` and **`id_width: none`**, which
+  is the value that says the ids are allocated rather than composed. It has to be said rather than
+  left to the default, because `id_width` is otherwise enforced when a file is read — no number
+  describes those three ids, so a project inheriting `3` would find two of them were not tasks.
 - **`tasks_dir` is unused.** There is no folder. A project running only on this backend has nothing
   for it to name.
 
