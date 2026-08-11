@@ -18,6 +18,12 @@ findings.
 
 ## Procedure
 
+The five steps are what every audit does. **How this one examines its subject is not fixed here** —
+an audit is a task, so it has a `plan`, and the procedure for *this* audit is researched and written
+there: what will be read, in what order, and what the examination consists of. Step 2's threshold is
+part of that design. A standing checklist carried by every audit would examine each new subject for
+the last subject's problems, which is how an audit comes to report what its author already expected.
+
 1. **Create one umbrella task**, scoped to what is being examined. The scope is the first thing to
    get right: "everything" produces a list nobody acts on. Name what is in, and say what is
    deliberately not being looked at.
@@ -54,6 +60,23 @@ threshold (step 2) is set too low — not a licence to fix it inline.
 
 The one exception is a finding that makes continuing the audit impossible. Then stop, raise it, and
 say the audit is incomplete; do not repair it and carry on as though the scope were covered.
+
+## Auditing a plan that has not been implemented
+
+People do ask for this — "audit the plan before we start" — and it is a reasonable thing to want.
+It is not an audit, and treating it as one damages the rule above.
+
+**An audit's product is traceability over work that exists.** A plan that has not been implemented
+has produced nothing: nothing patched, nothing to trace, and no way for the distinction between a
+clean examination and a quiet repair to arise. **And the no-inline-fix rule cannot bite**, because
+the plan is the thing still being decided — changing it *is* the work of the `plan` phase, not a fix
+applied to a finished artifact. Calling the exercise an audit would therefore force an exception
+into [`../METHOD.md`](../METHOD.md) rule 4 for the commonest case of all, and a rule with a
+sanctioned waiver for its commonest case has stopped being a rule.
+
+So: no umbrella task, no findings, no child tasks. The plan is revised where it lives —
+[`plan`](plan.md), *Revising a written plan*, which says how and where that is recorded. What the
+requester wanted is unchanged; only its name is.
 
 ## Worked example — a non-software audit
 

@@ -45,6 +45,28 @@ riskiest assumption for step nine is optimistic, not efficient.
 Do not plan past the horizon you can actually see. If step 4's result determines whether steps 5–8
 are the right steps at all, say so in the plan rather than inventing detail that will be discarded.
 
+## Revising a written plan
+
+A plan may be revised after it is written, and often should be. Discovering at step 4 that steps 5–8
+are the wrong steps is the sequencing rule above doing its job, not a failure of the plan. The same
+applies when someone is asked to examine a plan before it starts — that is this, not an audit
+([`audit`](audit.md), *Auditing a plan that has not been implemented*).
+
+**The plan is edited in place.** It describes the present, so a revision replaces what it supersedes
+rather than sitting beside it; two plans for one task leave every later reader working out which one
+actually ran.
+
+**The revision is recorded once, as a decision** — step 5 above already says what a decision carries
+and why the rejected alternative is the valuable half. A revision is exactly that: the superseded
+steps are the rejected alternative, and the reason they were abandoned is what stops the next person
+reinstating them. So it needs no home of its own, and the plan itself carries no history. This is
+[`../METHOD.md`](../METHOD.md) rule 5 at the scale of one table: correct what the record says about
+the present, annotate what it says about the past.
+
+**A revision that changes what the task should produce is not a revision.** That is a question for
+whoever owns the outcome, and [`../METHOD.md`](../METHOD.md) §3.3 says what to do with it — raise it
+before continuing, rather than re-cutting the plan around it.
+
 ## What does not belong in a plan
 
 - **Acceptance criteria.** They live in `specify` and are judged in `review`. Restating them here

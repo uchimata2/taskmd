@@ -64,7 +64,6 @@ into, not a promise about a date.
 | [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) | Align with the handoff tracker-binding contract | `v0.3` | `specified` | `specify` | - | - | - | T-002, T-007, T-009, T-033, T-105 |
 | [T-020](T-020-confirm-byte-identical-output-on-macos-and-linux.md) | Confirm byte-identical output on macOS and Linux | `v0.3` | `specified` | `specify` | T-002 | - | - | T-006, T-023, T-030, T-085 |
 | [T-024](T-024-say-so-when-tasks-dir-names-something-that-is-not-a-folder.md) | Say so when tasks_dir names something that is not a folder | `v0.2` | `proposed` | `specify` | - | - | - | T-019, T-023, T-078 |
-| [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | `v0.2` | `specified` | `specify` | - | - | - | T-026, T-032, T-105 |
 | [T-078](T-078-say-what-a-tasks-dir-of-dot-means.md) | Say what a tasks_dir of dot means | `v0.2` | `specified` | `specify` | - | - | - | T-019, T-024, T-069 |
 | [T-082](T-082-let-id-width-say-the-backend-allocates-the-ids.md) | Let id_width say that the backend allocates the ids | `v0.2` | `proposed` | `specify` | T-004 | - | - | T-010, T-075, T-108 |
 | [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) | Install the published plugin on a machine that has never seen it | `v0.3` | `proposed` | `specify` | T-006 | - | - | T-020, T-049, T-067, T-099 |
@@ -114,6 +113,7 @@ into, not a promise about a date.
 | [T-033](T-033-resolve-the-f1-reference-inside-this-repository.md) | Resolve the F1 reference inside this repository | `v0.2` | `done` | `review` | T-026 | - | - | T-005, T-013 |
 | [T-034](T-034-let-the-pre-publish-check-see-files-not-yet-tracked.md) | Let the pre-publish check see files not yet tracked | `v0.1` | `done` | `review` | T-026 | - | - | T-006, T-013, T-018, T-035, T-058, T-080, T-092, T-094, T-095, T-097, T-098 |
 | [T-035](T-035-warn-that-a-fabricated-specimen-must-not-cross-a-shell.md) | Warn that a fabricated specimen must not cross a shell | `v0.2` | `done` | `review` | - | - | - | T-013, T-018, T-034, T-047, T-058, T-118 |
+| [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | `v0.2` | `done` | `review` | - | - | - | T-026, T-032, T-105 |
 | [T-037](T-037-delete-the-throwaway-proof-repository.md) | Delete the throwaway repository the GitHub binding was proven on | `v0.1` | `done` | `review` | - | - | - | T-010, T-041, T-077 |
 | [T-038](T-038-reconcile-bindings-worked-example-with-the-real-binding.md) | Reconcile BINDING section 5's worked example with the binding it predicted | `v0.1` | `done` | `review` | - | - | - | T-009, T-010 |
 | [T-039](T-039-let-a-plan-name-a-deliverable-that-does-not-exist-yet.md) | Let a plan name a deliverable that does not exist yet | `v0.1` | `done` | `review` | - | - | - | T-010, T-025 |

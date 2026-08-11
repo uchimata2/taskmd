@@ -2,8 +2,8 @@
 id: T-036
 title: Say where a plan is revised, and that reviewing one is not an audit
 type: decision
-status: specified
-phase: specify
+status: done
+phase: review
 parent: null
 blocked_by: []
 related: [T-032, T-026]
@@ -12,8 +12,8 @@ owner: maintainer
 business_value: medium
 effort: s
 created: 2026-08-06
-updated: 2026-08-10
-deliverables: []
+updated: 2026-08-11
+deliverables: [plugin/skills/taskmd/docs/method/audit.md, plugin/skills/taskmd/docs/method/plan.md]
 ---
 
 # T-036 — Say where a plan is revised, and that reviewing one is not an audit
@@ -115,18 +115,73 @@ R-3, R-21 (`docs/SCOPE.md`), and METHOD rule 4, whose integrity is the thing at 
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Say in `audit.md` that an audit's procedure is produced in its own `plan`, pointing at step 2's threshold as part of that design rather than restating it. | A short paragraph introducing the Procedure list in `plugin/skills/taskmd/docs/method/audit.md`. |
+| 2 | Give the distinction its own heading in `audit.md`, so someone arriving with the word "audit" for a plan meets it — carrying the three-part argument in short form and sending them to `plan.md`. | A new section in `plugin/skills/taskmd/docs/method/audit.md`. |
+| 3 | Say in `plan.md` that a written plan may be revised, that the table is edited in place, and that the revision is recorded once as a decision — pointing at step 5 and METHOD §3.3, never restating either. | A new section in `plugin/skills/taskmd/docs/method/plan.md`. |
+| 4 | Leave `METHOD.md` untouched and say so against criterion 6, whose wording predates T-028. | The review row, plus the note below on what that criterion now means. |
+| 5 | Run `check`, `index` and the suite; confirm T-064 is not tripped by the two new sections. | Recorded output in §3. |
+
+**Output paths**
+
+- `plugin/skills/taskmd/docs/method/audit.md`
+- `plugin/skills/taskmd/docs/method/plan.md`
 
 ## 3. Implement
 
 **Decisions & assumptions**
-- <decision — rationale — date>
+- The distinction is stated in `audit.md`, not in `plan.md` — 2026-08-11. Criterion 2 is about
+  reachability, and the reader who needs it is holding the word "audit"; they open the audit
+  document. `plan.md` carries the mechanics and links back, so the two halves are each where their
+  own reader arrives. Rejected: one section in `plan.md` with a pointer from `audit.md`, which puts
+  the correction one hop behind the misconception.
+- A plan revision gets **no home of its own** — 2026-08-11. It is recorded as a decision, under
+  `plan` step 5, because a revision *is* a choice with a rejected alternative: the superseded steps.
+  Rejected: a revision log in the plan section, which would be a second history beside the task's
+  own, and would make the plan table describe both the present and the past.
+- The superseded steps are replaced rather than struck through — 2026-08-11. Follows METHOD rule 5:
+  the plan table states the present. The past is annotated in the decision, which is where a reader
+  looking for *why* already goes.
+- `METHOD.md` is untouched, taking Scope's stated default — 2026-08-11. Nothing here needs to bind
+  before a phase file is opened: both readers of this distinction are already inside `plan` or
+  reading `audit.md`.
+
+**Evidence**
+
+`check` exit 0 on 120 tasks, 1188 links resolved — five more than before the edit, which are the new
+cross-references between the two sections and the spine. `test_runtime` holds T-064's rule that
+nothing under `plugin/` may name `SCOPE.md`, `BRIEF.md`, `CLAUDE.md`, an `R-NN` or a non-goal; both
+new sections are under `plugin/`, and it passes with the same four `Launchers` failures and no new
+ones. `test_cli` 89, `test_list` 32, `test_schema` 46, `test_budget` 5 green.
+
+`test_budget` passing is the check on criterion 6, and it is worth being precise about what it
+proves: it measures tier 1, which since T-028 is `CLAUDE.md` plus the served skill descriptions.
+`METHOD.md` is not in it, so that suite would have stayed green had this task edited the spine. What
+holds criterion 6 is the diff — `METHOD.md` is not among the changed files — not the test.
+
+**Outputs produced**
+- `plugin/skills/taskmd/docs/method/audit.md` — the procedure paragraph, and *Auditing a plan that
+  has not been implemented*.
+- `plugin/skills/taskmd/docs/method/plan.md` — *Revising a written plan*.
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| `audit.md` says the procedure is designed in `plan`, per audit, and does not restate the threshold rule at step 2 | met | The paragraph introducing Procedure. It names step 2's threshold as *part of* that design and sends the reader there, rather than saying again what a threshold is. |
+| The method states what examining an unimplemented plan is, and it is reachable by someone arriving asking for an "audit" of a plan | met | `audit.md`, *Auditing a plan that has not been implemented* — a heading in the document that reader opens, carrying the three-part argument and sending them to `plan.md`. |
+| METHOD rule 4 gains **no** exception | met | Rule 4 is untouched; `METHOD.md` is not in the diff. The new section says explicitly that the case was never inside the rule, which is why no exception is needed. |
+| `plan.md` says a written plan may be revised, and names the one place a revision is recorded | met | *Revising a written plan*: edited in place, recorded once as a decision under step 5. |
+| Nothing added is a second copy of METHOD §3.3 or `plan.md` step 5 | met | Both are pointed at by name and neither is paraphrased. The §3.3 pointer carries the one fact that is this section's own — that a revision changing the *outcome* is not a revision at all. |
+| The always-loaded spine is unchanged, or the change is agreed against T-028's decision | met | Unchanged. See the note below on what this criterion now means. |
+
+**Criterion 6's wording predates the decision it defers to.** It was written on 2026-08-06 calling
+`METHOD.md` "the always-loaded spine", and Scope's default reads "the spine is at 147/150 and T-028
+is re-deciding what the budget covers". T-028 has since closed and decided exactly that: the budget
+covers the whole always-loaded context, `METHOD.md` is tier 2 and is no longer always-loaded, and the
+147/150 line count is not the measure any more. So the criterion's premise expired while the task
+sat, and both readings — leave the spine alone, or leave the always-loaded set alone — are satisfied
+by the same fact, that `METHOD.md` is not in the diff. Recorded rather than amended, per METHOD rule
+5: what the record said about 2026-08-06 stays as it was.
 
 **Child fix tasks raised**
 - none
@@ -135,5 +190,6 @@ R-3, R-21 (`docs/SCOPE.md`), and METHOD rule 4, whose integrity is the thing at 
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | → done | All six criteria met, evidence in §3. Run under the full-lifecycle authorization the maintainer gave on 2026-08-11 for every open `v0.2` task, which covers that set and nothing outside it (METHOD §3.1). Criterion 6's premise had expired against T-028 while this task sat for five days; satisfied under both readings and recorded rather than amended. Raised nothing: the two writing jobs were the whole of it, and the design argument had been settled on 2026-08-06. |
 | 2026-08-06 | → specified | Q1 answered by the maintainer, accepting the objection: reviewing an unimplemented plan is plan revision, not an audit, and rule 4 gains no exception. Criterion 3's fork collapses to its first branch; no criterion amended. Worth recording that the disagreement was only ever about the name — the behaviour originally described (raise rather than apply, record what was rejected) is what the method already prescribes under METHOD §3.3 and `plan` step 5, and it is unchanged by the answer. The task's remaining content is therefore the two writing jobs, not a design argument. |
 | 2026-08-06 | → proposed | Split from T-032 while answering its Q1, which was a narrow vocabulary question answered with a fuller account of the audit workflow. Two parts of that account are method changes: one agreed (the procedure is produced in `plan`, per audit), one argued against (that reviewing a task's plan is an audit needing an exception to rule 4). Raised rather than absorbed into T-032 — METHOD §3.3 — because T-032's subject is a template that had rotted into a stale copy of the method, and answering a method question inside it repeats the fault. The disagreement is recorded as the open question rather than resolved by the agent: rule 4 is the method's load-bearing rule and an exception to it is the owner's to grant. |
