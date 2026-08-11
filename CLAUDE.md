@@ -45,6 +45,10 @@ a first tier costing more than the flat version has inverted the point of splitt
 are counted from the tree, in **characters**, so nothing here is edited when membership changes, and
 `tests/test_budget.py` fails when tier 1 is over — run the suite rather than remember a command.
 
+`reference/TASK-WORKFLOW.md` is the pre-split standard from one real project — evidence of what
+worked, not the standard, and the bound above. It hard-codes a folder contract, a work-package
+vocabulary and specific commands, which is what the method had to leave behind.
+
 **What earns a place here.** Every character is paid on every turn of every session, so a line
 qualifies only if it changes what a session does *before it has chosen what to work on*. Anything
 scoped to an activity the session knows it has started — a phase, publishing, adopting, writing a
@@ -86,10 +90,6 @@ a missing prerequisite. Each one goes to exactly one of two places:
 
 What must never happen is the third option: fixing it silently, or noticing it and moving on. A
 silent fix makes the task's record false; a dropped observation is lost the moment the session ends.
-
-`reference/TASK-WORKFLOW.md` is the pre-split standard from one real project — evidence of what
-worked, not the standard, and the bound above. It hard-codes a folder contract, a work-package
-vocabulary and specific commands, which is what the method had to leave behind.
 
 ## Publishing constraints
 
