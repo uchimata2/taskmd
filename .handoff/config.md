@@ -34,32 +34,27 @@ Read by the `handoff` skill. Plain Markdown, read by the agent — no parser.
 
 ## Notes for whoever resumes
 
-**Published on 2026-08-09** at `github.com/uchimata2/taskmd`, tagged `v0.1.0` with a GitHub release,
-in both shapes. **The manifest is now `0.3.0`**, raised on 2026-08-10 for the adopter-report batch
-and pushed; `v0.3.0` is **not** tagged, unlike the two versions before it — the bump
+**Published on 2026-08-09** at `github.com/uchimata2/taskmd`, in both shapes. **The current release
+is `v0.4.0`**, tagged and released on 2026-08-11, and the manifest reads `0.4.0`.
 
-exists because `claude plugin update` compares version strings, so a directory install whose manifest
-never changes reports "already at the latest version" and keeps serving the snapshot it copied. Any
-fix that must reach an installed project needs that line to move; the standing suggestion is to spend
-one bump on a batch rather than on a single fix. **Minor, not patch**, and the reasons keep
-accumulating: `check` reads fewer documents than it did, so a project can see its own counts fall;
-since T-032 it also reports a **new class** against a file it never used to read at all, so an
-adopter whose template has rotted will see `check` start failing on a tree that passed yesterday.
-**That last one was put to the maintainer on 2026-08-10 as a reason to bump early, and declined:
-wait for the batch.** So the question is settled rather than open — do not raise it again per fix.
-The argument it survived is the strongest one available: an adopter updating for something unrelated
-meets a new failure class. Answered anyway, because a bump per fix is the thing the batch policy
-exists to prevent, and the surprise is bounded — `check` names the file and the field.
+**Version bumps and milestone labels are two sequences, and they have already come apart once.** A
+bump exists because `claude plugin update` compares version strings, so a directory install whose
+manifest never changes reports "already at the latest version" and keeps serving the snapshot it
+copied. Some bumps are taken mid-milestone to get fixes out: `v0.2.0` and `v0.3.0` are those, and
+neither is a milestone. The standing policy is to spend one bump on a batch rather than on a single
+fix, which the maintainer confirmed on 2026-08-10 against the strongest argument available — an
+adopter updating for something unrelated meets a new failure class.
 
-**There are now two such classes, not one**, and the second is the reason to re-read the paragraph
-above rather than trust its conclusion: T-097 made `check` report a published document linking to a
-file no clone receives (`IGNORED LINK`), which can turn a passing adopter tree red for a defect that
-was always there. The decision stands — it was argued against the stronger of the two and the batch
-is what it is for — but *how many* is a fact that moves, and a note claiming "the only one" would
-have gone stale the day this landed. The definition of done
-(`docs/SCOPE.md` §9) is closed. What is left is grouped into
-**v0.2 and v0.3**, whose purpose and exit criteria are in `tasks/README.md` and whose membership is
-each task's `work_package` — do not maintain a list of that anywhere.
+The mapping from a label to what it shipped as is a table in `tasks/README.md`, and that table is the
+only place it is written (T-128). Read it before assuming `v0.5` means `0.5.0` by luck; it does, and
+`v0.2` meant `0.4.0`. The definition of done (`docs/SCOPE.md` §9) is closed. What is left is grouped
+into **v0.5 and v0.6**, whose purpose is in `tasks/README.md` and whose membership is each task's
+`work_package` — do not maintain a list of that anywhere. Both close when every task in them closes;
+neither has an enumerated exit criterion, and the reason is in T-128.
+
+**A release is not the last step of a release.** Since 2026-08-11, T-085 verifies the published
+artifact from a clean machine and is `blocked_by` the release task, so v0.5 is not complete when it
+is tagged. `0.4.0` shipped with nothing checking it from outside.
 
 Start with `docs/SCOPE.md` — the goal, the numbered requirements (R-1…R-24) and the explicit
 non-goals. `docs/BRIEF.md` holds the problem evidence, the carried lessons and the remaining open

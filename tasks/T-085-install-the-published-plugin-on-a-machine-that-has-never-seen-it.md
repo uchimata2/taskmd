@@ -5,20 +5,27 @@ type: analysis
 status: proposed
 phase: specify
 parent: T-006
-blocked_by: []
+blocked_by: [T-129]
 related: [T-049, T-067, T-020]
 work_package: v0.5
 owner: maintainer
 business_value: medium
 effort: s
 created: 2026-08-09
-updated: 2026-08-09
+updated: 2026-08-11
 deliverables: []
 ---
 
 # T-085 — Install the published plugin on a machine that has never seen it
 
 ## 1. Specify
+
+**This is v0.5's last task, and it runs after the release.** The maintainer's instruction of
+2026-08-11: install what v0.5 actually shipped, not whatever version happened to be current when
+someone reached this task. The `blocked_by` edge to
+[T-129](T-129-release-v0-5.md) carries it, so no view can miss it. **The consequence is that v0.5 is
+not complete when it is tagged** — it is complete when the published artifact has been proven from
+outside, which is a change from `v0.2`, where the release was the final act.
 
 **Outcome**
 It is known, by running it, whether `claude plugin marketplace add uchimata2/taskmd` followed by

@@ -70,8 +70,14 @@ twice.
 - [ ] The method document (T-008) states the chosen semantics in one sentence a user can act on
 
 **Open questions**
-- If symmetric, should `check` warn when both sides store the same soft edge? It is harmless but is
-  a duplicate, and duplicates are what this project exists to remove.
+- ~~If symmetric, should `check` warn when both sides store the same soft edge? It is harmless but is
+  a duplicate, and duplicates are what this project exists to remove.~~ **Answered later, and
+  elsewhere: no.** METHOD §4 *Store the forward edge; derive the rest* says recording the other side
+  as well is allowed, because it collapses into the same single link and nobody then has to know
+  which end owns it; what the rule forbids is a design that **compels** the second write. A warning
+  would be exactly that pressure. Annotated on 2026-08-11 during a handoff sweep, which found this
+  bullet reading as live five months of tasks later. The record of the question is left standing;
+  only its status is corrected (METHOD rule 5).
 
 ## 2. Plan
 

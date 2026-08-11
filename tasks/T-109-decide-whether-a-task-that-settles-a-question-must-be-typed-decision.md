@@ -153,6 +153,13 @@ whatever is decided is a statement about what a vocabulary value means, which is
   distinction survives outside software at all, since a training course and an ops runbook are the
   cases the vocabulary has to read for.
 
+  **Carried out on 2026-08-11: it is now [T-131](T-131-decide-whether-a-question-heavy-task-is-a-different-kind-of-work.md).**
+  This task closed with the question live, and a closed record is outside every sweep this project
+  runs — so it sat here unread until a hand sweep during a handoff found it.
+  [T-130](T-130-report-a-question-left-live-in-a-closed-task.md) is the mechanism question that came
+  from the same find. The bullet is left as written, because it is what was true when the task
+  closed; only its destination is added.
+
 ## 2. Plan
 
 | # | Step | Output |
