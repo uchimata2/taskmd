@@ -2,7 +2,7 @@
 id: T-121
 title: Report a second index of the same tasks sitting outside the generated markers
 type: fix
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: []
@@ -74,13 +74,24 @@ DUPLICATE INDEX  tasks/README.md: a second table of 56 known task ids sits outsi
       silent. A clean-tree pass proves nothing on its own.
 
 **Open questions**
-- **What counts as "a table of known ids"?** A threshold of one id would fire on any task file that
-  links to another. The reporting project's case had 56. A count-based rule needs a number and a
-  rationale, and the honest options are *most of the known set* or *more than N* — maintainer to
-  decide, and it is the only real design question here.
-- **Which files are examined?** Everything `check` already reads, or only files inside `tasks_dir`?
-  The observed case was `tasks/README.md`, which is the file most likely to carry a copy and least
-  likely to be read closely.
+- None. Both answered by the maintainer on 2026-08-11.
+
+  **Q1 — what counts as "a table of known ids"? — *most of the known set*.** The advisory fires when
+  the known ids outside the markers are a majority of what taskmd knows. Chosen over *more than N*
+  because N cannot be justified at two project sizes at once: a number that is quiet in a 500-task
+  project fires on ordinary cross-linking in a 20-task one, and there is no basis for picking
+  between them. A majority scales by construction and cannot be reached by a task file linking to
+  its neighbours. The observed case was 56 of 56.
+
+  **Q2 — which files are examined? — everything `check` already reads.** It costs nothing extra: the
+  known id set and the marker positions are both already parsed, so the scan is over material the
+  command has in hand. Narrowing to `tasks_dir` would be quieter and would miss a copy pasted into a
+  document, which is the case an adopter is least likely to notice — the opposite of what the
+  advisory is for.
+
+  Neither answer changes the acceptance criteria; both were fork-free choices inside them. The
+  fixture required by criterion 4 must now carry a *majority* duplicate to fire, and a file quoting a
+  handful of ids is the case it must stay quiet on.
 
 ## 2. Plan
 
@@ -98,4 +109,5 @@ _Not started._
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | → specified | Both open questions answered by the maintainer: a majority of the known set is the threshold, and the scan covers everything `check` already reads. No criterion amended — both were choices inside the criteria rather than forks between them. **Stays `v0.3` and is not started**: the standing authorization covers the current release only, and being fully specified is not a reason to reach past it. |
 | 2026-08-11 | → proposed | Raised from the first adopting project's second report, delivered 2026-08-11 and carrying one item. **Checked against this repository before filing**: `DUPLICATE INDEX` appears nowhere in the tree, and no existing task covers it — so unlike two items in their first report, this one does not arrive already answered. The reporting project has already deleted its own second writer, so nothing here is holding them up; what they are asking for is that the next adopter not have to notice it by eye. |

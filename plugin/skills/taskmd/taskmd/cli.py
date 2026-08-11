@@ -878,8 +878,13 @@ def parse_filters(schema, args):
         # that names the vocabulary. `limit` is recognised here as well as below: it is accepted but
         # is not a filter, so it never appears in `known`.
         if name != "limit" and name not in known:
-            return None, ("unknown filter: --%s. This project accepts: %s"
-                          % (name, ", ".join("--" + n for n in sorted(known))))
+            # `arg`, not `name`: the flag is quoted back as the caller typed it, hyphens and all
+            # (T-120). Normalising it here quoted a string they could not find in their own history,
+            # in the one case — a misspelling — where they are comparing character by character.
+            # The accepted list beside it is the schema's own spelling and teaches the canonical
+            # form, so the two are doing different jobs rather than disagreeing.
+            return None, ("unknown filter: %s. This project accepts: %s"
+                          % (arg, ", ".join("--" + n for n in sorted(known))))
         if not rest:
             return None, "%s needs a value" % arg
         value = rest.pop(0)

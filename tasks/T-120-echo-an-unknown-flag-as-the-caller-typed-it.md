@@ -2,8 +2,8 @@
 id: T-120
 title: Echo an unknown flag as the caller typed it
 type: decision
-status: specified
-phase: specify
+status: done
+phase: review
 parent: null
 blocked_by: []
 related: [T-113, T-022]
@@ -81,25 +81,69 @@ differ is the case where they most need to compare character by character — a 
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Write the failing test: a hyphenated unknown flag is quoted back exactly as typed, pinned against the whole string rather than a substring. | A case in `tests/test_list.py`, failing on the normalised echo. |
+| 2 | Interpolate `arg` instead of `--%s` in the unknown-filter message. | `plugin/skills/taskmd/taskmd/cli.py` `parse_filters`. |
+| 3 | Check the missing-value message against the same rule — it already interpolates `arg`, so confirm rather than change, and pin it. | A case proving `list --blocked-by` echoes the hyphen. |
+| 4 | Pin that normalisation itself is untouched: `--blocked-by <id>` still filters. | A case in `tests/test_list.py`. |
+| 5 | Run the suite, `check` and `index`. | Recorded output in §3. |
+
+**Output paths**
+
+- `plugin/skills/taskmd/taskmd/cli.py`
+- `tests/test_list.py`
 
 ## 3. Implement
 
 **Decisions & assumptions**
-- <decision — rationale — date>
+- Only the unknown-name message changed — 2026-08-11. The missing-value message already interpolated
+  the raw argument, so step 3 confirmed it rather than editing it. It is now pinned by a test, which
+  is the actual product of that step: without one, nothing stops a later edit normalising both "for
+  consistency" and undoing half of this decision silently.
+- The test asserts the whole string, not a substring — 2026-08-11. `--wat` is a substring of both
+  spellings, so the existing `test_an_unknown_filter_name_is_reported` passed throughout and would
+  have kept passing. That test is why the defect survived being covered.
+
+**Evidence**
+
+```
+$ taskmd list --not-a-flag
+unknown filter: --not-a-flag. This project accepts: --blocked_by, --blocks, --business_value,
+--children, --effort, --owner, --parent, --phase, --related, --status, --type, --work_package
+```
+
+Failing first, on the same call:
+
+```
+AssertionError: False is not true : unknown filter: --not_a_flag. This project accepts: ...
+```
+
+`check` exit 0 on 122 tasks, index regenerated. `test_list` 35, `test_cli` 89, `test_schema` 46,
+`test_budget` 5 green; `test_runtime` unchanged at four `Launchers` failures, all environmental
+([T-114](T-114-make-the-launcher-tests-say-which-bash-they-found.md)).
+
+**Outputs produced**
+- `plugin/skills/taskmd/taskmd/cli.py` — the unknown-filter message interpolates `arg`.
+- `tests/test_list.py` — three cases: the typed echo, the missing-value echo, and the hyphen still
+  accepted as a spelling.
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| The decision is recorded with its reason, whichever way it goes | met | §1 *Open questions*, and the comment at the change site carries the reason for the next reader of that line. |
+| If the echo changes, a test pins a hyphenated unknown flag against the exact string printed | met | `test_an_unknown_flag_is_quoted_as_the_caller_typed_it`, asserting the whole prefix rather than a substring. |
+| If it changes, `list --blocked-by <id>` still filters — the normalisation is untouched | met | `test_the_hyphen_is_still_accepted_as_a_spelling`, exit 0. |
+| If it does not change, the reason is written where the next reader meets it | n/a | It changed. The branch is closed, not skipped. |
 
 **Child fix tasks raised**
-- none
+- none. [T-122](T-122-echo-the-typed-flag-in-the-rejected-value-message.md) is a sibling: a third
+  message in the same function, outside the two this task's scope names, carrying a wording question
+  this task deliberately did not open.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | → done | Three criteria met and the fourth closed by its branch not being taken; evidence in §3. Run under the standing v0.2 full-lifecycle authorization, extended by the maintainer on 2026-08-11 to this task specifically after it was re-filed into the release. Raised [T-122](T-122-echo-the-typed-flag-in-the-rejected-value-message.md) for the third message in the same function, found by running the command rather than by reading the diff. |
 | 2026-08-11 | → specified | Q1 answered by the maintainer: echo what was typed. **Moved `v0.3` → `v0.2` in the same pass, correcting the filing below rather than the answer.** The grouping rule is `tasks/README.md`'s — v0.2 takes all dependencies plus every minor-to-moderate correction, v0.3 the bigger work and the new capabilities — and this is an `xs` correction that blocks nothing. The v0.3 rationale recorded below imported a test the rule does not use, adopter-visibility, and it does not survive comparison with T-113: that task changed *which* message a given invocation receives, which is the larger visible change, and it is v0.2. Left standing below as what was argued at the time (METHOD rule 5). **Note for whoever picks this up: the move brings it inside the standing v0.2 full-lifecycle authorization, which is a consequence of the correction and not a grant — the agent that re-filed it did not also start it.** |
 | 2026-08-11 | → proposed | Surfaced while closing T-113 by running the command rather than reading it: the message printed a flag nobody had typed. Raised rather than fixed there, because T-113's scope puts the wording of both messages out and a finding is not fixed where it is found (METHOD §5). `v0.3` rather than `v0.2`: it holds nothing up, and unlike the corrections in that package it changes a string a script could be matching on, so it belongs with work an adopter is told about. Sized `xs`/`low` — one interpolation, or one comment. |

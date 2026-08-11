@@ -301,6 +301,32 @@ class RejectsWhatItCannotAnswer(unittest.TestCase):
         self.assertIn("unknown filter", out)
         self.assertIn("accepts:", out)
 
+    def test_an_unknown_flag_is_quoted_as_the_caller_typed_it(self):
+        """T-120. `parse_filters` normalises before it complains, so a hyphenated flag came back
+        with underscores — the message quoted something the caller could not find in their own
+        history, in the one case where they most need to compare it character by character.
+
+        Pinned as the whole string: a substring check for `--wat` passes on both spellings, which
+        is how the defect survived a test that already covered this message."""
+        code, out = run("list", "--not-a-flag", "--root", ROOT)
+        self.assertEqual(code, 2, out)
+        self.assertTrue(out.startswith("unknown filter: --not-a-flag."), out)
+
+    def test_a_missing_value_is_quoted_as_the_caller_typed_it(self):
+        """The same rule on the other message. It already interpolated the raw argument, so this
+        pins behaviour rather than changing it — without it, nothing stops a later edit
+        'consistently' normalising both."""
+        code, out = run("list", "--blocked-by", "--root", ROOT)
+        self.assertEqual(code, 2, out)
+        self.assertEqual("--blocked-by needs a value", out.strip())
+
+    def test_the_hyphen_is_still_accepted_as_a_spelling(self):
+        """What the echo change must not touch. Quoting the typed form is about the *message*; the
+        two spellings remain one filter, and this is the case that would break if the fix reached
+        the normalisation instead."""
+        code, out = run("list", "--blocked-by", "T-004", "--root", ROOT)
+        self.assertEqual(code, 0, out)
+
     def test_a_known_filter_with_no_value_still_says_so(self):
         """The branch the reorder must not swallow: `--status` is real, so the missing value is the
         actual complaint. Moving the name check first must not answer this one `unknown filter`."""

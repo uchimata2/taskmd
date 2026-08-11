@@ -75,8 +75,8 @@ into, not a promise about a date.
 | [T-114](T-114-make-the-launcher-tests-say-which-bash-they-found.md) | Make the launcher tests say which bash they found | `v0.2` | `proposed` | `specify` | - | - | - | T-091, T-112 |
 | [T-117](T-117-decide-whether-the-command-surface-needs-one-statement.md) | Decide whether the command surface needs one statement | `v0.3` | `proposed` | `specify` | - | - | - | T-030, T-031 |
 | [T-119](T-119-put-the-stranded-paragraph-under-a-heading-that-owns-it.md) | Put the stranded paragraph under a heading that owns it | `v0.2` | `proposed` | `specify` | - | - | - | T-047, T-118 |
-| [T-120](T-120-echo-an-unknown-flag-as-the-caller-typed-it.md) | Echo an unknown flag as the caller typed it | `v0.2` | `specified` | `specify` | - | - | - | T-022, T-113 |
-| [T-121](T-121-report-a-second-index-of-the-same-tasks-outside-the-markers.md) | Report a second index of the same tasks sitting outside the generated markers | `v0.3` | `proposed` | `specify` | - | - | - | T-025, T-101, T-107 |
+| [T-121](T-121-report-a-second-index-of-the-same-tasks-outside-the-markers.md) | Report a second index of the same tasks sitting outside the generated markers | `v0.3` | `specified` | `specify` | - | - | - | T-025, T-101, T-107 |
+| [T-122](T-122-echo-the-typed-flag-in-the-rejected-value-message.md) | Echo the typed flag in the rejected-value message too | `v0.2` | `proposed` | `specify` | - | - | - | T-113, T-120 |
 
 ## Closed
 
@@ -183,9 +183,10 @@ into, not a promise about a date.
 | [T-110](T-110-re-group-the-open-backlog-by-the-maintainers-release-rule.md) | Re-group the open backlog by the maintainer's release rule | `v0.2` | `done` | `review` | - | - | - | T-026, T-086, T-109 |
 | [T-111](T-111-stop-the-index-showing-a-closed-task-as-a-live-blocker.md) | Stop the index showing a closed task as a live blocker | `v0.2` | `done` | `review` | - | - | - | T-102 |
 | [T-112](T-112-stop-check-resolving-a-link-that-is-displayed-rather-than-navigable.md) | Stop check resolving a link that is displayed rather than navigable | `v0.2` | `done` | `review` | - | - | - | T-091, T-092, T-095, T-114 |
-| [T-113](T-113-name-an-unknown-filter-before-complaining-it-has-no-value.md) | Name an unknown filter before complaining it has no value | `v0.2` | `done` | `review` | - | - | - | T-022, T-029, T-120 |
+| [T-113](T-113-name-an-unknown-filter-before-complaining-it-has-no-value.md) | Name an unknown filter before complaining it has no value | `v0.2` | `done` | `review` | - | - | - | T-022, T-029, T-120, T-122 |
 | [T-115](T-115-give-the-tier-1-budget-something-that-enforces-it.md) | Give the tier 1 budget something that enforces it | `v0.2` | `done` | `review` | - | - | - | T-028, T-047, T-063, T-116, T-118 |
 | [T-116](T-116-decide-whether-the-published-repository-runs-its-own-suite.md) | Decide whether the published repository runs its own suite | `v0.2` | `done` | `review` | - | - | - | T-011, T-049, T-115 |
 | [T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md) | Decide what leaves tier 1 when the budget binds | `v0.2` | `done` | `review` | - | - | - | T-026, T-028, T-035, T-047, T-050, T-063, T-115, T-119 |
+| [T-120](T-120-echo-an-unknown-flag-as-the-caller-typed-it.md) | Echo an unknown flag as the caller typed it | `v0.2` | `done` | `review` | - | - | - | T-022, T-113, T-122 |
 
 <!-- taskmd:end -->
