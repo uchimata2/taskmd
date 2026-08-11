@@ -68,10 +68,10 @@ scheduled into, not when it ships.
 | [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) | Install the published plugin on a machine that has never seen it | `v0.5` | `proposed` | `specify` | T-006 | - | T-129 | - | T-020, T-049, T-067, T-099, T-129 |
 | [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `v0.6` | `proposed` | `specify` | - | - | - | - | T-092, T-095, T-109 |
 | [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `v0.6` | `proposed` | `specify` | - | - | - | - | T-004, T-009, T-010, T-041, T-082 |
-| [T-129](T-129-release-v0-5.md) | Release v0.5 | `v0.5` | `proposed` | `specify` | - | - | - | T-085 | T-085, T-125, T-126, T-127 |
+| [T-129](T-129-release-v0-5.md) | Release v0.5 | `v0.5` | `planned` | `plan` | - | - | - | T-085 | T-085, T-125, T-126, T-127, T-133 |
 | [T-130](T-130-report-a-question-left-live-in-a-closed-task.md) | Report a question left live in a closed task | `v0.6` | `proposed` | `specify` | - | - | - | - | T-025, T-095, T-107, T-121, T-131 |
 | [T-131](T-131-decide-whether-a-question-heavy-task-is-a-different-kind-of-work.md) | Decide whether a question-heavy task is a different kind of work | `v0.6` | `proposed` | `specify` | - | - | - | - | T-088, T-109, T-130 |
-| [T-133](T-133-decide-what-to-do-about-a-published-release-note-that-breaks-the-rule.md) | Decide what to do about a published release note that breaks the rule | `v0.5` | `proposed` | `specify` | - | - | - | - | T-079, T-081, T-125, T-126, T-127 |
+| [T-133](T-133-decide-what-to-do-about-a-published-release-note-that-breaks-the-rule.md) | Decide what to do about a published release note that breaks the rule | `v0.5` | `proposed` | `specify` | - | - | - | - | T-079, T-081, T-125, T-126, T-127, T-129 |
 
 ## Closed
 

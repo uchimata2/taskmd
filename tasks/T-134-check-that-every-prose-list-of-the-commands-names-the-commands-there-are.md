@@ -110,7 +110,7 @@ lines in a module docstring.
 ### Steps 1–3, 5 — the check
 
 `<!-- taskmd:commands -->` … `<!-- taskmd:end-commands -->` around the README table and around the
-invocation block in `cli.py`'s docstring. Four tests in `tests/test_publishing.py`:
+invocation block in `cli.py`'s docstring. Three tests in `tests/test_publishing.py`:
 
 - the regions exist (**D2**);
 - each region's set equals `cli.COMMANDS`, compared **both ways**, and the failure names the document,
@@ -142,7 +142,7 @@ criteria 1, 2 and **D2**.
 ### Step 6
 
 ```text
-python -m unittest discover -s tests -q     Ran 237 tests     OK (skipped=3)
+python -m unittest discover -s tests -q     Ran 236 tests     OK (skipped=3)
 ```
 
 **Decisions & assumptions**
@@ -154,7 +154,7 @@ python -m unittest discover -s tests -q     Ran 237 tests     OK (skipped=3)
   states them. — 2026-08-11
 
 **Outputs produced**
-- `tests/test_publishing.py` — `EveryMarkedListNamesTheCommandsThereAre`, four tests
+- `tests/test_publishing.py` — `EveryMarkedListNamesTheCommandsThereAre`, three tests
 - `README.md`, `plugin/skills/taskmd/taskmd/cli.py` — the marked regions
 
 ## 4. Review
@@ -177,7 +177,7 @@ held together by something, which is what it was missing.
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-11 | → done | All four criteria met, and the check was shown firing **three** ways rather than the two asked for: a fifth command added to `COMMANDS`, a command dropped from the README list, and the markers deleted. The third is **D2** and it is the one worth keeping — without an assertion that the regions exist, deleting a marker leaves nothing to compare and every other assertion passes. Q1 was decided under the standing delegation: a marked region, because a heuristic stops checking a document the moment one name drops out of it, which is the failure being guarded, and a list of documents inside the test is a third statement of the surface's whereabouts. The quiet case is checked on the real tree and asserts its own premise first, so it cannot go vacuous in silence. |
-| 2026-08-11 | → in_progress | One expression reads both registers (**D1**), since README's table of purposes and `cli.py`'s block of invocations both write `taskmd <name>`; two parsers would have been a second thing to keep in step inside a task about things not being kept in step. **D3** accepts an HTML comment inside a Python docstring, which reads foreign, in exchange for one marker convention across both files. 237 tests. |
+| 2026-08-11 | → in_progress | One expression reads both registers (**D1**), since README's table of purposes and `cli.py`'s block of invocations both write `taskmd <name>`; two parsers would have been a second thing to keep in step inside a task about things not being kept in step. **D3** accepts an HTML comment inside a Python docstring, which reads foreign, in exchange for one marker convention across both files. 236 tests. |
 | 2026-08-11 | → specified | Q1 answered under the standing delegation. Criteria unchanged. |
 | 2026-08-11 | (no change) | **METHOD §3.1 waived by the maintainer, 2026-08-11** — *"continuous work on all v0.5 tasks is authorized, with full lifecycle."* It covers every task carrying `work_package: v0.5`, through all four phases — including a task raised into v0.5 *by* that work, which is a v0.5 task and not a fresh grant. It **does not generalise** to `v0.6` or to unlabelled work. *Rejected: reading it as the seven open on the day* — a fix task raised by a v0.5 task would then need its own permission, and asking seven times is not continuous work. |
 | 2026-08-11 | → proposed | Raised by [T-117](T-117-decide-whether-the-command-surface-needs-one-statement.md)'s criterion 3, which asked what would have to be true for its answer to change. One of the two falsifiers has already happened in this project ([T-073](T-073-correct-the-command-surface-local-context-states.md), four days of a document naming a three-command CLI), so it is raised rather than left as a sentence. `low` and `s`: the failure is a wrong front door rather than a broken tool, and the work is one test plus a decision about how a list is recognised. Q1 is left open deliberately — it is a real fork with a cost either way, and answering it inside the task that raised it would be the absorption METHOD §3.3 forbids. |
