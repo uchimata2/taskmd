@@ -34,6 +34,14 @@ literal reading; the rival was excluding it on the same grounds as a commit mess
 covered set to things a script can read and loses the reader the test is about. A stated rule nobody
 enforces beats an unwritten one.
 
+**One published page breaks this rule and is deliberately left alone.** `v0.2.0`'s release body
+carries four em dashes; every other release body and all four tag messages are clean. The
+maintainer's answer, 2026-08-11
+([T-133](../tasks/T-133-decide-what-to-do-about-a-published-release-note-that-breaks-the-rule.md)):
+the page was written before the rule was adopted, and rewriting a dated public record after the fact
+is the act METHOD rule 5 forbids for a task record. Named here rather than left as a contradiction
+somebody re-files.
+
 **Two texts, not one, and only one of them is even reachable.** The annotated tag message and the
 GitHub release body are separate: measured on 2026-08-11, `v0.2.0`'s tag message is 936 characters
 and its release body 2591, and they say different things. A tag message can at least be listed with
