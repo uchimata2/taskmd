@@ -69,7 +69,6 @@ scheduled into, not when it ships.
 | [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `v0.6` | `proposed` | `specify` | - | - | - | - | T-092, T-095, T-109 |
 | [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `v0.6` | `proposed` | `specify` | - | - | - | - | T-004, T-009, T-010, T-041, T-082 |
 | [T-117](T-117-decide-whether-the-command-surface-needs-one-statement.md) | Decide whether the command surface needs one statement | `v0.5` | `proposed` | `specify` | - | - | - | - | T-030, T-031 |
-| [T-126](T-126-catch-dash-gate-drift-before-publication-rather-than-at-it.md) | Catch dash-gate drift before publication rather than at it | `v0.5` | `specified` | `specify` | - | - | - | - | T-079, T-081, T-115, T-125, T-127, T-129 |
 | [T-127](T-127-decide-whether-a-release-note-is-text-a-stranger-reads.md) | Decide whether a release note is text a stranger reads | `v0.5` | `specified` | `specify` | - | - | - | - | T-079, T-081, T-125, T-126, T-129 |
 | [T-129](T-129-release-v0-5.md) | Release v0.5 | `v0.5` | `proposed` | `specify` | - | - | - | T-085 | T-085, T-125, T-126, T-127 |
 | [T-130](T-130-report-a-question-left-live-in-a-closed-task.md) | Report a question left live in a closed task | `v0.6` | `proposed` | `specify` | - | - | - | - | T-025, T-095, T-107, T-121, T-131 |
@@ -199,6 +198,7 @@ scheduled into, not when it ships.
 | [T-123](T-123-decide-whether-a-replaced-vocabulary-row-is-drift.md) | Decide whether a replaced vocabulary row is drift or a choice | `v0.2` | `done` | `review` | - | - | - | - | T-082 |
 | [T-124](T-124-stop-a-test-asserting-this-repository-has-open-v0-2-work.md) | Stop a test asserting this repository has open v0.2 work | `v0.2` | `done` | `review` | - | - | - | - | T-087, T-110 |
 | [T-125](T-125-ship-the-completed-v0-2-work-as-0-4-0.md) | Ship the completed v0.2 work as 0.4.0 | `v0.2` | `done` | `review` | - | - | - | - | T-006, T-079, T-081, T-110, T-126, T-127, T-128, T-129 |
+| [T-126](T-126-catch-dash-gate-drift-before-publication-rather-than-at-it.md) | Catch dash-gate drift before publication rather than at it | `v0.5` | `done` | `review` | - | - | - | - | T-079, T-081, T-115, T-125, T-127, T-129 |
 | [T-128](T-128-make-a-milestone-name-the-release-it-ships-in.md) | Make a milestone name the release it ships in | `v0.5` | `done` | `review` | - | - | - | - | T-086, T-110, T-125 |
 | [T-132](T-132-give-the-console-the-same-line-ending-on-every-platform.md) | Give the console the same line ending on every platform | `v0.5` | `done` | `review` | T-020 | - | - | - | T-002, T-020, T-022, T-049, T-064 |
 

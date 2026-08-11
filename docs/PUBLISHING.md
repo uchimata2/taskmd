@@ -99,6 +99,15 @@ Three outcomes, deliberately distinguishable:
 | 0 | Violations. Every line is a covered document carrying an em or en dash |
 | 2 | **The gate is broken**, not the tree. It resolved to no files at all |
 
+**The suite runs this rule too, and reads it from here.** `tests/test_publishing.py` lifts the
+pathspec and the two characters out of the command above rather than restating them, so a covered
+document added to that line arms the test with nothing edited anywhere else — and a shape the test
+cannot parse is a failure, not a skip. It exists because this gate was red for two releases and
+nobody had disobeyed it; nobody had run it
+([T-126](../tasks/T-126-catch-dash-gate-drift-before-publication-rather-than-at-it.md)). The command
+here stays, because a person publishing wants to see the lines rather than a test name, and because
+it is the rule's one home.
+
 **Read the count, not just the silence.** A run that reports zero files and prints nothing else is
 the failure mode this project has hit three times now — T-034, T-080, and the reason exit 2 exists
 here. The count is why the pathspec cannot rot quietly.
