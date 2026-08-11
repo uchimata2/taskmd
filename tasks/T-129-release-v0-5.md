@@ -163,7 +163,7 @@ have printed nothing, which is also what success looks like.
 
 The leak check then reported two hits in T-020, both the string `6.18.33.2` in a kernel version. That
 is the documented four-part-version false positive
-([T-058](T-058-say-that-a-four-part-version-number-trips-the-leak-check.md)), and the documented
+([T-058](T-058-say-that-a-four-part-version-trips-the-leak-check.md)), and the documented
 remedy is to elide a component, which is what T-049 had already done in its own record. Elided; the
 tree now prints nothing, and the fixture run returns exactly its five lines.
 
