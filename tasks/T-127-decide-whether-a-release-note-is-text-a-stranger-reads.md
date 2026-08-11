@@ -2,12 +2,12 @@
 id: T-127
 title: Decide whether a release note is text a stranger reads
 type: decision
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: []
 related: [T-079, T-081, T-125, T-126]
-work_package: v0.3
+work_package: v0.5
 owner: maintainer
 business_value: low
 effort: xs
@@ -63,10 +63,18 @@ R-21 (`docs/SCOPE.md`).
       starts from a known state rather than from an assumption
 
 **Open questions**
-- **Covered or excluded.** Covered is the literal reading of §1's test and costs a rule nothing
-  mechanical can check. Excluded is defensible on the commit-message grounds, since a release note is
-  also an audit trail entry, and it keeps the covered set to things the gate can actually read.
-  Maintainer's: it is the same trade §1 already made once for commit messages.
+- ~~**Covered or excluded.**~~ **Answered by the maintainer on 2026-08-11: covered, and §1 says
+  plainly that nothing enforces it.** That is the literal reading of §1's own test, and a stated
+  unenforced rule beats an unwritten one.
+
+  *Rejected: excluded, on the commit-message grounds.* A release note is an audit trail entry too,
+  and excluding it would keep the covered set to files the gate can read. It loses the more
+  important half: a release page is the second thing an evaluator opens, and §1's test is about the
+  reader rather than about what a script can reach.
+
+  **This makes the residue explicit rather than removing it.** §5 already says the gate cannot notice
+  a covered document of a new kind. After this, one covered document is known to be unreachable by
+  it, which is the honest state and is why criterion 2 asks for it to be said out loud.
 
 ## 2. Plan
 
@@ -95,4 +103,5 @@ R-21 (`docs/SCOPE.md`).
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | → specified | Answered by the maintainer: **covered, and §1 says plainly that nothing enforces it.** The rival was excluding it on the commit-message grounds, which is defensible and is recorded in §1 with what it loses. The answer makes the residue explicit rather than removing it: one covered document is now known to be beyond the gate's reach, because the gate reads files and a tag message is not one. That is the state criterion 2 asks to be written down. |
 | 2026-08-11 | → proposed | Raised from T-125 at the moment the question had to be answered to ship, and not fixed there: T-125's job was to publish this tree, and deciding what the publishing rule covers is a different outcome that changes a document T-125 only reads. The notes for `v0.4.0` were written to the stricter reading so nothing shipped under an unresolved rule, and that choice is recorded here rather than left as the reason a later reader finds no em dashes and assumes a rule exists. Filed `v0.3`, outside the standing `v0.2` authorization, and not started. |

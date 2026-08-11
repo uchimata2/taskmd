@@ -12,48 +12,51 @@ Problem evidence: [`../docs/BRIEF.md`](../docs/BRIEF.md).
 
 ## Releases
 
-What each one is for. **Which tasks are in it is not written here** — that is each task's
+What each one is for. **Which tasks are in it is not written here.** That is each task's
 `work_package`, and the **Work Package** column below is generated from it. Read a release's
-membership with the tool rather than off this page:
+membership with the tool:
 
 ```
-./plugin/bin/taskmd list --work_package v0.2 --open
+./plugin/bin/taskmd list --work_package v0.5 --open
 ```
 
-**v0.1 — published, 2026-08-09.** The four commands, the method document, both bindings, the skill,
-the plugin and the README, at `github.com/uchimata2/taskmd`. Its content is every task that was
-closed when it shipped.
+**A milestone label names the release its tasks ship in.** `v0.5` ships as `0.5.0`. That was not
+always true, and the labels on closed tasks record what was true when they carried them
+([T-128](T-128-make-a-milestone-name-the-release-it-ships-in.md)):
 
-**Grouped by size and by what blocks what**, on the maintainer's rule of 2026-08-10: v0.2 takes all
-dependencies plus every minor-to-moderate correction, v0.3 the bigger work and the new capabilities.
-That replaced grouping by theme, which is what the two headlines used to be — the change and what it
-cost are in [T-110](T-110-re-group-the-open-backlog-by-the-maintainers-release-rule.md).
+| Label on a task | Shipped as | |
+| :--- | :--- | :--- |
+| `v0.1` | `v0.1.0`, 2026-08-09 | The four commands, the method document, both bindings, the skill, the plugin and the README |
+| `v0.2` | **`v0.4.0`**, 2026-08-11 | Every task closed under that label. The number does not match, and this row is the only place that says so |
+| `v0.5` | `0.5.0` | Open |
+| `v0.6` | `0.6.0` | Open |
 
-**v0.2 — the one dependency chain, and every small correction.** **Done when every task grouped here
-is closed.** One criterion, not a list: a list of outcomes here would be a second copy of the
-membership the *Work Package* column already carries, and that copy is exactly what the previous
-clause set turned out to be — widened twice rather than tasks being moved, and still leaving eleven
-open tasks it did not require. The chain is worth naming because it is the only one: **the audit
-umbrella closes because all of its findings are resolved** — its open children, in the table below.
-Nothing else here waits on anything.
+`v0.2.0` and `v0.3.0` are tagged and are **not** milestones. They are batch version bumps, taken
+mid-milestone so that installed projects would receive fixes: `claude plugin update` compares version
+strings, so a manifest that never moves serves its old snapshot for ever. `v0.3.0` has no release
+notes; what it carried is described in `v0.4.0`'s.
 
-**v0.3 — the bigger work, and the capabilities that are not corrections.** Few enough that each is
-worth naming by its outcome. Done when byte-identical output is demonstrated on
-macOS and Linux, the published plugin has been installed on a machine that never held it, taskmd
-works as a tracker binding for the handoff skill, what `check` does with a section reference is
-settled, and a project can move its backlog from local files to GitHub Issues — the one direction
-[`../docs/SCOPE.md`](../docs/SCOPE.md) non-goal 8 carves out, and the largest single piece of work
-here by some way.
+**Grouped by size and by what blocks what**, on the maintainer's rule of 2026-08-10: the near release
+takes all dependencies plus every minor-to-moderate correction, the one after it takes the bigger
+work and the new capabilities. That replaced grouping by theme. The change and what it cost are in
+[T-110](T-110-re-group-the-open-backlog-by-the-maintainers-release-rule.md).
 
-**The two state "done" differently on purpose.** v0.3 has a handful of outcomes worth naming; v0.2
-holds everything else, whose only common property is being small, and enumerating those would rebuild
-the drift the re-grouping removed. The trade is real and worth stating: grouping by size cannot claim anything
-about the product, so v0.2 no longer asserts that the tool holds up elsewhere, and v0.3 no longer
-asserts that the method's documents settle. Both claims were true of the sets that carried them and
-are not exit criteria any more.
+**v0.5 — prove what 0.4.0 published, and settle the small questions.** Two checks that the shipped
+plugin works where nobody has run it, three decisions nothing waits on, and two corrections.
 
-Neither is a version until the maintainer tags one. A milestone here is what the work is grouped
-into, not a promise about a date.
+**v0.6 — the capabilities.** Moving a backlog from local files to GitHub Issues, which
+[`../docs/SCOPE.md`](../docs/SCOPE.md) non-goal 8 carves out and which is the largest single piece of
+work in this backlog; taskmd as a tracker binding for the handoff skill; and what `check` does with a
+section reference.
+
+**Both are done when every task grouped in them is closed.** The sentences above say what a release
+is *for*; they are not its exit criterion. A criterion that lists outcomes is a second copy of the
+membership the *Work Package* column already carries, and it goes stale the moment a task joins the
+release without joining the list. That is measured rather than feared: the clause set this replaces
+left four of nine tasks unaccounted for.
+
+A milestone is not a version until the maintainer tags one. The label says which release the work is
+scheduled into, not when it ships.
 
 <!-- taskmd:index - generated, do not edit by hand -->
 
@@ -61,15 +64,15 @@ into, not a promise about a date.
 
 | ID | Title | Work Package | Status | Phase | Parent | Children | Blocks | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) | Align with the handoff tracker-binding contract | `v0.3` | `specified` | `specify` | - | - | - | T-002, T-007, T-009, T-033, T-105 |
-| [T-020](T-020-confirm-byte-identical-output-on-macos-and-linux.md) | Confirm byte-identical output on macOS and Linux | `v0.3` | `specified` | `specify` | T-002 | - | - | T-006, T-023, T-030, T-085 |
-| [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) | Install the published plugin on a machine that has never seen it | `v0.3` | `proposed` | `specify` | T-006 | - | - | T-020, T-049, T-067, T-099 |
-| [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `v0.3` | `proposed` | `specify` | - | - | - | T-092, T-095, T-109 |
-| [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `v0.3` | `proposed` | `specify` | - | - | - | T-004, T-009, T-010, T-041, T-082 |
-| [T-117](T-117-decide-whether-the-command-surface-needs-one-statement.md) | Decide whether the command surface needs one statement | `v0.3` | `proposed` | `specify` | - | - | - | T-030, T-031 |
-| [T-121](T-121-report-a-second-index-of-the-same-tasks-outside-the-markers.md) | Report a second index of the same tasks sitting outside the generated markers | `v0.3` | `specified` | `specify` | - | - | - | T-025, T-101, T-107 |
-| [T-126](T-126-catch-dash-gate-drift-before-publication-rather-than-at-it.md) | Catch dash-gate drift before publication rather than at it | `v0.3` | `proposed` | `specify` | - | - | - | T-079, T-081, T-115, T-125, T-127 |
-| [T-127](T-127-decide-whether-a-release-note-is-text-a-stranger-reads.md) | Decide whether a release note is text a stranger reads | `v0.3` | `proposed` | `specify` | - | - | - | T-079, T-081, T-125, T-126 |
+| [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) | Align with the handoff tracker-binding contract | `v0.6` | `specified` | `specify` | - | - | - | T-002, T-007, T-009, T-033, T-105 |
+| [T-020](T-020-confirm-byte-identical-output-on-macos-and-linux.md) | Confirm byte-identical output on macOS and Linux | `v0.5` | `specified` | `specify` | T-002 | - | - | T-006, T-023, T-030, T-085 |
+| [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) | Install the published plugin on a machine that has never seen it | `v0.5` | `proposed` | `specify` | T-006 | - | - | T-020, T-049, T-067, T-099 |
+| [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `v0.6` | `proposed` | `specify` | - | - | - | T-092, T-095, T-109 |
+| [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `v0.6` | `proposed` | `specify` | - | - | - | T-004, T-009, T-010, T-041, T-082 |
+| [T-117](T-117-decide-whether-the-command-surface-needs-one-statement.md) | Decide whether the command surface needs one statement | `v0.5` | `proposed` | `specify` | - | - | - | T-030, T-031 |
+| [T-121](T-121-report-a-second-index-of-the-same-tasks-outside-the-markers.md) | Report a second index of the same tasks sitting outside the generated markers | `v0.5` | `specified` | `specify` | - | - | - | T-025, T-101, T-107 |
+| [T-126](T-126-catch-dash-gate-drift-before-publication-rather-than-at-it.md) | Catch dash-gate drift before publication rather than at it | `v0.5` | `specified` | `specify` | - | - | - | T-079, T-081, T-115, T-125, T-127 |
+| [T-127](T-127-decide-whether-a-release-note-is-text-a-stranger-reads.md) | Decide whether a release note is text a stranger reads | `v0.5` | `specified` | `specify` | - | - | - | T-079, T-081, T-125, T-126 |
 
 ## Closed
 
@@ -157,7 +160,7 @@ into, not a promise about a date.
 | [T-082](T-082-let-id-width-say-the-backend-allocates-the-ids.md) | Let id_width say that the backend allocates the ids | `v0.2` | `done` | `review` | T-004 | - | - | T-010, T-075, T-108, T-123 |
 | [T-083](T-083-make-the-skill-directory-self-contained.md) | Make the skill directory self-contained | `v0.1` | `done` | `review` | - | - | - | T-053, T-054, T-064, T-084, T-099, T-103 |
 | [T-084](T-084-correct-the-generated-index-preamble-after-the-move.md) | Correct the generated index preamble after the directory move | `v0.1` | `done` | `review` | - | - | - | T-006, T-025, T-083 |
-| [T-086](T-086-group-the-backlog-into-release-milestones.md) | Group the backlog into release milestones | `v0.2` | `done` | `review` | - | - | - | T-006, T-022, T-026, T-087, T-110 |
+| [T-086](T-086-group-the-backlog-into-release-milestones.md) | Group the backlog into release milestones | `v0.2` | `done` | `review` | - | - | - | T-006, T-022, T-026, T-087, T-110, T-128 |
 | [T-087](T-087-let-list-filter-on-a-field-the-index-can-show.md) | Let list filter on a field the index can show | `v0.2` | `done` | `review` | - | - | - | T-022, T-029, T-086, T-102, T-124 |
 | [T-088](T-088-put-audit-in-the-shipped-type-vocabulary-or-stop-calling-it-a-type.md) | Put audit in the shipped type vocabulary, or stop calling it a type | `v0.2` | `done` | `review` | - | - | - | T-001, T-026, T-032, T-100, T-104, T-109 |
 | [T-089](T-089-stop-check-reporting-an-open-task-s-planned-outputs-as-missing.md) | Stop check reporting an open task's planned outputs as missing | `v0.2` | `done` | `review` | - | T-090 | - | T-002, T-025, T-032, T-103 |
@@ -179,7 +182,7 @@ into, not a promise about a date.
 | [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) | Say that the shipped config cannot gain a key without breaking every project that wrote one | `v0.3` | `done` | `review` | - | - | - | T-001, T-011, T-023, T-100 |
 | [T-107](T-107-say-so-when-a-valid-task-file-is-parked-where-nothing-reads-it.md) | Say so when a valid task file is parked where nothing reads it | `v0.2` | `done` | `review` | - | - | - | T-062, T-069, T-075, T-101, T-121 |
 | [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md) | Decide whether a task that settles a question must be typed decision | `v0.2` | `done` | `review` | - | - | - | T-088, T-090, T-093, T-097, T-098, T-103, T-104, T-110 |
-| [T-110](T-110-re-group-the-open-backlog-by-the-maintainers-release-rule.md) | Re-group the open backlog by the maintainer's release rule | `v0.2` | `done` | `review` | - | - | - | T-026, T-086, T-109, T-124, T-125 |
+| [T-110](T-110-re-group-the-open-backlog-by-the-maintainers-release-rule.md) | Re-group the open backlog by the maintainer's release rule | `v0.2` | `done` | `review` | - | - | - | T-026, T-086, T-109, T-124, T-125, T-128 |
 | [T-111](T-111-stop-the-index-showing-a-closed-task-as-a-live-blocker.md) | Stop the index showing a closed task as a live blocker | `v0.2` | `done` | `review` | - | - | - | T-102 |
 | [T-112](T-112-stop-check-resolving-a-link-that-is-displayed-rather-than-navigable.md) | Stop check resolving a link that is displayed rather than navigable | `v0.2` | `done` | `review` | - | - | - | T-091, T-092, T-095, T-114 |
 | [T-113](T-113-name-an-unknown-filter-before-complaining-it-has-no-value.md) | Name an unknown filter before complaining it has no value | `v0.2` | `done` | `review` | - | - | - | T-022, T-029, T-120, T-122 |
@@ -192,6 +195,7 @@ into, not a promise about a date.
 | [T-122](T-122-echo-the-typed-flag-in-the-rejected-value-message.md) | Echo the typed flag in the rejected-value message too | `v0.2` | `done` | `review` | - | - | - | T-113, T-120 |
 | [T-123](T-123-decide-whether-a-replaced-vocabulary-row-is-drift.md) | Decide whether a replaced vocabulary row is drift or a choice | `v0.2` | `done` | `review` | - | - | - | T-082 |
 | [T-124](T-124-stop-a-test-asserting-this-repository-has-open-v0-2-work.md) | Stop a test asserting this repository has open v0.2 work | `v0.2` | `done` | `review` | - | - | - | T-087, T-110 |
-| [T-125](T-125-ship-the-completed-v0-2-work-as-0-4-0.md) | Ship the completed v0.2 work as 0.4.0 | `v0.2` | `done` | `review` | - | - | - | T-006, T-079, T-081, T-110, T-126, T-127 |
+| [T-125](T-125-ship-the-completed-v0-2-work-as-0-4-0.md) | Ship the completed v0.2 work as 0.4.0 | `v0.2` | `done` | `review` | - | - | - | T-006, T-079, T-081, T-110, T-126, T-127, T-128 |
+| [T-128](T-128-make-a-milestone-name-the-release-it-ships-in.md) | Make a milestone name the release it ships in | `v0.5` | `done` | `review` | - | - | - | T-086, T-110, T-125 |
 
 <!-- taskmd:end -->

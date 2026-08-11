@@ -2,12 +2,12 @@
 id: T-126
 title: Catch dash-gate drift before publication rather than at it
 type: fix
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: []
 related: [T-079, T-081, T-115, T-125]
-work_package: v0.3
+work_package: v0.5
 owner: maintainer
 business_value: medium
 effort: s
@@ -75,11 +75,19 @@ property of the tree at all times rather than at one moment.
 - [ ] A run on the tree as published at `v0.4.0` is green, so the check starts from a known state
 
 **Open questions**
-- **Suite, hook, or neither.** `test_budget.py` is the precedent and makes the rule free to keep;
-  a project `after_write` hook is the mechanism taskmd already ships; and *neither* is a real answer
-  if the maintainer judges that drift between publications costs nothing, since the gate does catch
-  it at the only moment it matters. Maintainer's, because it is the same trade T-115 already made
-  once and the answer should be consistent with it.
+- ~~**Suite, hook, or neither.**~~ **Answered by the maintainer on 2026-08-11: a test in the suite**,
+  on `test_budget.py`'s precedent. The rule becomes free to keep, and drift is caught in the commit
+  that causes it instead of two releases later.
+
+  *Rejected: a project `after_write` hook.* It is the mechanism taskmd already ships, so it would
+  have doubled as dogfooding. It cannot work here: a hook fires on taskmd's own writes, and the
+  drift arrives through a README edit that taskmd never sees.
+
+  *Rejected: leave it manual.* Cheaper, and the gate does catch the problem at the one moment it
+  blocks a release. That is also the reasoning that produced two red releases.
+
+  **What the answer does not settle** is the §1 problem this task's scope excludes: a passing test
+  must still say what it does not prove. Criterion 2 carries that, and it is now the harder half.
 
 ## 2. Plan
 
@@ -108,4 +116,5 @@ property of the tree at all times rather than at one moment.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | → specified | Answered by the maintainer: **a test in the suite**, on `test_budget.py`'s precedent. Both rivals are recorded in §1 with what they lose. The hook was the interesting one and it fails on a fact rather than on a preference: a hook fires on taskmd's own writes, and this drift arrives through a README edit taskmd never sees. **The answer settles the cheaper half.** Criterion 2 is now the work: the gate is a proxy, so a green test must say what it does not prove, or it converts an honest absence of evidence into a passing assertion and hides the drift better than the manual command did. |
 | 2026-08-11 | → proposed | Raised from T-125, which ran the gate before deciding anything and found it red — and then found, from the three existing tags, that it had been red for two releases. Not fixed inside T-125 (METHOD rule 4): that task's job is to ship this tree through the gate, and making the gate run at a different moment is a different outcome with its own cost. Filed `v0.3` by `tasks/README.md`'s rule — it is new enforcement rather than a correction, so it is outside the standing `v0.2` authorization and is not started here. `medium` because the thing it protects is the one document a stranger reads before installing, and the failure mode is silence. |
