@@ -2,7 +2,7 @@
 id: T-135
 title: Derive what a release note must cover from the tasks it ships
 type: deliverable
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: []
@@ -83,14 +83,23 @@ to find out what changed. R-21, since the note is covered text.
       had not already thought of — or the record says it did not
 
 **Open questions**
-- **Q1 — what is the trigger for "must mention"? — for the maintainer.** *Recommended: a field on the
-  task*, so the note's coverage is derived from the same front-matter everything else is. It costs a
-  config key, which [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) says is not free.
-  *Alternative: a type-and-status rule* — every closed `fix` and `deliverable` in the milestone must
-  be mentioned or explicitly waived, which adds no key and over-fires on internal work.
-- **Q2 — does the opening sentence keep claiming completeness? — for the maintainer.** *Recommended:
-  no.* *"Everything grouped as the v0.2 milestone"* is true of the milestone and false of the note,
-  and it is the sentence that makes an omission a defect rather than an editorial choice.
+- None. Both answered by the maintainer on 2026-08-11.
+
+  **Q1 — what is the trigger for "must mention"? — a field on the task.** The note's coverage is then
+  derived from the same front-matter everything else is derived from, which is the design rule applied
+  rather than worked around. It costs a config key, and
+  [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) says a key is not free: the shipped
+  config replaces rather than merges, so every project that has written one stops seeing the new row
+  until it re-copies. **That cost is now `plan`'s first problem**, not a reason to reopen the answer.
+  *Rejected: a type-and-status rule* — "every closed `fix` and `deliverable` must be mentioned or
+  waived" adds no key and over-fires on internal work, and a rule that fires on work an adopter
+  cannot see teaches the writer to waive by reflex.
+
+  **Q2 — does the opening sentence keep claiming completeness? — no.** *"Everything grouped as the
+  v0.2 milestone"* is true of the milestone and false of the note, and it is the sentence that turns
+  an omission into a defect rather than an editorial choice. Dropping it makes the note honest about
+  being a selection, which is what Q1's rule then bounds. *Rejected: keep it and make it true* — that
+  is a note naming 47 tasks, which §1 already rules out as worse than eight described well.
 
 ## 2. Plan
 
@@ -108,4 +117,5 @@ _Not started._
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | → specified | Both questions answered by the maintainer, with the rejections recorded in §1. **Q1: a field on the task**, so coverage derives from the same front-matter as everything else. That buys a config key, and [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md)'s constraint makes the key the first thing `plan` has to solve rather than a detail: the shipped config replaces rather than merges, so a project that already wrote one stops seeing the new row. **Q2: the opening sentence stops claiming completeness**, because it is the clause that turns an omission into a defect. Criteria unchanged; both answers are choices inside them. Still `v0.6` and still not started. |
 | 2026-08-11 | → proposed | Reported by an adopting project as *"`v0.4.0`'s note omits T-112"* and **verified before filing**, which changed what it is: the note omits T-112 and it omits at least five other adopter-visible changes, out of 47 tasks shipped, while opening with a sentence that reads as a completeness claim. So the report is a specimen and the finding is that a note has no rule. Filed `v0.6` by the maintainer's release rule of 2026-08-10 — this is a new capability and a config decision rather than a minor correction, and nothing about it holds up `0.5.0`, whose note is written by hand to the same standard in the meantime. Not started: both open questions are the maintainer's, and Q1 turns on whether the schema gains a key. |

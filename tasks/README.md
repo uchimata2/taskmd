@@ -70,7 +70,7 @@ scheduled into, not when it ships.
 | [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `v0.6` | `proposed` | `specify` | - | - | - | T-004, T-009, T-010, T-041, T-082 |
 | [T-130](T-130-report-a-question-left-live-in-a-closed-task.md) | Report a question left live in a closed task | `v0.6` | `proposed` | `specify` | - | - | - | T-025, T-095, T-107, T-121, T-131 |
 | [T-131](T-131-decide-whether-a-question-heavy-task-is-a-different-kind-of-work.md) | Decide whether a question-heavy task is a different kind of work | `v0.6` | `proposed` | `specify` | - | - | - | T-088, T-109, T-130 |
-| [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) | Derive what a release note must cover from the tasks it ships | `v0.6` | `proposed` | `specify` | - | - | - | T-086, T-125, T-127, T-128, T-129, T-133 |
+| [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) | Derive what a release note must cover from the tasks it ships | `v0.6` | `specified` | `specify` | - | - | - | T-086, T-125, T-127, T-128, T-129, T-133 |
 
 ## Closed
 
