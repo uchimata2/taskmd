@@ -120,5 +120,75 @@ class ThePassingDashGateProvesOnlyThatOnePatternIsAbsent(unittest.TestCase):
         self.assertEqual(drifted, caught)
 
 
+BEGIN_COMMANDS = "<!-- taskmd:commands -->"
+END_COMMANDS = "<!-- taskmd:end-commands -->"
+
+# Which document, and how a command name is written in it. The pattern is what stops a table of
+# purposes and a block of invocations needing two checks: both write `taskmd <name>`, so one
+# expression reads both.
+MARKED = ("README.md", os.path.join("plugin", "skills", "taskmd", "taskmd", "cli.py"))
+COMMAND_RE = re.compile(r"taskmd\s+([a-z][a-z0-9-]*)")
+
+
+def marked_commands(path):
+    """The command names inside a document's `taskmd:commands` region, or None if it has none.
+
+    Opt-in by marker rather than by guessing which documents are lists (T-134 Q1). A heuristic —
+    "any document naming every current command is a list" — needs no markup and stops checking a
+    document the moment one name drops out of it, which is the failure being guarded.
+    """
+    text = read(path)
+    start = text.find(BEGIN_COMMANDS)
+    if start == -1:
+        return None
+    end = text.find(END_COMMANDS, start)
+    if end == -1:
+        raise AssertionError("%s opens a taskmd:commands region and never closes it" % path)
+    return set(COMMAND_RE.findall(text[start + len(BEGIN_COMMANDS):end]))
+
+
+class EveryMarkedListNamesTheCommandsThereAre(unittest.TestCase):
+    """T-134. T-117 let `README.md` and `cli.py` both list the four, because they say different
+    things about them - purposes against flags. That holds only while the two agree about *which*
+    commands exist, and nothing checked it: `usage_line` is derived from `COMMANDS`, but these two
+    are prose. T-073 is this project carrying a document that named a three-command CLI for four
+    days after it was four."""
+
+    def commands(self):
+        import sys
+        sys.path.insert(0, os.path.join(ROOT, "plugin", "skills", "taskmd"))
+        from taskmd import cli
+        return set(cli.COMMANDS)
+
+    def test_the_marked_regions_exist(self):
+        """Without this, every assertion below passes on a tree where the markers were deleted."""
+        for where in MARKED:
+            self.assertIsNotNone(marked_commands(os.path.join(ROOT, where)),
+                                 "%s carries no taskmd:commands region, so nothing checks the list "
+                                 "in it" % where)
+
+    def test_each_marked_list_names_exactly_the_commands_that_exist(self):
+        expected = self.commands()
+        for where in MARKED:
+            listed = marked_commands(os.path.join(ROOT, where))
+            self.assertEqual(expected, listed,
+                             "%s is behind: it does not name %s, and it names %s which do not exist"
+                             % (where, sorted(expected - listed) or "nothing missing",
+                                sorted(listed - expected) or "nothing extra"))
+
+    def test_a_command_mentioned_in_a_sentence_is_not_a_list(self):
+        """Criterion 3, on the real tree. `README.md` names commands in prose outside the region -
+        an FAQ row, a paragraph about filters - and none of that is checked, because the region is
+        what declares an intent to be complete."""
+        readme = read(os.path.join(ROOT, "README.md"))
+        outside = readme[:readme.find(BEGIN_COMMANDS)] + readme[readme.find(END_COMMANDS):]
+        self.assertTrue(COMMAND_RE.findall(outside),
+                        "this test is vacuous unless README.md mentions a command outside the "
+                        "region; it no longer does, so the case is untested")
+        self.assertNotEqual(self.commands(), set(COMMAND_RE.findall(outside)) & self.commands(),
+                            "every command now appears outside the region too, so this test can no "
+                            "longer distinguish a mention from a list")
+
+
 if __name__ == "__main__":
     unittest.main()

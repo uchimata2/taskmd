@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 """The four commands: `context`, `index`, `check`, `list`.
 
+<!-- taskmd:commands -->
   python -m taskmd context T-002        [--root PATH]
   python -m taskmd index                [--root PATH]
   python -m taskmd check                [--root PATH]
   python -m taskmd list [--<field> V]   [--open|--closed] [--limit N] [--json] [--root PATH]
+<!-- taskmd:end-commands -->
 
 Four, and the fourth was argued for rather than added — the command surface stood at three until
 2026-08-05 (T-022). Filtering is in; a query language is still out, and the argument for the

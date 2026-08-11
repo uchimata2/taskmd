@@ -73,12 +73,14 @@ shipped schema or copies it to `.taskmd/config.md` and edits it there.
 
 ## The commands
 
+<!-- taskmd:commands -->
 | Command | What it does |
 | :--- | :--- |
 | `taskmd context <id>` | Everything needed to start that one task, and nothing else |
 | `taskmd list --open --limit 1` | What to work on next, by the project's own ordering rule |
 | `taskmd index` | Regenerates the task index |
 | `taskmd check` | Validates ids, vocabularies, references, links, and your task templates |
+<!-- taskmd:end-commands -->
 
 They find the project by walking up from wherever they are run, so they work from a subdirectory
 too. Pass `--root <path>` to override the project they find.
