@@ -34,7 +34,7 @@ that. `usage_line` is derived from `COMMANDS` ([T-055](T-055-settle-what-the-too
 drift; the two prose lists can.
 
 **It has already happened once.**
-[T-073](T-073-correct-the-command-surface-local-context-still-states.md) is this project carrying a
+[T-073](T-073-correct-the-command-surface-local-context-states.md) is this project carrying a
 document that stated a three-command CLI for four days after it was four, and the correction outlived
 it in two tracked files. That is the failure this guards, measured rather than imagined.
 
@@ -91,4 +91,4 @@ _Not started._
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-11 | (no change) | **METHOD §3.1 waived by the maintainer, 2026-08-11** — *"continuous work on all v0.5 tasks is authorized, with full lifecycle."* It covers every task carrying `work_package: v0.5`, through all four phases — including a task raised into v0.5 *by* that work, which is a v0.5 task and not a fresh grant. It **does not generalise** to `v0.6` or to unlabelled work. *Rejected: reading it as the seven open on the day* — a fix task raised by a v0.5 task would then need its own permission, and asking seven times is not continuous work. |
-| 2026-08-11 | → proposed | Raised by [T-117](T-117-decide-whether-the-command-surface-needs-one-statement.md)'s criterion 3, which asked what would have to be true for its answer to change. One of the two falsifiers has already happened in this project ([T-073](T-073-correct-the-command-surface-local-context-still-states.md), four days of a document naming a three-command CLI), so it is raised rather than left as a sentence. `low` and `s`: the failure is a wrong front door rather than a broken tool, and the work is one test plus a decision about how a list is recognised. Q1 is left open deliberately — it is a real fork with a cost either way, and answering it inside the task that raised it would be the absorption METHOD §3.3 forbids. |
+| 2026-08-11 | → proposed | Raised by [T-117](T-117-decide-whether-the-command-surface-needs-one-statement.md)'s criterion 3, which asked what would have to be true for its answer to change. One of the two falsifiers has already happened in this project ([T-073](T-073-correct-the-command-surface-local-context-states.md), four days of a document naming a three-command CLI), so it is raised rather than left as a sentence. `low` and `s`: the failure is a wrong front door rather than a broken tool, and the work is one test plus a decision about how a list is recognised. Q1 is left open deliberately — it is a real fork with a cost either way, and answering it inside the task that raised it would be the absorption METHOD §3.3 forbids. |
