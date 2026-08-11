@@ -153,7 +153,7 @@ taskmd check
 ```
 
 ```
-OK - 0 task(s), 0 field value(s), 0 reference(s), 0 dependency edge(s), 0 declared output(s), 0 index file(s), 0 document(s), 0 link(s), 0 template(s), 0 vocabulary row(s)
+OK - 0 task(s), 0 field value(s), 0 reference(s), 0 dependency edge(s), 0 declared output(s), 0 index file(s), 0 document(s), 0 link(s), 0 template(s), 0 template field value(s), 0 vocabulary row(s)
 Scope  every document read; no git here, so .gitignore was not consulted
 structure and references only - it cannot tell you whether a spec or an outcome is good
 ```
@@ -171,6 +171,15 @@ exactly this reason. One `CONFIG DRIFT` line names the row and the difference. I
 exit status does not move, because pinning is a choice and not a fault. What counts as drift, and the
 much longer list of differences that deliberately do *not*, is in the shipped config under *When this
 file moves ahead of yours*.
+
+**If you are migrating onto taskmd, `check` also warns when a second index of the same tasks is
+sitting in one of your files.** An adopting project has an old index generator by definition, and for
+a while both write the same document. Neither validator can see a block it does not own, so the
+duplicate passes every check either tool runs. One project ended up with taskmd's generated table
+between taskmd's markers and a full second copy of the same 56 ids below them, and `check` said `OK`
+twice over it before a person noticed the file had grown. One `DUPLICATE INDEX` line now names the
+file and the count. It is advisory too, because quoting your own task table in a document is
+something a project may legitimately do.
 
 ### As a plain skill
 
@@ -238,9 +247,12 @@ At its shipped id width taskmd handles up to 999 tasks with every command finish
 second (measured at 999 tasks: `check`, the slowest, took 0.83 s), and a project that raises
 `id_width` to go further pays 1.34 s for `check` at 2000 tasks and up to 3.9 s at 5000.
 
-Run on Windows and on Linux, where a fresh clone regenerated a byte-identical index. macOS is
-untested rather than unsupported: nothing in the tool is known to depend on the platform, and nobody
-has run it there.
+Run on Windows and on Linux, from clones of one commit on each, with the raw bytes compared rather
+than read and judged equivalent. Everything taskmd writes and everything it prints is identical on
+both. Getting there took a fix: the generated files already matched, and the console did not, because
+Python rewrites a line ending on Windows unless it is told not to. A script parsing `taskmd list` was
+reading a trailing carriage return on one platform and not the other. macOS is untested rather than
+unsupported: nothing in the tool is known to depend on the platform, and nobody has run it there.
 
 The implementation is standard-library Python, with bash and PowerShell launchers that hold no
 logic. It needs no install step, no configuration and no dependencies.

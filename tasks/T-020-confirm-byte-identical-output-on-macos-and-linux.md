@@ -116,7 +116,7 @@ pre-publish check exists to catch.
 
 ```text
                 Windows                          Linux
-platform        Windows 11                       Linux 6.18.33.2-microsoft-standard-WSL2
+platform        Windows 11                       Linux 6.18.x-microsoft-standard-WSL2
 filesystem      NTFS                             ext4
 interpreter     CPython 3.12.10                  CPython 3.14.4
 tree            clone of d611dc2, 0 dirty        clone of d611dc2, 0 dirty
@@ -221,7 +221,7 @@ not, which is a more useful sentence than either "confirmed" or "failed".
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-| The three commands run on at least one non-Windows platform, at a named commit | met | Linux 6.18.33.2 (WSL2 Ubuntu, ext4), commit `d611dc2`, both on this repository and on `tests/fixtures/alt-project` — a genuinely different configuration rather than the same project twice. |
+| The three commands run on at least one non-Windows platform, at a named commit | met | Linux 6.18.x (WSL2 Ubuntu, ext4), commit `d611dc2`, both on this repository and on `tests/fixtures/alt-project` — a genuinely different configuration rather than the same project twice. |
 | `index` output compared byte for byte with the Windows run; any difference reported rather than normalised away | met | Two comparisons, because `index` has two outputs. The **artifact** is identical on both projects (31712 and 762 bytes, same SHA-256). The **console line** differs by one CR and is reported as such, not folded away. |
 | Console output of `context` and `check` compared as bytes, not read and judged equivalent | met | Compared with `cmp`, which is why the answer is "differs at byte 73" rather than "looks the same". All six captures differ; all six are equal after stripping CR. |
 | The result recorded either way — a confirmation is as much the outcome as a difference is | met | Both were recorded, and they point opposite ways: the artifacts confirm T-002's mechanism, the console does not. §3 also records the **discarded first attempt**, whose apparent content difference was the working tree, not the platform. |

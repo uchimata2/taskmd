@@ -103,31 +103,95 @@ so a later session does not read the plan as the authorization.
 
 ## 3. Implement
 
-_Not started — and blocked on two things, neither of which is a phase._
+**It was held once before it ran, and the hold is left in the record.** On 2026-08-11 the plan
+stopped at implement because criterion 1 is a precondition and
+[T-133](T-133-decide-what-to-do-about-a-published-release-note-that-breaks-the-rule.md) was open with
+a question only the maintainer could answer. Both that answer and permission to publish arrived the
+same day, and the criterion was re-read rather than assumed.
 
-**Criterion 1 is not met.** Read with the tool on 2026-08-11, after the rest of v0.5 closed:
+### Step 1 — the precondition, read with the tool
 
 ```text
-T-129   proposed   v0.5   specify   Release v0.5
-T-133   proposed   v0.5   specify   Decide what to do about a published release note that breaks the rule
-T-085   proposed   v0.5   specify   Install the published plugin ...                          blocked
+T-129   planned    v0.5   plan      Release v0.5
+T-085   proposed   v0.5   specify   Install the published plugin ...                    blocked
 ```
 
-[T-133](T-133-decide-what-to-do-about-a-published-release-note-that-breaks-the-rule.md) is open and
-its one question is the maintainer's, because both answers concern a page that is already published.
-The criterion says *every v0.5 task except T-085*, and it says it as a **precondition**, so this does
-not start.
+Only this task and T-085 remain. Criterion 1 holds.
 
-**And steps 7 and 8 would need permission regardless.** Even with T-133 closed, tagging, pushing and
-creating a release are not covered by a waiver about phases.
+### Step 2 — the version
+
+`0.4.0` to `0.5.0` in `plugin/.claude-plugin/plugin.json`, which is the one place it lives (T-072).
+Minor, for the reason recorded in §1.
+
+### The humanizer pass, and what it found instead
+
+Run over the covered text per `docs/PUBLISHING.md` §2, with the maintainer's exception: patterns 15,
+16 and 18 skipped, tables and code blocks and heading hierarchy preserved. **The prose needed
+nothing.** It was rewritten for `0.4.0` and the only edits since were two HTML comments. No em or en
+dashes, no curly quotes, sentence-case headings throughout, no forced triples, none of the vocabulary.
+
+What the pass did find was three statements that had stopped being **true**, which is a different
+defect and the more serious one for a front door:
+
+| What | Why it was wrong |
+| :--- | :--- |
+| The quoted `check` output | Missing `0 template field value(s)`. The command has printed that noun for some time; the README quoted a run nobody had re-taken |
+| No mention of `DUPLICATE INDEX` | [T-121](T-121-report-a-second-index-of-the-same-tasks-outside-the-markers.md) added a line an adopter will see, and the document that tells adopters what `check` says did not say it |
+| The platforms paragraph | It claimed a byte-identical index. [T-020](T-020-confirm-byte-identical-output-on-macos-and-linux.md) and [T-132](T-132-give-the-console-the-same-line-ending-on-every-platform.md) made the claim both larger and more precise, and the paragraph still described the smaller one |
+
+All three corrected. The first is the class *a quoted output in a spec may never have been run*: it
+reads as evidence, so nobody re-checks it. Verified this time by running `check` on an empty project
+and pasting what it actually printed.
+
+### Steps 3 and 4 — the gates
+
+```text
+dash gate     4 file(s) covered          exit 1     clean
+leak check    242 files a push would send
+              with the fixture excluded  prints nothing
+              without it                 5 tests/fixtures/leak-check/samples.txt
+```
+
+**Both gates reported a real failure before they reported a pass, and neither was a leak.**
+
+The dash gate first exited **2**, its "the gate is broken, not the tree" outcome, printing
+`covers 0 files - the pathspec is wrong`. The cause is this machine rather than the project:
+PowerShell resolves `bash` to WSL, which does not start in the repository, so
+`git rev-parse --show-toplevel` resolved elsewhere and the pathspec matched nothing. Run through Git
+Bash it covers 4 and exits 1. **Exit 2 is why this was visible at all** — without it the run would
+have printed nothing, which is also what success looks like.
+
+The leak check then reported two hits in T-020, both the string `6.18.33.2` in a kernel version. That
+is the documented four-part-version false positive
+([T-058](T-058-say-that-a-four-part-version-number-trips-the-leak-check.md)), and the documented
+remedy is to elide a component, which is what T-049 had already done in its own record. Elided; the
+tree now prints nothing, and the fixture run returns exactly its five lines.
+
+### Step 5 — the tree being tagged
+
+```text
+OK - 135 task(s), 675 field value(s), 457 reference(s), 23 dependency edge(s), 241 declared
+output(s), 1 index file(s), 163 document(s), 1393 link(s), 2 template(s), 10 template field
+value(s), 0 vocabulary row(s)
+Scope  48 document(s) not read: a clone would not receive them
+
+python -m unittest discover -s tests -q     Ran 236 tests     OK (skipped=3)
+```
 
 **Decisions & assumptions**
-- **Not started rather than started-and-parked.** Bumping the manifest before the precondition holds
-  would leave the tree claiming a version that was never released if the answer to T-133 changes what
-  ships. — 2026-08-11
+
+- **The README corrections ship with the release rather than as their own task.** They are three
+  statements about what this release contains, in the document a stranger reads to find out; deferring
+  them would publish `0.5.0` behind a front door describing `0.4.0`. Recorded here rather than fixed
+  silently. — 2026-08-11
+- **The `bash` resolution is not a project defect and no task is raised.** It is the machine hazard
+  the maintainer's own environment notes already carry, and the gate handled it correctly by exiting
+  2. — 2026-08-11
 
 **Outputs produced**
-- None yet.
+- `plugin/.claude-plugin/plugin.json` — `0.5.0`
+- `README.md` — three corrections
+- `tasks/T-020-...md` — kernel version elided for the leak check
 
 ## 4. Review
 
