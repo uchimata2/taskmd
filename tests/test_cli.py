@@ -597,6 +597,25 @@ class WritesTheSameBytesEverywhere(unittest.TestCase):
         self.assertIn("tasks/T-001-x.md", out)
         self.assertNotIn("\\", out)
 
+    def test_what_the_commands_print_carries_no_carriage_returns(self):
+        """T-132. The two tests above cover the file and the separators; nothing covered the line
+        ending of what is *printed*, and T-020 measured the gap — every console capture differed
+        between Windows and Linux by `\\r` alone.
+
+        This has to spawn a real process. `run()` above swaps `sys.stdout` for an `io.StringIO`,
+        which has no `reconfigure`, so the line this protects never executes in-process and an
+        assertion made through the helper would pass on the unfixed code."""
+        env = dict(os.environ)
+        env["PYTHONPATH"] = PKG
+        env["PYTHONIOENCODING"] = "utf-8"
+        for argv in (["check"], ["index"], ["context", "T-001"], ["list"], ["nosuchcommand"]):
+            done = subprocess.Popen([sys.executable, "-m", "taskmd"] + argv
+                                    + ["--root", self.tmp],
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env)
+            out, err = done.communicate()
+            self.assertNotIn(b"\r", out, "stdout of 'taskmd %s'" % " ".join(argv))
+            self.assertNotIn(b"\r", err, "stderr of 'taskmd %s'" % " ".join(argv))
+
 
 class RunsOnACloneWithNoConfiguration(unittest.TestCase):
     """R-20 again, from the other side: no `.taskmd/`, no dependencies, no path editing."""

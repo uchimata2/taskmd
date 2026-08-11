@@ -1009,8 +1009,17 @@ def usage_line(command=None):
 
 
 def main(argv):
-    if hasattr(sys.stdout, "reconfigure"):
-        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    # `newline="\n"` for the same reason `write()` sets it: without it Python's text layer rewrites
+    # every `\n` as `\r\n` on Windows, so what taskmd *prints* was the one thing the promise of
+    # identical output on every platform did not cover. Measured by T-020 — the generated files
+    # matched byte for byte across Windows and Linux, all six console captures differed, and the
+    # whole difference was the `\r`. It shows up in `list`, which exists to be parsed: the last
+    # field of a row read back as `-\r` on one platform and `-` on the other. stderr is set the
+    # same way even though one line goes there, so the next caller does not inherit a stream
+    # configured unlike its twin (T-132).
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace", newline="\n")
 
     root, rest, asked_for_help = None, [], False
     argv = list(argv)
