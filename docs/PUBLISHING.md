@@ -26,6 +26,22 @@ Applying the test today gives `README.md`, the GitHub repository description, th
 `description` and the marketplace manifest's `metadata.description`. A document written next month
 is covered or not by the same test, with nothing here to edit.
 
+**A tag message and its GitHub release are covered, and nothing enforces it.** The maintainer's
+answer, 2026-08-11
+([T-127](../tasks/T-127-decide-whether-a-release-note-is-text-a-stranger-reads.md)). A release page is
+the second thing someone evaluating the plugin opens after the README, so §1's test catches it on the
+literal reading; the rival was excluding it on the same grounds as a commit message, which keeps the
+covered set to things a script can read and loses the reader the test is about. A stated rule nobody
+enforces beats an unwritten one.
+
+**Two texts, not one, and only one of them is even reachable.** The annotated tag message and the
+GitHub release body are separate: measured on 2026-08-11, `v0.2.0`'s tag message is 936 characters
+and its release body 2591, and they say different things. A tag message can at least be listed with
+`git for-each-ref`; a release body lives on GitHub and needs the network, which this project's
+dependency-free and offline constraints put out of the suite's reach. So the §5 gate reaches neither —
+its pathspec lists files, and neither of these is a file — and **both are written by eye, to the same
+rule as the README.** That is the residue §5 names, arriving for the first time with a name.
+
 **What is excluded, and why** — the maintainer's reason, 2026-08-09: *keep them efficient for AI
 parsing.*
 
@@ -132,6 +148,9 @@ cannot do is notice a covered document of a **new kind** — a `CONTRIBUTING.md`
 test in §1 still governs that, and adding one pattern to the line above is the whole of the work.
 That residue is stated rather than hidden, because a gate believed to be exhaustive is worse than one
 known to be partial.
+
+**One covered text is now known to be beyond it, by name**: the tag message and the GitHub release
+body, neither of which is a file. §1 says so and says nothing enforces them.
 
 ---
 
