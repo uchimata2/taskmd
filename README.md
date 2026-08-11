@@ -78,12 +78,12 @@ shipped schema or copies it to `.taskmd/config.md` and edits it there.
 | `taskmd context <id>` | Everything needed to start that one task, and nothing else |
 | `taskmd list --open --limit 1` | What to work on next, by the project's own ordering rule |
 | `taskmd index` | Regenerates the task index |
-| `taskmd check` | Validates ids, vocabularies, references, links — and your task templates |
+| `taskmd check` | Validates ids, vocabularies, references, links, and your task templates |
 
 They find the project by walking up from wherever they are run, so they work from a subdirectory
 too. Pass `--root <path>` to override the project they find.
 
-`list` filters on any link name and on **any field your schema names** — the ones it enumerates and
+`list` filters on any link name and on **any field your schema names**: the ones it enumerates and
 the ones it only shows, so a field the tool does not interpret is still one you can select on
 (`taskmd list --status blocked`, `taskmd list --parent T-009`,
 `taskmd list --work_package v0.2 --open`). `--json` turns it into a script's input. An unknown
@@ -99,34 +99,35 @@ not read, and the count of what was skipped is printed on every run, so the excl
 grow. A project with no git gets the whole tree read and is told so on the same line. This is the
 question the command answers, and it is the same one the repository's own publishing checks ask.
 
-The *targets* are asked two questions. Is the file here — or the link is broken. And would a clone
-receive it — or the link resolves for you and 404s for everyone else, which is reported as
+The *targets* are asked two questions. Is the file here? If not, the link is broken. And would a
+clone receive it? If not, the link resolves for you and 404s for everyone else, which is reported as
 `IGNORED LINK` and is a different fact with a different fix. **Links to directories are exempt**,
 because git lists files and never folders, so a folder is in nobody's clone by that test.
 
-You can still say where a local-only file lives — a machine-specific note, a credentials location —
-by naming it as a **path in prose** rather than as a link, which is not checked either way (below).
-That is how this project's own quarantined material is referenced, in every one of its documents.
-The rule was first written the other way and reversed on measurement in T-097: across 151 published
-documents here it caught nothing that was deliberate, and twelve directory links that were not the
-class at all.
+You can still say where a local-only file lives, such as a machine-specific note or a credentials
+location, by naming it as a **path in prose** rather than as a link. A path in prose is not checked
+either way (below). That is how this project's own quarantined material is referenced, in every one
+of its documents. The rule was first written the other way and reversed on measurement in T-097:
+across 151 published documents here it caught nothing that was deliberate, and twelve directory
+links that were not the class at all.
 
 **So the pointers inside your machine-local documents are validated by nothing, and that is a
-decision rather than a gap nobody noticed.** If you keep working state a clone never sees — a
-resumption note, a scratch plan, local context — its links are unchecked, and a dead one there is
+decision rather than a gap nobody noticed.** If you keep working state a clone never sees, such as a
+resumption note, a scratch plan or local context, its links are unchecked, and a dead one there is
 found by the next person who follows it. It belongs to whatever writes that document: a tool that
 generates one can resolve its own pointers at the moment it has them, and a hand-written one is
-hand-checked. The alternatives — a flag, a config key naming paths to read anyway, reading everything
-and demoting the findings — were each priced and rejected in T-098, which is also where to reopen it.
+hand-checked. Three alternatives were each priced and rejected in T-098, which is also where to
+reopen it: a flag, a config key naming paths to read anyway, and reading everything but demoting the
+findings.
 
-**Only Markdown link syntax counts as a pointer.** A path written as prose or inside a fenced block —
-`docs/plan.md` in a sentence, or a path a tool printed into output you pasted — is not checked, and
-a dead one will not be reported. If you are retiring your own link checker in favour of this one,
-that is the coverage you give up. The decision is recorded in T-092 with what it cost, measured on two
-projects rather than argued. Here: 683 such paths examined, 237 reported, none a real defect. On the
-project that asked for the check: 481 examined, 31 dead, and 19 of those named one file its own
-backlog had retired. Both corpora fail the same way, because a task record is a **dated statement,
-not a promise** — it correctly describes a tree that has since moved, and a path checker cannot tell
+**Only Markdown link syntax counts as a pointer.** A path written as prose or inside a fenced block
+is not checked, and a dead one will not be reported. That covers `docs/plan.md` in a sentence, and a
+path a tool printed into output you pasted. If you are retiring your own link checker in favour of
+this one, that is the coverage you give up. The decision is recorded in T-092 with what it cost,
+measured on two projects rather than argued. Here: 683 such paths examined, 237 reported, none a
+real defect. On the project that asked for the check: 481 examined, 31 dead, and 19 of those named
+one file its own backlog had retired. Both corpora fail the same way, because a task record is a **dated statement,
+not a promise**: it correctly describes a tree that has since moved, and a path checker cannot tell
 the two apart. A validator that cries wolf gets ignored, which is worse than a narrow one.
 
 ## Install
@@ -155,7 +156,7 @@ Scope  every document read; no git here, so .gitignore was not consulted
 structure and references only - it cannot tell you whether a spec or an outcome is good
 ```
 
-**The summary carries what was examined, not only what passed** — so a scan that quietly shrinks is
+**The summary carries what was examined, not only what passed**, so a scan that quietly shrinks is
 visible, and a clean run on an empty project reads as the nothing it is rather than as an
 endorsement. The `Scope` line is the same idea aimed at what was *skipped*, and it prints on a
 failing run too, because an exclusion hides behind a problem as easily as behind a pass. Run outside
@@ -163,7 +164,7 @@ a project, `taskmd check` says so and exits 2 instead of reporting a clean tree 
 
 **If you write your own config, `check` also tells you when the shipped default moves ahead of it.**
 A config replaces the default rather than merging with it, so a copy taken today cannot see a value
-added tomorrow — a real project raised work to fix a defect that had already been fixed upstream for
+added tomorrow. A real project raised work to fix a defect that had already been fixed upstream for
 exactly this reason. One `CONFIG DRIFT` line names the row and the difference. It is advisory: the
 exit status does not move, because pinning is a choice and not a fault. What counts as drift, and the
 much longer list of differences that deliberately do *not*, is in the shipped config under *When this
