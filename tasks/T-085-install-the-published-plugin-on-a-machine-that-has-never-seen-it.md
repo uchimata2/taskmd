@@ -2,11 +2,11 @@
 id: T-085
 title: Install the published plugin on a machine that has never seen it
 type: analysis
-status: proposed
-phase: specify
+status: in_progress
+phase: implement
 parent: T-006
 blocked_by: [T-129]
-related: [T-049, T-067, T-020]
+related: [T-049, T-054, T-067, T-020, T-129]
 work_package: v0.5
 owner: maintainer
 business_value: medium
@@ -84,39 +84,146 @@ R-20 (`docs/SCOPE.md`) — runs on a clone with no configuration; `docs/SCOPE.md
 - [ ] Anything the README has to change is named, with the wording, rather than fixed here
 
 **Open questions**
-- **What stands in for the machine.** A container, a fresh virtual machine, or a second physical
-  machine each answer a slightly different question, and a container that ships no Python answers a
-  more interesting one than a developer machine that has three. The maintainer's, since it depends
-  on what they have.
+- **What stands in for the machine — half answered by measuring, half still the maintainer's.**
+  Measured 2026-08-11: the WSL2 Ubuntu 26.04 profile on this machine has **never held any of this** —
+  no `~/.claude` directory at all, no `taskmd` on `PATH`, a different user, a different home, a
+  different Python. That is a real answer for the **plain skill** shape and it was used. It cannot
+  answer the **plugin** shape: that profile has no Node and no `claude` CLI, and standing one up ends
+  in an interactive sign-in, which a session does not perform. So the remaining question is narrower
+  than when it was written: *where does the plugin route get tested* — a container with the CLI, a
+  second physical machine, or an adopter reporting it.
 
 ## 2. Plan
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
-| 2 |  |  |
+| 1 | Measure what candidate environments actually have, before choosing one | The survey in §3 |
+| 2 | Clone the **published** repository at the `v0.5.0` tag, not the working tree | A checkout of what shipped |
+| 3 | Follow the README's plain-skill section **as written**, and count the files against the number it claims | A transcript |
+| 4 | Run the command that section ends in, then go beyond it: a real task through `index`, `check`, `list` and `context` | A transcript |
+| 5 | State whether bare `taskmd` resolves, for each shape | §3 — criterion 2 |
+| 6 | Name anything the README has to change, with the wording, and change nothing | §3 — criterion 3 |
+
+Step 2 is what makes this v0.5's last task rather than a rehearsal: the artifact under test is the
+one that shipped, reached the way a stranger reaches it.
 
 ## 3. Implement
 
+### Step 1 — what the candidate actually is
+
+```text
+user        uchimata            (not the Windows profile)
+home        /home/uchimata
+os          Ubuntu 26.04 LTS
+python3     /usr/bin/python3    Python 3.14.4
+python      NONE                (no bare `python`)
+node        NONE
+claude      NONE
+docker      NONE
+~/.claude   does not exist
+taskmd      not on PATH
+```
+
+**It has never held any of this**, which is the phrase the criterion turns on, and `~/.claude` not
+existing is the strongest form of that. It is also missing what the plugin route needs.
+
+### Steps 2 to 4 — the plain skill shape, from what shipped
+
+```text
+commit : f53ab37
+tag    : v0.5.0
+version:   "version": "0.5.0",
+
+landed at: /home/uchimata/.claude/skills/taskmd
+files    : 21   (README says 21)
+
+OK - 0 task(s), 0 field value(s), 0 reference(s), 0 dependency edge(s), 0 declared output(s),
+0 index file(s), 0 document(s), 0 link(s), 0 template(s), 0 template field value(s),
+0 vocabulary row(s)
+Scope  every document read; no git here, so .gitignore was not consulted
+structure and references only - it cannot tell you whether a spec or an outcome is good
+exit: 0
+```
+
+Followed as written: copy the folder, `mkdir tasks`, run the launcher. **The file count matches the
+number the README claims**, which is a claim nobody had checked from outside. The empty-project line
+matches the README's quoted output exactly, which it would **not** have done before
+[T-129](T-129-release-v0-5.md) corrected that quotation earlier the same day.
+
+Then past the README, on a real task file written by hand:
+
+```text
+Wrote tasks/README.md - 1 active, 0 closed
+OK - 1 task(s), 5 field value(s), ... 1 index file(s), 2 document(s), 1 link(s), ...
+T-001	proposed	-	specify	A first task on a machine that has never seen taskmd
+T-001  A first task on a machine that has never seen taskmd
+status proposed | phase specify | type deliverable
+file   tasks/T-001-first.md
+```
+
+All four commands, no configuration, no dependency install, no path edited. The launcher found
+`python3` on a profile with no bare `python`, which is the case
+[T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) found a stock Ubuntu presents.
+
+### Step 5 — bare `taskmd`
+
+```text
+plain skill shape:  taskmd on PATH: NONE      (before and after the install)
+plugin shape:       not tested
+```
+
+For the plain skill this is **correct and documented**: the README says a copied skill gets no `PATH`
+entry because that mechanism belongs to plugins, and it gives the launcher path instead. So this half
+confirms the README rather than contradicting it. The half
+[T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md) left open is the **plugin**
+one, and it is still open.
+
+### Step 6 — what the README has to change
+
+**Nothing.** Every claim its second section makes was followed and held: the destination path, the
+self-contained folder, the file count, the two commands, and the output. The first section is
+untested rather than wrong.
+
+### What is not done, and why it is not a skip
+
+The plugin route — `claude plugin marketplace add` then `claude plugin install` — was **not run**.
+The profile that satisfies *never seen it* has no Node and no `claude` CLI, and installing one ends
+in an interactive sign-in that a session does not perform. Installing the CLI into that profile would
+also stop it being the thing being tested: an environment prepared for the test is a developer
+machine, which §1 already says answers a less interesting question.
+
+So criterion 1 is half met, criterion 2 is half met, and the task stays open. **That is the outcome
+this task exists to produce** rather than a failure to reach one: §1 says v0.5 is complete when the
+published artifact has been proven from outside, and half of it now has been, on a real second
+operating system, from the tag.
+
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+- **Cloned at the tag, not copied from the working tree.** The artifact under test has to be the one
+  a stranger receives. — 2026-08-11
+- **`git clone --depth 1 --branch v0.5.0` prints `warning: refs/tags/v0.5.0 <sha> is not a commit!`** and then
+  checks out the right commit. It is git's note about a shallow clone of an **annotated** tag, not a
+  defect in the tag or the repository, and `git describe` confirms `v0.5.0`. Recorded because it
+  looks alarming in a transcript an adopter might produce. — 2026-08-11
+- **The PowerShell launcher is not exercised.** That profile has no `pwsh`, and the Windows side is
+  covered by every other run in this repository. — 2026-08-11
+- **Nothing was changed.** §1 Scope says a failure is the finding. There was no failure in the half
+  that ran. — 2026-08-11
 
 **Outputs produced**
-- This record
+- This record.
 
 ## 4. Review
 
-| Acceptance criterion | Result | Note |
-| :--- | :---: | :--- |
-|  |  |  |
-
-**Child fix tasks raised**
-- <T-NNN or "none">
+_Not reached. Two of the three criteria are half met and the task is open; see §3._
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | → in_progress | **Half of it is now proven from outside, on the published `v0.5.0` artifact, and the task stays open.** The open question was half answered by measuring rather than by asking: the WSL2 Ubuntu 26.04 profile here has **no `~/.claude` at all**, a different user, a different home and no `taskmd` on `PATH`, which is a real answer to *a machine that has never seen it* for the plain-skill shape. Followed as written from a clone at the tag, it holds completely: 21 files, exactly the count the README claims and nobody had checked from outside; the empty-project output matches the README's quotation, which it would not have done before [T-129](T-129-release-v0-5.md) corrected that quotation hours earlier; all four commands work on a real task, with the launcher finding `python3` on a profile that has no bare `python`. Bare `taskmd` does **not** resolve there, which for this shape is what the README says will happen. **The plugin route was not run**: that profile has no Node and no `claude` CLI, and standing one up ends in an interactive sign-in a session does not perform, besides turning the untouched profile into a prepared one. Criterion 3 is met and says the README needs nothing. Nothing was changed. |
+| 2026-08-11 | → planned | Six steps, and step 2 is what makes this v0.5's last task rather than a rehearsal: the artifact under test is cloned from the published tag, not copied from the working tree. Step 1 measures the candidate environments before choosing one, because `a container that ships no Python answers a more interesting question` is a claim about environments nobody had checked. |
+| 2026-08-11 | (no change) | **Unblocked**: [T-129](T-129-release-v0-5.md) closed and `0.5.0` is published, so what gets installed here is what v0.5 shipped. The `blocked_by` edge stays as the record of the ordering the maintainer asked for. |
 | 2026-08-11 | (no change) | **METHOD §3.1 waived by the maintainer, 2026-08-11** — *"continuous work on all v0.5 tasks is authorized, with full lifecycle."* It covers every task carrying `work_package: v0.5`, through all four phases — including a task raised into v0.5 *by* that work, which is a v0.5 task and not a fresh grant. It **does not generalise** to `v0.6` or to unlabelled work. *Rejected: reading it as the seven open on the day* — a fix task raised by a v0.5 task would then need its own permission, and asking seven times is not continuous work. |
 | 2026-08-09 | (no status change) | Second independent report of the same thing, from the deck-building sibling's migration (`control/LOCAL-CONTEXT.md`): `bin/` is dropped from `PATH` in agent shells built from the shell snapshot, so every invocation there needs `PYTHONPATH=<skill> python -m taskmd`. That is T-054's defect seen from outside this repository, which is what this task exists to measure. Their suggestion is that taskmd either document it or ship a shim; the first adopting project wrote its own, and its header says to delete it the day the bare name resolves. Two projects have now each solved it privately, which is the evidence that it is not a local quirk. |
 | 2026-08-09 | → proposed | Raised by [T-006](T-006-package-document-and-publish.md)'s review as the child carrying its criterion 4. The route was proven end to end from the published remote on the day of publication, and the part that could not be proven is the phrase *a machine that has never seen it*: another OS, another Python, another profile, and a `PATH` this project has never touched. Carried as a task rather than ticked, because the local `PATH` failure T-054 recorded means the README's first install section ends in a command nobody has yet watched resolve by name on a stranger's machine. |

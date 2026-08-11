@@ -2,8 +2,8 @@
 id: T-129
 title: Release v0.5
 type: deliverable
-status: planned
-phase: plan
+status: done
+phase: review
 parent: null
 blocked_by: []
 related: [T-125, T-085, T-126, T-127, T-133]
@@ -13,7 +13,7 @@ business_value: high
 effort: s
 created: 2026-08-11
 updated: 2026-08-11
-deliverables: []
+deliverables: [plugin/.claude-plugin/plugin.json, README.md, docs/PUBLISHING.md]
 ---
 
 # T-129 — Release v0.5
@@ -188,24 +188,87 @@ python -m unittest discover -s tests -q     Ran 236 tests     OK (skipped=3)
   the maintainer's own environment notes already carry, and the gate handled it correctly by exiting
   2. — 2026-08-11
 
+### Steps 6 and 7 — the tag, and a defect in how the last one was written
+
+The notes were first composed in a PowerShell here-string, and the string arrived carrying a
+**backtick where an apostrophe belongs**. Checking `v0.4.0`'s published body found the same artifact
+already there: `adopter` followed by a backtick. It is the hazard `docs/PUBLISHING.md` §6 states for
+the leak-check fixture, arriving in the one covered text no gate reads, and it had shipped once
+unnoticed.
+
+Rewritten to a file directly, verified before use, and passed by path:
+
+```text
+em: 0   en: 0   backticks: 0   curly: 0   chars: 2120
+```
+
+`docs/PUBLISHING.md` §1 now says to compose a note with something that never puts it on a command
+line, and to use `git tag -F` and `gh release --notes-file`. That is the durable half; the artifact
+in `v0.4.0` is left as published, on the answer
+[T-133](T-133-decide-what-to-do-about-a-published-release-note-that-breaks-the-rule.md) settled.
+
+```text
+v0.5.0  tag  2120 bytes
+113985f..f53ab37  master -> master
+* [new tag]       v0.5.0 -> v0.5.0
+https://github.com/uchimata2/taskmd/releases/tag/v0.5.0
+```
+
+### Step 8 — the published body, read after publishing
+
+```text
+body chars: 2162   em: 0   en: 0   backticks: 0
+tag  chars: 2162   em: 0   en: 0   backticks: 0
+```
+
+**They match this time, and the step exists because they need not.** T-127 measured `v0.2.0`'s pair
+at 936 and 2591 characters, with the em dashes only in the body. Reading the tag and calling the
+release checked is what left that page unexamined for a day.
+
+**Decisions & assumptions**
+
+- **The README corrections ship with the release rather than as their own task.** They are three
+  statements about what this release contains, in the document a stranger reads to find out; deferring
+  them would publish `0.5.0` behind a front door describing `0.4.0`. Recorded here rather than fixed
+  silently. — 2026-08-11
+- **The `bash` resolution is not a project defect and no task is raised.** It is the machine hazard
+  the maintainer's own environment notes already carry, and the gate handled it correctly by exiting
+  2. — 2026-08-11
+- **The shell artifact got a rule, not a task.** The fix is one sentence in the document that owns
+  how a note is written, and a task would have been a second home for it. — 2026-08-11
+
 **Outputs produced**
 - `plugin/.claude-plugin/plugin.json` — `0.5.0`
 - `README.md` — three corrections
+- `docs/PUBLISHING.md` — §1, how a note must be composed
 - `tasks/T-020-...md` — kernel version elided for the leak check
+- The tag `v0.5.0` and the GitHub release
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| Every v0.5 task except T-085 is closed when this starts, read with `list --work_package v0.5 --open` rather than from a list | met | Read with the tool, twice: it **failed** the first time and this task was held, because T-133 was open with a question only the maintainer could answer. Re-read after that answer, only T-129 and T-085 remained. |
+| Both gates pass on the tree being tagged, and the dash gate is read by its count and its exit code, where exit 1 is the clean outcome | met | 4 files, exit 1. The count is what earned its place: the gate first exited **2**, `covers 0 files - the pathspec is wrong`, because PowerShell resolved `bash` to WSL. A run that silently covered nothing would have looked identical to a pass. The leak check reported two hits, both the documented four-part-version false positive, elided per T-058; both directions then clean, with the fixture returning exactly its five lines. |
+| The manifest names a version above `0.4.0`, and the bump is minor or patch with the reason stated | met | `0.5.0`, minor, reason in §1: `check` prints a line it has never printed, and every command prints different bytes on Windows. |
+| The tag is annotated and the GitHub release exists | met | Annotated, 2120 bytes, created from a file. The release is live and **step 8 read the published body** rather than the tag message: 2162 characters each, no em dashes, no backtick artifact. |
+| `check`, `index` and the full suite pass on the tagged commit | met | `OK - 135 task(s) ...` and `Ran 236 tests OK (skipped=3)`. |
 
 **Child fix tasks raised**
-- none
+- none. Three things this run turned up were handled where they belong rather than deferred: the
+  three stale README statements are what a release note is *for*, the `bash` resolution is a machine
+  hazard already recorded outside this project, and the shell artifact in a release note got a rule in
+  `docs/PUBLISHING.md` because a task would have been a second home for one sentence.
+
+**Verdict.** All five criteria met. **v0.5 is not complete**, and that was the point of raising this
+task early: [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) is
+unblocked now and is what makes `0.5.0` more than a tag.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | → done | **`0.5.0` is tagged, pushed and released.** All five criteria met. Criterion 1 is the one that did work: read with the tool it **failed** first and this task was held, then passed after the maintainer answered [T-133](T-133-decide-what-to-do-about-a-published-release-note-that-breaks-the-rule.md). Two gates each reported a real failure before passing, and neither was a leak: the dash gate exited **2** because PowerShell resolves `bash` to WSL, which is precisely the outcome that stops a run covering nothing from looking like a clean one, and the leak check caught the four-part-version false positive [T-058](T-058-say-that-a-four-part-version-trips-the-leak-check.md) documented. The humanizer pass found the prose needed nothing and found three README statements that had stopped being **true**, including a quoted `check` output missing a noun the command prints. Writing the notes turned up a defect in how the **last** note was written: a backtick where an apostrophe belongs, shipped unnoticed in `v0.4.0`, from text crossing a here-string. Fixed as a rule in `docs/PUBLISHING.md` rather than as a task. Step 8 read the published **body**, not the tag message. |
 | 2026-08-11 | → planned | Eight steps, and the plan **stops there deliberately**. Criterion 1 is a precondition and it is not met: [T-133](T-133-decide-what-to-do-about-a-published-release-note-that-breaks-the-rule.md) is an open v0.5 task whose single question is the maintainer's, because both answers concern an already-published page. Steps 7 and 8 would need permission in any case — the standing waiver grants *phases*, not the right to tag, push or publish, and that distinction is written into the plan so a later session does not read the plan as the authorization. The open question is answered from the closed set rather than deferred: **minor, `0.5.0`**, because [T-121](T-121-report-a-second-index-of-the-same-tasks-outside-the-markers.md) adds a line `check` has never printed and [T-132](T-132-give-the-console-the-same-line-ending-on-every-platform.md) changes the bytes every command prints on Windows. §1 expected [T-126](T-126-catch-dash-gate-drift-before-publication-rather-than-at-it.md) to be the deciding one; it is not, since its test reads this repository's own documents and an adopter never runs it. Step 8 is added to the worked procedure T-125 left: the release **body** is re-read after publishing, because T-127 measured that it is a different text from the tag message and is the one nobody had checked. |
 | 2026-08-11 | (no change) | **METHOD §3.1 waived by the maintainer, 2026-08-11** — *"continuous work on all v0.5 tasks is authorized, with full lifecycle."* It covers every task carrying `work_package: v0.5`, through all four phases — including a task raised into v0.5 *by* that work, which is a v0.5 task and not a fresh grant. It **does not generalise** to `v0.6` or to unlabelled work. *Rejected: reading it as the seven open on the day* — a fix task raised by a v0.5 task would then need its own permission, and asking seven times is not continuous work. |
 | 2026-08-11 | → proposed | Raised during a handoff, from the maintainer's instruction that T-085 is v0.5's last item and runs once v0.5 is released. That instruction needs something to depend on, and a dependency edge needs a task: this is it. **The ordering is the point, not the paperwork.** `0.4.0` shipped with nothing verifying it from outside, and T-085 pointed at whichever version happened to be current when someone got to it. Now it points at this one. Its `blocked_by` carries the edge; nothing here lists what v0.5 contains. |
