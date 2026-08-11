@@ -99,9 +99,17 @@ not read, and the count of what was skipped is printed on every run, so the excl
 grow. A project with no git gets the whole tree read and is told so on the same line. This is the
 question the command answers, and it is the same one the repository's own publishing checks ask.
 
-The *targets* are judged differently on purpose: a pointer resolves when the file is on disk, ignored
-or not. That is what lets a published document name a local-only file — a machine-specific note, a
-credentials location — and say where it lives, without the validator calling it broken.
+The *targets* are asked two questions. Is the file here — or the link is broken. And would a clone
+receive it — or the link resolves for you and 404s for everyone else, which is reported as
+`IGNORED LINK` and is a different fact with a different fix. **Links to directories are exempt**,
+because git lists files and never folders, so a folder is in nobody's clone by that test.
+
+You can still say where a local-only file lives — a machine-specific note, a credentials location —
+by naming it as a **path in prose** rather than as a link, which is not checked either way (below).
+That is how this project's own quarantined material is referenced, in every one of its documents.
+The rule was first written the other way and reversed on measurement in T-097: across 151 published
+documents here it caught nothing that was deliberate, and twelve directory links that were not the
+class at all.
 
 **So the pointers inside your machine-local documents are validated by nothing, and that is a
 decision rather than a gap nobody noticed.** If you keep working state a clone never sees — a

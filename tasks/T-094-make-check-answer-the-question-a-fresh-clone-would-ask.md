@@ -111,6 +111,19 @@ at all.
   naming a file that is not in the repository. It was rejected because it collides head-on with the
   quarantine above, and because it is a *new problem class* rather than a scoping change, which is
   not what an `s` was estimated for. Raised instead as [T-097](T-097-decide-whether-a-published-document-may-point-at-a-file-no-clone-receives.md).
+
+  > *2026-08-11 — the first of these two decisions was **reversed**, and the second taken, by the
+  > maintainer at [T-097](T-097-decide-whether-a-published-document-may-point-at-a-file-no-clone-receives.md).
+  > Both are left as written, because they are what was decided here and rule 5 says annotate the
+  > past rather than rewrite it. What changed is not the argument but its premise: the collision with
+  > the quarantine convention was measured and does not occur. Every reference to this project's own
+  > quarantined file is a **bare path in prose**, never a Markdown link, and T-092 had already put
+  > that class out of scope — so no pointer the convention actually uses was ever at risk. Across 151
+  > published documents the strict rule raised zero file-level alarms and twelve links to
+  > directories, which are exempt because git lists no directory. The target side now asks both
+  > questions, and reports `IGNORED LINK`. The estimate stands as a fair reason not to have done it
+  > here: it was a new problem class, and it took one.*
+
 - **Rejected: "is it here?" on both sides, i.e. leaving the walk alone and documenting it** —
   2026-08-10. Cheapest, and defensible right up to the point where the reporting project cannot fix
   what it is told about. It also leaves two checks in one repository answering different questions

@@ -933,19 +933,67 @@ class CheckAnswersTheQuestionAFreshCloneWouldAsk(ScratchProject):
             self.assertIn("no git here, so .gitignore was not consulted", out)
 
     @unittest.skipUnless(GIT, "git is not available")
-    def test_a_published_document_may_still_point_at_a_gitignored_one(self):
-        """The target side deliberately keeps answering the *other* question, "is this file here?".
-        R-23 quarantines local-only material behind `.gitignore` and requires the tracked tree to
-        refer to it by name; reporting that pointer would make this project's own convention
-        unrepresentable. Rejected alternative, recorded in T-094 rather than only here."""
+    def test_a_published_document_pointing_at_a_gitignored_file_is_reported(self):
+        """**This reverses T-094**, which decided the target side would keep answering only "is
+        this file here?" on the grounds that reporting the pointer would make the quarantine
+        convention unrepresentable. T-097 measured that claim over this repository: every reference
+        to its own quarantined file is a bare path in prose — the class T-092 put out of scope — and
+        the strict rule raised no file-level alarm anywhere. The exemption was protecting a use of
+        links that nobody makes. Reversed by the maintainer on 2026-08-11.
+
+        Not `BROKEN LINK`: the file *is* here, which is a different fact and a different fix."""
         with tempfile.TemporaryDirectory() as tmp:
             root = self.project(tmp, {".gitignore": "private/\n",
                                       "private/local.md": "Local only.\n",
                                       "docs/guide.md": "See [the local note](../private/local.md).\n"})
             self.git(root, "init")
             code, out = run("check", "--root", root)
-            self.assertEqual(code, 0, out)
+            self.assertEqual(code, 1, out)
             self.assertNotIn("BROKEN LINK", out)
+            self.assertIn("IGNORED LINK  docs/guide.md -> ../private/local.md is here but no clone "
+                          "receives it, so the link resolves for you and 404s for every reader", out)
+
+    @unittest.skipUnless(GIT, "git is not available")
+    def test_a_link_to_a_directory_is_not_reported(self):
+        """The only false-alarm shape the rule has, and the one that would have made it useless:
+        `git ls-files` lists files, so **no** directory is in the visible set, published or not.
+        All twelve alarms T-097's probe raised over this repository were this. A published folder
+        and a gitignored one are both asserted, because exempting directories has to be the reason
+        rather than the published set happening to contain the first."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(tmp, {".gitignore": "private/\n",
+                                      "private/local.md": "Local only.\n",
+                                      "docs/here.md": "Shipped.\n",
+                                      "docs/guide.md": "[Shipped folder](.) and "
+                                                       "[a quarantined one](../private).\n"})
+            self.git(root, "init")
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 0, out)
+            self.assertNotIn("IGNORED LINK", out)
+
+    @unittest.skipUnless(GIT, "git is not available")
+    def test_an_ordinary_published_link_is_not_reported(self):
+        """The rule fires on membership of a set, so a rule that had the test inverted would look
+        identical on a passing tree and report every link on a real one."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(tmp, {"docs/here.md": "Shipped.\n",
+                                      "docs/guide.md": "See [the note](./here.md).\n"})
+            self.git(root, "init")
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 0, out)
+            self.assertNotIn("IGNORED LINK", out)
+
+    def test_without_git_the_class_cannot_be_claimed_at_all(self):
+        """No `--skipUnless`: this is the branch where git is absent, and it must hold on a machine
+        that has none. With no visible set there is no such thing as "no clone receives it", and
+        guessing would report every link in a project that simply is not in version control."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(tmp, {"private/local.md": "Local only.\n",
+                                      "docs/guide.md": "See [the local note](../private/local.md).\n"})
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 0, out)
+            self.assertNotIn("IGNORED LINK", out)
+            self.assertIn("no git here, so .gitignore was not consulted", out)
 
     @unittest.skipUnless(GIT, "git is not available")
     def test_the_scope_line_is_printed_on_a_failing_run_too(self):

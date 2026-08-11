@@ -598,11 +598,21 @@ def check_links(root, schema, problems, notes):
 
     **Two questions, answered differently on purpose** (T-094). On the *document* side the question
     is "would someone who cloned this find it?", so a gitignored document is not read: a dead link
-    inside something no reader can reach is a promise to nobody. On the *target* side it stays "is
-    this file here?", so a published document may point at a gitignored one — a project that
-    quarantines machine-local material still has to be able to say where it lives, and reporting
-    that pointer would make the convention unrepresentable. The rule as an adopter meets it is in
-    the project's own README; this is the mechanism.
+    inside something no reader can reach is a promise to nobody. On the *target* side the question
+    is asked twice: the file must be **here**, or the link is broken, and it must be **shipped**, or
+    the link resolves for its author and 404s for every reader.
+
+    T-094 asked only the first, deliberately, on the grounds that a project quarantining
+    machine-local material has to be able to say where it lives. T-097 measured that: across this
+    project's 151 published documents, every reference to its own quarantined file is a bare path in
+    prose, which T-092 had already put out of scope, and the strict rule raised **no** file-level
+    alarm at all. So the convention was never carried by links, and the exemption was protecting
+    nothing. Reversed on that evidence, by the maintainer, on 2026-08-11.
+
+    **Directories are exempt, and that is the whole of the difficulty.** `git ls-files` lists files,
+    so no directory is ever in the visible set — published or not. Every one of the 12 alarms the
+    unrefined rule raised here was a link to a directory. The rule as an adopter meets it is in the
+    project's own README; this is the mechanism.
 
     The excluded count goes to `notes` rather than into the denominators, because a document that
     was skipped was not examined and reporting it as one would be the very claim T-095 removed.
@@ -619,8 +629,13 @@ def check_links(root, schema, problems, notes):
             target = match.group(1)
             if target.startswith(("http://", "https://", "mailto:")):
                 continue
-            if not os.path.exists(os.path.normpath(os.path.join(base, target))):
+            full = os.path.normpath(os.path.join(base, target))
+            if not os.path.exists(full):
                 problems.append("BROKEN LINK   %s -> %s" % (where, target))
+            elif visible is not None and os.path.isfile(full) and full not in visible:
+                problems.append("IGNORED LINK  %s -> %s is here but no clone receives it, so the "
+                                "link resolves for you and 404s for every reader"
+                                % (where, target))
             links += 1
     notes.append("every document read; no git here, so .gitignore was not consulted"
                  if visible is None else
