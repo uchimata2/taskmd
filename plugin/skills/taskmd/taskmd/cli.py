@@ -12,6 +12,10 @@ difference is T-022's — not restated here, and not nameable here either: it li
 plugin deliberately does not ship (T-031). What the retired `deliverables` command did that nothing
 else does still survives as a `check` class rather than as a command.
 
+The front-door document lists the same four with what each is *for*, which is a different register
+for a different reader: the lines above give the flags, and someone deciding whether to install has
+no use for them. The repetition is deliberate and was decided rather than tolerated (T-117).
+
 This module holds **no field name, status value or id format of its own**. Everything it knows
 about a project's shape it asks `taskmd.schema` for, which reads it from the config. If you find a
 literal like "blocked" or "status" below, that is a defect.
