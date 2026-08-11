@@ -68,7 +68,8 @@ into, not a promise about a date.
 | [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `v0.3` | `proposed` | `specify` | - | - | - | T-004, T-009, T-010, T-041, T-082 |
 | [T-117](T-117-decide-whether-the-command-surface-needs-one-statement.md) | Decide whether the command surface needs one statement | `v0.3` | `proposed` | `specify` | - | - | - | T-030, T-031 |
 | [T-121](T-121-report-a-second-index-of-the-same-tasks-outside-the-markers.md) | Report a second index of the same tasks sitting outside the generated markers | `v0.3` | `specified` | `specify` | - | - | - | T-025, T-101, T-107 |
-| [T-126](T-126-catch-dash-gate-drift-before-publication-rather-than-at-it.md) | Catch dash-gate drift before publication rather than at it | `v0.3` | `proposed` | `specify` | - | - | - | T-079, T-081, T-115, T-125 |
+| [T-126](T-126-catch-dash-gate-drift-before-publication-rather-than-at-it.md) | Catch dash-gate drift before publication rather than at it | `v0.3` | `proposed` | `specify` | - | - | - | T-079, T-081, T-115, T-125, T-127 |
+| [T-127](T-127-decide-whether-a-release-note-is-text-a-stranger-reads.md) | Decide whether a release note is text a stranger reads | `v0.3` | `proposed` | `specify` | - | - | - | T-079, T-081, T-125, T-126 |
 
 ## Closed
 
@@ -150,9 +151,9 @@ into, not a promise about a date.
 | [T-076](T-076-decide-what-a-template-s-links-resolve-against.md) | Decide what a template's links resolve against | `v0.1` | `done` | `review` | - | - | - | T-032, T-051, T-060, T-091, T-101, T-103, T-104 |
 | [T-077](T-077-delete-the-rehearsal-repository-t-067-installed-from.md) | Delete the rehearsal repository T-067 installed from | `v0.1` | `done` | `review` | - | - | - | T-037, T-067 |
 | [T-078](T-078-say-what-a-tasks-dir-of-dot-means.md) | Say what a tasks_dir of dot means | `v0.2` | `done` | `review` | - | - | - | T-019, T-024, T-069 |
-| [T-079](T-079-humanize-the-human-facing-documents-before-publishing.md) | Humanize the human-facing documents before publishing | `v0.1` | `done` | `review` | - | - | - | T-081, T-125, T-126 |
+| [T-079](T-079-humanize-the-human-facing-documents-before-publishing.md) | Humanize the human-facing documents before publishing | `v0.1` | `done` | `review` | - | - | - | T-081, T-125, T-126, T-127 |
 | [T-080](T-080-stop-the-pre-publish-check-reporting-its-own-fixture.md) | Stop the pre-publish check reporting its own fixture from a subdirectory | `v0.1` | `done` | `review` | - | - | - | T-018, T-034, T-058, T-081, T-095, T-098 |
-| [T-081](T-081-gate-every-deployment-on-the-humanizer-pass.md) | Gate every deployment on the humanizer pass, not just the next one | `v0.1` | `done` | `review` | - | - | - | T-079, T-080, T-125, T-126 |
+| [T-081](T-081-gate-every-deployment-on-the-humanizer-pass.md) | Gate every deployment on the humanizer pass, not just the next one | `v0.1` | `done` | `review` | - | - | - | T-079, T-080, T-125, T-126, T-127 |
 | [T-082](T-082-let-id-width-say-the-backend-allocates-the-ids.md) | Let id_width say that the backend allocates the ids | `v0.2` | `done` | `review` | T-004 | - | - | T-010, T-075, T-108, T-123 |
 | [T-083](T-083-make-the-skill-directory-self-contained.md) | Make the skill directory self-contained | `v0.1` | `done` | `review` | - | - | - | T-053, T-054, T-064, T-084, T-099, T-103 |
 | [T-084](T-084-correct-the-generated-index-preamble-after-the-move.md) | Correct the generated index preamble after the directory move | `v0.1` | `done` | `review` | - | - | - | T-006, T-025, T-083 |
@@ -191,6 +192,6 @@ into, not a promise about a date.
 | [T-122](T-122-echo-the-typed-flag-in-the-rejected-value-message.md) | Echo the typed flag in the rejected-value message too | `v0.2` | `done` | `review` | - | - | - | T-113, T-120 |
 | [T-123](T-123-decide-whether-a-replaced-vocabulary-row-is-drift.md) | Decide whether a replaced vocabulary row is drift or a choice | `v0.2` | `done` | `review` | - | - | - | T-082 |
 | [T-124](T-124-stop-a-test-asserting-this-repository-has-open-v0-2-work.md) | Stop a test asserting this repository has open v0.2 work | `v0.2` | `done` | `review` | - | - | - | T-087, T-110 |
-| [T-125](T-125-ship-the-completed-v0-2-work-as-0-4-0.md) | Ship the completed v0.2 work as 0.4.0 | `v0.2` | `done` | `review` | - | - | - | T-006, T-079, T-081, T-110, T-126 |
+| [T-125](T-125-ship-the-completed-v0-2-work-as-0-4-0.md) | Ship the completed v0.2 work as 0.4.0 | `v0.2` | `done` | `review` | - | - | - | T-006, T-079, T-081, T-110, T-126, T-127 |
 
 <!-- taskmd:end -->

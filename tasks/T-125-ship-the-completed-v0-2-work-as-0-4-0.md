@@ -200,6 +200,10 @@ there.
 
 **Child fix tasks raised**
 - [T-126](T-126-catch-dash-gate-drift-before-publication-rather-than-at-it.md)
+- [T-127](T-127-decide-whether-a-release-note-is-text-a-stranger-reads.md), raised at step 6: §1's
+  test covers *text a stranger reads before installing*, and a release page is that, but the worked
+  list does not name it and the gate cannot read a tag message. Answered in the moment by writing
+  the notes to the stricter reading, which is not a home.
 
 ## Log
 
