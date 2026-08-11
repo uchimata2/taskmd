@@ -251,12 +251,26 @@ class FiltersOnAFieldNoVocabularyEnumerates(unittest.TestCase):
     fails is the one no test had a shape for."""
 
     def test_a_stored_field_the_schema_does_not_enumerate_can_be_selected_on(self):
-        code, out = run("list", "--work_package", "v0.2", "--open", "--root", ROOT)
+        """The value is taken from the data, not named (T-124).
+
+        This used to ask for `--work_package v0.2 --open` and assert rows came back, which pinned a
+        fact about the project's *progress* in order to prove one about the *filter* — so the day
+        the last open `v0.2` task closed, finishing a milestone turned the suite red. Naming any
+        other value only moves the expiry: `v0.2` itself is a label from a grouping the maintainer
+        has already re-cut once (T-110).
+
+        **What falsifies it:** `list` ceasing to filter on a field the schema does not enumerate.
+        Then either the run is rejected, or it comes back carrying tasks from other work packages,
+        and the two assertions below catch one case each.
+        """
+        every = json.loads(run("list", "--json", "--root", ROOT)[1])
+        wanted = [t for t in every if t.get("work_package")][0]
+        code, out = run("list", "--work_package", wanted["work_package"], "--root", ROOT)
         self.assertEqual(code, 0, out)
-        self.assertTrue(ids(out), "no rows; the filter matched nothing at all")
+        self.assertIn(wanted["id"], ids(out), out)
         for line in out.splitlines():
             if line.strip():
-                self.assertIn("v0.2", line)
+                self.assertIn(wanted["work_package"], line)
 
     def test_a_value_nothing_carries_is_an_empty_answer_not_an_error(self):
         """The maintainer's ruling: with no list to check against, the tool cannot tell a typo from
