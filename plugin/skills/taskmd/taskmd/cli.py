@@ -758,8 +758,67 @@ def check_config_drift(root, schema, advisories):
     return [("vocabulary row", compared)]
 
 
+def check_duplicate_index(root, schema, tasks, duplicates):
+    """A second table of the same tasks, outside the markers taskmd owns — advisory, never a problem.
+
+    An adopting project has an old index generator by definition, and for a while both write the same
+    file. Neither validator can see a block it does not own, so the duplicate passes every check
+    either tool runs: the reporting project's `tasks/README.md` carried taskmd's generated block *and
+    a second complete table of the same 56 ids*, and `check` said `OK` twice over it. It was found by
+    a person noticing the file had grown (T-121).
+
+    Nothing new is read. The known id set and the marker positions are both already in hand, so this
+    is a scan over material the command has parsed.
+
+    **A majority of the known set, not a fixed number** (T-121 Q1). A count that is quiet in a
+    500-task project fires on ordinary cross-linking in a 20-task one, and there is no basis for
+    choosing between them; a majority scales by construction. Distinct ids, counted once per file — a
+    document naming one task eleven times is one id.
+
+    **A task file does not count the ids it is entitled to carry** — its own, and the ones in its own
+    edge fields. Q1 chose a majority partly on the ground that one "cannot be reached by a task file
+    linking to its neighbours", and at scale that holds. It is arithmetic at three: this project's own
+    `alt-project` fixture has three tasks, no duplicate anywhere, and the first cut of this rule fired
+    on two of its files — each naming its own id, its epic and one sibling, which is three of three.
+    Discounting the structural ids removes that whole class without touching the threshold, and a
+    genuine duplicate table pasted into a task file still fires, because a table names ids the task
+    never declared.
+    """
+    if not tasks:
+        return [("document", 0)]
+    visible = clone_would_receive(root)
+    known, pattern = set(tasks), re.compile(r"%s\d+" % re.escape(schema.id_prefix))
+    structural = {}
+    for task in tasks.values():
+        entitled = {task.id}
+        for ids in task.edges.values():
+            entitled.update(ids)
+        structural[os.path.normpath(task.path)] = entitled
+    scanned = 0
+    for md in markdown_files(root, schema):
+        if visible is not None and os.path.normpath(md) not in visible:
+            continue
+        scanned += 1
+        outside, text = [], read(md)
+        start = text.find(BEGIN)
+        if start == -1:
+            outside.append(text)
+        else:
+            end = text.find(END, start)
+            outside.append(text[:start])
+            if end != -1:
+                outside.append(text[end + len(END):])
+        seen = known & set(pattern.findall("\n".join(outside)))
+        seen -= structural.get(os.path.normpath(md), set())
+        if len(seen) * 2 > len(known):
+            duplicates.append("%s: a second table of %d known task ids sits outside the taskmd "
+                              "markers" % (rel(root, os.path.relpath(md, root)), len(seen)))
+    return [("document", scanned)]
+
+
 def cmd_check(root, schema, tasks, args):
     problems, counted, notes, advisories = [], [], [], []
+    duplicates = []
     counted += check_anomalies(root, schema, tasks, problems)
     counted += check_vocabularies(schema, tasks, problems)
     counted += check_references(schema, tasks, problems)
@@ -772,6 +831,7 @@ def cmd_check(root, schema, tasks, args):
     counted += check_unreachable_templates(root, schema, problems)
     counted += check_template_fields(root, schema, problems)
     counted += check_config_drift(root, schema, advisories)
+    counted += check_duplicate_index(root, schema, tasks, duplicates)
 
     if problems:
         for problem in problems:
@@ -784,6 +844,10 @@ def cmd_check(root, schema, tasks, args):
     # in a legal state, so the line has to survive a run that also found real problems.
     for advisory in advisories:
         print("CONFIG DRIFT  %s" % advisory)
+    # Its own prefix rather than a second `CONFIG DRIFT` line: both are advisories and neither is
+    # the other, so a project grepping for one should not receive the other (T-121).
+    for duplicate in duplicates:
+        print("DUPLICATE INDEX  %s" % duplicate)
     # What was *not* looked at, on both branches for the reason the denominators are on both: a
     # scan narrowed by an exclusion hides behind a problem exactly as well as behind a pass.
     for note in notes:

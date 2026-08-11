@@ -617,6 +617,110 @@ class WritesTheSameBytesEverywhere(unittest.TestCase):
             self.assertNotIn(b"\r", err, "stderr of 'taskmd %s'" % " ".join(argv))
 
 
+class ReportsASecondIndexOutsideTheMarkers(unittest.TestCase):
+    """T-121. An adopting project has an old index generator by definition, and while both write the
+    same file neither validator can see the other's block. The reporting project ran `check` twice
+    over a `README.md` holding taskmd's generated table *and* a second complete copy of the same 56
+    ids, and got `OK` both times.
+
+    Every test here is paired: one that must fire and one that must stay quiet. A rule of this shape
+    is worth nothing if only its silence has been observed."""
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, self.tmp)
+
+    def task(self, number, body="", **fields):
+        front = {"id": "T-%03d" % number, "title": "Task %d" % number, "type": "deliverable",
+                 "status": "proposed", "phase": "specify"}
+        front.update(fields)
+        cli.write(os.path.join(self.tmp, "tasks", "T-%03d-x.md" % number),
+                  "---\n%s\n---\n\n# T-%03d\n\n%s\n"
+                  % ("\n".join("%s: %s" % kv for kv in front.items()), number, body))
+
+    def check(self):
+        return run("check", "--root", self.tmp)
+
+    def test_a_second_table_of_every_id_is_reported(self):
+        for n in (1, 2, 3, 4):
+            self.task(n)
+        cli.write(os.path.join(self.tmp, "docs", "backlog.md"),
+                  "# Our own backlog\n\n| id | title |\n| :-- | :-- |\n"
+                  + "".join("| T-%03d | Task %d |\n" % (n, n) for n in (1, 2, 3, 4)))
+        code, out = self.check()
+        self.assertIn("DUPLICATE INDEX", out)
+        self.assertIn("docs/backlog.md", out)
+        self.assertIn("4 known task ids", out)
+
+    def test_it_is_advisory_and_moves_neither_the_exit_status_nor_the_count(self):
+        """Criterion 2. A project may legitimately quote its own table, and a validator that fails
+        on a legal state is one a project starts passing flags to — `CONFIG DRIFT`'s reasoning."""
+        for n in (1, 2, 3, 4):
+            self.task(n)
+        clean_code, clean_out = self.check()
+        cli.write(os.path.join(self.tmp, "docs", "backlog.md"),
+                  "".join("- T-%03d\n" % n for n in (1, 2, 3, 4)))
+        code, out = self.check()
+        self.assertIn("DUPLICATE INDEX", out)
+        self.assertEqual(clean_code, code)
+        self.assertEqual(0, code)
+        self.assertNotIn("problem(s)", out)
+        self.assertIn("OK - ", out)
+
+    def test_a_document_quoting_a_handful_of_ids_stays_quiet(self):
+        for n in (1, 2, 3, 4):
+            self.task(n)
+        cli.write(os.path.join(self.tmp, "docs", "note.md"),
+                  "See T-001 and T-002 for the background.\n")
+        self.assertNotIn("DUPLICATE INDEX", self.check()[1])
+
+    def test_a_small_project_of_tasks_linking_to_neighbours_stays_quiet(self):
+        """The measured case, locked in. Q1 chose a majority partly because one "cannot be reached
+        by a task file linking to its neighbours" — true at 132 tasks, arithmetic at three. This is
+        the shape of `tests/fixtures/alt-project`, on which the first cut of the rule fired twice."""
+        self.task(1, body="Nothing here records what it unblocks; that is derived from T-002.",
+                  parent="T-003")
+        self.task(2, parent="T-003", related="[T-001]")
+        self.task(3, body="The umbrella. It does not list its children.")
+        self.assertNotIn("DUPLICATE INDEX", self.check()[1])
+
+    def test_the_discount_does_not_blind_it_to_a_table_inside_a_task_file(self):
+        """The other side of that discount: a task file is forgiven the ids it *declares*, not the
+        ids it lists. Paste the index into one and it still fires."""
+        for n in (1, 2, 3, 4):
+            self.task(n)
+        self.task(5, body="".join("- T-%03d\n" % n for n in (1, 2, 3, 4)))
+        out = self.check()[1]
+        self.assertIn("DUPLICATE INDEX", out)
+        self.assertIn("T-005-x.md", out)
+
+    def test_the_generated_block_itself_is_not_a_duplicate_of_itself(self):
+        """The index taskmd writes names every id there is. If the marked region were scanned, the
+        rule would fire on its own output in every project that has ever run `index`."""
+        for n in (1, 2, 3, 4):
+            self.task(n)
+        run("index", "--root", self.tmp)
+        self.assertNotIn("DUPLICATE INDEX", self.check()[1])
+
+    def test_the_reported_case_exactly(self):
+        """The shape the adopting project actually had: taskmd's generated block between taskmd's
+        markers, and a second complete table of the same ids below them, in the same file. `check`
+        ran over that state twice and said `OK`."""
+        for n in (1, 2, 3, 4):
+            self.task(n)
+        run("index", "--root", self.tmp)
+        index = os.path.join(self.tmp, "tasks", "README.md")
+        with open(index, encoding="utf-8") as fh:
+            generated = fh.read()
+        self.assertIn(cli.END, generated)
+        cli.write(index, generated + "\n## Our own table\n\n"
+                  + "".join("- T-%03d Task %d\n" % (n, n) for n in (1, 2, 3, 4)))
+        code, out = self.check()
+        self.assertIn("DUPLICATE INDEX", out)
+        self.assertIn("tasks/README.md", out)
+        self.assertEqual(0, code)
+
+
 class RunsOnACloneWithNoConfiguration(unittest.TestCase):
     """R-20 again, from the other side: no `.taskmd/`, no dependencies, no path editing."""
 
