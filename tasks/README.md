@@ -75,7 +75,6 @@ scheduled into, not when it ships.
 | [T-129](T-129-release-v0-5.md) | Release v0.5 | `v0.5` | `proposed` | `specify` | - | - | - | T-085 | T-085, T-125, T-126, T-127 |
 | [T-130](T-130-report-a-question-left-live-in-a-closed-task.md) | Report a question left live in a closed task | `v0.6` | `proposed` | `specify` | - | - | - | - | T-025, T-095, T-107, T-121, T-131 |
 | [T-131](T-131-decide-whether-a-question-heavy-task-is-a-different-kind-of-work.md) | Decide whether a question-heavy task is a different kind of work | `v0.6` | `proposed` | `specify` | - | - | - | - | T-088, T-109, T-130 |
-| [T-132](T-132-give-the-console-the-same-line-ending-on-every-platform.md) | Give the console the same line ending on every platform | `v0.5` | `proposed` | `specify` | T-020 | - | - | - | T-002, T-020, T-022, T-049 |
 
 ## Closed
 
@@ -143,7 +142,7 @@ scheduled into, not when it ships.
 | [T-061](T-061-stop-an-inherited-pythonpath-breaking-the-launcher.md) | Stop an inherited PYTHONPATH breaking the shell launcher | `v0.1` | `done` | `review` | T-059 | - | - | - | T-049, T-056, T-068 |
 | [T-062](T-062-report-two-tasks-claiming-one-id-instead-of-dropping.md) | Report two tasks claiming one id instead of dropping one | `v0.1` | `done` | `review` | T-059 | - | - | - | T-004, T-075, T-107 |
 | [T-063](T-063-measure-the-tier-1-member-the-rule-declares.md) | Measure the tier-1 member the rule declares | `v0.1` | `done` | `review` | T-059 | - | - | - | T-028, T-047, T-105, T-115, T-118 |
-| [T-064](T-064-stop-the-plugin-citing-documents-it-does-not-ship.md) | Stop the plugin citing documents it does not ship | `v0.1` | `done` | `review` | T-059 | - | - | - | T-006, T-053, T-083 |
+| [T-064](T-064-stop-the-plugin-citing-documents-it-does-not-ship.md) | Stop the plugin citing documents it does not ship | `v0.1` | `done` | `review` | T-059 | - | - | - | T-006, T-053, T-083, T-132 |
 | [T-065](T-065-say-what-happens-to-a-field-the-schema-does-not-name.md) | Say what happens to a field the schema does not name | `v0.1` | `done` | `review` | T-059 | - | - | - | T-001, T-030 |
 | [T-066](T-066-reconcile-two-open-tasks-with-the-fix-that-landed.md) | Reconcile two open tasks with the fix that already landed | `v0.1` | `done` | `review` | T-059 | - | - | - | T-011, T-023, T-030 |
 | [T-067](T-067-prove-the-install-route-an-adopter-actually-takes.md) | Prove the install route an adopter actually takes | `v0.1` | `done` | `review` | T-059 | - | - | - | T-006, T-052, T-053, T-054, T-077, T-085, T-099 |
@@ -201,5 +200,6 @@ scheduled into, not when it ships.
 | [T-124](T-124-stop-a-test-asserting-this-repository-has-open-v0-2-work.md) | Stop a test asserting this repository has open v0.2 work | `v0.2` | `done` | `review` | - | - | - | - | T-087, T-110 |
 | [T-125](T-125-ship-the-completed-v0-2-work-as-0-4-0.md) | Ship the completed v0.2 work as 0.4.0 | `v0.2` | `done` | `review` | - | - | - | - | T-006, T-079, T-081, T-110, T-126, T-127, T-128, T-129 |
 | [T-128](T-128-make-a-milestone-name-the-release-it-ships-in.md) | Make a milestone name the release it ships in | `v0.5` | `done` | `review` | - | - | - | - | T-086, T-110, T-125 |
+| [T-132](T-132-give-the-console-the-same-line-ending-on-every-platform.md) | Give the console the same line ending on every platform | `v0.5` | `done` | `review` | T-020 | - | - | - | T-002, T-020, T-022, T-049, T-064 |
 
 <!-- taskmd:end -->
