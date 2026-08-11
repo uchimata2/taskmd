@@ -107,4 +107,5 @@ R-1, R-18 (`docs/SCOPE.md`); the design rule — one home per fact.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | (no change) | **METHOD §3.1 waived by the maintainer, 2026-08-11** — *"continuous work on all v0.5 tasks is authorized, with full lifecycle."* It covers every open task carrying `work_package: v0.5` at that date, through all four phases. It **does not generalise** to `v0.6`, to unlabelled work, or to anything raised after it.
 | 2026-08-11 | → proposed | Raised from T-030's review. Not a finding T-030 could absorb: its criterion asks for one statement, four exist, and collapsing them is outside a task scoped to `schema.py`'s `main()`. Typed `decision` because the answer may legitimately be "leave them" — three address different readers and the fourth is already a pointer. Put in `v0.3` rather than `v0.2`: nothing is wrong today, and the clause it comes from was already unmet when it was written. |

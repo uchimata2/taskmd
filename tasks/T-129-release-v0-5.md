@@ -98,4 +98,5 @@ R-21 and R-22 (`docs/SCOPE.md`), the publishing constraints.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | (no change) | **METHOD §3.1 waived by the maintainer, 2026-08-11** — *"continuous work on all v0.5 tasks is authorized, with full lifecycle."* It covers every open task carrying `work_package: v0.5` at that date, through all four phases. It **does not generalise** to `v0.6`, to unlabelled work, or to anything raised after it.
 | 2026-08-11 | → proposed | Raised during a handoff, from the maintainer's instruction that T-085 is v0.5's last item and runs once v0.5 is released. That instruction needs something to depend on, and a dependency edge needs a task: this is it. **The ordering is the point, not the paperwork.** `0.4.0` shipped with nothing verifying it from outside, and T-085 pointed at whichever version happened to be current when someone got to it. Now it points at this one. Its `blocked_by` carries the edge; nothing here lists what v0.5 contains. |
