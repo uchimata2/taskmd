@@ -687,8 +687,11 @@ class Usage(unittest.TestCase):
         that stops covering a command the moment one is added. An unknown *flag* is the probe that
         is unknown to all four alike — an unknown positional would be a valid id to `context`.
 
-        The probe carries a value because `list` reports an unknown flag as *needing a value* when
-        it has none, checking the shape before the name; that ordering is [T-113], not this."""
+        The probe carries a value because `list` used to report an unknown flag as *needing a
+        value* when it had none, checking the shape before the name. T-113 reversed that, so the
+        value is no longer what makes this pass — `test_a_rejection_names_no_path` below runs the
+        same four commands without one. It is kept because a probe with a value is the shape the
+        other three commands must refuse too, and dropping it would narrow what this asserts."""
         self.assertTrue(cli.COMMANDS, "no commands to assert; this test would prove nothing")
         for command in sorted(cli.COMMANDS):
             code, out = run(command, "--definitely-not-a-flag", "value", "--root", ROOT)

@@ -292,6 +292,30 @@ class RejectsWhatItCannotAnswer(unittest.TestCase):
         code, out = run("list", "--wat", "x", "--root", ROOT)
         self.assertEqual(code, 2, out)
 
+    def test_an_unknown_filter_name_is_reported_without_a_value(self):
+        """T-113. The shape was checked before the name, so the *likelier* typing — a flag
+        remembered wrongly and typed alone — was answered `--wat needs a value`, which invites the
+        reader to supply one and reach the useful message by a second mistake."""
+        code, out = run("list", "--wat", "--root", ROOT)
+        self.assertEqual(code, 2, out)
+        self.assertIn("unknown filter", out)
+        self.assertIn("accepts:", out)
+
+    def test_a_known_filter_with_no_value_still_says_so(self):
+        """The branch the reorder must not swallow: `--status` is real, so the missing value is the
+        actual complaint. Moving the name check first must not answer this one `unknown filter`."""
+        code, out = run("list", "--status", "--root", ROOT)
+        self.assertEqual(code, 2, out)
+        self.assertIn("needs a value", out)
+
+    def test_limit_with_no_value_still_says_so(self):
+        """`--limit` is accepted but is not a filter, so it is absent from the accepted set the
+        name check consults. Recognising names first would reject it as unknown unless it is
+        recognised too — invisible in the two tests above, since both use real filters."""
+        code, out = run("list", "--limit", "--root", ROOT)
+        self.assertEqual(code, 2, out)
+        self.assertIn("needs a value", out)
+
     def test_nothing_is_printed_before_the_error(self):
         code, out = run("list", "--status", "nonsense", "--root", ROOT)
         self.assertNotIn("\t", out, "the error must arrive before any listing output")

@@ -872,6 +872,14 @@ def parse_filters(schema, args):
         if not arg.startswith("--"):
             return None, ("unexpected argument: %s. Filters are given as --<field> <value>" % arg)
         name = arg[2:].replace("-", "_")
+        # The name is checked before the value, because a flag this project does not have is not one
+        # any value could complete (T-113). The other order answered the likelier typing — a flag
+        # remembered wrongly and typed alone — with `needs a value`, pointing away from the message
+        # that names the vocabulary. `limit` is recognised here as well as below: it is accepted but
+        # is not a filter, so it never appears in `known`.
+        if name != "limit" and name not in known:
+            return None, ("unknown filter: --%s. This project accepts: %s"
+                          % (name, ", ".join("--" + n for n in sorted(known))))
         if not rest:
             return None, "%s needs a value" % arg
         value = rest.pop(0)
@@ -880,9 +888,6 @@ def parse_filters(schema, args):
                 return None, "--limit needs a whole number, not '%s'" % value
             options["limit"] = int(value)
             continue
-        if name not in known:
-            return None, ("unknown filter: --%s. This project accepts: %s"
-                          % (name, ", ".join("--" + n for n in sorted(known))))
         if known[name] == "vocabulary" and value not in schema.vocabularies[name]:
             return None, ("--%s does not take '%s'. This project's %s values are: %s"
                           % (name, value, name, ", ".join(schema.vocabularies[name])))

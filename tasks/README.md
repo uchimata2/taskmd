@@ -73,10 +73,10 @@ into, not a promise about a date.
 | [T-097](T-097-decide-whether-a-published-document-may-point-at-a-file-no-clone-receives.md) | Decide whether a published document may point at a file no clone receives | `v0.2` | `proposed` | `specify` | - | - | - | T-013, T-034, T-091, T-092, T-094, T-109 |
 | [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `v0.3` | `proposed` | `specify` | - | - | - | T-004, T-009, T-010, T-041, T-082 |
 | [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md) | Decide whether a task that settles a question must be typed decision | `v0.2` | `proposed` | `specify` | - | - | - | T-088, T-090, T-093, T-097, T-098, T-104, T-110 |
-| [T-113](T-113-name-an-unknown-filter-before-complaining-it-has-no-value.md) | Name an unknown filter before complaining it has no value | `v0.2` | `proposed` | `specify` | - | - | - | T-022, T-029 |
 | [T-114](T-114-make-the-launcher-tests-say-which-bash-they-found.md) | Make the launcher tests say which bash they found | `v0.2` | `proposed` | `specify` | - | - | - | T-091, T-112 |
 | [T-117](T-117-decide-whether-the-command-surface-needs-one-statement.md) | Decide whether the command surface needs one statement | `v0.3` | `proposed` | `specify` | - | - | - | T-030, T-031 |
 | [T-119](T-119-put-the-stranded-paragraph-under-a-heading-that-owns-it.md) | Put the stranded paragraph under a heading that owns it | `v0.2` | `proposed` | `specify` | - | - | - | T-047, T-118 |
+| [T-120](T-120-echo-an-unknown-flag-as-the-caller-typed-it.md) | Echo an unknown flag as the caller typed it | `v0.3` | `proposed` | `specify` | - | - | - | T-022, T-113 |
 
 ## Closed
 
@@ -101,7 +101,7 @@ into, not a promise about a date.
 | [T-018](T-018-stop-the-pre-publish-fixture-tripping-its-own-check.md) | Stop the pre-publish fixture tripping its own check | `v0.1` | `done` | `review` | - | - | - | T-013, T-034, T-035, T-058, T-080 |
 | [T-019](T-019-report-a-tasks-dir-that-does-not-exist-at-setup.md) | Report a tasks_dir that does not exist at setup | `v0.1` | `done` | `review` | T-002 | - | - | T-003, T-006, T-023, T-024, T-025, T-078 |
 | [T-021](T-021-settle-what-the-context-closing-line-may-say.md) | Settle what the context closing line may say | `v0.2` | `done` | `review` | T-002 | - | - | T-003, T-022 |
-| [T-022](T-022-filtered-task-listing-for-scripts.md) | Filtered task listing for scripts | `v0.1` | `done` | `review` | - | - | - | T-003, T-007, T-021, T-029, T-031, T-032, T-070, T-071, T-073, T-086, T-087, T-102, T-113 |
+| [T-022](T-022-filtered-task-listing-for-scripts.md) | Filtered task listing for scripts | `v0.1` | `done` | `review` | - | - | - | T-003, T-007, T-021, T-029, T-031, T-032, T-070, T-071, T-073, T-086, T-087, T-102, T-113, T-120 |
 | [T-023](T-023-stop-config-errors-printing-an-absolute-install-path.md) | Stop config errors printing an absolute install path | `v0.2` | `done` | `review` | - | - | - | T-006, T-019, T-020, T-024, T-030, T-066, T-100, T-106 |
 | [T-025](T-025-let-check-notice-a-stale-generated-index.md) | Let check notice a stale generated index | `v0.2` | `done` | `review` | - | - | - | T-002, T-009, T-011, T-019, T-026, T-039, T-084, T-089, T-095, T-096 |
 | [T-026](T-026-audit-the-whole-project-before-the-remaining-build.md) | Audit the whole project before the remaining build | `v0.2` | `done` | `review` | - | T-027, T-028, T-029, T-030, T-031, T-032, T-033, T-034 | - | T-003, T-006, T-010, T-025, T-036, T-059, T-086, T-088, T-110, T-118 |
@@ -182,6 +182,7 @@ into, not a promise about a date.
 | [T-110](T-110-re-group-the-open-backlog-by-the-maintainers-release-rule.md) | Re-group the open backlog by the maintainer's release rule | `v0.2` | `done` | `review` | - | - | - | T-026, T-086, T-109 |
 | [T-111](T-111-stop-the-index-showing-a-closed-task-as-a-live-blocker.md) | Stop the index showing a closed task as a live blocker | `v0.2` | `done` | `review` | - | - | - | T-102 |
 | [T-112](T-112-stop-check-resolving-a-link-that-is-displayed-rather-than-navigable.md) | Stop check resolving a link that is displayed rather than navigable | `v0.2` | `done` | `review` | - | - | - | T-091, T-092, T-095, T-114 |
+| [T-113](T-113-name-an-unknown-filter-before-complaining-it-has-no-value.md) | Name an unknown filter before complaining it has no value | `v0.2` | `done` | `review` | - | - | - | T-022, T-029, T-120 |
 | [T-115](T-115-give-the-tier-1-budget-something-that-enforces-it.md) | Give the tier 1 budget something that enforces it | `v0.2` | `done` | `review` | - | - | - | T-028, T-047, T-063, T-116, T-118 |
 | [T-116](T-116-decide-whether-the-published-repository-runs-its-own-suite.md) | Decide whether the published repository runs its own suite | `v0.2` | `done` | `review` | - | - | - | T-011, T-049, T-115 |
 | [T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md) | Decide what leaves tier 1 when the budget binds | `v0.2` | `done` | `review` | - | - | - | T-026, T-028, T-035, T-047, T-050, T-063, T-115, T-119 |
