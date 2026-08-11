@@ -214,6 +214,37 @@ class AnOpenTaskMayNameWhatItWillProduce(unittest.TestCase):
         self.assertIn("out/report.md",
                       run("check", "--root", os.path.join(FIXTURES, "broken-deliverable"))[1])
 
+    def test_a_cancelled_task_is_reported_like_any_other_closed_one(self):
+        """T-090, and it pins a decision rather than a mechanism. `cancelled` is closed but did not
+        close by producing an outcome, so this looks like the false positive T-089 removed and is
+        not one: `deliverables` asserts production, and a task that produced nothing must stop
+        claiming it did. The report is a stale record being caught.
+
+        Without this test the next reader meets a `MISSING OUTPUT` on an abandoned task, recognises
+        T-089's shape, and 'fixes' it back — which is why the decision needed a case in the suite
+        and not only a paragraph.
+        """
+        code, out = run("check", "--root", os.path.join(FIXTURES, "broken-cancelled-deliverable"))
+        self.assertEqual(code, 1, out)
+        self.assertIn("MISSING OUTPUT", out)
+        self.assertIn("out/report.md", out)
+
+    def test_clearing_the_field_is_what_makes_it_quiet(self):
+        """The other side of the same decision: the remedy is the record, not a config key. A copy
+        of the fixture with `deliverables: []` passes, which is what makes the paragraph in the
+        shipped config an instruction someone can follow rather than an assertion."""
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp)
+        source = os.path.join(FIXTURES, "broken-cancelled-deliverable", "tasks", "T-001-x.md")
+        with io.open(source, encoding="utf-8") as handle:
+            text = handle.read()
+        self.assertIn("deliverables: [out/report.md]", text)
+        cli.write(os.path.join(tmp, "tasks", "T-001-x.md"),
+                  text.replace("deliverables: [out/report.md]", "deliverables: []", 1))
+        code, out = run("check", "--root", tmp)
+        self.assertEqual(code, 0, out)
+        self.assertNotIn("MISSING OUTPUT", out)
+
 
 class ADuplicateIsNeverSilent(unittest.TestCase):
     """T-062's real content. `check` reporting it is half the fix; the other half is that no

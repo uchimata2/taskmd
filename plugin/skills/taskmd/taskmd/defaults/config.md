@@ -168,6 +168,13 @@ Set it to `none` if a project does not track outputs that way. It is still a **r
 every key must be written, because a config replaces the default rather than merging with it, and
 a silently absent key would hand you a schema you did not write.
 
+**Abandoning a task means clearing this field.** The list asserts production, so a task closed
+without producing anything must stop claiming it did — the same act as writing why it was
+abandoned, not an extra step. A path reported on such a task is a stale record rather than a
+missing output, and `check` says the same thing either way: it can see that the path is gone, not
+why it was declared. There is deliberately no key naming an abandoned status, because the only
+thing one could buy is silence about a claim the task no longer makes.
+
 ## The hook
 
 `after_write` is a command **the project owns** and taskmd runs — a consistency check, a

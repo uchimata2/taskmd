@@ -64,7 +64,6 @@ into, not a promise about a date.
 | [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) | Align with the handoff tracker-binding contract | `v0.3` | `specified` | `specify` | - | - | - | T-002, T-007, T-009, T-033, T-105 |
 | [T-020](T-020-confirm-byte-identical-output-on-macos-and-linux.md) | Confirm byte-identical output on macOS and Linux | `v0.3` | `specified` | `specify` | T-002 | - | - | T-006, T-023, T-030, T-085 |
 | [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) | Install the published plugin on a machine that has never seen it | `v0.3` | `proposed` | `specify` | T-006 | - | - | T-020, T-049, T-067, T-099 |
-| [T-090](T-090-decide-what-a-cancelled-task-s-declared-outputs-assert.md) | Decide what a cancelled task's declared outputs assert | `v0.2` | `proposed` | `specify` | T-089 | - | - | T-002, T-032, T-103, T-109 |
 | [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `v0.3` | `proposed` | `specify` | - | - | - | T-092, T-095, T-109 |
 | [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `v0.3` | `proposed` | `specify` | - | - | - | T-004, T-009, T-010, T-041, T-082 |
 | [T-117](T-117-decide-whether-the-command-surface-needs-one-statement.md) | Decide whether the command surface needs one statement | `v0.3` | `proposed` | `specify` | - | - | - | T-030, T-031 |
@@ -160,6 +159,7 @@ into, not a promise about a date.
 | [T-087](T-087-let-list-filter-on-a-field-the-index-can-show.md) | Let list filter on a field the index can show | `v0.2` | `done` | `review` | - | - | - | T-022, T-029, T-086, T-102 |
 | [T-088](T-088-put-audit-in-the-shipped-type-vocabulary-or-stop-calling-it-a-type.md) | Put audit in the shipped type vocabulary, or stop calling it a type | `v0.2` | `done` | `review` | - | - | - | T-001, T-026, T-032, T-100, T-104, T-109 |
 | [T-089](T-089-stop-check-reporting-an-open-task-s-planned-outputs-as-missing.md) | Stop check reporting an open task's planned outputs as missing | `v0.2` | `done` | `review` | - | T-090 | - | T-002, T-025, T-032, T-103 |
+| [T-090](T-090-decide-what-a-cancelled-task-s-declared-outputs-assert.md) | Decide what a cancelled task's declared outputs assert | `v0.2` | `done` | `review` | T-089 | - | - | T-002, T-032, T-103, T-109 |
 | [T-091](T-091-make-the-shipped-task-template-survive-being-copied.md) | Make the shipped task template survive being copied into another project | `v0.2` | `done` | `review` | - | - | - | T-032, T-051, T-060, T-076, T-097, T-101, T-112, T-114 |
 | [T-092](T-092-decide-whether-a-bare-path-in-prose-is-a-reference.md) | Decide whether a bare path in prose is a reference check must resolve | `v0.2` | `done` | `review` | - | - | - | T-034, T-093, T-094, T-095, T-097, T-103, T-112 |
 | [T-094](T-094-make-check-answer-the-question-a-fresh-clone-would-ask.md) | Make check answer the question a fresh clone would ask | `v0.2` | `done` | `review` | - | - | - | T-013, T-034, T-092, T-095, T-097, T-098 |

@@ -50,6 +50,10 @@ METHOD §1 rule 5's closing conditions, assigned: **the outcome** is the paths i
 task's implement section says was checked by using the outcome. **Only the first of the three is
 mechanical, and only once the task is closed** — `deliverables` asserts production, so an open task
 may name what it *will* produce and `check` stays quiet until rule 5 actually applies to it (T-089).
+**Closed includes abandoned, and the quiet does not extend to it**: a task cancelled rather than
+completed produced nothing, so clearing the field is part of cancelling it — see *Deliverables* in
+[the shipped config](../../taskmd/defaults/config.md) for what that is and why no key names the
+abandoned status (T-090).
 `check` reports a declared path that is missing and can see neither of the others, so
 it returns OK on a `done` task whose implement section is still the untouched template. Passing the
 validator is necessary for closing and is never the condition — reading it as the condition is how a

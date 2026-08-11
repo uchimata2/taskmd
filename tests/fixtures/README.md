@@ -30,6 +30,14 @@ asserts production, so it is only checked once the task claims to have produced.
 `broken-deliverable`'s own task was `proposed`, so the negative case was being proved by an *open*
 task and nobody had written the positive one at all.
 
+`broken-cancelled-deliverable` is the third of that set and the one that looks like a mistake:
+`cancelled` is closed, but it did not close by producing an outcome, so the report on it has T-089's
+exact shape. It is kept because it is **not** the same thing — `deliverables` asserts production, a
+task that produced nothing must stop claiming it did, and what `check` catches here is a stale record
+rather than a missing output. T-090 decided that against the alternative of a config key naming the
+abandoned status, and this fixture exists so the decision is met as behaviour by whoever next reads
+that report and reaches for T-089's fix.
+
 `backend-allocated-ids` is the fourth positive case, and the second **pair**: it sets
 `id_width: none` and carries `#7`, `#41` and `#1024`, which no number could describe, while
 `broken-id-width` keeps `id_width: 3` and still catches `T-0001`. Both directions have to hold at
@@ -57,6 +65,7 @@ where they could not be quietly trimmed to whatever turned out to be easy.
 | `broken-link` | Broken link | A dead Markdown link inside a **dot-directory** |
 | `broken-derived-field` | Stale stored-derived field | A task stores `children:`, which is derived |
 | `broken-deliverable` | Missing deliverable | A **closed** task declares `out/report.md`, which is not there |
+| `broken-cancelled-deliverable` | Stale claim on an abandoned task | A **cancelled** task still declares `out/report.md` |
 | `broken-duplicate-id` | Duplicate id | Two files both carrying `id: T-001` |
 | `broken-stale-index` | Stale generated index | The task says `specified`; the generated region still says `proposed` |
 | `broken-id-width` | Id width | `id: T-0001`, one digit too wide for `id_width: 3` |
