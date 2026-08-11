@@ -206,7 +206,12 @@ Everything this repository publishes must be:
   can list your tasks is a tracker people abandon.
 - **Cross-platform.** Windows, macOS, Linux. Write files with an explicit `newline="\n"` — Python's
   default text mode rewrites every `\n` on Windows and breaks byte-for-byte comparison. Console
-  output should survive a cp1252 terminal: reconfigure stdout to UTF-8 at startup.
+  output should survive a cp1252 terminal: reconfigure stdout to UTF-8 at startup — **and set
+  `newline="\n"` there too**, because reconfiguring for encoding alone leaves the same rewriting in
+  place for everything the tool *prints*. That half was written as if it were covered and was not:
+  [T-020](../tasks/T-020-confirm-byte-identical-output-on-macos-and-linux.md) measured Windows against
+  Linux and found the files identical and every console capture different, and
+  [T-132](../tasks/T-132-give-the-console-the-same-line-ending-on-every-platform.md) closed it.
 - **Humanized, if a stranger reads it before installing.** The rule, what it covers and the exception
   it carries: [`PUBLISHING.md`](PUBLISHING.md) (T-079).
 
@@ -268,8 +273,12 @@ so it cites none.
 
 **Closed on 2026-08-09 by [T-006](../tasks/T-006-package-document-and-publish.md)**, which published
 the plugin and judged the list below item by item in its review. One thing is carried rather than
-met: nobody has installed it on a machine that has never held it, which is
-[T-085](../tasks/T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md). The
+met, and as of 2026-08-11 it is **half met**: the plain-skill shape has now been installed from the
+published `v0.5.0` tag onto a profile that had never held any of this, and it works as the README
+says. The plugin shape has not, because the profile that satisfies *never held it* has no `claude`
+CLI and preparing one stops it being that profile.
+[T-085](../tasks/T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) is where
+that stands. The
 last bullet was amended at publication, in that task and not here, because the history carries one
 absolute path the working-tree check cannot see.
 
