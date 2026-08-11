@@ -1113,15 +1113,33 @@ class APinnedConfigIsToldWhenTheDefaultMovesOn(ScratchProject):
     """
 
     TYPE = "| type | analysis, decision, deliverable, research, fix, admin, audit |"
+    STATUS = "| status | proposed, specified, planned, in_progress, blocked, review, done, cancelled |"
+    OPEN = "open_statuses: [proposed, specified, planned, in_progress, blocked, review]"
+
+    def edit(self, root, before, after):
+        path = os.path.join(root, ".taskmd", "config.md")
+        with io.open(path, encoding="utf-8") as handle:
+            text = handle.read()
+        self.assertIn(before, text, "the shipped default no longer contains this row")
+        cli.write(path, text.replace(before, after, 1))
+        return root
 
     def pinned(self, tmp, before=None, after=None):
         root = self.project(tmp, {})
         if before is not None:
-            path = os.path.join(root, ".taskmd", "config.md")
-            with io.open(path, encoding="utf-8") as handle:
-                text = handle.read()
-            self.assertIn(before, text, "the shipped default no longer contains this row")
-            cli.write(path, text.replace(before, after, 1))
+            self.edit(root, before, after)
+        return root
+
+    def restatused(self, root, value):
+        """Keep the scratch task legal when the `status` row itself is what was replaced.
+
+        Otherwise the run reports a vocabulary problem and the drift line is being read off a
+        failing check — which is the one output these tests must not be coupled to.
+        """
+        path = os.path.join(root, "tasks", "T-001-x.md")
+        with io.open(path, encoding="utf-8") as handle:
+            text = handle.read()
+        cli.write(path, text.replace("status: proposed", "status: %s" % value, 1))
         return root
 
     def test_a_row_missing_a_shipped_value_is_named(self):
@@ -1157,6 +1175,36 @@ class APinnedConfigIsToldWhenTheDefaultMovesOn(ScratchProject):
             code, out = run("check", "--root", root)
             self.assertEqual(code, 0, out)
             self.assertNotIn("CONFIG DRIFT", out)
+
+    def test_a_wholly_replaced_row_is_not_behind(self):
+        """T-123. The commonest way to adopt: keep taskmd's field names, bring the backend's values.
+
+        `open`/`closed` is what an issue tracker gives you, and the row shares nothing with the
+        shipped one — so there is no value it can be *behind* on, and the line it used to print
+        named all eight shipped statuses at a project deliberately using none of them.
+        """
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.pinned(tmp, self.STATUS, "| status | open, closed |")
+            self.edit(root, self.OPEN, "open_statuses: [open]")
+            self.edit(root, "blocked_status: blocked", "blocked_status: none")
+            self.restatused(root, "open")
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 0, out)
+            self.assertNotIn("CONFIG DRIFT", out)
+
+    def test_one_kept_value_is_enough_to_bring_the_reporting_back(self):
+        """The boundary D1 draws, from the other side — otherwise the negative case above could be
+        passing because the whole `status` row had stopped being compared."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.pinned(tmp, self.STATUS, "| status | open, closed, blocked |")
+            self.edit(root, self.OPEN, "open_statuses: [open, blocked]")
+            self.restatused(root, "open")
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 0, out)
+            self.assertIn("CONFIG DRIFT", out)
+            self.assertIn("status:", out)
+            self.assertIn("'done'", out)
+            self.assertNotIn("'blocked'", out)
 
     def test_a_deleted_row_is_left_alone(self):
         """`delete a row to stop checking one` is documented as a choice, so it is not a lag."""

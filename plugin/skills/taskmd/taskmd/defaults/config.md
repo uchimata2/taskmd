@@ -80,6 +80,14 @@ front-matter setting are the whole point of writing a config. A row you deleted 
 stop checking one*, above, and is left alone. A project using this file with no config of its own is
 not compared at all: it cannot be behind what it is using.
 
+**You still keep a row when it carries at least one of this file's values** — sharing the field name
+is not enough. A row whose values you wholly replaced has left this vocabulary rather than fallen
+behind it, and is not compared: an issue tracker's `status` is `open, closed`, which is the commonest
+way to adopt and would otherwise be told, on every run, about eight values it has no use for.
+The price is that a row you replaced *entirely* stops telling you about a value added here later —
+paid because the line for such a row named the whole vocabulary anyway, so it never distinguished the
+new value from the ones you dropped on purpose. Keep one value and the reporting comes back.
+
 **There is no key to switch it off**, and that is a constraint rather than a preference — for the
 reason the next section gives. A project that pinned deliberately reads one line that names exactly
 what it decided not to have.

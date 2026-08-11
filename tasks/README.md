@@ -73,7 +73,6 @@ into, not a promise about a date.
 | [T-119](T-119-put-the-stranded-paragraph-under-a-heading-that-owns-it.md) | Put the stranded paragraph under a heading that owns it | `v0.2` | `proposed` | `specify` | - | - | - | T-047, T-118 |
 | [T-121](T-121-report-a-second-index-of-the-same-tasks-outside-the-markers.md) | Report a second index of the same tasks sitting outside the generated markers | `v0.3` | `specified` | `specify` | - | - | - | T-025, T-101, T-107 |
 | [T-122](T-122-echo-the-typed-flag-in-the-rejected-value-message.md) | Echo the typed flag in the rejected-value message too | `v0.2` | `proposed` | `specify` | - | - | - | T-113, T-120 |
-| [T-123](T-123-decide-whether-a-replaced-vocabulary-row-is-drift.md) | Decide whether a replaced vocabulary row is drift or a choice | `v0.2` | `proposed` | `specify` | - | - | - | T-082 |
 
 ## Closed
 
@@ -189,5 +188,6 @@ into, not a promise about a date.
 | [T-116](T-116-decide-whether-the-published-repository-runs-its-own-suite.md) | Decide whether the published repository runs its own suite | `v0.2` | `done` | `review` | - | - | - | T-011, T-049, T-115 |
 | [T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md) | Decide what leaves tier 1 when the budget binds | `v0.2` | `done` | `review` | - | - | - | T-026, T-028, T-035, T-047, T-050, T-063, T-115, T-119 |
 | [T-120](T-120-echo-an-unknown-flag-as-the-caller-typed-it.md) | Echo an unknown flag as the caller typed it | `v0.2` | `done` | `review` | - | - | - | T-022, T-113, T-122 |
+| [T-123](T-123-decide-whether-a-replaced-vocabulary-row-is-drift.md) | Decide whether a replaced vocabulary row is drift or a choice | `v0.2` | `done` | `review` | - | - | - | T-082 |
 
 <!-- taskmd:end -->

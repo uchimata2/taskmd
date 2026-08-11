@@ -524,7 +524,10 @@ def drift_from_default(root, schema):
     drifted = []
     for field in compared:
         missing = [v for v in shipped[field] if v not in schema.vocabularies[field]]
-        if missing:
+        # The second clause is *a row you still keep* (T-123): a row sharing no value with this
+        # file's has been replaced rather than left behind, and reporting it would name the whole
+        # shipped vocabulary at a project that deliberately uses none of it.
+        if missing and any(v in schema.vocabularies[field] for v in shipped[field]):
             drifted.append((field, missing))
     return drifted, len(compared)
 
