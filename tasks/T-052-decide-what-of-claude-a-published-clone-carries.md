@@ -1,7 +1,7 @@
 ---
 id: T-052
 title: Decide what of .claude a published clone carries, and ignore the rest
-type: fix
+type: decision
 status: done
 phase: review
 parent: null
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: medium
 effort: s
 created: 2026-08-07
-updated: 2026-08-08
+updated: 2026-08-11
 deliverables: [.gitignore]
 ---
 
@@ -215,6 +215,7 @@ project-level skill home, so there was no purpose left to give it.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | (no change) | **`type` fix → decision**, by [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md)'s sweep of all 123 tasks. The test it settled reads a task's **stated outcome**: an answer someone else could act on is a `decision`, whatever the task also changes. A classification corrected, not a reopening — status, body and every other field are untouched. |
 | 2026-08-08 | → done | All four criteria met, none carried. The review's one finding is about a criterion rather than about the outcome: **criterion 1 could not have failed as written.** It asks for a `git ls-files --cached --others --exclude-standard` result, and this machine's global ignore already produced that result — so the check written to prove the fix had the same blind spot the fix was raised to remove. It is judged met on its own text and left unedited (that is not a *Changing a criterion* case), with the stronger evidence §3 D1 chose recorded beside it: `git check-ignore -v` naming `.gitignore:19:.claude/*` as the winning rule, and a run with `core.excludesFile` emptied showing a contributor receives exactly `.claude/settings.json`. No child task — the criterion is satisfied and nothing is outstanding to hand anyone. `.claude/skills/` removed as §1 required, though no criterion covered it. |
 | 2026-08-08 | → in_progress | Written and verified in one pass at the maintainer's request, so `plan` and `implement` share this entry with the specify above — stated rather than inferred, per METHOD §3.1. `.claude/*` out, `!.claude/settings.json` in. **The verification is the part worth keeping**: this machine's global ignore already carries `**/.claude/settings.local.json`, so the natural test — make the file, check it is not listed — passes here regardless of whether this task did anything, which is *exactly* how the sibling plugin's tree looked protected while being protected by nothing in it. So the proof names its own source (`git check-ignore -v` returns `.gitignore:19:.claude/*` for both an existing local settings file and a fabricated future one) and re-runs with `core.excludesFile` pointed at an empty file, where the only thing a clone would receive under `.claude/` is `settings.json` — T-003 D3's declaration, which is the one file that should go. Empty `.claude/skills/` removed: residue of T-003's probe, and D2 plus T-050 §3 step 5 both refused the thing it would have been for. The same fix was applied to the sibling plugin in the same sitting and is deliberately not this task's output. `review` not taken. |
 | 2026-08-08 | → specified | Maintainer answered at the level of the goal — community-maintained plugin, user- and machine-specific material out, project instructions and config in — and pointed at a sibling plugin of theirs as prior art with the same problem. **Checking it is what settled the mechanism, and the answer was the opposite of prior art.** That repository's `.claude/settings.local.json` is excluded by the maintainer's *global* gitignore and by nothing in the repository; `git check-ignore -v` names the global file and the rule. So its tree looks clean, its status is empty, and its protection does not survive being cloned by anyone else — which is precisely the failure a community plugin cannot afford and which no reader of that repository could detect. **ignored-with-exceptions**, therefore, because it is the only one of the two that does not depend on someone continuing to name files: a harness upgrade adding a file is out by default, and what a clone needs is stated once, positively, as an exception. The same finding applies to the sibling plugin and belongs to the maintainer there, not here. |

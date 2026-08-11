@@ -1,7 +1,7 @@
 ---
 id: T-028
 title: Budget the whole always-loaded context, not one file
-type: decision
+type: fix
 status: done
 phase: review
 parent: T-026
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: high
 effort: s
 created: 2026-08-06
-updated: 2026-08-07
+updated: 2026-08-11
 deliverables:
   - CLAUDE.md
   - plugin/skills/taskmd/docs/METHOD.md
@@ -280,6 +280,7 @@ finding look like an over-budget problem was measuring a claim.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | (no change) | **`type` decision → fix**, by [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md)'s sweep, and the row that sweep answers least comfortably. The title carries a real judgement about what counts as always-loaded; the stated outcome is a budget that governs everything actually loaded — a state rather than an answer, which is what the test reads. Recorded in T-109 §3 as the one row a reader might reasonably read the other way. |
 | 2026-08-07 | → done | Five criteria met, none carried. **Step 1's suspicion held, and it changes what the finding was.** The always-loaded set is `CLAUDE.md` alone; `docs/METHOD.md` is reached through a link and read on demand, so the 286/292 figure was never a measurement of a load — it counted a file on the strength of that file's own claim. The budget did not have two files in the cost, it had one file and a second that said it was one, which is why it read as unwinnable. Worse than over-budget, and better fixed: a document asserting a load the harness does not implement makes the budget unfalsifiable. **The counter-argument's estimate was half.** §1 puts the conduct rules at "roughly a dozen lines"; §3 header + §3.1 is 13 and §3.3 is 13, so 26 — which takes projected tier 1 to 170 of 173 after this task's own edit, three lines of margin rather than the comfortable fit the decision assumed. Recorded as a pass with the margin named, not rounded to "passes", and T-047 is written to budget for removals instead of assuming it fits. The bound is a relation with **no number written anywhere**: both sides counted from the tree by the command the paragraph carries, so criterion 3's pair cannot drift because it does not exist. Tiers 2 and 3 get no line budget, stated explicitly along with what that accepts — METHOD can now grow, and its growth is paid once by a session doing task work rather than by every session. One confirmation nobody arranged: these edits put `docs/METHOD.md` at exactly 150, the limit this task removed, so the next addition would have been refused by a budget aimed at the wrong file — clause 4 of the finding occurring during its own fix. |
 | 2026-08-07 | → planned | Six steps, and only the first can run: **T-027 moved from `related` to `blocked_by`.** Criterion 4 already required re-measuring after T-027, which is the METHOD §4 test answered — this task can start while T-027 is open but cannot finish — so it was prose standing in for an edge, invisible to `list` and to anyone asking why this is not moving. T-027 is at `proposed` with an open maintainer question, so that answer now gates this task. §1's measurement table was **left as measured** rather than refreshed: 145 + 147 = 292 is what today's count gives and what the parenthetical already records, and the movement is the log's to carry — rewriting §1 would delete the evidence the task was raised on. Step 1 is placed first on the suspicion that the always-loaded set is `CLAUDE.md` alone and `docs/METHOD.md` is reached by link, which would make every figure so far a measurement of a claim; recorded as the reason for the ordering, not resolved, because settling it is step 1's output and not planning's. |
 | 2026-08-07 | — | **Measured three times in one day: 286 at raise, 292 at agree, 296, then 292 again.** The rise came from T-010's session — closing the GitHub binding made the *Status* paragraph false, and reconciling it plus a warning that the binding's `update` destroyed data cost seven lines on the spine. T-042 then fixed `update`, which made the warning false in turn, and removing it returned `CLAUDE.md` to 145. `METHOD.md` unchanged at 147 throughout. Recorded rather than absorbed, and the round trip is the useful part: the spine grew to carry a temporary fact and shrank when the fact expired, so some of what lands there is transient by nature — which is a question about what the budget is *for*, not only about what it counts. |

@@ -1,7 +1,7 @@
 ---
 id: T-076
 title: Decide what a template's links resolve against
-type: fix
+type: decision
 status: done
 phase: review
 parent: null
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: low
 effort: xs
 created: 2026-08-09
-updated: 2026-08-09
+updated: 2026-08-11
 deliverables:
   - tasks/_task-template.md
   - tasks/_audit-umbrella-template.md
@@ -296,6 +296,7 @@ links; every other file is a swept reference or this pair's own records.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | (no change) | **`type` fix → decision**, by [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md)'s sweep of all 123 tasks. The test it settled reads a task's **stated outcome**: an answer someone else could act on is a `decision`, whatever the task also changes. A classification corrected, not a reopening — status, body and every other field are untouched. |
 | 2026-08-09 | → done | All five criteria met; no child raised. The move landed as planned and the two surprises both came from the plan's own blind spots rather than from the answer. First, three of the ten references were `deliverables:` declarations in closed tasks, which `check` enforces as paths that must exist — filed at plan time as historical prose, and the move would have left `check` failing until someone noticed. That produced the sweep's operating rule: a reference used to *find the file now* is corrected however old the task; a sentence recording *what was true then* is left. Second, `check` twice reported this pair's own records as the defect, because a Markdown link pasted as evidence is a live link resolved against the record's directory — once here and once in T-051 §3. Both caught immediately, which is the third criterion demonstrating itself unasked. [T-032](T-032-repair-the-audit-template-and-validate-templates.md) was reconciled rather than made a child: its *Why nobody saw it* premise is now historical, and is annotated in place because it is the record of why F-6 survived. |
 | 2026-08-09 | → planned | Planned **with [T-051](T-051-say-where-a-project-s-task-template-lives.md), as one plan split by outcome across two tables** — this one moves files and repairs references, T-051's states the convention; neither restates the other, and this one runs first because a rule is not worth checking against another project while this repository still disobeys it. Two things the plan had to account for that §1 did not. The reference sweep is a **text** sweep, not a link check: of the hits, exactly one is a Markdown link and every other is backticked prose, so `check` certifies nothing here and criterion 5 would be met vacuously by a clean link run. And `tests/test_schema.py` asserts on the string `_templates`, which the move makes **vacuous** rather than false — so the step captures the vacuous pass before replacing the assertion, and the replacement targets the mechanism that will actually be doing the excluding. That mechanism swap is the plan's real risk and is sequenced early: today a template is never read, because *enumerate* skips `_`-prefixed folders; afterwards it is read at task depth and rejected by the id rule. |
 | 2026-08-09 | → specified | Answered: **no — move the templates to `tasks_dir`, as `_`-prefixed files**, so a template sits at the same depth as the file it becomes and the question disappears instead of being answered. Tested before being chosen rather than after: on a scratch project the template is link-checked at task depth, is **not** loaded as a task, and does not trip the near-miss id class T-075 added — three properties, none assumed. The loud break was a real alternative and is recorded with what it costs: a permanent puzzle for every future audit-umbrella author, to avoid moving two files once. One criterion added with the answer, because the four already written all describe the destination and none of them covers the move. To be worked with T-051, which is the same convention from the other end. |

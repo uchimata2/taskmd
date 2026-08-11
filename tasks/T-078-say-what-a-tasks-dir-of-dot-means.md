@@ -1,7 +1,7 @@
 ---
 id: T-078
 title: Say what a tasks_dir of dot means
-type: fix
+type: decision
 status: specified
 phase: specify
 parent: null
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: low
 effort: xs
 created: 2026-08-09
-updated: 2026-08-09
+updated: 2026-08-11
 deliverables: []
 ---
 
@@ -137,5 +137,6 @@ validator has to be believable.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | (no change) | **`type` fix → decision**, by [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md)'s sweep of all 123 tasks. The test it settled reads a task's **stated outcome**: an answer someone else could act on is a `decision`, whatever the task also changes. A classification corrected, not a reopening — status, body and every other field are untouched. |
 | 2026-08-09 | → specified | Answered: **reject when the config is read**, so tasks-at-the-root is not a shape taskmd offers. The deciding argument is that the damage is not local: `is_project` tests for `.taskmd/` **or** the tasks folder, so `tasks_dir: .` makes every directory a project and breaks the nested-project exclusion for the whole tree — a validator reporting success over something it never examined, which this repository has twice named as its worst failure. Supporting it was a real option and is recorded with its cost: either a special case in the nesting test, which is a rule somebody has to remember, or a new marker for `is_project`, which reopens T-011 for every project to serve one nobody has asked for. Criterion 3 is what the answer leans on — a rejection that one spelling of the root escapes is not a rejection. |
 | 2026-08-09 | → proposed | Raised from T-069's `plan` under METHOD §3.3 — found by the probe that answered whether the `base != root` guard protected anything, and outside that task's scope, which puts `is_project` explicitly out. `low`/`xs` because no project in the tree writes `tasks_dir: .` and the likely fix is one condition; not lower, because the failure shape is the one this project has twice named as its worst — `check` exiting 0 over a tree it never read. Recorded with both transcripts so a later reader can see the guard's removal did not cause it. |

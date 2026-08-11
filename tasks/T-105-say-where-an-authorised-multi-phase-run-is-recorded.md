@@ -1,7 +1,7 @@
 ---
 id: T-105
 title: Say where an authorised multi-phase run is recorded
-type: fix
+type: decision
 status: done
 phase: review
 parent: null
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: medium
 effort: xs
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-08-11
 deliverables: [plugin/skills/taskmd/docs/METHOD.md]
 ---
 
@@ -209,6 +209,7 @@ evidence a rule about record-keeping can have.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | (no change) | **`type` fix → decision**, by [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md)'s sweep of all 123 tasks. The test it settled reads a task's **stated outcome**: an answer someone else could act on is a `decision`, whatever the task also changes. A classification corrected, not a reopening — status, body and every other field are untouched. |
 | 2026-08-10 | → done | Reviewed against the four criteria as written; **all four met, none carried**, so the task closes. Criterion 3 is the interesting one: the tier-1 measurement was re-run and is **unchanged at 12736**, because §3.1 lives in `METHOD.md` which is tier 2 until [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) moves it — so the honest answer is not "it cost nothing" but "+304 characters that T-047 will inherit, on a budget already failing by 4817". Stated that way so T-047 meets a known figure rather than a surprise. No child raised, and the reason is recorded: the README sentence step 4 found is this task's own subject rather than a separate defect, so leaving it to a child would have closed this task with the duplication it exists to resolve still open. `deliverables` names the one file. Pre-publish check run last, after this record was written: **193 files scanned, nothing printed**, and the fixture-included run still returns exactly its five lines. |
 | 2026-08-10 | → in_progress | All five steps taken. **The rule was in use before it was written**, which is the strongest thing this record has: four waivers were given in this session and each was recorded in the shape R-7 recommended, before §3.1 said anything about it — five task records carry such a row, and they were legible enough to cite from this task. So what landed is a description of something that ran, not a proposal. Step 4 was the plan's own addition and it earned its place: half the answer was already published in `README.md`'s worked-examples table, and a task writing the missing half without looking would have produced two statements of one fact. Checked, they agree; the README row **stays**, because it is an example and its reader has installed nothing, so answering them with a citation to a document they cannot open is not an answer. **D2** keeps METHOD saying *the task's own record* rather than *the log* — record is a role, and the local-Markdown binding already assigns it, so naming the log here would put a backend word in the backend-neutral document. A guard test was considered and deliberately not added: unlike T-106's constraint, every waiver leaves a row in a task record, so a rule that quietly vanished would be contradicted by the tree itself. |
 | 2026-08-10 | → planned | Plan written; Q1 answered under the standing authorization — **§3.1**, because the waiver is met at the moment the rule is, and a reader carrying only tier 1 who is told what is forbidden without being told what permits it has been sent to a document they have not loaded. Rejected: `method/implement.md`, free for the always-loaded tier and not read until after the moment it was needed. **D1** puts the text in the paragraph that already lists what is *not* authorization — §3.1's existing text is entirely negative and never says what a request *is*, so this reads as the completion of that paragraph rather than as an appendix. **D3** leaves out "it does not generalise" as a third clause: requiring the record to name what it covers already carries it. |

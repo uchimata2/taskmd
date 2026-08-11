@@ -1,7 +1,7 @@
 ---
 id: T-090
 title: Decide what a cancelled task's declared outputs assert
-type: fix
+type: decision
 status: proposed
 phase: specify
 parent: T-089
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: low
 effort: s
 created: 2026-08-09
-updated: 2026-08-09
+updated: 2026-08-11
 deliverables: []
 ---
 
@@ -104,4 +104,5 @@ schema key rather than code.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | (no change) | **`type` fix → decision**, by [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md)'s sweep of all 123 tasks. The test it settled reads a task's **stated outcome**: an answer someone else could act on is a `decision`, whatever the task also changes. A classification corrected, not a reopening — status, body and every other field are untouched. |
 | 2026-08-09 | → proposed | Raised from T-089 rather than solved inside it. T-089 keyed the deliverables check on the task being closed, which is METHOD §1 rule 5 stated mechanically; `cancelled` is closed and rule 5 does not cover it, so the same false positive survives under a different status. Carried rather than fixed because the clean mechanism is a required config key every adopter pays for, and the case fires in none of the four projects onboarded today — two of which do have a cancelled task, one declaring two outputs that happen to exist. `low` for that reason, and `s` because the whole of it is one branch and one key. |

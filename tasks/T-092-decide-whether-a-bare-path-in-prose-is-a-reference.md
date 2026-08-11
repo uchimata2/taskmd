@@ -1,7 +1,7 @@
 ---
 id: T-092
 title: Decide whether a bare path in prose is a reference check must resolve
-type: fix
+type: decision
 status: done
 phase: review
 parent: null
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: high
 effort: m
 created: 2026-08-09
-updated: 2026-08-10
+updated: 2026-08-11
 deliverables: [tests/test_cli.py, README.md]
 ---
 
@@ -196,6 +196,7 @@ clean there, which is why the coverage question felt like the whole question fro
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | (no change) | **`type` fix → decision**, by [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md)'s sweep of all 123 tasks. The test it settled reads a task's **stated outcome**: an answer someone else could act on is a `decision`, whatever the task also changes. A classification corrected, not a reopening — status, body and every other field are untouched. |
 | 2026-08-10 | (no change) | The one assumption this record carried was verified rather than left standing, on the reporting project's own corpus — the only place it could be. It holds: 81% of that project's bare pointers, and 27 of its 31 dead ones, are in task records, 19 of them naming the single tool its own T-062 retired. The decision does not move; what moves is that the strongest rival was rejected on two independent corpora instead of one. Its `.handoff/config.md` produces the identical false positive this repository does, which promotes that class from local quirk to general. |
 | 2026-08-10 | → done | Out, and the interesting part is how it was decided: the feature was built, run, and read before the decision, which cost about an hour and produced a number that no amount of reasoning would have. The reasoning available beforehand pointed the other way — the reporting project validates a thousand pointers with this rule and it works for them. What it cannot see from there is that a taskmd corpus is mostly *dated records*, so the same rule that validates a documentation tree cries wolf over a tracker. Shipped with [T-094](T-094-make-check-answer-the-question-a-fresh-clone-would-ask.md) and the manifest bump. |
 | 2026-08-10 | → specified | The open question was left as posed. What changed at specify was the method for answering it: build the rule and measure it rather than weigh the two risks, because both sides of the argument were plausible and neither was checkable from the armchair. |

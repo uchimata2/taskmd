@@ -1,7 +1,7 @@
 ---
 id: T-096
 title: Decide whether a narrower walk of a counted class needs its own number
-type: fix
+type: decision
 status: done
 phase: review
 parent: T-095
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: medium
 effort: xs
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-08-11
 deliverables: [plugin/skills/taskmd/taskmd/cli.py, tests/test_cli.py]
 ---
 
@@ -140,5 +140,6 @@ OK - 96 task(s), 480 field value(s), 287 reference(s), 22 dependency edge(s), 12
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | (no change) | **`type` fix → decision**, by [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md)'s sweep of all 123 tasks. The test it settled reads a task's **stated outcome**: an answer someone else could act on is a `decision`, whatever the task also changes. A classification corrected, not a reopening — status, body and every other field are untouched. |
 | 2026-08-10 | → done | Decided the opposite way to the argument that opened it. The specify said "nobody has seen this happen — it is the shape of the hole, not a report"; step 1 went looking and the hole was there, so the case for merging died on its first test rather than in discussion. Worth keeping as an instance of the project's own rule: the merge was defended by reasoning about what the wider count must witness, and one two-task project settled it in a minute. |
 | 2026-08-10 | → proposed | Raised at T-095's review, from its own first criterion — "every class `check` examines carries a denominator" — which the merge-by-largest decision meets for six nouns and not for the two subset walks. `medium`/`xs` because the hole is real but narrow and nothing has been reported against it; the alternative is deciding the criterion was written too strictly, which is a legitimate answer and is why this is a decision rather than a repair. Not fixed where it was found (METHOD §5). |

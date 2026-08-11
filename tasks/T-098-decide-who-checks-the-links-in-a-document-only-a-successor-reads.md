@@ -1,7 +1,7 @@
 ---
 id: T-098
 title: Decide who checks the links in a document only a successor reads
-type: fix
+type: decision
 status: done
 phase: review
 parent: null
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: high
 effort: s
 created: 2026-08-10
-updated: 2026-08-10
+updated: 2026-08-11
 deliverables: [plugin/skills/taskmd/taskmd/cli.py, tests/fixtures/README.md, README.md]
 ---
 
@@ -262,6 +262,7 @@ it drifts.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | (no change) | **`type` fix → decision**, by [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md)'s sweep of all 123 tasks. The test it settled reads a task's **stated outcome**: an answer someone else could act on is a `decision`, whatever the task also changes. A classification corrected, not a reopening — status, body and every other field are untouched. |
 | 2026-08-10 | → done | Three criteria met, one not applicable by the branch taken. The answer is that nothing covers a document a clone would not receive, and the work was removing three claims that it did. Worth knowing for the next task that reaches for configuration: the cost of a new config key here is not the code but the schema's replace-don't-merge rule, which turns any addition into a failure for every project that wrote a config. That priced out the only rival that would have closed the gap. |
 | 2026-08-10 | → planned | Six steps, and the one that mattered was reading the config schema's own *Adding a key to this file is a breaking change* before planning a key. A config replaces the shipped defaults rather than merging, every key must be written, and a missing key is an error naming it — so the obvious answer would have failed all three adopting projects on their next upgrade, on a key none of them asked for. That priced the strongest rival out before a line was written. No new test: T-094 already proves all four behaviours this answer asserts. |
 | 2026-08-10 | → specified | Criteria sharpened by measuring the excluded set instead of arguing about it: 37 documents, of which 35 are consumed handoff archives and files a test runner wrote, and 2 are the machine-local state a successor actually reads. That kills "read everything ignored" before `plan` starts, and it rules out selecting by directory, since the one document that matters shares a folder with the 32 that do not. Second criterion reworded — it asked for a *fixture*, which cannot exist: a document git declines to publish cannot also be committed, and T-094 met the same criterion with a project built inside the test. The owner-question is deliberately still open; it changes the plan, not the criteria. |

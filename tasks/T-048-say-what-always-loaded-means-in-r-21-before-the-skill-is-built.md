@@ -1,7 +1,7 @@
 ---
 id: T-048
 title: Say what "always-loaded" means in R-21, before the skill is built against it
-type: fix
+type: decision
 status: done
 phase: review
 parent: null
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: high
 effort: xs
 created: 2026-08-07
-updated: 2026-08-07
+updated: 2026-08-11
 deliverables:
   - docs/SCOPE.md
 ---
@@ -228,6 +228,7 @@ checked by looking at a session, not by reading the requirement.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | (no change) | **`type` fix → decision**, by [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md)'s sweep of all 123 tasks. The test it settled reads a task's **stated outcome**: an answer someone else could act on is a `decision`, whatever the task also changes. A classification corrected, not a reopening — status, body and every other field are untouched. |
 | 2026-08-07 | → done | Five criteria met, none carried. The load-bearing move was refusing to answer the question by argument: step 1 observed a session that had *not* invoked a skill and one that had, and the answer contradicted this task's own §1 by a whole tier. What a session always has is a skill's `description`; the body loads on invocation, so the 31-line stub §1 called always-present is not. R-21 now names the moment rather than the artifact, states what falsifies it, and deliberately fixes no number of tiers — a count would be an architecture and would fail §3's own property test, which the review applied rather than assumed. |
 | 2026-08-07 | → review | Five steps, worked in order. The measurement came first on purpose: the defect being fixed is a phrase asserted rather than checked, so reasoning about the referent would have reproduced it. Two things fell out. The sibling skill is wrong by two tiers, not one — its core claims to be the always-loaded spine and its body repeats the claim, which is how it propagated. And the phrase was live in a second place: T-003's criterion 1 said the skill body loads on every turn, which is false rather than vague, so T-003 would have been judged against its own copy instead of against R-21. Corrected there under the `specify` scope amendment. |
 | 2026-08-07 | → specified | Nothing was outstanding — the question had already been answered as *measure it* — so `specify` did the one thing left: check the criteria were sufficient, and they were not. Criterion 4 asks that T-003 be judgeable against the result, and T-003 carries its own unqualified copy of the phrase, so editing `docs/SCOPE.md` alone could not deliver it. Scope amended to cover the acceptance criteria of **open** tasks, with closed records explicitly excluded, and a fifth criterion added. The alternative — a separate task — is recorded as rejected: that is the right shape for a finding, which is why R-21 got this task rather than being fixed inside T-028, but a statement this task's own answer makes false is reconcile debt, and T-022's precedent is that the task making it false pays it. |

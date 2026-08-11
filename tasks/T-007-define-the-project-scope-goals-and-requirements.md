@@ -1,7 +1,7 @@
 ---
 id: T-007
 title: Define the project scope, goals and requirements
-type: decision
+type: deliverable
 status: done
 phase: review
 parent: null
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: critical
 effort: m
 created: 2026-08-04
-updated: 2026-08-04
+updated: 2026-08-11
 deliverables:
   - docs/SCOPE.md
 ---
@@ -130,5 +130,6 @@ to answer "is this in scope?". Six tasks were being worked against an unstated s
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | (no change) | **`type` decision → deliverable**, by [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md)'s sweep. The stated outcome is `docs/SCOPE.md` itself — a document, not an answer someone else could act on — so the value that answers *what is waiting on a decision* should not return it. Reverse-direction: the sample that found the original four could only look for question-shaped titles and so could never have found this. |
 | 2026-08-04 | → proposed | Raised: the project had no scope or requirements document. |
 | 2026-08-04 | → done | Scope written after studying Handoff, the Notion-backed project and GitHub. Three assumptions (A1–A3) taken rather than blocking; revisable while T-008–T-011 are still `proposed`. |

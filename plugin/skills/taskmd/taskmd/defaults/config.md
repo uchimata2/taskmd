@@ -231,6 +231,16 @@ usefulness rather than a rule that the two must agree. Do not treat this table a
 method — replace any row that does not suit your project. `audit` was added on 2026-08-09 after two
 independent projects reached for it and neither could validate (T-088).
 
+**`decision` is the one value here with a stated test, because it is the one people filter on to ask
+what is waiting on an answer.** Read the task's stated **outcome**: if that outcome is an answer
+someone else could act on, the type is `decision`, whatever else the task changes on the way there.
+A task that already knows what it will change is not a decision however much detail it has left to
+work out, and a task that cannot name the change until it has answered something is one even if the
+answer turns out to be a single line. Where a task is honestly both, `decision` wins — the answer is
+what somebody is waiting on, and the change follows from it. Note that this reads the outcome and not
+the title: *settle whether…* in a title with a behaviour underneath it is a `fix`, and a filter built
+on titles finds the wrong set (T-109).
+
 **If you keep a decisions register beside your tasks, read where the method puts a decision before
 deciding which of the two holds what** — METHOD §6, *where facts live*. A project that adopts
 `decision` here and keeps a register as well has two homes for one fact and no rule choosing between
