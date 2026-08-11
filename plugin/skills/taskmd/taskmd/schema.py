@@ -426,6 +426,16 @@ def _check_tasks_dir(root, fields, source, own_config):
     """
     tasks_dir = fields["tasks_dir"]
     path = os.path.join(root, tasks_dir)
+    # Before `isdir`, which the root passes trivially and so never sees this (T-078). `is_project`
+    # asks whether `<folder>/<tasks_dir>` is a directory, so a `tasks_dir` of the root is true of
+    # every folder there is: the nested-project exclusion swallows the whole tree and `check`
+    # reports success over a project it never read. Compared as resolved paths rather than against
+    # a list of spellings, so `.`, `./`, an empty value, `sub/..` and a link to the root are one
+    # case — a rejection that one form escapes is not a rejection.
+    if os.path.realpath(path) == os.path.realpath(root):
+        raise SchemaError("%s: tasks_dir is '%s', which is the project root. Tasks live in a "
+                          "folder of their own; name one, and create it if it is not there."
+                          % (source, tasks_dir))
     if os.path.isdir(path):
         return
     if os.path.exists(path):

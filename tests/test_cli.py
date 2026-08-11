@@ -660,6 +660,36 @@ class AbsentTasksDirIsReportedAtSetup(unittest.TestCase):
         self.assertIn("rename or remove that file", out)
         self.assertNotIn("create the folder", out)
 
+    def test_a_tasks_dir_naming_the_project_root_is_refused(self):
+        """T-078. The root is a directory, so `isdir` passed it and the damage was elsewhere:
+        `is_project` asks whether `<folder>/<tasks_dir>` is a directory, which with a `tasks_dir`
+        of `.` is true of every folder there is. Every subdirectory then reads as a nested project
+        and `check` exits over a tree it never walked."""
+        root = os.path.join(FIXTURES, "broken-tasks-dir-root")
+        self.all_three_commands_refuse(root, "which is the project root")
+        out = run("check", "--root", root)[1]
+        self.assertNotIn("BROKEN LINK", out,
+                         "the config must be refused before anything is walked")
+
+    def test_every_spelling_of_the_root_gets_the_same_answer(self):
+        """A rejection one form escapes is not a rejection, so the test is path equality rather
+        than a list of spellings — including a value that reaches the root by going down and back
+        up, which no enumeration of dots would have caught."""
+        with io.open(os.path.join(PKG, "taskmd", "defaults", "config.md"),
+                     encoding="utf-8") as handle:
+            shipped = handle.read()
+        for value in (".", "./", "sub/..", "<root>"):
+            tmp = tempfile.mkdtemp()
+            self.addCleanup(shutil.rmtree, tmp)
+            os.makedirs(os.path.join(tmp, "sub"))
+            written = tmp if value == "<root>" else value
+            cli.write(os.path.join(tmp, ".taskmd", "config.md"),
+                      shipped.replace("tasks_dir: tasks", "tasks_dir: " + written, 1))
+            with self.subTest(tasks_dir=value):
+                code, out = run("check", "--root", tmp)
+                self.assertEqual(code, 2, out)
+                self.assertIn("which is the project root", out)
+
     def test_a_folder_that_exists_but_is_empty_stays_legal(self):
         """A new project with nothing in it yet is not an error — the distinction is that the
         folder is absent, not that it holds no tasks."""

@@ -66,6 +66,7 @@ where they could not be quietly trimmed to whatever turned out to be easy.
 | `broken-config` | Config error at setup — a **key** | `id_witdh` — a typo in a key name |
 | `broken-tasks-dir` | Config error at setup — a **value** | `tasks_dir: taks`, beside a real `tasks/` |
 | `broken-tasks-dir-file` | Config error at setup — a **name already taken** | `tasks_dir: tasks`, where `tasks` is a **file** |
+| `broken-tasks-dir-root` | Config error at setup — the **root** | `tasks_dir: .`, with files below the root that the walk used to skip |
 | `broken-hook` | Config error at setup — a **command** | `after_write` naming a file the project does not ship |
 
 The four config fixtures are one class in parts, and each part was a finding: a misspelled
@@ -76,7 +77,13 @@ line, so the question can be asked without running anything (T-011). `broken-tas
 case where the value resolves and the answer is still no: the name is a **file**, so the reader was
 being told the folder does not exist and advised to create it — a remedy that cannot be followed
 (T-024). It is the reason the message splits on whether anything is there, rather than on whether a
-folder is.
+folder is. `broken-tasks-dir-root` is the fourth and the odd one: its value names a folder that
+certainly exists, so nothing about the *value* is wrong — but `is_project` asks whether
+`<folder>/<tasks_dir>` is a directory, and with `.` that is true everywhere, so every subdirectory
+read as a nested project and `check` exited over a tree it had not walked (T-078). **It is the one
+fixture whose defect is what the run does not say**, which is why it carries files two levels down:
+before the fix it reported one dead link out of three and a `Scope` line claiming nothing was
+skipped.
 `broken-tasks-dir` also has no committed sibling for the case where the value is fine and
 the folder simply has not been made yet — a project with neither a config nor a tasks folder is an
 empty directory, which git cannot store, so that one is built in a temp directory by the test.
