@@ -418,18 +418,31 @@ def _check_tasks_dir(root, fields, source, own_config):
     The message names the configured value, not the resolved absolute path: the value is the thing
     the user can act on, and printing the join would put a machine-specific path into output that
     has to be identical on every platform.
+
+    **A name that is taken is not a name that is missing** (T-024). Told the folder does not exist
+    and advised to create it, a reader looking straight at a file of that name is given a remedy
+    that will fail. The split is on `os.path.exists` rather than `os.path.isfile`, because the
+    question the message answers is whether there is anything there at all.
     """
     tasks_dir = fields["tasks_dir"]
-    if os.path.isdir(os.path.join(root, tasks_dir)):
+    path = os.path.join(root, tasks_dir)
+    if os.path.isdir(path):
         return
-    if own_config:
-        hint = "Create it, or correct tasks_dir."
+    if os.path.exists(path):
+        problem, fix, inherited = ("but that name is a file, not a folder",
+                                   "Rename or remove it, or correct tasks_dir.",
+                                   "rename or remove that file, or write a config naming a "
+                                   "different folder")
     else:
-        hint = ("This project has no %s, so taskmd is using its shipped default; create the "
-                "folder, or write a config naming a different one."
-                % PROJECT_CONFIG.replace("\\", "/"))
-    raise SchemaError("%s: tasks_dir is '%s', but the project root has no such folder. %s"
-                      % (source, tasks_dir, hint))
+        problem, fix, inherited = ("but the project root has no such folder",
+                                   "Create it, or correct tasks_dir.",
+                                   "create the folder, or write a config naming a different one")
+    if own_config:
+        hint = fix
+    else:
+        hint = ("This project has no %s, so taskmd is using its shipped default; %s."
+                % (PROJECT_CONFIG.replace("\\", "/"), inherited))
+    raise SchemaError("%s: tasks_dir is '%s', %s. %s" % (source, tasks_dir, problem, hint))
 
 
 def _resolve_hook(root, fields, source):

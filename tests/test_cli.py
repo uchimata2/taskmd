@@ -631,6 +631,35 @@ class AbsentTasksDirIsReportedAtSetup(unittest.TestCase):
         self.assertFalse(os.path.isdir(os.path.join(tmp, "tasks")),
                          "index created the folder instead of reporting it")
 
+    def test_a_name_that_is_taken_by_a_file_says_so(self):
+        """T-024. The neighbour case T-019's plan had not tested: `tasks` is *there*, as a file.
+
+        The rejection was always right — this is not a usable tasks folder — but the sentence
+        denied the existence of a name the reader can see and then advised creating it, which is a
+        remedy that cannot be followed.
+        """
+        root = os.path.join(FIXTURES, "broken-tasks-dir-file")
+        self.all_three_commands_refuse(root, "not a folder")
+        for argv in (("check",), ("index",)):
+            out = run(*(argv + ("--root", root)))[1]
+            self.assertNotIn("no such folder", out)
+            self.assertNotIn("Create it", out)
+        self.assertTrue(os.path.isfile(os.path.join(root, "tasks")),
+                        "the fixture's whole defect is that this name is a file")
+
+    def test_the_inherited_default_gets_the_same_correction(self):
+        """A project with no config of its own is the *likelier* half of this case, since it is the
+        shipped `tasks` value that collides with a name already in use — so its longer hint has to
+        move too, or the fix covers only the half the report happened to arrive from."""
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp)
+        cli.write(os.path.join(tmp, "tasks"), "not a folder\n")
+        self.all_three_commands_refuse(tmp, "not a folder")
+        out = run("check", "--root", tmp)[1]
+        self.assertIn("shipped default", out)
+        self.assertIn("rename or remove that file", out)
+        self.assertNotIn("create the folder", out)
+
     def test_a_folder_that_exists_but_is_empty_stays_legal(self):
         """A new project with nothing in it yet is not an error — the distinction is that the
         folder is absent, not that it holds no tasks."""
