@@ -42,6 +42,13 @@ the page was written before the rule was adopted, and rewriting a dated public r
 is the act METHOD rule 5 forbids for a task record. Named here rather than left as a contradiction
 somebody re-files.
 
+**Write both of them to a file and pass the file, never through a shell.** `v0.4.0`'s published body
+carries `adopter` followed by a backtick where an apostrophe belongs, because the text crossed a
+PowerShell here-string on its way to the tag. It is the same hazard §6 states for the leak-check
+fixture, arriving in the one text nobody validates: the note is covered prose and no gate reads it,
+so a transit artifact lands on the release page and stays there. Compose the note with something that
+never puts it on a command line, then `git tag -F` and `gh release --notes-file` it.
+
 **Two texts, not one, and only one of them is even reachable.** The annotated tag message and the
 GitHub release body are separate: measured on 2026-08-11, `v0.2.0`'s tag message is 936 characters
 and its release body 2591, and they say different things. A tag message can at least be listed with
