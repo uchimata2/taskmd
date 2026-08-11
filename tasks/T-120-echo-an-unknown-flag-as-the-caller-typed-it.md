@@ -2,12 +2,12 @@
 id: T-120
 title: Echo an unknown flag as the caller typed it
 type: decision
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: []
 related: [T-113, T-022]
-work_package: v0.3
+work_package: v0.2
 owner: maintainer
 business_value: low
 effort: xs
@@ -67,9 +67,15 @@ differ is the case where they most need to compare character by character — a 
 - [ ] If it does not change, the reason is written where the next reader of that line meets it
 
 **Open questions**
-- Which spelling should the rejection quote — the maintainer decides. Recommended: echo what was
-  typed, since the accepted list beside it already teaches the canonical spelling and the reader's
-  problem is matching their own typing against it.
+- None. **Q1 — which spelling should the rejection quote? — answered by the maintainer on
+  2026-08-11: echo what was typed.** The recommendation is taken, so the reason stands as it was
+  argued: the accepted list printed beside the flag already teaches the canonical spelling, and the
+  reader's problem is matching their own typing against it.
+
+  This settles the type as well. The task was raised `decision` because the choice was genuinely
+  two-sided; with the choice made, what remains is the one-line change and its test, and criteria 1
+  and 4 collapse to their first branch. The `decision` type is left as it is — it records what this
+  task was for when it was raised, and rewriting it would erase that the question was ever open.
 
 ## 2. Plan
 
@@ -95,4 +101,5 @@ differ is the case where they most need to compare character by character — a 
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-11 | → specified | Q1 answered by the maintainer: echo what was typed. **Moved `v0.3` → `v0.2` in the same pass, correcting the filing below rather than the answer.** The grouping rule is `tasks/README.md`'s — v0.2 takes all dependencies plus every minor-to-moderate correction, v0.3 the bigger work and the new capabilities — and this is an `xs` correction that blocks nothing. The v0.3 rationale recorded below imported a test the rule does not use, adopter-visibility, and it does not survive comparison with T-113: that task changed *which* message a given invocation receives, which is the larger visible change, and it is v0.2. Left standing below as what was argued at the time (METHOD rule 5). **Note for whoever picks this up: the move brings it inside the standing v0.2 full-lifecycle authorization, which is a consequence of the correction and not a grant — the agent that re-filed it did not also start it.** |
 | 2026-08-11 | → proposed | Surfaced while closing T-113 by running the command rather than reading it: the message printed a flag nobody had typed. Raised rather than fixed there, because T-113's scope puts the wording of both messages out and a finding is not fixed where it is found (METHOD §5). `v0.3` rather than `v0.2`: it holds nothing up, and unlike the corrections in that package it changes a string a script could be matching on, so it belongs with work an adopter is told about. Sized `xs`/`low` — one interpolation, or one comment. |
