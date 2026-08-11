@@ -393,6 +393,69 @@ class ThePluginShipsWhatItCites(unittest.TestCase):
         self.assertEqual([], offenders, "\n".join(offenders))
 
 
+#: Answered once per process by `usable_bash`. `False` means "not asked yet"; `None` is a real
+#: answer — no shell here can run these tests — and the two must not collapse into one.
+_BASH = False
+
+
+def shell_candidates():
+    """Every `bash` on `PATH` in `PATH` order, then every `sh`, rather than the first of either.
+
+    Taking the first is the whole defect (T-114). On a machine carrying more than one, which one
+    wins is a property of the session, so a test that accepts it and stops is measuring the session.
+    `sh` is scanned too because it is `how_to_run`'s documented fallback, and an unprobed fallback
+    would leave the same hole under a different name.
+    """
+    seen, found = [], []
+    for name in ("bash", "sh"):
+        for entry in os.environ.get("PATH", "").split(os.pathsep):
+            hit = shutil.which(name, path=entry) if entry else None
+            if hit and os.path.normcase(hit) not in seen:
+                seen.append(os.path.normcase(hit))
+                found.append(hit)
+    return found
+
+
+def usable_bash():
+    """The first candidate shell that can **run** a script named the way these tests name one.
+
+    Probed by running it, never by recognising where it lives (T-114). A shell that cannot execute
+    a script named in this platform's own form exits 127 with a message naming the script, so the
+    absence of a usable shell arrives looking exactly like a defect in the shipped launcher — which
+    is how one session read 185 passing tests and the next read 181 over the same commit.
+
+    Says what it settled on, once, because a skip nobody can see is how a platform quietly stops
+    being covered: when nothing works, the line names every candidate and why each was rejected.
+    """
+    global _BASH
+    if _BASH is not False:
+        return _BASH
+    rejected = []
+    with tempfile.TemporaryDirectory() as tmp:
+        probe = os.path.join(tmp, "probe.sh")
+        with open(probe, "w", newline="\n") as handle:
+            handle.write("#!/bin/sh\necho taskmd-probe\n")
+        for candidate in shell_candidates():
+            try:
+                run = subprocess.run([candidate, probe], stdout=subprocess.PIPE,
+                                     stderr=subprocess.STDOUT, timeout=60)
+            except (OSError, subprocess.SubprocessError) as exc:
+                rejected.append("%s: %s" % (candidate, exc))
+                continue
+            if run.returncode == 0 and run.stdout.strip() == b"taskmd-probe":
+                _BASH = candidate
+                print("\nshell: %s - ran a probe script named the way these tests name one"
+                      % candidate)
+                return _BASH
+            rejected.append("%s: exited %d, said %r"
+                            % (candidate, run.returncode, run.stdout.strip()[:60]))
+    _BASH = None
+    print("\nshell: none of %d candidate(s) can run a script named the way these tests name one, "
+          "so the launcher checks are SKIPPED and prove nothing here:\n  %s"
+          % (len(rejected), "\n  ".join(rejected) or "no bash or sh on PATH at all"))
+    return None
+
+
 class Launchers(unittest.TestCase):
     """Criterion 2: the launchers carry no logic, so removing one changes nothing but the way in."""
 
@@ -420,6 +483,11 @@ class Launchers(unittest.TestCase):
 
         None is a real answer and the caller must report it: a `.cmd` on a POSIX machine cannot be
         run, and a test that quietly returned green for it would be worse than no test at all.
+
+        There are now two ways to get None, and they are not the same fact — the platform cannot run
+        this kind of file, or no shell here can run any script named this way. The second one prints
+        its own account of itself (`usable_bash`), so the caller's message points at that rather than
+        blaming the platform for a missing shell.
         """
         name = os.path.basename(path)
         if name.endswith(".cmd"):
@@ -429,7 +497,7 @@ class Launchers(unittest.TestCase):
         if name.endswith(".ps1"):
             shell = shutil.which("pwsh") or shutil.which("powershell")
             return [shell, "-NoProfile", "-File", path] if shell else None
-        shell = shutil.which("bash") or shutil.which("sh")
+        shell = usable_bash()
         return [shell, path] if shell else None
 
     def test_every_entry_point_exists_where_the_one_who_runs_it_will_look(self):
@@ -470,7 +538,8 @@ class Launchers(unittest.TestCase):
             with self.subTest(entry=name):
                 argv = self.how_to_run(path)
                 if argv is None:
-                    self.skipTest("%s cannot be run on this platform" % name)
+                    self.skipTest("nothing here can run %s; if it is a shell script, the 'shell:' "
+                                  "line above says which candidates were tried" % name)
                 got = subprocess.run(argv + ["check"], cwd=ROOT,
                                      env=dict(os.environ, PYTHONPATH="relative/dir"),
                                      stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -481,14 +550,16 @@ class Launchers(unittest.TestCase):
         self.assertTrue(ran, "no entry point was runnable here; this test proved nothing")
 
     def test_the_shell_launcher_produces_what_the_module_produces(self):
-        if not shutil.which("bash"):
-            self.skipTest("no bash on this machine; the PowerShell launcher covers the same claim")
+        shell = usable_bash()
+        if not shell:
+            self.skipTest("no bash here that can run a script named this way; "
+                          "the PowerShell launcher covers the same claim")
         # `-m taskmd` needs the package on the path; the launcher sets that for itself, which is
         # the whole of what it does. Both run from ROOT, so both discover the same project.
         env = dict(os.environ, PYTHONPATH=PKG)
         direct = subprocess.run([sys.executable, "-m", "taskmd", "check"], cwd=ROOT, env=env,
                                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        viash = subprocess.run(["bash", "plugin/skills/taskmd/taskmd.sh", "check"], cwd=ROOT,
+        viash = subprocess.run([shell, "plugin/skills/taskmd/taskmd.sh", "check"], cwd=ROOT,
                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         self.assertEqual(direct.stdout, viash.stdout)
         self.assertEqual(direct.returncode, viash.returncode)
@@ -507,8 +578,9 @@ class Launchers(unittest.TestCase):
     def available_launchers(self):
         """Every launcher this machine can actually run, as (label, argv-prefix)."""
         found = []
-        if shutil.which("bash"):
-            found.append(("taskmd.sh", ["bash", os.path.join(PKG, "taskmd.sh")]))
+        shell = usable_bash()
+        if shell:
+            found.append(("taskmd.sh", [shell, os.path.join(PKG, "taskmd.sh")]))
         for shell in ("pwsh", "powershell"):
             if shutil.which(shell):
                 found.append(("taskmd.ps1",
