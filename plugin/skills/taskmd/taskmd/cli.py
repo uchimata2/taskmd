@@ -909,8 +909,12 @@ def parse_filters(schema, args):
             options["limit"] = int(value)
             continue
         if known[name] == "vocabulary" and value not in schema.vocabularies[name]:
-            return None, ("--%s does not take '%s'. This project's %s values are: %s"
-                          % (name, value, name, ", ".join(schema.vocabularies[name])))
+            # The third of the three rejections, on the same rule as the two above (T-122). It names
+            # the field twice and the two spellings are deliberate: `arg` is the flag as typed, to be
+            # recognised; `name` is the schema's own, to be copied. Dropping the second would read
+            # better and would stop the message stating the field's canonical form anywhere.
+            return None, ("%s does not take '%s'. This project's %s values are: %s"
+                          % (arg, value, name, ", ".join(schema.vocabularies[name])))
         filters.append((name, known[name], value))
     return (filters, options), None
 

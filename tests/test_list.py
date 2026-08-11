@@ -320,6 +320,26 @@ class RejectsWhatItCannotAnswer(unittest.TestCase):
         self.assertEqual(code, 2, out)
         self.assertEqual("--blocked-by needs a value", out.strip())
 
+    def test_a_rejected_value_quotes_the_flag_as_the_caller_typed_it(self):
+        """T-122. The third rejection in the same function, and the one T-120's scope did not
+        cover. It names the field twice, and the two occurrences keep different spellings on
+        purpose: the flag is echoed to be recognised, the field is canonical to be copied.
+
+        Pinned whole, for the reason the T-120 test is — a substring check for `business_value`
+        passes on the old message, which is how this survived a suite that already covered it.
+        """
+        code, out = run("list", "--business-value", "nonsense", "--root", ROOT)
+        self.assertEqual(code, 2, out)
+        self.assertEqual("--business-value does not take 'nonsense'. This project's "
+                         "business_value values are: critical, high, medium, low", out.strip())
+
+    def test_the_underscored_spelling_is_echoed_as_typed_too(self):
+        """The other half of *as typed*: echoing must not mean *always hyphenated*, which would
+        pass the test above while being the same defect mirrored."""
+        code, out = run("list", "--business_value", "nonsense", "--root", ROOT)
+        self.assertEqual(code, 2, out)
+        self.assertTrue(out.startswith("--business_value does not take 'nonsense'."), out)
+
     def test_the_hyphen_is_still_accepted_as_a_spelling(self):
         """What the echo change must not touch. Quoting the typed form is about the *message*; the
         two spellings remain one filter, and this is the case that would break if the fix reached
