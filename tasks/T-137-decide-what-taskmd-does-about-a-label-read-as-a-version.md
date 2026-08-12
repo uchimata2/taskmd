@@ -2,11 +2,11 @@
 id: T-137
 title: Decide what taskmd does about a grouping label that can be read as a version
 type: decision
-status: specified
-phase: specify
+status: done
+phase: review
 parent: null
 blocked_by: []
-related: [T-004, T-082, T-087, T-088, T-100, T-106, T-136]
+related: [T-004, T-082, T-087, T-088, T-100, T-106, T-136, T-138]
 work_package: v0.6
 owner: the project owner
 business_value: high
@@ -136,29 +136,138 @@ file — which is every project by the time the label matters.
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
-| 2 |  |  |
+| 1 | Write a throwaway detector for the candidate rule and run it over this repository's 137 tasks — the corpus known to have the defect | Recorded output, §3 |
+| 2 | Run the same detector over the shipped fixtures and both templates — the corpora that should be quiet | Recorded output, §3 |
+| 3 | Settle the rule's predicate from what the two runs flagged, including every exemption the data forces rather than the ones imagined | The rule, §3 |
+| 4 | Price the answer: what a project that means its labels reads on every run, and what the rejected config key would have cost | §3 |
+| 5 | Record the answer and raise the build it licenses | §3, a new task |
+
+**Shape decisions.**
+
+**D1 — the rule is built in order to decide whether to have it.** An in-or-out question about a
+validator is settled by running it over the real corpus and reading its alarms, not by arguing about
+its predicate in the abstract. The detector written here is a throwaway and is not the shipped one;
+its only product is the numbers §3 records.
+
+**D2 — the measurement is taken before T-136's rename, and that fixes the order of the two tasks.**
+This repository *is* the corpus with the defect, and T-136 removes it. Measured afterwards, the run
+would report a clean tree and prove nothing about a rule meant to catch what the tree used to
+contain. So T-137 goes first, and its output becomes the before-half of T-136's own evidence.
+
+**Planned outputs**
+- §3 and §4 of this file
+- one new task, for the build this answer licenses
 
 ## 3. Implement
 
+### Steps 1 and 2 — the rule, run over both corpora
+
+A throwaway detector reads every front-matter scalar and list item and reports any value shaped like
+a dotted number, split by how many components it has. Run before T-136's rename, so this repository
+is still the corpus with the defect:
+
+```text
+=== this repository: 141 file(s) ===
+  TWO-PART - reads as a version      work_package: 'v0.1'  x67
+  TWO-PART - reads as a version      work_package: 'v0.2'  x47
+  TWO-PART - reads as a version      work_package: 'v0.3'  x4
+  TWO-PART - reads as a version      work_package: 'v0.5'  x11
+  TWO-PART - reads as a version      work_package: 'v0.6'  x8
+
+=== shipped fixtures: 53 file(s) ===
+  (no dotted-number value in any front matter)
+
+=== shipped defaults: 1 file(s) ===
+  (no dotted-number value in any front matter)
+```
+
+**137 hits here, 0 in 53 fixture files, 0 in the shipped default.** The signal is the whole defect
+and nothing else. Note what the first run also showed: **no task front matter in this repository
+carries a three-part value at all**, so the two-part / three-part distinction was untested by the
+real corpus and had to be probed rather than assumed.
+
+### The probe — what a legitimate project can put there
+
+Three fabricated projects, written to break the rule rather than to confirm it: one estimating effort
+in days, one recording the version its work shipped in, one with the defect under a field name taskmd
+has never heard of.
+
+```text
+  TWO-PART - reads as a version      effort: '1.5'  x1
+  TWO-PART - reads as a version      milestone: '2.1'  x1
+  TWO-PART - reads as a version      work_package: 'v0.2'  x1
+  3-part                             shipped_in: '0.4.0'  x1
+  3-part                             target: 'v1.2.0'  x1
+```
+
+Four of the five are right. `M2` and `PH3` — the shape T-136 adopts — are silent, which they must be
+or the remedy would trip the warning. `shipped_in: 0.4.0` and `target: v1.2.0` are real versions
+recorded correctly and are left alone. **`milestone: 2.1` is the one that settles the config-key
+question**: the rule caught the defect under a field name that appears in no schema, which is exactly
+what a rule keyed on a field name could not have done without T-106's price.
+
+**`effort: 1.5` is a genuine false positive**, and it is the only one the probe could produce. Re-run
+with the two estimate fields exempt, it goes and nothing else moves:
+
+```text
+=== probe, with the estimate fields exempt: 3 file(s) ===
+  TWO-PART - reads as a version      milestone: '2.1'  x1
+  TWO-PART - reads as a version      work_package: 'v0.2'  x1
+  3-part                             shipped_in: '0.4.0'  x1
+  3-part                             target: 'v1.2.0'  x1
+```
+
+### Step 4 — what it costs
+
+A project that means its two-part labels reads one line per distinct label, for ever, with no flag to
+turn it off. Here that would be five. **It would have been 137**, which is the run above, and which is
+why the line is per value and not per task — a warning that prints once per file is one a reader
+scrolls past on its first appearance.
+
 **Decisions & assumptions**
-- <decision — rationale — date>
+- **D1 — the predicate is a front-matter value matching `v?N.N`, exactly two components** —
+  2026-08-12. Three or more is a version recorded correctly and is left alone, proven by
+  `shipped_in: 0.4.0` and `target: v1.2.0` staying quiet in the probe. A two-part number is the only
+  shape that is a prefix of a real version and therefore resolves to one.
+- **D2 — no config key, and the field name is not read at all** — 2026-08-12. The rule looks at value
+  shape, so it needs no opinion about which field is the milestone. Measured rather than argued:
+  it caught `milestone: 2.1` in the probe. *Rejected: a key naming the grouping field* — correct
+  semantics instead of a heuristic, at T-106's price of a failed upgrade for every project that
+  wrote a config, to catch a defect that fires once in a project's life.
+- **D3 — the fields named by `effort_field` and `value_field` are exempt** — 2026-08-12. Forced by
+  the data: `effort: 1.5` was the single false positive the probe could produce, and both keys
+  already exist, so the exemption is derived from the config rather than added to it. A dotted number
+  in some other numeric field is residual risk, and it costs one advisory line.
+- **D4 — one line per distinct value, not per task** — 2026-08-12, from the 137-line run above.
+- **D5 — advisory, exit status unmoved, no flag to silence it** — 2026-08-12. The T-100 line class
+  exactly, for the reason recorded there: a validator that fails on a legal state is one a project
+  starts passing flags to. Version-shaped labels are legal.
+- **Assumption: the shipped fixtures stay quiet as they are.** Proven above at 53 files, so the build
+  needs a fixture of its own to prove the alarm direction and cannot reuse an existing one.
 
 **Outputs produced**
-- `deliverables/...`
+- §3 and §4 of this file — the answer, its price, and the two runs it rests on
+- [T-138](T-138-report-a-front-matter-value-that-reads-as-a-version.md) — the build this licenses
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| Names one mechanism and one surface, and says what a project that deliberately uses version-shaped labels reads on every run | met | An advisory line on `check`, one per distinct value, unsilenceable. Here that would be five lines; §3 step 4 gives the number and why it is not 137 |
+| States whether a config key is required, and if not, how the mechanism knows what to look at | met | D1–D3. It reads value shape and never a field name, so there is nothing to configure. The `milestone: 2.1` hit is the proof, not the argument |
+| Rejected alternatives recorded with what going each way costs | met | D2 records the config key and T-106's price; D5 records the failing-check option and why a legal state must not fail. Q1 and Q2 in §1 carry the owner's two rejections |
+| Decided against the real corpus and the shipped fixtures, and their output read | met | §3 steps 1–2: 137 hits across 141 files here, 0 across 53 fixtures, 0 in the shipped default |
+| Shown to fire on a project that has the defect and stay silent on one that does not | met | Both directions, and the silent direction twice: 53 fixtures, and a probe built to break it. The probe is what found the one false positive and forced D3 |
+| If the answer is *ship nothing*, that is written down | n/a | The answer is to ship |
 
 **Child fix tasks raised**
-- <T-NNN or "none">
+- [T-138](T-138-report-a-front-matter-value-that-reads-as-a-version.md) — the build
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-12 | → done | **The measurement decided it, and it decided differently from the argument.** Three things were settled by running the rule rather than by reasoning about it. The field-free predicate looked like a compromise for dodging T-106's price and turned out to be strictly better: it caught `milestone: 2.1` under a field name no schema mentions, which a key-based rule could not have seen at all. The two-part / three-part split was **untested by the real corpus** — no task front matter here carries a three-part value — so it had to be probed, and the probe is also what produced the single false positive (`effort: 1.5`) that forced the estimate-field exemption. And the line granularity was decided by a number nobody would have guessed at: per task, this repository would print **137 lines**, which is a warning read once and scrolled past for ever. Ordered before T-136 deliberately: this tree is the corpus with the defect, and the rename removes it. |
+| 2026-08-12 | → in_progress | Plan agreed under the owner's authorisation. Ordered before T-136 for the reason in D2 — measuring after the rename would report a clean tree and prove nothing about the rule under test. |
 | 2026-08-12 | → specified | Both questions answered by the project owner: an advisory `check` line keyed on value shape with no new config key, and ship the wording fix alongside it. Their rivals are recorded beside them. **Authorisation (METHOD §3.1):** *full lifecycle on T-136 and T-137*, from the project owner on 2026-08-12, given with the answers. It covers this task end to end — specify through review — and nothing beyond the two tasks it names. The build the answer licenses is **not** covered: this task's scope puts it out, so it is raised rather than run. |
 | 2026-08-12 | → proposed | Raised when a second project using this plugin hit the defect this repository has been carrying since it grouped its backlog, and the maintainer asked for a remedy that reaches adopters rather than only this tree. Kept separate from [T-136](T-136-rename-the-milestone-labels-so-they-cannot-be-read-as-versions.md) because the mechanism question here is genuinely open and would otherwise hold a rename whose evidence is already in hand. **Typed `decision` on the shipped test**: the outcome is an answer someone else could act on, and the change cannot be named until it is given — both obvious mechanisms are closed by recorded decisions, so what is left is a choice rather than a build. |

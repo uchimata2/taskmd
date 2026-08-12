@@ -71,8 +71,8 @@ scheduled into, not when it ships.
 | [T-130](T-130-report-a-question-left-live-in-a-closed-task.md) | Report a question left live in a closed task | `v0.6` | `proposed` | `specify` | - | - | - | T-025, T-095, T-107, T-121, T-131 |
 | [T-131](T-131-decide-whether-a-question-heavy-task-is-a-different-kind-of-work.md) | Decide whether a question-heavy task is a different kind of work | `v0.6` | `proposed` | `specify` | - | - | - | T-088, T-109, T-130 |
 | [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) | Derive what a release note must cover from the tasks it ships | `v0.6` | `specified` | `specify` | - | - | - | T-086, T-125, T-127, T-128, T-129, T-133 |
-| [T-136](T-136-rename-the-milestone-labels-so-they-cannot-be-read-as-versions.md) | Rename the milestone labels so they cannot be read as versions | `v0.6` | `specified` | `specify` | - | - | - | T-086, T-110, T-125, T-128, T-137 |
-| [T-137](T-137-decide-what-taskmd-does-about-a-label-read-as-a-version.md) | Decide what taskmd does about a grouping label that can be read as a version | `v0.6` | `specified` | `specify` | - | - | - | T-004, T-082, T-087, T-088, T-100, T-106, T-136 |
+| [T-136](T-136-rename-the-milestone-labels-so-they-cannot-be-read-as-versions.md) | Rename the milestone labels so they cannot be read as versions | `v0.6` | `specified` | `specify` | - | - | - | T-086, T-110, T-125, T-128, T-137, T-138 |
+| [T-138](T-138-report-a-front-matter-value-that-reads-as-a-version.md) | Report a front-matter value that reads as a version | `v0.6` | `proposed` | `specify` | - | - | - | T-100, T-106, T-136, T-137 |
 
 ## Closed
 
@@ -174,13 +174,13 @@ scheduled into, not when it ships.
 | [T-097](T-097-decide-whether-a-published-document-may-point-at-a-file-no-clone-receives.md) | Decide whether a published document may point at a file no clone receives | `v0.2` | `done` | `review` | - | - | - | T-013, T-034, T-091, T-092, T-094, T-109 |
 | [T-098](T-098-decide-who-checks-the-links-in-a-document-only-a-successor-reads.md) | Decide who checks the links in a document only a successor reads | `v0.2` | `done` | `review` | - | - | - | T-002, T-034, T-080, T-094, T-095, T-109 |
 | [T-099](T-099-give-an-adopter-a-command-that-runs-without-bin-on-path.md) | Give an adopter a command that runs when the plugin's bin is not on PATH | `v0.2` | `done` | `review` | - | - | - | T-054, T-055, T-067, T-083, T-085 |
-| [T-100](T-100-report-a-project-config-that-has-drifted-from-the-shipped-default.md) | Report a project config that has drifted from the shipped default | `v0.2` | `done` | `review` | - | - | - | T-001, T-023, T-088, T-095, T-106, T-121, T-137 |
+| [T-100](T-100-report-a-project-config-that-has-drifted-from-the-shipped-default.md) | Report a project config that has drifted from the shipped default | `v0.2` | `done` | `review` | - | - | - | T-001, T-023, T-088, T-095, T-106, T-121, T-137, T-138 |
 | [T-101](T-101-report-a-template-the-create-path-cannot-see.md) | Report a template the create path cannot see | `v0.2` | `done` | `review` | - | - | - | T-032, T-051, T-076, T-091, T-095, T-107, T-121 |
 | [T-102](T-102-show-which-rows-list-has-already-worked-out-are-blocked.md) | Show which rows list has already worked out are blocked | `v0.2` | `done` | `review` | - | - | - | T-022, T-031, T-070, T-087, T-111 |
 | [T-103](T-103-say-whether-a-closed-task-s-declared-output-may-be-repointed.md) | Say whether a closed task's declared output may be repointed when the file moves | `v0.3` | `done` | `review` | - | - | - | T-053, T-076, T-083, T-089, T-090, T-092, T-104, T-109 |
 | [T-104](T-104-say-whether-the-method-has-an-opinion-on-where-a-decision-is-recorded.md) | Say whether the method has an opinion on where a decision is recorded | `v0.3` | `done` | `review` | - | - | - | T-008, T-076, T-088, T-103, T-109 |
 | [T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md) | Say where an authorised multi-phase run is recorded | `v0.3` | `done` | `review` | - | - | - | T-005, T-036, T-047, T-063 |
-| [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) | Say that the shipped config cannot gain a key without breaking every project that wrote one | `v0.3` | `done` | `review` | - | - | - | T-001, T-011, T-023, T-100, T-137 |
+| [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) | Say that the shipped config cannot gain a key without breaking every project that wrote one | `v0.3` | `done` | `review` | - | - | - | T-001, T-011, T-023, T-100, T-137, T-138 |
 | [T-107](T-107-say-so-when-a-valid-task-file-is-parked-where-nothing-reads-it.md) | Say so when a valid task file is parked where nothing reads it | `v0.2` | `done` | `review` | - | - | - | T-062, T-069, T-075, T-101, T-121, T-130 |
 | [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md) | Decide whether a task that settles a question must be typed decision | `v0.2` | `done` | `review` | - | - | - | T-088, T-090, T-093, T-097, T-098, T-103, T-104, T-110, T-131 |
 | [T-110](T-110-re-group-the-open-backlog-by-the-maintainers-release-rule.md) | Re-group the open backlog by the maintainer's release rule | `v0.2` | `done` | `review` | - | - | - | T-026, T-086, T-109, T-124, T-125, T-128, T-136 |
@@ -206,5 +206,6 @@ scheduled into, not when it ships.
 | [T-132](T-132-give-the-console-the-same-line-ending-on-every-platform.md) | Give the console the same line ending on every platform | `v0.5` | `done` | `review` | T-020 | - | - | T-002, T-020, T-022, T-049, T-064 |
 | [T-133](T-133-decide-what-to-do-about-a-published-release-note-that-breaks-the-rule.md) | Decide what to do about a published release note that breaks the rule | `v0.5` | `done` | `review` | - | - | - | T-079, T-081, T-125, T-126, T-127, T-129, T-135 |
 | [T-134](T-134-check-that-every-prose-list-of-the-commands-names-the-commands-there-are.md) | Check that every prose list of the commands names the commands there are | `v0.5` | `done` | `review` | T-117 | - | - | T-030, T-031, T-055, T-071, T-073, T-117, T-126 |
+| [T-137](T-137-decide-what-taskmd-does-about-a-label-read-as-a-version.md) | Decide what taskmd does about a grouping label that can be read as a version | `v0.6` | `done` | `review` | - | - | T-138 | T-004, T-082, T-087, T-088, T-100, T-106, T-136, T-138 |
 
 <!-- taskmd:end -->
