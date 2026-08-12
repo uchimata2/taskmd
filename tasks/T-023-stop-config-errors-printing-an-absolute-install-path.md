@@ -7,7 +7,7 @@ phase: review
 parent: null
 blocked_by: []
 related: [T-006, T-019, T-020]
-work_package: v0.2
+work_package: M2
 owner: maintainer
 business_value: medium
 effort: xs
@@ -220,6 +220,6 @@ one met by another task and one unmeetable, both kept as written rather than edi
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-10 | → done | Plan through review in one session, under the maintainer's `v0.2` whole-lifecycle authorisation of 2026-08-10 (METHOD §3.1), which covers each task in that set end to end and nothing outside it. The one-string fix cost two test changes, and the second was the find: criterion 3 says the project-config case is unchanged and **nothing in the suite read that value**, so the criterion could not have been failed by any edit. Nothing raised — the one partial is the cost §1 priced on 2026-08-07. |
+| 2026-08-10 | → done | Plan through review in one session, under the maintainer's `M2` whole-lifecycle authorisation of 2026-08-10 (METHOD §3.1), which covers each task in that set end to end and nothing outside it. The one-string fix cost two test changes, and the second was the find: criterion 3 says the project-config case is unchanged and **nothing in the suite read that value**, so the criterion could not have been failed by any edit. Nothing raised — the one partial is the cost §1 priced on 2026-08-07. |
 | 2026-08-07 | → specified | Answered: `<shipped default>`. The rejected option's cost is recorded rather than glossed — a bracketed label tells a reader a default is in force but not where to read it, and if that turns out to bite, the fix is to name the file next to the label rather than to reverse this. |
 | 2026-08-05 | → proposed | Raised from T-019's implement phase. Pre-existing behaviour, surfaced because T-019 made the fresh-project case an error and so put this string in front of new users. Not fixed where it was found (METHOD §3.3, rule 4). |

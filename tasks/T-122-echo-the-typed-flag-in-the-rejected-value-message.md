@@ -7,7 +7,7 @@ phase: review
 parent: null
 blocked_by: []
 related: [T-120, T-113]
-work_package: v0.2
+work_package: M2
 owner: maintainer
 business_value: low
 effort: xs
@@ -128,9 +128,9 @@ with underscores, so no revert was needed to show it would have failed.
 
 ```text
 $ taskmd list --business-value high --limit 3
-T-001  done  v0.1  review  Decide how the front-matter schema is configured
-T-010  done  v0.1  review  Write the GitHub Issues binding
-T-079  done  v0.1  review  Humanize the human-facing documents before publishing
+T-001  done  M1  review  Decide how the front-matter schema is configured
+T-010  done  M1  review  Write the GitHub Issues binding
+T-079  done  M1  review  Humanize the human-facing documents before publishing
 exit 0
 ```
 
@@ -168,5 +168,5 @@ Suite: `test_cli` 98 OK, `test_list` **37** OK (35 before, plus these two), `tes
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-11 | → done | All four criteria met, no child raised. **Authorisation (METHOD §3.1):** the maintainer's standing grant to work every open `v0.2` task through its full lifecycle, given 2026-08-10 and widened on 2026-08-11 to *the remaining tasks, full lifecycle, continuously*. **The open question was decided by the specify rather than by taste**: dropping the second reference to the field would falsify criterion 2, which is unconditional and already agreed — so answering it *yes* is an amendment to the outcome and not a wording choice, and it is recorded as rejected with what it costs (the better-reading sentence) rather than as a bad idea. Two things worth carrying. **Two tests, because one cannot separate the rules**: *echoed as typed* and *always hyphenated* agree on the hyphenated call, so a fix hard-coding the hyphen would pass a whole-string test and be the same defect mirrored. And **the pre-fix run is what makes the whole-string test non-vacuous** — the old message is on record answering `--business-value` with `--business_value`, so nothing had to be reverted to show what the test catches. All three rejections in `parse_filters` now share one convention. |
-| 2026-08-11 | → proposed | Third of the three rejections in one function to be looked at, after T-113 fixed the order of two of them and T-120 fixed what two of them quote. `v0.2` under `tasks/README.md`'s grouping rule — an `xs` correction blocking nothing — which is also the correction applied to T-120's own filing on the same day. Sized `low` rather than `medium`: unlike T-120's case, the flag here is one the project *has*, so a reader comparing it against their own typing is checking a value, not hunting a misspelling. |
+| 2026-08-11 | → done | All four criteria met, no child raised. **Authorisation (METHOD §3.1):** the maintainer's standing grant to work every open `M2` task through its full lifecycle, given 2026-08-10 and widened on 2026-08-11 to *the remaining tasks, full lifecycle, continuously*. **The open question was decided by the specify rather than by taste**: dropping the second reference to the field would falsify criterion 2, which is unconditional and already agreed — so answering it *yes* is an amendment to the outcome and not a wording choice, and it is recorded as rejected with what it costs (the better-reading sentence) rather than as a bad idea. Two things worth carrying. **Two tests, because one cannot separate the rules**: *echoed as typed* and *always hyphenated* agree on the hyphenated call, so a fix hard-coding the hyphen would pass a whole-string test and be the same defect mirrored. And **the pre-fix run is what makes the whole-string test non-vacuous** — the old message is on record answering `--business-value` with `--business_value`, so nothing had to be reverted to show what the test catches. All three rejections in `parse_filters` now share one convention. |
+| 2026-08-11 | → proposed | Third of the three rejections in one function to be looked at, after T-113 fixed the order of two of them and T-120 fixed what two of them quote. `M2` under `tasks/README.md`'s grouping rule — an `xs` correction blocking nothing — which is also the correction applied to T-120's own filing on the same day. Sized `low` rather than `medium`: unlike T-120's case, the flag here is one the project *has*, so a reader comparing it against their own typing is checking a value, not hunting a misspelling. |

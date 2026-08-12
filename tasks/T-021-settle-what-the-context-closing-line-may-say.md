@@ -7,7 +7,7 @@ phase: review
 parent: T-002
 blocked_by: []
 related: [T-003, T-022]
-work_package: v0.2
+work_package: M2
 owner: maintainer
 business_value: medium
 effort: xs
@@ -179,7 +179,7 @@ about the present but not rewriting what it says about the past.
 moved past its phase, which is this task itself at `planned | plan`:
 
 ```
-status planned | phase plan | type decision | work_package v0.2 | owner maintainer
+status planned | phase plan | type decision | work_package M2 | owner maintainer
 file   tasks/T-021-settle-what-the-context-closing-line-may-say.md
 ...
 STATE  open, no blocker outstanding
@@ -222,7 +222,7 @@ forgotten.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-10 | → done | Plan through review in one session, under the maintainer's `v0.2` whole-lifecycle authorisation of 2026-08-10 (METHOD §3.1). The evidence had to be gathered on this task itself: it was the only one at a state where status has moved past phase at the moment the check was run, which is exactly the case the original criterion named. Nothing raised — step 5 expected to find the skill silent about "what next" and found it saying so in its first command. |
-| 2026-08-10 | → planned | Planned under the maintainer's `v0.2` whole-lifecycle authorisation of 2026-08-10 (METHOD §3.1), which covers each task in that set end to end and nothing outside it. Six steps, no dependency edge: the decision was taken in `specify`, so what remains is landing it. One step is a check rather than an edit — (c) gave direction-giving to the skill, and nothing has confirmed the skill took it. |
+| 2026-08-10 | → done | Plan through review in one session, under the maintainer's `M2` whole-lifecycle authorisation of 2026-08-10 (METHOD §3.1). The evidence had to be gathered on this task itself: it was the only one at a state where status has moved past phase at the moment the check was run, which is exactly the case the original criterion named. Nothing raised — step 5 expected to find the skill silent about "what next" and found it saying so in its first command. |
+| 2026-08-10 | → planned | Planned under the maintainer's `M2` whole-lifecycle authorisation of 2026-08-10 (METHOD §3.1), which covers each task in that set end to end and nothing outside it. Six steps, no dependency edge: the decision was taken in `specify`, so what remains is landing it. One step is a check rather than an edit — (c) gave direction-giving to the skill, and nothing has confirmed the skill took it. |
 | 2026-08-05 | → specified | Owner chose (a) with (c): criterion 9 is replaced, the CLI's state-only closing line is final, and direction-giving is the skill's. (b) was rejected as a second home for the lifecycle. The deciding argument arrived after this task was raised — T-022 gives "what next" a command of its own, so a hint on `context` would have been a second answer to one question; soft edge added to record that. Implement is two edits: criterion 9's replacement text in T-002 §1 with the original kept, and its §4 row pointing here. |
 | 2026-08-05 | → proposed | Raised by T-002's review. Flagged during `implement` rather than reinterpreted, and carried here rather than ticked — a reviewer cannot agree a criterion change with themselves. |

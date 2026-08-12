@@ -45,15 +45,18 @@ neither is a milestone. The standing policy is to spend one bump on a batch rath
 fix, which the maintainer confirmed on 2026-08-10 against the strongest argument available — an
 adopter updating for something unrelated meets a new failure class.
 
-The mapping from a label to what it shipped as is a table in `tasks/README.md`, and that table is the
-only place it is written (T-128). Read it before assuming `v0.5` means `0.5.0` by luck; it does, and
-`v0.2` meant `0.4.0`. The definition of done (`docs/SCOPE.md` §9) is closed. What is left is grouped
-into **v0.5 and v0.6**, whose purpose is in `tasks/README.md` and whose membership is each task's
-`work_package` — do not maintain a list of that anywhere. Both close when every task in them closes;
-neither has an enumerated exit criterion, and the reason is in T-128.
+**Milestone labels are `M1`…`M6` and cannot be read as versions.** They were `v0.1`…`v0.6` until
+2026-08-12, when T-136 renamed them: each one resolved to a real tag of the same number that meant
+something else, and a mapping table was keeping the two spaces legible at the cost of writing one
+fact twice. There is nothing left to translate, so nothing here to read first — the digit says which
+release the work is scheduled into, and `tasks/README.md` names the two closed labels that are not
+that. The definition of done (`docs/SCOPE.md` §9) is closed. What is left is grouped into **M5 and
+M6**, whose purpose is in `tasks/README.md` and whose membership is each task's `work_package` — do
+not maintain a list of that anywhere. Both close when every task in them closes; neither has an
+enumerated exit criterion, and the reason is in T-128.
 
 **A release is not the last step of a release.** T-085 verifies the published artifact from a clean
-machine and was `blocked_by` the release task, so v0.5 was not complete when it was tagged. `0.4.0`
+machine and was `blocked_by` the release task, so M5 was not complete when it was tagged. `0.4.0`
 shipped with nothing checking it from outside; `0.5.0` did not. The ordering held: `0.5.0` was tagged
 and then installed from its own tag onto a profile that had never held any of this. Half of that is
 proven and half is not, and which half is in T-085, not here.
@@ -99,7 +102,7 @@ immediately. Since T-025 a forgotten `index` is no longer silent: `check` report
 and names the command, so the two commands back each other up rather than one covering for the other.
 `list --open --limit 1` answers "what next" by the project's own ordering rule, so it is not
 something to work out by hand from the index. Since T-087 `list` also filters on any field the
-schema *names* rather than only the ones it enumerates, so `list --work_package v0.2 --open` is how
+schema *names* rather than only the ones it enumerates, so `list --work_package M2 --open` is how
 a release's membership is read — there is no list of it to maintain anywhere, which is the point.
 
 Since T-011 the commands find the project by walking up from wherever they are run, so `--root` is

@@ -7,7 +7,7 @@ phase: review
 parent: T-011
 blocked_by: []
 related: [T-006, T-054, T-056]
-work_package: v0.1
+work_package: M1
 owner: maintainer
 business_value: high
 effort: xs

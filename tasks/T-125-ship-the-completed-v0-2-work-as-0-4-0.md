@@ -1,13 +1,13 @@
 ---
 id: T-125
-title: Ship the completed v0.2 work as 0.4.0
+title: Ship the completed M2 work as 0.4.0
 type: deliverable
 status: done
 phase: review
 parent: null
 blocked_by: []
 related: [T-006, T-079, T-081, T-110]
-work_package: v0.2
+work_package: M2
 owner: maintainer
 business_value: high
 effort: s
@@ -16,24 +16,24 @@ updated: 2026-08-11
 deliverables: [plugin/.claude-plugin/plugin.json, README.md]
 ---
 
-# T-125 — Ship the completed v0.2 work as 0.4.0
+# T-125 — Ship the completed M2 work as 0.4.0
 
 ## 1. Specify
 
 **Outcome**
-The work grouped as `v0.2` is published: the manifest names a version an installed project can
+The work grouped as `M2` is published: the manifest names a version an installed project can
 update to, the tag and the GitHub release exist and say what changed, and the documents a stranger
 reads before installing have passed the gate written for them.
 
 **Why this one**
-Every task grouped `v0.2` closed on 2026-08-11, which is that milestone's whole exit criterion. The
+Every task grouped `M2` closed on 2026-08-11, which is that milestone's whole exit criterion. The
 manifest still reads `0.3.0`, and `claude plugin update` compares version strings — so until that
 line moves, a directory install reports "already at the latest version" and keeps serving the
 snapshot it copied. Seventeen commits sit above the last tag.
 
-**Filed `v0.2`, deliberately.** It makes the milestone not-done until its work is shipped, which is
-the more useful reading of "done" and the reason this is not `v0.3`. It briefly falsifies the claim
-that `v0.2` is complete; that claim becomes true again when this closes, which is what a milestone
+**Filed `M2`, deliberately.** It makes the milestone not-done until its work is shipped, which is
+the more useful reading of "done" and the reason this is not `M3`. It briefly falsifies the claim
+that `M2` is complete; that claim becomes true again when this closes, which is what a milestone
 containing its own release means.
 
 **Requirements served**
@@ -48,7 +48,7 @@ R-21 and R-22 (`docs/SCOPE.md`) — the publishing constraints, at the moment th
   than a gap — the maintainer's answer, 2026-08-11.
 - Out: making the dash gate catch drift *between* publications, which is
   [T-126](T-126-catch-dash-gate-drift-before-publication-rather-than-at-it.md).
-- Out: anything in `v0.3`.
+- Out: anything in `M3`.
 
 **Inputs**
 - [`docs/PUBLISHING.md`](../docs/PUBLISHING.md) §2 (how to humanize), §5 (the dash gate), §6 (the
@@ -210,5 +210,5 @@ there.
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-11 | → done | All six criteria met. **The release accounts for 64 commits, not the ten the specify guessed at** — `v0.3.0` sits 47 commits into the range rather than near its end, and the number is corrected in the review row rather than in the criterion, because the criterion is what was agreed. Two things worth carrying. **The README's drift was entirely punctuation**: every other humanizer pattern was checked and absent, which is what a document humanized once and edited since looks like, and it is why [T-126](T-126-catch-dash-gate-drift-before-publication-rather-than-at-it.md) is about *when* the gate runs rather than about what it matches. And **the gate's clean outcome is exit 1, not 0** — reading it the usual way round would have reported a red gate as green, which is the mistake its own table exists to prevent. |
-| 2026-08-11 | → planned | **Authorisation (METHOD §3.1):** *Ship v0.2 fully*, from the maintainer on 2026-08-11, given after the last open `v0.2` task closed. It covers this task end to end, including the tag and the release, and nothing in `v0.3`. `specify` had three questions and all three were put in one turn and answered (METHOD §3.2). **The finding that shaped it:** the dash gate was run before deciding anything and came back red on `README.md` — 14 lines — and the same check against the three existing tags gives 0, 6, 13. So the README was humanized once, at `v0.1.0`, and `v0.2.0` and `v0.3.0` both shipped through a gate nobody read. That is why step 1 is a rewrite rather than a version bump, and it is also why [T-126](T-126-catch-dash-gate-drift-before-publication-rather-than-at-it.md) exists rather than this task quietly absorbing the reason. Two other facts corrected on the way in: `v0.3.0` **is** tagged, against a handoff note saying it was not, and it has no GitHub release. |
+| 2026-08-11 | → planned | **Authorisation (METHOD §3.1):** *Ship v0.2 fully*, from the maintainer on 2026-08-11, given after the last open `M2` task closed. It covers this task end to end, including the tag and the release, and nothing in `M3`. `specify` had three questions and all three were put in one turn and answered (METHOD §3.2). **The finding that shaped it:** the dash gate was run before deciding anything and came back red on `README.md` — 14 lines — and the same check against the three existing tags gives 0, 6, 13. So the README was humanized once, at `v0.1.0`, and `v0.2.0` and `v0.3.0` both shipped through a gate nobody read. That is why step 1 is a rewrite rather than a version bump, and it is also why [T-126](T-126-catch-dash-gate-drift-before-publication-rather-than-at-it.md) exists rather than this task quietly absorbing the reason. Two other facts corrected on the way in: `v0.3.0` **is** tagged, against a handoff note saying it was not, and it has no GitHub release. |
 | 2026-08-11 | → proposed | Raised at the moment of shipping rather than found: METHOD rule 1 applies to a release like anything else, and the alternative was production with no record of what was decided or checked. |

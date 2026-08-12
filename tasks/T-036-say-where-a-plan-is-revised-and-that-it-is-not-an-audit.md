@@ -7,7 +7,7 @@ phase: review
 parent: null
 blocked_by: []
 related: [T-032, T-026]
-work_package: v0.2
+work_package: M2
 owner: maintainer
 business_value: medium
 effort: s
@@ -190,6 +190,6 @@ by the same fact, that `METHOD.md` is not in the diff. Recorded rather than amen
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-11 | → done | All six criteria met, evidence in §3. Run under the full-lifecycle authorization the maintainer gave on 2026-08-11 for every open `v0.2` task, which covers that set and nothing outside it (METHOD §3.1). Criterion 6's premise had expired against T-028 while this task sat for five days; satisfied under both readings and recorded rather than amended. Raised nothing: the two writing jobs were the whole of it, and the design argument had been settled on 2026-08-06. |
+| 2026-08-11 | → done | All six criteria met, evidence in §3. Run under the full-lifecycle authorization the maintainer gave on 2026-08-11 for every open `M2` task, which covers that set and nothing outside it (METHOD §3.1). Criterion 6's premise had expired against T-028 while this task sat for five days; satisfied under both readings and recorded rather than amended. Raised nothing: the two writing jobs were the whole of it, and the design argument had been settled on 2026-08-06. |
 | 2026-08-06 | → specified | Q1 answered by the maintainer, accepting the objection: reviewing an unimplemented plan is plan revision, not an audit, and rule 4 gains no exception. Criterion 3's fork collapses to its first branch; no criterion amended. Worth recording that the disagreement was only ever about the name — the behaviour originally described (raise rather than apply, record what was rejected) is what the method already prescribes under METHOD §3.3 and `plan` step 5, and it is unchanged by the answer. The task's remaining content is therefore the two writing jobs, not a design argument. |
 | 2026-08-06 | → proposed | Split from T-032 while answering its Q1, which was a narrow vocabulary question answered with a fuller account of the audit workflow. Two parts of that account are method changes: one agreed (the procedure is produced in `plan`, per audit), one argued against (that reviewing a task's plan is an audit needing an exception to rule 4). Raised rather than absorbed into T-032 — METHOD §3.3 — because T-032's subject is a template that had rotted into a stale copy of the method, and answering a method question inside it repeats the fault. The disagreement is recorded as the open question rather than resolved by the agent: rule 4 is the method's load-bearing rule and an exception to it is the owner's to grant. |

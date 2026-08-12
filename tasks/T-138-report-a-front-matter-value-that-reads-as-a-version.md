@@ -7,7 +7,7 @@ phase: specify
 parent: null
 blocked_by: [T-137]
 related: [T-100, T-106, T-136]
-work_package: v0.6
+work_package: M6
 owner: the project owner
 business_value: high
 effort: m

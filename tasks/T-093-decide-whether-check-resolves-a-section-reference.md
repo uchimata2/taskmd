@@ -7,7 +7,7 @@ phase: specify
 parent: null
 blocked_by: []
 related: [T-092, T-095]
-work_package: v0.6
+work_package: M6
 owner: maintainer
 business_value: medium
 effort: l
@@ -106,4 +106,4 @@ R-16. R-13 in the same sense as T-092.
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-11 | (no change) | **`type` fix → decision**, by [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md)'s sweep of all 123 tasks. The test it settled reads a task's **stated outcome**: an answer someone else could act on is a `decision`, whatever the task also changes. A classification corrected, not a reopening — status, body and every other field are untouched. |
-| 2026-08-09 | → proposed | Raised from the deck-building sibling's migration report. The observation that carries it is that taskmd uses `§n` citations throughout its own documentation, including in the tool's source comments, and has no way to check one. `v0.3` rather than `v0.2` because it widens what the tool is for and that question should not be answered in a milestone about holding up in another project. `l` because the binding rule is the hard part and the reporting project has already measured that adjacency beats proximity — proximity picked the wrong target a third of the time. |
+| 2026-08-09 | → proposed | Raised from the deck-building sibling's migration report. The observation that carries it is that taskmd uses `§n` citations throughout its own documentation, including in the tool's source comments, and has no way to check one. `M3` rather than `M2` because it widens what the tool is for and that question should not be answered in a milestone about holding up in another project. `l` because the binding rule is the hard part and the reporting project has already measured that adjacency beats proximity — proximity picked the wrong target a third of the time. |

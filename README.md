@@ -88,7 +88,7 @@ too. Pass `--root <path>` to override the project they find.
 `list` filters on any link name and on **any field your schema names**: the ones it enumerates and
 the ones it only shows, so a field the tool does not interpret is still one you can select on
 (`taskmd list --status blocked`, `taskmd list --parent T-009`,
-`taskmd list --work_package v0.2 --open`). `--json` turns it into a script's input. An unknown
+`taskmd list --work_package M2 --open`). `--json` turns it into a script's input. An unknown
 field is an error listing what your project accepts; a value nothing carries is simply no rows.
 
 Every command rejects an argument it does not understand *before* it reads or writes anything, so a

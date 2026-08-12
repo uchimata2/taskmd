@@ -7,7 +7,7 @@ phase: specify
 parent: null
 blocked_by: []
 related: [T-088, T-109, T-130]
-work_package: v0.6
+work_package: M6
 owner: maintainer
 business_value: low
 effort: s
@@ -108,4 +108,4 @@ that a vocabulary value which finds nothing is a defect.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-11 | → proposed | Carried out of T-109, which closed with this question live and unanswered on 2026-08-11 after the maintainer raised it. Recovered by the sweep that also produced [T-130](T-130-report-a-question-left-live-in-a-closed-task.md). Filed `v0.6`: it is a vocabulary decision that reaches every adopter, and nothing waits on it. `low` because nothing is wrong today — the existing values type every task in this repository — and the cost of the gap is that a distinction the maintainer thought worth naming stays unnamed. |
+| 2026-08-11 | → proposed | Carried out of T-109, which closed with this question live and unanswered on 2026-08-11 after the maintainer raised it. Recovered by the sweep that also produced [T-130](T-130-report-a-question-left-live-in-a-closed-task.md). Filed `M6`: it is a vocabulary decision that reaches every adopter, and nothing waits on it. `low` because nothing is wrong today — the existing values type every task in this repository — and the cost of the gap is that a distinction the maintainer thought worth naming stays unnamed. |

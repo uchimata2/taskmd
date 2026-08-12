@@ -7,7 +7,7 @@ phase: review
 parent: T-026
 blocked_by: []
 related: [T-002, T-022]
-work_package: v0.2
+work_package: M2
 owner: maintainer
 business_value: high
 effort: s
@@ -188,6 +188,6 @@ its 25 tests still pass, which is the fourth criterion.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-10 | → done | Plan through review in one session, under the maintainer's `v0.2` whole-lifecycle authorisation of 2026-08-10 (METHOD §3.1), which covers each task in that set end to end and nothing outside it. Raised one child, T-113. |
+| 2026-08-10 | → done | Plan through review in one session, under the maintainer's `M2` whole-lifecycle authorisation of 2026-08-10 (METHOD §3.1), which covers each task in that set end to end and nothing outside it. Raised one child, T-113. |
 | 2026-08-07 | → specified | Answered: top-level usage only. The maintainer's reason is recorded because it is stronger than the one the question offered — not that per-command help is a second surface, but that needing it would be evidence against the tool's premise. Kept as a standing test rather than a preference about wording. |
 | 2026-08-06 | → proposed | Raised as F-3 from the T-026 audit, clause 3. Reproduced on all three commands before being written up; the `index` case writes the index and exits 0 on a mistyped invocation. Not fixed where it was found (METHOD §5). |

@@ -7,7 +7,7 @@ phase: review
 parent: null
 blocked_by: []
 related: [T-022, T-029]
-work_package: v0.2
+work_package: M2
 owner: maintainer
 business_value: medium
 effort: xs
@@ -157,5 +157,5 @@ because this task's scope puts the wording of both messages out.
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-11 | → done | All four criteria met, evidence in §3. Raised [T-120](T-120-echo-an-unknown-flag-as-the-caller-typed-it.md) for the one thing found outside scope — the rejection quotes a normalised flag rather than the typed one, which is how the spec's own quote came to be wrong. |
-| 2026-08-11 | → planned | Full-lifecycle authorization, given by the maintainer on 2026-08-11 when resuming: run every open `v0.2` task through specify → plan → implement → review automatically, one at a time. It covers that set and nothing outside it (METHOD §3.1). `specify` needed no owner turn: the criteria were already written and the open-questions list was empty. The spec's target was re-checked before planning against it — `parse_filters` is live at `cli.py:859` and still tests shape before name, so this task did not sleep through a move the way T-035 had. |
-| 2026-08-10 | → proposed | Surfaced by T-029's derived probe: a test written to prove all four commands refuse an unknown argument found that one of them refuses it for the wrong reason. Sized `xs`/`medium` — a two-line reordering, on the command whose whole purpose is being scripted against. `v0.2` by T-110's rule (a minor correction, holding nothing up). |
+| 2026-08-11 | → planned | Full-lifecycle authorization, given by the maintainer on 2026-08-11 when resuming: run every open `M2` task through specify → plan → implement → review automatically, one at a time. It covers that set and nothing outside it (METHOD §3.1). `specify` needed no owner turn: the criteria were already written and the open-questions list was empty. The spec's target was re-checked before planning against it — `parse_filters` is live at `cli.py:859` and still tests shape before name, so this task did not sleep through a move the way T-035 had. |
+| 2026-08-10 | → proposed | Surfaced by T-029's derived probe: a test written to prove all four commands refuse an unknown argument found that one of them refuses it for the wrong reason. Sized `xs`/`medium` — a two-line reordering, on the command whose whole purpose is being scripted against. `M2` by T-110's rule (a minor correction, holding nothing up). |

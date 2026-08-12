@@ -7,7 +7,7 @@ phase: review
 parent: T-026
 blocked_by: []
 related: [T-005, T-013]
-work_package: v0.2
+work_package: M2
 owner: maintainer
 business_value: medium
 effort: xs
@@ -204,5 +204,5 @@ the readability of every one of those records.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-11 | → done | Specify through review in one session — the work and its decisions are dated 2026-08-10, which is when they were taken; the session ran past midnight and this row is dated when it closed rather than back-dated to make the two agree. Under the maintainer's `v0.2` whole-lifecycle authorisation of 2026-08-10 (METHOD §3.1), re-confirmed by them for this task. Criteria stood as raised; two premises had moved since 2026-08-06 and are recorded in §1 rather than by editing the audit's account. Nothing raised. The shape that made it cheap: **define the label once, rewrite nothing that uses it** — the alternative, removing F1 from six dated task records, would have cost the history those records exist to keep. |
+| 2026-08-11 | → done | Specify through review in one session — the work and its decisions are dated 2026-08-10, which is when they were taken; the session ran past midnight and this row is dated when it closed rather than back-dated to make the two agree. Under the maintainer's `M2` whole-lifecycle authorisation of 2026-08-10 (METHOD §3.1), re-confirmed by them for this task. Criteria stood as raised; two premises had moved since 2026-08-06 and are recorded in §1 rather than by editing the audit's account. Nothing raised. The shape that made it cheap: **define the label once, rewrite nothing that uses it** — the alternative, removing F1 from six dated task records, would have cost the history those records exist to keep. |
 | 2026-08-06 | → proposed | Raised as F-7 from the T-026 audit, clauses 1 and 3. Checked `control/LOCAL-CONTEXT.md` before writing this up — it exists and does not define F1, so this is a dangling reference rather than the label discipline working as intended. |

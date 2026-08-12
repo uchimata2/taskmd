@@ -7,7 +7,7 @@ phase: review
 parent: null
 blocked_by: []
 related: [T-079, T-081, T-125, T-126, T-127, T-135]
-work_package: v0.5
+work_package: M5
 owner: maintainer
 business_value: low
 effort: xs
@@ -130,4 +130,4 @@ silent contradiction.
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-11 | → done | **Left as published, by the maintainer's answer of 2026-08-11**, and the reason written into `docs/PUBLISHING.md` §1 rather than only here: a reader meets the rule there, so an unexplained exception would read as an oversight and be re-filed. The measurement was re-run at close rather than quoted from memory and is unchanged — 4 em dashes in `v0.2.0`'s body, 0 everywhere else, all four tag messages clean. The rejected reading is recorded with its cost: the rule now carries one written exception instead of one silent contradiction. | 
-| 2026-08-11 | → proposed | Raised by [T-127](T-127-decide-whether-a-release-note-is-text-a-stranger-reads.md)'s criterion 3, which is the reason it exists: *check the existing notes rather than assume them*. The check refuted two things at once — T-127's own claim that the published notes were clean, and the assumption that a tag message and a release body are the same text. **Not worked under the standing v0.5 authorization**, which grants phases and not the right to modify public content; Q1 goes to the maintainer. `low` and `xs`: one page, four characters, on a version bump. |
+| 2026-08-11 | → proposed | Raised by [T-127](T-127-decide-whether-a-release-note-is-text-a-stranger-reads.md)'s criterion 3, which is the reason it exists: *check the existing notes rather than assume them*. The check refuted two things at once — T-127's own claim that the published notes were clean, and the assumption that a tag message and a release body are the same text. **Not worked under the standing M5 authorization**, which grants phases and not the right to modify public content; Q1 goes to the maintainer. `low` and `xs`: one page, four characters, on a version bump. |

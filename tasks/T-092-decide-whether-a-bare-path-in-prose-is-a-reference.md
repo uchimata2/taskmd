@@ -7,7 +7,7 @@ phase: review
 parent: null
 blocked_by: []
 related: [T-093, T-094, T-095, T-034]
-work_package: v0.2
+work_package: M2
 owner: maintainer
 business_value: high
 effort: m

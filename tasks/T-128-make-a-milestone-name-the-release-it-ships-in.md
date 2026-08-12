@@ -7,7 +7,7 @@ phase: review
 parent: null
 blocked_by: []
 related: [T-086, T-110, T-125]
-work_package: v0.5
+work_package: M5
 owner: maintainer
 business_value: medium
 effort: s
@@ -206,6 +206,7 @@ this tree. It does not, because T-124 stopped it naming a value and made it read
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-12 | (no change, closed) | **The remedy this task chose was replaced, and it was the right one when it was chosen.** [T-136](T-136-rename-the-milestone-labels-so-they-cannot-be-read-as-versions.md) renamed the labels to `M1`–`M6` and deleted the mapping table D1 put in `tasks/README.md`. What this task priced was the rewrite, and it bought protection for the release sequence, which is where the failure had happened; what it could not price was the reading cost, which kept accruing. D3 is untouched and remains correct — it rejected *renumbering inside the version space*, and the collision argument it rests on does not reach a label that leaves that space. **Everything above this row keeps the old names on purpose**: this task's whole subject is what the labels were called, so a sweep that renamed its prose would have left it saying nothing. |
 | 2026-08-11 | → done | All five criteria met. **The split needed no judgement it could not show its working for**: nothing in the backlog blocks anything, so the maintainer's rule reduces to size, and the line fell exactly where the `effort` values already sat. T-093 is the single call worth naming, and its `l` settled it. Two things worth carrying. **A wrong label here was worse than a stale one**: `work_package: v0.2` sent a reader to a `v0.2.0` release that exists and is not what those tasks shipped in, so the mapping table is the fix rather than a renumber. And **`test_list` was the test most likely to break and did not** — it filters on `work_package` against this tree, and it survived because T-124, one day old, stopped it naming a value and made it read one from the data. This change is the one that fix was written for, sooner than expected. |
 | 2026-08-11 | → planned | **Authorisation (METHOD §3.1):** *update the backlog to schedule the items to the corresponding next release*, from the maintainer on 2026-08-11, given with the observation that the versions had come apart. It covers this task end to end. `specify` needed no new agreement, and the one question it raised is answered in D2 with its rival recorded, under the standing delegation. **The label is not merely stale, it is false**: a reader following `work_package: v0.2` to a `v0.2.0` release finds one, and that release is not what those tasks shipped in. They shipped in `0.4.0`. |
 | 2026-08-11 | → proposed | Raised when the maintainer named the problem. Not folded into T-125, which had already shipped: re-labelling a backlog is a different outcome from publishing a tree, and doing it inside the release commit would have made the diff unreviewable as either. |

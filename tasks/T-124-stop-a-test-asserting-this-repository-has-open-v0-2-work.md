@@ -1,13 +1,13 @@
 ---
 id: T-124
-title: Stop a test asserting this repository has open v0.2 work
+title: Stop a test asserting this repository has open M2 work
 type: fix
 status: done
 phase: review
 parent: null
 blocked_by: []
 related: [T-087, T-110]
-work_package: v0.2
+work_package: M2
 owner: maintainer
 business_value: medium
 effort: xs
@@ -16,24 +16,24 @@ updated: 2026-08-11
 deliverables: [tests/test_list.py]
 ---
 
-# T-124 — Stop a test asserting this repository has open v0.2 work
+# T-124 — Stop a test asserting this repository has open M2 work
 
 ## 1. Specify
 
 **Outcome**
 `tests/test_list.py`'s proof that a non-enumerated field can be filtered on survives this repository
-finishing a milestone. Today it asserts that `list --work_package v0.2 --open` returns rows against
-the live tree, so closing the last open `v0.2` task turns it red.
+finishing a milestone. Today it asserts that `list --work_package M2 --open` returns rows against
+the live tree, so closing the last open `M2` task turns it red.
 
 **Why this one**
-Found by running the suite after closing `T-090`, which was the last open `v0.2` task:
+Found by running the suite after closing `T-090`, which was the last open `M2` task:
 
 ```
 FAIL: test_a_stored_field_the_schema_does_not_enumerate_can_be_selected_on
 AssertionError: [] is not true : no rows; the filter matched nothing at all
 ```
 
-**Nothing is wrong with the tool.** `list --work_package v0.2 --open` correctly returns nothing,
+**Nothing is wrong with the tool.** `list --work_package M2 --open` correctly returns nothing,
 because there is nothing. The failure is a test that pinned a fact about the *project's progress* in
 order to prove a fact about the *filter*, and progress is the one thing in this tree guaranteed to
 change. It is the same shape as the counted-set lessons this project keeps re-learning: a hand-named
@@ -83,7 +83,7 @@ back.** The claim under test is *a field the schema does not enumerate can be fi
 needs a real non-enumerated field with a real value — not a particular one. Deriving it makes the
 test say what it means and removes every way the project's own progress can falsify it.
 
-*Rejected: keep `v0.2` and drop `--open`.* It is one word, it fixes today's failure, and `v0.2`'s
+*Rejected: keep `M2` and drop `--open`.* It is one word, it fixes today's failure, and `M2`'s
 membership is now permanent. It was rejected because the defect is not that `--open` expired — it is
 that a test named a value from a list somebody maintains, and the next re-grouping renames the
 milestones (T-110 has already done this once). The one-word fix leaves that intact and moves the
@@ -102,7 +102,7 @@ breaks the filter and records the red run, so the test is known to be able to fa
 
 `tests/test_list.py` runs against the live tree in 15 places. Sorted by what each depends on:
 
-- **Which tasks are open — one, and it is the failing one.** `--work_package v0.2 --open`, asserting
+- **Which tasks are open — one, and it is the failing one.** `--work_package M2 --open`, asserting
   rows come back.
 - **The tree merely having tasks** — `--limit 1` for the tab-separated form, `--json` for the JSON
   one, and the closing-line test. A repository with no tasks at all is a different situation and
@@ -176,5 +176,5 @@ OK - 124 task(s), 620 field value(s), … 152 document(s), 1261 link(s), …
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-11 | → done | All four criteria met, no child raised. Worked end to end under the standing `v0.2` full-lifecycle authorization the filing rule brings this task inside (METHOD §3.1); raised and closed in the same session, but not in the same task, which is the distinction rule 4 turns on. **The fix is not the one-word one**, and that is the whole of the decision: dropping `--open` clears today's failure and leaves a test naming a milestone label the maintainer has already re-cut once, so the expiry date moves rather than the coupling going. The value is now taken from the data it is about to filter. **The replacement was shown red before it was accepted** — `parse_filters` temporarily rejected non-vocabulary fields, and the run is quoted — because a derived-value test is exactly the kind that can pass by comparing something to itself. Two things worth carrying. The sweep in §3 step 1 **partitions all 15 live-tree assertions** rather than checking the neighbours that looked similar, which is what turned up that only one of them could ever be falsified by work being finished. And six `test_cli` failures appeared mid-run and were a **stale index** caused by this task's own file — the previous session recorded that trap in its handoff, and it was met again by the session that had just read it. |
-| 2026-08-11 | → proposed | Raised from the run that followed closing T-090, not from reading — and by the session that caused it, which closed the last six open `v0.2` tasks in a row. Not fixed where it was found (METHOD rule 4): the finding belongs to none of those six, and a test edit inside one of their diffs would be indistinguishable from tidying. **Filed `v0.2` by `tasks/README.md`'s rule** — a minor correction blocking nothing — which brings it inside the standing full-lifecycle authorization as a consequence of the filing rule, the same way T-123 was. Worth knowing before it is worked: `master` is red as this is raised, and the failing assertion is about the project's progress rather than about the tool. |
+| 2026-08-11 | → done | All four criteria met, no child raised. Worked end to end under the standing `M2` full-lifecycle authorization the filing rule brings this task inside (METHOD §3.1); raised and closed in the same session, but not in the same task, which is the distinction rule 4 turns on. **The fix is not the one-word one**, and that is the whole of the decision: dropping `--open` clears today's failure and leaves a test naming a milestone label the maintainer has already re-cut once, so the expiry date moves rather than the coupling going. The value is now taken from the data it is about to filter. **The replacement was shown red before it was accepted** — `parse_filters` temporarily rejected non-vocabulary fields, and the run is quoted — because a derived-value test is exactly the kind that can pass by comparing something to itself. Two things worth carrying. The sweep in §3 step 1 **partitions all 15 live-tree assertions** rather than checking the neighbours that looked similar, which is what turned up that only one of them could ever be falsified by work being finished. And six `test_cli` failures appeared mid-run and were a **stale index** caused by this task's own file — the previous session recorded that trap in its handoff, and it was met again by the session that had just read it. |
+| 2026-08-11 | → proposed | Raised from the run that followed closing T-090, not from reading — and by the session that caused it, which closed the last six open `M2` tasks in a row. Not fixed where it was found (METHOD rule 4): the finding belongs to none of those six, and a test edit inside one of their diffs would be indistinguishable from tidying. **Filed `M2` by `tasks/README.md`'s rule** — a minor correction blocking nothing — which brings it inside the standing full-lifecycle authorization as a consequence of the filing rule, the same way T-123 was. Worth knowing before it is worked: `master` is red as this is raised, and the failing assertion is about the project's progress rather than about the tool. |

@@ -7,7 +7,7 @@ phase: review
 parent: null
 blocked_by: []
 related: [T-019, T-023]
-work_package: v0.2
+work_package: M2
 owner: maintainer
 business_value: low
 effort: xs
@@ -190,5 +190,5 @@ Suite: `test_cli` **96** OK (94 before, plus these two), `test_list` 35 OK, `tes
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-11 | → done | All four criteria met, no child raised. **Authorisation (METHOD §3.1):** the maintainer's standing grant to work every open `v0.2` task through its full lifecycle, given 2026-08-10, re-confirmed and widened 2026-08-11 to *the remaining tasks, full lifecycle, continuously*. `specify` had no open questions and needed no new agreement; its **Inputs** line named `taskmd/schema.py`, a path the T-083 relocation retired, and that is corrected as a present-tense pointer rather than rewritten as history. **The fix is one sentence wider than the report.** The bug arrived from a project with its own config, but the shipped default names `tasks`, which is the value likeliest to collide with a name already in use — so the inherited hint carried the same unfollowable advice one sentence longer, and correcting only the reported half would have left the commoner case broken. Two things worth carrying: the new fixture **does not move the repository's document count**, because a subdirectory holding a `.taskmd/config.md` is a nested project and is skipped — expected, not a fixture being missed; and the tests assert the old sentence is **absent** rather than only that the new one is present, since a message can satisfy the second while still saying both. |
+| 2026-08-11 | → done | All four criteria met, no child raised. **Authorisation (METHOD §3.1):** the maintainer's standing grant to work every open `M2` task through its full lifecycle, given 2026-08-10, re-confirmed and widened 2026-08-11 to *the remaining tasks, full lifecycle, continuously*. `specify` had no open questions and needed no new agreement; its **Inputs** line named `taskmd/schema.py`, a path the T-083 relocation retired, and that is corrected as a present-tense pointer rather than rewritten as history. **The fix is one sentence wider than the report.** The bug arrived from a project with its own config, but the shipped default names `tasks`, which is the value likeliest to collide with a name already in use — so the inherited hint carried the same unfollowable advice one sentence longer, and correcting only the reported half would have left the commoner case broken. Two things worth carrying: the new fixture **does not move the repository's document count**, because a subdirectory holding a `.taskmd/config.md` is a nested project and is skipped — expected, not a fixture being missed; and the tests assert the old sentence is **absent** rather than only that the new one is present, since a message can satisfy the second while still saying both. |
 | 2026-08-05 | → proposed | Raised by T-019's review, from a neighbour case that task's plan had not tested. Not fixed where it was found. Recorded as low value on purpose — the backlog is more useful when the cheap items say so. |

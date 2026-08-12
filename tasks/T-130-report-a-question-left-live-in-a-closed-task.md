@@ -7,7 +7,7 @@ phase: specify
 parent: null
 blocked_by: []
 related: [T-025, T-095, T-107, T-121]
-work_package: v0.6
+work_package: M6
 owner: maintainer
 business_value: medium
 effort: m
@@ -113,4 +113,4 @@ R-16, and the rule behind it: a validator is worth what you believe it would cat
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-11 | → proposed | Raised from a hand sweep the maintainer asked for during a handoff. The sweep is the evidence and its numbers are in §1: 128 files read, 24 flagged, 1 genuinely live. **The one find had been invisible for five days** and would have stayed so, which is the argument for the task; **23 of 24 were false** , which is the argument against the obvious fix. Filed `v0.6` because deciding what a machine can recognise here is research rather than a correction, and `m` for the same reason. |
+| 2026-08-11 | → proposed | Raised from a hand sweep the maintainer asked for during a handoff. The sweep is the evidence and its numbers are in §1: 128 files read, 24 flagged, 1 genuinely live. **The one find had been invisible for five days** and would have stayed so, which is the argument for the task; **23 of 24 were false** , which is the argument against the obvious fix. Filed `M6` because deciding what a machine can recognise here is research rather than a correction, and `m` for the same reason. |

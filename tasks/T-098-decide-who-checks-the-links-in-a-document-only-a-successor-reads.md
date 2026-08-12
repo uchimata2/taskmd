@@ -7,7 +7,7 @@ phase: review
 parent: null
 blocked_by: []
 related: [T-002, T-034, T-080, T-094, T-095]
-work_package: v0.2
+work_package: M2
 owner: maintainer
 business_value: high
 effort: s
@@ -109,7 +109,7 @@ enters the tree a clone receives. T-094 hit this and built the project inside th
   mode T-095 and T-080 were both raised for.
 
 **Authorization**
-The maintainer, on 2026-08-10, authorised working every open `v0.2` task through its full lifecycle —
+The maintainer, on 2026-08-10, authorised working every open `M2` task through its full lifecycle —
 specify, plan, implement, review, fix, commit and push — one task at a time. It covers that set and
 nothing outside it, and it includes deciding the owner-question above rather than returning it.
 

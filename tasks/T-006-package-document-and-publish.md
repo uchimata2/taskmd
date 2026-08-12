@@ -7,7 +7,7 @@ phase: review
 parent: null
 blocked_by: [T-002, T-003, T-004, T-008, T-009, T-010, T-011, T-018, T-079, T-083]
 related: []
-work_package: v0.1
+work_package: M1
 owner: maintainer
 business_value: critical
 effort: l

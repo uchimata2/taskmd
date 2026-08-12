@@ -7,7 +7,7 @@ phase: review
 parent: null
 blocked_by: []
 related: [T-022, T-086, T-029]
-work_package: v0.2
+work_package: M2
 owner: maintainer
 business_value: high
 effort: s
@@ -31,7 +31,7 @@ into releases. `work_package` is a shipped schema key, `index_columns` names it,
 and the generated index grew a column for it the moment tasks had values. The filter refuses it:
 
 ```
-taskmd list --work_package v0.2
+taskmd list --work_package M2
 unknown filter: --work_package. This project accepts: --blocked_by, --blocks, --business_value,
 --children, --effort, --parent, --phase, --related, --status, --type
 ```
@@ -71,7 +71,7 @@ configuration.
       `work_package`
 - [ ] A value that matches nothing exits 0 with no rows, and a field that does not exist exits 2
       naming what the project accepts — shown by running both
-- [ ] `taskmd list --work_package v0.2 --open` returns the v0.2 tasks, which is the command
+- [ ] `taskmd list --work_package M2 --open` returns the M2 tasks, which is the command
       [T-086](T-086-group-the-backlog-into-release-milestones.md)'s plan could not use
 - [ ] The tests cover the unenumerated case, since every existing filter test uses a vocabulary
 
@@ -82,7 +82,7 @@ configuration.
   goes unchecked.
 
   **The behaviour that already ships settles it.** `--status blocked` is a vocabulary value that no
-  task currently carries, and it prints nothing and exits 0; `--status v0.2` exits 2 naming the
+  task currently carries, and it prints nothing and exits 0; `--status M2` exits 2 naming the
   vocabulary. So "matched nothing" and "no such field" are *already* two different observable
   outcomes, and validating an unenumerated value would make the tool **stricter where it knows
   less** — with no list, it cannot tell a typo from an empty bucket, so any error it printed would
@@ -90,8 +90,8 @@ configuration.
 
   *Rejected: `list` reports that nothing carries the value.* Its accepted set could only be derived
   from what the tasks hold at that moment, which makes a command's validity depend on when it runs:
-  `--work_package v0.1` would begin erroring once the last v0.1 task went, and `--work_package v0.4`
-  would error until the first v0.4 task existed. A script written today would break tomorrow without
+  `--work_package M1` would begin erroring once the last M1 task went, and `--work_package M4`
+  would error until the first M4 task existed. A script written today would break tomorrow without
   being edited, and scripts are what `list` was argued for
   ([T-022](T-022-filtered-task-listing-for-scripts.md)).
 
@@ -142,7 +142,7 @@ configuration.
 The command [T-086](T-086-group-the-backlog-into-release-milestones.md)'s plan could not use, run:
 
 ```
-taskmd list --work_package v0.2 --open      -> 20 rows, exit 0
+taskmd list --work_package M2 --open      -> 20 rows, exit 0
 taskmd list --work_package v0.22            -> no rows, exit 0
 taskmd list --owner maintainer --open       -> rows, exit 0
 taskmd list --wat x                         -> exit 2, unknown filter: --wat. This project
@@ -159,9 +159,9 @@ Suite **185 passed** (181 before), `check` clean on 113 tasks.
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-| `list` filters on a stored field no vocabulary enumerates, shown on this repository's `work_package` | met | 20 open v0.2 rows, above. |
+| `list` filters on a stored field no vocabulary enumerates, shown on this repository's `work_package` | met | 20 open M2 rows, above. |
 | A value matching nothing exits 0 with no rows; a field that does not exist exits 2 naming what the project accepts — both run | met | `--work_package v0.22` → exit 0, silent. `--wat x` → exit 2 with the full accepted list. |
-| `taskmd list --work_package v0.2 --open` returns the v0.2 tasks | met | It is now the way the release's membership is read, which is what T-110 left with no command. |
+| `taskmd list --work_package M2 --open` returns the M2 tasks | met | It is now the way the release's membership is read, which is what T-110 left with no command. |
 | The tests cover the unenumerated case, since every existing filter test uses a vocabulary | met | A class of four, including one asserting the accepted set is derived from `alt-project`'s **config** rather than from its contents — the property the rejected alternative would have broken, and the one a test on this repository alone could not see. |
 
 **Child fix tasks raised**
@@ -173,6 +173,6 @@ Suite **185 passed** (181 before), `check` clean on 113 tasks.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-10 | → done | Plan through review in one session, under the maintainer's `v0.2` whole-lifecycle authorisation of 2026-08-10 (METHOD §3.1). The set of filterable fields is now the set a view may name, so the schema's promise about an uninterpreted field holds at all three surfaces instead of two. |
-| 2026-08-09 | → specified | Open question answered: the filter matches literally, so an unenumerated value is not validated at all. Settled by behaviour that already ships rather than by preference — `--status blocked` is a valid value nothing carries and exits 0 silently, so erroring on an unenumerated value would make the tool stricter exactly where it has less to go on, and the error would be a guess at a typo it cannot detect. The rejected alternative is recorded in §1 with what breaks it: its accepted set could only come from current contents, so `--work_package v0.1` starts erroring when the last v0.1 task goes and `--work_package v0.4` errors until the first one arrives, which makes a script's validity depend on when it runs. Criterion 2 sharpened to name the exit codes, since the answer is precisely about that boundary. |
+| 2026-08-10 | → done | Plan through review in one session, under the maintainer's `M2` whole-lifecycle authorisation of 2026-08-10 (METHOD §3.1). The set of filterable fields is now the set a view may name, so the schema's promise about an uninterpreted field holds at all three surfaces instead of two. |
+| 2026-08-09 | → specified | Open question answered: the filter matches literally, so an unenumerated value is not validated at all. Settled by behaviour that already ships rather than by preference — `--status blocked` is a valid value nothing carries and exits 0 silently, so erroring on an unenumerated value would make the tool stricter exactly where it has less to go on, and the error would be a guess at a typo it cannot detect. The rejected alternative is recorded in §1 with what breaks it: its accepted set could only come from current contents, so `--work_package M1` starts erroring when the last M1 task goes and `--work_package M4` errors until the first one arrives, which makes a script's validity depend on when it runs. Criterion 2 sharpened to name the exit codes, since the answer is precisely about that boundary. |
 | 2026-08-09 | → proposed | Raised by [T-086](T-086-group-the-backlog-into-release-milestones.md), whose second acceptance criterion this is: the release plan was written against a command that does not exist, because `list` accepts only vocabulary fields and link names. The gap is not about `work_package` in particular. The schema promises that an unnamed field is carried and can be surfaced by naming it in a view, and that promise stops at the filter, which is where an adopter goes once the view is long. `high` because it contradicts a documented property rather than missing a feature, and `s` because `parse_filters` is where all of it lives. |

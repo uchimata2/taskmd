@@ -7,7 +7,7 @@ phase: review
 parent: null
 blocked_by: []
 related: [T-047, T-118]
-work_package: v0.2
+work_package: M2
 owner: the project owner
 business_value: low
 effort: xs
@@ -124,5 +124,5 @@ the two `####` rules and stops where they stop.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-11 | → done | All three criteria met, no child raised. **Authorisation (METHOD §3.1):** the maintainer's standing grant to work every open `v0.2` task through its full lifecycle, given 2026-08-10 and widened on 2026-08-11 to *the remaining tasks, full lifecycle, continuously*. The one open question was delegated to whoever took it and came with its own tie-breaker — the option that adds no characters wins — so it was answered here rather than escalated, with the rejected alternative recorded in §2. **It moved one paragraph further than the question proposed**: up beside the tiers paragraph that names `reference/TASK-WORKFLOW.md` as the bound, so "the bound above" sits one paragraph from its antecedent rather than three. Worth carrying: **the tie was exact, and measured rather than predicted** — 6968 characters before and after, from `test_budget`'s own line, which is the only reason a relocation in this file needs no argument about what it cost. |
+| 2026-08-11 | → done | All three criteria met, no child raised. **Authorisation (METHOD §3.1):** the maintainer's standing grant to work every open `M2` task through its full lifecycle, given 2026-08-10 and widened on 2026-08-11 to *the remaining tasks, full lifecycle, continuously*. The one open question was delegated to whoever took it and came with its own tie-breaker — the option that adds no characters wins — so it was answered here rather than escalated, with the rejected alternative recorded in §2. **It moved one paragraph further than the question proposed**: up beside the tiers paragraph that names `reference/TASK-WORKFLOW.md` as the bound, so "the bound above" sits one paragraph from its antecedent rather than three. Worth carrying: **the tie was exact, and measured rather than predicted** — 6968 characters before and after, from `test_budget`'s own line, which is the only reason a relocation in this file needs no argument about what it cost. |
 | 2026-08-11 | → proposed | Found while implementing T-118, which removed the bullet block that used to sit between the verbatim rules and this paragraph. The stranding is **pre-existing** — T-047 moved the rules in and left what followed underneath them — and removing the bullets only made it visible; recorded that way so this does not read as damage the cut caused. Raised rather than fixed in place, because T-118 decides what *leaves* tier 1 and this is about where what stays sits, and because a heading edit made silently inside another task's diff is indistinguishable from tidying. `low`/`xs`: it misleads a reader about where a verbatim quotation ends, which is worth fixing, but nothing acts wrongly on it. |

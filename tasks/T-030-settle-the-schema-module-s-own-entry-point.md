@@ -7,7 +7,7 @@ phase: review
 parent: T-026
 blocked_by: []
 related: [T-020, T-023, T-065]
-work_package: v0.2
+work_package: M2
 owner: maintainer
 business_value: medium
 effort: s
@@ -254,6 +254,6 @@ statements of the surface — is in T-117.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-11 | → done | Plan through review in one session, under the maintainer's `v0.2` whole-lifecycle authorisation of 2026-08-10 (METHOD §3.1), re-confirmed by them for this task by name. Raised [T-117](T-117-decide-whether-the-command-surface-needs-one-statement.md); `related` gained T-065, whose sentence turned up in a second home here. Two things the removal exposed rather than caused: `main()` was the only code that printed carried fields, so a docstring still claiming they are *displayed* had to go with it; and criterion 1's first clause was unmet on the day it was written, which no amount of removing could have fixed. The criterion 5 check was discharged by ordering — T-023 closed first in the same session, so the shared string was settled once and then deleted. |
+| 2026-08-11 | → done | Plan through review in one session, under the maintainer's `M2` whole-lifecycle authorisation of 2026-08-10 (METHOD §3.1), re-confirmed by them for this task by name. Raised [T-117](T-117-decide-whether-the-command-surface-needs-one-statement.md); `related` gained T-065, whose sentence turned up in a second home here. Two things the removal exposed rather than caused: `main()` was the only code that printed carried fields, so a docstring still claiming they are *displayed* had to go with it; and criterion 1's first clause was unmet on the day it was written, which no amount of removing could have fixed. The criterion 5 check was discharged by ordering — T-023 closed first in the same session, so the shared string was settled once and then deleted. |
 | 2026-08-06 | → specified | Q1 answered by the maintainer: remove. The criteria were written to survive either answer and none needed amending — criterion 3 ("if the entry point survives…") is now vacuous rather than wrong, and is kept as written so the review can record that it did not apply. The recommendation's own rationale was replaced by a stronger one found while agreeing it: a config replaces rather than merges, so the resolved-schema view has no content of its own. Noted for `implement`: the module stays importable and `load_schema` keeps the guarantee T-019 rests on — this removes a command, not the API a binding uses. |
 | 2026-08-06 | → proposed | Raised as F-4 from the T-026 audit, clauses 1 and 3. Run before being written up: the entry point works and prints an absolute install path on the success path. Deduped against T-023, which shares the root cause but is scoped to error messages only. Typed `decision` because keep-or-remove changes what the fix is. |

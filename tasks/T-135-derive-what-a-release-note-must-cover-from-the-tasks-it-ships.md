@@ -7,7 +7,7 @@ phase: specify
 parent: null
 blocked_by: []
 related: [T-086, T-125, T-127, T-128, T-129, T-133]
-work_package: v0.6
+work_package: M6
 owner: maintainer
 business_value: medium
 effort: m
@@ -68,7 +68,7 @@ to find out what changed. R-21, since the note is covered text.
 - Out: the covered-text question. Settled in T-127.
 
 **Inputs**
-- The measurement above, reproducible with `list --work_package v0.2 --closed`.
+- The measurement above, reproducible with `list --work_package M2 --closed`.
 - [T-128](T-128-make-a-milestone-name-the-release-it-ships-in.md), for why membership is derived.
 - [T-126](T-126-catch-dash-gate-drift-before-publication-rather-than-at-it.md) §3, for a check that
   reads its rule out of the document that owns it, and for what a proxy may claim.
@@ -96,7 +96,7 @@ to find out what changed. R-21, since the note is covered text.
   cannot see teaches the writer to waive by reflex.
 
   **Q2 — does the opening sentence keep claiming completeness? — no.** *"Everything grouped as the
-  v0.2 milestone"* is true of the milestone and false of the note, and it is the sentence that turns
+  M2 milestone"* is true of the milestone and false of the note, and it is the sentence that turns
   an omission into a defect rather than an editorial choice. Dropping it makes the note honest about
   being a selection, which is what Q1's rule then bounds. *Rejected: keep it and make it true* — that
   is a note naming 47 tasks, which §1 already rules out as worse than eight described well.
@@ -117,5 +117,5 @@ _Not started._
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-11 | → specified | Both questions answered by the maintainer, with the rejections recorded in §1. **Q1: a field on the task**, so coverage derives from the same front-matter as everything else. That buys a config key, and [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md)'s constraint makes the key the first thing `plan` has to solve rather than a detail: the shipped config replaces rather than merges, so a project that already wrote one stops seeing the new row. **Q2: the opening sentence stops claiming completeness**, because it is the clause that turns an omission into a defect. Criteria unchanged; both answers are choices inside them. Still `v0.6` and still not started. |
-| 2026-08-11 | → proposed | Reported by an adopting project as *"`v0.4.0`'s note omits T-112"* and **verified before filing**, which changed what it is: the note omits T-112 and it omits at least five other adopter-visible changes, out of 47 tasks shipped, while opening with a sentence that reads as a completeness claim. So the report is a specimen and the finding is that a note has no rule. Filed `v0.6` by the maintainer's release rule of 2026-08-10 — this is a new capability and a config decision rather than a minor correction, and nothing about it holds up `0.5.0`, whose note is written by hand to the same standard in the meantime. Not started: both open questions are the maintainer's, and Q1 turns on whether the schema gains a key. |
+| 2026-08-11 | → specified | Both questions answered by the maintainer, with the rejections recorded in §1. **Q1: a field on the task**, so coverage derives from the same front-matter as everything else. That buys a config key, and [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md)'s constraint makes the key the first thing `plan` has to solve rather than a detail: the shipped config replaces rather than merges, so a project that already wrote one stops seeing the new row. **Q2: the opening sentence stops claiming completeness**, because it is the clause that turns an omission into a defect. Criteria unchanged; both answers are choices inside them. Still `M6` and still not started. |
+| 2026-08-11 | → proposed | Reported by an adopting project as *"`v0.4.0`'s note omits T-112"* and **verified before filing**, which changed what it is: the note omits T-112 and it omits at least five other adopter-visible changes, out of 47 tasks shipped, while opening with a sentence that reads as a completeness claim. So the report is a specimen and the finding is that a note has no rule. Filed `M6` by the maintainer's release rule of 2026-08-10 — this is a new capability and a config decision rather than a minor correction, and nothing about it holds up `0.5.0`, whose note is written by hand to the same standard in the meantime. Not started: both open questions are the maintainer's, and Q1 turns on whether the schema gains a key. |

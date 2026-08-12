@@ -7,7 +7,7 @@ phase: implement
 parent: T-006
 blocked_by: [T-129]
 related: [T-049, T-054, T-067, T-020, T-129]
-work_package: v0.5
+work_package: M5
 owner: maintainer
 business_value: medium
 effort: s
@@ -20,12 +20,12 @@ deliverables: []
 
 ## 1. Specify
 
-**This is v0.5's last task, and it runs after the release.** The maintainer's instruction of
-2026-08-11: install what v0.5 actually shipped, not whatever version happened to be current when
+**This is M5's last task, and it runs after the release.** The maintainer's instruction of
+2026-08-11: install what M5 actually shipped, not whatever version happened to be current when
 someone reached this task. The `blocked_by` edge to
-[T-129](T-129-release-v0-5.md) carries it, so no view can miss it. **The consequence is that v0.5 is
+[T-129](T-129-release-v0-5.md) carries it, so no view can miss it. **The consequence is that M5 is
 not complete when it is tagged** — it is complete when the published artifact has been proven from
-outside, which is a change from `v0.2`, where the release was the final act.
+outside, which is a change from `M2`, where the release was the final act.
 
 **Outcome**
 It is known, by running it, whether `claude plugin marketplace add uchimata2/taskmd` followed by
@@ -110,7 +110,7 @@ R-20 (`docs/SCOPE.md`) — runs on a clone with no configuration; `docs/SCOPE.md
 | 5 | State whether bare `taskmd` resolves, for each shape | §3 — criterion 2 |
 | 6 | Name anything the README has to change, with the wording, and change nothing | §3 — criterion 3 |
 
-Step 2 is what makes this v0.5's last task rather than a rehearsal: the artifact under test is the
+Step 2 is what makes this M5's last task rather than a rehearsal: the artifact under test is the
 one that shipped, reached the way a stranger reaches it.
 
 ## 3. Implement
@@ -199,7 +199,7 @@ also stop it being the thing being tested: an environment prepared for the test 
 machine, which §1 already says answers a less interesting question.
 
 So criterion 1 is half met, criterion 2 is half met, and the task stays open. **That is the outcome
-this task exists to produce** rather than a failure to reach one: §1 says v0.5 is complete when the
+this task exists to produce** rather than a failure to reach one: §1 says M5 is complete when the
 published artifact has been proven from outside, and half of it now has been, on a real second
 operating system, from the tag.
 
@@ -229,8 +229,8 @@ _Not reached. Two of the three criteria are half met and the task is open; see �
 | :--- | :--- | :--- |
 | 2026-08-11 | (no change) | **The remaining question is answered: wait for an adopter.** Three projects already run taskmd, so the next migration exercises the plugin route on a real machine at no cost here, and an adopter's transcript beats a prepared environment. The rival, a container carrying the CLI, is rejected in §1 with its cost. **The task stays open and is waiting on nobody here** — that is a deliberate resting state, not a stall. |
 | 2026-08-11 | → in_progress | **Half of it is now proven from outside, on the published `v0.5.0` artifact, and the task stays open.** The open question was half answered by measuring rather than by asking: the WSL2 Ubuntu 26.04 profile here has **no `~/.claude` at all**, a different user, a different home and no `taskmd` on `PATH`, which is a real answer to *a machine that has never seen it* for the plain-skill shape. Followed as written from a clone at the tag, it holds completely: 21 files, exactly the count the README claims and nobody had checked from outside; the empty-project output matches the README's quotation, which it would not have done before [T-129](T-129-release-v0-5.md) corrected that quotation hours earlier; all four commands work on a real task, with the launcher finding `python3` on a profile that has no bare `python`. Bare `taskmd` does **not** resolve there, which for this shape is what the README says will happen. **The plugin route was not run**: that profile has no Node and no `claude` CLI, and standing one up ends in an interactive sign-in a session does not perform, besides turning the untouched profile into a prepared one. Criterion 3 is met and says the README needs nothing. Nothing was changed. |
-| 2026-08-11 | → planned | Six steps, and step 2 is what makes this v0.5's last task rather than a rehearsal: the artifact under test is cloned from the published tag, not copied from the working tree. Step 1 measures the candidate environments before choosing one, because `a container that ships no Python answers a more interesting question` is a claim about environments nobody had checked. |
-| 2026-08-11 | (no change) | **Unblocked**: [T-129](T-129-release-v0-5.md) closed and `0.5.0` is published, so what gets installed here is what v0.5 shipped. The `blocked_by` edge stays as the record of the ordering the maintainer asked for. |
-| 2026-08-11 | (no change) | **METHOD §3.1 waived by the maintainer, 2026-08-11** — *"continuous work on all v0.5 tasks is authorized, with full lifecycle."* It covers every task carrying `work_package: v0.5`, through all four phases — including a task raised into v0.5 *by* that work, which is a v0.5 task and not a fresh grant. It **does not generalise** to `v0.6` or to unlabelled work. *Rejected: reading it as the seven open on the day* — a fix task raised by a v0.5 task would then need its own permission, and asking seven times is not continuous work. |
+| 2026-08-11 | → planned | Six steps, and step 2 is what makes this M5's last task rather than a rehearsal: the artifact under test is cloned from the published tag, not copied from the working tree. Step 1 measures the candidate environments before choosing one, because `a container that ships no Python answers a more interesting question` is a claim about environments nobody had checked. |
+| 2026-08-11 | (no change) | **Unblocked**: [T-129](T-129-release-v0-5.md) closed and `0.5.0` is published, so what gets installed here is what M5 shipped. The `blocked_by` edge stays as the record of the ordering the maintainer asked for. |
+| 2026-08-11 | (no change) | **METHOD §3.1 waived by the maintainer, 2026-08-11** — *"continuous work on all v0.5 tasks is authorized, with full lifecycle."* It covers every task carrying `work_package: M5`, through all four phases — including a task raised into M5 *by* that work, which is a M5 task and not a fresh grant. It **does not generalise** to `M6` or to unlabelled work. *Rejected: reading it as the seven open on the day* — a fix task raised by a M5 task would then need its own permission, and asking seven times is not continuous work. |
 | 2026-08-09 | (no status change) | Second independent report of the same thing, from the deck-building sibling's migration (`control/LOCAL-CONTEXT.md`): `bin/` is dropped from `PATH` in agent shells built from the shell snapshot, so every invocation there needs `PYTHONPATH=<skill> python -m taskmd`. That is T-054's defect seen from outside this repository, which is what this task exists to measure. Their suggestion is that taskmd either document it or ship a shim; the first adopting project wrote its own, and its header says to delete it the day the bare name resolves. Two projects have now each solved it privately, which is the evidence that it is not a local quirk. |
 | 2026-08-09 | → proposed | Raised by [T-006](T-006-package-document-and-publish.md)'s review as the child carrying its criterion 4. The route was proven end to end from the published remote on the day of publication, and the part that could not be proven is the phrase *a machine that has never seen it*: another OS, another Python, another profile, and a `PATH` this project has never touched. Carried as a task rather than ticked, because the local `PATH` failure T-054 recorded means the README's first install section ends in a command nobody has yet watched resolve by name on a stranger's machine. |

@@ -7,7 +7,7 @@ phase: review
 parent: null
 blocked_by: []
 related: [T-102]
-work_package: v0.2
+work_package: M2
 owner: maintainer
 business_value: high
 effort: xs
@@ -35,7 +35,7 @@ Here, `index` prints the raw edge and never says the blocker is gone.
 task whose only blocker closed the day before:
 
 ```
-| T-019 | Build the capability preflight every deck ships with | `v0.3` | `proposed` | `specify` |
+| T-019 | Build the capability preflight every deck ships with | `M3` | `proposed` | `specify` |
 - | - | T-002 | - |
 ```
 
@@ -89,18 +89,18 @@ a task releases.
 - [ ] `parent`, `children` and soft edges are unchanged, closed members included.
 
 **Open questions**
-- ~~Which release phase this belongs in.~~ **Settled: `v0.2`.** Checked against
+- ~~Which release phase this belongs in.~~ **Settled: `M2`.** Checked against
   [T-110](T-110-re-group-the-open-backlog-by-the-maintainers-release-rule.md)'s rule — all
   dependencies plus every minor-to-moderate correction — rather than inherited from T-102, which is
-  what the writer proposed. An `xs` correction to one view, holding nothing up: v0.2 by the rule, and
-  the same answer the analogue gave for a different reason. The rejected alternative was v0.3, which
+  what the writer proposed. An `xs` correction to one view, holding nothing up: M2 by the rule, and
+  the same answer the analogue gave for a different reason. The rejected alternative was M3, which
   takes the bigger work and the new capabilities; this is neither.
 
 **Authorisation**
-The maintainer authorised, on 2026-08-10, working **every open `v0.2` task through its full
+The maintainer authorised, on 2026-08-10, working **every open `M2` task through its full
 lifecycle** — specify, plan, implement, review, fix, commit and push — one task at a time, stopping
 to hand off before the remaining work outgrows the session. That covers this task end to end and
-nothing outside the `v0.2` set (METHOD §3.1).
+nothing outside the `M2` set (METHOD §3.1).
 
 **Verified here before starting.** This task was written by an adopting project against its own tree,
 so its premises were treated as leads. Both reproduce in *this* repository:
@@ -189,5 +189,5 @@ output(s), 1 index file(s), 140 document(s), 1078 link(s), 2 template(s), 0 voca
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-10 | → done | Whole lifecycle in one session, under the maintainer's `v0.2` authorisation recorded in §1. The adopter's premises were re-measured here first and both held. The one thing their write-up missed is that `blocks` is not a key in `schema.edges`, so the test `context` uses would have skipped half the scope without failing anything. |
+| 2026-08-10 | → done | Whole lifecycle in one session, under the maintainer's `M2` authorisation recorded in §1. The adopter's premises were re-measured here first and both held. The one thing their write-up missed is that `blocks` is not a key in `schema.edges`, so the test `context` uses would have skipped half the scope without failing anything. |
 | 2026-08-10 | → proposed | **Written by an adopting project** — htmldeck, `github.com/uchimata2/htmldeck` — and placed here rather than sent as prose, at the maintainer's request. Ids in the evidence above are that project's, not this one's. It reached the same conclusion independently and had already made this exact change to its own pre-taskmd index generator, recording the reason as *the cell is for what gates the task, and nothing else does*; reading `cli.py` then found T-102, which is the better argument and is this project's own. Estimated `high`/`xs` to match T-102 — the maintainer should re-scope, re-estimate or reject freely. |

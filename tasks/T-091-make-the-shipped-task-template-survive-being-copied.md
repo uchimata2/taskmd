@@ -7,7 +7,7 @@ phase: review
 parent: null
 blocked_by: []
 related: [T-032, T-051, T-060, T-076, T-097, T-112, T-114]
-work_package: v0.2
+work_package: M2
 owner: maintainer
 business_value: high
 effort: s
@@ -91,9 +91,9 @@ out-of-the-box constraint, which this fails for the one file an adopter is most 
 - [ ] The same is true of the audit-umbrella template, or T-032 is explicitly the place it is fixed
 
 **Authorization**
-The maintainer asked on 2026-08-10 for every open `v0.2` task to be run through its whole lifecycle —
+The maintainer asked on 2026-08-10 for every open `M2` task to be run through its whole lifecycle —
 specify, plan, implement, review, commit and push — one task at a time. It covers this task end to
-end and nothing outside the `v0.2` set.
+end and nothing outside the `M2` set.
 
 **Open questions** — both answered here on 2026-08-10 under the standing authorization to decide an
 owner-question rather than block on it. Each is cheap to reverse: one is a comment block, the other
