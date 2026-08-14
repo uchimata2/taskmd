@@ -77,12 +77,13 @@ A label says which release the work is scheduled into. It never says the release
 | [T-131](T-131-decide-whether-a-question-heavy-task-is-a-different-kind-of-work.md) | Decide whether a question-heavy task is a different kind of work | `M6` | `proposed` | `specify` | - | - | - | T-088, T-109, T-130 |
 | [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) | Derive what a release note must cover from the tasks it ships | `M6` | `specified` | `specify` | - | - | - | T-086, T-125, T-127, T-128, T-129, T-133 |
 | [T-139](T-139-check-that-the-advisory-lines-the-readme-lists-are-the-ones-there-are.md) | Check that the advisory lines the README lists are the advisory lines there are | `M6` | `proposed` | `specify` | - | - | - | T-100, T-121, T-134, T-138, T-147 |
-| [T-142](T-142-stop-the-entry-point-stating-the-path-mechanism-as-given.md) | Stop the entry point stating the PATH mechanism as given | `M6` | `proposed` | `specify` | - | - | - | T-054, T-085, T-099 |
+| [T-142](T-142-stop-the-entry-point-stating-the-path-mechanism-as-given.md) | Stop the entry point stating the PATH mechanism as given | `M6` | `proposed` | `specify` | - | - | - | T-054, T-085, T-099, T-148 |
 | [T-143](T-143-decide-whether-tier-1-names-the-generated-index-at-all.md) | Decide whether tier 1 names the generated index at all | `M6` | `proposed` | `specify` | - | - | - | T-022, T-028, T-087, T-118 |
 | [T-144](T-144-decide-whether-a-commands-own-options-can-be-discovered-from-the-cli.md) | Decide whether a command's own options can be discovered from the CLI | `M6` | `proposed` | `specify` | - | - | - | T-022, T-029, T-087, T-113, T-145 |
 | [T-145](T-145-stop-help-answering-for-a-command-that-does-not-exist.md) | Stop --help answering for a command that does not exist | `M6` | `proposed` | `specify` | - | - | - | T-029, T-113, T-120, T-144 |
 | [T-146](T-146-decide-whether-a-field-can-be-required-at-a-status.md) | Decide whether a field can be required at a status | `M6` | `proposed` | `specify` | - | - | - | T-065, T-089, T-100, T-106 |
 | [T-147](T-147-check-that-a-quoted-command-output-is-output-the-tool-produces.md) | Check that a quoted command output is output the tool produces | `M6` | `proposed` | `specify` | - | - | - | T-095, T-134, T-139, T-141 |
+| [T-148](T-148-decide-whether-a-caller-outside-a-served-skill-can-find-the-launcher.md) | Decide whether a caller outside a served skill can find the launcher | `M6` | `proposed` | `specify` | - | - | - | T-054, T-099, T-142 |
 
 ## Closed
 
@@ -140,7 +141,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | `M1` | `done` | `review` | - | - | - | T-001, T-003, T-060, T-076, T-091, T-101 |
 | [T-052](T-052-decide-what-of-claude-a-published-clone-carries.md) | Decide what of .claude a published clone carries, and ignore the rest | `M1` | `done` | `review` | - | - | - | T-003, T-006, T-050, T-053, T-067 |
 | [T-053](T-053-decide-the-plugin-s-boundary-and-what-its-skill-may-p.md) | Decide the plugin's boundary, and what its skill may point at | `M1` | `done` | `review` | - | - | - | T-003, T-006, T-050, T-052, T-054, T-059, T-064, T-067, T-072, T-083, T-103 |
-| [T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md) | Give an adopter a way to run the commands the skill names | `M1` | `done` | `review` | - | T-055, T-056 | - | T-003, T-006, T-049, T-053, T-055, T-056, T-067, T-068, T-083, T-085, T-099, T-142 |
+| [T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md) | Give an adopter a way to run the commands the skill names | `M1` | `done` | `review` | - | T-055, T-056 | - | T-003, T-006, T-049, T-053, T-055, T-056, T-067, T-068, T-083, T-085, T-099, T-142, T-148 |
 | [T-055](T-055-settle-what-the-tool-calls-itself-when-it-prints-its-o.md) | Settle what the tool calls itself when it prints its own usage | `M1` | `done` | `review` | T-054 | - | - | T-029, T-054, T-071, T-099, T-134 |
 | [T-056](T-056-make-the-shell-launcher-executable-in-a-unix-clone.md) | Make the shell launcher executable in a Unix clone | `M1` | `done` | `review` | T-054 | - | - | T-011, T-049, T-054, T-061 |
 | [T-057](T-057-let-the-hook-tests-name-an-interpreter-that-exists.md) | Let the hook tests name an interpreter that exists on the platform | `M1` | `done` | `review` | T-049 | - | - | T-011, T-049 |
@@ -183,7 +184,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-096](T-096-decide-whether-a-narrower-walk-of-a-counted-class-needs-its-own-number.md) | Decide whether a narrower walk of a counted class needs its own number | `M2` | `done` | `review` | T-095 | - | - | T-025, T-121 |
 | [T-097](T-097-decide-whether-a-published-document-may-point-at-a-file-no-clone-receives.md) | Decide whether a published document may point at a file no clone receives | `M2` | `done` | `review` | - | - | - | T-013, T-034, T-091, T-092, T-094, T-109 |
 | [T-098](T-098-decide-who-checks-the-links-in-a-document-only-a-successor-reads.md) | Decide who checks the links in a document only a successor reads | `M2` | `done` | `review` | - | - | - | T-002, T-034, T-080, T-094, T-095, T-109 |
-| [T-099](T-099-give-an-adopter-a-command-that-runs-without-bin-on-path.md) | Give an adopter a command that runs when the plugin's bin is not on PATH | `M2` | `done` | `review` | - | - | - | T-054, T-055, T-067, T-083, T-085, T-140, T-142 |
+| [T-099](T-099-give-an-adopter-a-command-that-runs-without-bin-on-path.md) | Give an adopter a command that runs when the plugin's bin is not on PATH | `M2` | `done` | `review` | - | - | - | T-054, T-055, T-067, T-083, T-085, T-140, T-142, T-148 |
 | [T-100](T-100-report-a-project-config-that-has-drifted-from-the-shipped-default.md) | Report a project config that has drifted from the shipped default | `M2` | `done` | `review` | - | - | - | T-001, T-023, T-088, T-095, T-106, T-121, T-137, T-138, T-139, T-146 |
 | [T-101](T-101-report-a-template-the-create-path-cannot-see.md) | Report a template the create path cannot see | `M2` | `done` | `review` | - | - | - | T-032, T-051, T-076, T-091, T-095, T-107, T-121 |
 | [T-102](T-102-show-which-rows-list-has-already-worked-out-are-blocked.md) | Show which rows list has already worked out are blocked | `M2` | `done` | `review` | - | - | - | T-022, T-031, T-070, T-087, T-111 |

@@ -46,7 +46,20 @@ nothing to do with this. Nothing in this backlog covers a field bound to a statu
 opposite direction, and [T-039](T-039-let-a-plan-name-a-deliverable-that-does-not-exist-yet.md). So
 the general form is unraised here.
 
-**The third instance is live in this repository too, and unenforced.** `METHOD.md` §2 says *phase says
+**The reporter confirmed it and audited the rest**, on 2026-08-15. Seven foreign-id citations across
+their two registers — our `T-028`, `T-063`, `T-085` and `T-087`, and `#53`, `#57` and `#8` on the
+other — and **one is wrong: the `T-063` above**. The other six check out against the files they name,
+on title and on claim. One in seven, in the direction their own preamble did not guard: a wrong id of
+ours resolves to a real task, so it reads as *already covered* and a reader who trusts it stops
+looking. The `O-T6` row now cites nothing and records the class as uncovered here until this task.
+
+**Instance 3 is closed on the reporting side, and this repository is now the only live one.** They
+re-measured on the same day: 159 task files, none disagreeing, all running `specified`/`specify` →
+`planned`/`plan` → `in_progress`/`implement` → `done`/`review`. The split the row recorded is gone.
+What it still proves is the part that matters here — two sessions can choose differently on the same
+day and nothing reports it — and not that any project is inconsistent today.
+
+**The third instance is live in this repository, and unenforced.** `METHOD.md` §2 says *phase says
 where the work has got to* and pairs nothing to a status. The shipped template starts a task at
 `status: proposed, phase: specify`, which reads as the phase the work is *at*. Every one of this
 repository's 143 files happens to follow that reading — 131 `done`/`review`, 5 `proposed`/`specify`, 2
@@ -145,5 +158,6 @@ amended on. R-16, for whether a rule of this kind can be believed.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-15 | (no change) | **The wrong cross-reference is confirmed, and the reporter audited the rest**: seven foreign-id citations across their two registers, one wrong, and it is the one we found. Recorded in §1 with the direction it failed in, because that is the reusable part — a wrong id of ours resolves to a real task and reads as coverage. Their instance 3 also went away in the same follow-up: 159 files re-measured, none disagreeing, so the split that argued hardest for a general mechanism is no longer live anywhere but here. Neither fact changes what this task decides; both change what evidence it is standing on, so `specify` should not go looking for a split that has been repaired. |
 | 2026-08-15 | (no change) | **The status–phase pairing is the method's to state**, decided by the project owner on 2026-08-15. Recorded here rather than carried in a reply, because it changes what this task's fourth acceptance criterion can say. It authorises no phase. It also raised a second question the answer creates and the first one could not: if the method fixes the pairing, the instance that argued hardest for a general mechanism no longer needs one, so this task may narrow to a sentence in `METHOD.md`. That is in §1 and is `specify`'s. |
 | 2026-08-15 | → proposed | Raised from the htmldeck adopter report, row `O-T6`. The row's cross-reference to *your T-063* is wrong and is corrected in §1: T-063 is the tier-1 budget measurement, and nothing in this backlog covers a field bound to a status. Two projects have now hit the class, which is the argument for deciding it rather than leaving it to each backlog. `medium` because both projects have a hand sweep that works and neither is blocked. `m` because the answer is probably constrained to nothing by T-106 and saying so properly is most of the work. The third instance is live here too: `METHOD.md` §2 pairs no phase to any status, and this repository's 143 files are consistent by habit rather than by anything the tool would report. |

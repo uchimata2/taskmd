@@ -46,10 +46,16 @@ adopter reads is correct, and the file they open when it fails is the one that i
 few directories apart and disagree.
 
 **The cost is a real one and it has been paid.** The reporting project wrote its own locator rather
-than using the shipped fallback, and that locator globs the version directory and **sorts it as
-text** — which selects `0.5.0` over `0.10.0` at the next minor bump. That specific bug is theirs, and
-the general point is not: an adopter who believes the mechanism is unconditional, then finds it
-failing, re-derives a locator instead of looking for a documented fallback.
+than using the shipped fallback. The obvious implementation of such a locator globs the version
+directory and **sorts the paths as text**, which picks `0.5.0` over `0.10.0` at the next minor bump.
+They wrote it, found it and fixed it before the report was written: their locator parses the version,
+and a self-test in the same file asserts `0.10.0` beats `0.5.0` and `0.9.1`, with a failure message
+spelling out that text order would run an older skill than the one installed.
+
+**So nothing about that locator is open, and the general point is the whole of what survives**: an
+adopter who believes the mechanism is unconditional, then finds it failing, re-derives a locator
+instead of looking for a documented fallback — and the obvious implementation of it is wrong. That is
+evidence for this task, not a defect anyone has to chase.
 
 **Requirements served**
 R-18 (`docs/SCOPE.md`) — auto-discovery so a clone runs unedited — in the sense T-099 left it: the
@@ -114,4 +120,5 @@ promise holds, and the file explaining it does not say what happens when the mac
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-15 | (no change) | **Corrected**, from the reporter's follow-up on the same thread. §1 said their locator sorts the version directory as text and treated that as live. It is not: they hit it, fixed it and self-tested it before the `O-T2` row was written, and the row did not say so. Their locator parses the version and asserts `0.10.0` beats `0.5.0`. Our disposition comment repeated the error, listing *the version sort goes with them* as one of three things that were theirs to act on; that comment is public and uncorrected, and this row is where the correction lives. Nothing else changes: `O-T2`'s surviving clause is what this task was raised for, we accepted it correctly, and it stands as evidence that re-deriving this locator is error-prone rather than as an open defect. |
 | 2026-08-15 | → proposed | Raised from the htmldeck adopter report, row `O-T2`, which is the row the reporter corrected: it originally pointed at T-085 and would have sent this project hunting a packaging defect that does not exist. The correction is right — the launcher runs, the harness does emit the directory, and the truncation is upstream — and what survives it is small and real. `medium` because the fallback already ships, so nobody is blocked; the file is simply wrong where a reader meets it at the worst moment. `xs` because it is a comment. Two facts recorded here rather than left for `specify`: the report's version-sorting locator bug is the reporting project's, not a defect to copy, and the open question below may end with the comment naming no path. |

@@ -52,6 +52,14 @@ correct. What is misled is anything reading the exit code — which is the calle
 for, and the same class as the `index` case that made T-029 `critical`: mistyped invocation, exit 0,
 no signal.
 
+**The one external caller we could ask is not affected.** The exposure was flagged to the reporting
+project when it was found, and they checked on 2026-08-15: their query wrapper consumes `-h` and
+`--help` only as its **first** argument and never passes either through, so `wrapper wat --help`
+falls to the unknown-command path and exits 2. No exit-code handling there reads a status from a
+`--help` call. That is a negative result, recorded because it was asked for and would otherwise be
+lost — it bounds the known damage at zero and changes nothing about the fault, which is a promise to
+callers nobody has surveyed.
+
 **Requirements served**
 R-17 (`docs/SCOPE.md`); §1 *Invisibility*, in the reading T-029 established — the tool must not be
 silent about a mistake.
@@ -117,4 +125,5 @@ silent about a mistake.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-15 | (no change) | **Negative result from the reporting project, recorded in §1.** We asked them to check their wrappers for this and they did: `-h`/`--help` is consumed as the first argument only and never passed through, so their `wat --help` exits 2 and nothing there reads a status from a `--help` call. Kept because a negative result that was asked for dies with the session otherwise, and because it is evidence about exposure and not about the fault — the ranking below is unchanged. |
 | 2026-08-15 | → proposed | Found while reproducing the htmldeck adopter report's row `O-T5` and **not reported by it** — the row is about which usage line prints, and this is the exit code beside it. Reproduced before write-up: `taskmd wat` exits 2 and `taskmd wat --help` exits 0 on identical output. Raised separately from T-144 on METHOD §5 and on T-029's own precedent, which raised T-113 rather than fixing what its probe turned up: T-144 may end with the ruling unchanged, and this is wrong either way. `medium` and `xs` because the printed line is already correct and the repair is the order of two checks. |
