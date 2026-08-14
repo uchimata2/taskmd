@@ -76,6 +76,18 @@ wrong in instructive ways — the command they recommended did not run, and the 
 silent had answered them one tier down. So read a report as a set of leads to verify, never as
 findings to implement.
 
+**Three reports in, the verification is mostly against *this* repository rather than against the
+report.** The second adopter report — 2026-08-14, six observations, a public issue rather than a
+handover — came out very differently from the first: **two of six asked for behaviour the version
+they were running already shipped**, one had been ruled on by the owner months of commits earlier,
+and one cited an id of ours that was correctly namespaced and still the wrong task. Exactly one row
+was a defect nobody here knew about, and it was the row its author expected to be marginal. So the
+first move on any row is to read the shipped artifact the reporter would have read, at the version
+they name, and the second is to resolve every id they cite — including the ones labelled as ours. A
+row that turns out to be already-shipped is worth more to the reporter than a task is: tell them what
+they can delete. Where the trail for each report lands is in `control/LOCAL-CONTEXT.md`, one row per
+adopter, and nowhere else.
+
 `plugin/skills/taskmd/docs/METHOD.md` is the working method itself. Since T-028 it is **tier 2** — loaded when task work
 starts, not on every turn; `plugin/skills/taskmd/docs/method/` is tier 3, a file per phase. Tier 1 is whatever the harness
 loads unasked, and **measured on 2026-08-08 that is `CLAUDE.md` plus the taskmd `description`**
