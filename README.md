@@ -153,7 +153,7 @@ taskmd check
 ```
 
 ```
-OK - 0 task(s), 0 field value(s), 0 reference(s), 0 dependency edge(s), 0 declared output(s), 0 index file(s), 0 document(s), 0 link(s), 0 template(s), 0 template field value(s), 0 vocabulary row(s)
+OK - 0 task(s), 0 field value(s), 0 reference(s), 0 dependency edge(s), 0 declared output(s), 0 index file(s), 0 document(s), 0 link(s), 0 table row(s), 0 template(s), 0 template field value(s), 0 vocabulary row(s), 0 front-matter value(s)
 Scope  every document read; no git here, so .gitignore was not consulted
 structure and references only - it cannot tell you whether a spec or an outcome is good
 ```
@@ -163,6 +163,17 @@ visible, and a clean run on an empty project reads as the nothing it is rather t
 endorsement. The `Scope` line is the same idea aimed at what was *skipped*, and it prints on a
 failing run too, because an exclusion hides behind a problem as easily as behind a pass. Run outside
 a project, `taskmd check` says so and exits 2 instead of reporting a clean tree it never opened.
+
+**`check` also reports a table row carrying more cells than its header**, because Markdown drops the
+extra ones. The text stays in the file and renders nowhere, and no other signal exists: one row in
+this project's own backlog swallowed most of a task's log entry during the commit that closed it, and
+sat there for most of a week with `check` clean, the test suite green and the pre-publish gate
+silent. It was found by an adopter describing the failure mode, not by anyone reading the page. One
+`WIDE ROW` line names the file, the line and both widths. Unlike the three below it this is a
+**problem** and moves the exit status, because losing text is not a state any project means to be in.
+A row with *fewer* cells than its header is not reported: Markdown pads it and nothing is lost. Nor
+is a trailing empty cell, for the same reason. Note that a pipe inside backticks still splits a cell,
+so write it as `\|` in a table.
 
 **If you write your own config, `check` also tells you when the shipped default moves ahead of it.**
 A config replaces the default rather than merging with it, so a copy taken today cannot see a value

@@ -1523,6 +1523,96 @@ class LabelThatReadsAsAVersion(unittest.TestCase):
         self.assertNotIn("LABEL SHAPE", out)
 
 
+class TableRowWiderThanItsHeader(unittest.TestCase):
+    """T-141, from an adopter report. Markdown drops a cell past the header count, so the text is in
+    the file and absent from the page, and nothing else this project runs can see it: the instance
+    that produced this check sat in a closed task for most of a week with `check` clean, the suite
+    green and the pre-publish gate silent.
+
+    Every assertion is against `wide-table-row`, which carries all six behaviours in one project —
+    three the check must report and three it must ignore. A fixture proving five would let the sixth
+    regress in silence, which is exactly how T-138 shipped a check that crashed on the first real
+    tree it met.
+
+    **The specimens exist only in that fixture.** A row demonstrating this fault written anywhere
+    else in this repository would be an instance of the fault, so the reproduction case cannot be
+    quoted into a test, a task or a document.
+    """
+
+    FIXTURE = os.path.join(FIXTURES, "wide-table-row")
+    REPORTS = "T-001-three-rows-that-lose-text.md"
+    IGNORES = "T-002-three-rows-that-lose-nothing.md"
+
+    def check(self, root=None):
+        return run("check", "--root", root or self.FIXTURE)
+
+    def test_it_fires_on_the_defect(self):
+        code, out = self.check()
+        self.assertIn("WIDE ROW", out)
+        self.assertIn(self.REPORTS, out)
+
+    def test_it_is_a_problem_and_moves_the_exit_status(self):
+        """The opposite of the three advisory lines beside it. A legal state does not fail (T-100),
+        and a cell that renders nowhere is not a state any project means."""
+        code, out = self.check()
+        self.assertEqual(code, 1, out)
+        self.assertIn("3 problem(s)", out)
+
+    def test_it_names_the_file_the_line_and_both_widths(self):
+        """A reader has to find one row in a file of hundreds, and the two counts are what say
+        how much was lost rather than that something was."""
+        code, out = self.check()
+        self.assertRegex(out, r"WIDE ROW\s+tasks/%s:\d+ has 4 cells against a 2-column header"
+                         % re.escape(self.REPORTS))
+
+    def test_a_pipe_inside_a_code_span_is_still_a_cell_boundary(self):
+        """Markdown splits cells before it parses inline spans, so backticks do not protect a pipe.
+        Two authors in this repository escaped one inside a code span inside a table cell, which
+        nobody does unless the backticks failed to protect it — `without_code` is the obvious helper
+        to reach for here and it is the wrong one."""
+        code, out = self.check()
+        self.assertEqual(out.count("WIDE ROW"), 3, out)
+
+    def test_the_three_quiet_cases_are_quiet(self):
+        """Blank excess, an escaped pipe and a short row. Each is silent for its own reason, and
+        one assertion covers all three because the file they are in must not appear at all."""
+        code, out = self.check()
+        self.assertNotIn(self.IGNORES, out)
+
+    def test_a_fenced_block_is_not_a_table(self):
+        """This project quotes taskmd's own output constantly and `index` emits a table, so reading
+        fences would make the tool's output the one thing a project could not quote (T-112).
+
+        Asserted on the count rather than on the absence of a name: the fenced pseudo-table sits in
+        the file this test class otherwise expects to be silent, so a fence being read would show up
+        here as a fourth row and nowhere else."""
+        code, out = self.check()
+        self.assertEqual(out.count("WIDE ROW"), 3, out)
+        self.assertIn("12 table row(s)", out)
+
+    def test_it_reports_what_it_examined(self):
+        """A scan that reports only its hits cannot be told from one that ran on nothing — which is
+        the whole reason this task proved its measuring instrument before believing its zeros."""
+        code, out = self.check()
+        self.assertIn("table row(s)", out)
+
+    def test_every_other_fixture_is_silent(self):
+        """The direction a clean pass cannot prove."""
+        for path in sorted(glob.glob(os.path.join(FIXTURES, "*"))):
+            if not os.path.isdir(path) or os.path.samefile(path, self.FIXTURE):
+                continue
+            if not os.path.isdir(os.path.join(path, ".taskmd")):
+                continue
+            code, out = run("check", "--root", path)
+            self.assertNotIn("WIDE ROW", out, os.path.basename(path))
+
+    def test_this_repository_is_silent(self):
+        """It carried one of these until T-140 repaired it, in a closed task, for most of a week.
+        The corpus that produced the rule is the regression test for it."""
+        code, out = run("check", "--root", ROOT)
+        self.assertNotIn("WIDE ROW", out)
+
+
 class LinkSyntaxShownRatherThanMade(ScratchProject):
     """T-112. `check_links` ran one flat regex over the whole document, so a project that quotes
     taskmd's own output had its quoted rows resolved as if they were its own links — and `index`

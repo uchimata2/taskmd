@@ -805,6 +805,91 @@ def check_label_shape(schema, tasks, advisories):
     return [("front-matter value", examined)]
 
 
+def table_cells(line):
+    """A table row's cells, split the way GitHub-flavoured Markdown splits them.
+
+    **Code spans are read, not skipped, and that is the whole subtlety.** `without_code` is what
+    every other text check here reaches for and it is the wrong tool: Markdown splits a table row
+    into cells *before* it parses inline spans, so a pipe inside backticks is a cell boundary and
+    the code span is broken too. Two authors in this repository escaped a pipe inside a code span
+    inside a table cell, which nobody does unless the backticks did not protect it (T-141 §3).
+
+    Only `\\|` is an escape. It is blanked to NUL rather than removed so nothing shifts.
+    """
+    text = line.strip().replace(r"\|", "\0")
+    if text.startswith("|"):
+        text = text[1:]
+    if text.endswith("|"):
+        text = text[:-1]
+    return text.split("|")
+
+
+def is_delimiter_row(line):
+    """The `| :--- | ---: |` row. Its presence is what makes the line above it a header."""
+    if "|" not in line:
+        return False
+    parts = table_cells(line)
+    return any(cell.strip() for cell in parts) and \
+        all(re.fullmatch(r":?-+:?", cell.strip()) for cell in parts if cell.strip())
+
+
+def check_wide_rows(root, schema, problems):
+    """A table row carrying more cells than its header — text that renders nowhere.
+
+    Markdown drops a cell past the header count. So the text is in the file, absent from the page,
+    and invisible to everything else this project runs: the instance that produced this check sat in
+    a closed task for most of a week with `check` clean, the suite green and the pre-publish gate
+    silent. The only instrument is counting cells against the header (T-141, from an adopter report).
+
+    **A problem rather than an advisory**, which is the opposite of the three lines above it. Those
+    report legal states a project may mean — a config behind the default, a version-shaped label, a
+    second index mid-migration. Nobody means to write a cell that does not render, so the *legal
+    states do not fail* test (T-100) puts this with the broken links instead.
+
+    Two exemptions, both measured rather than assumed. **A fence is not a table**: this project
+    quotes taskmd's own output constantly and `index` emits a table, so reading fenced blocks would
+    make the tool's output the one thing a project could not quote (T-112's reasoning, for links).
+    **An excess cell that is entirely blank is not reported**: the rule is text that renders nowhere,
+    and a trailing pipe with nothing after it loses nothing. That is the one false-positive class the
+    corpus could not price, having none of them.
+
+    A short row is not reported at all: Markdown pads it and nothing is lost. Measured 0 in 2,812
+    rows here, so the silence costs nothing either.
+    """
+    visible = clone_would_receive(root)
+    scanned = 0
+    for md in markdown_files(root, schema):
+        if visible is not None and os.path.normpath(md) not in visible:
+            continue
+        where = rel(root, os.path.relpath(md, root))
+        lines, index, fence = read(md).split("\n"), 0, None
+        while index < len(lines):
+            opener = FENCE.match(lines[index])
+            if fence is not None:
+                if opener and opener.group(1)[0] == fence[0] and len(opener.group(1)) >= len(fence):
+                    fence = None
+                index += 1
+                continue
+            if opener:
+                fence = opener.group(1)
+                index += 1
+                continue
+            if index + 1 < len(lines) and "|" in lines[index] and is_delimiter_row(lines[index + 1]):
+                width, row = len(table_cells(lines[index])), index + 2
+                while row < len(lines) and lines[row].strip() and "|" in lines[row]:
+                    scanned += 1
+                    cells = table_cells(lines[row])
+                    if len(cells) > width and any(cell.strip() for cell in cells[width:]):
+                        problems.append("WIDE ROW      %s:%d has %d cells against a %d-column "
+                                        "header; Markdown drops the rest and that text renders "
+                                        "nowhere" % (where, row + 1, len(cells), width))
+                    row += 1
+                index = row
+                continue
+            index += 1
+    return [("table row", scanned)]
+
+
 def check_duplicate_index(root, schema, tasks, duplicates):
     """A second table of the same tasks, outside the markers taskmd owns — advisory, never a problem.
 
@@ -875,6 +960,7 @@ def cmd_check(root, schema, tasks, args):
     counted += check_deliverables(root, schema, tasks, problems)
     counted += check_stale_index(root, schema, tasks, problems)
     counted += check_links(root, schema, problems, notes)
+    counted += check_wide_rows(root, schema, problems)
     counted += check_unreachable_templates(root, schema, problems)
     counted += check_template_fields(root, schema, problems)
     counted += check_config_drift(root, schema, advisories)
