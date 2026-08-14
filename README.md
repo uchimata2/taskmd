@@ -181,6 +181,16 @@ twice over it before a person noticed the file had grown. One `DUPLICATE INDEX` 
 file and the count. It is advisory too, because quoting your own task table in a document is
 something a project may legitimately do.
 
+**And `check` tells you when a label you group work under can be read as a version.** A backlog
+grouped into `v0.2` and a release tagged `v0.2.0` look like one fact and are two sequences: the
+release takes the next number on the published line whatever grouping its tasks belong to, so they
+come apart the first time you ship fixes between milestones. The label then does not go stale, which
+would be visible. It resolves, to a real tag holding something else. Two projects reached this
+independently before the line existed. One `LABEL SHAPE` line names the field, the value and how many
+tasks carry it, and it is advisory as well, because version-shaped labels are legal. It reads the
+shape of a value and never the name of a field, so there is nothing to configure and it catches the
+same defect under a field name taskmd has never heard of.
+
 ### As a plain skill
 
 Copy [`plugin/skills/taskmd/`](plugin/skills/taskmd) into your skills directory, so that it lands at

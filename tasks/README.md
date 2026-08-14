@@ -76,6 +76,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-130](T-130-report-a-question-left-live-in-a-closed-task.md) | Report a question left live in a closed task | `M6` | `proposed` | `specify` | - | - | - | T-025, T-095, T-107, T-121, T-131 |
 | [T-131](T-131-decide-whether-a-question-heavy-task-is-a-different-kind-of-work.md) | Decide whether a question-heavy task is a different kind of work | `M6` | `proposed` | `specify` | - | - | - | T-088, T-109, T-130 |
 | [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) | Derive what a release note must cover from the tasks it ships | `M6` | `specified` | `specify` | - | - | - | T-086, T-125, T-127, T-128, T-129, T-133 |
+| [T-139](T-139-check-that-the-advisory-lines-the-readme-lists-are-the-ones-there-are.md) | Check that the advisory lines the README lists are the advisory lines there are | `M6` | `proposed` | `specify` | - | - | - | T-100, T-121, T-134, T-138 |
 
 ## Closed
 
@@ -177,7 +178,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-097](T-097-decide-whether-a-published-document-may-point-at-a-file-no-clone-receives.md) | Decide whether a published document may point at a file no clone receives | `M2` | `done` | `review` | - | - | - | T-013, T-034, T-091, T-092, T-094, T-109 |
 | [T-098](T-098-decide-who-checks-the-links-in-a-document-only-a-successor-reads.md) | Decide who checks the links in a document only a successor reads | `M2` | `done` | `review` | - | - | - | T-002, T-034, T-080, T-094, T-095, T-109 |
 | [T-099](T-099-give-an-adopter-a-command-that-runs-without-bin-on-path.md) | Give an adopter a command that runs when the plugin's bin is not on PATH | `M2` | `done` | `review` | - | - | - | T-054, T-055, T-067, T-083, T-085 |
-| [T-100](T-100-report-a-project-config-that-has-drifted-from-the-shipped-default.md) | Report a project config that has drifted from the shipped default | `M2` | `done` | `review` | - | - | - | T-001, T-023, T-088, T-095, T-106, T-121, T-137, T-138 |
+| [T-100](T-100-report-a-project-config-that-has-drifted-from-the-shipped-default.md) | Report a project config that has drifted from the shipped default | `M2` | `done` | `review` | - | - | - | T-001, T-023, T-088, T-095, T-106, T-121, T-137, T-138, T-139 |
 | [T-101](T-101-report-a-template-the-create-path-cannot-see.md) | Report a template the create path cannot see | `M2` | `done` | `review` | - | - | - | T-032, T-051, T-076, T-091, T-095, T-107, T-121 |
 | [T-102](T-102-show-which-rows-list-has-already-worked-out-are-blocked.md) | Show which rows list has already worked out are blocked | `M2` | `done` | `review` | - | - | - | T-022, T-031, T-070, T-087, T-111 |
 | [T-103](T-103-say-whether-a-closed-task-s-declared-output-may-be-repointed.md) | Say whether a closed task's declared output may be repointed when the file moves | `M3` | `done` | `review` | - | - | - | T-053, T-076, T-083, T-089, T-090, T-092, T-104, T-109 |
@@ -197,7 +198,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md) | Decide what leaves tier 1 when the budget binds | `M2` | `done` | `review` | - | - | - | T-026, T-028, T-035, T-047, T-050, T-063, T-115, T-119 |
 | [T-119](T-119-put-the-stranded-paragraph-under-a-heading-that-owns-it.md) | Put the stranded paragraph under a heading that owns it | `M2` | `done` | `review` | - | - | - | T-047, T-118 |
 | [T-120](T-120-echo-an-unknown-flag-as-the-caller-typed-it.md) | Echo an unknown flag as the caller typed it | `M2` | `done` | `review` | - | - | - | T-022, T-113, T-122 |
-| [T-121](T-121-report-a-second-index-of-the-same-tasks-outside-the-markers.md) | Report a second index of the same tasks sitting outside the generated markers | `M5` | `done` | `review` | - | - | - | T-025, T-096, T-100, T-101, T-107, T-130 |
+| [T-121](T-121-report-a-second-index-of-the-same-tasks-outside-the-markers.md) | Report a second index of the same tasks sitting outside the generated markers | `M5` | `done` | `review` | - | - | - | T-025, T-096, T-100, T-101, T-107, T-130, T-139 |
 | [T-122](T-122-echo-the-typed-flag-in-the-rejected-value-message.md) | Echo the typed flag in the rejected-value message too | `M2` | `done` | `review` | - | - | - | T-113, T-120 |
 | [T-123](T-123-decide-whether-a-replaced-vocabulary-row-is-drift.md) | Decide whether a replaced vocabulary row is drift or a choice | `M2` | `done` | `review` | - | - | - | T-082 |
 | [T-124](T-124-stop-a-test-asserting-this-repository-has-open-v0-2-work.md) | Stop a test asserting this repository has open M2 work | `M2` | `done` | `review` | - | - | - | T-087, T-110 |
@@ -208,9 +209,9 @@ A label says which release the work is scheduled into. It never says the release
 | [T-129](T-129-release-v0-5.md) | Release M5 | `M5` | `done` | `review` | - | - | T-085 | T-085, T-125, T-126, T-127, T-133, T-135 |
 | [T-132](T-132-give-the-console-the-same-line-ending-on-every-platform.md) | Give the console the same line ending on every platform | `M5` | `done` | `review` | T-020 | - | - | T-002, T-020, T-022, T-049, T-064 |
 | [T-133](T-133-decide-what-to-do-about-a-published-release-note-that-breaks-the-rule.md) | Decide what to do about a published release note that breaks the rule | `M5` | `done` | `review` | - | - | - | T-079, T-081, T-125, T-126, T-127, T-129, T-135 |
-| [T-134](T-134-check-that-every-prose-list-of-the-commands-names-the-commands-there-are.md) | Check that every prose list of the commands names the commands there are | `M5` | `done` | `review` | T-117 | - | - | T-030, T-031, T-055, T-071, T-073, T-117, T-126 |
+| [T-134](T-134-check-that-every-prose-list-of-the-commands-names-the-commands-there-are.md) | Check that every prose list of the commands names the commands there are | `M5` | `done` | `review` | T-117 | - | - | T-030, T-031, T-055, T-071, T-073, T-117, T-126, T-139 |
 | [T-136](T-136-rename-the-milestone-labels-so-they-cannot-be-read-as-versions.md) | Rename the milestone labels so they cannot be read as versions | `M6` | `done` | `review` | - | - | - | T-086, T-110, T-125, T-128, T-137, T-138 |
 | [T-137](T-137-decide-what-taskmd-does-about-a-label-read-as-a-version.md) | Decide what taskmd does about a grouping label that can be read as a version | `M6` | `done` | `review` | - | - | - | T-004, T-082, T-087, T-088, T-100, T-106, T-136, T-138 |
-| [T-138](T-138-report-a-front-matter-value-that-reads-as-a-version.md) | Report a front-matter value that reads as a version | `M6` | `done` | `review` | - | - | - | T-100, T-106, T-136, T-137 |
+| [T-138](T-138-report-a-front-matter-value-that-reads-as-a-version.md) | Report a front-matter value that reads as a version | `M6` | `done` | `review` | - | - | - | T-100, T-106, T-136, T-137, T-139 |
 
 <!-- taskmd:end -->
