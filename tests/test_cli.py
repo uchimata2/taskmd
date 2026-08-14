@@ -1445,6 +1445,84 @@ class APinnedConfigIsToldWhenTheDefaultMovesOn(ScratchProject):
             self.assertNotIn("CONFIG DRIFT", out)
 
 
+class LabelThatReadsAsAVersion(unittest.TestCase):
+    """T-138, deciding T-137. A grouping label named after the version it was expected to ship in
+    stops being true the first time a version is bumped for some other reason — and it does not go
+    stale, it resolves, to a real tag holding something else. Two projects reached it independently.
+
+    Every assertion here is against `label-shaped-value`, which carries all four behaviours in one
+    project on purpose. Three of them passed while the check still crashed on the first real tree it
+    met, because the fixture declared no list-valued field; `targets` is there for that.
+    """
+
+    FIXTURE = os.path.join(FIXTURES, "label-shaped-value")
+
+    def check(self, root=None):
+        code, out = run("check", "--root", root or self.FIXTURE)
+        return code, out
+
+    def test_it_fires_on_the_defect(self):
+        code, out = self.check()
+        self.assertIn("LABEL SHAPE", out)
+        self.assertIn("work_package: 'v0.2'", out)
+
+    def test_one_line_per_value_and_it_counts_the_tasks(self):
+        """Per task this fixture would print four lines, and the real corpus that produced this
+        check would have printed 137. A warning read once and scrolled past is not a warning."""
+        code, out = self.check()
+        self.assertIn("work_package: 'v0.2' on 2 task(s)", out)
+        self.assertEqual(out.count("LABEL SHAPE"), 3, out)
+
+    def test_it_reads_the_shape_and_never_the_field_name(self):
+        """The whole reason there is no config key: `milestone` is a field name no schema mentions,
+        and a rule keyed on a name could not have seen it at all."""
+        code, out = self.check()
+        self.assertIn("milestone: '2.1'", out)
+
+    def test_a_list_valued_field_is_read_too(self):
+        code, out = self.check()
+        self.assertIn("targets: '3.0'", out)
+        self.assertNotIn("'1.4.2'", out)
+
+    def test_a_real_version_is_left_alone(self):
+        """Three or more components is a version recorded correctly."""
+        code, out = self.check()
+        self.assertNotIn("shipped_in", out)
+        self.assertNotIn("'0.4.0'", out)
+
+    def test_the_estimate_fields_are_exempt(self):
+        """`days: 1.5` is a quantity. This was the only false positive a probe built to break the
+        rule could produce, and the exemption is read from `effort_field`, not from a new key."""
+        code, out = self.check()
+        self.assertNotIn("days:", out)
+
+    def test_it_is_advisory_and_does_not_move_the_exit_status(self):
+        code, out = self.check()
+        self.assertEqual(code, 0, out)
+        self.assertNotIn("problem(s)", out)
+
+    def test_it_reports_what_it_examined(self):
+        code, out = self.check()
+        self.assertIn("front-matter value(s)", out)
+
+    def test_every_other_fixture_is_silent(self):
+        """The direction a clean pass cannot prove. One of these was the corpus this check was
+        measured against; the rest are projects that never had the defect."""
+        for path in sorted(glob.glob(os.path.join(FIXTURES, "*"))):
+            if not os.path.isdir(path) or os.path.samefile(path, self.FIXTURE):
+                continue
+            if not os.path.isdir(os.path.join(path, ".taskmd")):
+                continue
+            code, out = run("check", "--root", path)
+            self.assertNotIn("LABEL SHAPE", out, os.path.basename(path))
+
+    def test_this_repository_is_silent(self):
+        """It carried 137 of these until T-136 renamed them. The check is asserted against the tree
+        it was written for, so a label sneaking back in fails the suite rather than a reader."""
+        code, out = run("check", "--root", ROOT)
+        self.assertNotIn("LABEL SHAPE", out)
+
+
 class LinkSyntaxShownRatherThanMade(ScratchProject):
     """T-112. `check_links` ran one flat regex over the whole document, so a project that quotes
     taskmd's own output had its quoted rows resolved as if they were its own links — and `index`

@@ -76,7 +76,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-130](T-130-report-a-question-left-live-in-a-closed-task.md) | Report a question left live in a closed task | `M6` | `proposed` | `specify` | - | - | - | T-025, T-095, T-107, T-121, T-131 |
 | [T-131](T-131-decide-whether-a-question-heavy-task-is-a-different-kind-of-work.md) | Decide whether a question-heavy task is a different kind of work | `M6` | `proposed` | `specify` | - | - | - | T-088, T-109, T-130 |
 | [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) | Derive what a release note must cover from the tasks it ships | `M6` | `specified` | `specify` | - | - | - | T-086, T-125, T-127, T-128, T-129, T-133 |
-| [T-138](T-138-report-a-front-matter-value-that-reads-as-a-version.md) | Report a front-matter value that reads as a version | `M6` | `proposed` | `specify` | - | - | - | T-100, T-106, T-136, T-137 |
 
 ## Closed
 
@@ -211,6 +210,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-133](T-133-decide-what-to-do-about-a-published-release-note-that-breaks-the-rule.md) | Decide what to do about a published release note that breaks the rule | `M5` | `done` | `review` | - | - | - | T-079, T-081, T-125, T-126, T-127, T-129, T-135 |
 | [T-134](T-134-check-that-every-prose-list-of-the-commands-names-the-commands-there-are.md) | Check that every prose list of the commands names the commands there are | `M5` | `done` | `review` | T-117 | - | - | T-030, T-031, T-055, T-071, T-073, T-117, T-126 |
 | [T-136](T-136-rename-the-milestone-labels-so-they-cannot-be-read-as-versions.md) | Rename the milestone labels so they cannot be read as versions | `M6` | `done` | `review` | - | - | - | T-086, T-110, T-125, T-128, T-137, T-138 |
-| [T-137](T-137-decide-what-taskmd-does-about-a-label-read-as-a-version.md) | Decide what taskmd does about a grouping label that can be read as a version | `M6` | `done` | `review` | - | - | T-138 | T-004, T-082, T-087, T-088, T-100, T-106, T-136, T-138 |
+| [T-137](T-137-decide-what-taskmd-does-about-a-label-read-as-a-version.md) | Decide what taskmd does about a grouping label that can be read as a version | `M6` | `done` | `review` | - | - | - | T-004, T-082, T-087, T-088, T-100, T-106, T-136, T-138 |
+| [T-138](T-138-report-a-front-matter-value-that-reads-as-a-version.md) | Report a front-matter value that reads as a version | `M6` | `done` | `review` | - | - | - | T-100, T-106, T-136, T-137 |
 
 <!-- taskmd:end -->

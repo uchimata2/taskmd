@@ -7,7 +7,7 @@ phase: specify
 parent: null
 blocked_by: []
 related: []
-work_package: <the release or grouping this belongs to>
+work_package: <the grouping this belongs to — a label, not a version number>
 owner: the project owner
 business_value: critical | high | medium | low
 effort: xs | s | m | l | xl

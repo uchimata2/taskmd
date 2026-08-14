@@ -92,6 +92,37 @@ new value from the ones you dropped on purpose. Keep one value and the reporting
 reason the next section gives. A project that pinned deliberately reads one line that names exactly
 what it decided not to have.
 
+## A label that reads as a version
+
+`check` prints one advisory line per front-matter value shaped like a two-part number — `v0.2`,
+`2.1` — naming the field, the value and how many tasks carry it:
+
+```
+LABEL SHAPE  work_package: 'v0.2' on 47 task(s) reads as a version; a release of that number is a different thing
+```
+
+**Group your work under a label that cannot be parsed as something installable** — `M2`, `PH2`,
+`hardening`. A grouping and a release are two sequences and they come apart the first time a version
+is bumped for a reason other than finishing a group, which happens to every project that ships fixes
+between milestones. The label then does not go stale, which would be visible. It **resolves**, to a
+real tag holding something else. Two projects reached this independently before the line existed;
+one of them ran 135 tasks under it and needed a hand-written table to stay legible.
+
+**It reads the shape of a value and never the name of a field.** There is no key naming your
+grouping field, and that is not an omission: `work_package` above is a field this schema *names* and
+does not interpret, so a rule keyed on a field name would need a new key — and the next section says
+what a new key costs everyone. Reading the shape also catches the defect under a field name nothing
+here mentions, which is strictly more than a key could do.
+
+**Three or more components is never reported.** `0.4.0` is a version recorded correctly, and a
+project that keeps the version its work shipped in should keep writing it. **The fields named by
+`value_field` and `effort_field` are exempt**, because a project estimating in days writes `1.5` and
+means a number.
+
+**It is advisory and never a problem**, and there is no key to switch it off — the same shape and
+the same reasoning as the drift line above. Version-shaped labels are legal, and a project that
+means them reads one line per distinct label.
+
 ## Adding a key to this file is a breaking change
 
 Three rules already stated here compose into a fourth that is easy to meet only by being bitten:

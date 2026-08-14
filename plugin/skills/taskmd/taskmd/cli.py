@@ -764,6 +764,47 @@ def check_config_drift(root, schema, advisories):
     return [("vocabulary row", compared)]
 
 
+LABEL_SHAPED = re.compile(r"^v?[0-9]+\.[0-9]+$")
+
+
+def check_label_shape(schema, tasks, advisories):
+    """A front-matter value a reader will resolve as a version — advisory, never a problem.
+
+    Two projects grouped a backlog into milestones, named the milestones after the version they
+    expected to ship in, and in both the two sequences came apart: a release takes the next number on
+    the published line whatever grouping its tasks belong to, so they are independent by construction
+    and only look coupled at the start. The label then does not merely lag. It resolves, to a real tag
+    that holds something else (T-137).
+
+    It reads the **shape of a value** and never the name of a field, which is what lets it work with
+    no configuration: taskmd has no concept of a milestone field, and gaining a key to name one would
+    fail every project that wrote a config. Measured rather than assumed — it catches the defect under
+    field names no schema mentions, and a project that means its labels reads one line per distinct
+    value, for ever, with nothing to switch off. Legal states do not fail (T-100).
+
+    Three or more components is a version recorded correctly and is left alone. The two estimate
+    fields are exempt because a project estimating in days writes `1.5` and means a number.
+    """
+    exempt = set(f for f in (schema.value_field, schema.effort_field) if f)
+    seen, examined = {}, 0
+    for task in ordered(tasks):
+        for field, value in sorted(task.fields.items()):
+            if field in exempt:
+                continue
+            # A field the schema does not name is carried as written, so it arrives as a list when
+            # the task wrote one. Both shapes hold values a reader resolves.
+            values = value if isinstance(value, list) else [value]
+            for item in values:
+                examined += 1
+                item = item.strip() if isinstance(item, str) else ""
+                if LABEL_SHAPED.match(item):
+                    seen.setdefault((field, item), []).append(task.id)
+    for (field, value), ids in sorted(seen.items()):
+        advisories.append("%s: '%s' on %d task(s) reads as a version; a release of that number is a "
+                          "different thing" % (field, value, len(ids)))
+    return [("front-matter value", examined)]
+
+
 def check_duplicate_index(root, schema, tasks, duplicates):
     """A second table of the same tasks, outside the markers taskmd owns — advisory, never a problem.
 
@@ -824,7 +865,7 @@ def check_duplicate_index(root, schema, tasks, duplicates):
 
 def cmd_check(root, schema, tasks, args):
     problems, counted, notes, advisories = [], [], [], []
-    duplicates = []
+    duplicates, label_shaped = [], []
     counted += check_anomalies(root, schema, tasks, problems)
     counted += check_vocabularies(schema, tasks, problems)
     counted += check_references(schema, tasks, problems)
@@ -837,6 +878,7 @@ def cmd_check(root, schema, tasks, args):
     counted += check_unreachable_templates(root, schema, problems)
     counted += check_template_fields(root, schema, problems)
     counted += check_config_drift(root, schema, advisories)
+    counted += check_label_shape(schema, tasks, label_shaped)
     counted += check_duplicate_index(root, schema, tasks, duplicates)
 
     if problems:
@@ -854,6 +896,8 @@ def cmd_check(root, schema, tasks, args):
     # the other, so a project grepping for one should not receive the other (T-121).
     for duplicate in duplicates:
         print("DUPLICATE INDEX  %s" % duplicate)
+    for shaped in label_shaped:
+        print("LABEL SHAPE  %s" % shaped)
     # What was *not* looked at, on both branches for the reason the denominators are on both: a
     # scan narrowed by an exclusion hides behind a problem exactly as well as behind a pass.
     for note in notes:
