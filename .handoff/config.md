@@ -85,7 +85,11 @@ was a defect nobody here knew about, and it was the row its author expected to b
 first move on any row is to read the shipped artifact the reporter would have read, at the version
 they name, and the second is to resolve every id they cite — including the ones labelled as ours. A
 row that turns out to be already-shipped is worth more to the reporter than a task is: tell them what
-they can delete. Where the trail for each report lands is in `control/LOCAL-CONTEXT.md`, one row per
+they can delete. **The third move is the mirror of the first**: where a row describes a defect in the
+reporter's *own* code, ask whether it is still there before handing it back. A row records the
+observation and not the repair, so silence about the state reads as open — we listed one as theirs to
+act on that they had found and fixed before writing the row, and the correction cost a round trip.
+The row can be perfectly good as evidence and wrong as an item. Where the trail for each report lands is in `control/LOCAL-CONTEXT.md`, one row per
 adopter, and nowhere else.
 
 `plugin/skills/taskmd/docs/METHOD.md` is the working method itself. Since T-028 it is **tier 2** — loaded when task work
