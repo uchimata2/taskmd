@@ -77,7 +77,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-131](T-131-decide-whether-a-question-heavy-task-is-a-different-kind-of-work.md) | Decide whether a question-heavy task is a different kind of work | `M6` | `proposed` | `specify` | - | - | - | T-088, T-109, T-130 |
 | [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) | Derive what a release note must cover from the tasks it ships | `M6` | `specified` | `specify` | - | - | - | T-086, T-125, T-127, T-128, T-129, T-133 |
 | [T-139](T-139-check-that-the-advisory-lines-the-readme-lists-are-the-ones-there-are.md) | Check that the advisory lines the README lists are the advisory lines there are | `M6` | `proposed` | `specify` | - | - | - | T-100, T-121, T-134, T-138 |
-| [T-140](T-140-restore-the-log-row-a-table-cell-swallowed.md) | Restore the log row a table cell swallowed in T-099 | `M6` | `proposed` | `specify` | - | - | - | T-099, T-141 |
 | [T-141](T-141-report-a-table-row-with-more-cells-than-its-header.md) | Report a table row with more cells than its header | `M6` | `proposed` | `specify` | - | - | - | T-025, T-095, T-107, T-121, T-140 |
 | [T-142](T-142-stop-the-entry-point-stating-the-path-mechanism-as-given.md) | Stop the entry point stating the PATH mechanism as given | `M6` | `proposed` | `specify` | - | - | - | T-054, T-085, T-099 |
 | [T-143](T-143-decide-whether-tier-1-names-the-generated-index-at-all.md) | Decide whether tier 1 names the generated index at all | `M6` | `proposed` | `specify` | - | - | - | T-022, T-028, T-087, T-118 |
@@ -220,5 +219,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-136](T-136-rename-the-milestone-labels-so-they-cannot-be-read-as-versions.md) | Rename the milestone labels so they cannot be read as versions | `M6` | `done` | `review` | - | - | - | T-086, T-110, T-125, T-128, T-137, T-138 |
 | [T-137](T-137-decide-what-taskmd-does-about-a-label-read-as-a-version.md) | Decide what taskmd does about a grouping label that can be read as a version | `M6` | `done` | `review` | - | - | - | T-004, T-082, T-087, T-088, T-100, T-106, T-136, T-138 |
 | [T-138](T-138-report-a-front-matter-value-that-reads-as-a-version.md) | Report a front-matter value that reads as a version | `M6` | `done` | `review` | - | - | - | T-100, T-106, T-136, T-137, T-139 |
+| [T-140](T-140-restore-the-log-row-a-table-cell-swallowed.md) | Restore the log row a table cell swallowed in T-099 | `M6` | `done` | `review` | - | - | - | T-099, T-141 |
 
 <!-- taskmd:end -->
