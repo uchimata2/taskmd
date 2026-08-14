@@ -56,7 +56,23 @@ written a third time for advisories or written once for *any* marked list of a s
 - [ ] <written at specify>
 
 **Open questions**
-- <specify has not run>
+- ~~**Is the guard written a third time for advisories, or once for any marked list of a set the code
+  owns?**~~ **Answered by the project owner on 2026-08-15: once, for any marked list of a set the
+  code owns.** Put to them after
+  [T-141](T-141-report-a-table-row-with-more-cells-than-its-header.md) added a **problem**-class
+  paragraph beside the three advisory ones, which is the case that makes the narrow reading
+  arbitrary: the README now enumerates two different kinds of `check` line in the same register, and
+  a guard covering one of them would be drawing its boundary where nothing in the document does.
+
+  *Rejected: keep the guard to the advisory lines.* Narrower and cheaper, and it is what this task's
+  title says. What decided it against: it is exactly how T-134 led here. That task guarded the
+  command lists and stopped, correctly for its scope, and the next enumerated set to drift was the
+  next one nobody was watching. A third instance of the same fault is evidence about the class, not
+  about advisories.
+
+  **This does not settle the mechanism.** Whether T-134's markers are reused, extended or copied is
+  still `specify`'s, and so is which sets count as *owned by the code* — the scope line above already
+  admits the `Scope` and problem-class lines conditionally, and that condition is now met.
 
 ## 2. Plan
 
@@ -86,4 +102,5 @@ written a third time for advisories or written once for *any* marked list of a s
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-15 | (no change) | **The guarded set is any marked list of a set the code owns, not the advisory lines**, decided by the project owner on 2026-08-15. The occasion was [T-141](T-141-report-a-table-row-with-more-cells-than-its-header.md) adding a problem-class paragraph beside the three advisory ones, so the scope line's conditional — *unless the answer generalises to them for free* — is now met rather than hypothetical. It authorises no phase, and it leaves the mechanism and the membership rule to `specify`. Recorded here rather than carried in a reply, because it changes what this task's title is about and the title is now narrower than the task. |
 | 2026-08-12 | → proposed | Raised by the handoff reconcile sweep after [T-138](T-138-report-a-front-matter-value-that-reads-as-a-version.md) shipped a third advisory line and left `README.md` naming two. **The missing paragraph was written during the sweep and this task is the guard, not the paragraph** — fixing the instance silently would have left the class exactly as unguarded as T-138 found it. Not folded back into T-138: that task is closed and its scope was honest about where it looked, so the gap is in what nobody had generalised rather than in what it did. |
