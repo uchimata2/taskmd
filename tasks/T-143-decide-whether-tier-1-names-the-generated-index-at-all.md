@@ -45,6 +45,20 @@ taskmd list --open --limit 1   96 bytes     350x smaller
 The index grows with every task ever closed; 131 of this repository's 143 files are done and every one
 of them is a row. `list --open` grows only with what is open, which is eight.
 
+**Re-measured later the same day by
+[T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md), in characters:**
+
+```
+tasks/README.md              36,393 chars
+taskmd list --open            1,473 chars      24x smaller
+taskmd list --open --limit 1     95 chars     383x smaller
+```
+
+**Both measurements are 2026-08-15 and they disagree**, which is the reason the acceptance criteria
+below refuse to let either be carried: eight tasks were raised between them, the corpus grew from 143
+files to 151, and the two are in different units — bytes above, characters here, which is the unit the
+tier-1 budget uses. Neither is the decision-time figure.
+
 **Two of tier 1's own rules disagree about this line.** `CLAUDE.md` admits a line only if it changes
 what a session does *before it has chosen what to work on* — and where to find the backlog is exactly
 that, so the line qualifies. It also says **where the project has got to never qualifies**, being
@@ -124,3 +138,4 @@ R-21 (`docs/SCOPE.md`) — the always-loaded cost, falsified by measuring a sess
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-15 | → proposed | Raised from the htmldeck adopter report, row `O-T3`. The row asks nothing of the tool — its proposed answer is what `SKILL.md` has said since it was written — so what survives is the same rule applied to this repository, where the always-loaded file names the 33,607-byte instrument and the skill names the 96-byte one. `medium` because nothing is broken and no adopter is affected; the cost is one repository's own sessions taking the long route. `s` because the decision is a sentence and the evidence is two commands. Filed as `decision` rather than `fix` because tier 1's two clauses genuinely disagree here and picking one is the work. |
+| 2026-08-15 | — | [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md)'s finding E-12 is this task, arrived at independently, and **raised no second task for it** — what the audit adds is the character measurement recorded above, written here because this is where the question lives. The two same-day figures disagreeing is the finding's own evidence for the criterion that already said to re-run them. |
