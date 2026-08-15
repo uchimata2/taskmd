@@ -2,17 +2,17 @@
 id: T-153
 title: E-10 — Move the maintainer's justification into comments the harness strips
 type: fix
-status: in_progress
+status: done
 phase: review
 parent: T-152
-blocked_by: [T-159]
+blocked_by: []
 related: [T-142]
 work_package: M6
 owner: maintainer
 business_value: medium
 effort: xs
 created: 2026-08-15
-updated: 2026-08-15
+updated: 2026-08-16
 deliverables: []
 ---
 
@@ -130,16 +130,29 @@ removed 836 chars
 
 ## 4. Review
 
+**Re-judged 2026-08-16, against the criteria `specify` wrote.** The 2026-08-15 table judged five rows,
+and only four of them were criteria: it added *verified by observation that the commented text does
+not reach a session*, which `specify` never wrote, and left criterion 5 unjudged. The substance was
+honest — that row is what criterion 2 actually demands, and admitting the gap is why this task stayed
+open — but the bookkeeping hid two things. Criterion 2 was marked **met** on the strip's own printout,
+which is the checker's view of the file and not a session's view, and the criterion the maintainer did
+write was never ruled on at all. Both are corrected below rather than in the row above, which stands
+as what was judged on the day.
+
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-| Every passage moved is justification for a human, and the split is stated passage by passage | met | The table above. Five passages, each with the reason. |
-| Nothing operative went into a comment, checked by reading the result as a session would receive it | met | The strip was run and its removals printed; every removed line is in the table. |
-| The saving is measured after the change, in characters, with the date | met | 663 characters, 2026-08-15, against 6,968 measured the same day. |
-| `tests/test_budget.py` passes, and what it now counts is stated | met | 7 tests, OK. It counts the file with block comments stripped, and says so on every run. |
-| Verified by observation that the commented text does not reach a session | **not met** | Carried by [T-159](T-159-observe-whether-a-block-comment-reaches-a-session.md). This session's copy of `CLAUDE.md` was fixed before its first tool call, so it cannot see its own change. **T-153 does not close until T-159 answers** — closing would assert a saving nobody has seen. |
+| Every passage moved is justification for a human, and the split is stated passage by passage | met | The table above. Five passages, each with the reason. Unchanged from 2026-08-15. |
+| Nothing operative went into a comment, **checked by reading the result as a session would receive it** | met | **2026-08-16, and it was not met on 2026-08-15.** [T-159](T-159-observe-whether-a-block-comment-reaches-a-session.md) read what a session was handed: all five blocks absent, proven by `T-047` and `T-118` — present in `CLAUDE.md` only inside comments — reaching nothing, while `T-054` in the uncommented prose arrived. The strip's printout could never have settled this: it is the checker reading the file, and the project's rule is to run the thing on a real case. |
+| The saving is measured after the change, in characters, with the date | met | 663 characters, 2026-08-15, against 6,968 measured the same day. Re-derived independently on 2026-08-16 and identical, so nothing drifted between writing the strip and observing it. |
+| `tests/test_budget.py` passes, and what it now counts is stated | met | Suite `OK (skipped=3)` on 2026-08-16. It counts the file with block comments stripped and names the stripped figure on every run. **The figure is right and its provenance clause is now false** — see the child task; the criterion asks what it counts, and that part still holds. |
+| The measured outcome is written into this record on the day it is known, not reconstructed later | met | **Judged here for the first time.** 663 characters written 2026-08-15, the day measured; the observation written into T-159 on 2026-08-16, the day made. |
 
 **Child fix tasks raised**
-- [T-159](T-159-observe-whether-a-block-comment-reaches-a-session.md) — the one observation this task cannot make
+- [T-159](T-159-observe-whether-a-block-comment-reaches-a-session.md) — the one observation this task
+  cannot make. Answered 2026-08-16; it is what moved criterion 2 to met.
+- [T-160](T-160-retire-the-budget-check-s-unobserved-premise-warning.md) — `report()`'s second line
+  still says `not yet observed here`, which T-159 made false. Raised rather than fixed here: this
+  session was authorised for `review`, and the correction is `implement` work.
 
 ## Log
 
@@ -149,3 +162,4 @@ removed 836 chars
 | 2026-08-15 | — | The open question above was found while raising this task, not by the audit: `measure()` reads the file whole, so E-10's remedy silently makes the budget check over-count. Recorded here rather than fixed, and it is the reason this task cannot be a two-line edit. |
 | 2026-08-15 | — | **The maintainer authorised this task's whole lifecycle in one request** — `specify` → `plan` → `implement` → `review` — in a request covering T-153, T-154, T-155, T-156 and T-157 and **nothing else**. Any task raised from here takes one phase per request unless separately authorised (METHOD §3.1). Recorded in each of the five records because an authorisation kept anywhere else is one a later session can miss or stretch. |
 | 2026-08-15 | → in_progress | All four phases run. 663 characters off the counted tier 1, measured. **The task stays open**: its verification criterion needs a session that has not started yet, which the maintainer chose to leave to a later one rather than spend a subagent on. [T-159](T-159-observe-whether-a-block-comment-reaches-a-session.md) carries it, and this task is `blocked_by` it. |
+| 2026-08-16 | → done | `review` re-run on the maintainer's request, `blocked_by` cleared when [T-159](T-159-observe-whether-a-block-comment-reaches-a-session.md) closed. All five criteria met; the saving is now observed rather than documented. **The re-run found the 2026-08-15 table judging a row `specify` never wrote and skipping one it did** — criterion 2 held a pass earned on the checker's printout rather than on a session's input, and criterion 5 was never ruled on. Both corrected above; the original row is left standing as what was judged that day (METHOD rule 5). Raised [T-160](T-160-retire-the-budget-check-s-unobserved-premise-warning.md) for the one live falsehood the answer created. |
