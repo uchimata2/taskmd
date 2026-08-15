@@ -2,11 +2,11 @@
 id: T-155
 title: E-13 — Test whether a path-scoped rule can hold tier 1's prose about itself
 type: decision
-status: proposed
-phase: specify
+status: in_progress
+phase: implement
 parent: T-152
-blocked_by: [T-154]
-related: [T-118]
+blocked_by: []
+related: [T-118, T-153, T-159]
 work_package: M6
 owner: maintainer
 business_value: medium
@@ -81,15 +81,65 @@ question this task cites. Specifying the two independently produces inconsistent
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Answer `specify`'s open question first — it decides what a **success** produces, and answering it afterwards would let the result choose the answer | The decision below |
+| 2 | Re-measure the block at test time. [T-153](T-153-e-10-move-the-maintainer-s-justification-into-comments.md) has already taken part of it at no risk, so the audit's figure is stale by construction | The figure below |
+| 3 | Weigh the portability objection, which can be settled by reading what an adopter receives | The finding below |
+| 4 | **Ask the maintainer to enable the `InstructionsLoaded` hook.** It is user-scope configuration, not this repository's to write | A hook that logs when an instruction file enters context |
+| 5 | Write one rule under `.claude/rules/` with a `paths:` glob matching `CLAUDE.md`, carrying a **marker sentence and not the real block** — the block moving is the change this task must not carry | The candidate rule |
+| 6 | Restart. Read the log: did the rule load at session start, and did it load when `CLAUDE.md` was read? | Observation 1 |
+| 7 | Compact, edit `CLAUDE.md`, read the log again: did it fire a second time? | Observation 2 — the risk that decides the answer |
+| 8 | Report the boundary — which loads the mechanism reached and which it did not. **Two failed attempts stop the task** | The report |
+| 9 | Raise the carry decision as its own task **only if** the mechanism holds | one task, or none |
 
 ## 3. Implement
 
+**Steps 1–3 are done. Steps 4–9 need a session that has not started yet** — see the boundary below.
+
+**The block is smaller than the audit measured.** Re-measured 2026-08-15, after
+[T-153](T-153-e-10-move-the-maintainer-s-justification-into-comments.md):
+
+```
+paid meta-block: 1578 chars
+paid tier-1 file: 5908
+share: 26.7%
+```
+
+E-13 measured 2,384 characters, 36.3% of a 6,571-character file. **806 of them have already gone**,
+into block comments, at no relocation risk and with no decision re-opened. Against the finding's own
+carve-out estimate — 400 to 600 characters of the block operative for the agent — what a successful
+relocation would now extract is roughly **1,000 to 1,180 characters**, about half what phase 1
+priced. The remedy has to be worth its three risks at that size, not at the original one.
+
+**The portability objection is weaker than it looks.** Risk 3 said `.claude/rules/` is
+harness-specific while this repository ships a plugin meant to work anywhere. But the rule would
+govern `CLAUDE.md`, and **`CLAUDE.md` is not shipped either** — since T-053 the plugin is the
+`plugin/` subtree, so neither the instruction file nor a rule beside it reaches an adopter. The
+objection applies to advising adopters to use the mechanism, which nothing here proposes. Risks 1 and
+2 — compaction, and a recorded decision re-opened — are untouched and are what the test is for.
+
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+- **A success produces a new task, not a re-opened [T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md)** — 2026-08-15, answering
+  `specify`'s open question. METHOD rule 5 keeps binding after a task closes: correct what a record
+  says about the **present**, never rewrite what it says about the **past**. T-118's decision is a
+  dated statement about what was known then, and it was right on what it knew. A new task cites it,
+  carries the new evidence, and leaves the record intact. *Rejected:* editing T-118's decision in
+  place, which would destroy the only account of why the prose stayed.
+- **The candidate rule carries a marker, not the block** — 2026-08-15. The task tests a *mechanism*.
+  Putting the real prose in the rule would carry the change under cover of testing it, which is the
+  thing the maintainer's ruling forbids.
+- **The hook is the maintainer's to enable** — 2026-08-15. It is persistent user-scope configuration
+  outside this repository, so this task asks rather than writes.
 
 **Outputs produced**
-- <path>
+
+Nothing outside this record yet. The two figures above are the outputs of steps 2 and 3.
+
+**The boundary, and why it is here.** Steps 4 to 9 need an instruction file to be **loaded** after it
+changes, and a session's copy is fixed before its first tool call — so no session can observe its own
+change. The maintainer chose on 2026-08-15 to leave that to a later session rather than spend a
+subagent as the instrument. This task therefore stops at `implement` with its phase intact: it is
+waiting, and waiting is not a phase.
 
 ## 4. Review
 
@@ -105,3 +155,6 @@ question this task cites. Specifying the two independently produces inconsistent
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-15 | → proposed | Raised from [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md), finding E-13. `decision` and not `fix`, on the maintainer's explicit ruling the same day: the remedy re-opens a decision recorded with a reason, so this task measures and reports and carries nothing. `s` — the work is one write, one restart and one observation, twice. |
+| 2026-08-15 | — | **The maintainer authorised this task's whole lifecycle in one request** — `specify` → `plan` → `implement` → `review` — in a request covering T-153, T-154, T-155, T-156 and T-157 and **nothing else**. Any task raised from here takes one phase per request unless separately authorised (METHOD §3.1). Recorded in each of the five records because an authorisation kept anywhere else is one a later session can miss or stretch. |
+| 2026-08-15 | → in_progress | `specify` and `plan` complete, `implement` begun and **stopped at its boundary**: steps 4 to 9 need a session that starts after a rule file is written, and no session can observe a change to the instruction file it was handed. `blocked_by` was cleared when [T-154](T-154-e-01-e-04-say-what-the-tier-1-budget-governs.md) closed. `review` has not run and must not — three of its criteria judge observations nobody has made. |
+| 2026-08-15 | — | Two findings from the part that could be done, and both weaken the case for the change rather than strengthen it: the block is **1,578 characters, not 2,384**, because T-153 took 806 of it at no risk; and the portability objection largely dissolves, because `CLAUDE.md` is no more shipped to an adopter than a rule beside it would be. What survives as a reason to test is compaction and the re-opened decision. |

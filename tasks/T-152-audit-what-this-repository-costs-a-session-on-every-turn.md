@@ -116,24 +116,28 @@ Each id is stated in full in one of the two deliverables and is **not** restated
 the disposition. `—` in the severity column is a row that is a result rather than a finding, and those
 rows are the evidence that the area was examined.
 
-| # | One line | Severity | Child task | Status |
+*The last column is the **disposition**, never the child's status — that is stored once, in the child,
+and `taskmd context T-152` derives it. A status column here would be a second home and would be wrong
+by the end of the week it was written.*
+
+| # | One line | Severity | Child task | Disposition |
 | :-- | :--- | :---: | :--- | :--- |
-| [E-01](../docs/audits/2026-08-15-context-economy-portable.md#e-01) | A passing budget covers a minority of the observed load path | medium | [T-154](T-154-e-01-e-04-say-what-the-tier-1-budget-governs.md) | open |
+| [E-01](../docs/audits/2026-08-15-context-economy-portable.md#e-01) | A passing budget covers a minority of the observed load path | medium | [T-154](T-154-e-01-e-04-say-what-the-tier-1-budget-governs.md) | raised |
 | [E-02](../docs/audits/2026-08-15-context-economy-portable.md#e-02) | The capability catalogue is the largest load-path item; 1.3% of it is ours | low | none | **Controller is the user.** Not available at project scope, and no clone inherits the setting. The levers are named in the finding. |
-| [E-03](../docs/audits/2026-08-15-context-economy-portable.md#e-03) | The portable statement of E-13 | medium | [T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md) | open |
-| [E-04](../docs/audits/2026-08-15-context-economy-portable.md#e-04) | Instruction count binds and a character budget cannot see it | low | [T-154](T-154-e-01-e-04-say-what-the-tier-1-budget-governs.md) | open — folded in; see the decisions below |
-| [E-05](../docs/audits/2026-08-15-context-economy-portable.md#e-05) | The portable statement of E-12 | medium | [T-143](T-143-decide-whether-tier-1-names-the-generated-index-at-all.md) | open |
+| [E-03](../docs/audits/2026-08-15-context-economy-portable.md#e-03) | The portable statement of E-13 | medium | [T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md) | raised |
+| [E-04](../docs/audits/2026-08-15-context-economy-portable.md#e-04) | Instruction count binds and a character budget cannot see it | low | [T-154](T-154-e-01-e-04-say-what-the-tier-1-budget-governs.md) | folded in; see the decisions below |
+| [E-05](../docs/audits/2026-08-15-context-economy-portable.md#e-05) | The portable statement of E-12 | medium | [T-143](T-143-decide-whether-tier-1-names-the-generated-index-at-all.md) | raised |
 | E-06 | — | — | none | **No such id in either deliverable.** See the decisions below; this task cannot close it. |
 | [E-07](../docs/audits/2026-08-15-context-economy-portable.md#e-07) | Output caps: measured not to fire here | — | none | Result. The zero is measured, and the technique is recorded for a project whose output is large. |
 | [E-08](../docs/audits/2026-08-15-context-economy-portable.md#e-08) | Screen a figure on its source and on where the effect concentrates | low | none | A rule for the audit **method**, which is another repository's. Carried in the portable deliverable, which is the handover. |
 | [E-09](../docs/audits/2026-08-15-context-economy-portable.md#e-09) | `@path` imports load at launch; a split is not a deferral | low | none | Already satisfied here: this project's tier 1 was established by observation (T-050), not by a file's claim. |
-| [E-10](../docs/audits/2026-08-15-context-economy-portable.md#e-10) | Block comments are stripped before injection | low | [T-153](T-153-e-10-move-the-maintainer-s-justification-into-comments.md) | open — **taken first**, on the maintainer's ruling |
+| [E-10](../docs/audits/2026-08-15-context-economy-portable.md#e-10) | Block comments are stripped before injection | low | [T-153](T-153-e-10-move-the-maintainer-s-justification-into-comments.md) | **taken first**, on the maintainer's ruling |
 | [E-11](../docs/audits/2026-08-15-context-economy-portable.md#e-11) | A general-purpose subagent pays the instruction file again | low | none | Controller is the person running the agent. This repository has no mechanism that binds a subagent choice, and a tier-1 line asking for one would fail its own membership rule. |
-| [E-12](../docs/audits/2026-08-15-context-economy-taskmd.md#e-12) | Tier 1 names a 36,393-char index; a command answers in 95 | medium | [T-143](T-143-decide-whether-tier-1-names-the-generated-index-at-all.md) | open — **already asked**. Nothing raised; the measurement was written into T-143 instead. |
-| [E-13](../docs/audits/2026-08-15-context-economy-taskmd.md#e-13) | 36.3% of tier 1 is prose about tier 1 | medium | [T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md) | open — **tested, not carried** |
+| [E-12](../docs/audits/2026-08-15-context-economy-taskmd.md#e-12) | Tier 1 names a 36,393-char index; a command answers in 95 | medium | [T-143](T-143-decide-whether-tier-1-names-the-generated-index-at-all.md) | **already asked**. Nothing raised; the measurement was written into T-143 instead. |
+| [E-13](../docs/audits/2026-08-15-context-economy-taskmd.md#e-13) | 36.3% of tier 1 is prose about tier 1 | medium | [T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md) | **tested, not carried** |
 | [E-14](../docs/audits/2026-08-15-context-economy-taskmd.md#e-14) | The budget's comparison set is closed | — | none | Result: the family's remedy is already implemented and shown to fail on a tree it should catch. |
 | [E-15](../docs/audits/2026-08-15-context-economy-taskmd.md#e-15) | Spine plus one branch: 13,905 characters present and not paid | — | none | Result. |
-| [E-16](../docs/audits/2026-08-15-context-economy-taskmd.md#e-16) | The binding is 49.4% of the non-task read path | medium | [T-156](T-156-e-16-decide-whether-a-read-only-phase-can-skip-the-binding.md) | open |
+| [E-16](../docs/audits/2026-08-15-context-economy-taskmd.md#e-16) | The binding is 49.4% of the non-task read path | medium | [T-156](T-156-e-16-decide-whether-a-read-only-phase-can-skip-the-binding.md) | raised |
 | [E-17](../docs/audits/2026-08-15-context-economy-taskmd.md#e-17) | `Log` is 16.6% of the task corpus | — | none | **Rejected at the threshold**, in the deliverable, with the reason: nothing can be named that the prose would stop deciding. |
 | [E-18](../docs/audits/2026-08-15-context-economy-taskmd.md#e-18) | 858 bytes of payload per byte of tier-1 description | — | none | Result: progressive disclosure doing what it is for. |
 | [E-19](../docs/audits/2026-08-15-context-economy-taskmd.md#e-19) | A whole unit of work prints ~2,400 characters on a green run | — | none | Result, and the measurement that rejects E-07 here. |

@@ -20,7 +20,9 @@ answers what to work on next, by the project's own ordering rule.
 taskmd context <id>
 ```
 
-returns everything needed to start that one task, and is the only read of it you need.
+returns what you need to **start** that one task: its fields, its derived edges and its declared
+outputs. It is a summary and not the task — your binding's *read* says what it leaves out, and
+specifying or judging the work needs that.
 
 `taskmd` runs from any directory, including a subdirectory of the project: it finds the project by
 walking up from wherever it is run. Add `--root <path>` only to override the one it finds.
@@ -40,7 +42,7 @@ binding supplies the operations instead — and everything below is unchanged, w
 | :--- | :--- |
 | [`docs/METHOD.md`](docs/METHOD.md) | Now, before doing anything to a task. It is the method. |
 | the phase file it names in its §7 | Beginning that phase |
-| this project's binding, in [`docs/bindings/`](docs/bindings/) | Before creating or changing any task. It says which artifact plays each role here, and what a write still owes afterwards. |
+| this project's binding, in [`docs/bindings/`](docs/bindings/) | Beginning any phase — all four end in a write to the record, so there is no phase that skips this. It says which artifact plays each role here, and what a write still owes afterwards. |
 | [`adopt.md`](adopt.md) | The project has no tasks yet, or a command reports its task folder missing |
 
 A write is not finished until the binding's *after any write* step has run, and it is yours to run —

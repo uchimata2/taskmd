@@ -77,7 +77,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-131](T-131-decide-whether-a-question-heavy-task-is-a-different-kind-of-work.md) | Decide whether a question-heavy task is a different kind of work | `M6` | `proposed` | `specify` | - | - | - | - | T-088, T-109, T-130 |
 | [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) | Derive what a release note must cover from the tasks it ships | `M6` | `specified` | `specify` | - | - | - | - | T-086, T-125, T-127, T-128, T-129, T-133 |
 | [T-139](T-139-check-that-the-advisory-lines-the-readme-lists-are-the-ones-there-are.md) | Check that the advisory lines the README lists are the advisory lines there are | `M6` | `proposed` | `specify` | - | - | - | - | T-100, T-121, T-134, T-138, T-147 |
-| [T-142](T-142-stop-the-entry-point-stating-the-path-mechanism-as-given.md) | Stop the entry point stating the PATH mechanism as given | `M6` | `proposed` | `specify` | - | - | - | - | T-054, T-085, T-099, T-148 |
+| [T-142](T-142-stop-the-entry-point-stating-the-path-mechanism-as-given.md) | Stop the entry point stating the PATH mechanism as given | `M6` | `proposed` | `specify` | - | - | - | - | T-054, T-085, T-099, T-148, T-153 |
 | [T-143](T-143-decide-whether-tier-1-names-the-generated-index-at-all.md) | Decide whether tier 1 names the generated index at all | `M6` | `proposed` | `specify` | - | - | - | T-158 | T-022, T-028, T-087, T-118, T-152 |
 | [T-145](T-145-stop-help-answering-for-a-command-that-does-not-exist.md) | Stop --help answering for a command that does not exist | `M6` | `proposed` | `specify` | - | - | - | - | T-029, T-113, T-120, T-144 |
 | [T-146](T-146-decide-whether-a-field-can-be-required-at-a-status.md) | Decide whether a field can be required at a status | `M6` | `proposed` | `specify` | - | - | - | - | T-065, T-089, T-100, T-106 |
@@ -87,12 +87,10 @@ A label says which release the work is scheduled into. It never says the release
 | [T-150](T-150-give-the-wide-row-fixture-a-front-matter-that-carries-pipes.md) | Give the wide-row fixture a front matter that carries pipes | `M6` | `proposed` | `specify` | - | - | - | - | T-032, T-141, T-151 |
 | [T-151](T-151-decide-whether-a-check-needs-a-case-that-must-not-fire.md) | Decide whether a check needs a case that must not fire | `M6` | `proposed` | `specify` | - | - | - | - | T-100, T-141, T-150 |
 | [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md) | Audit — what this repository costs a session on every turn | `M6` | `in_progress` | `review` | - | T-153, T-154, T-155, T-156, T-157, T-158 | - | - | T-118, T-143 |
-| [T-153](T-153-e-10-move-the-maintainer-s-justification-into-comments.md) | E-10 — Move the maintainer's justification into comments the harness strips | `M6` | `proposed` | `specify` | T-152 | - | - | T-158 | - |
-| [T-154](T-154-e-01-e-04-say-what-the-tier-1-budget-governs.md) | E-01/E-04 — Say what the tier-1 budget governs, and what it cannot see | `M6` | `proposed` | `specify` | T-152 | - | - | T-155, T-158 | T-028 |
-| [T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md) | E-13 — Test whether a path-scoped rule can hold tier 1's prose about itself | `M6` | `proposed` | `specify` | T-152 | - | T-154 | T-158 | T-118 |
-| [T-156](T-156-e-16-decide-whether-a-read-only-phase-can-skip-the-binding.md) | E-16 — Decide whether a read-only phase can skip the binding | `M6` | `proposed` | `specify` | T-152 | - | - | T-158 | - |
-| [T-157](T-157-b-2-settle-what-context-claims-to-be-enough-for.md) | B-2 — Settle what `taskmd context` claims to be enough for | `M6` | `proposed` | `specify` | T-152 | - | - | - | - |
-| [T-158](T-158-phase-2-grade-each-band-against-what-it-bought.md) | Phase 2 of the context-economy audit — grade each band against what it bought | `M6` | `proposed` | `specify` | T-152 | - | T-143, T-153, T-154, T-155, T-156 | - | - |
+| [T-153](T-153-e-10-move-the-maintainer-s-justification-into-comments.md) | E-10 — Move the maintainer's justification into comments the harness strips | `M6` | `in_progress` | `review` | T-152 | T-159 | T-159 | T-158 | T-142, T-155 |
+| [T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md) | E-13 — Test whether a path-scoped rule can hold tier 1's prose about itself | `M6` | `in_progress` | `implement` | T-152 | - | - | T-158 | T-118, T-153, T-159 |
+| [T-158](T-158-phase-2-grade-each-band-against-what-it-bought.md) | Phase 2 of the context-economy audit — grade each band against what it bought | `M6` | `proposed` | `specify` | T-152 | - | T-143, T-153, T-155 | - | - |
+| [T-159](T-159-observe-whether-a-block-comment-reaches-a-session.md) | Observe whether a block comment in CLAUDE.md reaches a session | `M6` | `proposed` | `specify` | T-153 | - | - | T-153 | T-050, T-155 |
 
 ## Closed
 
@@ -146,7 +144,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `M2` | `done` | `review` | - | - | - | - | T-015, T-028, T-035, T-059, T-063, T-105, T-115, T-118, T-119 |
 | [T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md) | Say what "always-loaded" means in R-21, before the skill is built against it | `M1` | `done` | `review` | - | - | - | - | T-003, T-028 |
 | [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) | Demonstrate a clone running on a second platform | `M1` | `done` | `review` | T-011 | T-057, T-058 | - | - | T-006, T-020, T-054, T-056, T-057, T-058, T-061, T-085, T-116, T-132 |
-| [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | `M1` | `done` | `review` | T-003 | - | - | - | T-006, T-052, T-053, T-118 |
+| [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | `M1` | `done` | `review` | T-003 | - | - | - | T-006, T-052, T-053, T-118, T-159 |
 | [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | `M1` | `done` | `review` | - | - | - | - | T-001, T-003, T-060, T-076, T-091, T-101 |
 | [T-052](T-052-decide-what-of-claude-a-published-clone-carries.md) | Decide what of .claude a published clone carries, and ignore the rest | `M1` | `done` | `review` | - | - | - | - | T-003, T-006, T-050, T-053, T-067 |
 | [T-053](T-053-decide-the-plugin-s-boundary-and-what-its-skill-may-p.md) | Decide the plugin's boundary, and what its skill may point at | `M1` | `done` | `review` | - | - | - | - | T-003, T-006, T-050, T-052, T-054, T-059, T-064, T-067, T-072, T-083, T-103 |
@@ -232,5 +230,8 @@ A label says which release the work is scheduled into. It never says the release
 | [T-140](T-140-restore-the-log-row-a-table-cell-swallowed.md) | Restore the log row a table cell swallowed in T-099 | `M6` | `done` | `review` | - | - | - | - | T-099, T-141 |
 | [T-141](T-141-report-a-table-row-with-more-cells-than-its-header.md) | Report a table row with more cells than its header | `M6` | `done` | `review` | - | - | - | - | T-025, T-095, T-107, T-121, T-140, T-147, T-150, T-151 |
 | [T-144](T-144-decide-whether-a-commands-own-options-can-be-discovered-from-the-cli.md) | Decide whether a command's own options can be discovered from the CLI | `M6` | `done` | `review` | - | - | - | - | T-022, T-029, T-087, T-113, T-145, T-149 |
+| [T-154](T-154-e-01-e-04-say-what-the-tier-1-budget-governs.md) | E-01/E-04 — Say what the tier-1 budget governs, and what it cannot see | `M6` | `done` | `review` | T-152 | - | - | T-158 | T-028 |
+| [T-156](T-156-e-16-decide-whether-a-read-only-phase-can-skip-the-binding.md) | E-16 — Decide whether a read-only phase can skip the binding | `M6` | `done` | `review` | T-152 | - | - | T-158 | - |
+| [T-157](T-157-b-2-settle-what-context-claims-to-be-enough-for.md) | B-2 — Settle what `taskmd context` claims to be enough for | `M6` | `done` | `review` | T-152 | - | - | - | - |
 
 <!-- taskmd:end -->
