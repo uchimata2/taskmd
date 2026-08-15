@@ -68,16 +68,23 @@ log.*
 - [ ] Phase 2 of the method exists as a task, blocked on the children this umbrella raises
 
 **Open questions**
-- Does this task run one phase per request, or the whole lifecycle in one — given the examination is
-  already complete and its later phases are largely retroactive? — **the owner**
-- Is `business_value: medium` right for an audit whose top finding is `L` on one surface and whose
-  next four are enablers? — **the owner**
-- How does a child task carry its finding id? The method wants a structured field a command can
-  read; this project's shipped config states that adding a key is a breaking change for every
-  adopter who wrote their own. The project's rule stands, so the question is what replaces the
-  field. — **the owner, at plan**
-- Is finding E-13 attempted at all, given it re-opens a decision T-118 recorded with a reason? The
-  new evidence licenses re-opening, not reversing. — **the owner, at implement**
+
+All four were answered by the maintainer on 2026-08-15, in the session that created this task. The
+answers are kept here rather than only in the log, because each one is a condition on how a later
+phase runs and a log row is read once.
+
+- **Answered — one request, not four.** This task runs its whole lifecycle in one request, because
+  the examination is already complete and its later phases are retroactive. **The authorisation
+  covers this task only and no other**, and it is recorded in the log below with who gave it.
+- **Answered — `business_value: medium` stands.**
+- **Answered — the finding id goes in the child task's title, with `parent` pointing here.** No
+  config key. The method asks for a structured field a command can read; this project's shipped
+  config states that adding a key breaks every adopter who wrote their own, and the project's rule
+  wins that collision. A title prefix is matchable without a schema change.
+- **Answered — E-13 is tested, not carried.** Its remedy re-opens a decision
+  [T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md) recorded with a reason, and the
+  new evidence licenses re-opening rather than reversing. Take E-10 first: it saves less and cannot
+  fail. E-13 becomes a `decision` task that measures and reports; it does not carry the change.
 
 ## 2. Plan
 
@@ -127,3 +134,6 @@ consequences.
 | 2026-08-15 | → proposed | Created. |
 | 2026-08-15 | — | **The examination ran before this umbrella existed.** The owner asked for a report only, so the method's phase 1 was performed and written to the two documents in `deliverables`, and nothing was raised. Recorded here rather than smoothed over: `audit.md` step 2 says to state the finding threshold *before* looking, and this task records a threshold that was applied during the examination rather than set by this file. The consequence is that `plan` describes a procedure already carried out and `implement` records findings already written — which is the first open question above. |
 | 2026-08-15 | — | `effort: m` prices the work that remains — recording the findings here and raising the children. The examination itself was larger and is already spent. |
+| 2026-08-15 | — | **The maintainer authorised the whole lifecycle in one request, for this task only.** Given in the session that created the task, in answer to the first open question above. It covers `specify` → `plan` → `implement` → `review` on T-152 and **nothing else** — every child task this umbrella raises takes one phase per request unless separately authorised. Recorded here because an authorisation kept anywhere else is one a later session can miss or stretch to a task it never reached (METHOD §3.1). |
+| 2026-08-15 | — | The maintainer answered the remaining three open questions in the same turn: `business_value` stands at `medium`; a child task carries its finding id in its **title**, with `parent` pointing here, and **no key is added to the config**; and E-13 is **tested, not carried**, with E-10 taken first. The third answer resolves a collision between the audit method and this project's own policy in the project's favour, which is what the method asks for when the two disagree. |
+| 2026-08-15 | — | Byproduct-register disposition agreed in advance: of the rows this project owns, **B-2 becomes its own task** at review and B-1 and B-3 are recorded as needing none. Register row **B-6 was corrected** on the same day — it read a stub-and-core pair at user scope as a stale duplicate, and the correction stands in the register rather than replacing the row. |

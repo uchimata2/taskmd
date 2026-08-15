@@ -4,9 +4,13 @@ dist/
 __pycache__/
 *.pyc
 
-# Live handoff state is machine-local; the config is not
+# Live handoff state is machine-local; the config is not. The skill names two archive
+# prefixes - `processed_` for one that was consumed and `discarded_` for one that was
+# replaced unconsumed - and only the first was listed here until 2026-08-15, so the first
+# discarded archive this project produced arrived as a tracked file.
 .handoff/HANDOFF.md
 .handoff/processed_*
+.handoff/discarded_*
 
 # The harness's own folder defaults to OUT, and a clone's share is named in.
 # Nothing here is written by this project: the harness creates files on its own

@@ -7,7 +7,7 @@ Read by the `handoff` skill. Plain Markdown, read by the agent — no parser.
 - `handoff_file`: .handoff/HANDOFF.md
 - `tracker`: local-markdown-dir
 - `project_docs`: CLAUDE.md, docs/ (start with `docs/SCOPE.md` — goal, requirements, non-goals)
-- `reconcile_targets`: `tasks/`, `docs/*.md`, `CLAUDE.md`, `control/`, `.handoff/config.md` (this file)
+- `reconcile_targets`: `tasks/`, `docs/**/*.md`, `CLAUDE.md`, `control/`, `.handoff/config.md` (this file)
 - `language`: (omitted — match the source; this project is English)
 
 > **`reconcile_targets` is a pattern, not a list — keep it that way.** It previously named
@@ -24,6 +24,12 @@ Read by the `handoff` skill. Plain Markdown, read by the agent — no parser.
 > `control/LOCAL-CONTEXT.md` would have been the enumeration this entry warns against; naming the
 > folder keeps the membership derived. Being swept does not make anything in there publishable —
 > the quarantine that file describes is unchanged.
+>
+> **`docs/**/*.md`, not `docs/*.md`** — changed 2026-08-15, and it is the same defect a third time.
+> A single `*` stops at the top level, so the moment a session put documents in `docs/audits/` the
+> sweep could not see them: the glob was derived-looking and was still enumerating one directory.
+> A depth limit is an enumeration of folders in the way the paragraph above is an enumeration of
+> files, and it fails at the same moment — when a home is added.
 
 ## Tracker keys — `local-markdown-dir`
 
