@@ -89,8 +89,16 @@ they can delete. **The third move is the mirror of the first**: where a row desc
 reporter's *own* code, ask whether it is still there before handing it back. A row records the
 observation and not the repair, so silence about the state reads as open — we listed one as theirs to
 act on that they had found and fixed before writing the row, and the correction cost a round trip.
-The row can be perfectly good as evidence and wrong as an item. Where the trail for each report lands is in `control/LOCAL-CONTEXT.md`, one row per
-adopter, and nowhere else.
+The row can be perfectly good as evidence and wrong as an item. **The fourth is the one a triage
+skips by construction**: a row that *declines* to act still carries a claim about this tool, and
+because it asks for nothing it is filed rather than checked. On 2026-08-15 the adopter refused to
+build their own checker and wrote down the condition that would reverse the refusal — that `check`
+reads only tasks and the documents those resolve, so their `skills/` and `examples/` trees were
+uncovered. A specimen showed it reads every document a clone would receive and both trees fired, so
+the condition cannot occur. That correction was worth more than either task the same comment
+produced, and it would have been lost to *nothing here needs a reply*. Test the reasons, not only the
+asks, and test them by running something. Where the trail for each report lands is in
+`control/LOCAL-CONTEXT.md`, one row per adopter, and nowhere else.
 
 `plugin/skills/taskmd/docs/METHOD.md` is the working method itself. Since T-028 it is **tier 2** — loaded when task work
 starts, not on every turn; `plugin/skills/taskmd/docs/method/` is tier 3, a file per phase. Tier 1 is whatever the harness
