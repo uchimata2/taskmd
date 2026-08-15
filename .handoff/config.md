@@ -100,6 +100,15 @@ produced, and it would have been lost to *nothing here needs a reply*. Test the 
 asks, and test them by running something. Where the trail for each report lands is in
 `control/LOCAL-CONTEXT.md`, one row per adopter, and nowhere else.
 
+**The channel changed on 2026-08-15, so these four rules now cover fewer arrivals than they did.**
+The owner's other projects — htmldeck first among them — no longer send reports at all: a defect one
+of them finds here arrives as a branch with a failing test and a three-line pull request, because
+every one of these repositories is cloned side by side on the owner's machine. They report instead of
+fixing only when the defect breaks a gate or destroys data. **Read a pull request the same way**: the
+four rules above still apply to the sentences in its body, and its test is the *running something*
+rule 4 asks for, already written. The two live threads carry a note saying so, and both registers
+that produced them are history rather than a practice.
+
 `plugin/skills/taskmd/docs/METHOD.md` is the working method itself. Since T-028 it is **tier 2** — loaded when task work
 starts, not on every turn; `plugin/skills/taskmd/docs/method/` is tier 3, a file per phase. Tier 1 is whatever the harness
 loads unasked, and **measured on 2026-08-08 that is `CLAUDE.md` plus the taskmd `description`**
