@@ -10,6 +10,7 @@ and nothing else.
 """
 
 import glob
+import inspect
 import io
 import json
 import os
@@ -947,6 +948,82 @@ class Usage(unittest.TestCase):
             out = run(command, "--definitely-not-a-flag", "--root", ROOT)[1]
             self.assertNotIn("\\", out)
             self.assertNotIn("/", out)
+
+
+class ListSaysWhatItAccepts(unittest.TestCase):
+    """T-144. `list --help` answered with the top-level usage line, so the four options that are code
+    and the filters that are this project's configuration were reachable only by reading `SKILL.md`
+    or this package's source. The 2026-08-07 ruling against per-command help (T-029) was narrowed to
+    this one command, because it is the only one whose options that line does not state."""
+
+    def printed(self):
+        code, out = run("list", "--help", "--root", ROOT)
+        self.assertEqual(code, 0, out)
+        return out
+
+    def test_every_option_it_prints_is_one_the_parser_takes(self):
+        """One direction. A help line naming a flag the parser rejects is worse than no help: the
+        caller it exists for cannot tell a stale document from its own mistake."""
+        schema = cli.load_schema(ROOT)
+        for flag in sorted(set(re.findall(r"--[a-z_][a-z_-]*", self.printed()))):
+            if flag == "--root":
+                continue                # `main`'s, stripped before `list` sees an argument
+            # Alone rather than with a value: a switch given one answers `unexpected argument`,
+            # which is a true rejection of the value and says nothing about the flag.
+            problem = cli.parse_filters(schema, [flag])[1] or ""
+            self.assertNotIn("unknown filter", problem, flag)
+
+    def test_every_option_the_parser_takes_is_printed(self):
+        """The other direction, and the one that rots quietly: a flag added to the parser and not to
+        the help is invisible to exactly the caller this was built for. Both sources are read, since
+        the options are code and the filters are the project's config."""
+        out = self.printed()
+        for row in cli.LIST_OPTIONS:
+            self.assertIn(row[0], out)
+        for name in cli.filter_names(cli.load_schema(ROOT)):
+            self.assertIn("--" + name, out)
+
+    def test_the_parser_carries_no_option_name_of_its_own(self):
+        """What makes the two tests above valid. They read `LIST_OPTIONS` as if it were the parser's
+        accepted set, which it is only while the parser has no flag written beside it — a branch
+        added by hand would be accepted, unprinted, and invisible to both. A placeholder such as
+        `--<field>` inside a sentence is not an option name and does not match."""
+        source = inspect.getsource(cli.parse_filters)
+        self.assertEqual([], re.findall(r"""["']--[a-z_]""", source), source)
+
+    def test_it_adds_to_the_top_level_line_rather_than_replacing_it(self):
+        """The superset rule. Three commands answer this probe with the top-level line alone, so an
+        agent that probed one of them first must not have been told anything `list` contradicts."""
+        self.assertIn(cli.usage_line(), self.printed())
+        for command in ("check", "index", "context"):
+            self.assertEqual(cli.usage_line(), run(command, "--help")[1].strip(), command)
+
+    def test_it_answers_outside_a_project_too(self):
+        """Asking a tool what it does must not become conditional on standing in the right
+        directory. The filters need a config to name; the two usage lines do not."""
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp)
+        code, out = run("list", "--help", "--root", tmp)
+        self.assertEqual(code, 0, out)
+        self.assertIn(cli.usage_line(), out)
+        self.assertIn("--limit N", out)
+
+    def test_it_writes_nothing(self):
+        """In a project with no index yet, so a call that wrote would leave one behind rather than
+        matching a file that was already there."""
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp)
+        cli.write(os.path.join(tmp, "tasks", "T-001-x.md"),
+                  "---\nid: T-001\ntitle: One\ntype: deliverable\nstatus: proposed\n"
+                  "phase: specify\n---\n\n# One\n")
+
+        def tree():
+            return sorted((p, os.path.getsize(p))
+                          for p in glob.glob(os.path.join(tmp, "**"), recursive=True))
+
+        before = tree()
+        self.assertEqual(run("list", "--help", "--root", tmp)[0], 0)
+        self.assertEqual(before, tree())
 
 
 class CheckReportsWhatItExamined(unittest.TestCase):

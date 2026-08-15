@@ -94,6 +94,13 @@ arrive before output*, [T-026](T-026-audit-the-whole-project-before-the-remainin
   Discoverability for someone who mistyped one command is real, and it is bought with a second
   surface that drifts the first time a flag changes.
 
+  > **Narrowed to `list` on 2026-08-15 — do not act on the paragraph above without reading
+  > [T-144](T-144-decide-whether-a-commands-own-options-can-be-discovered-from-the-cli.md).** The
+  > 2026-08-07 text is left exactly as it was, because it is what was ruled then and the reasons in
+  > it still govern `check`, `index` and `context`. What changed is its reach: the project owner
+  > narrowed it to `list` alone, against evidence this task did not have. T-144 §1 holds that
+  > evidence and the alternative that was rejected; nothing is copied here.
+
 ## 2. Plan
 
 | # | Step | Output |
@@ -138,7 +145,9 @@ and reported success.
 - **`--help` is answered and exits 0** — 2026-08-10, on the maintainer's ruling in §1. Answering it
   with the top-level line costs nothing and is not the per-command surface that was rejected; the
   exit code is the part that mattered, since the intended caller is an agent probing the surface and
-  was being told the tool had failed.
+  was being told the tool had failed. *Still true of `check`, `index` and `context`; `list` answers
+  with that line plus its own since 2026-08-15 —
+  [T-144](T-144-decide-whether-a-commands-own-options-can-be-discovered-from-the-cli.md).*
 - **The reasoning is cited without its requirement id** — 2026-08-10. The first draft of the comment
   cited `R-17`, and `test_no_file_in_the_plugin_cites_something_it_does_not_ship` failed: `docs/`
   is not inside the plugin boundary (T-053, T-064), so shipped code may carry the reasoning but not
@@ -188,6 +197,7 @@ its 25 tests still pass, which is the fourth criterion.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-15 | (no change) | **The 2026-08-07 ruling was narrowed to `list`** by the project owner, in [T-144](T-144-decide-whether-a-commands-own-options-can-be-discovered-from-the-cli.md), which holds the evidence and the rejected alternative. Two annotations were added above — §1's open-question answer and §3's third decision — because both read as present tense and a reader arriving at either would otherwise act on a ruling that no longer covers all four commands. Neither the 2026-08-07 text nor the 2026-08-10 decision was edited: they are what was ruled then, and METHOD §1 rule 5 says to annotate the past rather than rewrite it. This task stays `done`; the narrowing is T-144's outcome, not unfinished work here. |
 | 2026-08-10 | → done | Plan through review in one session, under the maintainer's `M2` whole-lifecycle authorisation of 2026-08-10 (METHOD §3.1), which covers each task in that set end to end and nothing outside it. Raised one child, T-113. |
 | 2026-08-07 | → specified | Answered: top-level usage only. The maintainer's reason is recorded because it is stronger than the one the question offered — not that per-command help is a second surface, but that needing it would be evidence against the tool's premise. Kept as a standing test rather than a preference about wording. |
 | 2026-08-06 | → proposed | Raised as F-3 from the T-026 audit, clause 3. Reproduced on all three commands before being written up; the `index` case writes the index and exits 0 on a mistyped invocation. Not fixed where it was found (METHOD §5). |

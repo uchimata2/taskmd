@@ -1071,18 +1071,68 @@ def filter_names(schema):
     return names
 
 
+# `list`'s own options: the flags that are code rather than this project's vocabulary. **One home** —
+# `parse_filters` recognises a flag by looking it up here, and `list --help` renders these same rows,
+# so a flag cannot be added, renamed or removed on one side alone (T-144).
+#
+# The filters are deliberately not here. Those are the project's own field names, read from its config
+# by `filter_names`, and a copy of them in this module is the thing the module docstring says it does
+# not do.
+#
+# Each row: the flag, its value placeholder or None for a switch, the option it sets, and the value a
+# switch sets. It carries a placeholder because that is the half a caller needs and a bare list of
+# names cannot express — the alternative priced and rejected in T-144 §2.
+LIST_OPTIONS = (
+    ("--open", None, "state", "open"),
+    ("--closed", None, "state", "closed"),
+    ("--limit", "N", "limit", None),
+    ("--json", None, "json", True),
+)
+
+
+def accepted_filters(schema):
+    """The `--<field>` names this project takes, in one rendering.
+
+    Read by the rejection message and by `list --help`, so the caller who mistyped and the caller who
+    asked are answered in the same words rather than by two strings that drift.
+    """
+    return ", ".join("--" + name for name in sorted(filter_names(schema)))
+
+
+def list_options_line():
+    """`list`'s usage line, rendered from `LIST_OPTIONS`.
+
+    Not `usage_line("list")`: `list` is absent from `ARGUMENTS` on purpose — the comment there says
+    why — so the derived line the other three commands get cannot exist for this one.
+    """
+    shown = "".join(" [%s%s]" % (flag, " " + placeholder if placeholder else "")
+                    for flag, placeholder, _, _ in LIST_OPTIONS)
+    return "usage: taskmd list%s [--<field> <value>] [--root PATH]" % shown
+
+
 def parse_filters(schema, args):
     """(filters, options) or (None, message). Every rejection happens before a line is printed."""
     known = filter_names(schema)
+    coded = dict((row[0], row[1:]) for row in LIST_OPTIONS)
     filters, options = [], {"limit": None, "json": False, "state": None}
     rest = list(args)
     while rest:
         arg = rest.pop(0)
-        if arg == "--json":
-            options["json"] = True
-            continue
-        if arg in ("--open", "--closed"):
-            options["state"] = arg[2:]
+        if arg in coded:
+            placeholder, key, constant = coded[arg]
+            if placeholder is None:
+                options[key] = constant
+                continue
+            if not rest:
+                return None, "%s needs a value" % arg
+            value = rest.pop(0)
+            # `--limit` is the only valued option, so its check is written as its own rather than
+            # generalised. A table that also described how to validate a value would be the small
+            # configuration language T-144 §2 rejected, bought for a second option nobody has asked
+            # for.
+            if not value.isdigit():
+                return None, "%s needs a whole number, not '%s'" % (arg, value)
+            options[key] = int(value)
             continue
         if not arg.startswith("--"):
             return None, ("unexpected argument: %s. Filters are given as --<field> <value>" % arg)
@@ -1090,24 +1140,19 @@ def parse_filters(schema, args):
         # The name is checked before the value, because a flag this project does not have is not one
         # any value could complete (T-113). The other order answered the likelier typing — a flag
         # remembered wrongly and typed alone — with `needs a value`, pointing away from the message
-        # that names the vocabulary. `limit` is recognised here as well as below: it is accepted but
-        # is not a filter, so it never appears in `known`.
-        if name != "limit" and name not in known:
+        # that names the vocabulary. Anything in `LIST_OPTIONS` was taken above and never reaches
+        # here, so this is filters only and `known` is the whole of what may pass.
+        if name not in known:
             # `arg`, not `name`: the flag is quoted back as the caller typed it, hyphens and all
             # (T-120). Normalising it here quoted a string they could not find in their own history,
             # in the one case — a misspelling — where they are comparing character by character.
             # The accepted list beside it is the schema's own spelling and teaches the canonical
             # form, so the two are doing different jobs rather than disagreeing.
             return None, ("unknown filter: %s. This project accepts: %s"
-                          % (arg, ", ".join("--" + n for n in sorted(known))))
+                          % (arg, accepted_filters(schema)))
         if not rest:
             return None, "%s needs a value" % arg
         value = rest.pop(0)
-        if name == "limit":
-            if not value.isdigit():
-                return None, "--limit needs a whole number, not '%s'" % value
-            options["limit"] = int(value)
-            continue
         if known[name] == "vocabulary" and value not in schema.vocabularies[name]:
             # The third of the three rejections, on the same rule as the two above (T-122). It names
             # the field twice and the two spellings are deliberate: `arg` is the flag as typed, to be
@@ -1208,6 +1253,35 @@ def usage_line(command=None):
         % (command, "".join(" " + placeholder for placeholder in ARGUMENTS[command]))
 
 
+def list_help(root):
+    """What `list` accepts: the top-level line, then its own, then this project's filters.
+
+    A **superset, never a different answer** (T-144). Three of the four commands take no options, so
+    for them the top-level line is already the whole truth and printing a per-command one would
+    restate it — which is most of what the maintainer rejected on 2026-08-07 (T-029). `list` is the
+    one command whose options that line's `[args]` hides, so it prints the same line and adds to it.
+    An agent that probed `check --help` first has therefore been told nothing this contradicts, which
+    is the reason the superset was chosen over the conventional per-command replacement.
+
+    The filters need the project's config, which `--help` is otherwise answered without. Where there
+    is no project to read — or its config does not load — the two usage lines still print and the
+    exit stays 0: asking a tool what it does is not misuse, and that must not become conditional on
+    standing in the right directory.
+    """
+    out = [usage_line(), list_options_line()]
+    try:
+        found = root if root is not None else discovery.find_root()
+        schema = load_schema(found) if found else None
+    except (SchemaError, OSError):
+        schema = None
+    if schema is None:
+        out.append("filters: --<field> <value>, named by the project's own config; "
+                   "run this inside a project to have them listed")
+    else:
+        out.append("filters: %s" % accepted_filters(schema))
+    return "\n".join(out)
+
+
 def main(argv):
     # `newline="\n"` for the same reason `write()` sets it: without it Python's text layer rewrites
     # every `\n` as `\r\n` on Windows, so what taskmd *prints* was the one thing the promise of
@@ -1237,11 +1311,14 @@ def main(argv):
 
     # Asking a tool what it does is not misuse. This printed the right line and exited 2, so the
     # conventional probe was reported as a failure — which costs more here than usual, because the
-    # intended caller is an agent working out the surface. The top-level line only: per-command help
-    # was offered and rejected by the maintainer (T-029), on the ground that a tool needing it would
-    # be evidence against its own premise rather than a tool short of documentation.
+    # intended caller is an agent working out the surface. Per-command help was offered and rejected
+    # by the maintainer (T-029), on the ground that a tool needing it would be evidence against its
+    # own premise rather than a tool short of documentation. That ruling was **narrowed to `list` on
+    # 2026-08-15** (T-144), against evidence T-029 did not have: the reader in question is an agent
+    # that has the command and not the skill file, and `list` is the only command whose options the
+    # top-level line does not state. The other three still get that line and nothing else.
     if asked_for_help:
-        print(usage_line())
+        print(list_help(root) if rest[:1] == ["list"] else usage_line())
         return 0
 
     if not rest or rest[0] not in COMMANDS:
