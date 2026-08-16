@@ -152,11 +152,13 @@ mkdir tasks
 taskmd check
 ```
 
+<!-- taskmd:sample-check -->
 ```
 OK - 0 task(s), 0 field value(s), 0 reference(s), 0 dependency edge(s), 0 declared output(s), 0 index file(s), 0 document(s), 0 link(s), 0 table row(s), 0 template(s), 0 template field value(s), 0 vocabulary row(s), 0 front-matter value(s)
 Scope  every document read; no git here, so .gitignore was not consulted
 structure and references only - it cannot tell you whether a spec or an outcome is good
 ```
+<!-- taskmd:end-sample-check -->
 
 **The summary carries what was examined, not only what passed**, so a scan that quietly shrinks is
 visible, and a clean run on an empty project reads as the nothing it is rather than as an

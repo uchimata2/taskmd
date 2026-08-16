@@ -15,7 +15,10 @@ failure and not a skip, because a gate the suite can no longer parse has drifted
 import collections
 import os
 import re
+import shutil
 import subprocess
+import sys
+import tempfile
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -160,7 +163,7 @@ KINDS = (
 )
 
 
-def opens(kind, line):
+def opens(marker, line):
     """True when this line *is* the opening marker, rather than merely containing one.
 
     **A marker counts only alone on its line**, and that rule was written by running the sweep, not
@@ -170,29 +173,38 @@ def opens(kind, line):
     as behind. Excluding `tasks/` would have been an exclusion list to maintain, and wrong anyway:
     the next document to describe the markers would be documentation. A real region marker sits on
     its own line in all three places that use one, and a quotation never can.
+
+    Takes the marker name rather than a `Kind`: since T-147 a region also carries a claim that is
+    **text** - a quoted transcript - and that consumer has no set and no pattern.
     """
-    return line.strip() == "<!-- taskmd:%s -->" % kind.name
+    return line.strip() == "<!-- taskmd:%s -->" % marker
 
 
-def closes(kind, line):
-    return line.strip() == "<!-- taskmd:end-%s -->" % kind.name
+def closes(marker, line):
+    return line.strip() == "<!-- taskmd:end-%s -->" % marker
 
 
-def marked_region(path, kind):
-    """The names inside a document's region of this kind, or None if it carries none.
+def region_lines(path, marker):
+    """The lines inside a document's region, or None if it carries none of this marker.
 
     Opt-in by marker rather than by guessing which documents are lists (T-134 Q1). A heuristic -
     "any document naming every current member is a list" - needs no markup and stops checking a
     document the moment one name drops out of it, which is the failure being guarded.
     """
     lines = read(path).splitlines()
-    start = next((i for i, line in enumerate(lines) if opens(kind, line)), None)
+    start = next((i for i, line in enumerate(lines) if opens(marker, line)), None)
     if start is None:
         return None
-    end = next((i for i in range(start + 1, len(lines)) if closes(kind, lines[i])), None)
+    end = next((i for i in range(start + 1, len(lines)) if closes(marker, lines[i])), None)
     if end is None:
-        raise AssertionError("%s opens a taskmd:%s region and never closes it" % (path, kind.name))
-    return set(kind.pattern.findall("\n".join(lines[start + 1:end])))
+        raise AssertionError("%s opens a taskmd:%s region and never closes it" % (path, marker))
+    return lines[start + 1:end]
+
+
+def marked_region(path, kind):
+    """The names inside a document's region of this kind, or None if it carries none."""
+    lines = region_lines(path, kind.name)
+    return None if lines is None else set(kind.pattern.findall("\n".join(lines)))
 
 
 def tracked_files():
@@ -206,8 +218,8 @@ def tracked_files():
     return [p for p in listed.decode("utf-8").splitlines() if p]
 
 
-def documents_carrying(kind):
-    """Every tracked file with a region of this kind, discovered rather than written down."""
+def documents_carrying(marker):
+    """Every tracked file with a region of this marker, discovered rather than written down."""
     found = []
     for rel in tracked_files():
         path = os.path.join(ROOT, rel.replace("/", os.sep))
@@ -215,7 +227,7 @@ def documents_carrying(kind):
             text = read(path)
         except (OSError, UnicodeDecodeError):
             continue
-        if any(opens(kind, line) for line in text.splitlines()):
+        if any(opens(marker, line) for line in text.splitlines()):
             found.append(rel)
     return sorted(found)
 
@@ -255,7 +267,7 @@ class EveryMarkedListNamesTheSetTheCodeOwns(unittest.TestCase):
         region, and which documents have one."""
         cli = _cli()
         for kind in KINDS:
-            carriers = documents_carrying(kind)
+            carriers = documents_carrying(kind.name)
             self.assertTrue(carriers, "no document carries a taskmd:%s region, so this kind is "
                                       "declared and checked against nothing" % kind.name)
             expected = kind.owned(cli)
@@ -288,11 +300,11 @@ class EveryMarkedListNamesTheSetTheCodeOwns(unittest.TestCase):
         cli = _cli()
         lines = read(os.path.join(ROOT, "README.md")).splitlines()
         for kind in KINDS:
-            begin = next((i for i, line in enumerate(lines) if opens(kind, line)), None)
+            begin = next((i for i, line in enumerate(lines) if opens(kind.name, line)), None)
             if begin is None:
                 outside = lines
             else:
-                end = next(i for i in range(begin + 1, len(lines)) if closes(kind, lines[i]))
+                end = next(i for i in range(begin + 1, len(lines)) if closes(kind.name, lines[i]))
                 outside = lines[:begin] + lines[end + 1:]
             named = set(kind.pattern.findall("\n".join(outside)))
             self.assertTrue(named,
@@ -302,6 +314,80 @@ class EveryMarkedListNamesTheSetTheCodeOwns(unittest.TestCase):
             self.assertNotEqual(expected, named & expected,
                                 "every %s now appears outside the region too, so this test can no "
                                 "longer distinguish a mention from a list" % kind.name)
+
+
+#: The marker on a quoted transcript. One region carries a claim about *text*, where `KINDS` carry
+#: claims about a set - the two consumers `region_lines` was split out for (T-147).
+SAMPLE = "sample-check"
+
+
+class AQuotedRunIsWhatTheCommandPrints(unittest.TestCase):
+    """T-147. A pasted transcript rots differently from a list, which is why T-134's guard could not
+    see it: an enumeration drifts by losing a member a reader knows to look for, and a transcript
+    reads as *evidence* - it carries a shape nobody re-derives, because the point of pasting output
+    is that it was observed.
+
+    The README's `check` sample had been wrong for three days when T-141 found it. `examined()`
+    builds that summary from the checks that actually ran (T-095), so **every new check changes the
+    line by construction** - two of the last three did. It is not a documentation habit that can be
+    improved; it is a guarantee that the quote goes stale on a schedule.
+
+    **Guarded by comparison, never by generation** - the project owner's ruling of 2026-08-16, whose
+    reason is in T-147 §1: the README is what a stranger reads before installing, and a
+    machine-written block in it buys correctness with the thing `docs/SCOPE.md` §5 *humanized*
+    protects."""
+
+    def a_project_holding_nothing_but_its_task_folder(self, work):
+        """The state the README's own two lines put a reader in: `mkdir tasks`, and no repository.
+
+        The folder name is the schema's, not this test's - a project that renamed `tasks_dir` would
+        otherwise be compared against a directory it does not have."""
+        cli = _cli()
+        os.mkdir(os.path.join(work, cli.load_schema(ROOT).tasks_dir))
+
+    def test_the_readme_sample_run_is_what_the_command_prints_today(self):
+        """Run, then diffed. Nothing here writes a denominator, a count or a line of the output."""
+        cli = _cli()
+        quoted = region_lines(os.path.join(ROOT, "README.md"), SAMPLE)
+        self.assertIsNotNone(quoted, "README.md carries no taskmd:%s region, so its sample run is "
+                                     "guarded by nothing" % SAMPLE)
+        # The tool's own idea of a fence, so the region may hold the block markup a reader sees.
+        expected = [ln for ln in quoted if not cli.FENCE.match(ln) and ln.strip()]
+        self.assertTrue(expected, "the taskmd:%s region is empty" % SAMPLE)
+
+        work = tempfile.mkdtemp()
+        try:
+            self.a_project_holding_nothing_but_its_task_folder(work)
+            env = dict(os.environ, PYTHONPATH=os.path.join(ROOT, "plugin", "skills", "taskmd"))
+            run = subprocess.run([sys.executable, "-m", "taskmd", "check"], cwd=work, env=env,
+                                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        finally:
+            shutil.rmtree(work, ignore_errors=True)
+        self.assertEqual(0, run.returncode, run.stdout)
+        printed = [ln for ln in run.stdout.decode("utf-8").splitlines() if ln.strip()]
+        # The diff *is* the repair instruction, and unittest truncates it by default to 640-odd
+        # characters - which lands mid-summary on a line this long and hides the changed word.
+        self.maxDiff = None
+        self.assertEqual(printed, expected,
+                         "README.md quotes a `check` run this tool no longer produces")
+
+    def test_no_record_of_a_past_run_is_in_the_guarded_set(self):
+        """**METHOD §1.5 forbids rewriting what a record says about the past**, and this repository is
+        full of transcripts that are exactly that: 195 of the 204 taskmd-shaped blocks in the tree
+        are inside task records (T-147 §1, counted). A guard that re-derived them would not be
+        keeping documents true, it would be destroying the evidence a closed task exists to hold.
+
+        Marking is opt-in, so this cannot happen by resemblance - only by someone putting the marker
+        in a record on purpose. That is the person this assertion is addressed to, and the folder is
+        read from the schema so it stays right for a project that renamed it."""
+        cli = _cli()
+        tasks = cli.load_schema(ROOT).tasks_dir.replace("\\", "/").rstrip("/") + "/"
+        inside = [rel for rel in documents_carrying(SAMPLE) if rel.startswith(tasks)]
+        # `assertFalse`, not `assertEqual([], ...)`: the failure is a sentence about what a record
+        # is for, and a list diff in front of it is noise.
+        self.assertFalse(inside,
+                         "%s carries a taskmd:%s region; a record of a run that happened must not "
+                         "be re-derived" % (", ".join(inside), SAMPLE))
 
 
 if __name__ == "__main__":
