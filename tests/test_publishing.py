@@ -153,6 +153,10 @@ KINDS = (
          re.compile(r"`([A-Z]{3,}(?: [A-Z]+)*)`"),
          lambda cli: set(cli.ADVISORY_PREFIXES),
          ("README.md",)),
+    Kind("list-options",
+         re.compile(r"(--[a-z][a-z0-9-]*)"),
+         lambda cli: set(flag for flag, _, _, _ in cli.LIST_OPTIONS),
+         (os.path.join("plugin", "skills", "taskmd", "taskmd", "cli.py"),)),
 )
 
 
@@ -268,19 +272,29 @@ class EveryMarkedListNamesTheSetTheCodeOwns(unittest.TestCase):
 
     def test_a_name_mentioned_in_a_sentence_is_not_a_list(self):
         """On the real tree. `README.md` names commands in prose outside their region - an FAQ row,
-        a paragraph about filters - and an advisory outside theirs, in the `WIDE ROW` paragraph that
-        contrasts itself with them. None of that is checked, because the region is what declares an
-        intent to be complete.
+        a paragraph about filters - an advisory outside theirs, in the `WIDE ROW` paragraph that
+        contrasts itself with them, and three of `list`'s four options across the same document.
+        None of that is checked, because the region is what declares an intent to be complete.
+
+        **A kind `README.md` carries no region of is still exercised, with the whole file counting as
+        outside.** Written that way by adding the third kind (T-149), which is what exposed it: this
+        loop called `next()` with no default, so a kind this one document does not happen to carry
+        raised `StopIteration`. The comment above `KINDS` promised that adding a kind is one row, and
+        it was true only of a kind `README.md` already listed - which the next one will usually not
+        be, since a region is a claim about the document that makes it.
 
         Each half asserts its own premise first, so it fails rather than passing vacuously if the
         README stops mentioning anything outside its regions."""
         cli = _cli()
-        readme = read(os.path.join(ROOT, "README.md"))
+        lines = read(os.path.join(ROOT, "README.md")).splitlines()
         for kind in KINDS:
-            lines = readme.splitlines()
-            begin = next(i for i, line in enumerate(lines) if opens(kind, line))
-            end = next(i for i in range(begin + 1, len(lines)) if closes(kind, lines[i]))
-            named = set(kind.pattern.findall("\n".join(lines[:begin] + lines[end + 1:])))
+            begin = next((i for i, line in enumerate(lines) if opens(kind, line)), None)
+            if begin is None:
+                outside = lines
+            else:
+                end = next(i for i in range(begin + 1, len(lines)) if closes(kind, lines[i]))
+                outside = lines[:begin] + lines[end + 1:]
+            named = set(kind.pattern.findall("\n".join(outside)))
             self.assertTrue(named,
                             "this test is vacuous unless README.md names a %s outside the region; "
                             "it no longer does, so the case is untested" % kind.name)

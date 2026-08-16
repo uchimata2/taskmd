@@ -5,8 +5,15 @@
   python -m taskmd context T-002        [--root PATH]
   python -m taskmd index                [--root PATH]
   python -m taskmd check                [--root PATH]
-  python -m taskmd list [--<field> V]   [--open|--closed] [--limit N] [--json] [--root PATH]
+  python -m taskmd list [--<field> V]   [OPTIONS] [--root PATH]
 <!-- taskmd:end-commands -->
+
+`list`'s OPTIONS are its own, and they are the whole of them — `--<field>` beside them is the
+project's vocabulary rather than this module's, and `--root` belongs to all four commands:
+
+<!-- taskmd:list-options -->
+  [--open|--closed] [--limit N] [--json]
+<!-- taskmd:end-list-options -->
 
 Four, and the fourth was argued for rather than added — the command surface stood at three until
 2026-08-05 (T-022). Filtering is in; a query language is still out, and the argument for the

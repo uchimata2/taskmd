@@ -49,6 +49,14 @@ the two homes held together by something.
 - Out: reopening T-117. This exists because that answer was chosen, not instead of it.
 - Out: the flags. `list`'s options are not a set anything else states, and checking them would be a
   second surface with its own drift.
+
+  **The reason expired on 2026-08-15, and the flags are now guarded** — see
+  [T-149](T-149-check-that-every-prose-list-of-lists-options-names-the-options-there-are.md).
+  [T-144](T-144-decide-whether-a-commands-own-options-can-be-discovered-from-the-cli.md) gave them a
+  one home, `cli.LIST_OPTIONS`, read by `parse_filters` and by `list --help` — so there *is* now
+  something else that states the set, and the sentence above stopped being true the day after it was
+  written. The exclusion was right when taken; it is recorded here so nobody reads it as a standing
+  judgement that the flags are not worth checking.
 - Out: `docs/SCOPE.md` non-goal 11 and `CLAUDE.md`, neither of which names a command — T-117 §3
   measured that, and a check aimed at them would be aimed at nothing.
 
@@ -151,7 +159,8 @@ python -m unittest discover -s tests -q     Ran 236 tests     OK (skipped=3)
   command: one states a bound, the other an invocation route. Marking them would aim a check at
   nothing and imply they are lists. — 2026-08-11
 - **The flags are out.** `list`'s options are a second surface with its own drift, and nothing else
-  states them. — 2026-08-11
+  states them. — 2026-08-11. *Overtaken by T-144 on 2026-08-15, which built the something-else; the
+  guard is T-149's, and §1's out-of-scope line carries the note.*
 
 **Outputs produced**
 - `tests/test_publishing.py` — `EveryMarkedListNamesTheCommandsThereAre`, three tests
@@ -176,6 +185,7 @@ held together by something, which is what it was missing.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-16 | (no change) | Kept current, not rewritten: §1's *the flags are out* line and its §3 decision both carry a note that the reason expired on 2026-08-15, when T-144 gave the flags a home. [T-149](T-149-check-that-every-prose-list-of-lists-options-names-the-options-there-are.md) guards them. Nothing above is edited — a rejection that was right when taken stays as it was, with what overtook it recorded beside it. |
 | 2026-08-11 | → done | All four criteria met, and the check was shown firing **three** ways rather than the two asked for: a fifth command added to `COMMANDS`, a command dropped from the README list, and the markers deleted. The third is **D2** and it is the one worth keeping — without an assertion that the regions exist, deleting a marker leaves nothing to compare and every other assertion passes. Q1 was decided under the standing delegation: a marked region, because a heuristic stops checking a document the moment one name drops out of it, which is the failure being guarded, and a list of documents inside the test is a third statement of the surface's whereabouts. The quiet case is checked on the real tree and asserts its own premise first, so it cannot go vacuous in silence. |
 | 2026-08-11 | → in_progress | One expression reads both registers (**D1**), since README's table of purposes and `cli.py`'s block of invocations both write `taskmd <name>`; two parsers would have been a second thing to keep in step inside a task about things not being kept in step. **D3** accepts an HTML comment inside a Python docstring, which reads foreign, in exchange for one marker convention across both files. 236 tests. |
 | 2026-08-11 | → specified | Q1 answered under the standing delegation. Criteria unchanged. |
