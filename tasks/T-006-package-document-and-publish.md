@@ -12,7 +12,7 @@ owner: maintainer
 business_value: critical
 effort: l
 created: 2026-08-04
-updated: 2026-08-09
+updated: 2026-08-16
 deliverables: []
 ---
 
@@ -498,7 +498,7 @@ clear a version rather than merging into it.
 | Install instructions end with a command that proves it runs | met | Both sections end in `check`, and §3 step 8 runs each from the published artefact rather than from this tree. The plugin section also covers the branch before setup, where `check` exits 2 and says there is no project |
 | The measured `context` saving reproduced on a sample project and quoted | met | §3 step 2: 156,901 bytes to 693 on T-029, and 1,274,604 to 693 counting what a session must read to learn nothing waits on it. The README quotes both and re-measures neither |
 | No personal, client or machine data anywhere in the repository | met, **criterion amended** | The published tree is clean: the check reads 165 files and prints nothing, and exactly the fixture without the exclusion. The history is not clean, and §3 step 7 says what is in it, how it was found, and why the maintainer accepted it rather than removing it. The original text is kept in §1 beside the amendment |
-| Installs from a clean clone on a machine that has never seen it | **not met, carried** | Everything except the last five words was done at publication: the harness cloned the published remote, the install materialised 24 files, and both entry points ran. It all happened on the machine the project was written on. → **child task [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md)**, which also carries the bare-`taskmd` question T-054 could not settle locally |
+| Installs from a clean clone on a machine that has never seen it | **not met — the carrier closed unmet** | Everything except the last five words was done at publication: the harness cloned the published remote, the install materialised 24 files, and both entry points ran. It all happened on the machine the project was written on. → **child task [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md)**, which also carries the bare-`taskmd` question T-054 could not settle locally. **Corrected 2026-08-16**: T-085 closed *on the boundary* and did not meet this. The plain-skill shape is proven from outside; the plugin shape is unreachable from any machine here by construction, and the maintainer ruled no successor task. **Nothing carries this criterion now** — the verdict is the one in this row, not a pending answer elsewhere |
 | The package ships the method document and **both** bindings, and the README states that changing backend changes the binding, not the method | met | Read from the installed file list in §3 step 8, not from the source tree: `docs/METHOD.md`, `docs/bindings/github-issues.md`, `docs/bindings/local-markdown.md` and all six phase files are in the 24. The README's *Backends* section carries the sentence in bold |
 | The README claims a supported scale that T-004 measured, and nothing it did not | met | §3 step 4's sentence appears verbatim, including the 0.83 s at 999 tasks and the two figures past the shipped width. Nothing in the README says "fast" or "scales to thousands" |
 | Every non-goal in `SCOPE.md` §4 still holds at publish — checked, not assumed | met | §3 step 3's eleven rows, each naming what was read. Re-checked at close against the shipped tree: the package's imports are unchanged, and `COMMANDS` is still the four |
@@ -508,18 +508,29 @@ clear a version rather than merging into it.
 Eight met, one carried. The gap is the phrase *a machine that has never seen it*, and it is a task
 with an owner rather than a sentence in a paragraph.
 
+**That reading expired on 2026-08-16, and the count above did not change.** Eight are still met and
+the ninth is still not; what ended is the *carrying*. [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md)
+closed on the boundary without meeting it, with no successor, so the gap is now a sentence in a
+paragraph after all — this one. It is left here rather than resolved because the phrase turned out to
+name something no session can reach, not something nobody got round to.
+
 **What this review does not claim.** That the README is correct for a reader who is not the
 maintainer. Every instruction in it was executed here, which is what the criteria asked for, and
-T-085 is where that becomes evidence about someone else's machine.
+T-085 was raised to make that evidence about someone else's machine. **It did so for one of the two
+shapes.** The plain skill was followed as written from a clone at `v0.5.0`, on a second operating
+system with no `~/.claude` at all. The plugin route has still never run anywhere but here, and on the
+2026-08-16 ruling it never will from this machine — so nothing in this record, and nothing downstream
+of it, may be read as saying `claude plugin install taskmd@taskmd` has been proven for a stranger.
 
 **Child fix tasks raised**
 - **[T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md)** — criterion
-  4, carried.
+  4. Raised 2026-08-09 to carry it; **closed 2026-08-16 unmet**, and nothing replaced it.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-16 | (no change) | **Reconciled after [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) closed unmet.** This record said criterion 4 was *carried*, and named T-085 as where it would become evidence about someone else's machine. Both were present-tense claims about a live obligation, and both went false the moment that task closed on the boundary with no successor — the shape where a closing blocker takes its step with it and the delegating prose stays. Corrected in three places: the review row's verdict, the paragraph after the table, and the child-task list. **Every dated statement about what was done on 2026-08-09 is untouched**, per METHOD rule 5: correct what a record says about the present, never rewrite what it says about the past. Status stays `done` — the criterion was already counted as not met when this task closed, so nothing about its closure changes. |
 | 2026-08-09 | → done | Published, both shapes proven from a clean clone of what was published, eight criteria met and one carried. **The scan that preceded publication is the part worth remembering**: the pre-publish check reads the working tree, a push sends the history, and nobody here had ever read the history. It holds one line with an absolute local path, in the two commits T-018 exists because of, and nothing identifying a person. The maintainer accepted that with both removals in front of them, since either one breaks every commit hash these records cite, and criterion 3 is amended to say so with its original kept. The first scanning instrument was mangled by the shell and found 6 of 15 while looking authoritative, which is the third such tool in two days. Step 8's unplanned finding came from capturing the local install before disturbing it, again on T-067's precedent: it was still serving the pre-T-083 layout, because a directory install is a snapshot of the moment it was installed and nothing says so. The harness emptied `.claude/settings.json` during the marketplace swap exactly as T-067 recorded, and it was restored from the index. Criterion 4 is carried by [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md): everything but the phrase *a machine that has never seen it* was done, and that phrase is the whole of what a second machine would add. |
 | 2026-08-09 | (no change) | README revised on the maintainer's reading: a left-to-right lifecycle diagram, their section order, and no self-justifying framing around the measurement. Their order omits *Install*, which criteria 1 and 8 require; it is kept, placed after the commands, and reported rather than treated as a deletion. Both gates re-run on the revision, because a rewritten covered document is new text: 4 files covered with nothing after the count, and the leak check silent across 165 files, which is the 166 the tree now holds less its own fixture. |
 | 2026-08-09 | (no change) | Steps 5, 5a and 6 worked; `implement` now stops where the maintainer's action begins. The README is written and humanized, and every figure in it is quoted from steps 2 and 4 or from T-083 rather than re-taken. Two things were settled here rather than deferred: the marketplace source is named, `uchimata2/taskmd`, because a placeholder in the first command of a published front door is a substitution nothing would catch at step 7; and the two shapes name different commands, one line apart, with the reason given instead of an apology. Both install sections end in a command that was run, including the branch where the reader has no tasks folder yet, since `check` reports that rather than passing. The humanize gate covers 4 files now rather than 3, which is the number that moves when a covered document is added. One finding was raised rather than absorbed: `tasks/README.md`'s hand-written preamble still names the launcher T-083 moved, exempted by a sweep that treated the whole `tasks/` folder as closed records, and it is T-084. |

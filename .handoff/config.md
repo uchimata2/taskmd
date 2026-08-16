@@ -56,10 +56,10 @@ adopter updating for something unrelated meets a new failure class.
 something else, and a mapping table was keeping the two spaces legible at the cost of writing one
 fact twice. There is nothing left to translate, so nothing here to read first — the digit says which
 release the work is scheduled into, and `tasks/README.md` names the two closed labels that are not
-that. The definition of done (`docs/SCOPE.md` §9) is closed. What is left is grouped into **M5 and
-M6**, whose purpose is in `tasks/README.md` and whose membership is each task's `work_package` — do
-not maintain a list of that anywhere. Both close when every task in them closes; neither has an
-enumerated exit criterion, and the reason is in T-128.
+that. The definition of done (`docs/SCOPE.md` §9) is closed. **M5 closed on 2026-08-16** when T-085
+did, so what is left is grouped into **M6** alone, whose purpose is in `tasks/README.md` and whose
+membership is each task's `work_package` — do not maintain a list of that anywhere. It closes when
+every task in it closes; it has no enumerated exit criterion, and the reason is in T-128.
 
 **A release is not the last step of a release.** T-085 verifies the published artifact from a clean
 machine and was `blocked_by` the release task, so M5 was not complete when it was tagged. `0.4.0`

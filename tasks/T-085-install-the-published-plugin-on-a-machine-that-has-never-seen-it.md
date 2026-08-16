@@ -2,8 +2,8 @@
 id: T-085
 title: Install the published plugin on a machine that has never seen it
 type: analysis
-status: in_progress
-phase: implement
+status: done
+phase: review
 parent: T-006
 blocked_by: [T-129]
 related: [T-049, T-054, T-067, T-020, T-129]
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: medium
 effort: s
 created: 2026-08-09
-updated: 2026-08-11
+updated: 2026-08-16
 deliverables: []
 ---
 
@@ -203,6 +203,58 @@ this task exists to produce** rather than a failure to reach one: §1 says M5 is
 published artifact has been proven from outside, and half of it now has been, on a real second
 operating system, from the tag.
 
+### 2026-08-16 — what has moved since the decision, measured
+
+Asked to work this task's full lifecycle. It cannot be run, and the reason is a recorded decision
+rather than an obstacle: §1 says wait for an adopter, and no session can manufacture one. So the work
+done instead was to test whether that decision's **premise** still holds, and to check that the half
+already proven has not gone stale underneath it. Nothing was changed, per §1 Scope.
+
+**The half that was proven still holds against the current tree.** The 2026-08-11 transcript was
+taken against `v0.5.0`, and the README has moved since:
+
+```
+git diff v0.5.0..HEAD --stat -- README.md
+ README.md | 25 +++++++++++++++++++++++--
+```
+
+**None of it is in the two install sections.** The whole diff is body documentation — the `WIDE ROW`
+and `LABEL SHAPE` paragraphs, the `--work_package M2` example, and the empty-project `check` output
+quotation gaining `table row(s)` and `front-matter value(s)`. So the sections under test are
+byte-identical to the ones followed as written, and criterion 3's verdict — *the README needs
+nothing* — is still a statement about the current file and not only about the tag.
+
+**The file count the README claims still holds**, checked because it is the one number in that
+section a tree can falsify without anyone editing prose:
+
+```
+tracked at HEAD     21
+tracked at v0.5.0   21     README says 21
+```
+
+*A filesystem count says 31 and is wrong* — `plugin/skills/taskmd/taskmd/__pycache__/` is ignored and
+is not in a clone. Recorded because the wrong number is what an adopter's own `ls` would show after
+they run the tool once, and it is the kind of thing that gets reported as a defect.
+
+**Nothing has shipped since**, so the artifact under test is unchanged: `v0.5.0` is still the newest
+tag and the manifest still reads `0.5.0`.
+
+**What has weakened is the decision's premise, and this is the finding.** §1 rejected a prepared
+container in favour of waiting, reasoning that *three projects already run taskmd, so the next
+migration exercises the real route on a real machine at no cost to this one*. Five days on:
+
+- **No new adopter has appeared.** All four projects in the label map are the maintainer's own, and
+  every one of them is a checkout on this machine — including the first adopting project, which §1
+  already records as having migrated *here*. A migration by any of them cannot satisfy *a machine
+  that has never seen it*, so the population being waited on has no member that can answer.
+- **The channel that would have carried the report narrowed on 2026-08-15.** The sibling projects now
+  send a branch and a pull request instead of a report, which is the right change for defects and
+  removes the migration write-up this task was waiting to read.
+
+That is evidence against the premise, not against the ruling. **Per the maintainer's standing rule
+that new evidence licenses re-opening a recorded decision and never reversing it, this session
+measured and stopped**, and the question goes back to the owner in the log below.
+
 **Decisions & assumptions**
 
 - **Cloned at the tag, not copied from the working tree.** The artifact under test has to be the one
@@ -221,12 +273,39 @@ operating system, from the tag.
 
 ## 4. Review
 
-_Not reached. Two of the three criteria are half met and the task is open; see §3._
+**Closed on the boundary, by the maintainer's ruling of 2026-08-16.** The finding this task produces
+is *where the test can and cannot reach*, and that is now known: the plain-skill shape is proven from
+outside on a real second operating system, and the plugin shape is **unreachable from here by
+construction** — not merely untested. The two facts that make it a boundary rather than a backlog
+item are in §3, 2026-08-16: every adopter is a checkout on this machine, and the channel that would
+have carried an outside report narrowed on 2026-08-15.
+
+**One criterion closes unmet, with no child task, and that is the ruling rather than an oversight.**
+METHOD's `review` exit criterion is that every criterion is met *or* carries a child task that will
+meet it. The maintainer chose neither: a successor would park an obligation on the same event that
+cannot be caused, which is the state this close exists to leave. It is written here plainly so no
+later reader takes the close as evidence the plugin route was verified.
+
+| Acceptance criterion | Result | Note |
+| :--- | :---: | :--- |
+| Both install sections followed **as written** on a machine that has never held this project, each ending in the command it names, transcript recorded | **not met — closed unmet** | The plain-skill section: fully met, §3 steps 2–4, from a clone at `v0.5.0` on a WSL2 Ubuntu 26.04 profile with no `~/.claude` at all. 21 files against the 21 the README claims, and the empty-project output matching its quotation exactly. **The plugin section was never run**: that profile has no Node and no `claude` CLI, and standing one up both ends in an interactive sign-in a session does not perform and turns the untouched profile into the prepared machine §1 rejects. **No child task carries it** — 2026-08-16 ruling. |
+| Whether bare `taskmd` resolves there is stated either way | **half met — closed as stated** | Stated for the plain skill: it does **not** resolve, before or after the install, which is what the README says will happen because the `PATH` mechanism belongs to plugins. Unstated for the plugin shape, which is the half [T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md) left open and which this close does not shut. |
+| Anything the README has to change is named, with the wording, rather than fixed here | met | **Nothing**, and re-confirmed on 2026-08-16 against `HEAD` rather than left standing on the tag: the whole `v0.5.0..HEAD` diff to `README.md` is body documentation, so both install sections are byte-identical to the ones followed, and the 21-file claim is still true of the tracked tree. |
+
+**Child fix tasks raised**
+- none, deliberately. See the ruling above.
+
+**What a later reader should not conclude.** That `claude plugin marketplace add` followed by
+`claude plugin install taskmd@taskmd` works on a stranger's machine. It has never been run anywhere
+but here. If an outside adopter ever reports it, the transcript belongs in a fresh task citing this
+one — not in a reopening of this record, whose account of 2026-08-16 is true about 2026-08-16.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-16 | → done | **Closed on the boundary, the maintainer's ruling the same day**, chosen over splitting the task, over continuing to wait, and over re-opening the container rejection. The outcome is *where the test reaches*: the plain-skill shape proven from outside, the plugin shape unreachable from here by construction. **Criterion 1 closes unmet with no successor task** — a deliberate departure from METHOD's `review` exit criterion, taken because a successor would park the obligation on the same event nobody can cause. Written into the review in full so the close is never read as the plugin route having been verified. **This was M5's last open task**, and §1's ordering held to the end: the release was tagged on 2026-08-11 and the milestone closes five days later on what the artifact could be shown to do. |
+| 2026-08-16 | (no change) | **Asked for the full lifecycle; it cannot be run, and the block is a recorded decision rather than an obstacle.** The maintainer's 2026-08-11 ruling is to wait for an adopter, and no session can produce one. Measured instead — §3, 2026-08-16 — that the proven half still holds against the current tree (neither install section has changed since the tag, and the 21-file claim is still true) and that **the ruling's premise has weakened**: every adopter in the label map is a checkout on this machine, so none can satisfy *a machine that has never seen it*, and the 2026-08-15 channel change replaced migration reports with pull requests. New evidence licenses re-opening a decision, never reversing it, so the question is put to the owner and nothing was changed. **The task stays `in_progress` at `implement`** — waiting is not a phase, and it has not moved backwards. |
 | 2026-08-11 | (no change) | **The remaining question is answered: wait for an adopter.** Three projects already run taskmd, so the next migration exercises the plugin route on a real machine at no cost here, and an adopter's transcript beats a prepared environment. The rival, a container carrying the CLI, is rejected in §1 with its cost. **The task stays open and is waiting on nobody here** — that is a deliberate resting state, not a stall. |
 | 2026-08-11 | → in_progress | **Half of it is now proven from outside, on the published `v0.5.0` artifact, and the task stays open.** The open question was half answered by measuring rather than by asking: the WSL2 Ubuntu 26.04 profile here has **no `~/.claude` at all**, a different user, a different home and no `taskmd` on `PATH`, which is a real answer to *a machine that has never seen it* for the plain-skill shape. Followed as written from a clone at the tag, it holds completely: 21 files, exactly the count the README claims and nobody had checked from outside; the empty-project output matches the README's quotation, which it would not have done before [T-129](T-129-release-v0-5.md) corrected that quotation hours earlier; all four commands work on a real task, with the launcher finding `python3` on a profile that has no bare `python`. Bare `taskmd` does **not** resolve there, which for this shape is what the README says will happen. **The plugin route was not run**: that profile has no Node and no `claude` CLI, and standing one up ends in an interactive sign-in a session does not perform, besides turning the untouched profile into a prepared one. Criterion 3 is met and says the README needs nothing. Nothing was changed. |
 | 2026-08-11 | → planned | Six steps, and step 2 is what makes this M5's last task rather than a rehearsal: the artifact under test is cloned from the published tag, not copied from the working tree. Step 1 measures the candidate environments before choosing one, because `a container that ships no Python answers a more interesting question` is a claim about environments nobody had checked. |

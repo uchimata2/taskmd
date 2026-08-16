@@ -70,7 +70,6 @@ A label says which release the work is scheduled into. It never says the release
 | ID | Title | Work Package | Status | Phase | Parent | Children | Blocked By | Blocks | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) | Align with the handoff tracker-binding contract | `M6` | `specified` | `specify` | - | - | - | - | T-002, T-007, T-009, T-033, T-105 |
-| [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) | Install the published plugin on a machine that has never seen it | `M5` | `in_progress` | `implement` | T-006 | - | - | - | T-020, T-049, T-054, T-067, T-099, T-129, T-142 |
 | [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `M6` | `proposed` | `specify` | - | - | - | - | T-092, T-095, T-109 |
 | [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `M6` | `proposed` | `specify` | - | - | - | - | T-004, T-009, T-010, T-041, T-082 |
 | [T-130](T-130-report-a-question-left-live-in-a-closed-task.md) | Report a question left live in a closed task | `M6` | `proposed` | `specify` | - | - | - | - | T-025, T-095, T-107, T-121, T-131 |
@@ -177,6 +176,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-082](T-082-let-id-width-say-the-backend-allocates-the-ids.md) | Let id_width say that the backend allocates the ids | `M2` | `done` | `review` | T-004 | - | - | - | T-010, T-075, T-108, T-123, T-137 |
 | [T-083](T-083-make-the-skill-directory-self-contained.md) | Make the skill directory self-contained | `M1` | `done` | `review` | - | - | - | - | T-053, T-054, T-064, T-084, T-099, T-103 |
 | [T-084](T-084-correct-the-generated-index-preamble-after-the-move.md) | Correct the generated index preamble after the directory move | `M1` | `done` | `review` | - | - | - | - | T-006, T-025, T-083 |
+| [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) | Install the published plugin on a machine that has never seen it | `M5` | `done` | `review` | T-006 | - | - | - | T-020, T-049, T-054, T-067, T-099, T-129, T-142 |
 | [T-086](T-086-group-the-backlog-into-release-milestones.md) | Group the backlog into release milestones | `M2` | `done` | `review` | - | - | - | - | T-006, T-022, T-026, T-087, T-110, T-128, T-135, T-136 |
 | [T-087](T-087-let-list-filter-on-a-field-the-index-can-show.md) | Let list filter on a field the index can show | `M2` | `done` | `review` | - | - | - | - | T-022, T-029, T-086, T-102, T-124, T-137, T-143, T-144 |
 | [T-088](T-088-put-audit-in-the-shipped-type-vocabulary-or-stop-calling-it-a-type.md) | Put audit in the shipped type vocabulary, or stop calling it a type | `M2` | `done` | `review` | - | - | - | - | T-001, T-026, T-032, T-100, T-104, T-109, T-131, T-137 |
@@ -218,7 +218,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-126](T-126-catch-dash-gate-drift-before-publication-rather-than-at-it.md) | Catch dash-gate drift before publication rather than at it | `M5` | `done` | `review` | - | - | - | - | T-079, T-081, T-115, T-125, T-127, T-129, T-133, T-134 |
 | [T-127](T-127-decide-whether-a-release-note-is-text-a-stranger-reads.md) | Decide whether a release note is text a stranger reads | `M5` | `done` | `review` | - | - | - | - | T-079, T-081, T-125, T-126, T-129, T-133, T-135 |
 | [T-128](T-128-make-a-milestone-name-the-release-it-ships-in.md) | Make a milestone name the release it ships in | `M5` | `done` | `review` | - | - | - | - | T-086, T-110, T-125, T-135, T-136 |
-| [T-129](T-129-release-v0-5.md) | Release M5 | `M5` | `done` | `review` | - | - | - | T-085 | T-085, T-125, T-126, T-127, T-133, T-135 |
+| [T-129](T-129-release-v0-5.md) | Release M5 | `M5` | `done` | `review` | - | - | - | - | T-085, T-125, T-126, T-127, T-133, T-135 |
 | [T-132](T-132-give-the-console-the-same-line-ending-on-every-platform.md) | Give the console the same line ending on every platform | `M5` | `done` | `review` | T-020 | - | - | - | T-002, T-020, T-022, T-049, T-064 |
 | [T-133](T-133-decide-what-to-do-about-a-published-release-note-that-breaks-the-rule.md) | Decide what to do about a published release note that breaks the rule | `M5` | `done` | `review` | - | - | - | - | T-079, T-081, T-125, T-126, T-127, T-129, T-135 |
 | [T-134](T-134-check-that-every-prose-list-of-the-commands-names-the-commands-there-are.md) | Check that every prose list of the commands names the commands there are | `M5` | `done` | `review` | T-117 | - | - | - | T-030, T-031, T-055, T-071, T-073, T-117, T-126, T-139, T-147, T-149 |
