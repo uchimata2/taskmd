@@ -941,6 +941,38 @@ class Usage(unittest.TestCase):
             self.assertEqual(code, 0, "%r: %r" % (args, out))
             self.assertEqual(cli.usage_line(), out.strip(), "%r" % (args,))
 
+    def test_help_does_not_answer_for_a_command_that_does_not_exist(self):
+        """T-145. `--help` was collected while parsing and answered before the command name was
+        looked at, so `taskmd wat` exited 2 and `taskmd wat --help` exited 0 on identical output —
+        the flag suppressed the rejection and a script saw success. T-029's principle is that a
+        tool which is believed must not report success over something it never looked at; here the
+        thing never looked at is the command name.
+
+        **Both directions, and both derived from `cli.COMMANDS`** rather than written out, on
+        T-071's precedent above: a hand-typed list stops covering the set the moment it changes.
+        The unknown name is built *from* the vocabulary so it cannot quietly become a real command,
+        which a literal `wat` could."""
+        self.assertTrue(cli.COMMANDS, "no commands to assert; this test would prove nothing")
+
+        # Known: every command answers `--help` with 0. `list` prints more than the top-level line
+        # (T-144) and the rest print only it, so what all four share is that it comes first.
+        for command in sorted(cli.COMMANDS):
+            for flag in ("--help", "-h"):
+                code, out = run(command, flag, "--root", ROOT)
+                self.assertEqual(code, 0, "%s %s: %r" % (command, flag, out))
+                self.assertTrue(out.startswith(cli.usage_line()),
+                                "%s %s: %r" % (command, flag, out))
+
+        # Unknown: the same mistake gets the same answer whether or not the flag is present.
+        unknown = "not" + "".join(sorted(cli.COMMANDS))
+        self.assertNotIn(unknown, cli.COMMANDS, "the probe collided with a real command")
+        plain_code, plain_out = run(unknown, "--root", ROOT)
+        self.assertEqual(plain_code, 2, plain_out)
+        for flag in ("--help", "-h"):
+            code, out = run(unknown, flag, "--root", ROOT)
+            self.assertEqual(code, 2, "%s suppressed the rejection: %r" % (flag, out))
+            self.assertEqual(plain_out, out, "%s changed the message: %r" % (flag, out))
+
     def test_a_rejection_names_no_path(self):
         """R-20. The same bytes on every platform, which a path could not be — and the reader of
         this line is being told what the tool accepts, not where it is installed."""

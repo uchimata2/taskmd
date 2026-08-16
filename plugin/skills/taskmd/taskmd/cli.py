@@ -1317,7 +1317,14 @@ def main(argv):
     # 2026-08-15** (T-144), against evidence T-029 did not have: the reader in question is an agent
     # that has the command and not the skill file, and `list` is the only command whose options the
     # top-level line does not state. The other three still get that line and nothing else.
-    if asked_for_help:
+    #
+    # The guard is T-145. This branch used to answer before the command name was looked at, so
+    # `--help` beside a command the tool does not have printed the rejection line and returned 0 —
+    # the same output as `taskmd wat` with the opposite exit code. Asking what the tool does is not
+    # misuse; naming a command it does not have still is, and the flag must not decide which of the
+    # two happened. So help answers for no command and for a real one, and a name that is neither
+    # falls through to the gate below.
+    if asked_for_help and (not rest or rest[0] in COMMANDS):
         print(list_help(root) if rest[:1] == ["list"] else usage_line())
         return 0
 
