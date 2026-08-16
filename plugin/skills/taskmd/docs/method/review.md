@@ -23,10 +23,39 @@ verdict phase, not a working phase.
    wrong ([`../METHOD.md`](../METHOD.md) §5) and re-opens work that has already been verified,
    without re-verifying it. The fix is a child task, and it runs the lifecycle like anything else.
 
-5. **Close the task** when every criterion is met or carried, the record is current, and the
+5. **Read the task's own open questions before closing**, and route anything still live — an answer
+   into the record, or a new task for what nobody here can settle. **No tool will do this for you**,
+   and the reason is under *A question aimed at someone else*, below.
+
+6. **Close the task** when every criterion is met or carried, the record is current, and the
    evidence from [`implement`](implement.md) is in place. Closing a task whose evidence is missing
    is the failure this method exists to prevent — the outcome may well be fine, but nobody can now
    tell.
+
+## A question aimed at someone else
+
+A question addressed to somebody who is not doing the work — the owner, a specialist, whoever holds a
+fact nobody here has — is the one residue a review is built to miss. It fails no criterion, so steps
+2 and 3 never reach it: there is no row for it in the table and nothing to carry into a child task.
+And the moment the task closes it leaves every view a project has, because **views read open work**.
+It does not go stale; it goes invisible.
+
+Step 5 is the only thing that catches it, and that is a measured claim rather than a preference. One
+project ran four candidate detectors over its own records — 178 questions in 148 closed tasks — and
+then over an older tree where one question was known to have been left live. Every rule precise
+enough to be worth running missed that one, and every rule that caught it buried it about one in
+twenty. The reason is structural, not a matter of a better pattern: a question and its answer are
+both prose, and an answer is written wherever it belongs — beside the question, in a sibling bullet,
+in a decision, or in the task raised to carry it. **No pattern can tell which answer belongs to which
+question**, so a checker either reports the section or reports nothing.
+
+The convention that would fix it — *always answer inside the bullet* — was measured too, and
+rejected: most of those answers are numbered decisions, and their home is the decision list. Forcing
+a copy beside the question would make the record state one fact twice, which is the failure the whole
+method is built to avoid.
+
+So this is a step in a procedure and not a class in a validator, deliberately. Whatever your tracker
+validates, it is not this.
 
 ## Changing a criterion
 
