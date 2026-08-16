@@ -67,8 +67,8 @@ def strip_block_comments(text):
     is content and is kept, which is the case this must not get wrong - see T-153.
 
     The budget counts what a session is handed, so it counts the result of this and not the
-    file. That makes the check depend on a documented behaviour no session here has yet
-    observed; `report` says so on every run rather than letting the dependency go quiet.
+    file. That premise was documented rather than seen until T-159 observed it on 2026-08-16;
+    `report` cites the observation on every run rather than asserting the behaviour flatly.
     """
     kept, in_fence, in_comment = [], False, False
     for line in text.splitlines(True):
@@ -113,8 +113,8 @@ def report(root):
     )]
     if commented:
         lines.append(
-            "       %d chars of block comment are not counted: the harness is documented to strip"
-            " them before injecting and this check follows it - not yet observed here (T-153)"
+            "       %d chars of block comment are not counted: the harness strips them before"
+            " injecting, observed 2026-08-16 in what a session was handed (T-159)"
             % commented
         )
     lines.extend([SCOPE, UNMEASURED])
@@ -201,6 +201,24 @@ class TestTheCheckCatchesWhatItClaims(unittest.TestCase):
             os.path.getsize(os.path.join(self.root, TIER1_FILE)), bare, "it is still in the file"
         )
         self.assertIn("chars of block comment are not counted", report(self.root))
+
+    def test_the_stripped_line_cites_its_observation(self):
+        """T-160: the premise behind the strip is only as good as its citation.
+
+        For a day the line carried the whole safety mechanism T-153 built - keep an
+        unobserved premise visible - and nothing in this suite read past its first
+        clause. It could have been deleted, or gone stale, in silence. This is the
+        reader it never had.
+        """
+        _tree(self.root, "x" * 80 + "\n", "y" * 100)
+        with io.open(os.path.join(self.root, TIER1_FILE), "a", encoding="utf-8") as handle:
+            handle.write("<!--\n" + ("z" * 200) + "\n-->\n")
+
+        carried = [line for line in report(self.root).splitlines() if "block comment" in line]
+        self.assertEqual(len(carried), 1, "one line carries the stripped figure")
+        self.assertIn("T-159", carried[0], "the observation is cited by task")
+        self.assertIn("2026-08-16", carried[0], "and by the date it was made")
+        self.assertNotIn("not yet observed", carried[0], "the premise is no longer unobserved")
 
     def test_a_comment_inside_a_code_fence_is_kept(self):
         """The case the strip must not catch. Stripping it would silently lose an example."""
