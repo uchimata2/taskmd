@@ -20,9 +20,11 @@ index_columns: [status]
 The reproduction case for `WIDE ROW`. Markdown drops a cell past the header count, so the text is in
 the file and renders nowhere, and nothing else a validator does can see it.
 
-It carries all six behaviours in one project, because they are one decision and a fixture proving
-five would let the sixth regress in silence. The first task holds the three the check must
-**report**; the second holds the three it must **ignore**.
+It carries all seven behaviours in one project, because they are one decision and a fixture proving
+six would let the seventh regress in silence. The first task holds the three the check must
+**report**; the second holds the four it must **ignore** — the fourth being a front matter of
+`|`-separated menus, added by T-150, where the silence had been resting on this repository's corpus
+happening to contain one.
 
 The two tasks are named here by position rather than by id on purpose: naming both would be a
 majority of this project's known ids sitting outside the generated markers, and `DUPLICATE INDEX`

@@ -75,19 +75,16 @@ A label says which release the work is scheduled into. It never says the release
 | [T-130](T-130-report-a-question-left-live-in-a-closed-task.md) | Report a question left live in a closed task | `M6` | `proposed` | `specify` | - | - | - | - | T-025, T-095, T-107, T-121, T-131 |
 | [T-131](T-131-decide-whether-a-question-heavy-task-is-a-different-kind-of-work.md) | Decide whether a question-heavy task is a different kind of work | `M6` | `proposed` | `specify` | - | - | - | - | T-088, T-109, T-130 |
 | [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) | Derive what a release note must cover from the tasks it ships | `M6` | `specified` | `specify` | - | - | - | - | T-086, T-125, T-127, T-128, T-129, T-133 |
-| [T-139](T-139-check-that-the-advisory-lines-the-readme-lists-are-the-ones-there-are.md) | Check that the advisory lines the README lists are the advisory lines there are | `M6` | `proposed` | `specify` | - | - | - | - | T-100, T-121, T-134, T-138, T-147 |
-| [T-142](T-142-stop-the-entry-point-stating-the-path-mechanism-as-given.md) | Stop the entry point stating the PATH mechanism as given | `M6` | `proposed` | `specify` | - | - | - | - | T-054, T-085, T-099, T-148, T-153 |
 | [T-143](T-143-decide-whether-tier-1-names-the-generated-index-at-all.md) | Decide whether tier 1 names the generated index at all | `M6` | `proposed` | `specify` | - | - | - | T-158 | T-022, T-028, T-087, T-118, T-152 |
-| [T-145](T-145-stop-help-answering-for-a-command-that-does-not-exist.md) | Stop --help answering for a command that does not exist | `M6` | `proposed` | `specify` | - | - | - | - | T-029, T-113, T-120, T-144 |
 | [T-146](T-146-decide-whether-a-field-can-be-required-at-a-status.md) | Decide whether a field can be required at a status | `M6` | `proposed` | `specify` | - | - | - | - | T-065, T-089, T-100, T-106 |
 | [T-147](T-147-check-that-a-quoted-command-output-is-output-the-tool-produces.md) | Check that a quoted command output is output the tool produces | `M6` | `proposed` | `specify` | - | - | - | - | T-095, T-134, T-139, T-141 |
 | [T-148](T-148-decide-whether-a-caller-outside-a-served-skill-can-find-the-launcher.md) | Decide whether a caller outside a served skill can find the launcher | `M6` | `proposed` | `specify` | - | - | - | - | T-054, T-099, T-142 |
 | [T-149](T-149-check-that-every-prose-list-of-lists-options-names-the-options-there-are.md) | Check that every prose list of list's options names the options there are | `M6` | `proposed` | `specify` | - | - | - | - | T-117, T-134, T-144 |
-| [T-150](T-150-give-the-wide-row-fixture-a-front-matter-that-carries-pipes.md) | Give the wide-row fixture a front matter that carries pipes | `M6` | `proposed` | `specify` | - | - | - | - | T-032, T-141, T-151 |
 | [T-151](T-151-decide-whether-a-check-needs-a-case-that-must-not-fire.md) | Decide whether a check needs a case that must not fire | `M6` | `proposed` | `specify` | - | - | - | - | T-100, T-141, T-150 |
 | [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md) | Audit — what this repository costs a session on every turn | `M6` | `in_progress` | `review` | - | T-153, T-154, T-155, T-156, T-157, T-158 | - | - | T-118, T-143 |
 | [T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md) | E-13 — Test whether a path-scoped rule can hold tier 1's prose about itself | `M6` | `in_progress` | `implement` | T-152 | - | - | T-158 | T-118, T-153, T-159 |
 | [T-158](T-158-phase-2-grade-each-band-against-what-it-bought.md) | Phase 2 of the context-economy audit — grade each band against what it bought | `M6` | `proposed` | `specify` | T-152 | - | T-143, T-155 | - | - |
+| [T-161](T-161-give-the-entry-point-comments-pointer-a-reader.md) | Give the entry-point comments' pointer a reader | `M6` | `proposed` | `specify` | T-142 | - | - | - | T-064, T-099, T-139, T-142, T-160 |
 
 ## Closed
 
@@ -155,7 +152,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-061](T-061-stop-an-inherited-pythonpath-breaking-the-launcher.md) | Stop an inherited PYTHONPATH breaking the shell launcher | `M1` | `done` | `review` | T-059 | - | - | - | T-049, T-056, T-068 |
 | [T-062](T-062-report-two-tasks-claiming-one-id-instead-of-dropping.md) | Report two tasks claiming one id instead of dropping one | `M1` | `done` | `review` | T-059 | - | - | - | T-004, T-075, T-107 |
 | [T-063](T-063-measure-the-tier-1-member-the-rule-declares.md) | Measure the tier-1 member the rule declares | `M1` | `done` | `review` | T-059 | - | - | - | T-028, T-047, T-105, T-115, T-118 |
-| [T-064](T-064-stop-the-plugin-citing-documents-it-does-not-ship.md) | Stop the plugin citing documents it does not ship | `M1` | `done` | `review` | T-059 | - | - | - | T-006, T-053, T-083, T-117, T-132 |
+| [T-064](T-064-stop-the-plugin-citing-documents-it-does-not-ship.md) | Stop the plugin citing documents it does not ship | `M1` | `done` | `review` | T-059 | - | - | - | T-006, T-053, T-083, T-117, T-132, T-161 |
 | [T-065](T-065-say-what-happens-to-a-field-the-schema-does-not-name.md) | Say what happens to a field the schema does not name | `M1` | `done` | `review` | T-059 | - | - | - | T-001, T-030, T-146 |
 | [T-066](T-066-reconcile-two-open-tasks-with-the-fix-that-landed.md) | Reconcile two open tasks with the fix that already landed | `M1` | `done` | `review` | T-059 | - | - | - | T-011, T-023, T-030 |
 | [T-067](T-067-prove-the-install-route-an-adopter-actually-takes.md) | Prove the install route an adopter actually takes | `M1` | `done` | `review` | T-059 | - | - | - | T-006, T-052, T-053, T-054, T-077, T-085, T-099 |
@@ -189,7 +186,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-096](T-096-decide-whether-a-narrower-walk-of-a-counted-class-needs-its-own-number.md) | Decide whether a narrower walk of a counted class needs its own number | `M2` | `done` | `review` | T-095 | - | - | - | T-025, T-121 |
 | [T-097](T-097-decide-whether-a-published-document-may-point-at-a-file-no-clone-receives.md) | Decide whether a published document may point at a file no clone receives | `M2` | `done` | `review` | - | - | - | - | T-013, T-034, T-091, T-092, T-094, T-109 |
 | [T-098](T-098-decide-who-checks-the-links-in-a-document-only-a-successor-reads.md) | Decide who checks the links in a document only a successor reads | `M2` | `done` | `review` | - | - | - | - | T-002, T-034, T-080, T-094, T-095, T-109 |
-| [T-099](T-099-give-an-adopter-a-command-that-runs-without-bin-on-path.md) | Give an adopter a command that runs when the plugin's bin is not on PATH | `M2` | `done` | `review` | - | - | - | - | T-054, T-055, T-067, T-083, T-085, T-140, T-142, T-148 |
+| [T-099](T-099-give-an-adopter-a-command-that-runs-without-bin-on-path.md) | Give an adopter a command that runs when the plugin's bin is not on PATH | `M2` | `done` | `review` | - | - | - | - | T-054, T-055, T-067, T-083, T-085, T-140, T-142, T-148, T-161 |
 | [T-100](T-100-report-a-project-config-that-has-drifted-from-the-shipped-default.md) | Report a project config that has drifted from the shipped default | `M2` | `done` | `review` | - | - | - | - | T-001, T-023, T-088, T-095, T-106, T-121, T-137, T-138, T-139, T-146, T-151 |
 | [T-101](T-101-report-a-template-the-create-path-cannot-see.md) | Report a template the create path cannot see | `M2` | `done` | `review` | - | - | - | - | T-032, T-051, T-076, T-091, T-095, T-107, T-121 |
 | [T-102](T-102-show-which-rows-list-has-already-worked-out-are-blocked.md) | Show which rows list has already worked out are blocked | `M2` | `done` | `review` | - | - | - | - | T-022, T-031, T-070, T-087, T-111 |
@@ -225,14 +222,18 @@ A label says which release the work is scheduled into. It never says the release
 | [T-136](T-136-rename-the-milestone-labels-so-they-cannot-be-read-as-versions.md) | Rename the milestone labels so they cannot be read as versions | `M6` | `done` | `review` | - | - | - | - | T-086, T-110, T-125, T-128, T-137, T-138 |
 | [T-137](T-137-decide-what-taskmd-does-about-a-label-read-as-a-version.md) | Decide what taskmd does about a grouping label that can be read as a version | `M6` | `done` | `review` | - | - | - | - | T-004, T-082, T-087, T-088, T-100, T-106, T-136, T-138 |
 | [T-138](T-138-report-a-front-matter-value-that-reads-as-a-version.md) | Report a front-matter value that reads as a version | `M6` | `done` | `review` | - | - | - | - | T-100, T-106, T-136, T-137, T-139 |
+| [T-139](T-139-check-that-the-advisory-lines-the-readme-lists-are-the-ones-there-are.md) | Check that the advisory lines the README lists are the advisory lines there are | `M6` | `done` | `review` | - | - | - | - | T-100, T-121, T-134, T-138, T-141, T-147, T-161 |
 | [T-140](T-140-restore-the-log-row-a-table-cell-swallowed.md) | Restore the log row a table cell swallowed in T-099 | `M6` | `done` | `review` | - | - | - | - | T-099, T-141 |
-| [T-141](T-141-report-a-table-row-with-more-cells-than-its-header.md) | Report a table row with more cells than its header | `M6` | `done` | `review` | - | - | - | - | T-025, T-095, T-107, T-121, T-140, T-147, T-150, T-151 |
+| [T-141](T-141-report-a-table-row-with-more-cells-than-its-header.md) | Report a table row with more cells than its header | `M6` | `done` | `review` | - | - | - | - | T-025, T-095, T-107, T-121, T-139, T-140, T-147, T-150, T-151 |
+| [T-142](T-142-stop-the-entry-point-stating-the-path-mechanism-as-given.md) | Stop the entry point stating the PATH mechanism as given | `M6` | `done` | `review` | - | T-161 | - | - | T-054, T-085, T-099, T-148, T-153, T-161 |
 | [T-144](T-144-decide-whether-a-commands-own-options-can-be-discovered-from-the-cli.md) | Decide whether a command's own options can be discovered from the CLI | `M6` | `done` | `review` | - | - | - | - | T-022, T-029, T-087, T-113, T-145, T-149 |
+| [T-145](T-145-stop-help-answering-for-a-command-that-does-not-exist.md) | Stop --help answering for a command that does not exist | `M6` | `done` | `review` | - | - | - | - | T-029, T-113, T-120, T-144 |
+| [T-150](T-150-give-the-wide-row-fixture-a-front-matter-that-carries-pipes.md) | Give the wide-row fixture a front matter that carries pipes | `M6` | `done` | `review` | - | - | - | - | T-032, T-141, T-151 |
 | [T-153](T-153-e-10-move-the-maintainer-s-justification-into-comments.md) | E-10 — Move the maintainer's justification into comments the harness strips | `M6` | `done` | `review` | T-152 | T-159, T-160 | - | T-158 | T-142, T-155 |
 | [T-154](T-154-e-01-e-04-say-what-the-tier-1-budget-governs.md) | E-01/E-04 — Say what the tier-1 budget governs, and what it cannot see | `M6` | `done` | `review` | T-152 | - | - | T-158 | T-028 |
 | [T-156](T-156-e-16-decide-whether-a-read-only-phase-can-skip-the-binding.md) | E-16 — Decide whether a read-only phase can skip the binding | `M6` | `done` | `review` | T-152 | - | - | T-158 | - |
 | [T-157](T-157-b-2-settle-what-context-claims-to-be-enough-for.md) | B-2 — Settle what `taskmd context` claims to be enough for | `M6` | `done` | `review` | T-152 | - | - | - | - |
 | [T-159](T-159-observe-whether-a-block-comment-reaches-a-session.md) | Observe whether a block comment in CLAUDE.md reaches a session | `M6` | `done` | `review` | T-153 | - | - | - | T-050, T-155, T-160 |
-| [T-160](T-160-retire-the-budget-check-s-unobserved-premise-warning.md) | Retire the budget check's unobserved-premise warning, now that it is observed | `M6` | `done` | `review` | T-153 | - | - | - | T-159 |
+| [T-160](T-160-retire-the-budget-check-s-unobserved-premise-warning.md) | Retire the budget check's unobserved-premise warning, now that it is observed | `M6` | `done` | `review` | T-153 | - | - | - | T-159, T-161 |
 
 <!-- taskmd:end -->
