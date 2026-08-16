@@ -12,7 +12,7 @@ owner: the project owner
 business_value: medium
 effort: m
 created: 2026-08-15
-updated: 2026-08-15
+updated: 2026-08-16
 deliverables: []
 ---
 
@@ -86,10 +86,20 @@ so its first sample run being subtly untrue is the worst place in the tree for t
       than transcribed again
 
 **Open questions**
-- **Is a quote guarded by comparison or by generation?** Comparing means the suite runs the command
-  and diffs, which is exact and makes the README depend on a live run. Generating means the block is
-  produced like the task index, between markers, which removes the class entirely and puts generated
-  text into the document a stranger reads. Decide at `specify`; it changes what the outcome is.
+- ~~**Is a quote guarded by comparison or by generation?**~~ **Answered by the project owner on
+  2026-08-16: by comparison.** The suite runs the command and diffs what the document quotes.
+
+  *Rejected: generation between markers.* It removes the drift class outright rather than reporting
+  it, which is the stronger guarantee, and it is the idiom this project already uses for the task
+  index. What decided it against: the README is the document a stranger reads **before** installing,
+  and `CLAUDE.md`'s *humanized* publishing constraint is about exactly that page. Machine-written
+  blocks in it buy correctness at the cost of the thing the constraint protects. Comparison is also
+  what [T-134](T-134-check-that-every-prose-list-of-the-commands-names-the-commands-there-are.md) and
+  [T-139](T-139-check-that-the-advisory-lines-the-readme-lists-are-the-ones-there-are.md) already do,
+  so this is one more instance of an established mechanism rather than a second one.
+
+  **This does not settle which quotes are guarded**, which criterion 1 says is decided by reading
+  what is actually quoted, with a count. That is still `specify`'s and is the larger half.
 
 ## 2. Plan
 
@@ -118,4 +128,5 @@ so its first sample run being subtly untrue is the worst place in the tree for t
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-16 | (no change) | **Authorisation (METHOD §3.1): full lifecycle, unattended**, given 2026-08-16 as the subject of a handoff — *a vast amount of task alone, unattended*, the maintainer having selected the batch from a list put to them and answered two questions about it. It covers [T-149](T-149-check-that-every-prose-list-of-lists-options-names-the-options-there-are.md), [T-161](T-161-give-the-entry-point-comments-pointer-a-reader.md), [T-147](T-147-check-that-a-quoted-command-output-is-output-the-tool-produces.md) and [T-130](T-130-report-a-question-left-live-in-a-closed-task.md) and **nothing else** — not the six `decision` tasks beside them, not the three parked on the `InstructionsLoaded` hook, and **not anything these four raise**, which are filed and left. Recorded here and not only in the handoff, which is consumed once and archived. This row records the permission, not a phase. **The owner ruled on this task's open question in the same exchange** — guarded by comparison, not generation; the ruling and its rejected alternative are in §1. |
 | 2026-08-15 | → proposed | Raised by [T-141](T-141-report-a-table-row-with-more-cells-than-its-header.md), which had to edit the README's sample `check` run and found it already stale by one denominator, three days old, from T-138. Not fixed where it was found beyond the one line T-141 owed (METHOD §5). `medium` because the fault is a subtly wrong sample rather than a broken instruction, and `m` because the honest part is deciding which quotes are guarded: this repository is full of transcripts that are records of past runs and must **not** be kept current, so the set cannot be "every fenced block" and choosing it is the work. The sharp fact is in §1: `examined()` derives the summary from the checks that ran, so every new check changes that line by construction, and two of the last three did. |

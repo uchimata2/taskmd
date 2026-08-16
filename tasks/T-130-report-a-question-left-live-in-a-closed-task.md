@@ -12,7 +12,7 @@ owner: maintainer
 business_value: medium
 effort: m
 created: 2026-08-11
-updated: 2026-08-11
+updated: 2026-08-16
 deliverables: []
 ---
 
@@ -113,4 +113,5 @@ R-16, and the rule behind it: a validator is worth what you believe it would cat
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-16 | (no change) | **Authorisation (METHOD §3.1): full lifecycle, unattended**, given 2026-08-16 as the subject of a handoff — *a vast amount of task alone, unattended*, the maintainer having selected the batch from a list put to them and answered two questions about it. It covers [T-149](T-149-check-that-every-prose-list-of-lists-options-names-the-options-there-are.md), [T-161](T-161-give-the-entry-point-comments-pointer-a-reader.md), [T-147](T-147-check-that-a-quoted-command-output-is-output-the-tool-produces.md) and [T-130](T-130-report-a-question-left-live-in-a-closed-task.md) and **nothing else** — not the six `decision` tasks beside them, not the three parked on the `InstructionsLoaded` hook, and **not anything these four raise**, which are filed and left. Recorded here and not only in the handoff, which is consumed once and archived. This row records the permission, not a phase. **This task's own open question — convention or checker — is left to `specify` under the standing delegation**, deciding it with the rejected alternative recorded, because both outcomes are already inside the agreed criteria: criterion 2 covers a class being added and criterion 3 covers none being added. The maintainer chose this task into the batch having been told it may end in a recommendation rather than a guard. |
 | 2026-08-11 | → proposed | Raised from a hand sweep the maintainer asked for during a handoff. The sweep is the evidence and its numbers are in §1: 128 files read, 24 flagged, 1 genuinely live. **The one find had been invisible for five days** and would have stayed so, which is the argument for the task; **23 of 24 were false** , which is the argument against the obvious fix. Filed `M6` because deciding what a machine can recognise here is research rather than a correction, and `m` for the same reason. |

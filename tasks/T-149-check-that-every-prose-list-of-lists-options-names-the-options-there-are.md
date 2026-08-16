@@ -12,7 +12,7 @@ owner: the project owner
 business_value: low
 effort: s
 created: 2026-08-15
-updated: 2026-08-15
+updated: 2026-08-16
 deliverables: []
 ---
 
@@ -101,4 +101,5 @@ the two homes held together by something.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-16 | (no change) | **Authorisation (METHOD §3.1): full lifecycle, unattended**, given 2026-08-16 as the subject of a handoff — *a vast amount of task alone, unattended*, the maintainer having selected the batch from a list put to them and answered two questions about it. It covers [T-149](T-149-check-that-every-prose-list-of-lists-options-names-the-options-there-are.md), [T-161](T-161-give-the-entry-point-comments-pointer-a-reader.md), [T-147](T-147-check-that-a-quoted-command-output-is-output-the-tool-produces.md) and [T-130](T-130-report-a-question-left-live-in-a-closed-task.md) and **nothing else** — not the six `decision` tasks beside them, not the three parked on the `InstructionsLoaded` hook, and **not anything these four raise**, which are filed and left. Recorded here and not only in the handoff, which is consumed once and archived. This row records the permission, not a phase. |
 | 2026-08-15 | → proposed | Raised from T-144's `implement`, under METHOD §3.3: actionable, outside that task, so it costs one record rather than a silent widening. T-144 §1 named it as out of scope while `specify` was being written, before the home existed that makes it possible. `low` because the prose is correct today and the risk is drift rather than a live defect — but it is the drift class T-073 measured at four days, and the flags now have exactly the computed home whose absence was T-134's reason for declining. |
