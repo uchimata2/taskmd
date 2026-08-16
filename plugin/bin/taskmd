@@ -1,9 +1,21 @@
 #!/bin/sh
 # taskmd entry point. This is the command an adopter types.
 #
-# It is on PATH because the harness appends every enabled plugin's bin/ directory to the PATH it
-# hands the agent's shell - so there is no install step, no PYTHONPATH to set and no path to a
-# cache directory anyone has to know. `bin/` is the whole mechanism; the file name is the command.
+# It is meant to be found on PATH: the harness appends every enabled plugin's bin/ directory to the
+# PATH it hands the agent's shell, so where that holds there is no install step, no PYTHONPATH to
+# set and no path to a cache directory anyone has to know. `bin/` is the mechanism; the file name
+# is the command.
+#
+# That is the design and not a guarantee, and this comment used to state it as one - which is the
+# worst place for it, because a reader who opens this file has usually got here by the command not
+# being found. It has failed on at least one real machine, including the one this project is
+# written on: the harness does write the directory into the shell snapshot, and the snapshot's
+# `export PATH=` line is truncated mid-value, so sourcing fails and the inherited PATH survives.
+# The defect is the harness's and is filed there (T-054); nothing about it is taskmd's to fix.
+#
+# When it has failed, there is a second way in that does not depend on PATH at all. It is stated
+# once, in ../skills/taskmd/SKILL.md, and deliberately not repeated here - two copies of it would
+# drift, and the one an adopter is pointed at is that one.
 #
 # It is a delegate, not a second launcher. Interpreter discovery lives one directory up in
 # taskmd.sh and is not repeated here, because the same fact written in two places is the one
