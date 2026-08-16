@@ -61,11 +61,12 @@ did, so what is left is grouped into **M6** alone, whose purpose is in `tasks/RE
 membership is each task's `work_package` — do not maintain a list of that anywhere. It closes when
 every task in it closes; it has no enumerated exit criterion, and the reason is in T-128.
 
-**A release is not the last step of a release.** T-085 verifies the published artifact from a clean
+**A release is not the last step of a release.** T-085 verified the published artifact from a clean
 machine and was `blocked_by` the release task, so M5 was not complete when it was tagged. `0.4.0`
 shipped with nothing checking it from outside; `0.5.0` did not. The ordering held: `0.5.0` was tagged
-and then installed from its own tag onto a profile that had never held any of this. Half of that is
-proven and half is not, and which half is in T-085, not here.
+and then installed from its own tag onto a profile that had never held any of this. **It closed on
+2026-08-16 with half proven and half unreachable**, and nothing carries the remainder: which half,
+and why the plugin route cannot be run from any machine here, is in T-085 and not here.
 
 Start with `docs/SCOPE.md` — the goal, the numbered requirements (R-1…R-24) and the explicit
 non-goals. `docs/BRIEF.md` holds the problem evidence, the carried lessons and the remaining open
