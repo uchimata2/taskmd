@@ -175,6 +175,8 @@ A row with *fewer* cells than its header is not reported: Markdown pads it and n
 is a trailing empty cell, for the same reason. Note that a pipe inside backticks still splits a cell,
 so write it as `\|` in a table.
 
+<!-- taskmd:advisories -->
+
 **If you write your own config, `check` also tells you when the shipped default moves ahead of it.**
 A config replaces the default rather than merging with it, so a copy taken today cannot see a value
 added tomorrow. A real project raised work to fix a defect that had already been fixed upstream for
@@ -201,6 +203,8 @@ independently before the line existed. One `LABEL SHAPE` line names the field, t
 tasks carry it, and it is advisory as well, because version-shaped labels are legal. It reads the
 shape of a value and never the name of a field, so there is nothing to configure and it catches the
 same defect under a field name taskmd has never heard of.
+
+<!-- taskmd:end-advisories -->
 
 ### As a plain skill
 

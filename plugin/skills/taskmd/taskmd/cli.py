@@ -948,9 +948,21 @@ def check_duplicate_index(root, schema, tasks, duplicates):
     return [("document", scanned)]
 
 
+# The advisory lines `check` can print, in the order it prints them. Each names a legal state worth
+# reporting, so none of them moves the exit status - which is the whole of what separates this tuple
+# from the problem prefixes above.
+#
+# It exists to be the set's **one home** (T-139). The names used to be format strings at three print
+# sites, so nothing could compare them against a document that enumerates them - and `README.md`
+# spent from T-138 to T-142 naming two of the three. Each gets its own prefix rather than sharing
+# one, so a project grepping for one does not receive the other (T-121); `cmd_check` prints through
+# this tuple, and `tests/test_publishing.py` reads it to judge every marked prose list.
+ADVISORY_PREFIXES = ("CONFIG DRIFT", "DUPLICATE INDEX", "LABEL SHAPE")
+
+
 def cmd_check(root, schema, tasks, args):
-    problems, counted, notes, advisories = [], [], [], []
-    duplicates, label_shaped = [], []
+    problems, counted, notes = [], [], []
+    advisory = dict((name, []) for name in ADVISORY_PREFIXES)
     counted += check_anomalies(root, schema, tasks, problems)
     counted += check_vocabularies(schema, tasks, problems)
     counted += check_references(schema, tasks, problems)
@@ -963,9 +975,9 @@ def cmd_check(root, schema, tasks, args):
     counted += check_wide_rows(root, schema, problems)
     counted += check_unreachable_templates(root, schema, problems)
     counted += check_template_fields(root, schema, problems)
-    counted += check_config_drift(root, schema, advisories)
-    counted += check_label_shape(schema, tasks, label_shaped)
-    counted += check_duplicate_index(root, schema, tasks, duplicates)
+    counted += check_config_drift(root, schema, advisory["CONFIG DRIFT"])
+    counted += check_label_shape(schema, tasks, advisory["LABEL SHAPE"])
+    counted += check_duplicate_index(root, schema, tasks, advisory["DUPLICATE INDEX"])
 
     if problems:
         for problem in problems:
@@ -975,15 +987,11 @@ def cmd_check(root, schema, tasks, args):
     else:
         print("OK - %s" % examined(counted))
     # Advisories before scope, and on both branches: a project whose config has fallen behind is
-    # in a legal state, so the line has to survive a run that also found real problems.
-    for advisory in advisories:
-        print("CONFIG DRIFT  %s" % advisory)
-    # Its own prefix rather than a second `CONFIG DRIFT` line: both are advisories and neither is
-    # the other, so a project grepping for one should not receive the other (T-121).
-    for duplicate in duplicates:
-        print("DUPLICATE INDEX  %s" % duplicate)
-    for shaped in label_shaped:
-        print("LABEL SHAPE  %s" % shaped)
+    # in a legal state, so the line has to survive a run that also found real problems. Printed
+    # through `ADVISORY_PREFIXES` so the names have one home; the order is that tuple's.
+    for name in ADVISORY_PREFIXES:
+        for line in advisory[name]:
+            print("%s  %s" % (name, line))
     # What was *not* looked at, on both branches for the reason the denominators are on both: a
     # scan narrowed by an exclusion hides behind a problem exactly as well as behind a pass.
     for note in notes:
