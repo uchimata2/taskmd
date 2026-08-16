@@ -478,6 +478,74 @@ class Launchers(unittest.TestCase):
         found += [os.path.join(bindir, n) for n in sorted(os.listdir(bindir))]
         return found
 
+    #: A reference to a document, as either platform writes one. Not a list of paths: the shims'
+    #: pointer is the thing under guard, so writing it here would be the second copy that drifts.
+    POINTER = re.compile(r"(?:[.\w-]+[\\/])+[.\w-]+\.md")
+
+    def shims(self):
+        """The entry points that **delegate** — the ones in `bin/`, split off the ones they reach.
+
+        Both halves are derived from `entry_points()` for its own reason: a third shim, or a
+        launcher renamed, must arrive in this test without anyone remembering it exists.
+        """
+        bindir = os.path.join(PLUGIN, "bin")
+        return [p for p in self.entry_points() if os.path.dirname(p) == bindir]
+
+    def prose_and_body(self, path):
+        """One entry point, split at its comment marker — the same split `COMMENT` documents."""
+        markers = self.COMMENT[os.path.splitext(path)[1]]
+        lines = cli.read(path).splitlines()
+        keep = lambda comment: "\n".join(  # noqa: E731 - two filters over one list, read together
+            ln for ln in lines
+            if ln.strip() and ln.strip().lower().startswith(markers) is comment)
+        return keep(True), keep(False)
+
+    def test_each_shims_pointer_reaches_the_fallback_it_promises(self):
+        """T-161. The one claim in either shim's prose that a reader can *follow*, and until now
+        nothing read it.
+
+        The two tests around this one are why it is needed rather than redundant: one **executes**
+        the shims, so it sees behaviour and no prose at all; the other strips every comment first,
+        on the ruling that a launcher's prose may say anything. So T-142 could replace a comment
+        that had been false for weeks with one that can go false the same way, and the suite would
+        stay green through both.
+
+        **Resolving is not enough, and the weaker check is the tempting one.** The likelier failure
+        is a `SKILL.md` that is still there and no longer carries T-099's fallback - the paragraph
+        is what the stranded adopter came for, and the file is only where it lives. So the target
+        must still name the launcher *this shim delegates to*, which is read out of the shim's own
+        body: nothing here writes a path, a file name, or a sentence of the fallback."""
+        checked = []
+        for path in self.shims():
+            name = os.path.relpath(path, PLUGIN).replace("\\", "/")
+            prose, body = self.prose_and_body(path)
+
+            pointed = set(self.POINTER.findall(prose))
+            self.assertEqual(1, len(pointed),
+                             "%s should name exactly one document - the way in that does not depend "
+                             "on PATH - and names %s" % (name, sorted(pointed) or "none"))
+            target = os.path.normpath(os.path.join(os.path.dirname(path),
+                                                   pointed.pop().replace("\\", "/")))
+            self.assertTrue(os.path.isfile(target),
+                            "%s sends a reader who could not run the command to %s, which is not "
+                            "there" % (name, os.path.relpath(target, PLUGIN)))
+
+            delegated = [os.path.basename(p) for p in self.entry_points()
+                         if p not in self.shims() and os.path.basename(p) in body]
+            self.assertTrue(delegated,
+                            "%s delegates to no launcher this tree has, so what its pointer must "
+                            "still promise cannot be derived" % name)
+            says = cli.read(target)
+            for launcher in delegated:
+                # `assertTrue`, not `assertIn`: the container is a whole document, and a failure
+                # that prints it buries the sentence naming what went missing.
+                self.assertTrue(launcher in says,
+                                "%s points at %s for the way in that does not depend on PATH, and "
+                                "that document no longer tells anyone to run %s"
+                                % (name, os.path.relpath(target, PLUGIN), launcher))
+            checked.append(name)
+        self.assertTrue(checked, "no shim was examined; this test proved nothing")
+
     def how_to_run(self, path):
         """The argv prefix that runs one entry point here, or None if this platform cannot.
 

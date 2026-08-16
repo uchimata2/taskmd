@@ -83,7 +83,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md) | Audit — what this repository costs a session on every turn | `M6` | `in_progress` | `review` | - | T-153, T-154, T-155, T-156, T-157, T-158 | - | - | T-118, T-143 |
 | [T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md) | E-13 — Test whether a path-scoped rule can hold tier 1's prose about itself | `M6` | `in_progress` | `implement` | T-152 | - | - | T-158 | T-118, T-153, T-159 |
 | [T-158](T-158-phase-2-grade-each-band-against-what-it-bought.md) | Phase 2 of the context-economy audit — grade each band against what it bought | `M6` | `proposed` | `specify` | T-152 | - | T-143, T-155 | - | - |
-| [T-161](T-161-give-the-entry-point-comments-pointer-a-reader.md) | Give the entry-point comments' pointer a reader | `M6` | `proposed` | `specify` | T-142 | - | - | - | T-064, T-099, T-139, T-142, T-160 |
 | [T-162](T-162-decide-whether-check-reads-a-date-shaped-field-as-a-date.md) | Decide whether check reads a date-shaped field as a date | `M6` | `proposed` | `specify` | - | - | - | - | T-095, T-113, T-138, T-141 |
 
 ## Closed
@@ -236,5 +235,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-157](T-157-b-2-settle-what-context-claims-to-be-enough-for.md) | B-2 — Settle what `taskmd context` claims to be enough for | `M6` | `done` | `review` | T-152 | - | - | - | - |
 | [T-159](T-159-observe-whether-a-block-comment-reaches-a-session.md) | Observe whether a block comment in CLAUDE.md reaches a session | `M6` | `done` | `review` | T-153 | - | - | - | T-050, T-155, T-160 |
 | [T-160](T-160-retire-the-budget-check-s-unobserved-premise-warning.md) | Retire the budget check's unobserved-premise warning, now that it is observed | `M6` | `done` | `review` | T-153 | - | - | - | T-159, T-161 |
+| [T-161](T-161-give-the-entry-point-comments-pointer-a-reader.md) | Give the entry-point comments' pointer a reader | `M6` | `done` | `review` | T-142 | - | - | - | T-064, T-099, T-139, T-142, T-160 |
 
 <!-- taskmd:end -->
