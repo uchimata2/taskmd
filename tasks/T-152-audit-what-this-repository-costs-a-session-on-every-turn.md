@@ -2,7 +2,7 @@
 id: T-152
 title: Audit — what this repository costs a session on every turn
 type: audit
-status: in_progress
+status: done
 phase: review
 parent: null
 blocked_by: []
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: medium
 effort: m
 created: 2026-08-15
-updated: 2026-08-15
+updated: 2026-08-17
 deliverables: [docs/audits/2026-08-15-context-economy-portable.md, docs/audits/2026-08-15-context-economy-taskmd.md]
 ---
 
@@ -259,10 +259,42 @@ them depends on how many children have closed: four are about what this record c
 fifth asks that phase 2 *exist as a task blocked on the children*, which is still true and is the
 criterion that deliberately does not enumerate them.
 
+**Closed 2026-08-17, later the same day. The two paragraphs above are superseded, not edited** — they
+record where this stood while closure was unavailable, which is what a dated record is for.
+
+- **Every child is resolved**, which is `audit.md` step 5's condition and this task's own closing rule
+  above. Five are `done`; [T-158](T-158-phase-2-grade-each-band-against-what-it-bought.md) was
+  **dropped by the maintainer with the reason recorded in its own log** — the second route step 5
+  names, not a waiver of the first. The set is still not listed here: `taskmd context T-152` derives
+  it.
+- **Criterion 5 is not re-ticked, and it is the one place the tree moved under a verdict.** It was met
+  on 2026-08-15, when phase 2 existed as a task blocked on the children. T-158's cancellation cleared
+  those dependency edges to a soft link, so the criterion's literal subject no longer holds. The
+  2026-08-15 verdict stands as a statement about that day and is **not rewritten**; what is recorded
+  is that the owner withdrew what the criterion was for. T-158's log carries what is being given up
+  and what would justify raising it again, which is the part a reader needs and is stored once.
+- **[T-143](T-143-decide-whether-tier-1-names-the-generated-index-at-all.md) does not gate this.**
+  E-12 raised no child — its measurement went into T-143, which pre-existed the audit — and T-143
+  reached this umbrella only through T-158's dependency, which is gone.
+
+**The two residuals aimed at the maintainer are routed, not closed over.** The log row of 2026-08-17
+named both and said they would die silently at close, so they were looked for before closing rather
+than after.
+
+- **The severity scale**, flagged in `implement` as an assumption *cheap to overrule*, is now
+  **spent**. Its only consumer was the ordering of the six children, and all six are resolved;
+  overruling it today changes nothing. Answered here rather than carried.
+- **U-01 and U-02** are dispositioned as handed over *by being in the deliverable*, which is a claim
+  about where they live rather than about anyone having received them. That one is still live and is
+  now [T-170](T-170-decide-whether-the-audit-s-upstream-rows-are-reported-to-anyone.md) — soft-linked
+  rather than a child, because a child would re-open the very rule this close had to satisfy, and the
+  residual is not a finding needing repair.
+
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-17 | → done | **Closed on the maintainer's request, and the condition that blocked it earlier the same day is now met rather than waived.** All six children are resolved — five `done`, [T-158](T-158-phase-2-grade-each-band-against-what-it-bought.md) dropped with its reason in its own log, which is the second route `audit.md` step 5 names. No criterion was re-ticked to get here: §4 records that **criterion 5's subject was withdrawn by the owner after it was judged**, and leaves the 2026-08-15 verdict standing as a statement about that day. The **two residuals this log flagged as dying silently at close** were the last thing checked, not the first thing forgotten: the severity assumption is **spent**, because its only consumer was the ordering of six children that are now all resolved, and the U-01/U-02 handover claim is **live** and left as [T-170](T-170-decide-whether-the-audit-s-upstream-rows-are-reported-to-anyone.md), soft-linked so that routing a residual does not re-open the closure rule. **The maintainer authorised closing this task, committing and pushing, in one request on 2026-08-17**; it covers T-152 and **nothing else** — T-170 takes one phase per request from here. |
 | 2026-08-17 | — | **Closure was asked for and is not available; nothing was changed to make it available.** The maintainer asked to close this out, whole lifecycle. **There is no lifecycle left** — all four phases ran on 2026-08-15 under the authorisation below, and §4 judged all five criteria met that day; re-read on 2026-08-17, all five still hold. What holds this open is `audit.md` step 5 alone, and §4 *Closing* now records the shape of what remains: two children in series, three tasks of work, the order fixed by the edges. **Recorded rather than resolved**, because the two ways to resolve it are both the maintainer's: authorise the chain, or drop [T-158](T-158-phase-2-grade-each-band-against-what-it-bought.md) with a reason, which step 5 permits and which would leave only [T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md). Closing over open children was not considered: it is the one thing this task's own criteria and the method both forbid, and doing it on request would make every future umbrella's closing rule advisory. **Two residuals aimed at the maintainer are still live and would die silently at close** — the severity scale in `implement` is flagged there as an assumption *cheap to overrule*, and U-01/U-02 are dispositioned as handed over *by being in the deliverable*, which is a claim about where they live rather than about anyone having received them. |
 | 2026-08-15 | → proposed | Created. |
 | 2026-08-15 | — | **The examination ran before this umbrella existed.** The owner asked for a report only, so the method's phase 1 was performed and written to the two documents in `deliverables`, and nothing was raised. Recorded here rather than smoothed over: `audit.md` step 2 says to state the finding threshold *before* looking, and this task records a threshold that was applied during the examination rather than set by this file. The consequence is that `plan` describes a procedure already carried out and `implement` records findings already written — which is the first open question above. |

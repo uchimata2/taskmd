@@ -2,8 +2,8 @@
 id: T-155
 title: E-13 — Test whether a path-scoped rule can hold tier 1's prose about itself
 type: decision
-status: in_progress
-phase: implement
+status: done
+phase: review
 parent: T-152
 blocked_by: []
 related: [T-118, T-153, T-159]
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: medium
 effort: s
 created: 2026-08-15
-updated: 2026-08-15
+updated: 2026-08-17
 deliverables: []
 ---
 
@@ -201,19 +201,82 @@ context and can no longer say where it came from. So the next session must answe
 first tool call**, then read `CLAUDE.md` and nothing else for **B**, and only then open this record.
 The handoff carries that instruction and deliberately does **not** carry the string.
 
+**Observed 2026-08-17 — it is the middle row: A no, B yes.** Run by a session that started after the
+probe was written, which is what criterion 1 asks for.
+
+| | Observation | What was looked at |
+| :--- | :--- | :--- |
+| **A** | **No** — the marker was not in context at session start | The context handed over unasked named exactly three sources: the user-scope instruction file, this repository's `CLAUDE.md`, and the memory index. No `.claude/rules/` block anywhere in it, and no `T155-PROBE-9F3A2C` |
+| **B** | **Yes** — it arrived when `CLAUDE.md` was read | The probe's body came back as a separate message appended to that read's result, naming the file it came from and carrying the marker |
+
+**The trigger is isolated to the read, not merely to the session.** Answering A took four reads first
+— the handoff skill's own files, this project's handoff config, and the handoff itself — and the
+marker was absent through all four. It appeared on the next call, which was `CLAUDE.md` and nothing
+else. So *before any tool call* is not the condition that was actually met; *before reading any file
+the rule's glob matches* is, and it is the stronger of the two, because it names the trigger instead
+of only timing it.
+
+**One of the null result's three readings is now closed, and the format is no longer a hypothesis.**
+The front matter under test was `paths:` with a single entry, `CLAUDE.md`. It fired, so
+[E-03](../docs/audits/2026-08-15-context-economy-portable.md#e-03)'s *unverified* qualifier can be
+dropped for this one shape. The harness delivers the **body only** — the front matter is consumed on
+the way in, not passed through.
+
+**What this does not settle, and criterion 2 is the whole of it.** Observation 2 asks whether the rule
+fires again after a compaction. A session can neither force a compaction nor read a hook that was
+never enabled, so step 4 is still outstanding and **criterion 2 is unanswered rather than met**. What
+was seen is one delivery tied to one read; nothing here says how long it survives, or whether a second
+read in the same session delivers it twice.
+
+**The carve-out figure holds at test time.** `CLAUDE.md` has not changed since it was re-measured —
+`git log -1 -- CLAUDE.md` is 2026-08-15, the same day — so the 1,578 characters and 26.7% above are
+what the test ran against rather than a figure carried forward.
+
+**Step 9 is live and is not this session's to take.** The middle row makes the carry decision real,
+and the decision above sends it to a new task rather than to a re-opened
+[T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md). The handoff that authorised this
+observation covered T-155 and **nothing T-155 raises**, so the task is named here and not created.
+
+**The instrument is retained, and that is a departure from what this record says to do.** Both this
+record and the handoff say to delete `.claude/rules/t-155-probe.md` once the answer is recorded.
+Deleting it now forecloses observation 2 permanently — it is the only thing a later session could
+compact against — so it stays until the maintainer rules on criterion 2. It is machine-local and
+reaches no clone; what it costs is one injection per read of `CLAUDE.md`.
+
 ## 4. Review
+
+Run 2026-08-17, against the criteria as `specify` wrote them.
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| The test was run: a rule written, a session restarted, and the load **observed** | met | The rule was written by the session of 2026-08-17; the observing session started after it, which is the separation the criterion is built around. The load was observed **directly** — the probe's body arriving in context — rather than through a hook's report of it, which is closer to what "a document's claim about its own loading is not evidence" asks for |
+| The compaction case is answered by observation, or recorded as not answered and why | met | By the criterion's **second** branch, and it is worth saying plainly: the compaction case is **not answered**. §3 records why — no session can force a compaction, and step 4's hook was never enabled. The gap and the instrument that would close it are carried by [T-169](T-169-decide-whether-tier-1-s-prose-about-itself-moves-into-a-path-scoped-rule.md) |
+| The report names which loads the mechanism reached and which it did not, rather than a verdict | met | §3 names both sides: reached — a read of a file the `paths:` glob matches; not reached — the session-start load of that same always-loaded file, and any second firing after a compaction. It stops short of saying whether the prose should move, which is the point of the maintainer's ruling |
+| Two failed attempts stop the task, with what survives recorded | met | **Not exercised.** The first attempt answered, so the stopping rule never fired. Recorded rather than ticked in silence, because a rule that was never tested passes for a different reason than one that held |
+| Nothing in `CLAUDE.md` moved as part of this task | met | `git log -1 -- CLAUDE.md` is `557a7ec`, 2026-08-15, +30/−11 — [T-153](T-153-e-10-move-the-maintainer-s-justification-into-comments.md)'s block-comment work, and no change since. The probe carries a marker and no part of the block |
+| The carve-out is re-measured at the time of the test, not carried from the audit | met | Re-measured 2026-08-15 at 1,578 characters / 26.7%, and `CLAUDE.md` is unchanged since — so what the test ran against **is** the measured figure, not one carried from the audit. The audit's 2,384 was never used |
+| The measured outcome is written into this record on the day it is known, not reconstructed later | met | §3's observation and the log row are dated 2026-08-17, the day the probe was read |
+
+**Seven met, none carried, and one open question discharged.** `specify` asked where the carry
+decision goes if the test succeeds; the decision of 2026-08-15 answered it — a new task, never a
+re-opened [T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md) — and step 9 has now
+acted on it. **Two residues aimed at the maintainer were live at closing and are routed rather than
+left here**: step 4's request to enable the `InstructionsLoaded` hook, which this repository cannot
+write, and whether `.claude/rules/t-155-probe.md` should be deleted or kept. Both are open questions
+on [T-169](T-169-decide-whether-tier-1-s-prose-about-itself-moves-into-a-path-scoped-rule.md), because
+a question left in a closed record leaves every view the project has.
 
 **Child fix tasks raised**
-- none
+- [T-169](T-169-decide-whether-tier-1-s-prose-about-itself-moves-into-a-path-scoped-rule.md) — not a
+  fix but the plan's step 9: the carry decision this task was forbidden to take. Raised because the
+  mechanism held
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-17 | → done | `review` run against the seven criteria as written: **seven met, none carried**. Criterion 2 is met by its own second branch and the compaction case is genuinely unanswered — the criterion anticipated that, and the gap travels with the instrument to [T-169](T-169-decide-whether-tier-1-s-prose-about-itself-moves-into-a-path-scoped-rule.md) rather than being buried in a tick. Criterion 4 was **never exercised**, which is recorded in its row for the same reason. Step 9 raised T-169, the carry decision, because the mechanism held. Two residues addressed to the maintainer — the hook, and whether to delete the probe — were live at closing and are now open questions on T-169; a closing record is where a question aimed at somebody else goes invisible, so they were looked for rather than waited for. **The maintainer authorised `review` and the raise in one request on 2026-08-17**, covering T-155 and T-169's creation and **nothing else** — not [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md), which T-155 was the last open child of. |
+| 2026-08-17 | — | **The probe was run and it answered: A no, B yes** — the marker was absent from the context this session was handed and present the moment `CLAUDE.md` was read. That is the middle row of the table above, so the mechanism does what E-13 hoped and **the carry decision becomes real**. Three things came with it. The trigger is the *read*, not the session: four unrelated reads preceded A and none of them delivered the marker. The format is verified rather than assumed — `paths:` with one entry — so a null result's three readings never had to be separated, and the harness passes the body while consuming the front matter. And **criterion 2 is unanswered, not met**: observation 2 needs a compaction a session cannot force and a hook step 4 never installed. The instrument is therefore **kept** against both instructions to delete it, because deleting it forecloses observation 2 for good; that is the maintainer's to rule on. Step 9's task is named and not raised — the authorising handoff covered T-155 and nothing T-155 raises. |
 | 2026-08-17 | — | **The maintainer asked to finish and close this. It did not close, and steps 4 and 5 are now done.** Step 4's precondition was read rather than assumed: no `hooks` key exists in user-scope settings and no `.claude/rules/` existed at either scope, so the instrument had never been installed. Step 5's probe is now written, machine-local, carrying a marker and none of the block. **What blocks closure is criterion 1 and nothing else** — it asks for a restart, and the session that writes the rule is structurally the one session that cannot observe it. Three things were found on the way, and all three weaken the remedy rather than the test: the front-matter format is itself unverified, so a null result has three readings and this record names them instead of letting them collapse; `.gitignore` excludes `.claude/*`, so a rule placed there reaches no clone — **a fourth risk the finding never weighed**; and the marker may make the hook optional by observing the content arrive rather than a hook's report of it. |
 | 2026-08-15 | → proposed | Raised from [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md), finding E-13. `decision` and not `fix`, on the maintainer's explicit ruling the same day: the remedy re-opens a decision recorded with a reason, so this task measures and reports and carries nothing. `s` — the work is one write, one restart and one observation, twice. |
 | 2026-08-15 | — | **The maintainer authorised this task's whole lifecycle in one request** — `specify` → `plan` → `implement` → `review` — in a request covering T-153, T-154, T-155, T-156 and T-157 and **nothing else**. Any task raised from here takes one phase per request unless separately authorised (METHOD §3.1). Recorded in each of the five records because an authorisation kept anywhere else is one a later session can miss or stretch. |

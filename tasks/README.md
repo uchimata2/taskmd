@@ -77,10 +77,10 @@ A label says which release the work is scheduled into. It never says the release
 | [T-146](T-146-decide-whether-a-field-can-be-required-at-a-status.md) | Decide whether a field can be required at a status | `M6` | `proposed` | `specify` | - | - | - | T-065, T-089, T-100, T-106 |
 | [T-148](T-148-decide-whether-a-caller-outside-a-served-skill-can-find-the-launcher.md) | Decide whether a caller outside a served skill can find the launcher | `M6` | `proposed` | `specify` | - | - | - | T-054, T-099, T-142 |
 | [T-151](T-151-decide-whether-a-check-needs-a-case-that-must-not-fire.md) | Decide whether a check needs a case that must not fire | `M6` | `proposed` | `specify` | - | - | - | T-100, T-141, T-150 |
-| [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md) | Audit — what this repository costs a session on every turn | `M6` | `in_progress` | `review` | - | T-153, T-154, T-155, T-156, T-157, T-158 | - | T-118, T-143 |
-| [T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md) | E-13 — Test whether a path-scoped rule can hold tier 1's prose about itself | `M6` | `in_progress` | `implement` | T-152 | - | - | T-118, T-153, T-158, T-159 |
 | [T-162](T-162-decide-whether-check-reads-a-date-shaped-field-as-a-date.md) | Decide whether check reads a date-shaped field as a date | `M6` | `proposed` | `specify` | - | - | - | T-095, T-113, T-138, T-141 |
 | [T-168](T-168-price-what-keeping-taskmd-installed-costs-a-project-with-no-tasks.md) | Price what keeping taskmd installed costs a project that has no tasks folder | `M6` | `proposed` | `specify` | - | - | - | T-166, T-167 |
+| [T-169](T-169-decide-whether-tier-1-s-prose-about-itself-moves-into-a-path-scoped-rule.md) | Decide whether tier 1's prose about itself moves into a path-scoped rule | `M6` | `proposed` | `specify` | T-155 | - | - | T-118, T-153 |
+| [T-170](T-170-decide-whether-the-audit-s-upstream-rows-are-reported-to-anyone.md) | Decide whether the audit's upstream rows are reported to anyone | `M6` | `proposed` | `specify` | - | - | - | T-152 |
 
 ## Closed
 
@@ -201,7 +201,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-115](T-115-give-the-tier-1-budget-something-that-enforces-it.md) | Give the tier 1 budget something that enforces it | `M2` | `done` | `review` | - | - | - | T-028, T-047, T-063, T-116, T-118, T-126 |
 | [T-116](T-116-decide-whether-the-published-repository-runs-its-own-suite.md) | Decide whether the published repository runs its own suite | `M2` | `done` | `review` | - | - | - | T-011, T-049, T-115 |
 | [T-117](T-117-decide-whether-the-command-surface-needs-one-statement.md) | Decide whether the command surface needs one statement | `M5` | `done` | `review` | - | T-134 | - | T-030, T-031, T-064, T-073, T-134, T-149 |
-| [T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md) | Decide what leaves tier 1 when the budget binds | `M2` | `done` | `review` | - | - | - | T-026, T-028, T-035, T-047, T-050, T-063, T-115, T-119, T-143, T-152, T-155 |
+| [T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md) | Decide what leaves tier 1 when the budget binds | `M2` | `done` | `review` | - | - | - | T-026, T-028, T-035, T-047, T-050, T-063, T-115, T-119, T-143, T-152, T-155, T-169 |
 | [T-119](T-119-put-the-stranded-paragraph-under-a-heading-that-owns-it.md) | Put the stranded paragraph under a heading that owns it | `M2` | `done` | `review` | - | - | - | T-047, T-118 |
 | [T-120](T-120-echo-an-unknown-flag-as-the-caller-typed-it.md) | Echo an unknown flag as the caller typed it | `M2` | `done` | `review` | - | - | - | T-022, T-113, T-122, T-145 |
 | [T-121](T-121-report-a-second-index-of-the-same-tasks-outside-the-markers.md) | Report a second index of the same tasks sitting outside the generated markers | `M5` | `done` | `review` | - | - | - | T-025, T-096, T-100, T-101, T-107, T-130, T-139, T-141 |
@@ -229,8 +229,10 @@ A label says which release the work is scheduled into. It never says the release
 | [T-147](T-147-check-that-a-quoted-command-output-is-output-the-tool-produces.md) | Check that a quoted command output is output the tool produces | `M6` | `done` | `review` | - | - | - | T-095, T-134, T-139, T-141 |
 | [T-149](T-149-check-that-every-prose-list-of-lists-options-names-the-options-there-are.md) | Check that every prose list of list's options names the options there are | `M6` | `done` | `review` | - | - | - | T-117, T-134, T-139, T-144 |
 | [T-150](T-150-give-the-wide-row-fixture-a-front-matter-that-carries-pipes.md) | Give the wide-row fixture a front matter that carries pipes | `M6` | `done` | `review` | - | - | - | T-032, T-141, T-151 |
-| [T-153](T-153-e-10-move-the-maintainer-s-justification-into-comments.md) | E-10 — Move the maintainer's justification into comments the harness strips | `M6` | `done` | `review` | T-152 | T-159, T-160 | - | T-142, T-155 |
+| [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md) | Audit — what this repository costs a session on every turn | `M6` | `done` | `review` | - | T-153, T-154, T-155, T-156, T-157, T-158 | - | T-118, T-143, T-170 |
+| [T-153](T-153-e-10-move-the-maintainer-s-justification-into-comments.md) | E-10 — Move the maintainer's justification into comments the harness strips | `M6` | `done` | `review` | T-152 | T-159, T-160 | - | T-142, T-155, T-169 |
 | [T-154](T-154-e-01-e-04-say-what-the-tier-1-budget-governs.md) | E-01/E-04 — Say what the tier-1 budget governs, and what it cannot see | `M6` | `done` | `review` | T-152 | - | - | T-028 |
+| [T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md) | E-13 — Test whether a path-scoped rule can hold tier 1's prose about itself | `M6` | `done` | `review` | T-152 | T-169 | - | T-118, T-153, T-158, T-159 |
 | [T-156](T-156-e-16-decide-whether-a-read-only-phase-can-skip-the-binding.md) | E-16 — Decide whether a read-only phase can skip the binding | `M6` | `done` | `review` | T-152 | - | - | - |
 | [T-157](T-157-b-2-settle-what-context-claims-to-be-enough-for.md) | B-2 — Settle what `taskmd context` claims to be enough for | `M6` | `done` | `review` | T-152 | - | - | - |
 | [T-158](T-158-phase-2-grade-each-band-against-what-it-bought.md) | Phase 2 of the context-economy audit — grade each band against what it bought | `M6` | `cancelled` | `specify` | T-152 | - | - | T-143, T-155 |
