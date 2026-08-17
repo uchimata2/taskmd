@@ -183,6 +183,24 @@ it did, which is closer to what the criterion actually asks for. The hook is sti
 because it separates *loaded at session start* from *loaded when the file was read*, and that
 distinction is the whole claim under test.
 
+**What the probe can actually distinguish — and it is not a yes/no.** `CLAUDE.md` is tier 1: it is
+loaded on every turn of every session, by definition. So a rule scoped to `paths: CLAUDE.md` fires at
+session start **if** the harness matches paths against the files it auto-loads as instructions.
+E-13's remedy needs the opposite — the rule must fire only when `CLAUDE.md` is opened as a file
+somebody is editing. That is the entire question, and it makes the reading a three-way table:
+
+| Observation | What it means |
+| :--- | :--- |
+| **A** — the marker is in context at session start, before any tool call | **The remedy saves nothing.** A rule scoped to an always-loaded file is itself always loaded, and the prose has moved without leaving the load path. E-13 closes negative and the carry decision never arises |
+| **A** no, **B** yes — absent at start, present after `CLAUDE.md` is explicitly read | The mechanism does what the finding hoped, and the carry decision becomes real |
+| **A** no, **B** no | The mechanism did not reach. **Three readings**, named above, and this record must not let them collapse into one |
+
+**The observation contaminates itself, so the order is part of the test.** The marker string is
+written into this record and into the rule file. A session that opens either one has the string in
+context and can no longer say where it came from. So the next session must answer **A before its
+first tool call**, then read `CLAUDE.md` and nothing else for **B**, and only then open this record.
+The handoff carries that instruction and deliberately does **not** carry the string.
+
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
