@@ -35,6 +35,19 @@ claim carrying the whole installation decision is the only sentence in it with n
 skill that routes an agent through them*. Three of the four survivors are documents, which need
 nothing installed. The fourth is the only thing installation buys, and nobody has measured it.
 
+**What this task is for, since the reason it was raised is gone.** It was raised to feed a sentence
+pricing the overlap against taskmd itself, in
+[T-167](T-167-stop-the-listing-pricing-only-the-rival.md) — which the maintainer cancelled on
+2026-08-17, accepting the listing's remaining lean as a decision. **This survives that, and the
+maintainer confirmed it should, because it is a different defect wearing the same clothes.** The
+five accepted mechanisms are *framing*: what is selected, placed and worded. This one is *factual*:
+one claim in the listing is neither a measured output nor a pointer, which is the standard
+[T-163](T-163-tell-a-migrated-project-what-taskmd-still-provides.md) set, that
+[T-166](T-166-ground-the-post-migration-listing-s-survivor-claims.md) held itself to at `review`, and
+that the rest of the document meets. Sourcing a claim is the move
+[T-166](T-166-ground-the-post-migration-listing-s-survivor-claims.md) already made once and it is not
+the move that was stopped.
+
 **It is probably already half-answered, and that is the first move.** `tests/test_budget.py` measures
 tier 1 in characters and [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) measured
 what a session is handed unasked. Whether either covers a project with **no task folder** is the
@@ -47,8 +60,11 @@ shipped an answer to has cost a round trip before.
 - In: what the install costs a session there, measured, with the command that produced the number
 - In: whether the existing budget test and
   [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) already answer either half
-- Out: editing the listing. That is
-  [T-167](T-167-stop-the-listing-pricing-only-the-rival.md), which this blocks
+- In: sourcing the one unevidenced survivor claim once the number exists — the same move
+  [T-166](T-166-ground-the-post-migration-listing-s-survivor-claims.md) made for the migration run
+- Out: **the five accepted framing mechanisms.** They were judged and accepted in
+  [T-167](T-167-stop-the-listing-pricing-only-the-rival.md); attaching a number to the listing is not
+  a licence to re-balance it, and doing so here would reverse a decision the maintainer took
 - Out: changing what the skill does in that situation. If the measurement argues for a change, it is
   its own task
 
@@ -95,4 +111,5 @@ shipped an answer to has cost a round trip before.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-17 | — | **Rescoped when [T-167](T-167-stop-the-listing-pricing-only-the-rival.md) was cancelled**, on the maintainer's decision the same day. The consumer of the measurement is now the unsourced survivor claim rather than the pricing sentence, and the five framing mechanisms are explicitly out — a number arriving is not an occasion to re-open a judgement somebody made. Recorded because a task whose stated reason has been cancelled and whose scope still reads as if it had not is the shape that gets quietly re-widened by whoever picks it up. |
 | 2026-08-17 | → proposed | Raised from [T-166](T-166-ground-the-post-migration-listing-s-survivor-claims.md) §3, where an uninvolved reader named it as the fact that would most change their recommendation. Raised separately from [T-167](T-167-stop-the-listing-pricing-only-the-rival.md) because it is a **measurement**, not an edit: the listing cannot price keeping taskmd alone until somebody knows the price, and writing the sentence first would put an unevidenced claim into the one place this repository has just finished removing them from. `high` — it is the load-bearing claim of the whole listing and currently the only unsourced one. **Not covered by the authorisation of 2026-08-17**, which named [T-166](T-166-ground-the-post-migration-listing-s-survivor-claims.md) and excluded what it raises. |
