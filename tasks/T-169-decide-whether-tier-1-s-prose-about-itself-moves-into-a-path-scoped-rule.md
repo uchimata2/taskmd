@@ -98,6 +98,24 @@ stayed is the only one there is.
   one line per event carrying that event's whole payload — the field naming *which* load happened is
   the one this task needs and nobody knows yet what the payload holds. A line there after a restart
   is the first reading; no line is the second.
+  **Answered on 2026-08-17, by reading the log after the restart: the hook fires.** The file holds
+  **14 complete records written by real session starts**, the earliest at 23:00, alongside the
+  synthetic pipe-test line from before the restart. So of the two readings this task kept apart, the
+  file shows **the first** — a `hooks` key added mid-session is not live until a restart. That is
+  what the file shows and not an argument about why; the second reading is neither confirmed nor
+  refuted, because nothing here ever made a `Read` of an instruction file due to produce a line.
+  **The payload is `session_id`, `transcript_path`, `cwd`, `hook_event_name`, `file_path`,
+  `memory_type`, `load_reason`.** The field naming *which* load happened is `file_path`, qualified by
+  `memory_type` (`User` / `Project`) — both this repository's `CLAUDE.md` and the user-scope one
+  appear, on separate lines. **`load_reason` is the field the compaction question needs**: every
+  record so far reads `session_start` and none reads anything else, so the compaction case is still
+  unobserved — but it now has a named discriminator instead of a hope.
+  **Two properties of the instrument bear on how any later reading is taken.** It is **lossy under
+  concurrency**: 3 of the log's 18 lines are truncated JSON tails (`"}`, `rt"}`) written while several
+  sessions started at once, and this session's own record for the project `CLAUDE.md` is missing with
+  a fragment in its place. And it is **not one line per session**: one session start produced four
+  records, two `User` and two `Project`. So the log proves what is present in it, and an absence in it
+  proves nothing — least of all that a load did not happen.
 
 ## 2. Plan
 
@@ -126,5 +144,6 @@ stayed is the only one there is.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-17 | — | **The hook fires, and the log says which load it was.** Read at the maintainer's instruction, which covered that observation and nothing else — no `specify`, and nothing this task goes on to decide. The second open question carries what the file shows: **the first of its two readings**, a mid-session `hooks` key that is not live until a restart, recorded because that is what the file shows and not because an argument picked it. What this buys the decision is `load_reason`: the compaction case stays unobserved, but it is now a field to read rather than a thing to hope for. Two limits of the instrument are recorded with it — concurrent session starts truncate lines, and one session start can write four records — so **an absence in this log is not evidence**, which is exactly how a compaction reading could go wrong. |
 | 2026-08-17 | — | **Both of this task's open questions moved the same day, on the maintainer's instruction, and neither is answered.** The probe was **deleted**, so the compaction observation now starts by rebuilding the rule rather than by compacting — the recipe survives in [T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md) §3, which is why this is a cost and not a loss. The `InstructionsLoaded` hook was **installed at user scope**, which moves step 4's ask from *outstanding* to *unverified*: the event is real (it is in the settings schema's hook-event enum) and the logging command is pipe-tested, but nothing has been seen to fire. Recorded with **both** readings of that silence intact — a mid-session `hooks` key that is not live yet, versus an event that fires on instruction *loading* and not on a file read — because the discriminating test was declined by the permission classifier and a record that picked one would be guessing. A restart settles it. |
 | 2026-08-17 | → proposed | Raised from [T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md) at `review`, step 9 of its plan, which said to raise this **only if** the mechanism holds. It held. `decision` and not `fix` because the size and the reach both moved against the remedy while the mechanism moved for it, so what happens next is a judgement rather than an edit somebody already agreed to. Child of T-155 rather than of [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md): the audit's job was to find and report, and this is the consequence of testing one finding, not a further finding. **Raised on the maintainer's explicit request of 2026-08-17**, which covered reviewing T-155 and raising this task and **nothing else** — this task takes one phase per request from here. |
