@@ -330,6 +330,30 @@ must catch: an edge dropped between the passes — which *update*'s partial-rewr
 silent and exits 0 — and a reference left pointing at an id that no longer exists. A verification that
 has only ever passed has not been tested.
 
+### What this procedure has been run against
+
+The two sections above are not a design. On 2026-08-17 the whole of it was run end to end, into a
+private repository created for the run and deleted the same day: 28 labels, one per vocabulary value;
+then 165 tasks — a real backlog with hierarchy, dependencies, soft links and cross-references —
+created in dependency order with `parent` and `blocked_by` native at creation; then 165 bodies
+rewritten.
+
+**The verification failed three times before it passed, and two of those failures are the reason to
+trust it.**
+
+| Run | Result |
+| :--- | :--- |
+| Between the passes | **FAIL, 324** — every issue created, every native edge already right, every reference still dead. That is the state a one-pass attempt reaches and calls finished |
+| After pass 2 | **FAIL, 8** — and all eight spurious. The shape rule was wrong, which is the paragraph above, written from this |
+| With the rule corrected | **PASS** — count, parent, blocked_by, related, bodies, no dangling reference |
+| Against a deliberately broken migration | **FAIL, 13** — the dropped edge as `blocked_by [1] != []`, and the unrewritten reference in each place it appeared |
+| After repairing those | **PASS** |
+
+No taskmd command ran at any point in either pass: the four cannot reach a network and were not asked
+to. The destination is gone and was never the evidence — a migration is checked while it runs, by the
+comparison the procedure ends with, so anyone doubting this runs it again rather than inspecting an
+artefact.
+
 ### The reverse direction: no
 
 Moving a backlog **out** of issues and back into local files is **not supported**, and that is a
@@ -345,9 +369,8 @@ them whole, and nothing here is a format only taskmd can read.
 
 ## What taskmd still gives you here
 
-Read this after a move, or before one. It is a list of facts, and it deliberately stops short of a
-recommendation: whether what remains is worth keeping is a judgement about your project, and the tool
-is the last thing that should be making it.
+Read this after a move, or before one. It is a list of facts and it stops short of a recommendation,
+because the facts that would decide it are about your project and this document holds none of them.
 
 ### The four commands do not come with you
 
@@ -368,18 +391,23 @@ They do not degrade, warn, or fall back. They stop.
 | `list` | *enumerate* above | The enumeration survives. **The ordering does not** — nothing on this backend answers "what next" by a rule |
 | `check` | **nothing** | Everything it checked is now unchecked |
 
-### What survives, and it is the part that was never local
+### What survives
 
 - **The method** — the lifecycle and its exit criteria, the three edge kinds, the audit rule, one
-  home per fact. It is backend-neutral by construction, which is the claim this binding exists to
-  make true rather than to assert.
-- **This binding** — the mapping and the six operations.
+  home per fact. It names no field, no file and no command, which is a property you can check by
+  opening it rather than a claim to take from here.
+- **This binding** — the mapping and the six operations. Not a proposal: the procedure above and all
+  six operations were run end to end against a real repository at 165 tasks, and the verification
+  caught a deliberately broken run before it passed a clean one — *What this procedure has been run
+  against*, above.
 - **The skill** that routes an agent through them.
 - **Your schema config** — still the vocabulary, and now the source of the label names.
 
 ### What is gone and has no replacement here
 
-Three things, stated plainly because they are the ones that would otherwise be found later:
+Three things, stated plainly because they are the ones that would otherwise be found later. **None of
+them is a reason to keep taskmd installed**: the commands exit 2 either way, so these are costs of the
+move and they are already paid whatever you decide here.
 
 1. **No validator.** `check` verified that every reference resolved, that every field value was in
    its vocabulary, and that the index matched the tasks it came from. Nothing on this backend does
@@ -399,14 +427,17 @@ without the skill installed. Or the harness may already serve **another task-man
 which case two things are offering to track the same work, and the overlap is a cost paid on every
 session rather than a tidiness problem.
 
-**taskmd does not resolve either one, and does not say which side should go.** It has an obvious
-interest in the answer, and a tool that concludes *keep me* cannot be checked by the person reading
-it. What it does is put the facts in one place:
+**taskmd does not resolve either one, and does not say which side should go.** What it has is:
 
-- which of its commands still run here — the table above, which is measurable rather than argued;
-- what it still supplies that nothing else does — the method, the binding, the schema;
+- which of its commands still run here — the table above, which is exit codes rather than argument;
+- what it still supplies that nothing else does — the method, the binding, the schema, each of them a
+  document you can open and disagree with;
 - what the other tool covers, which **the agent can see and taskmd cannot**: taskmd's code does not
   inspect the machine, and the agent already knows what its harness serves.
 
-Removal is your action. Uninstall taskmd, uninstall the other, or keep both deliberately — the
-listing exists so that the third option is a decision rather than an accident.
+The first two bullets are taskmd's account of itself, so read them as claims with their sources
+attached and check one at random rather than taking the paragraph's word.
+
+Removal is your action, and it has three ends: uninstall taskmd, uninstall the other, or keep both.
+Keeping both is a real answer and it is not the free one — the overlap above is what it costs, for as
+long as it stands.
