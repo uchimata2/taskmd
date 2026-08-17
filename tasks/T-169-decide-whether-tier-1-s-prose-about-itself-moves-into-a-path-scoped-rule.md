@@ -94,6 +94,10 @@ stayed is the only one there is.
   did not fire on a `Read` of `CLAUDE.md`. The test that separates those needs a second hook on an
   event triggerable in-turn, and the permission classifier declined it. **A restart settles it**, and
   that is the same wall T-155 hit: no session observes its own instruction- or config-file change.
+  **The instrument is `.claude/instructions-loaded.log` in the user directory**, written by the hook,
+  one line per event carrying that event's whole payload — the field naming *which* load happened is
+  the one this task needs and nobody knows yet what the payload holds. A line there after a restart
+  is the first reading; no line is the second.
 
 ## 2. Plan
 
