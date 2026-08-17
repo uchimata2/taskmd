@@ -131,15 +131,57 @@ objection applies to advising adopters to use the mechanism, which nothing here 
 - **The hook is the maintainer's to enable** — 2026-08-15. It is persistent user-scope configuration
   outside this repository, so this task asks rather than writes.
 
+**Step 4 — the instrument is not installed, and that is measured rather than assumed.** Read on
+2026-08-17: the user-scope settings file has no `hooks` key at all, and there is no `.claude/rules/`
+directory at either scope. So the `InstructionsLoaded` hook has never been enabled, and step 4's ask
+is still outstanding rather than done-and-forgotten. It stays the maintainer's: it is persistent
+user-scope configuration outside this repository.
+
+**Step 5 — the probe is written, which is the half that has to happen in the session *before* the
+observing one.** `.claude/rules/t-155-probe.md`, `paths:` matching `CLAUDE.md`, carrying the marker
+`T155-PROBE-9F3A2C` and **no part of the real block** — the decision above forbids carrying the change
+under cover of testing it. The next session to start can be asked one question: can it see that
+string.
+
+**The format is taken from the finding and is itself unverified — recorded so a null result stays
+readable.** [E-03](../docs/audits/2026-08-15-context-economy-portable.md#e-03)'s source is harness
+documentation and it says *hypothesis, unverified*. If the next session cannot see the marker, there
+are three explanations and this record must not let them collapse into one: the mechanism does not
+exist, the mechanism exists and is evaluated only at session start, or the front matter is written
+wrong. The catalogue's row 46 is the precedent for keeping that distinction — a lever was rejected
+there because its only source was a feature request, not because it was shown not to work.
+
+**A fourth risk the finding did not name, and it was found by writing the file.** `.gitignore`
+excludes `.claude/*` and re-includes exactly one file, `settings.json` — the exclusion exists because
+the harness writes into that folder on its own schedule, including machine paths. **So a rule placed
+there is machine-local: no clone receives it.** The remedy E-13 proposes would therefore move prose
+out of a file every clone gets and into one no clone gets, unless the ignore rule is amended to
+re-include `.claude/rules/` — which means re-including part of a directory that was excluded
+wholesale for a stated reason. Surmountable, and it was not among the three risks the finding
+weighed. It points the same way as the other two things this task has established: the prize is
+smaller than phase 1 priced it, and the cost is larger.
+
 **Outputs produced**
 
-Nothing outside this record yet. The two figures above are the outputs of steps 2 and 3.
+- `.claude/rules/t-155-probe.md` — the candidate rule, machine-local, to be deleted once this task
+  records its answer. Not a deliverable: it is the instrument.
+- The two figures above are the outputs of steps 2 and 3; the three findings above are steps 4 and 5.
 
 **The boundary, and why it is here.** Steps 4 to 9 need an instruction file to be **loaded** after it
 changes, and a session's copy is fixed before its first tool call — so no session can observe its own
 change. The maintainer chose on 2026-08-15 to leave that to a later session rather than spend a
 subagent as the instrument. This task therefore stops at `implement` with its phase intact: it is
 waiting, and waiting is not a phase.
+
+**The boundary moved on 2026-08-17 and did not dissolve.** Steps 4 and 5 are now done, so what
+remains is one restart rather than two sessions of work: the probe is in place and the next session
+to start either sees the marker or does not. What still cannot happen here is criterion 1, which asks
+for a rule written, **a session restarted**, and the load observed — this session wrote the rule, so
+it is the one session that structurally cannot be the observer. **The marker is a second instrument
+and may make the hook optional**: it observes the content arriving rather than a hook's report that
+it did, which is closer to what the criterion actually asks for. The hook is still worth enabling,
+because it separates *loaded at session start* from *loaded when the file was read*, and that
+distinction is the whole claim under test.
 
 ## 4. Review
 
@@ -154,6 +196,7 @@ waiting, and waiting is not a phase.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-17 | — | **The maintainer asked to finish and close this. It did not close, and steps 4 and 5 are now done.** Step 4's precondition was read rather than assumed: no `hooks` key exists in user-scope settings and no `.claude/rules/` existed at either scope, so the instrument had never been installed. Step 5's probe is now written, machine-local, carrying a marker and none of the block. **What blocks closure is criterion 1 and nothing else** — it asks for a restart, and the session that writes the rule is structurally the one session that cannot observe it. Three things were found on the way, and all three weaken the remedy rather than the test: the front-matter format is itself unverified, so a null result has three readings and this record names them instead of letting them collapse; `.gitignore` excludes `.claude/*`, so a rule placed there reaches no clone — **a fourth risk the finding never weighed**; and the marker may make the hook optional by observing the content arrive rather than a hook's report of it. |
 | 2026-08-15 | → proposed | Raised from [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md), finding E-13. `decision` and not `fix`, on the maintainer's explicit ruling the same day: the remedy re-opens a decision recorded with a reason, so this task measures and reports and carries nothing. `s` — the work is one write, one restart and one observation, twice. |
 | 2026-08-15 | — | **The maintainer authorised this task's whole lifecycle in one request** — `specify` → `plan` → `implement` → `review` — in a request covering T-153, T-154, T-155, T-156 and T-157 and **nothing else**. Any task raised from here takes one phase per request unless separately authorised (METHOD §3.1). Recorded in each of the five records because an authorisation kept anywhere else is one a later session can miss or stretch. |
 | 2026-08-15 | → in_progress | `specify` and `plan` complete, `implement` begun and **stopped at its boundary**: steps 4 to 9 need a session that starts after a rule file is written, and no session can observe a change to the instruction file it was handed. `blocked_by` was cleared when [T-154](T-154-e-01-e-04-say-what-the-tier-1-budget-governs.md) closed. `review` has not run and must not — three of its criteria judge observations nobody has made. |

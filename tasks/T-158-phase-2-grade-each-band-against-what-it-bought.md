@@ -2,11 +2,11 @@
 id: T-158
 title: Phase 2 of the context-economy audit — grade each band against what it bought
 type: analysis
-status: proposed
+status: cancelled
 phase: specify
 parent: T-152
-blocked_by: [T-143, T-153, T-154, T-155, T-156]
-related: []
+blocked_by: []
+related: [T-143, T-155]
 work_package: M6
 owner: maintainer
 business_value: medium
@@ -95,4 +95,5 @@ unblocks when the five tasks it names close, whatever each of them decided.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-17 | → cancelled | **Dropped by the maintainer**, taking the route `audit.md` step 5 names explicitly: an umbrella's child may be *dropped with a recorded reason* as well as done, and this is the reason. Asked for as the way to unblock [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md), whose closure it was the last long pole in. **What is being given up, so nobody re-derives it as an oversight:** phase 2 was to grade each phase-1 band against what the repair actually bought — the only mechanism that would have caught a band that was confidently wrong, and the reason the bands were recorded with gain, effort and risk rather than as a ranked list. Phase 1's findings keep their bands; nothing now checks them. **What would justify raising it again:** a phase-1 band turning out to have been badly wrong in a way somebody notices anyway, which is the cheap version of the same signal. **The dependency edges were cleared to a soft link at the same time** — [T-143](T-143-decide-whether-tier-1-names-the-generated-index-at-all.md) and [T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md) are live, and a cancelled task holding a dependency on a live one makes the live one look like it gates something. |
 | 2026-08-15 | → proposed | Raised from [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md) as the method's phase 2, and blocked on the five tasks that carry its bands — including [T-143](T-143-decide-whether-tier-1-names-the-generated-index-at-all.md), which pre-existed the audit and carries E-12. `analysis` rather than `audit`: it produces grades over an examination that already happened, not findings over a body of work, so it raises no children of its own. |

@@ -237,10 +237,33 @@ This umbrella closes only when every finding is resolved — a `done` child, or 
 reason recorded above. Closing over open children erases the link between the examination and its
 consequences.
 
+**Where that stands, 2026-08-17.** Four of six children are `done`:
+[T-153](T-153-e-10-move-the-maintainer-s-justification-into-comments.md),
+[T-154](T-154-e-01-e-04-say-what-the-tier-1-budget-governs.md),
+[T-156](T-156-e-16-decide-whether-a-read-only-phase-can-skip-the-binding.md) and
+[T-157](T-157-b-2-settle-what-context-claims-to-be-enough-for.md). **The set is not listed here and
+must not be** — `taskmd context T-152` derives it from each child's own status, which is the one home,
+and a roster in this file would be wrong within the week. What is recorded is only what the derived
+view cannot say: **the shape of what remains.**
+
+Two children are open, and they are in series rather than in parallel.
+[T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md) is at `implement` and
+unblocked. [T-158](T-158-phase-2-grade-each-band-against-what-it-bought.md) is phase 2 of the method
+and cannot start until [T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md)
+and [T-143](T-143-decide-whether-tier-1-names-the-generated-index-at-all.md) close — its other three
+blockers already have. So closing this umbrella is **three tasks of work in a fixed order**, not one,
+and the order is a property of the edges rather than a preference.
+
+**The five criteria were re-read against the tree on 2026-08-17 and all five still hold.** None of
+them depends on how many children have closed: four are about what this record contains, and the
+fifth asks that phase 2 *exist as a task blocked on the children*, which is still true and is the
+criterion that deliberately does not enumerate them.
+
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-17 | — | **Closure was asked for and is not available; nothing was changed to make it available.** The maintainer asked to close this out, whole lifecycle. **There is no lifecycle left** — all four phases ran on 2026-08-15 under the authorisation below, and §4 judged all five criteria met that day; re-read on 2026-08-17, all five still hold. What holds this open is `audit.md` step 5 alone, and §4 *Closing* now records the shape of what remains: two children in series, three tasks of work, the order fixed by the edges. **Recorded rather than resolved**, because the two ways to resolve it are both the maintainer's: authorise the chain, or drop [T-158](T-158-phase-2-grade-each-band-against-what-it-bought.md) with a reason, which step 5 permits and which would leave only [T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md). Closing over open children was not considered: it is the one thing this task's own criteria and the method both forbid, and doing it on request would make every future umbrella's closing rule advisory. **Two residuals aimed at the maintainer are still live and would die silently at close** — the severity scale in `implement` is flagged there as an assumption *cheap to overrule*, and U-01/U-02 are dispositioned as handed over *by being in the deliverable*, which is a claim about where they live rather than about anyone having received them. |
 | 2026-08-15 | → proposed | Created. |
 | 2026-08-15 | — | **The examination ran before this umbrella existed.** The owner asked for a report only, so the method's phase 1 was performed and written to the two documents in `deliverables`, and nothing was raised. Recorded here rather than smoothed over: `audit.md` step 2 says to state the finding threshold *before* looking, and this task records a threshold that was applied during the examination rather than set by this file. The consequence is that `plan` describes a procedure already carried out and `implement` records findings already written — which is the first open question above. |
 | 2026-08-15 | — | `effort: m` prices the work that remains — recording the findings here and raising the children. The examination itself was larger and is already spent. |
