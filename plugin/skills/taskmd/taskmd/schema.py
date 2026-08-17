@@ -438,7 +438,8 @@ def _check_tasks_dir(root, fields, source, own_config):
                           % (source, tasks_dir))
     if os.path.isdir(path):
         return
-    if os.path.exists(path):
+    taken = os.path.exists(path)
+    if taken:
         problem, fix, inherited = ("but that name is a file, not a folder",
                                    "Rename or remove it, or correct tasks_dir.",
                                    "rename or remove that file, or write a config naming a "
@@ -452,6 +453,17 @@ def _check_tasks_dir(root, fields, source, own_config):
     else:
         hint = ("This project has no %s, so taskmd is using its shipped default; %s."
                 % (PROJECT_CONFIG.replace("\\", "/"), inherited))
+    # T-164. Both remedies above assume the folder is missing by mistake. A project that moved
+    # its tasks to a backend has no folder *on purpose*, and was being told to create one — the
+    # one repair that is wrong for it, with no third possibility offered. `id_width: none` is
+    # what taskmd can read to know: the shipped config glosses it as "if a backend allocates
+    # them", and the GitHub binding requires it, so nothing new is imposed on the project to
+    # earn this sentence. It is added rather than substituted because the value is legal on a
+    # local project too — this states a possibility, it does not diagnose one.
+    if not taken and fields["id_width"] is None:
+        hint += (" Or nothing here is broken and these commands do not apply: id_width is "
+                 "'none', which says a backend allocates the ids, so this project's tasks are "
+                 "not local files.")
     raise SchemaError("%s: tasks_dir is '%s', %s. %s" % (source, tasks_dir, problem, hint))
 
 

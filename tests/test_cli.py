@@ -777,6 +777,29 @@ class AbsentTasksDirIsReportedAtSetup(unittest.TestCase):
         self.assertFalse(os.path.isdir(os.path.join(root, "taks")),
                          "index created the folder named by the typo")
 
+    def test_a_migrated_project_is_offered_the_remedy_that_applies(self):
+        """T-164. Every remedy the message named assumed the folder was missing by mistake, so a
+        project whose tasks moved to a backend was told to create one — the one repair that is
+        wrong for it. `id_width: none` is what taskmd can read to know the possibility exists.
+
+        Both halves are asserted. The message must gain the third possibility, and it must keep
+        the two that were already right: this states a possibility, it does not diagnose one, and
+        a local project that really did forget the folder still has a typo to fix.
+        """
+        root = os.path.join(FIXTURES, "migrated-away")
+        self.all_three_commands_refuse(root, "id_width is 'none'")
+        out = run("check", "--root", root)[1]
+        self.assertIn("do not apply", out)
+        self.assertIn("Create it, or correct tasks_dir.", out)
+
+    def test_the_genuine_missing_folder_gains_nothing(self):
+        """The neighbour that keeps the fix honest. `broken-tasks-dir` is the same shape and a
+        real defect; if it started offering 'nothing here is broken', one misleading sentence
+        would have been traded for another."""
+        out = run("check", "--root", os.path.join(FIXTURES, "broken-tasks-dir"))[1]
+        self.assertNotIn("do not apply", out)
+        self.assertNotIn("id_width", out)
+
     def test_a_project_that_has_not_created_the_folder_yet(self):
         """The shipped default names `tasks`; inheriting the value is not an excuse for it to
         be missing, or `check` would go on exiting 0 on a project it never read."""
