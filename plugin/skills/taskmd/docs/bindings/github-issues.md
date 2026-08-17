@@ -230,3 +230,183 @@ this binding materialises only the `state` rendering that *update* already wrote
 sentence that would be false for [`local-markdown.md`](local-markdown.md), whose assumption 1 says
 the opposite — and it is why [`../BINDING.md`](../BINDING.md) §4 asks every binding to state its
 position rather than inherit one.
+
+---
+
+## Moving a project here from local Markdown
+
+For a project that already runs taskmd on [`local-markdown.md`](local-markdown.md) and wants its
+backlog to live in issues. It is the one migration direction in scope; the reverse is answered at the
+end of this section.
+
+**No taskmd code performs any of this.** The agent reads the files and runs `gh`, exactly as it does
+for every operation above. Nothing here is a command.
+
+### Why it cannot be one pass
+
+Assumption 1. The issue number *is* the id and it does not exist until the issue does, so every
+`T-NNN` written anywhere — in an edge, in a body, in a Markdown link to another task's file — names
+something that has no number yet. Write the bodies as you create the issues and you get a backlog
+whose references all point at nothing, and it looks finished: `gh` exits 0 on every one of those
+creates, and each issue is well-formed on its own.
+
+The mapping from old id to issue number exists only **between** the two passes. It is the whole
+reason there are two.
+
+### What to read, and why `list --json` is not the source
+
+Read the **files**, which is [`local-markdown.md`](local-markdown.md)'s *read* — front-matter and
+body together, whole.
+
+`taskmd list --json` looks like the export for this job and is not. It is a **view** contract: it
+emits `id`, `title`, the columns `index_columns` names, and both directions of every edge. Measured
+on 2026-08-17 against a 163-task project running the shipped default
+(`index_columns: [work_package, status, phase]`), it carried no `type`, `owner`, `business_value`,
+`effort` or `deliverables` — five schema-named fields this binding must carry as labels or as
+property-block lines, and it carried no body. Widening `index_columns` would add them and is the
+wrong repair: it changes what every reader's index shows in order to feed a migration that runs once.
+
+It does have a job here, in *Verify* below. Because it is derived by the tool rather than by whatever
+read the files, comparing against it is a genuine second opinion rather than the same reconstruction
+checked twice.
+
+### Pass 1 — create, and keep the mapping
+
+Create in an order where a task's `parent` and its `blocked_by` targets already exist: hierarchy is a
+tree and dependencies are acyclic, so such an order exists. That lets *create* above be used
+unchanged, with `--parent` and `--blocked-by` set natively at creation, and nothing is briefly
+parentless.
+
+Give each issue its labels and its property block. **Leave every `T-NNN` in the body exactly as it
+is** — pass 1 is not the moment to rewrite them, and a body half-rewritten against a partial mapping
+is worse than one not rewritten at all.
+
+Record `T-NNN → #N` for every task as you go. That record is the only thing pass 2 has.
+
+### Pass 2 — rewrite every reference
+
+For each issue: fetch the body with `--template` (never `--jq`; see *update*), rewrite, send it back
+whole. Three kinds of reference, and missing any one leaves a dead link:
+
+- **the `Related` line** of the property block — soft edges have no native carrier here, so this is
+  their only home;
+- **every `T-NNN` in the prose**, to `#N`;
+- **every relative Markdown link to a task file** — `T-042-some-slug.md` — to the issue's URL. These
+  are the ones a search for `T-` finds and a search for the id alone does not.
+
+**A link carrying a section anchor loses the anchor**, and there is nowhere for it to go: a task file
+has headings to point at and an issue body has none that survive. Rewrite to the issue and accept the
+loss rather than inventing a target — a link that resolves to the right issue and the wrong place is
+worse than one that resolves to the issue.
+
+### Verify — and make it fail first
+
+A migration nobody can check is worse than none, because it looks finished. Check the destination
+against the source on four things:
+
+| Check | Source | Destination |
+| :--- | :--- | :--- |
+| Every task arrived | file count | `gh issue list --state all --limit <above the count>` |
+| Edges, both directions | `parent`, `blocked_by`, `related`, and `list --json`'s `children` and `blocks` | `parent`/`subIssues`, `blockedBy`/`blocking`, the `Related` line |
+| Bodies intact | the file body below its property block | the issue body below its property block |
+| Every reference arrived | the ids in the source body **that name a real task** | each one present as its `#N` |
+| Nothing was skipped | — | no id that named a real task survives in `T-NNN` form |
+
+**`blockedBy`, `blocking` and `subIssues` come back as `{"nodes": [...], "totalCount": N}`, not as
+lists.** `parent` is a plain object, or absent. Measured on `gh` 2.96.0; reading them as lists raises
+a type error rather than a wrong answer, which is the harmless way for this to go wrong.
+
+**Do not check references by shape, which is the obvious rule and is wrong.** "No `T-NNN` survives
+anywhere" and "every `#N` names an issue" both look right and both produce false failures on ordinary
+prose: task bodies carry illustrative ids that never named anything (`T-999`), and they carry bare
+numbers that were never references (`#1024` as an example id, an external tracker's `#13057`).
+Measured on a 165-task migration: eight failures, all eight spurious, and the temptation at that point
+is to "repair" prose that was correct. **A reference is an id that named a real task in the source** —
+so both rows above are computed from the source's own id set, and anything else in the destination
+body is text.
+
+**Run the check against a deliberately broken migration before trusting a clean one.** Two classes it
+must catch: an edge dropped between the passes — which *update*'s partial-rewrite warning shows is
+silent and exits 0 — and a reference left pointing at an id that no longer exists. A verification that
+has only ever passed has not been tested.
+
+### The reverse direction: no
+
+Moving a backlog **out** of issues and back into local files is **not supported**, and that is a
+decision rather than a gap nobody got to. Only one direction was taken on, and the reason is not only
+policy: coming back means *composing* ids rather than receiving them, so every `#N` in every body
+would be rewritten to an id somebody has to allocate — the two-pass problem again, plus a numbering
+policy that belongs to the project rather than to this binding.
+
+What is not refused is leaving. The issues are yours, `gh issue list --state all` returns every one of
+them whole, and nothing here is a format only taskmd can read.
+
+---
+
+## What taskmd still gives you here
+
+Read this after a move, or before one. It is a list of facts, and it deliberately stops short of a
+recommendation: whether what remains is worth keeping is a judgement about your project, and the tool
+is the last thing that should be making it.
+
+### The four commands do not come with you
+
+`context`, `index`, `check` and `list` read a folder of task files. After the move there is no folder.
+Measured on 2026-08-17, each of the four against a project root with no task directory:
+
+```
+CONFIG ERROR  <shipped default>: tasks_dir is 'tasks', but the project root has no such folder.
+exit=2
+```
+
+They do not degrade, warn, or fall back. They stop.
+
+| Command | Replaced by | What that costs you |
+| :--- | :--- | :--- |
+| `context` | *read* above — `gh issue view <n> --json …` | Nothing material. One fetch, one issue, whole |
+| `index` | nothing to replace — *After any write* says why | Nothing. The issue list is the index, computed on demand |
+| `list` | *enumerate* above | The enumeration survives. **The ordering does not** — nothing on this backend answers "what next" by a rule |
+| `check` | **nothing** | Everything it checked is now unchecked |
+
+### What survives, and it is the part that was never local
+
+- **The method** — the lifecycle and its exit criteria, the three edge kinds, the audit rule, one
+  home per fact. It is backend-neutral by construction, which is the claim this binding exists to
+  make true rather than to assert.
+- **This binding** — the mapping and the six operations.
+- **The skill** that routes an agent through them.
+- **Your schema config** — still the vocabulary, and now the source of the label names.
+
+### What is gone and has no replacement here
+
+Three things, stated plainly because they are the ones that would otherwise be found later:
+
+1. **No validator.** `check` verified that every reference resolved, that every field value was in
+   its vocabulary, and that the index matched the tasks it came from. Nothing on this backend does
+   any of that. A `Related` line naming an issue that was never created is not reported by anything.
+2. **No ordering rule.** `list --open --limit 1` answered "what to work on next" by a stated rule —
+   blocked last, then effective value, then effort, then id. GitHub sorts by number, recency or
+   whatever a saved filter says. The question does not disappear; it goes back to a person.
+3. **No offline copy.** The local backend's tasks are readable and editable with no tool installed.
+   Here you need network access and `gh`.
+
+### If this is not enough, or if it is doubled
+
+Two situations, one response.
+
+You may decide what remains does not earn its place — the method is a document you could follow
+without the skill installed. Or the harness may already serve **another task-management skill**, in
+which case two things are offering to track the same work, and the overlap is a cost paid on every
+session rather than a tidiness problem.
+
+**taskmd does not resolve either one, and does not say which side should go.** It has an obvious
+interest in the answer, and a tool that concludes *keep me* cannot be checked by the person reading
+it. What it does is put the facts in one place:
+
+- which of its commands still run here — the table above, which is measurable rather than argued;
+- what it still supplies that nothing else does — the method, the binding, the schema;
+- what the other tool covers, which **the agent can see and taskmd cannot**: taskmd's code does not
+  inspect the machine, and the agent already knows what its harness serves.
+
+Removal is your action. Uninstall taskmd, uninstall the other, or keep both deliberately — the
+listing exists so that the third option is a decision rather than an accident.

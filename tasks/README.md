@@ -71,7 +71,6 @@ A label says which release the work is scheduled into. It never says the release
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) | Align with the handoff tracker-binding contract | `M6` | `specified` | `specify` | - | - | - | - | T-002, T-007, T-009, T-033, T-105 |
 | [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `M6` | `proposed` | `specify` | - | - | - | - | T-092, T-095, T-109 |
-| [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `M6` | `proposed` | `specify` | - | - | - | - | T-004, T-009, T-010, T-041, T-082 |
 | [T-131](T-131-decide-whether-a-question-heavy-task-is-a-different-kind-of-work.md) | Decide whether a question-heavy task is a different kind of work | `M6` | `proposed` | `specify` | - | - | - | - | T-088, T-109, T-130 |
 | [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) | Derive what a release note must cover from the tasks it ships | `M6` | `specified` | `specify` | - | - | - | - | T-086, T-125, T-127, T-128, T-129, T-133 |
 | [T-143](T-143-decide-whether-tier-1-names-the-generated-index-at-all.md) | Decide whether tier 1 names the generated index at all | `M6` | `proposed` | `specify` | - | - | - | T-158 | T-022, T-028, T-087, T-118, T-152 |
@@ -82,6 +81,8 @@ A label says which release the work is scheduled into. It never says the release
 | [T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md) | E-13 — Test whether a path-scoped rule can hold tier 1's prose about itself | `M6` | `in_progress` | `implement` | T-152 | - | - | T-158 | T-118, T-153, T-159 |
 | [T-158](T-158-phase-2-grade-each-band-against-what-it-bought.md) | Phase 2 of the context-economy audit — grade each band against what it bought | `M6` | `proposed` | `specify` | T-152 | - | T-143, T-155 | - | - |
 | [T-162](T-162-decide-whether-check-reads-a-date-shaped-field-as-a-date.md) | Decide whether check reads a date-shaped field as a date | `M6` | `proposed` | `specify` | - | - | - | - | T-095, T-113, T-138, T-141 |
+| [T-164](T-164-say-something-truthful-when-a-migrated-project-runs-a-command.md) | Say something truthful when a migrated project runs one of the four commands | `M6` | `proposed` | `specify` | - | - | - | - | T-108, T-163 |
+| [T-165](T-165-have-an-uninvolved-reader-test-the-post-migration-listing.md) | Have an uninvolved reader test the post-migration listing | `M6` | `proposed` | `specify` | T-163 | - | - | - | - |
 
 ## Closed
 
@@ -192,6 +193,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md) | Say where an authorised multi-phase run is recorded | `M3` | `done` | `review` | - | - | - | - | T-005, T-036, T-047, T-063 |
 | [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) | Say that the shipped config cannot gain a key without breaking every project that wrote one | `M3` | `done` | `review` | - | - | - | - | T-001, T-011, T-023, T-100, T-137, T-138, T-146 |
 | [T-107](T-107-say-so-when-a-valid-task-file-is-parked-where-nothing-reads-it.md) | Say so when a valid task file is parked where nothing reads it | `M2` | `done` | `review` | - | - | - | - | T-062, T-069, T-075, T-101, T-121, T-130, T-141 |
+| [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `M6` | `done` | `review` | - | - | - | - | T-004, T-009, T-010, T-041, T-082, T-163, T-164 |
 | [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md) | Decide whether a task that settles a question must be typed decision | `M2` | `done` | `review` | - | - | - | - | T-088, T-090, T-093, T-097, T-098, T-103, T-104, T-110, T-131 |
 | [T-110](T-110-re-group-the-open-backlog-by-the-maintainers-release-rule.md) | Re-group the open backlog by the maintainer's release rule | `M2` | `done` | `review` | - | - | - | - | T-026, T-086, T-109, T-124, T-125, T-128, T-136 |
 | [T-111](T-111-stop-the-index-showing-a-closed-task-as-a-live-blocker.md) | Stop the index showing a closed task as a live blocker | `M2` | `done` | `review` | - | - | - | - | T-102 |
@@ -236,5 +238,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-159](T-159-observe-whether-a-block-comment-reaches-a-session.md) | Observe whether a block comment in CLAUDE.md reaches a session | `M6` | `done` | `review` | T-153 | - | - | - | T-050, T-155, T-160 |
 | [T-160](T-160-retire-the-budget-check-s-unobserved-premise-warning.md) | Retire the budget check's unobserved-premise warning, now that it is observed | `M6` | `done` | `review` | T-153 | - | - | - | T-159, T-161 |
 | [T-161](T-161-give-the-entry-point-comments-pointer-a-reader.md) | Give the entry-point comments' pointer a reader | `M6` | `done` | `review` | T-142 | - | - | - | T-064, T-099, T-139, T-142, T-160 |
+| [T-163](T-163-tell-a-migrated-project-what-taskmd-still-provides.md) | Tell a migrated project what taskmd still provides, without judging whether it should stay | `M6` | `done` | `review` | - | T-165 | - | - | T-108, T-164 |
 
 <!-- taskmd:end -->
