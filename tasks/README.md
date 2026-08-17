@@ -80,6 +80,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-162](T-162-decide-whether-check-reads-a-date-shaped-field-as-a-date.md) | Decide whether check reads a date-shaped field as a date | `M6` | `proposed` | `specify` | - | - | - | T-095, T-113, T-138, T-141 |
 | [T-168](T-168-price-what-keeping-taskmd-installed-costs-a-project-with-no-tasks.md) | Price what keeping taskmd installed costs a project that has no tasks folder | `M6` | `proposed` | `specify` | - | - | - | T-166, T-167 |
 | [T-170](T-170-decide-whether-the-audit-s-upstream-rows-are-reported-to-anyone.md) | Decide whether the audit's upstream rows are reported to anyone | `M6` | `proposed` | `specify` | - | - | - | T-152 |
+| [T-171](T-171-test-whether-the-hook-can-see-a-path-scoped-rule.md) | Test whether the InstructionsLoaded hook can see a path-scoped rule | `M6` | `in_progress` | `implement` | T-169 | - | - | T-155 |
 
 ## Closed
 
@@ -231,7 +232,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md) | Audit — what this repository costs a session on every turn | `M6` | `done` | `review` | - | T-153, T-154, T-155, T-156, T-157, T-158 | - | T-118, T-143, T-170 |
 | [T-153](T-153-e-10-move-the-maintainer-s-justification-into-comments.md) | E-10 — Move the maintainer's justification into comments the harness strips | `M6` | `done` | `review` | T-152 | T-159, T-160 | - | T-142, T-155, T-169 |
 | [T-154](T-154-e-01-e-04-say-what-the-tier-1-budget-governs.md) | E-01/E-04 — Say what the tier-1 budget governs, and what it cannot see | `M6` | `done` | `review` | T-152 | - | - | T-028 |
-| [T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md) | E-13 — Test whether a path-scoped rule can hold tier 1's prose about itself | `M6` | `done` | `review` | T-152 | T-169 | - | T-118, T-153, T-158, T-159 |
+| [T-155](T-155-e-13-test-whether-a-path-scoped-rule-can-hold-tier-1-s-prose.md) | E-13 — Test whether a path-scoped rule can hold tier 1's prose about itself | `M6` | `done` | `review` | T-152 | T-169 | - | T-118, T-153, T-158, T-159, T-171 |
 | [T-156](T-156-e-16-decide-whether-a-read-only-phase-can-skip-the-binding.md) | E-16 — Decide whether a read-only phase can skip the binding | `M6` | `done` | `review` | T-152 | - | - | - |
 | [T-157](T-157-b-2-settle-what-context-claims-to-be-enough-for.md) | B-2 — Settle what `taskmd context` claims to be enough for | `M6` | `done` | `review` | T-152 | - | - | - |
 | [T-158](T-158-phase-2-grade-each-band-against-what-it-bought.md) | Phase 2 of the context-economy audit — grade each band against what it bought | `M6` | `cancelled` | `specify` | T-152 | - | - | T-143, T-155 |
@@ -243,6 +244,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-165](T-165-have-an-uninvolved-reader-test-the-post-migration-listing.md) | Have an uninvolved reader test the post-migration listing | `M6` | `done` | `review` | T-163 | - | - | T-166, T-167 |
 | [T-166](T-166-ground-the-post-migration-listing-s-survivor-claims.md) | Stop the post-migration listing framing toward keeping taskmd | `M6` | `done` | `review` | - | - | - | T-108, T-163, T-165, T-167, T-168 |
 | [T-167](T-167-stop-the-listing-pricing-only-the-rival.md) | Stop the post-migration listing pricing only the rival skill | `M6` | `cancelled` | `specify` | - | - | - | T-163, T-165, T-166, T-168 |
-| [T-169](T-169-decide-whether-tier-1-s-prose-about-itself-moves-into-a-path-scoped-rule.md) | Decide whether tier 1's prose about itself moves into a path-scoped rule | `M6` | `done` | `review` | T-155 | - | - | T-118, T-153 |
+| [T-169](T-169-decide-whether-tier-1-s-prose-about-itself-moves-into-a-path-scoped-rule.md) | Decide whether tier 1's prose about itself moves into a path-scoped rule | `M6` | `done` | `review` | T-155 | T-171 | - | T-118, T-153 |
 
 <!-- taskmd:end -->
