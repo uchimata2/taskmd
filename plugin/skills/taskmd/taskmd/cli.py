@@ -57,6 +57,11 @@ LINK = re.compile(r"\[[^\]]*\]\(([^)#\s]+)(?:#[^)\s]*)?\)")
 # rest of a document and hiding the real links in it.
 FENCE = re.compile(r"^ {0,3}(`{3,}|~{3,})")
 CODE_SPAN = re.compile(r"(`+)[^\n]*?\1")
+# A slot is an angle-bracket span a template offers for the author to fill. The pattern is the
+# tool's; *which lines are slots* is never enumerated here — it is read from the project's own
+# templates (T-172), so a project that adds one gets it checked without editing this file.
+SLOT = re.compile(r"<[^<>\n]+>")
+HTML_COMMENT = re.compile(r"<!--.*?-->", re.S)
 
 # A path written as prose rather than as a Markdown link is **not** a reference this command
 # resolves, and that is a decision rather than an omission — T-092 measured the alternative on this
@@ -756,6 +761,71 @@ def check_template_fields(root, schema, problems):
     return [("template field value", examined)]
 
 
+def slot_lines(root, schema):
+    """Every whole line the project's templates offer as a slot for an author to fill.
+
+    Derived from the templates the project actually has, never listed here. Add a slot to a template
+    and abandoning it becomes reportable with no change to this file; remove one and the reports stop
+    — which is the same rule that keeps `check_template_fields` honest, applied to the body instead
+    of the front-matter.
+
+    Fenced blocks and the guidance comment are blanked first, so a template that *illustrates* a slot
+    inside a fence does not thereby make that illustration a rule.
+    """
+    lines = set()
+    for path, _ in templates(root, schema):
+        try:
+            body = split_front_matter(read(path))[1]
+        except (OSError, ValueError, UnicodeDecodeError):
+            continue    # `templates` already parsed it to get here; a race is not this check's to report
+        body = HTML_COMMENT.sub(lambda found: blanked(found.group(0)), body)
+        for line in without_code(body).splitlines():
+            if SLOT.search(line.strip()):
+                lines.add(line.strip())
+    return lines
+
+
+def check_abandoned_slots(root, schema, tasks, problems):
+    """A closed record still carrying a slot its author never filled (T-172).
+
+    **Only closed records are read, and that is the whole design.** An unfilled `implement` section
+    in a task at `specify` is not an abandoned slot, it is a section the work has not reached — the
+    honest state of every young record. Measured on this repository when the rule was written: of 13
+    task files holding a slot line, **10 were open tasks at `specify`** whose slots sat in sections
+    they had not reached. A rule without this gate is 77% noise on a check that moves the exit
+    status, which is how a gate gets switched off.
+
+    **Closed is `open_statuses`, and nothing finer.** `done` and `cancelled` are alike here, though
+    they are not alike in meaning: a cancelled record's later sections were never reached either, so
+    the repair is to say the phase was not run rather than to invent one. Telling them apart would
+    need a config key, and adding a key breaks every project that wrote its own config — see
+    *Adding a key to this file is a breaking change* in `defaults/config.md`. The distinction is not
+    worth that, and this docstring is where the next person finds out why it was not made.
+
+    `without_code` first, so a record quoting a slot inside a fence to *explain* this rule is silent.
+    That case is not hypothetical: writing the task that produced this check is the way to create one.
+    """
+    slots = slot_lines(root, schema)
+    closed = 0
+    for task in ordered(tasks):
+        if schema.is_open(task.status):
+            continue
+        closed += 1
+        if not slots:
+            continue
+        try:
+            body = split_front_matter(read(task.path))[1]
+        except (OSError, ValueError, UnicodeDecodeError):
+            continue
+        where = rel(root, os.path.relpath(task.path, root))
+        for number, line in enumerate(without_code(body).splitlines(), 1):
+            if line.strip() in slots:
+                problems.append("ABANDONED SLOT %s body line %d still reads '%s'; the record is "
+                                "closed, so nothing is going to fill it"
+                                % (where, number, line.strip()))
+    return [("closed record", closed)]
+
+
 def check_config_drift(root, schema, advisories):
     """A pinned config that has fallen behind the shipped default — advisory, never a problem.
 
@@ -982,6 +1052,7 @@ def cmd_check(root, schema, tasks, args):
     counted += check_wide_rows(root, schema, problems)
     counted += check_unreachable_templates(root, schema, problems)
     counted += check_template_fields(root, schema, problems)
+    counted += check_abandoned_slots(root, schema, tasks, problems)
     counted += check_config_drift(root, schema, advisory["CONFIG DRIFT"])
     counted += check_label_shape(schema, tasks, advisory["LABEL SHAPE"])
     counted += check_duplicate_index(root, schema, tasks, advisory["DUPLICATE INDEX"])

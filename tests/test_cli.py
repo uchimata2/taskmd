@@ -1842,5 +1842,64 @@ class LinkSyntaxShownRatherThanMade(ScratchProject):
                          "a link shown in a code span was counted as a link checked")
 
 
+class SlotLeftInAClosedRecord(unittest.TestCase):
+    """T-172. A record closes still carrying a slot line from the template it was copied from, and
+    `check` returned exit 0 on every one of them.
+
+    **The gate is the design, so it is what most of this asserts.** Measured on this repository when
+    the rule was written, 13 task files held a slot line and **10 were open tasks at `specify`** whose
+    slots sat in sections the work had not reached. Reporting those is not a stricter check, it is a
+    check nobody keeps on: 77% noise moving the exit status. So the fixture proves the silence in two
+    directions as well as the alarm, per the shape `wide-table-row` established.
+
+    **The specimens exist only in that fixture.** A slot line written on a line of its own in a closed
+    record anywhere else in this repository would *be* the defect, so the reproduction cannot be
+    quoted into this test, a task, or a document — only pointed at. `T-003` in the fixture exists
+    because explaining the rule is the way to produce the case, and it must stay silent.
+    """
+
+    FIXTURE = os.path.join(FIXTURES, "abandoned-slot")
+    REPORTS = "T-001-closed-with-a-slot-nobody-filled.md"
+    OPEN_TASK = "T-002-open-and-has-not-reached-the-section.md"
+    QUOTES_IT = "T-003-closed-and-quoting-a-slot-to-explain-it.md"
+
+    def check(self):
+        return run("check", "--root", self.FIXTURE)
+
+    def test_it_fires_on_a_closed_record(self):
+        code, out = self.check()
+        self.assertEqual(1, code)
+        self.assertIn("ABANDONED SLOT", out)
+        self.assertIn(self.REPORTS, out)
+
+    def test_it_is_silent_on_an_open_task_that_has_not_reached_the_section(self):
+        """The 10-in-13 case. Without this the rule fires on every task anyone creates."""
+        self.assertNotIn(self.OPEN_TASK, self.check()[1])
+
+    def test_it_is_silent_on_a_closed_record_quoting_a_slot_in_a_fence(self):
+        """Documenting the check must not trip it."""
+        self.assertNotIn(self.QUOTES_IT, self.check()[1])
+
+    def test_it_reports_exactly_one_line(self):
+        """An exact count, so a new alarm breaks this rather than passing unnoticed."""
+        out = self.check()[1]
+        self.assertEqual(1, out.count("ABANDONED SLOT"))
+
+    def test_the_denominator_counts_only_what_it_read(self):
+        """Its own noun, per T-096: this walk is narrower than the task set, and merging it into
+        `task(s)` would report a coverage of 3 where the rule looked at 2."""
+        self.assertIn("2 closed record(s)", self.check()[1])
+
+    def test_the_slots_come_from_the_project_s_own_template(self):
+        """Never a list in `cli.py`. Remove the template and the rule has nothing to hold anyone to,
+        which is the behaviour a project with no template should get."""
+        with tempfile.TemporaryDirectory() as tmp:
+            project = os.path.join(tmp, "p")
+            shutil.copytree(self.FIXTURE, project)
+            os.remove(os.path.join(project, "tasks", "_task-template.md"))
+            code, out = run("check", "--root", project)
+        self.assertNotIn("ABANDONED SLOT", out)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

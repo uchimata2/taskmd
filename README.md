@@ -154,7 +154,7 @@ taskmd check
 
 <!-- taskmd:sample-check -->
 ```
-OK - 0 task(s), 0 field value(s), 0 reference(s), 0 dependency edge(s), 0 declared output(s), 0 index file(s), 0 document(s), 0 link(s), 0 table row(s), 0 template(s), 0 template field value(s), 0 vocabulary row(s), 0 front-matter value(s)
+OK - 0 task(s), 0 field value(s), 0 reference(s), 0 dependency edge(s), 0 declared output(s), 0 index file(s), 0 document(s), 0 link(s), 0 table row(s), 0 template(s), 0 template field value(s), 0 closed record(s), 0 vocabulary row(s), 0 front-matter value(s)
 Scope  every document read; no git here, so .gitignore was not consulted
 structure and references only - it cannot tell you whether a spec or an outcome is good
 ```
@@ -176,6 +176,20 @@ silent. It was found by an adopter describing the failure mode, not by anyone re
 A row with *fewer* cells than its header is not reported: Markdown pads it and nothing is lost. Nor
 is a trailing empty cell, for the same reason. Note that a pipe inside backticks still splits a cell,
 so write it as `\|` in a table.
+
+**`check` also reports a closed record still carrying a slot from the template it was copied from.**
+That is an angle-bracket line the author never came back to, sitting in a task that is finished. One
+`ABANDONED SLOT` line names the file, the line and what it still says. This is a **problem** and moves
+the exit status: a reader cannot tell an oversight from an open item, and nobody is going to fill it
+in. The slots are read from your own template, so adding one to it is all it takes to have it
+checked, and a project with no template gets no rule.
+
+**Only closed records are read, and that is deliberate.** An unfilled *Implement* section in a task
+still at *specify* is not an abandoned slot. It is a section the work has not reached, which is the
+honest state of every young task. Measured on this project's own backlog when the check was written:
+of thirteen files holding a slot line, ten were open tasks whose slots sat in sections they had not
+got to. A rule without that gate is mostly noise, and a noisy check is one you switch off. A slot
+quoted inside a fenced code block is also ignored, so you can write about this without tripping it.
 
 <!-- taskmd:advisories -->
 

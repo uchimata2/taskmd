@@ -139,6 +139,18 @@ vocabulary the menu must be that vocabulary — not a subset of it, because a me
 behind is the form of rot that survives longest: every value it still offers is legal, so nothing a
 reader could notice separates it from a correct template.
 
+*…but a slot left in a **closed record** is.* The sentence above is about the template, where a slot
+is the whole point; the same line in a task that has finished is scaffolding nobody came back to, and
+`check` reports it as `ABANDONED SLOT` (T-172). The two rulings are one rule seen from both ends —
+what the source may keep is what the copy may not — and the seam between them is *closed*. **Open
+records are not read at all**, because an unfilled `implement` section in a task at `specify` is a
+section the work has not reached: measured when this was written, ten of thirteen files holding a slot
+line were open tasks in exactly that state. `done` and `cancelled` are alike here even though they do
+not mean the same thing, since telling them apart would need a config key and adding a key breaks
+every project that wrote its own config. The repair for a cancelled record is therefore to say the
+phase was never run, not to invent one. A slot quoted inside a fenced block is skipped, so a document
+explaining this rule does not become an instance of it.
+
 *A project with no template is a normal project*, not one missing a setup step. The rule matches
 nothing, and that is an answer rather than a failure: write the front-matter the schema requires and
 a body carrying the method's four phases, and `check` reports whatever you got wrong. Nothing creates
