@@ -6,7 +6,7 @@ status: proposed
 phase: specify
 parent: null
 blocked_by: []
-related: [T-172, T-151]
+related: [T-172, T-151, T-146]
 work_package: M6
 owner: the project owner
 business_value: low
@@ -96,4 +96,5 @@ Not run — the task is at `proposed`.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-18 | — | **The maintainer authorised the whole lifecycle for this task and [T-146](T-146-decide-whether-a-field-can-be-required-at-a-status.md) worked *together*** — `specify` → `plan` → `implement` → `review` — on 2026-08-18, as the subject of a handoff written the same day. It covers **those two tasks and nothing either of them raises**. Recorded here as well as in T-146, because a handoff is consumed once and renamed, and an authorisation kept only there is one the session after next cannot find (METHOD §3.1). **Together is part of the instruction, not a scheduling convenience**: both run into the same wall from opposite sides. T-146 asks whether a field can be *required at a status*; this one asks whether `check` can know a *phase*. Each would be answered by teaching the schema something about where a task has got to, and each therefore meets `defaults/config.md` §*Adding a key to this file is a breaking change*. Deciding them apart risks one paying that price and the other paying it again. The soft edge is stored on this task and derived on T-146. |
 | 2026-08-18 | → proposed | Raised from [T-172](T-172-catch-a-template-placeholder-left-in-a-finished-record.md)'s `review`, carrying the unmet half of its first criterion so the gap is a task with an owner rather than a caveat in a closed record. Filed as a `decision` because the work is not blocked on anyone's skill — it is blocked on whether the capability is worth a breaking change to three adopters for a shape that occurs 0 times in 172 tasks. Deliberately **not** a child of T-172: it does not belong to that task, it is the question T-172 was told to stop at. `low` for the same reason the parent was, and because a recorded *no* is a legitimate and cheap outcome. |
