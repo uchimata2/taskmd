@@ -77,7 +77,7 @@ unblocks when the five tasks it names close, whatever each of them decided.
 ## 3. Implement
 
 **Decisions & assumptions**
-- <decision — rationale — date>
+- Not run — the task was cancelled at `specify`, so no decision was ever taken here.
 
 **Outputs produced**
 - <path>

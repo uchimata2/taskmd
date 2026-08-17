@@ -301,9 +301,6 @@ schedule.
 **Child fix tasks raised**
 - none
 
-**Child fix tasks raised**
-- <T-NNN or "none">
-
 ## Log
 
 | Date | Status change | Note |

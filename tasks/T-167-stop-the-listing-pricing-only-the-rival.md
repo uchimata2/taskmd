@@ -94,7 +94,7 @@ outlives this task rather than falling with it.
 ## 3. Implement
 
 **Decisions & assumptions**
-- <decision — rationale — date>
+- Not run — the task was cancelled at `specify`, so no decision was ever taken here.
 
 **Outputs produced**
 - <path>
@@ -106,7 +106,7 @@ outlives this task rather than falling with it.
 |  |  |  |
 
 **Child fix tasks raised**
-- <T-NNN or "none">
+- Not run — the task was cancelled at `specify`, so it never reached `review`.
 
 ## Log
 
