@@ -175,8 +175,9 @@ body, neither of which is a file. §1 says so and says nothing enforces them.
 
 ## 6. The pre-publish check
 
-Run over every file a push would send. It must print nothing; every hit is either a leak or a label
-that needs adding to `control/LOCAL-CONTEXT.md`.
+Run over every file a push would send. **It must print exactly the two accepted lines named below,
+and nothing else.** Every other hit is either a leak or a label that needs adding to
+`control/LOCAL-CONTEXT.md`.
 
 ```bash
 ( cd "$(git rev-parse --show-toplevel)" && git ls-files -z --cached --others --exclude-standard ':!tests/fixtures/leak-check/' | xargs -0 grep -nIE '\b[A-Za-z]:[\\/][A-Za-z0-9._-]+[\\/]|/(home|Users)/|[\\]{2}[A-Za-z0-9._-]+[\\]|[0-9]{1,3}(\.[0-9]{1,3}){3}' )
@@ -191,6 +192,23 @@ shorten it to `-co`: the point of the line is that a reader can see what it cove
 silent for as long as it existed — a check that reads none of the files it was aimed at prints
 nothing, which is also what success looks like ([T-034](../tasks/T-034-let-the-pre-publish-check-see-files-not-yet-tracked.md),
 which measured it and proved the fix by making it catch a leak in an untracked file).
+
+**The two accepted lines, and why the pass condition is a count.**
+[T-085](../tasks/T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) §3 records
+what a clean test machine looked like, and two of its lines carry a home directory built from the
+maintainer's user name, beside an OS version. **The maintainer decided on 2026-08-18 to leave it**:
+the name is one character off the public account this repository is published under, the block has
+been public since the task closed, and both alternatives are worse — editing the record leaves the
+text in git history while damaging an audit trail, and rewriting history breaks every clone for a
+disclosure already made. The decision and its rejected options are in
+[T-183](../tasks/T-183-decide-what-to-do-about-a-machine-block-already-published-in-t-085.md).
+
+**It is not excluded by pathspec, and that is the point.** An exclusion would blind the check to
+whatever that file gained afterwards, and the exclusion below is one pathspec rather than a second
+contract. So T-085 is still scanned and still prints. **Two lines from that one file is a pass;
+three is a finding, and so is a single line from anywhere else.** Read the count — the same rule §5
+states for its own gate, and for the same reason: a check whose expected output is "some noise" stops
+being read, which is exactly how the accepted block sat in this output unnoticed for days.
 
 **The `cd` is not decoration.** `ls-files` lists the subtree you are standing in, and the exclusion
 is a pathspec resolved against the same place — so run from a subdirectory the unanchored command
@@ -208,8 +226,8 @@ fixture; never paste the lines.
 **The excluded path is the check's own fixture, and dropping the exclusion is how the check is
 proven.** `tests/fixtures/leak-check/samples.txt` holds nine deliberately-fabricated lines: five that
 must be caught, one per class, and four safe forms that must not be. So there are two runs of one
-command — with the exclusion, the tree must print **nothing**; without it, the output must be
-**exactly those five lines and nothing else**. The second run is what a clean tree can never prove
+command — with the exclusion, the tree must print **the two accepted lines above and nothing else**;
+without it, **those two plus exactly the fixture's five, and nothing else**. The second run is what a clean tree can never prove
 on its own, and keeping it in the same command is what stops the proof drifting from the check. The
 exclusion is one pathspec, not a second contract: any leak outside that one file is still caught, and
 the file's only content is the fixture.
