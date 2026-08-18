@@ -77,9 +77,10 @@ that a vocabulary value which finds nothing is a defect.
 - [ ] The non-software cases are addressed rather than assumed away
 
 **Open questions**
-- **Does the corpus have to be measured before the answer, or does the answer come first?** T-088
+- ~~**Does the corpus have to be measured before the answer, or does the answer come first?** T-088
   measured after deciding and nearly shipped a value that found nothing. Measuring first costs a pass
-  over 128 records; deciding first risks repeating that. Maintainer's, at `specify`.
+  over 128 records; deciding first risks repeating that. Maintainer's, at `specify`.~~ **Answered by
+  the owner on 2026-08-19: measure first** — see the Log row of that date.
 
 ## 2. Plan
 
@@ -108,4 +109,5 @@ that a vocabulary value which finds nothing is a defect.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-19 | (no change) | **The open question is answered by the owner: measure the corpus first, then decide.** Asked in the backlog-wide round of 2026-08-19. The precedent is the argument — [T-088](T-088-put-audit-in-the-shipped-type-vocabulary-or-stop-calling-it-a-type.md) decided ahead of its evidence and came close to shipping a value that matched nothing, and a category invented before the pass is one the pass then confirms rather than tests. *Rejected: deciding first and measuring after*, which reaches a ruling sooner at the price of repeating exactly that. The cost of the chosen order is one pass over the records, and `plan` puts it first so that an empty result ends the task instead of arriving too late to. This row is the answer, not authorisation to start. |
 | 2026-08-11 | → proposed | Carried out of T-109, which closed with this question live and unanswered on 2026-08-11 after the maintainer raised it. Recovered by the sweep that also produced [T-130](T-130-report-a-question-left-live-in-a-closed-task.md). Filed `M6`: it is a vocabulary decision that reaches every adopter, and nothing waits on it. `low` because nothing is wrong today — the existing values type every task in this repository — and the cost of the gap is that a distinction the maintainer thought worth naming stays unnamed. |

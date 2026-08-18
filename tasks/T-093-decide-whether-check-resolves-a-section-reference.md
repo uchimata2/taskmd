@@ -73,10 +73,12 @@ R-16. R-13 in the same sense as T-092.
       convention and a reader will assume it is checked
 
 **Open questions**
-- **Whether this is taskmd's job.** It is a documentation-integrity check, not a task-graph check, and
-  everything else `check` does is about tasks and their edges. Adding it widens what the tool is for.
-  Against that: the method's own documents are the thing most cited by section, and the tool already
-  validates Markdown links across the whole tree rather than only in task files. The maintainer's.
+- ~~**Whether this is taskmd's job.** It is a documentation-integrity check, not a task-graph check,
+  and everything else `check` does is about tasks and their edges. Adding it widens what the tool is
+  for. Against that: the method's own documents are the thing most cited by section, and the tool
+  already validates Markdown links across the whole tree rather than only in task files. The
+  maintainer's.~~ **Answered by the owner on 2026-08-19: yes, it is taskmd's job** — see the Log row
+  of that date for the rejected option and its cost.
 
 ## 2. Plan
 
@@ -105,5 +107,6 @@ R-16. R-13 in the same sense as T-092.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-19 | (no change) | **The open question is answered by the owner: yes, this is taskmd's job.** Asked in the backlog-wide round of 2026-08-19. The reason given is the one §1 already carried — `check` validates Markdown links across the whole tree rather than only in task files, so resolving the section a reference names is the same job one level deeper, not a widening. *Rejected: ruling it out of scope as a documentation check*, which keeps a clean task-graph boundary at the price of section references breaking in silence whenever a document is reorganised, in a project that cites its own method by section throughout. The binding rule and the reporting shape are still open and belong to `specify`. This row is the answer, not authorisation to start. |
 | 2026-08-11 | (no change) | **`type` fix → decision**, by [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md)'s sweep of all 123 tasks. The test it settled reads a task's **stated outcome**: an answer someone else could act on is a `decision`, whatever the task also changes. A classification corrected, not a reopening — status, body and every other field are untouched. |
 | 2026-08-09 | → proposed | Raised from the deck-building sibling's migration report. The observation that carries it is that taskmd uses `§n` citations throughout its own documentation, including in the tool's source comments, and has no way to check one. `M3` rather than `M2` because it widens what the tool is for and that question should not be answered in a milestone about holding up in another project. `l` because the binding rule is the hard part and the reporting project has already measured that adjacency beats proximity — proximity picked the wrong target a third of the time. |

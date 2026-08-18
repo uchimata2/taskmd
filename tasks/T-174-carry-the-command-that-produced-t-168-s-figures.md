@@ -58,10 +58,11 @@ actually decided, may be the whole fix.
 - [ ] <written at `specify`>
 
 **Open questions**
-- **Does quoting the script in the record satisfy the criterion, or does reproducibility require
+- ~~**Does quoting the script in the record satisfy the criterion, or does reproducibility require
   something runnable?** A quoted script is copy-and-run for anyone with the store, and unrunnable for
   everyone else — which is also true of the measurement itself. **The maintainer decides**; the
-  publishing constraint is the part nobody here can weigh alone.
+  publishing constraint is the part nobody here can weigh alone.~~ **Answered by the owner on
+  2026-08-19: quoting it satisfies the criterion** — see the Log row of that date.
 
 ## 2. Plan
 
@@ -90,4 +91,5 @@ actually decided, may be the whole fix.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-19 | (no change) | **The open question is answered by the owner: quoting the script in the record satisfies the criterion.** Asked in the backlog-wide round of 2026-08-19. It is copy-and-run for anyone holding the store and unrunnable for everyone else — which is equally true of the measurement itself, so a runnable file would not close the gap it appears to. It is also what [T-168](T-168-price-what-keeping-taskmd-installed-costs-a-project-with-no-tasks.md) §2 decided before the wording drifted to *described* at `implement`, and restoring the planned form is the repair this task exists for rather than a new choice. *Rejected: committing a runnable script* — it reads a machine-private transcript store no adopter has, so it could never run for them, and it would put machine-specific code in a repository whose publishing constraints forbid it. This row is the answer, not authorisation to start. |
 | 2026-08-18 | → proposed | Raised by [T-168](T-168-price-what-keeping-taskmd-installed-costs-a-project-with-no-tasks.md)'s review as the one criterion it did not meet. Raised rather than fixed in place, per [`review`](../plugin/skills/taskmd/docs/method/review.md) step 4 — repairing a criterion during its own review destroys the record of what was wrong. **Not covered by the authorisation of 2026-08-18**, which named T-168 and excluded everything it raises. |

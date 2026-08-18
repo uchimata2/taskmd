@@ -91,4 +91,5 @@ because it never asks which field is a date.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-19 | (no change) | **The owner authorised this task to start**, on 2026-08-19, answering the backlog-wide question round the handoff of that date asked for. The authorisation covers **this task only** and nothing it raises. Recorded here rather than only in the handoff, because a handoff is consumed once and renamed (METHOD §3.1, and [T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md) which settled where this goes). Nothing else changes: T-162's ruling, form and rejections stand as written, and this row is permission rather than an answer, because §1 records no open question. |
 | 2026-08-18 | → proposed | Raised by [T-162](T-162-decide-whether-check-reads-a-date-shaped-field-as-a-date.md)'s review. The ruling is made and measured; this is the code. Kept separate on purpose — T-162 §2 records the reason as a `plan` decision rather than discovering it at close. Outside the standing grant of 2026-08-18, which covers the six named tasks and **nothing any of them raises**. |

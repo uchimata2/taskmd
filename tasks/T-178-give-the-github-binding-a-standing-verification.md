@@ -66,11 +66,13 @@ walked on a live repository rather than inventing one.
 - [ ] <written at `specify`>
 
 **Open questions**
-- **How much of `check` can this backend actually answer, and is the honest answer worth shipping?**
-  Some of the 17 checks have no meaning here — a stale index cannot exist where the issue list *is*
-  the index. **Answer at `specify` by walking the list of checks against the backend**, so the
-  procedure ships with a stated coverage rather than an implied one; a verification whose reach
-  nobody wrote down is the failure this repository keeps re-learning.
+- ~~**How much of `check` can this backend actually answer, and is the honest answer worth
+  shipping?** Some of the 17 checks have no meaning here — a stale index cannot exist where the issue
+  list *is* the index. **Answer at `specify` by walking the list of checks against the backend**, so
+  the procedure ships with a stated coverage rather than an implied one; a verification whose reach
+  nobody wrote down is the failure this repository keeps re-learning.~~ **Answered by the owner on
+  2026-08-19: walk all seventeen, and the coverage belongs to whichever backend is in use rather
+  than to GitHub** — see the Log row of that date.
 
 ## 2. Plan
 
@@ -99,4 +101,5 @@ walked on a live repository rather than inventing one.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-19 | (no change) | **The open question is answered by the owner: walk all seventeen checks first — and the outcome must not be GitHub-shaped.** Asked in the backlog-wide round of 2026-08-19. The coverage statement ships with the procedure rather than being implied, for the reason §1 gives: a verification whose reach nobody wrote down is the failure this repository keeps re-learning. *Rejected: shipping the procedure without the coverage list*, which is faster and turns a green result into a false assurance. **The answer widens the outcome, and the widening is the owner's own words**: today the backend is GitHub, tomorrow it may be Notion or another service, so what ships must be flexible — the coverage belongs to whichever backend is in use, declared per binding, rather than being seventeen rows written once about GitHub. `plugin/skills/taskmd/docs/BINDING.md` is the contract that would carry that, so `specify` judges whether the generic half is in scope here or is a sibling task, and says which. This row is the answer, not authorisation to start. |
 | 2026-08-18 | → proposed | Raised 2026-08-18 from a maintainer's question about whether taskmd is prepared to keep providing controls after a migration. The honest answer was no on the enforcing side, and this is the sharpest instance: **a documented path to unrecoverable loss of every soft edge, with a zero exit code and no detector**. Shaped as a binding procedure rather than a tool feature because `docs/SCOPE.md` §4 non-goal 5 settles that, and because the migration verification beside it is already built that way and was proven on a live repository. **Not covered by any standing authorisation.** |

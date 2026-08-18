@@ -66,9 +66,11 @@ replaces.
 - [ ] No new command and no new flag
 
 **Open questions**
-- **What exit status does a clean document-only run take?** `0` reads as validated and is what
+- ~~**What exit status does a clean document-only run take?** `0` reads as validated and is what
   criterion 4 is suspicious of; a distinct non-zero code says *incomplete* but makes every migrated
-  project's gate red for ever. T-177 did not settle this and marked it out of its own scope.
+  project's gate red for ever. T-177 did not settle this and marked it out of its own scope.~~
+  **Answered by the owner on 2026-08-19: exit `0`, and the run states what it skipped** — see the
+  Log row of that date for the rejected option and its cost.
 
 ## 2. Plan
 
@@ -98,4 +100,5 @@ replaces.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-19 | (no change) | **The one open question is answered by the owner: exit `0`, with the run stating what it skipped.** Asked in the backlog-wide round of 2026-08-19. *Rejected: a distinct non-zero code.* It would make the status itself say *incomplete*, which is the honest reading, but it turns every migrated project's gate red permanently — and a gate that is always red is switched off or ignored, which loses more than a mis-read `0` does. *Rejected: holding this task until T-177's condition ships*, which would have left the question open rather than settled. The honesty therefore has to live in the `Scope` line, which T-177 §3 part 3 already requires; that requirement is now load-bearing rather than supporting, and `specify` writes a criterion for it. This row is the answer, not authorisation to start. |
 | 2026-08-18 | → proposed | Raised by [T-177](T-177-run-the-checks-that-need-no-task-folder.md)'s review. **Carries T-177's condition as its own risk**: the loader change without the `Scope` change is a false assurance, so the two ship together or not at all. One genuinely open question — the exit status of a clean document-only run — which is why this is not simply the code T-177 declined to write. Outside the standing grant of 2026-08-18, which covers the six named tasks and nothing any of them raises. |

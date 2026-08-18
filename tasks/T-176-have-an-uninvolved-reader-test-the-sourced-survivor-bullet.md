@@ -67,9 +67,10 @@ clothes. That decision is the one to copy.
 - [ ] <written at `specify`>
 
 **Open questions**
-- **One reader, or does this need the same protocol T-166 used?** One reader with the verdict standing
-  is the recorded precedent and the cheaper option. **The maintainer decides**, and the count is set
-  before the reader runs, not after the verdict is read.
+- ~~**One reader, or does this need the same protocol T-166 used?** One reader with the verdict
+  standing is the recorded precedent and the cheaper option. **The maintainer decides**, and the
+  count is set before the reader runs, not after the verdict is read.~~ **Answered by the owner on
+  2026-08-19: one reader, and the count is fixed now** — see the Log row of that date.
 
 ## 2. Plan
 
@@ -98,4 +99,5 @@ clothes. That decision is the one to copy.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-19 | (no change) | **The open question is answered by the owner: one reader, count fixed now.** Asked in the backlog-wide round of 2026-08-19. One reader with the verdict standing is the recorded precedent and the cheaper option, and setting the count before anyone reads is the whole of what makes it a check. *Rejected: the fuller [T-166](T-166-ground-the-post-migration-listing-s-survivor-claims.md) protocol*, which buys more confidence at more of the owner's time — and buys it only if the count is fixed in advance either way, since a second reader added after an unwelcome verdict converts the check into editing until somebody agrees. This row is the answer, not authorisation to start. |
 | 2026-08-18 | → proposed | Raised by [T-168](T-168-price-what-keeping-taskmd-installed-costs-a-project-with-no-tasks.md)'s review. Its §3 step 7 declared the gap rather than papering over it, which is what [`implement`](../plugin/skills/taskmd/docs/method/implement.md) asks for when no use is available; this is the task that makes the declaration actionable instead of a sentence in a closed record. **Not covered by the authorisation of 2026-08-18.** |

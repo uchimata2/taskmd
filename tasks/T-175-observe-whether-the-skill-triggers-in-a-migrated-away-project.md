@@ -63,10 +63,12 @@ instruction.
 - [ ] <written at `specify`>
 
 **Open questions**
-- **Which qualifying project, and is one session enough?** Two qualify. One is a tracker-shaped
+- ~~**Which qualifying project, and is one session enough?** Two qualify. One is a tracker-shaped
   project whose own work is close to task work, so a trigger there is more likely and also more
-  confounded; the other is further away. **The maintainer decides**, and the choice is worth recording
-  because it changes what a positive means.
+  confounded; the other is further away. **The maintainer decides**, and the choice is worth
+  recording because it changes what a positive means.~~ **Answered by the owner on 2026-08-19: the
+  project further away, one session** — the Log row of that date carries the reason, the two
+  rejections, and the precondition the venue depends on.
 
 ## 2. Plan
 
@@ -95,4 +97,5 @@ instruction.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-19 | (no change) | **The open question is answered by the owner: the qualifying project that is *further* from task work, and one session.** Asked in the backlog-wide round of 2026-08-19. The reason is that a trigger there is unconfounded — nothing about that project's own subject nudges the description into matching — so a positive means what it says and a negative is honest. *Rejected: the tracker-shaped project*, likelier to fire and unable to distinguish a matched request from a matched subject. *Rejected: both, one session each*, which would let the two hits be compared and costs a second session for a distinction one clean venue does not need. **A risk surfaced while resolving which checkout that names, and it belongs here**: the venue's value rests entirely on that project not naming this skill in its always-loaded conventions, which is the confound [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) §3 step 9 called unremovable from inside this repository. It has an open issue of its own about whether to commit its taskmd and handoff configs, and how that is answered could put the skill's name in front of every session there. **The venue is destructible and nothing currently watches it**, so `specify` states the precondition it depends on rather than assuming it holds on the day. |
 | 2026-08-18 | → proposed | Raised by [T-168](T-168-price-what-keeping-taskmd-installed-costs-a-project-with-no-tasks.md)'s review under [`review`](../plugin/skills/taskmd/docs/method/review.md) step 5 — a question aimed at someone who is not doing the work fails no criterion, so nothing else would have carried it, and it leaves every view the moment its parent closes. `high` because it is the half of the installation decision that is still unevidenced after T-168, and because it also closes a residue [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) recorded as out of reach. **Not covered by the authorisation of 2026-08-18.** |

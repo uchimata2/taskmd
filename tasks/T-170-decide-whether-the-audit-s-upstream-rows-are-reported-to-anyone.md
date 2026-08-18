@@ -60,9 +60,10 @@ raising it is one record; the cost of not raising it was losing it.
 - [ ] <written at `specify`>
 
 **Open questions**
-- **Is there a recipient at all?** Both rows are about the harness, which this project does not own
-  and has no channel to. If the answer is that no route exists, that is the decision and the wording
-  changes to say so. **The maintainer answers, at `specify`.**
+- ~~**Is there a recipient at all?** Both rows are about the harness, which this project does not
+  own and has no channel to. If the answer is that no route exists, that is the decision and the
+  wording changes to say so. **The maintainer answers, at `specify`.**~~ **Answered by the owner on
+  2026-08-19: no route exists, so the wording changes** — see the Log row of that date.
 
 ## 2. Plan
 
@@ -91,4 +92,5 @@ raising it is one record; the cost of not raising it was losing it.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-19 | (no change) | **The open question is answered by the owner: there is no route, so the wording is what changes.** Asked in the backlog-wide round of 2026-08-19. §1 anticipated this outcome and called it a fine one: the decision is recorded, and [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md) §3's disposition is corrected from *they stay in the deliverable, which is the handover* to what was actually done — an observation published, with no recipient and nothing sent. *Rejected: naming a recipient and delivering the two rows*, which would make the disposition literally true and commits this project to a reporting channel it has never used and would then have to keep. The correction lands in T-152 §3 and nowhere else; the two dated audit deliverables are not touched, for the reason §1 already gives. This row is the answer, not authorisation to start. |
 | 2026-08-17 | → proposed | Raised at [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md)'s close, routing a residual that task's own log had flagged the same day as *live and would die silently at close*. **Soft edge, not a child**, and deliberately: a child would re-open the closure rule this task exists because of, and the residual is not a finding needing repair — it is a question about whether a disposition already taken describes what happened. `xs` and `low`, because the likeliest outcome is a recorded answer and a two-word correction. |

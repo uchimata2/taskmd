@@ -59,10 +59,12 @@ difference between the halves should not be papered over.
       would show it — an honest gap, not an implied assurance
 
 **Open questions**
-- **Is a taskmd project on the GitHub backend reachable to test at all?** Nobody has been observed
+- ~~**Is a taskmd project on the GitHub backend reachable to test at all?** Nobody has been observed
   running one; `control/LOCAL-CONTEXT.md` carries the adopter roster and is where the answer would
   come from. **This is the question that decides whether the task can run unattended**, so it is the
-  owner's — the same property that keeps T-175, T-176 and T-178 outside the standing grant.
+  owner's — the same property that keeps T-175, T-176 and T-178 outside the standing grant.~~
+  **Answered on 2026-08-19: yes — one is reachable, and it was checked rather than assumed.** The
+  Log row of that date names the venue, the evidence, and why the second candidate was rejected.
 
 ## 2. Plan
 
@@ -92,4 +94,5 @@ difference between the halves should not be papered over.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-19 | (no change) | **The open question is answered, and the answer falsifies the premise §1 was written on.** Asked in the backlog-wide round of 2026-08-19; the owner named two candidates rather than accepting the *unreachable* result, and both were checked before answering. **A live issues-backed taskmd project is reachable: the context-audit sibling**, labelled in `control/LOCAL-CONTEXT.md`. Its `.taskmd/config.md` declares the GitHub Issues binding with `id_prefix: '#'` and `id_width: none`, and its open issues carry `status:proposed`, `phase:specify`, `type:*`, `business_value:*` and `effort:*` as labels — which is taskmd's `<field>:<value>` convention, the exact join the recipe's GitHub half was derived from and which §1 says has never been run. So the *unreachable* branch of criterion 4 is closed as a possibility, not as a result. **The other candidate was rejected on its own written evidence**: the handoff skill's own repository carries a `.taskmd/config.md` too, and that file states plainly that the taskmd CLI does not run on the project and that its operations are `gh` instructions followed by an agent; its status labels also take a different form. It is a project configured *for* the binding rather than one running it, so a pass there would not exercise the join. *Rejected: recording the task as unreachable*, which §1's criterion 4 allows and which the check above shows would have been false. `specify` still confirms the venue on the day rather than trusting this row — the configs there are local and uncommitted, and that project has an open issue about whether they stay that way. This row is the answer, not authorisation to start. |
 | 2026-08-18 | → proposed | Raised by [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md)'s review, which carried its either-backend criterion rather than meeting it. The local half of that recipe was verified by use — the session that wrote it resumed through the configuration it documents — and the GitHub half was not, so shipping both under one heading would have made them look equally tested. **Outside the standing grant of 2026-08-18**, on both counts: it is a task T-005 raised, and its open question is the owner's. |
