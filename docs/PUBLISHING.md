@@ -175,8 +175,8 @@ body, neither of which is a file. §1 says so and says nothing enforces them.
 
 ## 6. The pre-publish check
 
-Run over every file a push would send. **It must print exactly the two accepted lines named below,
-and nothing else.** Every other hit is either a leak or a label that needs adding to
+Run over every file a push would send. **It must print exactly the accepted set listed below, and
+nothing else.** Every other hit is either a leak or a label that needs adding to
 `control/LOCAL-CONTEXT.md`.
 
 ```bash
@@ -205,10 +205,23 @@ disclosure already made. The decision and its rejected options are in
 
 **It is not excluded by pathspec, and that is the point.** An exclusion would blind the check to
 whatever that file gained afterwards, and the exclusion below is one pathspec rather than a second
-contract. So T-085 is still scanned and still prints. **Two lines from that one file is a pass;
-three is a finding, and so is a single line from anywhere else.** Read the count — the same rule §5
-states for its own gate, and for the same reason: a check whose expected output is "some noise" stops
-being read, which is exactly how the accepted block sat in this output unnoticed for days.
+contract. So T-085 is still scanned and still prints. What it may print is this, and only this:
+
+```text
+# accepted  <path>  <lines>
+tasks/T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md  2
+```
+
+**That block is the whole of what a passing run may contain.** A hit in a file it does not name is a
+finding; so is a different number of hits in a file it does name — which is what keeps T-085 scanned
+rather than silenced, and what would catch anything that file gained later. The counts are here and
+nowhere else, so changing what is accepted is one edit.
+
+Read the set, not the silence — the same rule §5 states for its own gate, and for the same reason: a
+check whose expected output is "some noise" stops being read, which is exactly how the accepted block
+sat in this output unnoticed for days. `tests/test_publishing.py` reads this block and holds it on
+every run, so the gate is no longer only as good as somebody remembering to type it
+([T-186](../tasks/T-186-run-the-leak-check-in-the-suite-not-only-at-publication.md)).
 
 **The `cd` is not decoration.** `ls-files` lists the subtree you are standing in, and the exclusion
 is a pathspec resolved against the same place — so run from a subdirectory the unanchored command

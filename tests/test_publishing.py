@@ -390,5 +390,131 @@ class AQuotedRunIsWhatTheCommandPrints(unittest.TestCase):
                          "be re-derived" % (", ".join(inside), SAMPLE))
 
 
+# --------------------------------------------------------------------------------------------
+# The leak check, run by the suite instead of remembered at publication (T-186).
+#
+# `docs/PUBLISHING.md` §6 is the same shape §5 was before T-126: a command a person types before
+# publishing, so it runs at publication or never. Four records have broken one of its two written
+# remedies -- T-013, T-018, T-129 and T-142 -- every one caught by a person and two by accident.
+#
+# **Nothing about the rule is written here.** The pattern, the exclusion and the accepted set are
+# read out of §6, which stays their one home. That is not only T-126's shape: the check reads this
+# file too, so a restated pattern would be a tripping literal in a tracked document, and this test
+# would fail on its own source. Lifting is what makes the test possible at all.
+
+LEAK_PATTERN_RE = re.compile(r"grep -nIE '([^']+)'")
+LEAK_EXCLUDE_RE = re.compile(r"':!([^']+)'")
+ACCEPTED_BLOCK_RE = re.compile(r"```text\n# accepted[^\n]*\n(.*?)```", re.S)
+
+FIXTURE = os.path.join("tests", "fixtures", "leak-check", "samples.txt")
+CAUGHT = "<- must be caught"
+IGNORED = "<- must be ignored"
+
+
+def leak_check_from_the_document():
+    """The pattern, the exclusion and the accepted set, lifted from `docs/PUBLISHING.md` §6.
+
+    Strict for the same reason `gate_from_the_document` is: a shape this cannot parse means the
+    documented check and the enforced one have come apart, which is the state this exists to stop.
+    """
+    text = read(PUBLISHING)
+    parts = text.split("## 6. The pre-publish check", 1)
+    if len(parts) != 2:
+        raise AssertionError("docs/PUBLISHING.md has no '## 6. The pre-publish check' - the check "
+                             "has moved, and this test reads it from there rather than restating it")
+    body = parts[1].split("\n## ", 1)[0]
+    pattern = LEAK_PATTERN_RE.search(body)
+    exclude = LEAK_EXCLUDE_RE.search(body)
+    block = ACCEPTED_BLOCK_RE.search(body)
+    if not pattern:
+        raise AssertionError("could not read the grep pattern out of docs/PUBLISHING.md section 6")
+    if not exclude:
+        raise AssertionError("could not read the ':!...' exclusion out of docs/PUBLISHING.md "
+                             "section 6")
+    if not block:
+        raise AssertionError("docs/PUBLISHING.md section 6 has no fenced '# accepted' block; the "
+                             "accepted set is what a passing run is compared against, and this "
+                             "test will not guess it")
+    accepted = {}
+    for line in block.group(1).splitlines():
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        where, _, count = line.rpartition(" ")
+        try:
+            accepted[where.strip()] = int(count)
+        except ValueError:
+            raise AssertionError("docs/PUBLISHING.md section 6's accepted block has a row this "
+                                 "cannot read as '<path> <lines>': %r" % line)
+    if not accepted:
+        raise AssertionError("docs/PUBLISHING.md section 6's accepted block is empty; if nothing "
+                             "is accepted any more, the block should say so rather than vanish")
+    return re.compile(pattern.group(1)), exclude.group(1), accepted
+
+
+def leak_hits(rx, skip=None):
+    """What a run reports, as {path: number of matching lines}.
+
+    Binary files are skipped, which is what `grep -I` does in the documented command.
+    """
+    found = collections.defaultdict(int)
+    for rel in tracked_files():
+        if skip is not None and rel.startswith(skip):
+            continue
+        try:
+            text = read(os.path.join(ROOT, rel))
+        except (UnicodeDecodeError, OSError, ValueError):
+            continue
+        for line in text.splitlines():
+            if rx.search(line):
+                found[rel] += 1
+    return dict(found)
+
+
+@unittest.skipUnless(GIT, "no git: the scanned set is what `git ls-files` reports, so there is "
+                          "nothing to resolve")
+class TheLeakCheckIsRunHereRatherThanRemembered(unittest.TestCase):
+    """Named for the failure it removes: the check worked, and nobody ran it.
+
+    Every instance it has caught was found by a person reading its output, twice while doing
+    something else. §6 states the pass condition as a set so that a machine can hold it; this is
+    the machine.
+    """
+
+    def test_the_document_still_yields_a_pattern_an_exclusion_and_a_set(self):
+        rx, exclude, accepted = leak_check_from_the_document()
+        self.assertTrue(rx.pattern, "section 6's pattern is empty")
+        self.assertTrue(exclude, "section 6's exclusion is empty")
+        for where in accepted:
+            self.assertTrue(os.path.exists(os.path.join(ROOT, where)),
+                            "docs/PUBLISHING.md section 6 accepts hits in %s, which does not "
+                            "exist - the accepted set has outlived the file it names" % where)
+
+    def test_every_hit_is_one_the_document_accepts(self):
+        """The set, not the count. A total would go red the day the accepted set legitimately
+        changes and be repaired by editing a number in here - the second home §6 exists to avoid."""
+        rx, exclude, accepted = leak_check_from_the_document()
+        self.assertEqual(
+            accepted, leak_hits(rx, skip=exclude),
+            "the pre-publish check no longer prints what docs/PUBLISHING.md section 6 says it may. "
+            "A file on the left only is a hit the document accepts and the tree no longer has; a "
+            "file on the right only, or a different count, is a finding - see section 6 for the "
+            "two written remedies before reaching for the accepted block")
+
+    def test_the_fixture_still_proves_the_pattern_can_fire(self):
+        """§6's second run. A clean tree cannot show the pattern works; the fixture can, and it
+        says which of its own lines must be caught, so no count is written down here."""
+        rx, _, _ = leak_check_from_the_document()
+        lines = read(os.path.join(ROOT, FIXTURE)).splitlines()
+        must = set(i for i, line in enumerate(lines, 1) if CAUGHT in line)
+        must_not = set(i for i, line in enumerate(lines, 1) if IGNORED in line)
+        self.assertTrue(must, "%s no longer marks any line '%s'" % (FIXTURE, CAUGHT))
+        self.assertTrue(must_not, "%s no longer marks any line '%s'" % (FIXTURE, IGNORED))
+        caught = set(i for i, line in enumerate(lines, 1) if rx.search(line))
+        self.assertEqual(must, caught & (must | must_not),
+                         "the fixture's marked lines and what the pattern catches have come apart; "
+                         "a class that stopped firing reads as a hole in the branch that did not, "
+                         "and the repair it invites is loosening a branch that was already correct")
+
 if __name__ == "__main__":
     unittest.main()
