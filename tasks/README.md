@@ -74,13 +74,11 @@ A label says which release the work is scheduled into. It never says the release
 | [T-131](T-131-decide-whether-a-question-heavy-task-is-a-different-kind-of-work.md) | Decide whether a question-heavy task is a different kind of work | `M6` | `proposed` | `specify` | - | - | - | T-088, T-109, T-130 |
 | [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) | Derive what a release note must cover from the tasks it ships | `M6` | `specified` | `specify` | - | - | - | T-086, T-125, T-127, T-128, T-129, T-133 |
 | [T-143](T-143-decide-whether-tier-1-names-the-generated-index-at-all.md) | Decide whether tier 1 names the generated index at all | `M6` | `proposed` | `specify` | - | - | - | T-022, T-028, T-087, T-118, T-152, T-158 |
-| [T-146](T-146-decide-whether-a-field-can-be-required-at-a-status.md) | Decide whether a field can be required at a status | `M6` | `proposed` | `specify` | - | - | - | T-065, T-089, T-100, T-106, T-173 |
 | [T-148](T-148-decide-whether-a-caller-outside-a-served-skill-can-find-the-launcher.md) | Decide whether a caller outside a served skill can find the launcher | `M6` | `proposed` | `specify` | - | - | - | T-054, T-099, T-142 |
 | [T-151](T-151-decide-whether-a-check-needs-a-case-that-must-not-fire.md) | Decide whether a check needs a case that must not fire | `M6` | `proposed` | `specify` | - | - | - | T-100, T-141, T-150, T-172, T-173 |
 | [T-162](T-162-decide-whether-check-reads-a-date-shaped-field-as-a-date.md) | Decide whether check reads a date-shaped field as a date | `M6` | `proposed` | `specify` | - | - | - | T-095, T-113, T-138, T-141 |
 | [T-168](T-168-price-what-keeping-taskmd-installed-costs-a-project-with-no-tasks.md) | Price what keeping taskmd installed costs a project that has no tasks folder | `M6` | `proposed` | `specify` | - | - | - | T-166, T-167 |
 | [T-170](T-170-decide-whether-the-audit-s-upstream-rows-are-reported-to-anyone.md) | Decide whether the audit's upstream rows are reported to anyone | `M6` | `proposed` | `specify` | - | - | - | T-152 |
-| [T-173](T-173-decide-whether-check-can-know-a-phase-without-breaking-every-adopter.md) | Decide whether check can know a phase without breaking every adopter | `M6` | `proposed` | `specify` | - | - | - | T-146, T-151, T-172 |
 
 ## Closed
 
@@ -226,6 +224,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-142](T-142-stop-the-entry-point-stating-the-path-mechanism-as-given.md) | Stop the entry point stating the PATH mechanism as given | `M6` | `done` | `review` | - | T-161 | - | T-054, T-085, T-099, T-148, T-153, T-161 |
 | [T-144](T-144-decide-whether-a-commands-own-options-can-be-discovered-from-the-cli.md) | Decide whether a command's own options can be discovered from the CLI | `M6` | `done` | `review` | - | - | - | T-022, T-029, T-087, T-113, T-145, T-149 |
 | [T-145](T-145-stop-help-answering-for-a-command-that-does-not-exist.md) | Stop --help answering for a command that does not exist | `M6` | `done` | `review` | - | - | - | T-029, T-113, T-120, T-144 |
+| [T-146](T-146-decide-whether-a-field-can-be-required-at-a-status.md) | Decide whether a field can be required at a status | `M6` | `done` | `review` | - | - | - | T-065, T-089, T-100, T-106, T-173 |
 | [T-147](T-147-check-that-a-quoted-command-output-is-output-the-tool-produces.md) | Check that a quoted command output is output the tool produces | `M6` | `done` | `review` | - | - | - | T-095, T-134, T-139, T-141 |
 | [T-149](T-149-check-that-every-prose-list-of-lists-options-names-the-options-there-are.md) | Check that every prose list of list's options names the options there are | `M6` | `done` | `review` | - | - | - | T-117, T-134, T-139, T-144 |
 | [T-150](T-150-give-the-wide-row-fixture-a-front-matter-that-carries-pipes.md) | Give the wide-row fixture a front matter that carries pipes | `M6` | `done` | `review` | - | - | - | T-032, T-141, T-151 |
@@ -247,5 +246,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-169](T-169-decide-whether-tier-1-s-prose-about-itself-moves-into-a-path-scoped-rule.md) | Decide whether tier 1's prose about itself moves into a path-scoped rule | `M6` | `done` | `review` | T-155 | T-171 | - | T-118, T-153 |
 | [T-171](T-171-test-whether-the-hook-can-see-a-path-scoped-rule.md) | Test whether the InstructionsLoaded hook can see a path-scoped rule | `M6` | `done` | `review` | T-169 | - | - | T-155, T-172 |
 | [T-172](T-172-catch-a-template-placeholder-left-in-a-finished-record.md) | Catch a template placeholder left in a finished record | `M6` | `done` | `review` | - | - | - | T-032, T-151, T-171, T-173 |
+| [T-173](T-173-decide-whether-check-can-know-a-phase-without-breaking-every-adopter.md) | Decide whether check can know a phase without breaking every adopter | `M6` | `done` | `review` | - | - | - | T-146, T-151, T-172 |
 
 <!-- taskmd:end -->

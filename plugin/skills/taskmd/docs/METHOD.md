@@ -36,9 +36,15 @@ one arrives. Everything here governs the work; the files in §7 do not, so they 
 | **implement** | Do the work. Record decisions as they are taken, not afterwards. | **The outcome has been checked by being used, and the evidence is recorded.** | [implement](method/implement.md) |
 | **review** | Judge the result against the acceptance criteria written in `specify`. | Every criterion is either met or carries a child task that will meet it. | [review](method/review.md) |
 
-**Phase and status are independent.** *Phase* says where the work has got to; *status* whether it
-can move. Being stuck is not a phase — a task waiting on someone keeps the phase it reached, and
-never moves backwards to record an obstacle.
+**Phase and status are independent, and that independence is about movement.** *Phase* says where
+the work has got to; *status* whether it can move. Being stuck is not a phase — a task waiting on
+someone keeps the phase it reached, and never moves backwards to record an obstacle.
+
+**Where the two correspond, phase names the phase the work is _at_ — never the one it will do next.**
+A task that has finished one phase and is waiting for the next to be asked for is still at the one it
+finished. Both readings sit in the table above, and two projects have now picked different ones, so
+the method says which it means. Nothing here checks it: whether a tracker can is a binding's
+question, not this document's.
 
 **Verification is `implement`'s exit criterion, not `review`'s.** "The planned outputs exist" is not
 an exit criterion, because a wrong output exists just as convincingly as a right one — someone must

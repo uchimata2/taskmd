@@ -147,6 +147,35 @@ is the whole of the upgrade.
 every config would each be larger than the problem — no key has been added since this schema shipped
 — and each would weaken rule 1, which is what makes a config say exactly what a project meant.
 
+## What this rule has already refused
+
+Two capabilities have been asked for under the rule above and declined, recorded here so the next
+person to want one meets the answer instead of the gap. Both needed the tool to learn a fact about
+*where a task has got to*. That is project vocabulary, and vocabulary is a key in this file.
+
+- **`check` knowing a task's phase**, so that a placeholder left in a section the task has already
+  passed is reportable, and not only one left in a closed record. Every route that works adds a key
+  here. The routes that add none are worse than the cost: `context_fields` and `index_columns` name
+  fields to **show**, so reading one of them as *this is the phase field* gives a display list a
+  second meaning, and a project that stopped showing the field would silently stop being checked. A
+  project that never names it would never be checked at all, and the check could not say so.
+  Hardcoding the field name instead puts one project's vocabulary inside the tool, which is what
+  `BINDING.md` exists to prevent.
+- **A field required at a status, or two fields that must agree** — *this field is set when a task
+  closes*, or *these two always move together*. Declined on the same ground, by the same routes
+  failing the same way.
+
+**What a project does instead.** Where the point is that a record should not look finished when it is
+not, the record can say so itself: a section stating that the phase was never run reads correctly to
+a person, needs no key, and cannot drift from a rule. Where the convention genuinely has to be
+enforced rather than stated, enforce it outside taskmd and against the task files directly. They are
+Markdown with front matter, in a folder this file names, and nothing about them is hidden from a
+script a project writes for itself.
+
+Neither refusal says the capability is worthless. Both are the arithmetic above: the cost falls on
+every project that has written a config, it falls on the upgrade rather than at the moment of asking,
+and it falls whether or not that project ever wanted the feature.
+
 ## Ids a backend allocates
 
 `id_width` is a number, and `none` when the ids are **not yours to shape** — handed out by whatever
