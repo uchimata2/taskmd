@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-10
 updated: 2026-08-10
 deliverables: [plugin/skills/taskmd/SKILL.md, plugin/skills/taskmd/adopt.md]
+adopter_visible: yes
 ---
 
 # T-099 — Give an adopter a command that runs when the plugin's bin is not on PATH

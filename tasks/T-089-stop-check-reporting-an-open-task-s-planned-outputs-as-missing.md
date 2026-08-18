@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-09
 updated: 2026-08-09
 deliverables: []
+adopter_visible: yes
 ---
 
 # T-089 — Stop check reporting an open task's planned outputs as missing

@@ -14,6 +14,7 @@ effort: xs
 created: 2026-08-11
 updated: 2026-08-11
 deliverables: [plugin/skills/taskmd/taskmd/cli.py]
+adopter_visible: yes
 ---
 
 # T-120 — Echo an unknown flag as the caller typed it

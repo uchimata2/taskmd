@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-09
 updated: 2026-08-11
 deliverables: [plugin/skills/taskmd/taskmd/schema.py, plugin/skills/taskmd/taskmd/defaults/config.md, plugin/skills/taskmd/docs/bindings/github-issues.md, plugin/skills/taskmd/docs/bindings/local-markdown.md, tests/test_schema.py, tests/fixtures/backend-allocated-ids/.taskmd/config.md, tests/fixtures/README.md]
+adopter_visible: yes
 ---
 
 # T-082 — Let id_width say that the backend allocates the ids

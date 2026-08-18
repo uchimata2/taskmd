@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-10
 updated: 2026-08-10
 deliverables: [tests/fixtures/broken-parked-task/tasks/_drafts/T-002-parked-where-nothing-reads-it.md]
+adopter_visible: yes
 ---
 
 # T-107 — Say so when a valid task file is parked where nothing reads it

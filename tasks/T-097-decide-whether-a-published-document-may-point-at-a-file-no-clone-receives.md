@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-10
 updated: 2026-08-11
 deliverables: [plugin/skills/taskmd/taskmd/cli.py, tests/test_cli.py, README.md]
+adopter_visible: yes
 ---
 
 # T-097 — Decide whether a published document may point at a file no clone receives

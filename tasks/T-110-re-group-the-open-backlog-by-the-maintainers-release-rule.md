@@ -14,6 +14,7 @@ effort: m
 created: 2026-08-10
 updated: 2026-08-10
 deliverables: [tasks/README.md]
+adopter_visible: no
 ---
 
 # T-110 — Re-group the open backlog by the maintainer's release rule

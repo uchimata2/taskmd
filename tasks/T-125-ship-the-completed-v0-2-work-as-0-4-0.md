@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-11
 updated: 2026-08-11
 deliverables: [plugin/.claude-plugin/plugin.json, README.md]
+adopter_visible: no
 ---
 
 # T-125 — Ship the completed M2 work as 0.4.0

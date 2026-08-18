@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-09
 updated: 2026-08-11
 deliverables: [plugin/skills/taskmd/taskmd/defaults/config.md, plugin/skills/taskmd/docs/bindings/local-markdown.md, tests/test_cli.py, tests/fixtures/README.md, tests/fixtures/broken-cancelled-deliverable/tasks/T-001-x.md]
+adopter_visible: yes
 ---
 
 # T-090 — Decide what a cancelled task's declared outputs assert

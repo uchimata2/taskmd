@@ -14,6 +14,7 @@ effort: xs
 created: 2026-08-06
 updated: 2026-08-11
 deliverables: [docs/BRIEF.md, plugin/skills/taskmd/docs/BINDING.md]
+adopter_visible: no
 ---
 
 # T-033 — Resolve the F1 reference inside this repository

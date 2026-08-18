@@ -14,6 +14,7 @@ effort: l
 created: 2026-08-05
 updated: 2026-08-11
 deliverables: []
+adopter_visible: no
 ---
 
 # T-026 — Audit the whole project before the remaining build

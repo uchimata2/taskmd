@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-10
 updated: 2026-08-11
 deliverables: [tests/test_runtime.py]
+adopter_visible: no
 ---
 
 # T-114 — Make the launcher tests say which bash they found

@@ -14,6 +14,7 @@ effort: m
 created: 2026-08-07
 updated: 2026-08-10
 deliverables: [CLAUDE.md, plugin/skills/taskmd/docs/METHOD.md, plugin/skills/taskmd/adopt.md, docs/PUBLISHING.md, docs/SCOPE.md]
+adopter_visible: yes
 ---
 
 # T-047 — Move the conduct rules that bind before task work into tier 1

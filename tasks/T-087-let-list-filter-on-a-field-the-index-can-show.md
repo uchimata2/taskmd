@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-09
 updated: 2026-08-10
 deliverables: [plugin/skills/taskmd/taskmd/cli.py, tests/test_list.py]
+adopter_visible: yes
 ---
 
 # T-087 — Let list filter on a field the index can show

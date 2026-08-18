@@ -14,6 +14,7 @@ effort: xs
 created: 2026-08-10
 updated: 2026-08-10
 deliverables: [plugin/skills/taskmd/taskmd/cli.py, tests/test_cli.py]
+adopter_visible: yes
 ---
 
 # T-111 — Stop the index showing a closed task as a live blocker

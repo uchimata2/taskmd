@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-10
 updated: 2026-08-10
 deliverables: [tests/test_budget.py]
+adopter_visible: no
 ---
 
 # T-115 — Give the tier 1 budget something that enforces it

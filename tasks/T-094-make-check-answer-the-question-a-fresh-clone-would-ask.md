@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-09
 updated: 2026-08-10
 deliverables: [plugin/skills/taskmd/taskmd/cli.py, tests/test_cli.py, README.md]
+adopter_visible: yes
 ---
 
 # T-094 — Make check answer the question a fresh clone would ask

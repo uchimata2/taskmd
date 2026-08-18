@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-09
 updated: 2026-08-09
 deliverables: [tasks/README.md]
+adopter_visible: no
 ---
 
 # T-086 — Group the backlog into release milestones

@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-11
 updated: 2026-08-11
 deliverables: [plugin/skills/taskmd/taskmd/schema.py, plugin/skills/taskmd/taskmd/defaults/config.md, tests/test_cli.py, tests/fixtures/README.md]
+adopter_visible: yes
 ---
 
 # T-123 — Decide whether a replaced vocabulary row is drift or a choice

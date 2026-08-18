@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-10
 updated: 2026-08-10
 deliverables: [plugin/skills/taskmd/taskmd/schema.py, plugin/skills/taskmd/taskmd/cli.py, plugin/skills/taskmd/taskmd/defaults/config.md, tests/test_cli.py, README.md]
+adopter_visible: yes
 ---
 
 # T-100 — Report a project config that has drifted from the shipped default

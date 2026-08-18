@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-05
 updated: 2026-08-07
 deliverables: []
+adopter_visible: yes
 ---
 
 # T-025 — Let check notice a stale generated index

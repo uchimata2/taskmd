@@ -14,6 +14,7 @@ effort: xs
 created: 2026-08-09
 updated: 2026-08-09
 deliverables: []
+adopter_visible: yes
 ---
 
 # T-088 — Put audit in the shipped type vocabulary, or stop calling it a type

@@ -14,6 +14,7 @@ effort: xs
 created: 2026-08-10
 updated: 2026-08-10
 deliverables: [plugin/skills/taskmd/taskmd/cli.py, plugin/skills/taskmd/taskmd/defaults/config.md, tests/test_list.py]
+adopter_visible: yes
 ---
 
 # T-102 — Show which rows list has already worked out are blocked

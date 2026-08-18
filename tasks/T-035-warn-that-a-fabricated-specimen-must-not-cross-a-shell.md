@@ -14,6 +14,7 @@ effort: xs
 created: 2026-08-06
 updated: 2026-08-11
 deliverables: [docs/PUBLISHING.md]
+adopter_visible: no
 ---
 
 # T-035 — Warn that a fabricated specimen must not cross a shell

@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-10
 updated: 2026-08-10
 deliverables: [plugin/skills/taskmd/taskmd/cli.py, tests/test_cli.py]
+adopter_visible: yes
 ---
 
 # T-112 — Stop check resolving a link that is displayed rather than navigable

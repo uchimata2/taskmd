@@ -14,6 +14,7 @@ effort: xs
 created: 2026-08-05
 updated: 2026-08-10
 deliverables: []
+adopter_visible: yes
 ---
 
 # T-021 — Settle what the context closing line may say

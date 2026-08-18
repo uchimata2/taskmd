@@ -37,6 +37,15 @@ Read by the `handoff` skill. Plain Markdown, read by the agent — no parser.
 - `tracker_id_prefix`: T-
 - `tracker_template`: tasks/_task-template.md
 - `tracker_closed_dir`: (not set — done tasks stay in `tasks/` so links keep resolving)
+- `tracker_lint`: `./plugin/bin/taskmd check` (`.\plugin\bin\taskmd.cmd check` on Windows)
+
+> **`tracker_lint` was missing until 2026-08-18**, found by T-005 testing its own recipe against this
+> file. This project has a *generated* central index, which is the one topology the handoff binding
+> warns goes stale silently — the task file is right, `tasks/README.md` is behind, and nothing
+> complains. The hook is what makes that loud: `check` exits 1 and names `index` as the fix, measured
+> on a real stale index the same day. It is written by path here for the reason T-054 records, and
+> the recipe in `plugin/skills/taskmd/docs/HANDOFF.md` says an adopter writes whichever form starts
+> on their machine — a lint that cannot start reports no drift and reads as a pass.
 
 ## Notes for whoever resumes
 

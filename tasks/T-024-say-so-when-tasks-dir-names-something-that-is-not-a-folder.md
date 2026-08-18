@@ -14,6 +14,7 @@ effort: xs
 created: 2026-08-05
 updated: 2026-08-11
 deliverables: [plugin/skills/taskmd/taskmd/schema.py, tests/test_cli.py, tests/fixtures/README.md, tests/fixtures/broken-tasks-dir-file/.taskmd/config.md]
+adopter_visible: yes
 ---
 
 # T-024 — Say so when tasks_dir names something that is not a folder

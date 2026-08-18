@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-10
 updated: 2026-08-11
 deliverables: [plugin/skills/taskmd/taskmd/defaults/config.md]
+adopter_visible: no
 ---
 
 # T-109 — Decide whether a task that settles a question must be typed decision

@@ -14,6 +14,7 @@ effort: xs
 created: 2026-08-05
 updated: 2026-08-10
 deliverables: [plugin/skills/taskmd/taskmd/schema.py, tests/test_schema.py]
+adopter_visible: yes
 ---
 
 # T-023 — Stop config errors printing an absolute install path

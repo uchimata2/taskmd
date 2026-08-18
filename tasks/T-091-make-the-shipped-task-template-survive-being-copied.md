@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-09
 updated: 2026-08-10
 deliverables: [tasks/_task-template.md, tasks/_audit-umbrella-template.md, plugin/skills/taskmd/adopt.md, tests/test_cli.py]
+adopter_visible: yes
 ---
 
 # T-091 — Make the shipped task template survive being copied into another project

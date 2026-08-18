@@ -14,6 +14,7 @@ effort: xs
 created: 2026-08-06
 updated: 2026-08-10
 deliverables: [docs/BRIEF.md, plugin/skills/taskmd/taskmd/cli.py]
+adopter_visible: no
 ---
 
 # T-031 — Give the list rationale one home

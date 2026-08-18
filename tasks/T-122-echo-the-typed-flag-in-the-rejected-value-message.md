@@ -14,6 +14,7 @@ effort: xs
 created: 2026-08-11
 updated: 2026-08-11
 deliverables: [plugin/skills/taskmd/taskmd/cli.py, tests/test_list.py]
+adopter_visible: yes
 ---
 
 # T-122 — Echo the typed flag in the rejected-value message too

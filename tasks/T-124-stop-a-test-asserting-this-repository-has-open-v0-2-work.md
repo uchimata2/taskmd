@@ -14,6 +14,7 @@ effort: xs
 created: 2026-08-11
 updated: 2026-08-11
 deliverables: [tests/test_list.py]
+adopter_visible: no
 ---
 
 # T-124 — Stop a test asserting this repository has open M2 work

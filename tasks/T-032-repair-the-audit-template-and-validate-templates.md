@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-06
 updated: 2026-08-10
 deliverables: [plugin/skills/taskmd/taskmd/cli.py, tasks/_audit-umbrella-template.md, tests/fixtures/broken-template-field/tasks/_task-template.md]
+adopter_visible: yes
 ---
 
 # T-032 — Repair the audit template, and validate templates at all

@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-11
 updated: 2026-08-11
 deliverables: [CLAUDE.md]
+adopter_visible: no
 ---
 
 # T-118 — Decide what leaves tier 1 when the budget binds

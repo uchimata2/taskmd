@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-10
 updated: 2026-08-11
 deliverables: [plugin/skills/taskmd/taskmd/cli.py, tests/fixtures/README.md, README.md]
+adopter_visible: no
 ---
 
 # T-098 — Decide who checks the links in a document only a successor reads

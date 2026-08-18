@@ -102,6 +102,15 @@ The source project drove this from the handoff skill's `local-markdown-dir` bind
 is false for any project with a generated one. Shipping a **binding contribution** to the handoff
 package alongside this plugin is worth considering.
 
+> **Both sentences above stopped being true on 2026-08-18, and are kept because the argument they
+> carry is what raised the work.** The binding no longer assumes the folder is the index — it offers
+> two topologies and makes `tracker_lint` the invariant hook — and the binding contribution was
+> dropped by the maintainer the same day, because the fix it existed to deliver was already there.
+> What shipped instead is a configuration recipe,
+> [`plugin/skills/taskmd/docs/HANDOFF.md`](../plugin/skills/taskmd/docs/HANDOFF.md). The measurement,
+> naming the sections that carry the remedy and where they were read, is in
+> [T-005](../tasks/T-005-align-with-the-handoff-tracker-binding-contract.md) §3 — not repeated here.
+
 **What "F1" means, wherever this repository uses it.** The handoff project keeps an improvement
 brief of its own, and numbers the findings in it; **F1** is that brief's first — the one just
 described, a binding stating "the folder is the index" as a premise, which leaves a project with a

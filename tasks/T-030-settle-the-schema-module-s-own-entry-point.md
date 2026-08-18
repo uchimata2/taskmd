@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-06
 updated: 2026-08-11
 deliverables: [plugin/skills/taskmd/taskmd/schema.py]
+adopter_visible: no
 ---
 
 # T-030 — Settle the schema module's own entry point

@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-06
 updated: 2026-08-11
 deliverables: [plugin/skills/taskmd/docs/method/audit.md, plugin/skills/taskmd/docs/method/plan.md]
+adopter_visible: yes
 ---
 
 # T-036 — Say where a plan is revised, and that reviewing one is not an audit

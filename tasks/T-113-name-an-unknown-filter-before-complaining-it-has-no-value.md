@@ -14,6 +14,7 @@ effort: xs
 created: 2026-08-10
 updated: 2026-08-11
 deliverables: [plugin/skills/taskmd/taskmd/cli.py, tests/test_list.py]
+adopter_visible: yes
 ---
 
 # T-113 — Name an unknown filter before complaining it has no value

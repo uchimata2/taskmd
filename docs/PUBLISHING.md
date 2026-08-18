@@ -101,6 +101,10 @@ Anyone reading the skill will find both. They are foreclosed for covered text, n
 The leak check in `../CLAUDE.md` runs **after** any rewrite, never before. A rewrite is new text, and
 new text is exactly what that check exists to read.
 
+**The release note is written to §7 before it is written to the humanizer.** What it must not omit is
+derived from the tracker, so the coverage question is settled while the note is still a draft rather
+than after it has been styled.
+
 ## 4. Where the repository description lives
 
 **`repo-description.txt`, beside this file.** Its entire content is the value, which is why it is not
@@ -249,3 +253,65 @@ copy left a real drive path in the tracked tree and made the documented "prints 
 Two earlier drafts were wrong: one matched `http://` and a `d:\n` escape, and one ended a branch in
 `\\`, which grep read as an escaped `|` and which silently swallowed the entire IP branch. Both bugs
 were invisible on a clean tree.
+
+## 7. What a release note must not omit
+
+**The test: every task the release closed that an adopter would notice is either described in the
+note or consciously waived.** Not a list of what a note must contain — §1's argument against a
+generated changelog stands, and a note naming 47 tasks is worse than one describing eight changes
+well. This bounds what may be left out, which is the only half that can go wrong silently.
+
+The set comes from the tracker, never from memory of it:
+
+```bash
+taskmd list --work_package <milestone> --closed --adopter_visible yes
+```
+
+**Judgement happens once, on the task, at the time the work is understood** — not months later while
+writing prose about a release. The field is `adopter_visible`, named in this project's
+`.taskmd/config.md`, and its test is: *would someone who installed the plugin see different output,
+receive a different file, or have to act differently?* This repository's own tests, backlog grouping,
+CI decisions and instruction files are `no`.
+
+**An unmarked task blocks the note, and does not pass as `no`.** Absent means nobody judged it, which
+is a different fact from *judged and not visible*. Two states would let an unexamined task default
+quietly out of the note, which is the failure this rule exists to stop. Before tagging, these must
+agree:
+
+```bash
+taskmd list --work_package <milestone> --closed | wc -l        # the whole set
+taskmd list --work_package <milestone> --closed --adopter_visible yes | wc -l
+taskmd list --work_package <milestone> --closed --adopter_visible no  | wc -l
+```
+
+The two filtered counts must sum to the first. A filter cannot report what it failed to see, so the
+sum is the thing that shows nothing was skipped.
+
+### What this rule cannot judge
+
+Both limits are stated here rather than left for the writer to discover:
+
+- **It cannot tell whether a sentence describes a given task.** The command produces a checklist; a
+  person maps prose onto it. `v0.4.0`'s note carries the concrete case — *"the first adopter's seven
+  recommendations"* covers seven tasks as a group and names none of them, and whether that counts as
+  mentioning them is not a decision any check can make.
+- **It cannot see a task nobody marked.** That is why the counts above must sum, and why an absent
+  value blocks rather than defaults.
+
+So this is a rule with a command behind it, not a gate. §5's precedent applies: a stated rule nobody
+enforces still beats an unwritten one.
+
+### The opening sentence claims nothing
+
+A note does not open by claiming to cover the milestone. `v0.4.0`'s *"Everything grouped as the v0.2
+milestone"* is true of the milestone and false of the note, and it is the clause that turns an
+omission into a defect rather than an editorial choice. Dropping it makes the note honest about
+being a selection — which is what the rule above then bounds.
+[T-133](../tasks/T-133-decide-what-to-do-about-a-published-release-note-that-breaks-the-rule.md)
+governs the published notes that predate this: a dated public record is not rewritten.
+
+**Worked example, `v0.4.0`.** The rule requires 31; the note names no task ids at all, and ten are
+identifiable from its descriptions. At least twenty-one adopter-visible changes went unmentioned,
+against the six a hand-sample found. The measurement is in
+[T-135](../tasks/T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) §3 and is
+not repeated here.

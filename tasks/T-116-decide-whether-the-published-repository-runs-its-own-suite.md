@@ -14,6 +14,7 @@ effort: s
 created: 2026-08-10
 updated: 2026-08-10
 deliverables: [.github/workflows/tests.yml]
+adopter_visible: no
 ---
 
 # T-116 — Decide whether the published repository runs its own suite

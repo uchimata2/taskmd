@@ -14,6 +14,7 @@ effort: xs
 created: 2026-08-11
 updated: 2026-08-11
 deliverables: [CLAUDE.md]
+adopter_visible: no
 ---
 
 # T-119 — Put the stranded paragraph under a heading that owns it
