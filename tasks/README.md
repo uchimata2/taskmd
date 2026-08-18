@@ -77,8 +77,14 @@ A label says which release the work is scheduled into. It never says the release
 | [T-148](T-148-decide-whether-a-caller-outside-a-served-skill-can-find-the-launcher.md) | Decide whether a caller outside a served skill can find the launcher | `M6` | `proposed` | `specify` | - | - | - | T-054, T-099, T-142 |
 | [T-151](T-151-decide-whether-a-check-needs-a-case-that-must-not-fire.md) | Decide whether a check needs a case that must not fire | `M6` | `proposed` | `specify` | - | - | - | T-100, T-141, T-150, T-172, T-173 |
 | [T-162](T-162-decide-whether-check-reads-a-date-shaped-field-as-a-date.md) | Decide whether check reads a date-shaped field as a date | `M6` | `proposed` | `specify` | - | - | - | T-095, T-113, T-138, T-141 |
-| [T-168](T-168-price-what-keeping-taskmd-installed-costs-a-project-with-no-tasks.md) | Price what keeping taskmd installed costs a project that has no tasks folder | `M6` | `proposed` | `specify` | - | - | - | T-166, T-167 |
 | [T-170](T-170-decide-whether-the-audit-s-upstream-rows-are-reported-to-anyone.md) | Decide whether the audit's upstream rows are reported to anyone | `M6` | `proposed` | `specify` | - | - | - | T-152 |
+| [T-174](T-174-carry-the-command-that-produced-t-168-s-figures.md) | Carry the command that produced T-168's figures into a record that can re-run it | `M6` | `proposed` | `specify` | T-168 | - | - | T-168 |
+| [T-175](T-175-observe-whether-the-skill-triggers-in-a-migrated-away-project.md) | Observe whether the skill triggers in a project that has migrated its backlog away | `M6` | `proposed` | `specify` | T-168 | - | - | T-050, T-168 |
+| [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md) | Have an uninvolved reader test the sourced survivor bullet | `M6` | `proposed` | `specify` | T-168 | - | - | T-166, T-167, T-168 |
+| [T-177](T-177-run-the-checks-that-need-no-task-folder.md) | Decide whether check runs the checks that never look at a task file | `M6` | `proposed` | `specify` | - | - | - | T-163, T-178, T-179, T-180 |
+| [T-178](T-178-give-the-github-binding-a-standing-verification.md) | Give the GitHub binding a standing verification, not only a migration-day one | `M6` | `proposed` | `specify` | - | - | - | T-041, T-108, T-177, T-179 |
+| [T-179](T-179-restore-the-ordering-rule-on-the-github-backend.md) | Restore the what-next ordering rule on the GitHub backend | `M6` | `proposed` | `specify` | - | - | - | T-022, T-108, T-177, T-178 |
+| [T-180](T-180-route-a-migrated-project-to-its-binding-not-to-adopt.md) | Route a migrated project to its binding rather than to adopt.md | `M6` | `proposed` | `specify` | - | - | - | T-163, T-164, T-177 |
 
 ## Closed
 
@@ -104,7 +110,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-019](T-019-report-a-tasks-dir-that-does-not-exist-at-setup.md) | Report a tasks_dir that does not exist at setup | `M1` | `done` | `review` | T-002 | - | - | T-003, T-006, T-023, T-024, T-025, T-078 |
 | [T-020](T-020-confirm-byte-identical-output-on-macos-and-linux.md) | Confirm byte-identical output on macOS and Linux | `M5` | `done` | `review` | T-002 | T-132 | - | T-006, T-023, T-030, T-049, T-085, T-132 |
 | [T-021](T-021-settle-what-the-context-closing-line-may-say.md) | Settle what the context closing line may say | `M2` | `done` | `review` | T-002 | - | - | T-003, T-022 |
-| [T-022](T-022-filtered-task-listing-for-scripts.md) | Filtered task listing for scripts | `M1` | `done` | `review` | - | - | - | T-003, T-007, T-021, T-029, T-031, T-032, T-070, T-071, T-073, T-086, T-087, T-102, T-113, T-120, T-132, T-143, T-144 |
+| [T-022](T-022-filtered-task-listing-for-scripts.md) | Filtered task listing for scripts | `M1` | `done` | `review` | - | - | - | T-003, T-007, T-021, T-029, T-031, T-032, T-070, T-071, T-073, T-086, T-087, T-102, T-113, T-120, T-132, T-143, T-144, T-179 |
 | [T-023](T-023-stop-config-errors-printing-an-absolute-install-path.md) | Stop config errors printing an absolute install path | `M2` | `done` | `review` | - | - | - | T-006, T-019, T-020, T-024, T-030, T-066, T-100, T-106 |
 | [T-024](T-024-say-so-when-tasks-dir-names-something-that-is-not-a-folder.md) | Say so when tasks_dir names something that is not a folder | `M2` | `done` | `review` | - | - | - | T-019, T-023, T-078 |
 | [T-025](T-025-let-check-notice-a-stale-generated-index.md) | Let check notice a stale generated index | `M2` | `done` | `review` | - | - | - | T-002, T-009, T-011, T-019, T-026, T-039, T-084, T-089, T-095, T-096, T-121, T-130, T-141 |
@@ -123,7 +129,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-038](T-038-reconcile-bindings-worked-example-with-the-real-binding.md) | Reconcile BINDING section 5's worked example with the binding it predicted | `M1` | `done` | `review` | - | - | - | T-009, T-010 |
 | [T-039](T-039-let-a-plan-name-a-deliverable-that-does-not-exist-yet.md) | Let a plan name a deliverable that does not exist yet | `M1` | `done` | `review` | - | - | - | T-010, T-025 |
 | [T-040](T-040-make-the-thirty-second-assumptions-check-real.md) | Make the thirty-second assumptions check real, or change the number | `M1` | `done` | `review` | - | - | - | T-009, T-010, T-028, T-043 |
-| [T-041](T-041-prove-the-github-bindings-body-rewrite-rule.md) | Prove the GitHub binding's body-rewrite rule by making it fail | `M1` | `done` | `review` | - | - | - | T-010, T-037, T-042, T-108 |
+| [T-041](T-041-prove-the-github-bindings-body-rewrite-rule.md) | Prove the GitHub binding's body-rewrite rule by making it fail | `M1` | `done` | `review` | - | - | - | T-010, T-037, T-042, T-108, T-178 |
 | [T-042](T-042-make-the-github-bindings-update-preserve-what-it-did-not-touch.md) | Make the GitHub binding's update preserve what it did not touch | `M1` | `done` | `review` | - | - | - | T-010, T-041, T-044 |
 | [T-043](T-043-make-every-assumption-a-claim-about-the-adopting-project.md) | Make every assumption a claim about the adopting project | `M1` | `done` | `review` | - | - | - | T-004, T-009, T-010, T-040 |
 | [T-044](T-044-state-the-gh-version-the-github-binding-requires.md) | State the gh version the GitHub binding requires | `M1` | `done` | `review` | - | - | - | T-010, T-042 |
@@ -132,7 +138,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `M2` | `done` | `review` | - | - | - | T-015, T-028, T-035, T-059, T-063, T-105, T-115, T-118, T-119 |
 | [T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md) | Say what "always-loaded" means in R-21, before the skill is built against it | `M1` | `done` | `review` | - | - | - | T-003, T-028 |
 | [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) | Demonstrate a clone running on a second platform | `M1` | `done` | `review` | T-011 | T-057, T-058 | - | T-006, T-020, T-054, T-056, T-057, T-058, T-061, T-085, T-116, T-132 |
-| [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | `M1` | `done` | `review` | T-003 | - | - | T-006, T-052, T-053, T-118, T-159 |
+| [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | `M1` | `done` | `review` | T-003 | - | - | T-006, T-052, T-053, T-118, T-159, T-175 |
 | [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | `M1` | `done` | `review` | - | - | - | T-001, T-003, T-060, T-076, T-091, T-101 |
 | [T-052](T-052-decide-what-of-claude-a-published-clone-carries.md) | Decide what of .claude a published clone carries, and ignore the rest | `M1` | `done` | `review` | - | - | - | T-003, T-006, T-050, T-053, T-067 |
 | [T-053](T-053-decide-the-plugin-s-boundary-and-what-its-skill-may-p.md) | Decide the plugin's boundary, and what its skill may point at | `M1` | `done` | `review` | - | - | - | T-003, T-006, T-050, T-052, T-054, T-059, T-064, T-067, T-072, T-083, T-103 |
@@ -189,7 +195,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md) | Say where an authorised multi-phase run is recorded | `M3` | `done` | `review` | - | - | - | T-005, T-036, T-047, T-063 |
 | [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) | Say that the shipped config cannot gain a key without breaking every project that wrote one | `M3` | `done` | `review` | - | - | - | T-001, T-011, T-023, T-100, T-137, T-138, T-146 |
 | [T-107](T-107-say-so-when-a-valid-task-file-is-parked-where-nothing-reads-it.md) | Say so when a valid task file is parked where nothing reads it | `M2` | `done` | `review` | - | - | - | T-062, T-069, T-075, T-101, T-121, T-130, T-141 |
-| [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `M6` | `done` | `review` | - | - | - | T-004, T-009, T-010, T-041, T-082, T-163, T-164, T-166 |
+| [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `M6` | `done` | `review` | - | - | - | T-004, T-009, T-010, T-041, T-082, T-163, T-164, T-166, T-178, T-179 |
 | [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md) | Decide whether a task that settles a question must be typed decision | `M2` | `done` | `review` | - | - | - | T-088, T-090, T-093, T-097, T-098, T-103, T-104, T-110, T-131 |
 | [T-110](T-110-re-group-the-open-backlog-by-the-maintainers-release-rule.md) | Re-group the open backlog by the maintainer's release rule | `M2` | `done` | `review` | - | - | - | T-026, T-086, T-109, T-124, T-125, T-128, T-136 |
 | [T-111](T-111-stop-the-index-showing-a-closed-task-as-a-live-blocker.md) | Stop the index showing a closed task as a live blocker | `M2` | `done` | `review` | - | - | - | T-102 |
@@ -238,11 +244,12 @@ A label says which release the work is scheduled into. It never says the release
 | [T-159](T-159-observe-whether-a-block-comment-reaches-a-session.md) | Observe whether a block comment in CLAUDE.md reaches a session | `M6` | `done` | `review` | T-153 | - | - | T-050, T-155, T-160 |
 | [T-160](T-160-retire-the-budget-check-s-unobserved-premise-warning.md) | Retire the budget check's unobserved-premise warning, now that it is observed | `M6` | `done` | `review` | T-153 | - | - | T-159, T-161 |
 | [T-161](T-161-give-the-entry-point-comments-pointer-a-reader.md) | Give the entry-point comments' pointer a reader | `M6` | `done` | `review` | T-142 | - | - | T-064, T-099, T-139, T-142, T-160 |
-| [T-163](T-163-tell-a-migrated-project-what-taskmd-still-provides.md) | Tell a migrated project what taskmd still provides, without judging whether it should stay | `M6` | `done` | `review` | - | T-165 | - | T-108, T-164, T-166, T-167 |
-| [T-164](T-164-say-something-truthful-when-a-migrated-project-runs-a-command.md) | Say something truthful when a migrated project runs one of the four commands | `M6` | `done` | `review` | - | - | - | T-108, T-163 |
+| [T-163](T-163-tell-a-migrated-project-what-taskmd-still-provides.md) | Tell a migrated project what taskmd still provides, without judging whether it should stay | `M6` | `done` | `review` | - | T-165 | - | T-108, T-164, T-166, T-167, T-177, T-180 |
+| [T-164](T-164-say-something-truthful-when-a-migrated-project-runs-a-command.md) | Say something truthful when a migrated project runs one of the four commands | `M6` | `done` | `review` | - | - | - | T-108, T-163, T-180 |
 | [T-165](T-165-have-an-uninvolved-reader-test-the-post-migration-listing.md) | Have an uninvolved reader test the post-migration listing | `M6` | `done` | `review` | T-163 | - | - | T-166, T-167 |
-| [T-166](T-166-ground-the-post-migration-listing-s-survivor-claims.md) | Stop the post-migration listing framing toward keeping taskmd | `M6` | `done` | `review` | - | - | - | T-108, T-163, T-165, T-167, T-168 |
-| [T-167](T-167-stop-the-listing-pricing-only-the-rival.md) | Stop the post-migration listing pricing only the rival skill | `M6` | `cancelled` | `specify` | - | - | - | T-163, T-165, T-166, T-168 |
+| [T-166](T-166-ground-the-post-migration-listing-s-survivor-claims.md) | Stop the post-migration listing framing toward keeping taskmd | `M6` | `done` | `review` | - | - | - | T-108, T-163, T-165, T-167, T-168, T-176 |
+| [T-167](T-167-stop-the-listing-pricing-only-the-rival.md) | Stop the post-migration listing pricing only the rival skill | `M6` | `cancelled` | `specify` | - | - | - | T-163, T-165, T-166, T-168, T-176 |
+| [T-168](T-168-price-what-keeping-taskmd-installed-costs-a-project-with-no-tasks.md) | Price what keeping taskmd installed costs a project that has no tasks folder | `M6` | `done` | `review` | - | T-174, T-175, T-176 | - | T-166, T-167, T-174, T-175, T-176 |
 | [T-169](T-169-decide-whether-tier-1-s-prose-about-itself-moves-into-a-path-scoped-rule.md) | Decide whether tier 1's prose about itself moves into a path-scoped rule | `M6` | `done` | `review` | T-155 | T-171 | - | T-118, T-153 |
 | [T-171](T-171-test-whether-the-hook-can-see-a-path-scoped-rule.md) | Test whether the InstructionsLoaded hook can see a path-scoped rule | `M6` | `done` | `review` | T-169 | - | - | T-155, T-172 |
 | [T-172](T-172-catch-a-template-placeholder-left-in-a-finished-record.md) | Catch a template placeholder left in a finished record | `M6` | `done` | `review` | - | - | - | T-032, T-151, T-171, T-173 |

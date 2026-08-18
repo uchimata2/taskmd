@@ -400,7 +400,12 @@ They do not degrade, warn, or fall back. They stop.
   six operations were run end to end against a real repository at 165 tasks, and the verification
   caught a deliberately broken run before it passed a clean one — *What this procedure has been run
   against*, above.
-- **The skill** that routes an agent through them.
+- **The skill** that routes an agent through them. Measured on 2026-08-18 against two migrated
+  projects of this shape, read from those sessions' own records rather than from the install: it is
+  served to every session started after it was installed, at **414 characters** in the skill
+  listing, and that is its standing cost until something invokes it. **Whether it still triggers
+  there is unobserved** — across those 11 sessions none asked for task work in ordinary words, so
+  nothing put the description to the test, and a zero drawn from that is not a negative.
 - **Your schema config** — still the vocabulary, and now the source of the label names.
 
 ### What is gone and has no replacement here
