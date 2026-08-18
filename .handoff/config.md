@@ -74,7 +74,10 @@ questions. Tasks cite the requirements they serve, so coverage is derived rather
 
 **The plugin now has users outside this repository** — four projects as of 2026-08-09, labelled in
 `control/LOCAL-CONTEXT.md`; three run it, and the fourth was assessed against the GitHub binding and
-does not adopt it. Expect an adopter to find in a day what this repository's habits had hidden for a
+does not adopt it. **Re-counted 2026-08-18 and the roster was one short**: four sibling checkouts
+carry their own `.taskmd/config.md`, of which two are validating local task files, and one of the
+four had no row at all. Both figures, and why they answer different questions, are in that file —
+do not carry either number around in prose. Expect an adopter to find in a day what this repository's habits had hidden for a
 week: route what they report into tasks, not into notes, and treat a migration report as evidence
 rather than as a feature request. **A written report is worth working straight through.** The first
 adopting project delivered seven recommendations on 2026-08-10; all seven closed the same day, they
