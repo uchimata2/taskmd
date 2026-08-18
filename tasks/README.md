@@ -83,6 +83,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) | Write the next release note to the rule and say what it caught | `M6` | `proposed` | `specify` | T-135 | - | T-125, T-127, T-133 |
 | [T-184](T-184-report-a-date-shaped-value-that-is-not-a-date.md) | Report a date-shaped value that is not a date | `M6` | `proposed` | `specify` | T-162 | - | T-106, T-146 |
 | [T-185](T-185-run-the-document-checks-in-a-project-whose-tasks-moved.md) | Run the document checks in a project whose tasks moved | `M6` | `proposed` | `specify` | T-177 | - | T-095, T-108, T-178 |
+| [T-186](T-186-run-the-leak-check-in-the-suite-not-only-at-publication.md) | Run the leak check in the suite, not only at publication | `M6` | `proposed` | `specify` | - | - | T-034, T-058, T-080, T-126, T-183 |
 
 ## Closed
 
@@ -121,7 +122,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-031](T-031-give-the-list-rationale-one-home.md) | Give the list rationale one home | `M2` | `done` | `review` | T-026 | - | T-022, T-027, T-102, T-117, T-134 |
 | [T-032](T-032-repair-the-audit-template-and-validate-templates.md) | Repair the audit template, and validate templates at all | `M2` | `done` | `review` | T-026 | - | T-003, T-022, T-036, T-060, T-076, T-088, T-089, T-090, T-091, T-101, T-150, T-172 |
 | [T-033](T-033-resolve-the-f1-reference-inside-this-repository.md) | Resolve the F1 reference inside this repository | `M2` | `done` | `review` | T-026 | - | T-005, T-013 |
-| [T-034](T-034-let-the-pre-publish-check-see-files-not-yet-tracked.md) | Let the pre-publish check see files not yet tracked | `M1` | `done` | `review` | T-026 | - | T-006, T-013, T-018, T-035, T-058, T-080, T-092, T-094, T-095, T-097, T-098, T-183 |
+| [T-034](T-034-let-the-pre-publish-check-see-files-not-yet-tracked.md) | Let the pre-publish check see files not yet tracked | `M1` | `done` | `review` | T-026 | - | T-006, T-013, T-018, T-035, T-058, T-080, T-092, T-094, T-095, T-097, T-098, T-183, T-186 |
 | [T-035](T-035-warn-that-a-fabricated-specimen-must-not-cross-a-shell.md) | Warn that a fabricated specimen must not cross a shell | `M2` | `done` | `review` | - | - | T-013, T-018, T-034, T-047, T-058, T-118 |
 | [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | `M2` | `done` | `review` | - | - | T-026, T-032, T-105 |
 | [T-037](T-037-delete-the-throwaway-proof-repository.md) | Delete the throwaway repository the GitHub binding was proven on | `M1` | `done` | `review` | - | - | T-010, T-041, T-077 |
@@ -145,7 +146,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-055](T-055-settle-what-the-tool-calls-itself-when-it-prints-its-o.md) | Settle what the tool calls itself when it prints its own usage | `M1` | `done` | `review` | T-054 | - | T-029, T-054, T-071, T-099, T-134 |
 | [T-056](T-056-make-the-shell-launcher-executable-in-a-unix-clone.md) | Make the shell launcher executable in a Unix clone | `M1` | `done` | `review` | T-054 | - | T-011, T-049, T-054, T-061 |
 | [T-057](T-057-let-the-hook-tests-name-an-interpreter-that-exists.md) | Let the hook tests name an interpreter that exists on the platform | `M1` | `done` | `review` | T-049 | - | T-011, T-049 |
-| [T-058](T-058-say-that-a-four-part-version-trips-the-leak-check.md) | Say that a four-part version number trips the leak check | `M1` | `done` | `review` | T-049 | - | T-018, T-034, T-035, T-049, T-080 |
+| [T-058](T-058-say-that-a-four-part-version-trips-the-leak-check.md) | Say that a four-part version number trips the leak check | `M1` | `done` | `review` | T-049 | - | T-018, T-034, T-035, T-049, T-080, T-186 |
 | [T-059](T-059-audit-the-whole-project-after-the-plugin-restructure.md) | Audit the whole project after the plugin restructure | `M1` | `done` | `review` | - | T-060, T-061, T-062, T-063, T-064, T-065, T-066, T-067, T-068, T-069, T-070, T-071, T-072, T-073, T-074, T-075 | T-004, T-006, T-026, T-047, T-053 |
 | [T-060](T-060-point-the-task-templates-at-paths-that-exist.md) | Point the task templates at paths that exist | `M1` | `done` | `review` | T-059 | - | T-032, T-051, T-076, T-091 |
 | [T-061](T-061-stop-an-inherited-pythonpath-breaking-the-launcher.md) | Stop an inherited PYTHONPATH breaking the shell launcher | `M1` | `done` | `review` | T-059 | - | T-049, T-056, T-068 |
@@ -167,7 +168,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-077](T-077-delete-the-rehearsal-repository-t-067-installed-from.md) | Delete the rehearsal repository T-067 installed from | `M1` | `done` | `review` | - | - | T-037, T-067 |
 | [T-078](T-078-say-what-a-tasks-dir-of-dot-means.md) | Say what a tasks_dir of dot means | `M2` | `done` | `review` | - | - | T-019, T-024, T-069 |
 | [T-079](T-079-humanize-the-human-facing-documents-before-publishing.md) | Humanize the human-facing documents before publishing | `M1` | `done` | `review` | - | - | T-081, T-125, T-126, T-127, T-133 |
-| [T-080](T-080-stop-the-pre-publish-check-reporting-its-own-fixture.md) | Stop the pre-publish check reporting its own fixture from a subdirectory | `M1` | `done` | `review` | - | - | T-018, T-034, T-058, T-081, T-095, T-098, T-183 |
+| [T-080](T-080-stop-the-pre-publish-check-reporting-its-own-fixture.md) | Stop the pre-publish check reporting its own fixture from a subdirectory | `M1` | `done` | `review` | - | - | T-018, T-034, T-058, T-081, T-095, T-098, T-183, T-186 |
 | [T-081](T-081-gate-every-deployment-on-the-humanizer-pass.md) | Gate every deployment on the humanizer pass, not just the next one | `M1` | `done` | `review` | - | - | T-079, T-080, T-125, T-126, T-127, T-133 |
 | [T-082](T-082-let-id-width-say-the-backend-allocates-the-ids.md) | Let id_width say that the backend allocates the ids | `M2` | `done` | `review` | T-004 | - | T-010, T-075, T-108, T-123, T-137 |
 | [T-083](T-083-make-the-skill-directory-self-contained.md) | Make the skill directory self-contained | `M1` | `done` | `review` | - | - | T-053, T-054, T-064, T-084, T-099, T-103 |
@@ -212,7 +213,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-123](T-123-decide-whether-a-replaced-vocabulary-row-is-drift.md) | Decide whether a replaced vocabulary row is drift or a choice | `M2` | `done` | `review` | - | - | T-082 |
 | [T-124](T-124-stop-a-test-asserting-this-repository-has-open-v0-2-work.md) | Stop a test asserting this repository has open M2 work | `M2` | `done` | `review` | - | - | T-087, T-110 |
 | [T-125](T-125-ship-the-completed-v0-2-work-as-0-4-0.md) | Ship the completed M2 work as 0.4.0 | `M2` | `done` | `review` | - | - | T-006, T-079, T-081, T-110, T-126, T-127, T-128, T-129, T-133, T-135, T-136, T-182 |
-| [T-126](T-126-catch-dash-gate-drift-before-publication-rather-than-at-it.md) | Catch dash-gate drift before publication rather than at it | `M5` | `done` | `review` | - | - | T-079, T-081, T-115, T-125, T-127, T-129, T-133, T-134 |
+| [T-126](T-126-catch-dash-gate-drift-before-publication-rather-than-at-it.md) | Catch dash-gate drift before publication rather than at it | `M5` | `done` | `review` | - | - | T-079, T-081, T-115, T-125, T-127, T-129, T-133, T-134, T-186 |
 | [T-127](T-127-decide-whether-a-release-note-is-text-a-stranger-reads.md) | Decide whether a release note is text a stranger reads | `M5` | `done` | `review` | - | - | T-079, T-081, T-125, T-126, T-129, T-133, T-135, T-182 |
 | [T-128](T-128-make-a-milestone-name-the-release-it-ships-in.md) | Make a milestone name the release it ships in | `M5` | `done` | `review` | - | - | T-086, T-110, T-125, T-135, T-136 |
 | [T-129](T-129-release-v0-5.md) | Release M5 | `M5` | `done` | `review` | - | - | T-085, T-125, T-126, T-127, T-133, T-135 |
@@ -258,6 +259,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-173](T-173-decide-whether-check-can-know-a-phase-without-breaking-every-adopter.md) | Decide whether check can know a phase without breaking every adopter | `M6` | `done` | `review` | - | - | T-146, T-151, T-172 |
 | [T-177](T-177-run-the-checks-that-need-no-task-folder.md) | Decide whether check runs the checks that never look at a task file | `M6` | `done` | `review` | - | T-185 | T-163, T-178, T-179, T-180 |
 | [T-180](T-180-route-a-migrated-project-to-its-binding-not-to-adopt.md) | Route a migrated project to its binding rather than to adopt.md | `M6` | `done` | `review` | - | - | T-163, T-164, T-177 |
-| [T-183](T-183-decide-what-to-do-about-a-machine-block-already-published-in-t-085.md) | Decide what to do about a machine block already published in T-085 | `M6` | `done` | `review` | - | - | T-034, T-080, T-085, T-133 |
+| [T-183](T-183-decide-what-to-do-about-a-machine-block-already-published-in-t-085.md) | Decide what to do about a machine block already published in T-085 | `M6` | `done` | `review` | - | - | T-034, T-080, T-085, T-133, T-186 |
 
 <!-- taskmd:end -->
