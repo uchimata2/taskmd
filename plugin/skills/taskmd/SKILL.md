@@ -42,8 +42,8 @@ binding supplies the operations instead — and everything below is unchanged, w
 | :--- | :--- |
 | [`docs/METHOD.md`](docs/METHOD.md) | Now, before doing anything to a task. It is the method. |
 | the phase file it names in its §7 | Beginning that phase |
-| this project's binding, in [`docs/bindings/`](docs/bindings/) | Beginning any phase — all four end in a write to the record, so there is no phase that skips this. It says which artifact plays each role here, and what a write still owes afterwards. |
-| [`adopt.md`](adopt.md) | The project has no tasks yet, or a command reports its task folder missing |
+| this project's binding, in [`docs/bindings/`](docs/bindings/) | Beginning any phase — all four end in a write to the record, so there is no phase that skips this. It says which artifact plays each role here, and what a write still owes afterwards. **Also when a command reports the task folder missing**: that is usually a project whose tasks moved to another backend, and its binding is the document that says what moved and what is gone. |
+| [`adopt.md`](adopt.md) | The project has no tasks yet |
 | [`docs/HANDOFF.md`](docs/HANDOFF.md) | Configuring the handoff skill to resume into this project, or a handoff run cannot resolve its tracker |
 
 A write is not finished until the binding's *after any write* step has run, and it is yours to run —

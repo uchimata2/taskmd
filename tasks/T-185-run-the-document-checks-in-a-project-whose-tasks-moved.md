@@ -1,0 +1,101 @@
+---
+id: T-185
+title: Run the document checks in a project whose tasks moved
+type: fix
+status: proposed
+phase: specify
+parent: T-177
+blocked_by: []
+related: [T-095, T-108, T-178]
+work_package: M6
+owner: the project owner
+business_value: high
+effort: m
+created: 2026-08-18
+updated: 2026-08-18
+adopter_visible: yes
+deliverables: []
+---
+
+# T-185 — Run the document checks in a project whose tasks moved
+
+## 1. Specify
+
+**Outcome**
+`check` in a migrated project reports what it can still check, refuses only what needs a task file,
+and says plainly that the task half was not examined.
+
+**Why this one**
+[T-177](T-177-run-the-checks-that-need-no-task-folder.md) ruled that it should, and measured what it
+buys: two dead links and a config advisory in a migrated project that today gets `CONFIG ERROR` and
+exit 2. The ruling, its three rejections and the evidence are there and are not repeated here.
+
+**The ruling is conditional, and the condition is the risky half.** T-177 answered *no, a
+document-only pass does not mislead* **only** on the basis that the `Scope` line gains what it
+currently has no words for. As it stands the line says *every document read*, which is true and reads
+as *everything checked* — to a reader who has just been handed real defects. Shipping the first half
+without the second turns a refusal into a false assurance, which is worse than the behaviour it
+replaces.
+
+**Scope**
+- In: moving the `tasks_dir` guard so the five no-`tasks` checks run when `id_width: none`.
+- In: the `Scope` line saying the task half was not checked, and why.
+- In: the exit status for such a run.
+- Out: a mistyped `tasks_dir`. It keeps refusing — T-177 part 2.
+- Out: a fifth command or a `--documents-only` flag. Both rejected by T-177.
+- Out: re-opening the ruling.
+
+**Inputs**
+- [T-177](T-177-run-the-checks-that-need-no-task-folder.md) §3 — the ruling in three parts
+- `plugin/skills/taskmd/taskmd/schema.py` — `_check_tasks_dir`, and `load_schema` which calls it
+- `plugin/skills/taskmd/taskmd/cli.py` — `cmd_check` and the five signatures without `tasks`
+- `tests/fixtures/migrated-away/` — **which holds a config and no documents**, and so cannot test
+  this. T-177 had to build one; this task needs the fixture to grow or a sibling beside it
+- [T-095](T-095-report-what-check-examined-not-only-that-it-passed.md) — the `Scope` line's own task
+
+**Acceptance criteria**
+- [ ] A migrated project reports document-level problems that a clean one does not — shown by a
+      fixture carrying a real defect, failing before the fix
+- [ ] A mistyped `tasks_dir` still exits 2 with the message it has today, proven by the existing
+      `broken-tasks-dir` fixture still passing
+- [ ] The output states that the task half was not checked, in a form a reader meets without looking
+      for it. A run whose only signal is the absence of task counts does not satisfy this
+- [ ] The exit status for a clean document-only run is stated and justified — a pass is not obviously
+      right when a third of the validator did not run
+- [ ] The `migrated-away` fixture holds documents, so this behaviour is testable at all
+- [ ] No new command and no new flag
+
+**Open questions**
+- **What exit status does a clean document-only run take?** `0` reads as validated and is what
+  criterion 4 is suspicious of; a distinct non-zero code says *incomplete* but makes every migrated
+  project's gate red for ever. T-177 did not settle this and marked it out of its own scope.
+
+## 2. Plan
+
+| # | Step | Output |
+| :-- | :--- | :--- |
+| 1 |  |  |
+| 2 |  |  |
+
+## 3. Implement
+
+**Decisions & assumptions**
+- <decision — rationale — date>
+
+**Outputs produced**
+- <path>
+
+## 4. Review
+
+| Acceptance criterion | Result | Note |
+| :--- | :---: | :--- |
+|  |  |  |
+
+**Child fix tasks raised**
+- none
+
+## Log
+
+| Date | Status change | Note |
+| :--- | :--- | :--- |
+| 2026-08-18 | → proposed | Raised by [T-177](T-177-run-the-checks-that-need-no-task-folder.md)'s review. **Carries T-177's condition as its own risk**: the loader change without the `Scope` change is a false assurance, so the two ship together or not at all. One genuinely open question — the exit status of a clean document-only run — which is why this is not simply the code T-177 declined to write. Outside the standing grant of 2026-08-18, which covers the six named tasks and nothing any of them raises. |

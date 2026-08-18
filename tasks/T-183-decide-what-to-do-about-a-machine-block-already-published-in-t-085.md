@@ -33,8 +33,8 @@ been for some time.** It printed four hits; two are known false positives and tw
 
 | Hit | Reading |
 | :--- | :--- |
-| T-085 §3, two lines: a `user` name, `home /home/<name>`, and an OS version | **A real hit.** This is the category `CLAUDE.md` forbids by name — OS usernames, home directories, machine and OS specifics |
-| T-129, `6.18.33.2` in a kernel version | False positive. The record itself says so |
+| T-085 §3, two lines: a `user` name, a home-directory path naming it, and an OS version | **A real hit.** This is the category `CLAUDE.md` forbids by name — OS usernames, home directories, machine and OS specifics |
+| T-129, a four-part kernel version quoted in prose | False positive. The record itself says so |
 | T-142, the scan's own patterns quoted in prose | False positive, and structural: a document describing the checker trips the checker |
 
 **The block is already public.** T-085 was committed and pushed well before this was noticed, so the
@@ -50,6 +50,10 @@ answered for a release note and which METHOD rule 5 bears on directly.
 2. Whether a task record may be edited to remove it. Task files are an audit trail, and §1 of
    `docs/PUBLISHING.md` excludes them from rewriting for exactly that reason.
 3. Whether history is rewritten. It is a published repository with adopters pulling from it.
+
+**Described, never reproduced.** The rows above name the shapes without writing either of them
+out, because quoting a scanner's match trips the scanner — this record would otherwise have
+added two hits to the output it exists to clean up.
 
 **The half that is not a judgement call**: while the two false positives stay unlabelled, §6's
 "it must print nothing" is unreachable, so the check gets read as *noisy* rather than *failing*. That

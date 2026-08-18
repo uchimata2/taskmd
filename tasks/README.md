@@ -71,21 +71,19 @@ A label says which release the work is scheduled into. It never says the release
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `M6` | `proposed` | `specify` | - | - | T-092, T-095, T-109 |
 | [T-131](T-131-decide-whether-a-question-heavy-task-is-a-different-kind-of-work.md) | Decide whether a question-heavy task is a different kind of work | `M6` | `proposed` | `specify` | - | - | T-088, T-109, T-130 |
-| [T-143](T-143-decide-whether-tier-1-names-the-generated-index-at-all.md) | Decide whether tier 1 names the generated index at all | `M6` | `proposed` | `specify` | - | - | T-022, T-028, T-087, T-118, T-152, T-158 |
 | [T-148](T-148-decide-whether-a-caller-outside-a-served-skill-can-find-the-launcher.md) | Decide whether a caller outside a served skill can find the launcher | `M6` | `proposed` | `specify` | - | - | T-054, T-099, T-142 |
 | [T-151](T-151-decide-whether-a-check-needs-a-case-that-must-not-fire.md) | Decide whether a check needs a case that must not fire | `M6` | `proposed` | `specify` | - | - | T-100, T-141, T-150, T-172, T-173 |
-| [T-162](T-162-decide-whether-check-reads-a-date-shaped-field-as-a-date.md) | Decide whether check reads a date-shaped field as a date | `M6` | `proposed` | `specify` | - | - | T-095, T-113, T-138, T-141 |
 | [T-170](T-170-decide-whether-the-audit-s-upstream-rows-are-reported-to-anyone.md) | Decide whether the audit's upstream rows are reported to anyone | `M6` | `proposed` | `specify` | - | - | T-152 |
 | [T-174](T-174-carry-the-command-that-produced-t-168-s-figures.md) | Carry the command that produced T-168's figures into a record that can re-run it | `M6` | `proposed` | `specify` | T-168 | - | T-168 |
 | [T-175](T-175-observe-whether-the-skill-triggers-in-a-migrated-away-project.md) | Observe whether the skill triggers in a project that has migrated its backlog away | `M6` | `proposed` | `specify` | T-168 | - | T-050, T-168 |
 | [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md) | Have an uninvolved reader test the sourced survivor bullet | `M6` | `proposed` | `specify` | T-168 | - | T-166, T-167, T-168 |
-| [T-177](T-177-run-the-checks-that-need-no-task-folder.md) | Decide whether check runs the checks that never look at a task file | `M6` | `proposed` | `specify` | - | - | T-163, T-178, T-179, T-180 |
-| [T-178](T-178-give-the-github-binding-a-standing-verification.md) | Give the GitHub binding a standing verification, not only a migration-day one | `M6` | `proposed` | `specify` | - | - | T-041, T-108, T-177, T-179 |
+| [T-178](T-178-give-the-github-binding-a-standing-verification.md) | Give the GitHub binding a standing verification, not only a migration-day one | `M6` | `proposed` | `specify` | - | - | T-041, T-108, T-177, T-179, T-185 |
 | [T-179](T-179-restore-the-ordering-rule-on-the-github-backend.md) | Restore the what-next ordering rule on the GitHub backend | `M6` | `proposed` | `specify` | - | - | T-022, T-108, T-177, T-178 |
-| [T-180](T-180-route-a-migrated-project-to-its-binding-not-to-adopt.md) | Route a migrated project to its binding rather than to adopt.md | `M6` | `proposed` | `specify` | - | - | T-163, T-164, T-177 |
 | [T-181](T-181-verify-the-handoff-github-recipe-on-a-live-issues-backed-project.md) | Verify the handoff GitHub recipe against a live issues-backed project | `M6` | `proposed` | `specify` | T-005 | - | T-108 |
 | [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) | Write the next release note to the rule and say what it caught | `M6` | `proposed` | `specify` | T-135 | - | T-125, T-127, T-133 |
 | [T-183](T-183-decide-what-to-do-about-a-machine-block-already-published-in-t-085.md) | Decide what to do about a machine block already published in T-085 | `M6` | `proposed` | `specify` | - | - | T-034, T-080, T-085, T-133 |
+| [T-184](T-184-report-a-date-shaped-value-that-is-not-a-date.md) | Report a date-shaped value that is not a date | `M6` | `proposed` | `specify` | T-162 | - | T-106, T-146 |
+| [T-185](T-185-run-the-document-checks-in-a-project-whose-tasks-moved.md) | Run the document checks in a project whose tasks moved | `M6` | `proposed` | `specify` | T-177 | - | T-095, T-108, T-178 |
 
 ## Closed
 
@@ -184,7 +182,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-091](T-091-make-the-shipped-task-template-survive-being-copied.md) | Make the shipped task template survive being copied into another project | `M2` | `done` | `review` | - | - | T-032, T-051, T-060, T-076, T-097, T-101, T-112, T-114 |
 | [T-092](T-092-decide-whether-a-bare-path-in-prose-is-a-reference.md) | Decide whether a bare path in prose is a reference check must resolve | `M2` | `done` | `review` | - | - | T-034, T-093, T-094, T-095, T-097, T-103, T-112 |
 | [T-094](T-094-make-check-answer-the-question-a-fresh-clone-would-ask.md) | Make check answer the question a fresh clone would ask | `M2` | `done` | `review` | - | - | T-013, T-034, T-092, T-095, T-097, T-098 |
-| [T-095](T-095-report-what-check-examined-not-only-that-it-passed.md) | Report what check examined, not only that it passed | `M2` | `done` | `review` | - | T-096 | T-025, T-034, T-080, T-092, T-093, T-094, T-098, T-100, T-101, T-112, T-130, T-141, T-147, T-162 |
+| [T-095](T-095-report-what-check-examined-not-only-that-it-passed.md) | Report what check examined, not only that it passed | `M2` | `done` | `review` | - | T-096 | T-025, T-034, T-080, T-092, T-093, T-094, T-098, T-100, T-101, T-112, T-130, T-141, T-147, T-162, T-185 |
 | [T-096](T-096-decide-whether-a-narrower-walk-of-a-counted-class-needs-its-own-number.md) | Decide whether a narrower walk of a counted class needs its own number | `M2` | `done` | `review` | T-095 | - | T-025, T-121 |
 | [T-097](T-097-decide-whether-a-published-document-may-point-at-a-file-no-clone-receives.md) | Decide whether a published document may point at a file no clone receives | `M2` | `done` | `review` | - | - | T-013, T-034, T-091, T-092, T-094, T-109 |
 | [T-098](T-098-decide-who-checks-the-links-in-a-document-only-a-successor-reads.md) | Decide who checks the links in a document only a successor reads | `M2` | `done` | `review` | - | - | T-002, T-034, T-080, T-094, T-095, T-109 |
@@ -195,9 +193,9 @@ A label says which release the work is scheduled into. It never says the release
 | [T-103](T-103-say-whether-a-closed-task-s-declared-output-may-be-repointed.md) | Say whether a closed task's declared output may be repointed when the file moves | `M3` | `done` | `review` | - | - | T-053, T-076, T-083, T-089, T-090, T-092, T-104, T-109 |
 | [T-104](T-104-say-whether-the-method-has-an-opinion-on-where-a-decision-is-recorded.md) | Say whether the method has an opinion on where a decision is recorded | `M3` | `done` | `review` | - | - | T-008, T-076, T-088, T-103, T-109 |
 | [T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md) | Say where an authorised multi-phase run is recorded | `M3` | `done` | `review` | - | - | T-005, T-036, T-047, T-063 |
-| [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) | Say that the shipped config cannot gain a key without breaking every project that wrote one | `M3` | `done` | `review` | - | - | T-001, T-011, T-023, T-100, T-137, T-138, T-146 |
+| [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) | Say that the shipped config cannot gain a key without breaking every project that wrote one | `M3` | `done` | `review` | - | - | T-001, T-011, T-023, T-100, T-137, T-138, T-146, T-184 |
 | [T-107](T-107-say-so-when-a-valid-task-file-is-parked-where-nothing-reads-it.md) | Say so when a valid task file is parked where nothing reads it | `M2` | `done` | `review` | - | - | T-062, T-069, T-075, T-101, T-121, T-130, T-141 |
-| [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `M6` | `done` | `review` | - | - | T-004, T-009, T-010, T-041, T-082, T-163, T-164, T-166, T-178, T-179, T-181 |
+| [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `M6` | `done` | `review` | - | - | T-004, T-009, T-010, T-041, T-082, T-163, T-164, T-166, T-178, T-179, T-181, T-185 |
 | [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md) | Decide whether a task that settles a question must be typed decision | `M2` | `done` | `review` | - | - | T-088, T-090, T-093, T-097, T-098, T-103, T-104, T-110, T-131 |
 | [T-110](T-110-re-group-the-open-backlog-by-the-maintainers-release-rule.md) | Re-group the open backlog by the maintainer's release rule | `M2` | `done` | `review` | - | - | T-026, T-086, T-109, T-124, T-125, T-128, T-136 |
 | [T-111](T-111-stop-the-index-showing-a-closed-task-as-a-live-blocker.md) | Stop the index showing a closed task as a live blocker | `M2` | `done` | `review` | - | - | T-102 |
@@ -231,9 +229,10 @@ A label says which release the work is scheduled into. It never says the release
 | [T-140](T-140-restore-the-log-row-a-table-cell-swallowed.md) | Restore the log row a table cell swallowed in T-099 | `M6` | `done` | `review` | - | - | T-099, T-141 |
 | [T-141](T-141-report-a-table-row-with-more-cells-than-its-header.md) | Report a table row with more cells than its header | `M6` | `done` | `review` | - | - | T-025, T-095, T-107, T-121, T-139, T-140, T-147, T-150, T-151, T-162 |
 | [T-142](T-142-stop-the-entry-point-stating-the-path-mechanism-as-given.md) | Stop the entry point stating the PATH mechanism as given | `M6` | `done` | `review` | - | T-161 | T-054, T-085, T-099, T-148, T-153, T-161 |
+| [T-143](T-143-decide-whether-tier-1-names-the-generated-index-at-all.md) | Decide whether tier 1 names the generated index at all | `M6` | `done` | `review` | - | - | T-022, T-028, T-087, T-118, T-152, T-158 |
 | [T-144](T-144-decide-whether-a-commands-own-options-can-be-discovered-from-the-cli.md) | Decide whether a command's own options can be discovered from the CLI | `M6` | `done` | `review` | - | - | T-022, T-029, T-087, T-113, T-145, T-149 |
 | [T-145](T-145-stop-help-answering-for-a-command-that-does-not-exist.md) | Stop --help answering for a command that does not exist | `M6` | `done` | `review` | - | - | T-029, T-113, T-120, T-144 |
-| [T-146](T-146-decide-whether-a-field-can-be-required-at-a-status.md) | Decide whether a field can be required at a status | `M6` | `done` | `review` | - | - | T-065, T-089, T-100, T-106, T-173 |
+| [T-146](T-146-decide-whether-a-field-can-be-required-at-a-status.md) | Decide whether a field can be required at a status | `M6` | `done` | `review` | - | - | T-065, T-089, T-100, T-106, T-173, T-184 |
 | [T-147](T-147-check-that-a-quoted-command-output-is-output-the-tool-produces.md) | Check that a quoted command output is output the tool produces | `M6` | `done` | `review` | - | - | T-095, T-134, T-139, T-141 |
 | [T-149](T-149-check-that-every-prose-list-of-lists-options-names-the-options-there-are.md) | Check that every prose list of list's options names the options there are | `M6` | `done` | `review` | - | - | T-117, T-134, T-139, T-144 |
 | [T-150](T-150-give-the-wide-row-fixture-a-front-matter-that-carries-pipes.md) | Give the wide-row fixture a front matter that carries pipes | `M6` | `done` | `review` | - | - | T-032, T-141, T-151 |
@@ -247,6 +246,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-159](T-159-observe-whether-a-block-comment-reaches-a-session.md) | Observe whether a block comment in CLAUDE.md reaches a session | `M6` | `done` | `review` | T-153 | - | T-050, T-155, T-160 |
 | [T-160](T-160-retire-the-budget-check-s-unobserved-premise-warning.md) | Retire the budget check's unobserved-premise warning, now that it is observed | `M6` | `done` | `review` | T-153 | - | T-159, T-161 |
 | [T-161](T-161-give-the-entry-point-comments-pointer-a-reader.md) | Give the entry-point comments' pointer a reader | `M6` | `done` | `review` | T-142 | - | T-064, T-099, T-139, T-142, T-160 |
+| [T-162](T-162-decide-whether-check-reads-a-date-shaped-field-as-a-date.md) | Decide whether check reads a date-shaped field as a date | `M6` | `done` | `review` | - | T-184 | T-095, T-113, T-138, T-141 |
 | [T-163](T-163-tell-a-migrated-project-what-taskmd-still-provides.md) | Tell a migrated project what taskmd still provides, without judging whether it should stay | `M6` | `done` | `review` | - | T-165 | T-108, T-164, T-166, T-167, T-177, T-180 |
 | [T-164](T-164-say-something-truthful-when-a-migrated-project-runs-a-command.md) | Say something truthful when a migrated project runs one of the four commands | `M6` | `done` | `review` | - | - | T-108, T-163, T-180 |
 | [T-165](T-165-have-an-uninvolved-reader-test-the-post-migration-listing.md) | Have an uninvolved reader test the post-migration listing | `M6` | `done` | `review` | T-163 | - | T-166, T-167 |
@@ -257,5 +257,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-171](T-171-test-whether-the-hook-can-see-a-path-scoped-rule.md) | Test whether the InstructionsLoaded hook can see a path-scoped rule | `M6` | `done` | `review` | T-169 | - | T-155, T-172 |
 | [T-172](T-172-catch-a-template-placeholder-left-in-a-finished-record.md) | Catch a template placeholder left in a finished record | `M6` | `done` | `review` | - | - | T-032, T-151, T-171, T-173 |
 | [T-173](T-173-decide-whether-check-can-know-a-phase-without-breaking-every-adopter.md) | Decide whether check can know a phase without breaking every adopter | `M6` | `done` | `review` | - | - | T-146, T-151, T-172 |
+| [T-177](T-177-run-the-checks-that-need-no-task-folder.md) | Decide whether check runs the checks that never look at a task file | `M6` | `done` | `review` | - | T-185 | T-163, T-178, T-179, T-180 |
+| [T-180](T-180-route-a-migrated-project-to-its-binding-not-to-adopt.md) | Route a migrated project to its binding rather than to adopt.md | `M6` | `done` | `review` | - | - | T-163, T-164, T-177 |
 
 <!-- taskmd:end -->

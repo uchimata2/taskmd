@@ -10,7 +10,8 @@ consulting project; `reference/` is that code.
 
 **Read in this order:** [`docs/SCOPE.md`](docs/SCOPE.md) — the goal, the numbered requirements and
 what is explicitly **out** of scope — then [`docs/BRIEF.md`](docs/BRIEF.md) for the problem evidence
-and the measured prior art behind them. `tasks/README.md` is the generated backlog.
+and the measured prior art behind them. `tasks/README.md` is the generated backlog — a view for
+people; a session asks the taskmd skill instead of reading it.
 
 **Run the commands here as `./plugin/bin/taskmd <cmd>`, or `.\plugin\bin\taskmd.cmd <cmd>` on
 Windows**: the shipped entry point, invoked by path because this machine's shell snapshot drops the

@@ -417,6 +417,16 @@ move and they are already paid whatever you decide here.
 1. **No validator.** `check` verified that every reference resolved, that every field value was in
    its vocabulary, and that the index matched the tasks it came from. Nothing on this backend does
    any of that. A `Related` line naming an issue that was never created is not reported by anything.
+
+   > **True as behaviour, overstated as necessity — measured 2026-08-18.** `check` runs
+   > seventeen checks and **five of them never take a task as input**: they walk the documents from
+   > the project root, which is exactly what a migrated project still keeps. You lose all seventeen
+   > only because the config error is raised while the schema loads, before any check is reached.
+   > Run against a migrated project holding ordinary documents, those five reported two dead links
+   > and a config advisory. So the sentence above describes where one guard sits, not what this
+   > backend makes impossible.
+
+
 2. **No ordering rule.** `list --open --limit 1` answered "what to work on next" by a stated rule —
    blocked last, then effective value, then effort, then id. GitHub sorts by number, recency or
    whatever a saved filter says. The question does not disappear; it goes back to a person.
