@@ -12,7 +12,7 @@ owner: maintainer
 business_value: medium
 effort: m
 created: 2026-08-04
-updated: 2026-08-07
+updated: 2026-08-18
 deliverables: []
 ---
 
@@ -95,5 +95,6 @@ They may share vocabulary, and T-009 owns that decision. Hence the new blocker.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-18 | — | **The maintainer authorised the whole remaining lifecycle for this task** — `plan` → `implement` → `review` (this task's `specify` is already closed and owner-agreed, so the authorisation starts where the work does) — on 2026-08-18, as the subject of a handoff written the same day. **What it covers, exactly**: the six tasks named there as workable with no further input — [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md), [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md), [T-143](T-143-decide-whether-tier-1-names-the-generated-index-at-all.md), [T-162](T-162-decide-whether-check-reads-a-date-shaped-field-as-a-date.md), [T-177](T-177-run-the-checks-that-need-no-task-folder.md) and [T-180](T-180-route-a-migrated-project-to-its-binding-not-to-adopt.md) — **and nothing any of them raises**. **What it does not cover**, written down because a grant covering six tasks is the kind a later session stretches: the seven tasks whose open question was reserved to the owner (T-093, T-131, T-148, T-151, T-170, T-174, T-179), the three that cannot run unattended at all (T-175, T-176, T-178), and committing or pushing, which was granted separately for earlier work and was not granted here. Recorded in this record as well as in the handoff, because a handoff is consumed once and renamed, so an authorisation kept only there is invisible to the session after next (METHOD §3.1, and T-105 which settled where this goes). |
 | 2026-08-07 | → specified | Answered: recipe for v1, upstream contribution deferred until after publishing. Recorded with the reason the rejected option is the better long-term shape rather than the wrong one — the handoff core loads a `tracker` binding from its own folder, so a recipe is not a substitute for one, only a thing that works without it. Criterion 1 is unchanged and now scoped: the recipe half does not wait on the F1 outcome, the contribution half does. |
 | 2026-08-04 | → proposed | Seeded from `docs/BRIEF.md` when the project folder was prepared. |

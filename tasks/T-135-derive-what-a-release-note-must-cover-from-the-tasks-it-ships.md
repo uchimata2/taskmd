@@ -12,7 +12,7 @@ owner: maintainer
 business_value: medium
 effort: m
 created: 2026-08-11
-updated: 2026-08-11
+updated: 2026-08-18
 deliverables: []
 ---
 
@@ -117,5 +117,6 @@ _Not started._
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-18 | — | **The maintainer authorised the whole remaining lifecycle for this task** — `plan` → `implement` → `review` (this task's `specify` is already closed and owner-agreed, so the authorisation starts where the work does) — on 2026-08-18, as the subject of a handoff written the same day. **What it covers, exactly**: the six tasks named there as workable with no further input — [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md), [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md), [T-143](T-143-decide-whether-tier-1-names-the-generated-index-at-all.md), [T-162](T-162-decide-whether-check-reads-a-date-shaped-field-as-a-date.md), [T-177](T-177-run-the-checks-that-need-no-task-folder.md) and [T-180](T-180-route-a-migrated-project-to-its-binding-not-to-adopt.md) — **and nothing any of them raises**. **What it does not cover**, written down because a grant covering six tasks is the kind a later session stretches: the seven tasks whose open question was reserved to the owner (T-093, T-131, T-148, T-151, T-170, T-174, T-179), the three that cannot run unattended at all (T-175, T-176, T-178), and committing or pushing, which was granted separately for earlier work and was not granted here. Recorded in this record as well as in the handoff, because a handoff is consumed once and renamed, so an authorisation kept only there is invisible to the session after next (METHOD §3.1, and T-105 which settled where this goes). |
 | 2026-08-11 | → specified | Both questions answered by the maintainer, with the rejections recorded in §1. **Q1: a field on the task**, so coverage derives from the same front-matter as everything else. That buys a config key, and [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md)'s constraint makes the key the first thing `plan` has to solve rather than a detail: the shipped config replaces rather than merges, so a project that already wrote one stops seeing the new row. **Q2: the opening sentence stops claiming completeness**, because it is the clause that turns an omission into a defect. Criteria unchanged; both answers are choices inside them. Still `M6` and still not started. |
 | 2026-08-11 | → proposed | Reported by an adopting project as *"`v0.4.0`'s note omits T-112"* and **verified before filing**, which changed what it is: the note omits T-112 and it omits at least five other adopter-visible changes, out of 47 tasks shipped, while opening with a sentence that reads as a completeness claim. So the report is a specimen and the finding is that a note has no rule. Filed `M6` by the maintainer's release rule of 2026-08-10 — this is a new capability and a config decision rather than a minor correction, and nothing about it holds up `0.5.0`, whose note is written by hand to the same standard in the meantime. Not started: both open questions are the maintainer's, and Q1 turns on whether the schema gains a key. |
