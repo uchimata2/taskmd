@@ -144,6 +144,14 @@ METHOD §3.1 and §3.3, verbatim, since T-047 — and that is not an exception t
 way to obey it: those two bind *before* the method is loaded, so tier 2 cannot be their home. Every
 other part of the method is pointed at, never copied.
 
+**Since 2026-08-18 this project has its own `.taskmd/config.md`**, where it had none and ran the
+shipped default. It is that default with one field added, and the reason — deriving a release-note
+rule without adding a key to the shipped config, which T-106 shows would error every adopter's
+config on upgrade — is in T-135. Two consequences: **edit `.taskmd/config.md`, not
+`plugin/skills/taskmd/taskmd/defaults/config.md`**, when changing this project's schema; and this
+repository no longer demonstrates the zero-config path, which is a price T-135 names rather than a
+thing to fix.
+
 The schema question that used to block everything is answered (T-001), and the CLI it gated is built:
 `./plugin/bin/taskmd {context,index,check,list}` (or `.\plugin\bin\taskmd.cmd`), proven by `tests/`.
 Since T-083 that is the **same file** an adopter reaches by typing `taskmd`; only the lookup differs,
