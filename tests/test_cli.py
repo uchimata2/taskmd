@@ -1817,6 +1817,82 @@ class DateShapedValueThatIsNotADate(unittest.TestCase):
         self.assertNotIn("MALFORMED DATE", out)
 
 
+class ACitationOfASectionThatIsNotThere(unittest.TestCase):
+    """T-093, on the deck-building sibling's report from its own migration. Its observation was that
+    **taskmd uses the convention throughout its documentation and cannot check it**: renumber a
+    section and every citation of it lies, silently, exactly like a moved file. That project cites
+    497 of them and had 1,394 unresolved before it built a rule.
+
+    Every assertion is against `section-reference`, which carries a citation that resolves, one that
+    does not, a sub-number naming a list item, a mark bound to nothing, a conjoined pair, and a wrong
+    citation quoted inside a fence and inside a code span. The last three are the must-not-fire
+    cases: a rule that reported everything would satisfy the first assertion and fail every other.
+    """
+
+    FIXTURE = os.path.join(FIXTURES, "section-reference")
+
+    def check(self, root=None):
+        return run("check", "--root", root or self.FIXTURE)
+
+    def test_it_reports_a_section_the_target_does_not_print(self):
+        code, out = self.check()
+        self.assertIn("SECTION REF", out)
+        self.assertIn("docs/handbook.md has no section 9", out)
+
+    def test_one_line_per_document_and_section_not_one_per_citation(self):
+        """220 of this repository's own citations aggregate to two lines. One line per citation
+        would be a warning nobody reads, which is the same failure a noisy check has."""
+        code, out = self.check()
+        self.assertEqual(out.count("SECTION REF"), 1, out)
+        self.assertIn("1 reference(s) name it", out)
+
+    def test_a_citation_that_resolves_is_silent(self):
+        code, out = self.check()
+        self.assertNotIn("no section 2", out)
+        self.assertNotIn("no section 1", out)
+
+    def test_a_sub_number_may_name_a_numbered_list_item(self):
+        """Most `§n.m` citations name an item, not a sub-heading. A rule reading headings alone
+        calls them all dead, which is a checker disagreeing with the convention it checks."""
+        code, out = self.check()
+        self.assertNotIn("no section 1.2", out)
+
+    def test_a_mark_nothing_binds_is_counted_and_never_guessed(self):
+        """T-093's own criterion, and T-095's argument: a scan that quietly shrinks must say so.
+        Binding by nearness was measured wrong a third of the time by the reporting project."""
+        code, out = self.check()
+        self.assertIn("1 of 6 section reference(s) resolved against nothing", out)
+        self.assertNotIn("no section 4", out)
+
+    def test_a_wrong_citation_quoted_in_a_fence_is_not_resolved(self):
+        """What lets a document write about a broken reference — including this project's own
+        records, which quote them constantly."""
+        code, out = self.check()
+        self.assertNotIn("404", out)
+
+    def test_it_is_advisory_and_does_not_move_the_exit_status(self):
+        """Advisory is a sequencing decision, not a claim that a dead citation is a choice: this
+        repository's 210 unresolved `METHOD §3.1` and `§3.3` citations are real and repairing them
+        is another task's, so a problem class would ship a gate nobody has agreed to fix."""
+        code, out = self.check()
+        self.assertEqual(code, 0, out)
+        self.assertNotIn("problem(s)", out)
+
+    def test_it_reports_what_it_examined(self):
+        code, out = self.check()
+        self.assertIn("section reference(s)", out)
+
+    def test_this_repository_reports_the_two_it_is_known_to_have(self):
+        """The corpus this was measured against. `METHOD.md` cites §3.1 and §3.3 everywhere and
+        prints neither, on purpose — the rules live in tier 1 (T-047). The check is asserted
+        against that rather than against a clean tree, so a rule that stopped firing would fail
+        here rather than pass quietly."""
+        code, out = run("check", "--root", ROOT)
+        self.assertIn("METHOD.md has no section 3.1", out)
+        self.assertIn("METHOD.md has no section 3.3", out)
+        self.assertEqual(code, 0, "an advisory must not move this repository's exit status")
+
+
 class TableRowWiderThanItsHeader(unittest.TestCase):
     """T-141, from an adopter report. Markdown drops a cell past the header count, so the text is in
     the file and absent from the page, and nothing else this project runs can see it: the instance

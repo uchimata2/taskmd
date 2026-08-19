@@ -154,8 +154,9 @@ taskmd check
 
 <!-- taskmd:sample-check -->
 ```
-OK - 0 task(s), 0 field value(s), 0 front-matter value(s), 0 reference(s), 0 dependency edge(s), 0 declared output(s), 0 index file(s), 0 closed record(s), 0 document(s), 0 link(s), 0 table row(s), 0 template(s), 0 template field value(s), 0 vocabulary row(s)
+OK - 0 task(s), 0 field value(s), 0 front-matter value(s), 0 reference(s), 0 dependency edge(s), 0 declared output(s), 0 index file(s), 0 closed record(s), 0 document(s), 0 link(s), 0 table row(s), 0 template(s), 0 template field value(s), 0 vocabulary row(s), 0 section reference(s)
 Scope  every document read; no git here, so .gitignore was not consulted
+Scope  0 of 0 section reference(s) resolved against nothing: no document is named beside them, so none was guessed
 structure and references only - it cannot tell you whether a spec or an outcome is good
 ```
 <!-- taskmd:end-sample-check -->
@@ -231,6 +232,28 @@ independently before the line existed. One `LABEL SHAPE` line names the field, t
 tasks carry it, and it is advisory as well, because version-shaped labels are legal. It reads the
 shape of a value and never the name of a field, so there is nothing to configure and it catches the
 same defect under a field name taskmd has never heard of.
+
+**And `check` reads a citation of the form *document §n* and says when the document prints no
+such section.** Renumber a section and every citation of it lies, silently, in exactly the way a
+moved file does, and until now nothing noticed. The project that reported this cites 497 of them and
+had 1,394 unresolved before it built a rule of its own. One `SECTION REF` line names the document, the
+section and how many references want it, so 220 citations of one missing section are one line rather
+than 220.
+
+**What binds a mark to a document is adjacency, and only adjacency.** A link, a code span, a bare
+filename or a task id sitting immediately before the mark names its target; a mark conjoined to the
+one before it, as in `§3.1 and §3.3`, inherits that one's document. Anything else binds to
+nothing, and nothing is guessed: those are counted into the `Scope` line instead. The reporting
+project measured *nearest document mentioned in the paragraph* against adjacency, and nearness picked
+the wrong target for a third of the misses it reported, so the coverage this gives up is coverage
+that would have been wrong. A `§` inside a code span or a fenced block is literal text, which is
+what lets a document quote a reference that is broken.
+
+A sub-number may name a numbered list item rather than a sub-heading, because that is how most of them
+are written: `§1.5` is usually rule 5 under section 1. It is advisory, like the three above, and
+for a reason worth stating: a citation of a section that is not there is an error rather than a
+choice, but repairing the ones you have is your work and not a run's, and a gate that goes red on
+prose you have not agreed to change is a gate that gets switched off.
 
 <!-- taskmd:end-advisories -->
 

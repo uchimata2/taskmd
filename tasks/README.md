@@ -69,7 +69,6 @@ A label says which release the work is scheduled into. It never says the release
 
 | ID | Title | Work Package | Status | Phase | Parent | Children | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `M6` | `proposed` | `specify` | - | - | T-092, T-095, T-109 |
 | [T-131](T-131-decide-whether-a-question-heavy-task-is-a-different-kind-of-work.md) | Decide whether a question-heavy task is a different kind of work | `M6` | `proposed` | `specify` | - | - | T-088, T-109, T-130 |
 | [T-148](T-148-decide-whether-a-caller-outside-a-served-skill-can-find-the-launcher.md) | Decide whether a caller outside a served skill can find the launcher | `M6` | `proposed` | `specify` | - | - | T-054, T-099, T-142 |
 | [T-175](T-175-observe-whether-the-skill-triggers-in-a-migrated-away-project.md) | Observe whether the skill triggers in a project that has migrated its backlog away | `M6` | `proposed` | `specify` | T-168 | - | T-050, T-168 |
@@ -83,6 +82,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) | Audit whether each check class has a case it must not catch | `M6` | `proposed` | `specify` | - | - | T-100, T-150, T-151 |
 | [T-192](T-192-require-every-binding-to-declare-its-validator-coverage.md) | Require every binding to declare its validator coverage | `M6` | `proposed` | `specify` | - | - | T-009, T-139, T-178 |
 | [T-193](T-193-make-the-standing-github-check-fail-before-trusting-it.md) | Make the standing GitHub check fail before trusting it | `M6` | `proposed` | `specify` | T-178 | - | T-108, T-151, T-181 |
+| [T-194](T-194-print-the-two-method-sections-this-project-cites-most.md) | Print the two method sections this project cites most | `M6` | `proposed` | `specify` | T-093 | - | T-028, T-047 |
 
 ## Closed
 
@@ -115,7 +115,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-025](T-025-let-check-notice-a-stale-generated-index.md) | Let check notice a stale generated index | `M2` | `done` | `review` | - | - | T-002, T-009, T-011, T-019, T-026, T-039, T-084, T-089, T-095, T-096, T-121, T-130, T-141 |
 | [T-026](T-026-audit-the-whole-project-before-the-remaining-build.md) | Audit the whole project before the remaining build | `M2` | `done` | `review` | - | T-027, T-028, T-029, T-030, T-031, T-032, T-033, T-034 | T-003, T-006, T-010, T-025, T-036, T-059, T-086, T-088, T-110, T-118 |
 | [T-027](T-027-give-the-design-rule-one-home.md) | Give the design rule one home | `M1` | `done` | `review` | T-026 | - | T-017, T-031, T-045, T-046 |
-| [T-028](T-028-budget-the-whole-always-loaded-context-not-one-file.md) | Budget the whole always-loaded context, not one file | `M1` | `done` | `review` | T-026 | - | T-003, T-015, T-040, T-046, T-047, T-048, T-063, T-115, T-118, T-143, T-154, T-190 |
+| [T-028](T-028-budget-the-whole-always-loaded-context-not-one-file.md) | Budget the whole always-loaded context, not one file | `M1` | `done` | `review` | T-026 | - | T-003, T-015, T-040, T-046, T-047, T-048, T-063, T-115, T-118, T-143, T-154, T-190, T-194 |
 | [T-029](T-029-reject-unknown-arguments-on-every-command.md) | Reject unknown arguments on every command | `M2` | `done` | `review` | T-026 | - | T-002, T-022, T-055, T-087, T-113, T-144, T-145 |
 | [T-030](T-030-settle-the-schema-module-s-own-entry-point.md) | Settle the schema module's own entry point | `M2` | `done` | `review` | T-026 | - | T-020, T-023, T-065, T-066, T-117, T-134 |
 | [T-031](T-031-give-the-list-rationale-one-home.md) | Give the list rationale one home | `M2` | `done` | `review` | T-026 | - | T-022, T-027, T-102, T-117, T-134 |
@@ -134,7 +134,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-044](T-044-state-the-gh-version-the-github-binding-requires.md) | State the gh version the GitHub binding requires | `M1` | `done` | `review` | - | - | T-010, T-042 |
 | [T-045](T-045-decide-whether-scope-principles-may-state-the-rule-they-name.md) | Decide whether SCOPE §2 principles may state the rule they name | `M1` | `done` | `review` | - | - | T-017, T-027 |
 | [T-046](T-046-reconcile-the-done-condition-claude-md-restates.md) | Reconcile the done-condition CLAUDE.md restates from the method | `M1` | `done` | `review` | - | - | T-027, T-028 |
-| [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `M2` | `done` | `review` | - | - | T-015, T-028, T-035, T-059, T-063, T-105, T-115, T-118, T-119, T-190 |
+| [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `M2` | `done` | `review` | - | - | T-015, T-028, T-035, T-059, T-063, T-105, T-115, T-118, T-119, T-190, T-194 |
 | [T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md) | Say what "always-loaded" means in R-21, before the skill is built against it | `M1` | `done` | `review` | - | - | T-003, T-028 |
 | [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) | Demonstrate a clone running on a second platform | `M1` | `done` | `review` | T-011 | T-057, T-058 | T-006, T-020, T-054, T-056, T-057, T-058, T-061, T-085, T-116, T-132 |
 | [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | `M1` | `done` | `review` | T-003 | - | T-006, T-052, T-053, T-118, T-159, T-175 |
@@ -180,6 +180,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-090](T-090-decide-what-a-cancelled-task-s-declared-outputs-assert.md) | Decide what a cancelled task's declared outputs assert | `M2` | `done` | `review` | T-089 | - | T-002, T-032, T-103, T-109 |
 | [T-091](T-091-make-the-shipped-task-template-survive-being-copied.md) | Make the shipped task template survive being copied into another project | `M2` | `done` | `review` | - | - | T-032, T-051, T-060, T-076, T-097, T-101, T-112, T-114 |
 | [T-092](T-092-decide-whether-a-bare-path-in-prose-is-a-reference.md) | Decide whether a bare path in prose is a reference check must resolve | `M2` | `done` | `review` | - | - | T-034, T-093, T-094, T-095, T-097, T-103, T-112 |
+| [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `M6` | `done` | `review` | - | T-194 | T-092, T-095, T-109 |
 | [T-094](T-094-make-check-answer-the-question-a-fresh-clone-would-ask.md) | Make check answer the question a fresh clone would ask | `M2` | `done` | `review` | - | - | T-013, T-034, T-092, T-095, T-097, T-098 |
 | [T-095](T-095-report-what-check-examined-not-only-that-it-passed.md) | Report what check examined, not only that it passed | `M2` | `done` | `review` | - | T-096 | T-025, T-034, T-080, T-092, T-093, T-094, T-098, T-100, T-101, T-112, T-130, T-141, T-147, T-162, T-185 |
 | [T-096](T-096-decide-whether-a-narrower-walk-of-a-counted-class-needs-its-own-number.md) | Decide whether a narrower walk of a counted class needs its own number | `M2` | `done` | `review` | T-095 | - | T-025, T-121 |

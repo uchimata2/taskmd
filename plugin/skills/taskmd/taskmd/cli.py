@@ -714,6 +714,143 @@ def check_links(root, schema, problems, notes):
     return [("document", documents), ("link", links)]
 
 
+# A section mark and the number it names: `§4`, `§ 3.2`, `§6.5`. Read only outside code, so a
+# document may quote a reference that is wrong without tripping this.
+SECTION_MARK = re.compile(r"\u00a7\s*([0-9]+(?:\.[0-9]+)*)")
+# The document a mark is bound to, named immediately before it: a link target, a code span, a bare
+# filename, a bare all-caps document name, or a task id. **Adjacency, never proximity** - measured.
+SECTION_NAMED = re.compile(r"(?:\]\(([^)#\s]+)(?:#[^)\s]*)?\)|`([^`]+)`|\b([A-Za-z][\w.-]*\.md)"
+                           r"|\b([A-Z][A-Z-]{3,})\b|\b([A-Za-z]+-[0-9]{2,}))[^\w`\u00a7]{0,3}$")
+# `§3.1 and §3.3`, `§1, §2`, `§3-§4`: conjoined to the mark before it, which is a
+# syntactic relation rather than nearness. Everything else binds to nothing and is counted as skipped.
+SECTION_CONJOINED = re.compile(r"^\s*(?:and|or|,|/|-|\u2013|\u2014|to)\s*$")
+# A numbered heading, at any depth: `## 4. Edges`, `### 3.2 Ask to the phase's exit criterion`.
+NUMBERED_HEADING = re.compile(r"^#{1,6}\s+([0-9]+(?:\.[0-9]+)*)[.)]?\s", re.M)
+
+
+ORDERED_ITEM = re.compile(r"^([0-9]+)[.)]\s", re.M)
+
+
+def numbered_sections(text):
+    """Every number a document prints as a section: its numbered headings, and the top-level
+    ordered-list items directly under each of them.
+
+    **The list items are not a convenience.** Measured over this repository, most `§n.m`
+    citations name an item and not a sub-heading - `METHOD §1.5` is rule 5 of *Core rules*, and
+    `BINDING §6.2` is step 2 of *Writing a binding*. A rule reading headings alone calls all of
+    them dead, which is a checker disagreeing with the convention it was built to check.
+
+    An item under an *unnumbered* heading yields nothing, because there is no number to prefix it
+    with. That is why `review.md §5` is still reported: its procedure is a list under `## Procedure`,
+    so the document prints no section 5 for a reader to find.
+    """
+    body = without_code(text)
+    numbers, current = set(), None
+    for line in body.splitlines():
+        heading = NUMBERED_HEADING.match(line + "\n")
+        if line.startswith("#"):
+            current = heading.group(1) if heading else None
+            if heading:
+                numbers.add(current)
+            continue
+        item = ORDERED_ITEM.match(line)
+        if item and current is not None:
+            numbers.add("%s.%s" % (current, item.group(1)))
+    return numbers
+
+
+def check_section_references(root, schema, advisories, notes):
+    """A citation of the form *document §n*, resolved against the numbers that document prints.
+
+    Reported by the deck-building sibling from its own migration: **taskmd uses the convention
+    throughout its documentation and could not check it.** Renumber a section and every citation of
+    it lies, silently, exactly like a moved file - and unlike a moved file, nothing was ever going to
+    notice.
+
+    **Adjacency binds, proximity does not, and a mark bound to nothing is skipped rather than
+    guessed.** The reporting project measured the two bindings against each other and *nearest
+    document mentioned in the paragraph* picked the wrong target for a third of the misses it
+    reported; that measurement is why this rule reads only what sits immediately before the mark. A
+    mark conjoined to the one before it - `§3.1 and §3.3` - inherits its document, which is
+    syntax and not nearness. Anything else is counted into the `Scope` line and left alone, which is
+    T-095's argument applied to a rule that cannot see two thirds of its own corpus.
+
+    Measured over this repository before it shipped: 2,916 marks in 294 documents, 664 bound and
+    resolved, 241 bound and missing, 2,011 bound to nothing. **A third rule was tried and rejected**
+    - binding a loose mark to the document it is written in - because a task record has sections 1
+    to 4 of its own, so every `§1`..`§4` meant for somewhere else resolves against it and
+    reads as correct. It bound 1,796 marks and got 267 of them wrong, and its errors are the
+    invisible kind.
+
+    **Advisory, not a problem, and that is a sequencing decision rather than a judgement about
+    severity.** The 241 misses aggregate to **nine** distinct document-and-section pairs, of which
+    two are `METHOD.md §3.1` and `§3.3` with 220 citations between them: sections this
+    project cites constantly and deliberately does not print as headings. Repairing that is not this
+    check's to do (METHOD §5), so a problem class would ship a gate this repository fails for a
+    reason nobody has agreed to fix yet. One line per pair, never per citation.
+    """
+    visible = clone_would_receive(root)
+    paths = [md for md in markdown_files(root, schema)
+             if visible is None or os.path.normpath(md) in visible]
+    sections = {}
+    for md in paths:
+        sections[os.path.normpath(md)] = numbered_sections(read(md))
+    by_base = {}
+    for md in paths:
+        by_base.setdefault(os.path.basename(md).lower(), []).append(os.path.normpath(md))
+
+    def target_of(name, here):
+        """A document as it was written -> a path this project ships, or None."""
+        name = name.strip().strip("'\"").rstrip(".,;:")
+        if not name or "\n" in name:
+            return None
+        for candidate in (os.path.normpath(os.path.join(os.path.dirname(here), name)),
+                          os.path.normpath(os.path.join(root, name))):
+            if candidate in sections:
+                return candidate
+        # A bare name: `METHOD`, `BINDING`, or a task id, which name a file whose stem or prefix is
+        # unique in the project. Ambiguity is not resolved - two candidates means no answer.
+        stem = name.lower()
+        for key in (stem, stem + ".md"):
+            hits = by_base.get(key, [])
+            if len(hits) == 1:
+                return hits[0]
+        hits = [p for p in sections if os.path.basename(p).lower().startswith(stem + "-")]
+        return hits[0] if len(hits) == 1 else None
+
+    seen, examined, skipped = {}, 0, 0
+    for md in paths:
+        here, text = os.path.normpath(md), read(md)
+        stripped = without_code(text)
+        previous_end, previous_name = None, None
+        # `without_code` blanks character for character, so an offset in `stripped` is the same
+        # offset in `text`: the mark is found in the blanked copy, and what binds it is read from
+        # the original - where the document's name usually sits inside a code span.
+        for match in SECTION_MARK.finditer(stripped):
+            examined += 1
+            number = match.group(1)
+            before = text[max(0, match.start() - 160):match.start()]
+            named = SECTION_NAMED.search(before)
+            if named:
+                previous_name = next(g for g in named.groups() if g)
+            elif not (previous_name and previous_end is not None
+                      and SECTION_CONJOINED.match(text[previous_end:match.start()])):
+                previous_name = None
+            previous_end = match.end()
+            target = target_of(previous_name, here) if previous_name else None
+            if target is None:
+                skipped += 1
+            elif number not in sections[target]:
+                seen.setdefault((rel(root, os.path.relpath(target, root)), number), 0)
+                seen[(rel(root, os.path.relpath(target, root)), number)] += 1
+    for (where, number) in sorted(seen):
+        advisories.append("%s has no section %s; %d reference(s) name it"
+                          % (where, number, seen[(where, number)]))
+    notes.append("%d of %d section reference(s) resolved against nothing: no document is named "
+                 "beside them, so none was guessed" % (skipped, examined))
+    return [("section reference", examined)]
+
+
 def ordered(tasks):
     return [tasks[t] for t in sorted(tasks)]
 
@@ -1087,7 +1224,8 @@ def check_duplicate_index(root, schema, tasks, duplicates):
 # spent from T-138 to T-142 naming two of the three. Each gets its own prefix rather than sharing
 # one, so a project grepping for one does not receive the other (T-121); `cmd_check` prints through
 # this tuple, and `tests/test_publishing.py` reads it to judge every marked prose list.
-ADVISORY_PREFIXES = ("CONFIG DRIFT", "DUPLICATE INDEX", "LABEL SHAPE")
+ADVISORY_PREFIXES = ("CONFIG DRIFT", "DUPLICATE INDEX", "LABEL SHAPE",
+                     "SECTION REF")
 
 
 def cmd_check(root, schema, tasks, args):
@@ -1127,6 +1265,8 @@ def cmd_check(root, schema, tasks, args):
     counted += check_unreachable_templates(root, schema, problems)
     counted += check_template_fields(root, schema, problems)
     counted += check_config_drift(root, schema, advisory["CONFIG DRIFT"])
+    counted += check_section_references(root, schema, advisory["SECTION REF"],
+                                       notes)
 
     if problems:
         for problem in problems:
