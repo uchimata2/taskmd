@@ -232,6 +232,63 @@ def documents_carrying(marker):
     return sorted(found)
 
 
+class TheFixtureReadmeNamesTheFixturesThereAre(unittest.TestCase):
+    """T-195. `tests/fixtures/README.md` is the document somebody reads before adding a fixture, it
+    describes a set the tests own, and nothing compared the two - so it had fallen six behind, four
+    of them for days. Same class as T-134 and T-139, in the one place neither looked.
+
+    **No marked region here, unlike the lists above.** Those need one because their documents mix
+    members with prose that merely mentions a member; this document is about nothing else, and a
+    backticked directory name in it is unambiguous. The set is read from the directory, so a fixture
+    added tomorrow is in the comparison without anybody adding a row.
+    """
+
+    def setUp(self):
+        self.readme = os.path.join(ROOT, "tests", "fixtures", "README.md")
+        self.text = read(self.readme)
+
+    def fixtures(self):
+        base = os.path.join(ROOT, "tests", "fixtures")
+        return set(name for name in os.listdir(base)
+                   if os.path.isdir(os.path.join(base, name)) and not name.startswith("_"))
+
+    def named(self):
+        return set(re.findall(r"`([a-z][a-z0-9-]*)`", self.text))
+
+    def test_every_fixture_is_named(self):
+        missing = sorted(self.fixtures() - self.named())
+        self.assertEqual([], missing,
+                         "tests/fixtures/README.md names no fixture called %s, so a reader looking "
+                         "for one finds a directory the document does not admit to"
+                         % ", ".join(missing))
+
+    def test_a_name_the_directory_cannot_answer_fails_too(self):
+        """The other direction, without which a deleted fixture leaves its paragraph behind. Only
+        names that look like a fixture are judged: the document backticks plenty of other things,
+        so the comparison is against what the directory has ever held rather than against every
+        lowercase token."""
+        looks_like_one = set(n for n in self.named()
+                             if n.startswith(("broken-", "alt-", "backend-")) or
+                             n in ("ordering", "leak-check", "planned-deliverable",
+                                   "nested-at-root", "abandoned-slot", "wide-table-row",
+                                   "label-shaped-value", "malformed-date", "migrated-away",
+                                   "section-reference"))
+        gone = sorted(looks_like_one - self.fixtures())
+        self.assertEqual([], gone,
+                         "tests/fixtures/README.md describes %s, which is not there"
+                         % ", ".join(gone))
+
+    def test_no_fixture_is_given_an_ordinal(self):
+        """T-188's ruling, in the place that produced this task's second finding: `planned-deliverable`
+        and `nested-at-root` were **both** the third positive case. An ordinal is a count of the set
+        as it stood when the sentence was written, and nothing re-reads it."""
+        ordinals = re.findall(r"\b(?:the )?(second|third|fourth|fifth|sixth|seventh|eighth|ninth|"
+                              r"tenth) positive case", self.text)
+        self.assertEqual([], ordinals,
+                         "tests/fixtures/README.md numbers its positive cases: %s"
+                         % ", ".join(sorted(set(ordinals))))
+
+
 class EveryMarkedListNamesTheSetTheCodeOwns(unittest.TestCase):
     """T-134, generalised by T-139 on the project owner's ruling of 2026-08-15: the guarded thing is
     *any* marked list of a set the code owns, not the command lists.

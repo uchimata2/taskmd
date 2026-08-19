@@ -3,13 +3,13 @@
 Miniature taskmd projects the real CLI is pointed at. They are projects, not test data: a fixture
 you can run the tool against is also the reproduction case for the day a class regresses.
 
-`alt-project` is the positive case — a schema unlike the default in every configurable dimension,
+`alt-project` is the first of the positive cases — a schema unlike the default in every
+configurable dimension,
 which is what proves the schema is configuration rather than code (T-001). It also carries the
 renamed-ordering case: its effort field is `size`, and it declares no value field at all, so `list`
 must order without either of the words the default config uses (T-022).
 
-`ordering` is the second positive case, and it is built to be **decisive rather than
-representative**. Four tasks arranged so that the two readings of "highest value, lowest effort,
+`ordering` is built to be **decisive rather than representative**. Four tasks arranged so that the two readings of "highest value, lowest effort,
 dependencies first" give different answers: T-001 is the least valuable and cheapest task and
 blocks T-002, the most valuable. Under the rule taskmd implements, T-001 leads because its
 effective value is T-002's; under the plain reading, T-003 would lead. A fixture where both
@@ -23,7 +23,7 @@ must be caught and four safe forms that must not. It is excluded by name from th
 included in the proof run, which is the whole of the arrangement (T-018). Every path in it is
 fabricated.
 
-`planned-deliverable` is the third positive case, and it exists as a **pair** with
+`planned-deliverable` exists as a **pair** with
 `broken-deliverable`: the same missing `out/report.md`, declared by an open task instead of a closed
 one. One must pass and one must fail, which is the whole of the rule T-089 settled — `deliverables`
 asserts production, so it is only checked once the task claims to have produced. Before that task,
@@ -38,7 +38,7 @@ rather than a missing output. T-090 decided that against the alternative of a co
 abandoned status, and this fixture exists so the decision is met as behaviour by whoever next reads
 that report and reaches for T-089's fix.
 
-`backend-allocated-ids` is the fourth positive case, and the second **pair**: it sets
+`backend-allocated-ids` is another **pair**: it sets
 `id_width: none` and carries `#7`, `#41` and `#1024`, which no number could describe, while
 `broken-id-width` keeps `id_width: 3` and still catches `T-0001`. Both directions have to hold at
 once — the value exists for a backend that hands ids out, and it must not become a way to switch
@@ -49,6 +49,34 @@ a row still called `status` was read as behind the shipped one on all eight valu
 sharing no value with the shipped one has been **replaced** rather than left behind, so the run is
 now silent — which is also why this fixture is the standing case for that rule, alongside the two
 scratch projects in `test_cli.py` that draw its boundary from both sides.
+
+`wide-table-row`, `abandoned-slot`, `label-shaped-value`, `malformed-date` and
+`section-reference` are the fixtures for the classes added after the `broken-*` set was written, and
+they are shaped differently on purpose: each carries the defect **and** the cases that must stay
+silent beside it, in one project. That is the rule
+[`../../plugin/skills/taskmd/docs/method/implement.md`](../../plugin/skills/taskmd/docs/method/implement.md)
+states — a check needs a case it must not catch, and that case has to be shown able to fire — and it
+is why these are not one-defect fixtures like the table below.
+
+- `wide-table-row` holds a row with more cells than its header, beside five classes that must not
+  fire and a test asserting an exact count, so a new alarm breaks it.
+- `abandoned-slot` holds a template placeholder left in a **closed** record, beside two that must
+  stay quiet: the same line in an open task, which has simply not got there yet, and one inside a
+  fenced block.
+- `label-shaped-value` holds a grouping label a reader resolves as a version, beside a real version,
+  a quantity in the effort field, and a **list-valued** field — the shape that crashed the check on
+  the first real tree it met.
+- `malformed-date` holds the two shapes a real off-by-one produced and one deliberate specimen,
+  under a field name no config mentions, beside a date written without zero padding that must stay
+  silent.
+- `section-reference` holds a citation of a section its target does not print, beside one that
+  resolves, a sub-number naming a list item, a mark nothing binds, and the same wrong citation
+  quoted in a fence and in a code span.
+
+`migrated-away` is the project whose tasks moved to a backend: `id_width: none` says a backend hands
+out the ids, and the `tasks_dir` it names is deliberately absent. It carries **documents**, because
+that is the whole point of it — the checks that never open a task file still run there, and one of
+its two documents holds a dead link while the other's link resolves.
 
 The `broken-*` projects are the negative cases. **Each holds exactly one defect**, so a `check` run
 that reports two classes on one fixture is itself a finding. They were written **before** `check`
@@ -130,7 +158,7 @@ T-094 the document side of the link walk reads only what a clone would receive. 
 the links in a document a clone would not receive — decided, with the alternatives priced, in T-098.
 So this fixture proves the walk, not the exclusion, and the two must not be read as one.
 
-`nested-at-root` is the third positive case, and it exists because of the shape of this folder
+`nested-at-root` exists because of the shape of this folder
 rather than because of a feature. Every `broken-*` project sits **two** levels down, and the nested-
 project exclusion below used to begin one level down — so a project holding another project as a
 *direct* child had that child's defects reported as its own, and no fixture here could show it
