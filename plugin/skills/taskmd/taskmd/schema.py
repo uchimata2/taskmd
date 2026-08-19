@@ -472,7 +472,7 @@ def _check_tasks_dir(root, fields, source, own_config):
     error = SchemaError("%s: tasks_dir is '%s', %s. %s" % (source, tasks_dir, problem, hint))
     # T-185, on T-177's ruling. **Returned rather than raised in exactly one case**: the folder is
     # absent *and* the config says a backend allocates the ids. Then the project is migrated rather
-    # than broken, and the five checks that never open a task file have documents to read. Every
+    # than broken, and the checks that never open a task file have documents to read. Every
     # other shape still raises here, including a mistyped `tasks_dir` - there the folder is supposed
     # to exist, and turning a typo into a partial pass is the misreading the ruling refuses.
     #

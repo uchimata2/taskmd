@@ -862,7 +862,7 @@ def examined(counted):
     ran rather than from a list somebody maintains — add a check without a `return` and the merge
     raises here rather than quietly reporting a coverage the run never had (T-095).
 
-    Merged by **largest**, never summed: three checks walk the task set, and summing would report
+    Merged by **largest**, never summed: more than one check walks the task set, and summing would report
     288 tasks over a project that has 96.
 
     **A narrower walk gets its own noun rather than merging into the wider one** (T-096). The first

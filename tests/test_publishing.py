@@ -241,9 +241,19 @@ class EveryMarkedListNamesTheSetTheCodeOwns(unittest.TestCase):
     line and left `README.md` naming two, caught four days later by a person's grep. That is the
     third instance of one fault - T-073 was the first - which is evidence about the class.
 
-    **A marker is a claim of completeness, not a claim of importance.** It is why the fifteen problem
+    **A marker is a claim of completeness, not a claim of importance.** It is why the problem
     prefixes are not marked: `README.md` describes one of them and never says it is describing all of
-    them, so a region there would assert something the document does not mean."""
+    them, so a region there would assert something the document does not mean.
+
+    **A count of one of these sets is either dated as a measurement or not written at all** (T-188).
+    A marked list of members is guarded by everything above; a *number* of them is not, names none of
+    them, and so no pattern reading names can see it. The paragraph you are reading said `fifteen`
+    while seventeen existed, and the sentence it supported never needed the figure. Two exemptions,
+    and they are the same one: a number a recorded decision **fixes** is not a count of a mutable set
+    - four commands, four phases, three edge kinds - and a number written as *measured on a date* is
+    a record of that day rather than a claim about now. Everything else drops the number, because the
+    detector this would need is a mapping from prose nouns to code sets, which is a hand-kept list of
+    exactly the kind this class is about."""
 
     def test_every_required_document_carries_its_region(self):
         """Without this, every assertion below passes on a tree where the markers were deleted -

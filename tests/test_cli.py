@@ -199,7 +199,7 @@ class CheckFailsOnEveryClassItClaims(unittest.TestCase):
 
 class AMigratedProjectStillGetsItsDocumentsChecked(unittest.TestCase):
     """T-185, implementing T-177's ruling. A project whose tasks moved to a backend got
-    `CONFIG ERROR` and exit 2 from every command, including the twelve checks that need a task file
+    `CONFIG ERROR` and exit 2 from every command, including the checks that need a task file
     and the five that do not. T-177 measured what that costs: two dead links and a config advisory,
     in documents the project still keeps locally, reported by nothing.
 
@@ -1088,7 +1088,7 @@ class Usage(unittest.TestCase):
 
 
 class ListSaysWhatItAccepts(unittest.TestCase):
-    """T-144. `list --help` answered with the top-level usage line, so the four options that are code
+    """T-144. `list --help` answered with the top-level usage line, so the options that are code
     and the filters that are this project's configuration were reachable only by reading `SKILL.md`
     or this package's source. The 2026-08-07 ruling against per-command help (T-029) was narrowed to
     this one command, because it is the only one whose options that line does not state."""
@@ -1922,7 +1922,7 @@ class TableRowWiderThanItsHeader(unittest.TestCase):
         self.assertIn(self.REPORTS, out)
 
     def test_it_is_a_problem_and_moves_the_exit_status(self):
-        """The opposite of the three advisory lines beside it. A legal state does not fail (T-100),
+        """The opposite of the advisory lines beside it. A legal state does not fail (T-100),
         and a cell that renders nowhere is not a state any project means."""
         code, out = self.check()
         self.assertEqual(code, 1, out)
