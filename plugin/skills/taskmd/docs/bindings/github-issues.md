@@ -388,6 +388,64 @@ to. The destination is gone and was never the evidence — a migration is checke
 comparison the procedure ends with, so anyone doubting this runs it again rather than inspecting an
 artefact.
 
+### Checking a backlog that is already here
+
+*Verify* above compares a source against a destination, so it runs on the one day a source exists.
+The day after, nothing checks anything again. This section is the standing counterpart, and it exists
+because the gap it leaves is **silent data loss** rather than lost convenience: `related` lives in the
+property block and nowhere else on this backend, no far end holds a copy, no derived view can notice
+one has gone, a partial body rewrite deletes it, and `gh` exits 0 on the destructive edit exactly as
+on the correct one.
+
+Run it after any bulk edit, after anything that rewrote bodies, and whenever you want the answer.
+Nothing here is scheduled or automatic, and nothing here is a taskmd command: every call is `gh`,
+for the reason `docs/SCOPE.md` non-goal 5 gives.
+
+**Fetch once**, with both flags *enumerate* explains, and work from the result:
+
+```bash
+gh issue list --state all --limit 1000 --json number,title,body,labels,parent,subIssues,blockedBy,blocking
+```
+
+Then answer these, each of which is one of the validator's classes as it lands here:
+
+| # | What to check | How, on this backend |
+| :-- | :--- | :--- |
+| 1 | **Every enumerated field's value is in its row** | Each issue's `<field>:<value>` labels against your config's vocabularies. A label the config does not list, or two labels of one field on one issue, is the defect |
+| 2 | **Every reference resolves** | Every id in a body's property block, and every `blockedBy` and `parent`, names an issue in the fetch. **This is the one the migration got wrong twice**, and the one nothing else can see |
+| 3 | **`related` still exists** | Every issue whose property block should carry it still does. There is no far end to compare against, so compare against your own last known copy — a fetch kept before a bulk edit is the cheapest one |
+| 4 | **A blocked issue has an open blocker** | An issue labelled with your blocked status whose `blockedBy` is empty, or whose blockers are all closed |
+| 5 | **No dependency cycle** | Walk `blockedBy`. A loop is a defect here and nothing else reports it |
+| 6 | **No body stores a derived edge** | A property block writing `children:` or `blocks:`. Both are GitHub's to compute, from `subIssues` and `blocking` |
+| 7 | **No closed issue carries a template slot** | A closed issue whose body still holds an angle-bracket placeholder from the template it was copied from |
+| 8 | **No date-shaped value that is not a date** | Any property-block value shaped like a date that is not one |
+| 9 | **No label reads as a version** | A grouping label whose value is a two-part number. A release of that number is a different thing |
+
+**And make it fail first.** A pass on a healthy backlog proves nothing about the procedure — it is
+the same run a procedure that checks nothing produces. Before trusting it, break one issue on
+purpose in a scratch repository: delete a `related` line from one body, and point one property-block
+reference at an issue number that does not exist. Row 2 and row 3 must both name the issue. Repair
+them and run it again. That is the standard the migration *Verify* is held to, and the reason its
+three recorded failures are what make it trustworthy.
+
+#### What this does not cover, and why
+
+Seventeen checks run on the local backend. Nine land here as rows above. The rest do not, and the
+reasons are worth reading rather than trusting:
+
+| Check | Here |
+| :--- | :--- |
+| duplicate id, id width, parked task | **Cannot occur.** GitHub allocates issue numbers and never reuses one, and there are no folders for a task to be parked in |
+| stale index | **Cannot occur.** The issue list *is* the index, computed on demand — *After any write* says so |
+| unreachable template, template field | **Not applicable as written.** They read a task template in a folder. If your project keeps an issue template, nothing here checks it |
+| declared output that is gone | **Still local.** It compares declared paths against a working tree, which you still have. Run it there |
+| broken link, ignored link, wide table row, config drift, duplicate index | **Still local, and still run.** These five never take a task as input: they walk the documents from your project root, which a migrated project keeps. This is the measurement under *No validator* below — pointed at a migrated project, they reported two dead links and a config advisory |
+
+**Two limits of this list itself.** It is a hand-kept description of a set the code owns, so it goes
+stale the way any such list does — the local backend has a guard for that class and this document has
+none. And the coverage is **this** backend's: a project on a different service has a different table,
+which belongs to that binding rather than to a copy of this one.
+
 ### The reverse direction: no
 
 Moving a backlog **out** of issues and back into local files is **not supported**, and that is a

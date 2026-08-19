@@ -74,8 +74,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-148](T-148-decide-whether-a-caller-outside-a-served-skill-can-find-the-launcher.md) | Decide whether a caller outside a served skill can find the launcher | `M6` | `proposed` | `specify` | - | - | T-054, T-099, T-142 |
 | [T-175](T-175-observe-whether-the-skill-triggers-in-a-migrated-away-project.md) | Observe whether the skill triggers in a project that has migrated its backlog away | `M6` | `proposed` | `specify` | T-168 | - | T-050, T-168 |
 | [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md) | Have an uninvolved reader test the sourced survivor bullet | `M6` | `proposed` | `specify` | T-168 | - | T-166, T-167, T-168 |
-| [T-178](T-178-give-the-github-binding-a-standing-verification.md) | Give the GitHub binding a standing verification, not only a migration-day one | `M6` | `proposed` | `specify` | - | - | T-041, T-108, T-177, T-179, T-185 |
-| [T-181](T-181-verify-the-handoff-github-recipe-on-a-live-issues-backed-project.md) | Verify the handoff GitHub recipe against a live issues-backed project | `M6` | `proposed` | `specify` | T-005 | - | T-108 |
+| [T-181](T-181-verify-the-handoff-github-recipe-on-a-live-issues-backed-project.md) | Verify the handoff GitHub recipe against a live issues-backed project | `M6` | `proposed` | `specify` | T-005 | - | T-108, T-193 |
 | [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) | Write the next release note to the rule and say what it caught | `M6` | `proposed` | `specify` | T-135 | - | T-125, T-127, T-133 |
 | [T-185](T-185-run-the-document-checks-in-a-project-whose-tasks-moved.md) | Run the document checks in a project whose tasks moved | `M6` | `proposed` | `specify` | T-177 | - | T-095, T-108, T-178 |
 | [T-187](T-187-say-that-the-one-design-rule-yields-to-a-system-limitation.md) | Say that the one design rule yields to a system limitation | `M6` | `proposed` | `specify` | - | - | T-012, T-179 |
@@ -83,6 +82,8 @@ A label says which release the work is scheduled into. It never says the release
 | [T-189](T-189-say-whether-the-audit-s-method-finding-reached-the-repository-that-owns-it.md) | Say whether the audit's method finding reached the repository that owns it | `M6` | `proposed` | `specify` | - | - | T-152, T-170 |
 | [T-190](T-190-decide-whether-tier-1-restates-two-verification-rules-the-method-owns.md) | Decide whether tier 1 restates two verification rules the method owns | `M6` | `proposed` | `specify` | - | - | T-028, T-047, T-151 |
 | [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) | Audit whether each check class has a case it must not catch | `M6` | `proposed` | `specify` | - | - | T-100, T-150, T-151 |
+| [T-192](T-192-require-every-binding-to-declare-its-validator-coverage.md) | Require every binding to declare its validator coverage | `M6` | `proposed` | `specify` | - | - | T-009, T-139, T-178 |
+| [T-193](T-193-make-the-standing-github-check-fail-before-trusting-it.md) | Make the standing GitHub check fail before trusting it | `M6` | `proposed` | `specify` | T-178 | - | T-108, T-151, T-181 |
 
 ## Closed
 
@@ -96,7 +97,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-006](T-006-package-document-and-publish.md) | Package, document and publish | `M1` | `done` | `review` | - | T-085 | T-013, T-019, T-020, T-023, T-026, T-034, T-049, T-050, T-052, T-053, T-054, T-059, T-064, T-067, T-072, T-084, T-086, T-125 |
 | [T-007](T-007-define-the-project-scope-goals-and-requirements.md) | Define the project scope, goals and requirements | `M1` | `done` | `review` | - | - | T-002, T-004, T-005, T-022 |
 | [T-008](T-008-write-the-backend-neutral-method-document.md) | Write the backend-neutral method document | `M1` | `done` | `review` | - | T-014, T-015, T-016, T-017 | T-002, T-003, T-013, T-104 |
-| [T-009](T-009-define-the-backend-binding-contract.md) | Define the backend binding contract and write the local-Markdown binding | `M1` | `done` | `review` | - | - | T-005, T-010, T-012, T-025, T-038, T-040, T-043, T-074, T-108 |
+| [T-009](T-009-define-the-backend-binding-contract.md) | Define the backend binding contract and write the local-Markdown binding | `M1` | `done` | `review` | - | - | T-005, T-010, T-012, T-025, T-038, T-040, T-043, T-074, T-108, T-192 |
 | [T-010](T-010-write-the-github-issues-binding.md) | Write the GitHub Issues binding | `M1` | `done` | `review` | - | - | T-004, T-009, T-026, T-037, T-038, T-039, T-040, T-041, T-042, T-043, T-044, T-082, T-108 |
 | [T-011](T-011-runtime-discovery-and-project-hook-commands.md) | Runtime auto-discovery and project hook commands | `M1` | `done` | `review` | - | T-049 | T-013, T-025, T-056, T-057, T-066, T-069, T-106, T-116 |
 | [T-012](T-012-decide-whether-soft-edges-are-symmetric.md) | Decide whether soft edges are symmetric | `M1` | `done` | `review` | - | - | T-001, T-009, T-187 |
@@ -194,7 +195,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md) | Say where an authorised multi-phase run is recorded | `M3` | `done` | `review` | - | - | T-005, T-036, T-047, T-063 |
 | [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) | Say that the shipped config cannot gain a key without breaking every project that wrote one | `M3` | `done` | `review` | - | - | T-001, T-011, T-023, T-100, T-137, T-138, T-146, T-184 |
 | [T-107](T-107-say-so-when-a-valid-task-file-is-parked-where-nothing-reads-it.md) | Say so when a valid task file is parked where nothing reads it | `M2` | `done` | `review` | - | - | T-062, T-069, T-075, T-101, T-121, T-130, T-141 |
-| [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `M6` | `done` | `review` | - | - | T-004, T-009, T-010, T-041, T-082, T-163, T-164, T-166, T-178, T-179, T-181, T-185 |
+| [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `M6` | `done` | `review` | - | - | T-004, T-009, T-010, T-041, T-082, T-163, T-164, T-166, T-178, T-179, T-181, T-185, T-193 |
 | [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md) | Decide whether a task that settles a question must be typed decision | `M2` | `done` | `review` | - | - | T-088, T-090, T-093, T-097, T-098, T-103, T-104, T-110, T-131 |
 | [T-110](T-110-re-group-the-open-backlog-by-the-maintainers-release-rule.md) | Re-group the open backlog by the maintainer's release rule | `M2` | `done` | `review` | - | - | T-026, T-086, T-109, T-124, T-125, T-128, T-136 |
 | [T-111](T-111-stop-the-index-showing-a-closed-task-as-a-live-blocker.md) | Stop the index showing a closed task as a live blocker | `M2` | `done` | `review` | - | - | T-102 |
@@ -224,7 +225,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-136](T-136-rename-the-milestone-labels-so-they-cannot-be-read-as-versions.md) | Rename the milestone labels so they cannot be read as versions | `M6` | `done` | `review` | - | - | T-086, T-110, T-125, T-128, T-137, T-138 |
 | [T-137](T-137-decide-what-taskmd-does-about-a-label-read-as-a-version.md) | Decide what taskmd does about a grouping label that can be read as a version | `M6` | `done` | `review` | - | - | T-004, T-082, T-087, T-088, T-100, T-106, T-136, T-138 |
 | [T-138](T-138-report-a-front-matter-value-that-reads-as-a-version.md) | Report a front-matter value that reads as a version | `M6` | `done` | `review` | - | - | T-100, T-106, T-136, T-137, T-139, T-162 |
-| [T-139](T-139-check-that-the-advisory-lines-the-readme-lists-are-the-ones-there-are.md) | Check that the advisory lines the README lists are the advisory lines there are | `M6` | `done` | `review` | - | - | T-100, T-121, T-134, T-138, T-141, T-147, T-149, T-161, T-188 |
+| [T-139](T-139-check-that-the-advisory-lines-the-readme-lists-are-the-ones-there-are.md) | Check that the advisory lines the README lists are the advisory lines there are | `M6` | `done` | `review` | - | - | T-100, T-121, T-134, T-138, T-141, T-147, T-149, T-161, T-188, T-192 |
 | [T-140](T-140-restore-the-log-row-a-table-cell-swallowed.md) | Restore the log row a table cell swallowed in T-099 | `M6` | `done` | `review` | - | - | T-099, T-141 |
 | [T-141](T-141-report-a-table-row-with-more-cells-than-its-header.md) | Report a table row with more cells than its header | `M6` | `done` | `review` | - | - | T-025, T-095, T-107, T-121, T-139, T-140, T-147, T-150, T-151, T-162 |
 | [T-142](T-142-stop-the-entry-point-stating-the-path-mechanism-as-given.md) | Stop the entry point stating the PATH mechanism as given | `M6` | `done` | `review` | - | T-161 | T-054, T-085, T-099, T-148, T-153, T-161 |
@@ -235,7 +236,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-147](T-147-check-that-a-quoted-command-output-is-output-the-tool-produces.md) | Check that a quoted command output is output the tool produces | `M6` | `done` | `review` | - | - | T-095, T-134, T-139, T-141 |
 | [T-149](T-149-check-that-every-prose-list-of-lists-options-names-the-options-there-are.md) | Check that every prose list of list's options names the options there are | `M6` | `done` | `review` | - | - | T-117, T-134, T-139, T-144 |
 | [T-150](T-150-give-the-wide-row-fixture-a-front-matter-that-carries-pipes.md) | Give the wide-row fixture a front matter that carries pipes | `M6` | `done` | `review` | - | - | T-032, T-141, T-151, T-191 |
-| [T-151](T-151-decide-whether-a-check-needs-a-case-that-must-not-fire.md) | Decide whether a check needs a case that must not fire | `M6` | `done` | `review` | - | - | T-100, T-141, T-150, T-172, T-173, T-190, T-191 |
+| [T-151](T-151-decide-whether-a-check-needs-a-case-that-must-not-fire.md) | Decide whether a check needs a case that must not fire | `M6` | `done` | `review` | - | - | T-100, T-141, T-150, T-172, T-173, T-190, T-191, T-193 |
 | [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md) | Audit — what this repository costs a session on every turn | `M6` | `done` | `review` | - | T-153, T-154, T-155, T-156, T-157, T-158 | T-118, T-143, T-170, T-189 |
 | [T-153](T-153-e-10-move-the-maintainer-s-justification-into-comments.md) | E-10 — Move the maintainer's justification into comments the harness strips | `M6` | `done` | `review` | T-152 | T-159, T-160 | T-142, T-155, T-169 |
 | [T-154](T-154-e-01-e-04-say-what-the-tier-1-budget-governs.md) | E-01/E-04 — Say what the tier-1 budget governs, and what it cannot see | `M6` | `done` | `review` | T-152 | - | T-028 |
@@ -260,6 +261,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-173](T-173-decide-whether-check-can-know-a-phase-without-breaking-every-adopter.md) | Decide whether check can know a phase without breaking every adopter | `M6` | `done` | `review` | - | - | T-146, T-151, T-172 |
 | [T-174](T-174-carry-the-command-that-produced-t-168-s-figures.md) | Carry the command that produced T-168's figures into a record that can re-run it | `M6` | `done` | `review` | T-168 | - | T-168 |
 | [T-177](T-177-run-the-checks-that-need-no-task-folder.md) | Decide whether check runs the checks that never look at a task file | `M6` | `done` | `review` | - | T-185 | T-163, T-178, T-179, T-180 |
+| [T-178](T-178-give-the-github-binding-a-standing-verification.md) | Give the GitHub binding a standing verification, not only a migration-day one | `M6` | `done` | `review` | - | T-193 | T-041, T-108, T-177, T-179, T-185, T-192 |
 | [T-179](T-179-restore-the-ordering-rule-on-the-github-backend.md) | Restore the what-next ordering rule on the GitHub backend | `M6` | `done` | `review` | - | - | T-022, T-108, T-177, T-178, T-187 |
 | [T-180](T-180-route-a-migrated-project-to-its-binding-not-to-adopt.md) | Route a migrated project to its binding rather than to adopt.md | `M6` | `done` | `review` | - | - | T-163, T-164, T-177 |
 | [T-183](T-183-decide-what-to-do-about-a-machine-block-already-published-in-t-085.md) | Decide what to do about a machine block already published in T-085 | `M6` | `done` | `review` | - | - | T-034, T-080, T-085, T-133, T-186 |
