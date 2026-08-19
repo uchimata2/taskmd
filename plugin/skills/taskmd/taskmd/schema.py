@@ -178,6 +178,10 @@ class Edge(object):
 class Schema(object):
     def __init__(self, source, fields, edges, vocabularies, hook=("", [])):
         self.source = source
+        # The config error that would have been raised, when the project turns out to be migrated
+        # rather than broken - see `_check_tasks_dir`. `None` on every ordinary project, and the
+        # only thing that distinguishes the two states downstream.
+        self.tasks_unreadable = None
         # What the project wrote, and the same thing ready to run. The declared string is what
         # any message quotes: it is the line the reader can go and edit, and the resolved one
         # holds an absolute path, which never belongs in output.
@@ -460,11 +464,24 @@ def _check_tasks_dir(root, fields, source, own_config):
     # them", and the GitHub binding requires it, so nothing new is imposed on the project to
     # earn this sentence. It is added rather than substituted because the value is legal on a
     # local project too — this states a possibility, it does not diagnose one.
-    if not taken and fields["id_width"] is None:
+    migrated = not taken and fields["id_width"] is None
+    if migrated:
         hint += (" Or nothing here is broken and these commands do not apply: id_width is "
                  "'none', which says a backend allocates the ids, so this project's tasks are "
                  "not local files.")
-    raise SchemaError("%s: tasks_dir is '%s', %s. %s" % (source, tasks_dir, problem, hint))
+    error = SchemaError("%s: tasks_dir is '%s', %s. %s" % (source, tasks_dir, problem, hint))
+    # T-185, on T-177's ruling. **Returned rather than raised in exactly one case**: the folder is
+    # absent *and* the config says a backend allocates the ids. Then the project is migrated rather
+    # than broken, and the five checks that never open a task file have documents to read. Every
+    # other shape still raises here, including a mistyped `tasks_dir` - there the folder is supposed
+    # to exist, and turning a typo into a partial pass is the misreading the ruling refuses.
+    #
+    # The command layer decides what to do with it: `check` runs the five and says what it skipped,
+    # and the other three print it and exit 2, unchanged. The message is built here either way, so
+    # the two paths cannot drift apart.
+    if migrated:
+        return error
+    raise error
 
 
 def _resolve_hook(root, fields, source):
@@ -620,8 +637,10 @@ def load_schema(root="."):
     # Last, deliberately: a config that is both malformed and points at a missing folder is
     # reported as malformed. The `SchemaError` suite builds a project from a config file alone,
     # with no tasks folder, and stays meaningful only while the earlier errors still win.
-    _check_tasks_dir(root, fields, source, own_config)
-    return Schema(source, fields, edges, vocabularies, hook)
+    deferred = _check_tasks_dir(root, fields, source, own_config)
+    schema = Schema(source, fields, edges, vocabularies, hook)
+    schema.tasks_unreadable = deferred
+    return schema
 
 
 # -------------------------------------------------------------------------------- the tasks

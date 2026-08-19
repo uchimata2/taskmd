@@ -197,6 +197,81 @@ class CheckFailsOnEveryClassItClaims(unittest.TestCase):
         self.fails("broken-stale-index", "STALE INDEX", "run 'taskmd index'")
 
 
+class AMigratedProjectStillGetsItsDocumentsChecked(unittest.TestCase):
+    """T-185, implementing T-177's ruling. A project whose tasks moved to a backend got
+    `CONFIG ERROR` and exit 2 from every command, including the twelve checks that need a task file
+    and the five that do not. T-177 measured what that costs: two dead links and a config advisory,
+    in documents the project still keeps locally, reported by nothing.
+
+    **The ruling is conditional and the condition is asserted here.** A document-only pass that did
+    not say the task half went unchecked would turn a refusal into a false assurance, which is worse
+    than what it replaces — so `test_the_scope_line_says_the_task_half_was_not_checked` is not a
+    nicety, it is the half T-177 made the answer depend on.
+    """
+
+    FIXTURE = os.path.join(FIXTURES, "migrated-away")
+
+    def check(self, root=None):
+        return run("check", "--root", root or self.FIXTURE)
+
+    def test_it_reports_a_document_defect_it_used_to_refuse_to_look_for(self):
+        code, out = self.check()
+        self.assertIn("BROKEN LINK", out)
+        self.assertIn("plan.md", out)
+        self.assertNotIn("CONFIG ERROR", out)
+
+    def test_a_link_that_resolves_is_not_reported(self):
+        """The direction that stops the fixture passing under a check that flags everything."""
+        code, out = self.check()
+        self.assertEqual(out.count("BROKEN LINK"), 1, out)
+        self.assertNotIn("notes.md ->", out)
+
+    def test_the_scope_line_says_the_task_half_was_not_checked(self):
+        """T-177 part 3, and the condition its whole ruling rests on. A reader meets this without
+        looking for it; the absence of task counts is not a signal, it is a silence."""
+        code, out = self.check()
+        self.assertIn("Scope", out)
+        self.assertIn("no task file was read", out)
+        self.assertIn("id_width", out)
+
+    def test_the_summary_carries_no_task_denominator(self):
+        """The narrowed scan shows a smaller number, which is what the denominators are for
+        (T-095). A run reporting `task(s)` here would be counting something it never opened."""
+        code, out = self.check()
+        summary = [ln for ln in out.splitlines() if ln.startswith("OK -") or "problem(s) -" in ln]
+        self.assertTrue(summary, out)
+        self.assertNotIn("task(s)", summary[0])
+        self.assertIn("document(s)", summary[0])
+
+    def test_the_other_commands_still_refuse(self):
+        """The ruling is about `check`. `index` and `context` read a task file and there is none."""
+        for argv in (("index",), ("context", "T-001")):
+            code, out = run(*(argv + ("--root", self.FIXTURE)))
+            self.assertEqual(code, 2, out)
+            self.assertIn("CONFIG ERROR", out)
+
+    def test_a_clean_document_only_run_exits_zero(self):
+        """The owner's ruling of 2026-08-19. A distinct non-zero code says *incomplete* honestly and
+        makes every migrated project's gate permanently red, and a gate that is always red is
+        switched off. The honesty lives in the `Scope` line instead."""
+        tmp = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, tmp)
+        os.makedirs(os.path.join(tmp, ".taskmd"))
+        shutil.copy(os.path.join(self.FIXTURE, ".taskmd", "config.md"),
+                    os.path.join(tmp, ".taskmd", "config.md"))
+        code, out = self.check(tmp)
+        self.assertEqual(code, 0, out)
+        self.assertIn("no task file was read", out)
+
+    def test_a_mistyped_tasks_dir_still_refuses(self):
+        """T-177 part 2, and the reason the ruling is not *run the five whenever the folder is
+        missing*. There the folder is supposed to exist and the project is broken, not migrated."""
+        code, out = run("check", "--root", os.path.join(FIXTURES, "broken-tasks-dir"))
+        self.assertEqual(code, 2, out)
+        self.assertIn("CONFIG ERROR", out)
+        self.assertNotIn("no task file was read", out)
+
+
 class AnOpenTaskMayNameWhatItWillProduce(unittest.TestCase):
     """T-089. The other half of the deliverables rule, and the half that had never been tested.
 
@@ -785,12 +860,19 @@ class AbsentTasksDirIsReportedAtSetup(unittest.TestCase):
         Both halves are asserted. The message must gain the third possibility, and it must keep
         the two that were already right: this states a possibility, it does not diagnose one, and
         a local project that really did forget the folder still has a typo to fix.
+
+        **`check` is no longer among the commands that refuse here** — T-185, on T-177's ruling —
+        so this asserts the message on the two that still read a task file. The message itself is
+        unchanged, which is the thing T-164 is about.
         """
         root = os.path.join(FIXTURES, "migrated-away")
-        self.all_three_commands_refuse(root, "id_width is 'none'")
-        out = run("check", "--root", root)[1]
-        self.assertIn("do not apply", out)
-        self.assertIn("Create it, or correct tasks_dir.", out)
+        for argv in (("index",), ("context", "T-001")):
+            code, out = run(*(argv + ("--root", root)))
+            self.assertEqual(code, 2, "%s exited %d:\n%s" % (argv[0], code, out))
+            self.assertIn("CONFIG ERROR", out)
+            self.assertIn("id_width is 'none'", out)
+            self.assertIn("do not apply", out)
+            self.assertIn("Create it, or correct tasks_dir.", out)
 
     def test_the_genuine_missing_folder_gains_nothing(self):
         """The neighbour that keeps the fix honest. `broken-tasks-dir` is the same shape and a

@@ -1091,25 +1091,42 @@ ADVISORY_PREFIXES = ("CONFIG DRIFT", "DUPLICATE INDEX", "LABEL SHAPE")
 
 
 def cmd_check(root, schema, tasks, args):
+    """Every check, or - on a project whose tasks moved to a backend - the ones that read documents.
+
+    The split is `schema.tasks_unreadable`, set by the loader in the one case where a missing
+    `tasks_dir` means *migrated* rather than *broken* (T-185, ruling in T-177). Twelve checks open a
+    task file and have nothing to open; five walk the documents from the project root, which such a
+    project still keeps. Before this they were refused along with the twelve, and a real project in
+    that state was carrying two dead links and a config advisory that nothing would ever report.
+
+    **The `Scope` line is not decoration here, it is the condition the ruling was granted on.** A
+    document-only run that did not say the task half went unexamined would read as a clean bill of
+    health to the one reader who has just been handed real defects - a refusal traded for a false
+    assurance. So the note is written before any check runs, not appended if something is found.
+    """
     problems, counted, notes = [], [], []
     advisory = dict((name, []) for name in ADVISORY_PREFIXES)
-    counted += check_anomalies(root, schema, tasks, problems)
-    counted += check_vocabularies(schema, tasks, problems)
-    counted += check_dates(schema, tasks, problems)
-    counted += check_references(schema, tasks, problems)
-    counted += check_blocked_without_blocker(schema, tasks, problems)
-    counted += check_cycles(schema, tasks, problems)
-    counted += check_stored_derived(schema, tasks, problems)
-    counted += check_deliverables(root, schema, tasks, problems)
-    counted += check_stale_index(root, schema, tasks, problems)
+    if schema.tasks_unreadable:
+        notes.append("no task file was read, and the checks that open one did not run. %s"
+                     % schema.tasks_unreadable)
+    else:
+        counted += check_anomalies(root, schema, tasks, problems)
+        counted += check_vocabularies(schema, tasks, problems)
+        counted += check_dates(schema, tasks, problems)
+        counted += check_references(schema, tasks, problems)
+        counted += check_blocked_without_blocker(schema, tasks, problems)
+        counted += check_cycles(schema, tasks, problems)
+        counted += check_stored_derived(schema, tasks, problems)
+        counted += check_deliverables(root, schema, tasks, problems)
+        counted += check_stale_index(root, schema, tasks, problems)
+        counted += check_abandoned_slots(root, schema, tasks, problems)
+        counted += check_label_shape(schema, tasks, advisory["LABEL SHAPE"])
+        counted += check_duplicate_index(root, schema, tasks, advisory["DUPLICATE INDEX"])
     counted += check_links(root, schema, problems, notes)
     counted += check_wide_rows(root, schema, problems)
     counted += check_unreachable_templates(root, schema, problems)
     counted += check_template_fields(root, schema, problems)
-    counted += check_abandoned_slots(root, schema, tasks, problems)
     counted += check_config_drift(root, schema, advisory["CONFIG DRIFT"])
-    counted += check_label_shape(schema, tasks, advisory["LABEL SHAPE"])
-    counted += check_duplicate_index(root, schema, tasks, advisory["DUPLICATE INDEX"])
 
     if problems:
         for problem in problems:
@@ -1502,6 +1519,12 @@ def main(argv):
         return 2
 
     command = COMMANDS[rest[0]]
+    # T-185. The loader defers this one error rather than raising it, so `check` can read the
+    # documents a migrated project still keeps. Every other command opens a task file, so for them
+    # the deferral ends here and the output is what it always was, message and exit status alike.
+    if schema.tasks_unreadable and command is not cmd_check:
+        print("CONFIG ERROR  %s" % schema.tasks_unreadable)
+        return 2
     if command is not cmd_check and tasks.anomalies:
         # One line, and not the detail — the detail is `check`'s, and a second copy of it here
         # would be a second home for one fact. What this removes is the silence: before it, a task
