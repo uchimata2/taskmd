@@ -36,6 +36,7 @@ Pure standard library. Files are written with an explicit newline so output is b
 every platform; console output is ASCII so a cp1252 terminal cannot mangle it.
 """
 
+import datetime
 import os
 import re
 import subprocess
@@ -434,6 +435,58 @@ def check_vocabularies(schema, tasks, problems):
                                 % (task.id, field, value, ", ".join(values)))
             examined += 1
     return [("field value", examined)]
+
+
+DATE_SHAPED = re.compile(r"^([0-9]{4})-([0-9]{1,3})-([0-9]{1,3})$")
+
+
+def check_dates(schema, tasks, problems):
+    """A front-matter value shaped like a date that is not one - a problem, keyed on the value.
+
+    Found by writing one rather than by looking for one. A script inserting authorisation rows had an
+    off-by-one in its match and produced `updated: 2026-08-165` in two files and `2026-08-161` in a
+    third; `check` printed `OK` over all three and `index` regenerated without complaint. Confirmed
+    deliberately afterwards with `2026-13-99` - month 13, day 99, exit 0 (T-162 SS1).
+
+    **It reads the value and never the field name**, and that is the entire design rather than a
+    convenience. taskmd has no date field to name: a `date_fields` key is the shape T-146 refused -
+    it needs the tool to learn project vocabulary - at the price T-106 measures, an error in every
+    config written before the key existed. Keyed on the value, none of that arithmetic runs, and the
+    rule catches the same defect under a field name no schema has ever heard of. Measured across
+    three independently written corpora before it was ruled on: 374 files, 5,560 front-matter values,
+    366 date-shaped, and **no field other than the two the template ships holds a date-shaped value**
+    - so the rule needs no field list because the data has none to give (T-162 SS3).
+
+    A problem and not an advisory, because it reports an **error** rather than a choice: unlike
+    `CONFIG DRIFT`, where pinning a config is legal, there is no reading on which `2026-13-99` is
+    what the author meant.
+
+    **What it does not claim.** A date that is well-formed and wrong - `2026-08-15` where the author
+    meant `2026-08-16` - is undetectable by this or any rule, and it is the commoner fault. This
+    catches values that are not dates, which is a smaller class than values that are not *the* date.
+    A real date written without zero padding is a date and stays silent; the components are read and
+    handed to `datetime.date`, so the answer does not move with the interpreter's version the way
+    `date.fromisoformat` does.
+    """
+    examined = 0
+    for task in ordered(tasks):
+        for field, value in sorted(task.fields.items()):
+            # A field the schema does not name is carried as written, so it arrives as a list when
+            # the task wrote one - the shape a check that had only met scalars crashes on.
+            values = value if isinstance(value, list) else [value]
+            for item in values:
+                examined += 1
+                item = item.strip() if isinstance(item, str) else ""
+                shaped = DATE_SHAPED.match(item)
+                if not shaped:
+                    continue
+                try:
+                    datetime.date(int(shaped.group(1)), int(shaped.group(2)),
+                                  int(shaped.group(3)))
+                except ValueError:
+                    problems.append("MALFORMED DATE %s: %s is '%s', which is shaped like a date and "
+                                    "is not one" % (task.name, field, item))
+    return [("front-matter value", examined)]
 
 
 def check_references(schema, tasks, problems):
@@ -1042,6 +1095,7 @@ def cmd_check(root, schema, tasks, args):
     advisory = dict((name, []) for name in ADVISORY_PREFIXES)
     counted += check_anomalies(root, schema, tasks, problems)
     counted += check_vocabularies(schema, tasks, problems)
+    counted += check_dates(schema, tasks, problems)
     counted += check_references(schema, tasks, problems)
     counted += check_blocked_without_blocker(schema, tasks, problems)
     counted += check_cycles(schema, tasks, problems)

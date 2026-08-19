@@ -1655,6 +1655,86 @@ class LabelThatReadsAsAVersion(unittest.TestCase):
         self.assertNotIn("LABEL SHAPE", out)
 
 
+class DateShapedValueThatIsNotADate(unittest.TestCase):
+    """T-184, implementing T-162's ruling. A script inserting authorisation rows wrote
+    `updated: 2026-08-165` into two files and `2026-08-161` into a third; `check` printed `OK` and
+    `index` regenerated over all three. Confirmed deliberately afterwards with `2026-13-99` — month
+    13, day 99, exit 0.
+
+    Every assertion is against `malformed-date`, which carries the two accident shapes, the
+    deliberate specimen, a list-valued field, and two real dates that must stay silent. The last of
+    those is the one a check written to pass would drop: a rule that reported every date-shaped value
+    would satisfy every other assertion here.
+    """
+
+    FIXTURE = os.path.join(FIXTURES, "malformed-date")
+
+    def check(self, root=None):
+        return run("check", "--root", root or self.FIXTURE)
+
+    def test_it_fires_and_moves_the_exit_status(self):
+        """A problem, not an advisory: there is no reading on which `2026-13-99` is what the author
+        meant, so unlike `CONFIG DRIFT` it reports an error rather than a choice (T-162)."""
+        code, out = self.check()
+        self.assertEqual(code, 1, out)
+        self.assertIn("MALFORMED DATE", out)
+
+    def test_it_names_the_file_the_field_and_the_value(self):
+        code, out = self.check()
+        self.assertIn("T-001-the-accident-that-found-this.md", out)
+        self.assertIn("updated", out)
+        self.assertIn("2026-08-165", out)
+
+    def test_it_reads_the_shape_and_never_the_field_name(self):
+        """The whole reason there is no config key. `reviewed_on` is a field no schema mentions, and
+        taskmd has no date field to name in one — T-146 refused rules needing project vocabulary and
+        T-106 prices a new key at an error in every adopter's config."""
+        code, out = self.check()
+        self.assertIn("reviewed_on", out)
+        self.assertIn("2026-08-161", out)
+
+    def test_a_list_valued_field_is_read_too(self):
+        """`label-shaped-value` shipped without one and the check crashed on the first real tree it
+        met. A field the schema does not name arrives as a list when a task writes one."""
+        code, out = self.check()
+        self.assertIn("2026-02-30", out)
+        self.assertNotIn("keep-me", out)
+
+    def test_a_real_date_stays_silent_however_it_is_written(self):
+        """The direction that makes the rest mean something. `2026-8-5` is a date without zero
+        padding, and the class is *date-shaped and not a date*."""
+        code, out = self.check()
+        self.assertNotIn("2026-08-18", out)
+        self.assertNotIn("2026-8-5", out)
+        self.assertNotIn("2026-08-01", out)
+
+    def test_one_line_per_malformed_value(self):
+        code, out = self.check()
+        self.assertEqual(out.count("MALFORMED DATE"), 4, out)
+
+    def test_it_reads_no_config_key(self):
+        """Asserted rather than assumed: the schema this fixture loads is asked for every key it
+        knows, and none of them is this check's."""
+        body = inspect.getsource(cli.check_dates)
+        self.assertNotIn("schema.", body,
+                         "check_dates reads the schema; it must read only values")
+
+    def test_every_other_fixture_is_silent(self):
+        for path in sorted(glob.glob(os.path.join(FIXTURES, "*"))):
+            if not os.path.isdir(path) or os.path.samefile(path, self.FIXTURE):
+                continue
+            if not os.path.isdir(os.path.join(path, ".taskmd")):
+                continue
+            code, out = run("check", "--root", path)
+            self.assertNotIn("MALFORMED DATE", out, os.path.basename(path))
+
+    def test_this_repository_is_silent(self):
+        """Its three malformed values were repaired on 2026-08-16, so this is the corpus the rule
+        must not fire on — and the fixture above is what stops that being a vacuous pass."""
+        code, out = run("check", "--root", ROOT)
+        self.assertNotIn("MALFORMED DATE", out)
+
+
 class TableRowWiderThanItsHeader(unittest.TestCase):
     """T-141, from an adopter report. Markdown drops a cell past the header count, so the text is in
     the file and absent from the page, and nothing else this project runs can see it: the instance

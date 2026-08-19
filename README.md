@@ -154,7 +154,7 @@ taskmd check
 
 <!-- taskmd:sample-check -->
 ```
-OK - 0 task(s), 0 field value(s), 0 reference(s), 0 dependency edge(s), 0 declared output(s), 0 index file(s), 0 document(s), 0 link(s), 0 table row(s), 0 template(s), 0 template field value(s), 0 closed record(s), 0 vocabulary row(s), 0 front-matter value(s)
+OK - 0 task(s), 0 field value(s), 0 front-matter value(s), 0 reference(s), 0 dependency edge(s), 0 declared output(s), 0 index file(s), 0 document(s), 0 link(s), 0 table row(s), 0 template(s), 0 template field value(s), 0 closed record(s), 0 vocabulary row(s)
 Scope  every document read; no git here, so .gitignore was not consulted
 structure and references only - it cannot tell you whether a spec or an outcome is good
 ```
@@ -190,6 +190,18 @@ honest state of every young task. Measured on this project's own backlog when th
 of thirteen files holding a slot line, ten were open tasks whose slots sat in sections they had not
 got to. A rule without that gate is mostly noise, and a noisy check is one you switch off. A slot
 quoted inside a fenced code block is also ignored, so you can write about this without tripping it.
+
+**`check` also reports a front-matter value shaped like a date that is not one.** A script writing
+the day's dates across a batch of task files had an off-by-one in its match and produced
+`updated: 2026-08-165`. `check` printed `OK`, and the index regenerated over it. Confirmed
+deliberately afterwards with `2026-13-99`: month 13, day 99, exit 0. One `MALFORMED DATE` line names
+the file, the field and the value, and this is a **problem** too. Pinning a config is a choice, so
+its advisory is right to be one; there is no reading on which `2026-13-99` is what somebody meant. It
+reads the shape of the value and never the name of a field, so there is nothing to configure: taskmd
+has no date field to name, and the rule catches the same defect under a field name it has never heard
+of. A date written without zero padding is a date, and stays silent. A date that is well-formed and
+*wrong* is undetectable by this or any rule, and it is the commoner fault. This catches values that
+are not dates, which is a smaller class than values that are not the date somebody meant.
 
 <!-- taskmd:advisories -->
 
