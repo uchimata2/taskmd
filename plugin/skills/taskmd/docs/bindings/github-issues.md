@@ -398,8 +398,9 @@ one has gone, a partial body rewrite deletes it, and `gh` exits 0 on the destruc
 on the correct one.
 
 Run it after any bulk edit, after anything that rewrote bodies, and whenever you want the answer.
-Nothing here is scheduled or automatic, and nothing here is a taskmd command: every call is `gh`,
-for the reason `docs/SCOPE.md` non-goal 5 gives.
+Nothing here is scheduled or automatic, and nothing here is a taskmd command: every call is `gh`.
+The four commands cannot reach a network at all, which is a decision rather than a gap — the
+same one the migration passes above obeyed.
 
 **Fetch once**, with both flags *enumerate* explains, and work from the result:
 

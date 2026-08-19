@@ -195,10 +195,25 @@ Raised as [T-193](T-193-make-the-standing-github-check-fail-before-trusting-it.m
 
 ### Step 6 — verification of the change itself
 
+**The suite caught the section citing a document the plugin does not ship**, which no reading of the
+text would have:
+
+```text
+FAIL: test_no_file_in_the_plugin_cites_something_it_does_not_ship
+plugin/skills/taskmd/docs/bindings/github-issues.md:402 cites 'SCOPE.md'
+```
+
+The sentence pointed at `docs/SCOPE.md` non-goal 5 for why no network call belongs in the core.
+That is the right reason and the wrong citation: the plugin is the `plugin/` subtree, an adopter
+receives no `docs/SCOPE.md`, and [T-064](T-064-stop-the-plugin-citing-documents-it-does-not-ship.md)
+is why a test says so. Rewritten to state the constraint rather than cite it, which is the form the
+rest of this document already uses. Then:
+
 ```text
 Wrote tasks/README.md
-OK - ... task(s) ...
-Ran 288 tests ... OK
+OK - 193 task(s), 965 field value(s), 3246 front-matter value(s), ...
+Ran 288 tests in 21.839s
+OK
 ```
 
 The document's diff is **one hunk**: the new section. Nothing else in the file moved.
@@ -245,7 +260,7 @@ and named in §1 rather than left in a log row. Nothing else here is addressed t
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
-| 2026-08-19 | → done | `specify` through `review` in one session under the eight-task grant, this being number 6 of the eight. The binding gains **Checking a backlog that is already here** — one `enumerate` fetch, nine rows, `gh` only — beside the migration-day verification it is the standing counterpart to. All seventeen local checks were walked, **derived from `cmd_check` rather than from any document**, which is what caught the shipped prose saying seventeen while sixteen ran. The coverage ships with the procedure and states its own weaknesses: it is a hand-kept list of a set the code owns, and it is this backend's rather than every backend's. **Closed with one criterion carried, and it is the important one**: the procedure has not been made to fail, because that needs issues created and broken on a hosting service, which this session may not do unattended. Five numbered steps are written for whoever can, as [T-193](T-193-make-the-standing-github-check-fail-before-trusting-it.md); the owner's widening about per-binding coverage is [T-192](T-192-require-every-binding-to-declare-its-validator-coverage.md). |
+| 2026-08-19 | → done | `specify` through `review` in one session under the eight-task grant, this being number 6 of the eight. The binding gains **Checking a backlog that is already here** — one `enumerate` fetch, nine rows, `gh` only — beside the migration-day verification it is the standing counterpart to. All seventeen local checks were walked, **derived from `cmd_check` rather than from any document**, which is what caught the shipped prose saying seventeen while sixteen ran. The coverage ships with the procedure and states its own weaknesses: it is a hand-kept list of a set the code owns, and it is this backend's rather than every backend's. **Closed with one criterion carried, and it is the important one**: the procedure has not been made to fail, because that needs issues created and broken on a hosting service, which this session may not do unattended. Five numbered steps are written for whoever can, as [T-193](T-193-make-the-standing-github-check-fail-before-trusting-it.md); the owner's widening about per-binding coverage is [T-192](T-192-require-every-binding-to-declare-its-validator-coverage.md). The suite caught one thing reading could not: the new section cited `docs/SCOPE.md`, which the plugin does not ship (T-064). |
 | 2026-08-19 | (no change) | **The owner authorised the whole lifecycle for this task** — `specify` → `plan` → `implement` → `review` — on 2026-08-19, as the subject of a handoff written the same day. The grant names **eight tasks, run in a fixed order**: T-184, T-170, T-174, T-151, T-179, T-178, T-185, T-093; this is **number 6 of the eight**. It covers **these eight and nothing any of them raises**, matching the two grants before it. **It is explicitly unattended**, with one instruction attached in the owner's own words: where a question or trouble arises, record it in the task it belongs to and move to the next task rather than stopping. So a blocked phase ends in a written question here, not in a halted batch — and a question recorded under this grant is **not** answered by it. Recorded in this record as well as in the handoff, because a handoff is consumed once and renamed (METHOD §3.1, and [T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md) which settled where this goes). |
 | 2026-08-19 | (no change) | **The open question is answered by the owner: walk all seventeen checks first — and the outcome must not be GitHub-shaped.** Asked in the backlog-wide round of 2026-08-19. The coverage statement ships with the procedure rather than being implied, for the reason §1 gives: a verification whose reach nobody wrote down is the failure this repository keeps re-learning. *Rejected: shipping the procedure without the coverage list*, which is faster and turns a green result into a false assurance. **The answer widens the outcome, and the widening is the owner's own words**: today the backend is GitHub, tomorrow it may be Notion or another service, so what ships must be flexible — the coverage belongs to whichever backend is in use, declared per binding, rather than being seventeen rows written once about GitHub. `plugin/skills/taskmd/docs/BINDING.md` is the contract that would carry that, so `specify` judges whether the generic half is in scope here or is a sibling task, and says which. This row is the answer, not authorisation to start. |
 | 2026-08-18 | → proposed | Raised 2026-08-18 from a maintainer's question about whether taskmd is prepared to keep providing controls after a migration. The honest answer was no on the enforcing side, and this is the sharpest instance: **a documented path to unrecoverable loss of every soft edge, with a zero exit code and no detector**. Shaped as a binding procedure rather than a tool feature because `docs/SCOPE.md` §4 non-goal 5 settles that, and because the migration verification beside it is already built that way and was proven on a live repository. **Not covered by any standing authorisation.** |
