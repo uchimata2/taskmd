@@ -308,6 +308,171 @@ ones cannot: whether a sourced cost sentence tilts a document whose lean
 needs a fresh agent and this session was not asked to spawn one. `review` judges the gap; it is not
 papered over.
 
+### The sweep script, added 2026-08-19 by T-174
+
+**This section was added after the fact and is not a record of what this task did.** `plan` decided
+the script would be *quoted in §3*; `implement` recorded it as *described here rather than pasted*
+and the scratchpad it lived in did not survive the session, so §4's criterion 2 failed and
+[T-174](T-174-carry-the-command-that-produced-t-168-s-figures.md) was raised to carry it. The script
+below was **reconstructed from this record's own prose**, then run, and it reproduces every figure
+above. The reconstruction is therefore also the test of whether the prose was sufficient, and
+T-174 §3 records where it was not.
+
+It names no project, no path and no person: the classes come out of the rule, so it is quotable here
+and runs for anybody who has such a store.
+
+```python
+"""T-168's sweep. Selects the subset by rule, then measures the served and trigger halves.
+
+Reads the agent's own transcript store, which is machine-private: one folder per project, one
+JSONL file per session. It names no project and no path of its own - the classes come out of the
+rule below - so it is quotable in a published record and runs for anybody who has such a store.
+"""
+import json
+import os
+import pathlib
+import re
+
+STORE = pathlib.Path.home() / ".claude" / "projects"
+ASKED = re.compile(r"work on next|next task|(start|specify|plan|implement|review|close)\s+"
+                   r"(the\s+|a\s+|this\s+)?task", re.I)
+
+
+def first(path, key):
+    for rec in records(path):
+        if rec.get(key):
+            return rec[key]
+    return None
+
+
+def records(path):
+    with open(path, encoding="utf-8", errors="replace") as fh:
+        for line in fh:
+            try:
+                yield json.loads(line)
+            except ValueError:
+                continue
+
+
+def tasks_dir(config):
+    """The configured value, with an inline comment and quotes stripped.
+
+    The comment strip is load-bearing: without it the path tested is `tasks` plus the trailing
+    comment, which resolves nowhere, and every config-carrying project reads as migrated away.
+    """
+    for line in open(config, encoding="utf-8", errors="replace"):
+        if line.startswith("tasks_dir:"):
+            return line.split(":", 1)[1].split(" #")[0].strip().strip("'\"")
+    return None
+
+
+def classify(cwd):
+    if not cwd or not os.path.isdir(cwd):
+        return "?"
+    config = os.path.join(cwd, ".taskmd", "config.md")
+    if not os.path.isfile(config):
+        return "B" if not os.path.isdir(os.path.join(cwd, "tasks")) else "C"
+    named = tasks_dir(config)
+    return "C" if named and os.path.isdir(os.path.join(cwd, named)) else "A"
+
+
+def turns(path):
+    """What a person actually typed, in order.
+
+    `isMeta` records are typed `user` and nobody typed them - a skill stub, a slash-command body,
+    a hook message. Counting them answers a different question: every one of this sweep's own
+    false positives was one string, the handoff skill's stub, matched in seven sessions.
+    """
+    out = []
+    for rec in records(path):
+        if rec.get("type") != "user" or rec.get("isMeta"):
+            continue
+        content = rec.get("message", {}).get("content", "")
+        if isinstance(content, list):
+            content = " ".join(c.get("text", "") for c in content
+                               if isinstance(c, dict) and c.get("type") == "text")
+        if isinstance(content, str) and content.strip():
+            out.append(content)
+    return out
+
+
+def served(path):
+    """The taskmd entry of this session's skill listing, '' if listed without it, None if absent."""
+    for rec in records(path):
+        if rec.get("attachment", {}).get("type") != "skill_listing":
+            continue
+        for entry in rec["attachment"].get("content", "").split("\n"):
+            if entry.startswith("- taskmd:"):
+                return entry
+        return ""
+    return None
+
+
+# ------------------------------------------------------------------ step 1: the subset, by rule
+projects = {}
+for folder in sorted(STORE.iterdir()):
+    files = sorted(folder.glob("*.jsonl")) if folder.is_dir() else []
+    if files:
+        projects[folder] = (classify(first(files[0], "cwd")), files)
+
+# This session's own scratchpad folder is excluded by name: it is class B by the rule, and
+# counting it would be the session measuring itself.
+EXCLUDE = "scratchpad"
+for klass in "ABC?":
+    chosen = [(f, v) for f, v in projects.items()
+              if v[0] == klass and EXCLUDE not in f.name]
+    print("class %s: %d project(s), %d session(s)"
+          % (klass, len(chosen), sum(len(v[1]) for _, v in chosen)))
+
+a_projects = [v[1] for f, v in projects.items() if v[0] == "A"]
+a_files = [p for group in a_projects for p in group]
+
+# ------------------------------------------------------------------ step 2: the served half
+lines = [served(p) for p in a_files]
+sizes = sorted(set(len(x) for x in lines if x))
+print("served: %d of %d class-A session(s); line length as served: %s"
+      % (sum(1 for x in lines if x), len(a_files), sizes))
+
+# ------------------------------------------------------------------ step 3: the trigger half
+asking = sum(1 for p in a_files if any(ASKED.search(t) for t in turns(p)))
+hits = [(p, [t for t in turns(p) if "taskmd" in t]) for p in a_files]
+hits = [(p, h) for p, h in hits if h]
+opening = sum(1 for p, _ in hits if "taskmd" in turns(p)[0])
+skills = []
+for p in a_files:
+    for line in open(p, encoding="utf-8", errors="replace"):
+        if '"Skill"' in line:
+            skills += re.findall(r'"name"\s*:\s*"Skill".{0,200}?"skill"\s*:\s*"([a-z0-9:_-]+)"',
+                                 line)
+print("asked for task work in ordinary words: %d session(s)" % asking)
+by_project = sorted((sum(len(h) for p, h in hits if p in group) for group in a_projects),
+                    reverse=True)
+print("turns holding the literal token: %d in %d session(s), split %s across the projects"
+      % (sum(len(h) for _, h in hits), len(hits), by_project))
+print("of those, turns opening their session: %d" % opening)
+print("skills invoked anywhere in class A: %s"
+      % sorted((s, skills.count(s)) for s in set(skills)))
+```
+
+Run on 2026-08-19:
+
+```text
+class A: 2 project(s), 11 session(s)
+class B: 4 project(s), 7 session(s)
+class C: 5 project(s), 179 session(s)
+class ?: 0 project(s), 0 session(s)
+served: 10 of 11 class-A session(s); line length as served: [414]
+asked for task work in ordinary words: 0 session(s)
+turns holding the literal token: 7 in 3 session(s), split [6, 1] across the projects
+of those, turns opening their session: 0
+skills invoked anywhere in class A: [('code-review', 1), ('handoff', 2)]
+```
+
+**Every figure this section reports reproduces, except class C's session count**, which is 179 today
+against the 174 recorded above: this repository's own transcript folder is class C and has gained
+sessions since 2026-08-18. Class A, the class every criterion here is written about, is unchanged at
+2 and 11, and so are 10 of 11, 414, and all four trigger rows.
+
 **Decisions & assumptions**
 
 - **Class B is measured and reported alongside A rather than folded into it.** — §1's *Outcome* and its
@@ -322,7 +487,7 @@ papered over.
   bullets. §1 puts the five accepted framing mechanisms out of scope, and a number is not a licence to
   re-balance the document. — 2026-08-18
 - **The sweep scripts stay in the scratchpad and are described here rather than pasted.** — Taken at
-  `plan` and carried out unchanged. They read a machine-private store, and a test under `tests/`
+  `plan` and carried out unchanged. *Annotated 2026-08-19 by [T-174](T-174-carry-the-command-that-produced-t-168-s-figures.md): the second half of that sentence is false, and it is the whole reason T-174 exists. `plan` decided **quoted in §3**, not described, so this was a change carried out silently, which [`implement`](../plugin/skills/taskmd/docs/method/implement.md) step 3 forbids. The bullet is left as written because it records what was believed on 2026-08-18; the script it should have carried is above.* They read a machine-private store, and a test under `tests/`
   reading it could never run for an adopter. — 2026-08-18
 
 **Outputs produced**
