@@ -163,7 +163,7 @@ in advance; the two rows below that they did not name are dispositioned here wit
 
 | Row | Disposition |
 | :--- | :--- |
-| U-01, U-02 | **No task, and nothing implemented locally.** Both are observations about the harness, written to be handed over; neither asserts that a component failed. They stay in the deliverable, which is the handover. |
+| U-01, U-02 | **No task, and nothing implemented locally.** Both are observations about the harness, written to be handed over; neither asserts that a component failed. They are published in the deliverable and were sent to nobody, because this project has no route to whoever owns the harness. *Until 2026-08-19 this cell ended “They stay in the deliverable, which is the handover”. [T-170](T-170-decide-whether-the-audit-s-upstream-rows-are-reported-to-anyone.md) established that no recipient exists and corrected the claim; the disposition itself is unchanged, and the two dated audit deliverables are untouched.* |
 
 **Decisions & assumptions**
 
