@@ -42,7 +42,7 @@ Verification is therefore whatever exercises the deliverable **the way it will a
 | A decision | The people bound by it can state what it commits them to |
 | Anything with a mechanical check available | Run the check — and report what it printed, not that it passed |
 
-Two rules that hold across all of them:
+Rules that hold across all of them:
 
 - **State the result, not the verdict.** "Ran it on the four Q3 cohorts; three matched the source
   system, the fourth was 12 short and the gap is the re-opened contacts" is evidence. "Verified"
@@ -50,6 +50,12 @@ Two rules that hold across all of them:
 - **A check that has only ever succeeded has not been tested.** If the point of a check is to catch
   something, it is worth exactly as much as your confidence that it *would* catch it — and the only
   way to earn that confidence is to have seen it fail on a case it should catch.
+- **A check also needs a case it must *not* catch, and that case has to be shown able to fire.**
+  Noise is what gets a check switched off, so a check that moves an exit status has no room for it —
+  and a case that stays quiet proves nothing until you know it *could* have spoken. This half is
+  where a verification quietly goes hollow: a silent case passes by construction, so the fixture that
+  cannot fire and the rule that never fires score alike. Make it fire once, by breaking it on
+  purpose, before trusting its silence.
 
 ### When there is nothing to run
 

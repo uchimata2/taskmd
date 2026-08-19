@@ -72,7 +72,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `M6` | `proposed` | `specify` | - | - | T-092, T-095, T-109 |
 | [T-131](T-131-decide-whether-a-question-heavy-task-is-a-different-kind-of-work.md) | Decide whether a question-heavy task is a different kind of work | `M6` | `proposed` | `specify` | - | - | T-088, T-109, T-130 |
 | [T-148](T-148-decide-whether-a-caller-outside-a-served-skill-can-find-the-launcher.md) | Decide whether a caller outside a served skill can find the launcher | `M6` | `proposed` | `specify` | - | - | T-054, T-099, T-142 |
-| [T-151](T-151-decide-whether-a-check-needs-a-case-that-must-not-fire.md) | Decide whether a check needs a case that must not fire | `M6` | `proposed` | `specify` | - | - | T-100, T-141, T-150, T-172, T-173 |
 | [T-175](T-175-observe-whether-the-skill-triggers-in-a-migrated-away-project.md) | Observe whether the skill triggers in a project that has migrated its backlog away | `M6` | `proposed` | `specify` | T-168 | - | T-050, T-168 |
 | [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md) | Have an uninvolved reader test the sourced survivor bullet | `M6` | `proposed` | `specify` | T-168 | - | T-166, T-167, T-168 |
 | [T-178](T-178-give-the-github-binding-a-standing-verification.md) | Give the GitHub binding a standing verification, not only a migration-day one | `M6` | `proposed` | `specify` | - | - | T-041, T-108, T-177, T-179, T-185 |
@@ -83,6 +82,8 @@ A label says which release the work is scheduled into. It never says the release
 | [T-187](T-187-say-that-the-one-design-rule-yields-to-a-system-limitation.md) | Say that the one design rule yields to a system limitation | `M6` | `proposed` | `specify` | - | - | T-012, T-179 |
 | [T-188](T-188-report-a-counted-set-written-into-prose-that-the-code-owns.md) | Report a counted set written into prose that the code owns | `M6` | `proposed` | `specify` | - | - | T-134, T-139, T-184 |
 | [T-189](T-189-say-whether-the-audit-s-method-finding-reached-the-repository-that-owns-it.md) | Say whether the audit's method finding reached the repository that owns it | `M6` | `proposed` | `specify` | - | - | T-152, T-170 |
+| [T-190](T-190-decide-whether-tier-1-restates-two-verification-rules-the-method-owns.md) | Decide whether tier 1 restates two verification rules the method owns | `M6` | `proposed` | `specify` | - | - | T-028, T-047, T-151 |
+| [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) | Audit whether each check class has a case it must not catch | `M6` | `proposed` | `specify` | - | - | T-100, T-150, T-151 |
 
 ## Closed
 
@@ -115,7 +116,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-025](T-025-let-check-notice-a-stale-generated-index.md) | Let check notice a stale generated index | `M2` | `done` | `review` | - | - | T-002, T-009, T-011, T-019, T-026, T-039, T-084, T-089, T-095, T-096, T-121, T-130, T-141 |
 | [T-026](T-026-audit-the-whole-project-before-the-remaining-build.md) | Audit the whole project before the remaining build | `M2` | `done` | `review` | - | T-027, T-028, T-029, T-030, T-031, T-032, T-033, T-034 | T-003, T-006, T-010, T-025, T-036, T-059, T-086, T-088, T-110, T-118 |
 | [T-027](T-027-give-the-design-rule-one-home.md) | Give the design rule one home | `M1` | `done` | `review` | T-026 | - | T-017, T-031, T-045, T-046 |
-| [T-028](T-028-budget-the-whole-always-loaded-context-not-one-file.md) | Budget the whole always-loaded context, not one file | `M1` | `done` | `review` | T-026 | - | T-003, T-015, T-040, T-046, T-047, T-048, T-063, T-115, T-118, T-143, T-154 |
+| [T-028](T-028-budget-the-whole-always-loaded-context-not-one-file.md) | Budget the whole always-loaded context, not one file | `M1` | `done` | `review` | T-026 | - | T-003, T-015, T-040, T-046, T-047, T-048, T-063, T-115, T-118, T-143, T-154, T-190 |
 | [T-029](T-029-reject-unknown-arguments-on-every-command.md) | Reject unknown arguments on every command | `M2` | `done` | `review` | T-026 | - | T-002, T-022, T-055, T-087, T-113, T-144, T-145 |
 | [T-030](T-030-settle-the-schema-module-s-own-entry-point.md) | Settle the schema module's own entry point | `M2` | `done` | `review` | T-026 | - | T-020, T-023, T-065, T-066, T-117, T-134 |
 | [T-031](T-031-give-the-list-rationale-one-home.md) | Give the list rationale one home | `M2` | `done` | `review` | T-026 | - | T-022, T-027, T-102, T-117, T-134 |
@@ -134,7 +135,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-044](T-044-state-the-gh-version-the-github-binding-requires.md) | State the gh version the GitHub binding requires | `M1` | `done` | `review` | - | - | T-010, T-042 |
 | [T-045](T-045-decide-whether-scope-principles-may-state-the-rule-they-name.md) | Decide whether SCOPE §2 principles may state the rule they name | `M1` | `done` | `review` | - | - | T-017, T-027 |
 | [T-046](T-046-reconcile-the-done-condition-claude-md-restates.md) | Reconcile the done-condition CLAUDE.md restates from the method | `M1` | `done` | `review` | - | - | T-027, T-028 |
-| [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `M2` | `done` | `review` | - | - | T-015, T-028, T-035, T-059, T-063, T-105, T-115, T-118, T-119 |
+| [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `M2` | `done` | `review` | - | - | T-015, T-028, T-035, T-059, T-063, T-105, T-115, T-118, T-119, T-190 |
 | [T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md) | Say what "always-loaded" means in R-21, before the skill is built against it | `M1` | `done` | `review` | - | - | T-003, T-028 |
 | [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) | Demonstrate a clone running on a second platform | `M1` | `done` | `review` | T-011 | T-057, T-058 | T-006, T-020, T-054, T-056, T-057, T-058, T-061, T-085, T-116, T-132 |
 | [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | `M1` | `done` | `review` | T-003 | - | T-006, T-052, T-053, T-118, T-159, T-175 |
@@ -186,7 +187,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-097](T-097-decide-whether-a-published-document-may-point-at-a-file-no-clone-receives.md) | Decide whether a published document may point at a file no clone receives | `M2` | `done` | `review` | - | - | T-013, T-034, T-091, T-092, T-094, T-109 |
 | [T-098](T-098-decide-who-checks-the-links-in-a-document-only-a-successor-reads.md) | Decide who checks the links in a document only a successor reads | `M2` | `done` | `review` | - | - | T-002, T-034, T-080, T-094, T-095, T-109 |
 | [T-099](T-099-give-an-adopter-a-command-that-runs-without-bin-on-path.md) | Give an adopter a command that runs when the plugin's bin is not on PATH | `M2` | `done` | `review` | - | - | T-054, T-055, T-067, T-083, T-085, T-140, T-142, T-148, T-161 |
-| [T-100](T-100-report-a-project-config-that-has-drifted-from-the-shipped-default.md) | Report a project config that has drifted from the shipped default | `M2` | `done` | `review` | - | - | T-001, T-023, T-088, T-095, T-106, T-121, T-137, T-138, T-139, T-146, T-151 |
+| [T-100](T-100-report-a-project-config-that-has-drifted-from-the-shipped-default.md) | Report a project config that has drifted from the shipped default | `M2` | `done` | `review` | - | - | T-001, T-023, T-088, T-095, T-106, T-121, T-137, T-138, T-139, T-146, T-151, T-191 |
 | [T-101](T-101-report-a-template-the-create-path-cannot-see.md) | Report a template the create path cannot see | `M2` | `done` | `review` | - | - | T-032, T-051, T-076, T-091, T-095, T-107, T-121 |
 | [T-102](T-102-show-which-rows-list-has-already-worked-out-are-blocked.md) | Show which rows list has already worked out are blocked | `M2` | `done` | `review` | - | - | T-022, T-031, T-070, T-087, T-111 |
 | [T-103](T-103-say-whether-a-closed-task-s-declared-output-may-be-repointed.md) | Say whether a closed task's declared output may be repointed when the file moves | `M3` | `done` | `review` | - | - | T-053, T-076, T-083, T-089, T-090, T-092, T-104, T-109 |
@@ -234,7 +235,8 @@ A label says which release the work is scheduled into. It never says the release
 | [T-146](T-146-decide-whether-a-field-can-be-required-at-a-status.md) | Decide whether a field can be required at a status | `M6` | `done` | `review` | - | - | T-065, T-089, T-100, T-106, T-173, T-184 |
 | [T-147](T-147-check-that-a-quoted-command-output-is-output-the-tool-produces.md) | Check that a quoted command output is output the tool produces | `M6` | `done` | `review` | - | - | T-095, T-134, T-139, T-141 |
 | [T-149](T-149-check-that-every-prose-list-of-lists-options-names-the-options-there-are.md) | Check that every prose list of list's options names the options there are | `M6` | `done` | `review` | - | - | T-117, T-134, T-139, T-144 |
-| [T-150](T-150-give-the-wide-row-fixture-a-front-matter-that-carries-pipes.md) | Give the wide-row fixture a front matter that carries pipes | `M6` | `done` | `review` | - | - | T-032, T-141, T-151 |
+| [T-150](T-150-give-the-wide-row-fixture-a-front-matter-that-carries-pipes.md) | Give the wide-row fixture a front matter that carries pipes | `M6` | `done` | `review` | - | - | T-032, T-141, T-151, T-191 |
+| [T-151](T-151-decide-whether-a-check-needs-a-case-that-must-not-fire.md) | Decide whether a check needs a case that must not fire | `M6` | `done` | `review` | - | - | T-100, T-141, T-150, T-172, T-173, T-190, T-191 |
 | [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md) | Audit — what this repository costs a session on every turn | `M6` | `done` | `review` | - | T-153, T-154, T-155, T-156, T-157, T-158 | T-118, T-143, T-170, T-189 |
 | [T-153](T-153-e-10-move-the-maintainer-s-justification-into-comments.md) | E-10 — Move the maintainer's justification into comments the harness strips | `M6` | `done` | `review` | T-152 | T-159, T-160 | T-142, T-155, T-169 |
 | [T-154](T-154-e-01-e-04-say-what-the-tier-1-budget-governs.md) | E-01/E-04 — Say what the tier-1 budget governs, and what it cannot see | `M6` | `done` | `review` | T-152 | - | T-028 |
