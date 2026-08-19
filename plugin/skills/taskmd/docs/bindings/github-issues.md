@@ -223,6 +223,40 @@ a complete answer.
 Nothing filters on `state` — that is assumption 2's "no operation reads it", and passing
 `--state all` is how this operation obeys it rather than merely agreeing with it.
 
+**order** — *what should I work on next*, by the local backend's stated rule rather than by issue
+number. Every input the rule needs is already in *enumerate*'s output, so this is a sort over
+something you have, not a query you cannot make. Run *enumerate*, then sort the open issues on four
+keys, in this order:
+
+1. **Blocked last.** An issue is blocked when its `blockedBy` names an issue that is still open.
+   Closed blockers do not count, and a blocked issue is still listed rather than hidden, so that
+   `order` and `order --limit 1` describe the same set.
+2. **Effective value, best first** — the best value among the issue **and everything it transitively
+   unblocks**, following `blocking`. A cheap blocker is pulled ahead by what it releases rather than
+   sitting behind unrelated work. Best is the earliest value in your config's own row, so
+   `critical` outranks `high` because it is written first, not because of any number here.
+3. **Effort, cheapest first**, by the same rule: earliest in the row wins. An issue with no estimate
+   sorts after every issue that has one.
+4. **Issue number**, so the order is total and the same repository always gives the same answer.
+
+The value and effort of an issue are its `<field>:<value>` labels. Read the label, not the body: the
+property block in the body is a rendering, and rule 2 makes the label the fact.
+
+**What this cannot reproduce, stated rather than glossed:**
+
+- **A dependency cycle.** The local command tolerates one because its validator reports it
+  separately; here nothing reports it, so a cycle in `blockedBy` will not terminate a naive walk.
+  Stop at an issue already on the current path and take its own value.
+- **A stale `blockedBy`.** The local backend derives the inverse edge; here both directions are
+  GitHub's and nothing checks that they agree.
+- **Absent labels.** An issue whose value or effort label was never applied has no key to sort on.
+  Treat it as unestimated, and note that the local backend has a validator that would have told you.
+
+**This is a description of the local backend's behaviour, and that is deliberate.** Every other
+operation in this document describes local behaviour too; the rule's one home is the `## Ordering`
+section of the schema config, and this restates it because whoever implements this backend should
+not have to read Python to learn the one behaviour that decides what people work on.
+
 ### After any write
 
 Nothing. There is no index to regenerate: the issue list *is* the index, computed on demand, and
@@ -388,7 +422,7 @@ They do not degrade, warn, or fall back. They stop.
 | :--- | :--- | :--- |
 | `context` | *read* above — `gh issue view <n> --json …` | Nothing material. One fetch, one issue, whole |
 | `index` | nothing to replace — *After any write* says why | Nothing. The issue list is the index, computed on demand |
-| `list` | *enumerate* above | The enumeration survives. **The ordering does not** — nothing on this backend answers "what next" by a rule |
+| `list` | *enumerate* above, then *order* | The enumeration survives, and so does the ordering — as a procedure you run rather than a command that runs it |
 | `check` | **nothing** | Everything it checked is now unchecked |
 
 ### What survives
@@ -427,9 +461,15 @@ move and they are already paid whatever you decide here.
    > backend makes impossible.
 
 
-2. **No ordering rule.** `list --open --limit 1` answered "what to work on next" by a stated rule —
-   blocked last, then effective value, then effort, then id. GitHub sorts by number, recency or
-   whatever a saved filter says. The question does not disappear; it goes back to a person.
+2. **No ordering *command*.** `list --open --limit 1` answered "what to work on next" by a stated
+   rule — blocked last, then effective value, then effort, then id. GitHub sorts by number, recency
+   or whatever a saved filter says.
+
+   > **The rule is not gone, only the command — corrected 2026-08-19.** This item used to say the
+   > question goes back to a person. It does not have to: every input the rule needs is in
+   > *enumerate*'s output, so the rule is written out under *order* in *Operations* above and an
+   > agent runs it. What is genuinely lost is that nothing computes it for you and nothing checks
+   > the inputs, which *order* states as three named limits rather than as a caveat.
 3. **No offline copy.** The local backend's tasks are readable and editable with no tool installed.
    Here you need network access and `gh`.
 

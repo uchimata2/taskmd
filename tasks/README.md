@@ -75,7 +75,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-175](T-175-observe-whether-the-skill-triggers-in-a-migrated-away-project.md) | Observe whether the skill triggers in a project that has migrated its backlog away | `M6` | `proposed` | `specify` | T-168 | - | T-050, T-168 |
 | [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md) | Have an uninvolved reader test the sourced survivor bullet | `M6` | `proposed` | `specify` | T-168 | - | T-166, T-167, T-168 |
 | [T-178](T-178-give-the-github-binding-a-standing-verification.md) | Give the GitHub binding a standing verification, not only a migration-day one | `M6` | `proposed` | `specify` | - | - | T-041, T-108, T-177, T-179, T-185 |
-| [T-179](T-179-restore-the-ordering-rule-on-the-github-backend.md) | Restore the what-next ordering rule on the GitHub backend | `M6` | `proposed` | `specify` | - | - | T-022, T-108, T-177, T-178, T-187 |
 | [T-181](T-181-verify-the-handoff-github-recipe-on-a-live-issues-backed-project.md) | Verify the handoff GitHub recipe against a live issues-backed project | `M6` | `proposed` | `specify` | T-005 | - | T-108 |
 | [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) | Write the next release note to the rule and say what it caught | `M6` | `proposed` | `specify` | T-135 | - | T-125, T-127, T-133 |
 | [T-185](T-185-run-the-document-checks-in-a-project-whose-tasks-moved.md) | Run the document checks in a project whose tasks moved | `M6` | `proposed` | `specify` | T-177 | - | T-095, T-108, T-178 |
@@ -261,6 +260,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-173](T-173-decide-whether-check-can-know-a-phase-without-breaking-every-adopter.md) | Decide whether check can know a phase without breaking every adopter | `M6` | `done` | `review` | - | - | T-146, T-151, T-172 |
 | [T-174](T-174-carry-the-command-that-produced-t-168-s-figures.md) | Carry the command that produced T-168's figures into a record that can re-run it | `M6` | `done` | `review` | T-168 | - | T-168 |
 | [T-177](T-177-run-the-checks-that-need-no-task-folder.md) | Decide whether check runs the checks that never look at a task file | `M6` | `done` | `review` | - | T-185 | T-163, T-178, T-179, T-180 |
+| [T-179](T-179-restore-the-ordering-rule-on-the-github-backend.md) | Restore the what-next ordering rule on the GitHub backend | `M6` | `done` | `review` | - | - | T-022, T-108, T-177, T-178, T-187 |
 | [T-180](T-180-route-a-migrated-project-to-its-binding-not-to-adopt.md) | Route a migrated project to its binding rather than to adopt.md | `M6` | `done` | `review` | - | - | T-163, T-164, T-177 |
 | [T-183](T-183-decide-what-to-do-about-a-machine-block-already-published-in-t-085.md) | Decide what to do about a machine block already published in T-085 | `M6` | `done` | `review` | - | - | T-034, T-080, T-085, T-133, T-186 |
 | [T-184](T-184-report-a-date-shaped-value-that-is-not-a-date.md) | Report a date-shaped value that is not a date | `M6` | `done` | `review` | T-162 | - | T-106, T-146, T-188 |

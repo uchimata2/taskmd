@@ -9,7 +9,7 @@ blocked_by: []
 related: [T-139, T-134, T-184]
 work_package: M6
 owner: the project owner
-business_value: medium
+business_value: high
 effort: s
 created: 2026-08-19
 updated: 2026-08-19
@@ -37,6 +37,16 @@ There were **sixteen** before T-184 and there are **seventeen** now, so the sent
 wrong when T-184 read it. The argument is sound and is not what is in question; the number inside it
 is a derived value that was written down.
 
+**A second instance, found the next day and in a worse place.**
+[`plugin/skills/taskmd/docs/bindings/github-issues.md`](../plugin/skills/taskmd/docs/bindings/github-issues.md)
+*What is gone* says `check` runs *seventeen checks* and that *five of them never take a task as
+input*. `cmd_check` ran **sixteen** when that sentence was written, so it was wrong on the day it
+shipped; [T-184](T-184-report-a-date-shaped-value-that-is-not-a-date.md) added the seventeenth and
+made it accidentally true. Two things follow. It is an **adopter-facing** document rather than a test
+docstring, so the reader who meets the wrong number is the one with least ability to check it. And a
+count can be repaired by unrelated work without anybody noticing either the break or the repair,
+which is the strongest argument available that the class is worth a rule.
+
 **This is [T-139](T-139-check-that-the-advisory-lines-the-readme-lists-are-the-ones-there-are.md)'s
 fault class one step sideways, and that is why it is a `decision` rather than a `fix`.** T-139
 generalised T-134's guard from the command list to any **marked list of members**, and this is
@@ -52,7 +62,8 @@ wrong.
 
 **Scope**
 - In: the ruling — report such a count, or do not, with the rejected options named.
-- In: the one known instance, corrected whichever way the ruling goes.
+- In: both known instances, corrected whichever way the ruling goes — the test
+  docstring and the shipped binding's *seventeen checks* / *five of them*.
 - In: whether the honest repair is a rule at all, or removing the number from the sentence, which
   loses nothing the argument needs.
 - Out: re-opening [T-139](T-139-check-that-the-advisory-lines-the-readme-lists-are-the-ones-there-are.md)'s
@@ -74,8 +85,7 @@ wrong.
 - [ ] The corpus is swept for other written-down counts of code-owned sets before ruling, and the
       number found is stated — a rule justified by one instance is a rule justified by an anecdote
 - [ ] If a rule is adopted, it is shown **failing** on the known instance before it is fixed
-- [ ] The instance at `tests/test_publishing.py:244` is correct at close, whichever way the ruling
-      goes
+- [ ] Both known instances are correct at close, whichever way the ruling goes
 - [ ] The ruling says why this is or is not the same decision as
       [T-139](T-139-check-that-the-advisory-lines-the-readme-lists-are-the-ones-there-are.md)'s, in
       the terms that record uses
@@ -83,10 +93,11 @@ wrong.
 **Open questions**
 - **Is a spelled-out number worth a rule, or is the answer to stop writing them?** The instance
   spells it in words, inside an argument that does not need the figure at all: *the problem prefixes
-  are not marked* carries the whole point. If the corpus sweep finds one instance, removing it is
-  the cheaper and more honest repair, and a rule guards a class with no members. Decide at
+  are not marked* carries the whole point. If the corpus sweep finds only these, removing them is
+  the cheaper and more honest repair, and a rule guards a class with two members. Decide at
   `specify`, after the sweep — **the sweep is what settles it, not a preference**, and the criterion
-  above orders them that way for that reason.
+  above orders them that way for that reason. The second instance weakens the *remove them* answer
+  rather than settling it: a shipped document's figure is the kind a writer will reach for again.
 
 ## 2. Plan
 
