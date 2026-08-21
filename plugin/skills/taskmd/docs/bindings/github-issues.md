@@ -366,6 +366,13 @@ has only ever passed has not been tested.
 
 ### What this procedure has been run against
 
+**This register covers both verifications in this document** — the migration *Verify* above, and the
+standing *Checking a backlog that is already here* below. It stays here, under this name, because a
+closed record cites it by both (T-166); the standing half being defined further down is the price of
+not falsifying that.
+
+#### The migration verification
+
 The two sections above are not a design. On 2026-08-17 the whole of it was run end to end, into a
 private repository created for the run and deleted the same day: 28 labels, one per vocabulary value;
 then 165 tasks — a real backlog with hierarchy, dependencies, soft links and cross-references —
@@ -387,6 +394,33 @@ No taskmd command ran at any point in either pass: the four cannot reach a netwo
 to. The destination is gone and was never the evidence — a migration is checked while it runs, by the
 comparison the procedure ends with, so anyone doubting this runs it again rather than inspecting an
 artefact.
+
+#### The standing check
+
+On 2026-08-21 the nine rows below were run four times against a private scratch repository created
+for the run: 28 labels, one per vocabulary value; then 24 tasks from this project's own backlog —
+20 closed and 4 open, with hierarchy, dependencies, soft links and cross-references — migrated by the
+two passes above, then broken on purpose and repaired.
+
+| Run | Result |
+| :--- | :--- |
+| Healthy backlog, first run | **FAIL, 14** — and all fourteen spurious. Row 7 had been read as *any angle-bracket span*, so it reported `<field>`, `<value>`, `<prefix>`, `<backend>` and `<pattern>` wherever prose used them. The paragraph warning against this is written from this run |
+| With row 7 read as the template's own slot lines | **PASS** — 120 labels, 37 references, 15 `Related` lines, 7 dependency edges, 24 property blocks, 20 closed issues against 9 slot lines |
+| Against a backlog broken in two ways | **FAIL, 3** — row 2 named the reference repointed at an issue nothing holds, and row 3 named the issue whose `Related` line was deleted. Each row named its own defect, which is the criterion |
+| After repairing both | **PASS** |
+
+**Three of the nine rows examined nothing on this corpus**, and that is a property of the project's
+config rather than of the backlog: row 4 needs an issue labelled with the blocked status, row 8 needs
+a date-shaped value in a property block — `created` and `updated` have native carriers, so none
+reaches one — and row 9 needs the grouping field to be *enumerated*, which makes it a label; where it
+is not, as here, it is a property-block line and row 9 has nothing to read. A row that examined
+nothing scores like a row that found nothing, so a run is worth reporting per row with its count,
+not as a verdict.
+
+The scratch repository was created for this run and is the owner's to delete; the credential a
+session can reach carries `repo` and not `delete_repo`, measured on the day. It was never the
+evidence — the counts above are, and anyone doubting them runs the procedure again rather than
+looking for an artefact.
 
 ### Checking a backlog that is already here
 
@@ -414,13 +448,28 @@ Then answer these, each of which is one of the validator's classes as it lands h
 | :-- | :--- | :--- |
 | 1 | **Every enumerated field's value is in its row** | Each issue's `<field>:<value>` labels against your config's vocabularies. A label the config does not list, or two labels of one field on one issue, is the defect |
 | 2 | **Every reference resolves** | Every id in a body's property block, and every `blockedBy` and `parent`, names an issue in the fetch. **This is the one the migration got wrong twice**, and the one nothing else can see |
-| 3 | **`related` still exists** | Every issue whose property block should carry it still does. There is no far end to compare against, so compare against your own last known copy — a fetch kept before a bulk edit is the cheapest one |
+| 3 | **`related` still exists** | Every issue whose property block should carry it still does. There is no far end to compare against, so compare against your own last known copy — a fetch kept before a bulk edit is the cheapest one. **This row needs two fetches, so a first run cannot answer it**; say so rather than passing it |
 | 4 | **A blocked issue has an open blocker** | An issue labelled with your blocked status whose `blockedBy` is empty, or whose blockers are all closed |
 | 5 | **No dependency cycle** | Walk `blockedBy`. A loop is a defect here and nothing else reports it |
 | 6 | **No body stores a derived edge** | A property block writing `children:` or `blocks:`. Both are GitHub's to compute, from `subIssues` and `blocking` |
-| 7 | **No closed issue carries a template slot** | A closed issue whose body still holds an angle-bracket placeholder from the template it was copied from |
+| 7 | **No closed issue carries a template slot** | A closed issue whose body holds a whole line that is one of your task template's own slot lines, with fenced and inline code blanked first. **Not any angle-bracket span** — see below |
 | 8 | **No date-shaped value that is not a date** | Any property-block value shaped like a date that is not one |
 | 9 | **No label reads as a version** | A grouping label whose value is a two-part number. A release of that number is a different thing |
+
+**Two of the nine rows need something the fetch does not carry, and neither says so by its length.**
+Row 3 needs a *fetch kept from before*, so the section heading above — *fetch once* — is true of the
+other eight and not of it. Row 7 needs your task template's **slot lines**, which are not issue data
+at all; the coverage table below says the two template checks do not come across, and row 7 is the
+one place a template is still read. A run that has neither should report those rows as unanswered
+rather than as passed, because a row that examined nothing scores exactly like a row that found
+nothing.
+
+**Do not check template slots by shape, for the same reason references are not checked by shape.**
+`<field>`, `<value>`, `<prefix>`, `<backend>` are ordinary notation in ordinary prose, and matching
+any `<...>` span reports every one of them. Measured on a healthy 24-issue backlog: **14 failures,
+all 14 spurious**, in the first run this procedure ever had. A slot is a **whole line the template
+offers**, compared after code is blanked — which is what the local backend's own check does, and why
+adding a slot to a template starts it being reported with no rule edited anywhere.
 
 **And make it fail first.** A pass on a healthy backlog proves nothing about the procedure — it is
 the same run a procedure that checks nothing produces. Before trusting it, break one issue on
@@ -428,6 +477,11 @@ purpose in a scratch repository: delete a `related` line from one body, and poin
 reference at an issue number that does not exist. Row 2 and row 3 must both name the issue. Repair
 them and run it again. That is the standard the migration *Verify* is held to, and the reason its
 three recorded failures are what make it trustworthy.
+
+**This has been done, and the runs are in *What this procedure has been run against* above.** The
+instruction stays because it is what to do after *your* next bulk edit — the recorded runs prove the
+rows can fire, not that your backlog is sound. One of the two things it caught was in the procedure
+itself, which is why the run is worth more than its verdict.
 
 #### What this does not cover, and why
 
