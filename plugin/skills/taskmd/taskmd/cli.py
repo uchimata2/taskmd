@@ -43,8 +43,8 @@ import subprocess
 import sys
 
 from . import discovery
-from .schema import (DUPLICATE_ID, PARKED, SchemaError, drift_from_default, load_schema, load_tasks,
-                     read, split_front_matter, templates)
+from .schema import (DUPLICATE_ID, PARKED, SchemaError, Task, drift_from_default, load_schema,
+                     load_tasks, read, split_front_matter, templates)
 
 BEGIN = "<!-- taskmd:index - generated, do not edit by hand -->"
 END = "<!-- taskmd:end -->"
@@ -1159,6 +1159,24 @@ def check_wide_rows(root, schema, problems):
     return [("table row", scanned)]
 
 
+def entitlement(path, schema, text):
+    """The ids `path` is entitled to name: the one it declares, and the ones in its own edge fields.
+
+    Read from the file's own front-matter, so it holds for a file the loader rejected as much as for
+    one it kept — see `check_duplicate_index` for what depending on the loaded set cost (T-200). A
+    file with no front-matter, or none carrying an id, is entitled to nothing, which is the right
+    answer for an ordinary document.
+    """
+    fields, _ = split_front_matter(text)
+    if not fields:
+        return set()
+    task = Task(path, schema, fields)
+    entitled = {task.id} if task.id else set()
+    for ids in task.edges.values():
+        entitled.update(ids)
+    return entitled
+
+
 def check_duplicate_index(root, schema, tasks, duplicates):
     """A second table of the same tasks, outside the markers taskmd owns — advisory, never a problem.
 
@@ -1184,17 +1202,21 @@ def check_duplicate_index(root, schema, tasks, duplicates):
     Discounting the structural ids removes that whole class without touching the threshold, and a
     genuine duplicate table pasted into a task file still fires, because a table names ids the task
     never declared.
+
+    **The entitlement is read from the file, never from whether the file was loaded** (T-200). It was
+    built from `tasks` until 2026-08-21, which made a file's right to name its own id depend on
+    winning a race that a *different* check adjudicates: the loser of a duplicate id, a file whose id
+    is the right prefix at the wrong width, and a task parked under a skipped folder are all absent
+    from `tasks`, so all three were judged as arbitrary documents that happened to name known ids —
+    and at small N one mention was a majority. All three were reproduced firing, and the repair is
+    aimed at the cause rather than at the three shapes, so a fourth reason to prune cannot bring it
+    back. What is *not* discounted is unchanged: a file gets its own declared id and its own declared
+    edges, so a pasted table of ids it never declared still fires.
     """
     if not tasks:
         return [("document", 0)]
     visible = clone_would_receive(root)
     known, pattern = set(tasks), re.compile(r"%s\d+" % re.escape(schema.id_prefix))
-    structural = {}
-    for task in tasks.values():
-        entitled = {task.id}
-        for ids in task.edges.values():
-            entitled.update(ids)
-        structural[os.path.normpath(task.path)] = entitled
     scanned = 0
     for md in markdown_files(root, schema):
         if visible is not None and os.path.normpath(md) not in visible:
@@ -1210,7 +1232,7 @@ def check_duplicate_index(root, schema, tasks, duplicates):
             if end != -1:
                 outside.append(text[end + len(END):])
         seen = known & set(pattern.findall("\n".join(outside)))
-        seen -= structural.get(os.path.normpath(md), set())
+        seen -= entitlement(md, schema, text)
         if len(seen) * 2 > len(known):
             duplicates.append("%s: a second table of %d known task ids sits outside the taskmd "
                               "markers" % (rel(root, os.path.relpath(md, root)), len(seen)))

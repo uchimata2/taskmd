@@ -200,8 +200,7 @@ class CheckFailsOnEveryClassItClaims(unittest.TestCase):
 
     def test_two_files_claiming_one_id(self):
         """T-062. Before this class, three task files could produce two tasks and `OK`, exit 0."""
-        self.fails("broken-duplicate-id", "DUPLICATE ID", "T-001-second.md",
-                   also=[("DUPLICATE INDEX", "T-200")])
+        self.fails("broken-duplicate-id", "DUPLICATE ID", "T-001-second.md")
 
     def test_an_id_that_is_the_right_prefix_and_the_wrong_width(self):
         """T-075. `id_width` used to be honoured only when composing a new id, never when reading
