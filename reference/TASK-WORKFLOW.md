@@ -70,8 +70,8 @@ The **only** place a fact about a task is stored. `task.py check` enforces this 
 | `id` | `T-NNN` | Zero-padded, sequential, never reused. Take it from **Next ID** in the index. |
 | `title` | one line, imperative | Appears in every generated view — write it to be read out of context. |
 | `type` | `analysis` · `deliverable` · `research` · `fix` · `admin` | |
-| `status` | `proposed` · `specified` · `planned` · `in_progress` · `blocked` · `review` · `done` · `cancelled` | §4 |
-| `phase` | `specify` · `plan` · `implement` · `review` | §2 |
+| `status` | `proposed` · `specified` · `planned` · `in_progress` · `blocked` · `review` · `done` · `cancelled` | see §4 |
+| `phase` | `specify` · `plan` · `implement` · `review` | see §2 |
 | `parent` | `T-NNN` or `null` | The umbrella, for audit children. |
 | `blocked_by` | `[T-NNN, …]` | **Hard** dependency: this cannot proceed until those close. |
 | `related` | `[T-NNN, …]` | **Soft** link: context worth having, not a gate. |

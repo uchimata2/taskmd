@@ -78,10 +78,19 @@ rule, which is the general statement of what this task is an instance of.
       covers both verifications
 
 **Open questions**
-- **Who runs it, and where?** It needs a hosting account and permission to create, mutate and delete
-  a repository. **The owner decides** — either authorising a session to do it, or doing it and
-  handing back the output. Nothing else about this task is undecided; it is the one thing a session
-  cannot take for itself.
+- ~~**Who runs it, and where?**~~ **Answered 2026-08-19: a session is authorised to run it.** The
+  project owner granted this in a question round on 2026-08-19, and the grant covers **this task's
+  run only**: creating a throwaway hosted repository, creating and mutating issues in it, running
+  the standing verification against them, and recording what it printed. It is written here because
+  a handoff is consumed once and renamed
+  ([T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md)), and an authorisation kept
+  anywhere else is one a later session can miss or stretch to a task it never reached.
+
+  **Two limits were measured when the grant was given, rather than assumed.** The credential a
+  session can reach carries the scope needed to create the repository and its issues; it does
+  **not** carry the scope that deletes a repository. So **removing the throwaway repository is the
+  owner's step**, taken after the run unless that scope is added first — and a plan whose last row
+  is a session deleting it is a plan that cannot execute.
 
 ## 2. Plan
 
@@ -110,5 +119,6 @@ rule, which is the general statement of what this task is an instance of.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-19 | (no change) | **Answered by the owner in a question round: a session is authorised to run this.** The alternative — the owner running it and handing back the output — was offered and declined. The grant and its two measured scope limits are in §1, where a later session will find them; deleting the throwaway repository falls outside it. **No phase was started on this answer** ([T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md)): the grant authorises this task's work when it is asked for, not now. |
 | 2026-08-19 | (no change) | **The owner extended the eight-task grant to cover what those eight raise**, on 2026-08-19: *if new tasks arise from these 8, work on the non-blocked ones too the same way*. It reaches this task because [T-178](T-178-give-the-github-binding-a-standing-verification.md) raised it. **The grant does not make this runnable**, and that is not a reading of its boundary but of what it authorises: creating and mutating issues on a hosting service is a write outside these records, and §1's question asks for exactly that permission. So the task ends in its written question, which is what the grant's own instruction says to do. Recorded here because a handoff is consumed once and renamed ([T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md)). |
 | 2026-08-19 | → proposed | Raised by [T-178](T-178-give-the-github-binding-a-standing-verification.md)'s review as the one criterion it did not meet. `high` and `m`: the procedure guards a documented path to unrecoverable loss, and until it has failed once nobody knows whether it guards anything. A child of T-178 rather than a soft link, because T-178 is not finished until this is — its own §4 says so. |

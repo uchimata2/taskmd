@@ -287,7 +287,7 @@ is not overturned here and was never wrong. It reported the cell it observed. Th
 different cell because it was a different session, which is precisely what the first run predicted it
 would take.
 
-**Open questions swept before closing** (`review` §5). §1 records none, and none arose: the maintainer's
+**Open questions swept before closing** (`review` step 5). §1 records none, and none arose: the maintainer's
 authorisation of 2026-08-17 fixed the reading in advance, which is what left nothing for a verdict to
 refer upward. The compaction case stays unobserved and is **not** a residue of this task — T-169
 accepted it as a risk against its worse branch and kept it off its own reversal list, so nothing here

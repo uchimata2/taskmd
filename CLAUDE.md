@@ -81,7 +81,7 @@ why the bound is another file's length: T-118.
 
 <!--
 The method is tier 2, so it is not loaded yet when these two apply. They are METHOD §3.1 and §3.3,
-carried here in full for that reason (T-047); §3.2 presupposes a phase and stays with the method.
+carried here in full for that reason (T-047); METHOD §3.2 presupposes a phase and stays with the method.
 -->
 
 #### One phase per request — never auto-advance

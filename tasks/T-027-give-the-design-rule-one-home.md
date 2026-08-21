@@ -177,7 +177,7 @@ file T-028 is budgeting, which is the whole reason that task depended on this on
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-| The qualification is written in full in exactly one file; a grep for its distinctive phrasing returns one hit outside task records | **not met** | Four hits before, three after. Two of the three are put out of scope by this task's own *Scope* section, so no acceptable outcome could have returned one — the criterion is broader than the task it belongs to. `rationale.md`'s hit is defensible on its role; `docs/SCOPE.md:43` is not, and the sanction invoked for it does not reach it → **T-045**. Judged as written per `review.md` §1 rather than narrowed to match the result. |
+| The qualification is written in full in exactly one file; a grep for its distinctive phrasing returns one hit outside task records | **not met** | Four hits before, three after. Two of the three are put out of scope by this task's own *Scope* section, so no acceptable outcome could have returned one — the criterion is broader than the task it belongs to. `rationale.md`'s hit is defensible on its role; `docs/SCOPE.md:43` is not, and the sanction invoked for it does not reach it → **T-045**. Judged as written per `review.md` step 1 rather than narrowed to match the result. |
 | `CLAUDE.md` still tells a new session that the rule exists and where to read it — a pointer, not a deletion | met | The section still opens with the rule by name and states this repository's application of it; what it no longer does is state the qualification, which now resolves through one link to `docs/METHOD.md` §4. |
 | `CLAUDE.md`'s own "if you find it written out somewhere else, that copy is the defect" sentence is true of the file that contains it | **not met** | True of the design rule now. Not true of the file: the sentence claims the whole method — "the lifecycle and its exit criteria" — is not restated in `CLAUDE.md`, and line 59 restates METHOD §1.5's closing condition. Worse than a copy, it has drifted: METHOD requires the `implement` evidence to be written down, `CLAUDE.md` substitutes the validator passing, and a task can satisfy the second with none of the first → **T-046**. Found because the criterion says *the file*, so it was checked against the file rather than against the edited section. |
 | `docs/SCOPE.md` §3's sanctioned overlap is left intact and explicitly re-checked, so this fix does not quietly reopen T-017 | met | `git diff --stat` reports no change to `docs/SCOPE.md`, `docs/METHOD.md` or `docs/method/`; `CLAUDE.md` is the only modified file. Re-read rather than only diffed: §3 still states the requirement-versus-rule division T-017 decided, and T-045 is deliberately aimed at §2 *Principles*, which that decision never covered. |
@@ -185,7 +185,7 @@ file T-028 is budgeting, which is the whole reason that task depended on this on
 Two met, two carried. The task did the work its scope named and did it correctly — the removed copy
 is gone and the pointer resolves — and both gaps are the same shape: a criterion written from a
 reading of three files, checked against the tree, turning out to describe a bigger problem than the
-one being fixed. Neither is repaired here (`review.md` §4).
+one being fixed. Neither is repaired here (`review.md` step 4).
 
 **Child fix tasks raised**
 - **T-045** — `docs/SCOPE.md` §2 principle 1 states the qualification in full; T-017's settlement was

@@ -74,11 +74,16 @@ R-16, R-17 (`docs/SCOPE.md`).
 - [ ] Every gap is a child task, and the audit closes only when each is resolved (`audit.md` step 5)
 
 **Open questions**
-- **Do the advisories carry the same rule?** T-151's argument turns on noise getting a check switched
-  off, and it names *a check that moves an exit status* as the case with no tolerance for it. An
-  advisory moves nothing, so the rule may bind more weakly there or not at all. **Decide at
-  `specify`** — the answer changes the size of the audit and should be taken before the rows are
-  written, not discovered while writing them.
+- ~~**Do the advisories carry the same rule?**~~ **Answered 2026-08-19: yes, and every class the
+  validator prints is audited, advisory or not.** Two reasons were given with the answer. **An
+  advisory is a hard failure in waiting** — `SECTION REF` is already queued for promotion in
+  [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) §3 — so auditing a class after
+  it is promoted pays for it at the moment it starts blocking people. And **a noisy advisory trains
+  a reader to skim the whole output**, the failing lines included, which is
+  [T-151](T-151-decide-whether-a-check-needs-a-case-that-must-not-fire.md)'s own argument arriving
+  by a different door. Limiting the audit to the classes that move the exit status was the
+  alternative and was rejected. The audit is larger for this, and its condition is unchanged: each
+  quiet case is still broken on purpose, one class at a time.
 
 ## 2. Plan
 
@@ -107,5 +112,6 @@ R-16, R-17 (`docs/SCOPE.md`).
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-19 | (no change) | **Answered by the owner in a question round: the rule binds on advisories too.** Every class the validator prints is in the audit; limiting it to the exit-status classes was offered and rejected. The two reasons are in §1. This sets the audit's size, which the question said had to be settled before the rows are written. **No phase was started on this answer** ([T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md)). |
 | 2026-08-19 | (no change) | **The owner extended the eight-task grant to cover what those eight raise**, on 2026-08-19: *if new tasks arise from these 8, work on the non-blocked ones too the same way*. It reaches this task because [T-151](T-151-decide-whether-a-check-needs-a-case-that-must-not-fire.md) raised it. **It does not answer §1's question**, which sizes the audit and is the owner's. Under the grant's own instruction, this task ends in a written question rather than a halted batch. Recorded here because a handoff is consumed once and renamed ([T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md)). |
 | 2026-08-19 | → proposed | Raised by [T-151](T-151-decide-whether-a-check-needs-a-case-that-must-not-fire.md)'s review, as that task's §1 said it would be. Typed `audit` rather than `fix` because it examines a body of work for a problem nobody has alleged of any particular class, and its findings become children rather than repairs (METHOD §5). `m` rather than `s`: the condition means exercising each quiet case, not grepping for one. |

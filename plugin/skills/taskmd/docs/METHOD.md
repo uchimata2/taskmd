@@ -62,7 +62,17 @@ always-loaded conventions live, and a copy here would be a second home for a rul
 [`../adopt.md`](../adopt.md) §4 carries the text to put there, and
 [rationale](method/rationale.md) carries the argument behind both.
 
-Only §3.2 is stated below, because it presupposes a phase and so cannot bind before one exists.
+**All three are numbered below, and only one is stated**, so that a citation of any of them
+resolves to a heading a reader can find. A heading that says where a rule lives is not a copy of the
+rule — but the moment either of the two below says what its rule *is*, it has become the second home
+this section exists to prevent.
+
+### 3.1 One phase per request — never auto-advance
+
+**Not stated here.** It binds before there is any task work, so a session that needs it has not
+loaded this document. Its home is your project's always-loaded conventions:
+[`../adopt.md`](../adopt.md) §4 carries the text to put there, and
+[rationale](method/rationale.md) the argument for putting it there.
 
 ### 3.2 Ask to the phase's exit criterion — and batch it
 
@@ -77,6 +87,11 @@ question. Work out everything you need, then ask once.
 
 Do not guess in place of asking. An assumption is acceptable when it is *recorded as an assumption*
 and the work would survive being wrong; otherwise it is a question.
+
+### 3.3 Surface what you discover — never absorb it, never drop it
+
+**Not stated here**, for the reason under 3.1. Its home is your project's always-loaded conventions:
+[`../adopt.md`](../adopt.md) §4 carries the text, and [rationale](method/rationale.md) the argument.
 
 ---
 

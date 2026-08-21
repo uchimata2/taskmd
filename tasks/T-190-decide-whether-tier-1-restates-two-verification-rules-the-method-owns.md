@@ -87,12 +87,18 @@ happens to overlap it, and the repair is to say so rather than to delete it.
 - [ ] Whether other tier-1 lines restate the method is answered or raised as its own task
 
 **Open questions**
-- **Does a session that never loads the method still need these two rules?** That is the counter-
-  argument, and it cannot be settled by reading either file: it is a claim about what sessions
-  actually do. **The owner decides at `specify`**, or names what would show it — the session
-  transcripts are readable, and a probe over them is the kind of evidence
+- ~~**Does a session that never loads the method still need these two rules?**~~ **Answered
+  2026-08-19: yes, and the tier-1 text stays, reworded to state its wider scope out loud.** The
+  ruling is that the two are not copies of the method's rules but a wider-scoped rule that overlaps
+  them: they bind on any claim about behaviour, not only on task work, and a session answering a
+  question, triaging a report or checking something for the owner never loads the method. Two
+  alternatives were offered and not taken — **deleting the tier-1 text** as a duplicate, which
+  removes both rules from exactly the sessions where an unverified claim is most likely; and
+  **measuring first**, a probe over the session transcripts of the kind
   [T-168](T-168-price-what-keeping-taskmd-installed-costs-a-project-with-no-tasks.md) built and
-  [T-174](T-174-carry-the-command-that-produced-t-168-s-figures.md) made re-runnable.
+  [T-174](T-174-carry-the-command-that-produced-t-168-s-figures.md) made re-runnable. So the repair
+  is to say the scope, not to delete the text, and `tests/test_budget.py` still bounds what saying
+  it may cost.
 
 ## 2. Plan
 
@@ -121,5 +127,6 @@ happens to overlap it, and the repair is to say so rather than to delete it.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-19 | (no change) | **Answered by the owner in a question round.** The tier-1 text stays and is reworded to state the wider scope; deleting it, and measuring the transcripts before ruling, were both offered and declined. The question in §1 is struck through with both alternatives named. **No phase was started on this answer** ([T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md)). |
 | 2026-08-19 | (no change) | **The owner extended the eight-task grant to cover what those eight raise**, on 2026-08-19: *if new tasks arise from these 8, work on the non-blocked ones too the same way*. It reaches this task because [T-151](T-151-decide-whether-a-check-needs-a-case-that-must-not-fire.md) raised it. **It does not answer §1's question**, which asks what sessions actually do and is settled by evidence or by the owner, not by permission to run phases. Under the grant's own instruction, this task ends in a written question rather than a halted batch. Recorded here because a handoff is consumed once and renamed ([T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md)). |
 | 2026-08-19 | → proposed | Raised by [T-151](T-151-decide-whether-a-check-needs-a-case-that-must-not-fire.md)'s review, from having to read both candidate homes to choose between them. Not fixed there: T-151's scope is where the negative-case rule goes, and removing text from tier 1 is a change the owner should see argued on its own. Typed `decision` because the counter-argument is real — a session that never loads the method never meets these rules — and the answer may be that both texts stay with their scopes made explicit. |

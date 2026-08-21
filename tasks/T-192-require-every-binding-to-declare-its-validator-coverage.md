@@ -84,11 +84,16 @@ code.
       does not ask for a second copy of something a binding already says
 
 **Open questions**
-- **Is a hand-kept coverage list worth having at all?** T-178's table carries its own warning that it
-  will go stale, and the contract would mint one per binding. The alternative is coarser — *say
-  which checks cannot occur on your backend, and say that the rest either apply or still run
-  locally* — which is stable under a new check being added and answers less. **Decide at `specify`**;
-  it changes what the clause asks for rather than how it is written.
+- ~~**Is a hand-kept coverage list worth having at all?**~~ **Answered 2026-08-19: no, and the
+  contract asks for the coarser statement.** Each binding says which checks **cannot** occur on its
+  backend, and that the rest either apply or still run locally. The per-check table was offered as
+  the alternative and rejected: it is a hand-written copy of a set the code owns, so a single new
+  check falsifies every binding's table at once —
+  [T-139](T-139-check-that-the-advisory-lines-the-readme-lists-are-the-ones-there-are.md)'s class
+  multiplied by the number of bindings anybody ever writes. The coarser clause is stable under a new
+  check **by construction**, because a new check falls under *the rest* with nobody editing
+  anything. What the clause asks for is therefore settled; how it is worded is still this task's
+  work.
 
 ## 2. Plan
 
@@ -117,5 +122,6 @@ code.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-19 | (no change) | **Answered by the owner in a question round: the coarser statement.** A binding declares what cannot occur on its backend, not a per-check coverage table; the table was offered and rejected as a hand-kept copy of a set the code owns. This settles what the clause asks for and leaves its wording to this task. **No phase was started on this answer** ([T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md)). |
 | 2026-08-19 | (no change) | **The owner extended the eight-task grant to cover what those eight raise**, on 2026-08-19: *if new tasks arise from these 8, work on the non-blocked ones too the same way*. It reaches this task because [T-178](T-178-give-the-github-binding-a-standing-verification.md) raised it. **It does not answer §1's question**, which decides what the clause asks for and is a judgement about a contract every future binding inherits. Under the grant's own instruction, this task ends in a written question rather than a halted batch. Recorded here because a handoff is consumed once and renamed ([T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md)). |
 | 2026-08-19 | → proposed | Raised by [T-178](T-178-give-the-github-binding-a-standing-verification.md)'s `specify`, carrying the widening the owner attached to that task's answer. Kept out of T-178 on purpose: a clause in the contract is satisfied by every binding that exists and every one that ever will, and T-178's outcome is one document. `m` because the fourth criterion needs somebody to write a binding fragment that does not exist. |

@@ -12,7 +12,7 @@ owner: the project owner
 business_value: medium
 effort: s
 created: 2026-08-15
-updated: 2026-08-15
+updated: 2026-08-19
 deliverables: []
 ---
 
@@ -106,9 +106,16 @@ discover is itself.
 - [ ] `check` and the suite are green
 
 **Open questions**
-- Is a release gate — a plain script, no session, no `PATH` entry — an adopter case this plugin means
-  to support at all? — the project owner. The reporter offers *no* as acceptable and it may well be
-  right; the answer this task cannot end with is silence.
+- ~~Is a release gate — a plain script, no session, no `PATH` entry — an adopter case this plugin
+  means to support at all?~~ **Answered 2026-08-19: no, and the silence is what gets repaired.**
+  taskmd offers no route to the launcher for a process that was never served the skill, and
+  `SKILL.md` says so where the fallback is stated, so a gate author can tell at once that the
+  sentence is not addressed to them. Committing to such a route was the alternative and was rejected
+  for the reason [T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md) already
+  establishes: any route is a promise about the harness's own directory layout, which this project
+  does not control, so it would break silently and this project would own the breakage for every
+  adopter. The reporter offered *no* as acceptable and it is the answer — what was never acceptable
+  is the current silence.
 
 ## 2. Plan
 
@@ -137,4 +144,5 @@ discover is itself.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-19 | (no change) | **Answered by the owner in a question round: no.** A session-less caller is out of scope, and the deliverable is the sentence in `SKILL.md` that says so; offering such a caller a route was rejected on [T-054](T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md)'s grounds. This is the question the backlog-wide round of 2026-08-19 skipped and the handoff of that date recorded as still owed; it is no longer owed. **No phase was started on this answer** ([T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md)). |
 | 2026-08-15 | → proposed | Raised from the htmldeck reporter's follow-up of 2026-08-15, which recorded it as an unranked observation and not a request. Raised rather than absorbed because it is actionable and outside every open task: T-099 shipped the fallback and is closed, T-142 owns the launcher comment one level down, and neither covers who the fallback is addressed to. `medium` because nobody is blocked — their cache glob works and is now correct — and because what is wrong is a silence a reader fills in wrongly. `s` because the outcome is one sentence in a shipped file plus, if the answer is no, a non-goal; deciding which sentence is the work. The likely answer is that a gate script is out of scope, and that is a result, not a dismissal: it is what stops the next adopter re-deriving a locator against a directory layout this project does not own. |

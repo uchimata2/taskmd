@@ -74,11 +74,26 @@ question.
 - [ ] The dated audit deliverables are unchanged, shown rather than asserted
 
 **Open questions**
-- **Should the finding be sent, given that a route exists?** T-170's answer turned on there being
-  none. Here there is one, and the owner's standing cross-repository rule prefers a branch to a
-  report — which does not obviously fit a finding about a method rather than about code. **The owner
-  answers, at `specify`**; the alternative is that publishing it in this repository's own deliverable
-  is what this project meant, and the wording says so.
+- ~~**Should the finding be sent, given that a route exists?**~~ **Answered 2026-08-19: nothing is
+  sent, because the rule is already in the repository that owns the method.** The owner made the
+  branch **conditional** on there being no evidence of arrival, and asked for that repository to be
+  read before anything was written. It was, and the evidence is there: its `references/measure.md`
+  carries the rule under a heading of its own — *Screen on the source of every figure* — closing
+  with *where an effect concentrates decides more screenings than its size*, which is E-08's second
+  half in the method's own words, and it carries the same independently-benchmarked example E-08 was
+  drawn from.
+
+  **What the evidence does not show is the route.** Every commit in that repository carries this
+  audit's own date, so a content match cannot say which way the rule travelled, or whether anything
+  travelled at all. **So the disposition is corrected on its outcome and not on its reasoning**:
+  *carried in the portable deliverable, which is the handover* stays false as a reason — it was
+  false for U-01/U-02 for exactly this reason — while the thing it was used to excuse turns out to
+  have happened anyway. A row can be right in outcome and wrong as a justification, and only the
+  justification generalises.
+
+  **The second half of §1's outcome is untouched by this**, and is now the more interesting question
+  rather than the less: whether *published, therefore handed over* is a class worth checking for,
+  given that this member of it came out right without anybody being able to show why.
 
 ## 2. Plan
 
@@ -107,5 +122,6 @@ question.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-19 | (no change) | **Answered by the owner in a question round, conditionally — and the condition changed the answer.** The owner asked for the owning repository to be read for evidence of arrival before any branch was opened. It was read, and the rule is in its `references/measure.md`, with the example E-08 came from. So **no branch is sent.** The route is still unproven, since every commit there carries this audit's own date, so the disposition's *the deliverable is the handover* is corrected as an outcome and left refuted as a reason. **No phase was started** ([T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md)); correcting [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md) §3's row is this task's own work, not this round's. |
 | 2026-08-19 | (no change) | **The owner extended the eight-task grant to cover what those eight raise**, on 2026-08-19: *if new tasks arise from these 8, work on the non-blocked ones too the same way*. It reaches this task because [T-170](T-170-decide-whether-the-audit-s-upstream-rows-are-reported-to-anyone.md) raised it. **It does not answer §1's question** — that one asks whether to send something to another repository, which is the owner's to decide and not a phase to run. Under the grant's own instruction, this task therefore ends in a written question rather than a halted batch. Recorded here because a handoff is consumed once and renamed ([T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md)). |
 | 2026-08-19 | → proposed | Raised by [T-170](T-170-decide-whether-the-audit-s-upstream-rows-are-reported-to-anyone.md)'s review, from widening a sweep that had been filtered by the ids the task was about. `xs` and `low`, like T-170, and for the same reason: the likeliest outcome is a recorded answer and a corrected clause. |

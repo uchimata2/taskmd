@@ -49,6 +49,25 @@ class ChecksThisRepository(unittest.TestCase):
         self.assertEqual(code, 0, out)
         self.assertIn("OK - ", out)
 
+    def test_no_citation_names_a_section_this_repository_does_not_print(self):
+        """T-194. The class T-093 shipped reported seven lines here, 210 of them citing
+        `METHOD.md` sections 3.1 and 3.3 - two rules that live in tier 1 instead, so the
+        document explained their absence and still left 210 citations pointing at nothing a
+        reader could find.
+
+        Each of the seven was repaired at its own site: the method gained two headings whose
+        bodies say where the rule lives, and five citations were corrected to name what they
+        actually meant - a numbered *step*, the document's own section, or the method rather
+        than the task record beside the mark.
+
+        **This is not a second copy of the fixture test.**
+        `ACitationOfASectionThatIsNotThere` proves the rule fires; this proves the corpus is
+        clean. A rule that had gone silent would pass this one on its own, and a corpus that
+        had gone stale would pass that one on its own."""
+        code, out = run("check", "--root", ROOT)
+        self.assertEqual(code, 0, out)
+        self.assertNotIn("SECTION REF", out)
+
     def test_a_project_directly_inside_the_root_is_still_skipped(self):
         """T-069. The exclusion used to start one directory down, so a monorepo holding a taskmd
         project at its top level had that project's defects reported as its own.
@@ -1871,9 +1890,11 @@ class ACitationOfASectionThatIsNotThere(unittest.TestCase):
         self.assertNotIn("404", out)
 
     def test_it_is_advisory_and_does_not_move_the_exit_status(self):
-        """Advisory is a sequencing decision, not a claim that a dead citation is a choice: this
-        repository's 210 unresolved `METHOD §3.1` and `§3.3` citations are real and repairing them
-        is another task's, so a problem class would ship a gate nobody has agreed to fix."""
+        """Advisory is a sequencing decision, not a claim that a dead citation is a choice: when
+        this shipped, 210 unresolved `METHOD` citations in this repository were real and repairing
+        them was another task's, so a problem class would have shipped a gate nobody had agreed to
+        fix. T-194 repaired them on 2026-08-19, which is what makes promoting the class available -
+        a decision named in T-093 and not taken here."""
         code, out = self.check()
         self.assertEqual(code, 0, out)
         self.assertNotIn("problem(s)", out)
@@ -1882,15 +1903,13 @@ class ACitationOfASectionThatIsNotThere(unittest.TestCase):
         code, out = self.check()
         self.assertIn("section reference(s)", out)
 
-    def test_this_repository_reports_the_two_it_is_known_to_have(self):
-        """The corpus this was measured against. `METHOD.md` cites §3.1 and §3.3 everywhere and
-        prints neither, on purpose — the rules live in tier 1 (T-047). The check is asserted
-        against that rather than against a clean tree, so a rule that stopped firing would fail
-        here rather than pass quietly."""
-        code, out = run("check", "--root", ROOT)
-        self.assertIn("METHOD.md has no section 3.1", out)
-        self.assertIn("METHOD.md has no section 3.3", out)
-        self.assertEqual(code, 0, "an advisory must not move this repository's exit status")
+    # `test_this_repository_reports_the_two_it_is_known_to_have` stood here until 2026-08-19. It
+    # asserted that this repository reports `METHOD.md` sections 3.1 and 3.3, and its stated reason
+    # was that a rule which stopped firing would fail here rather than pass quietly. T-194 repaired
+    # those citations, so the assertion became false - and the guard it named moved rather than
+    # vanished: `test_it_reports_a_section_the_target_does_not_print` above holds liveness on the
+    # fixture, and `ChecksThisRepository` holds the corpus clean. Removed rather than inverted,
+    # because inverting it would have written the clean-corpus assertion twice.
 
 
 class TableRowWiderThanItsHeader(unittest.TestCase):
