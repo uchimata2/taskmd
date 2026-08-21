@@ -81,11 +81,11 @@ run checks the other. That is the whole of the evidence, and there is no third v
 - [ ] <written at `specify`>
 
 **Open questions**
-- **Is a confounded negative enough to act on?** T-175's result is that the skill was not reached in a
-  session that had read the very config the description names. Two confounds each supply an
-  alternative explanation, and neither can now be removed. Whether that is evidence to act on or a
-  result to shelve is a judgement about risk appetite — **the maintainer's**, and it decides whether
-  this task has anything after it.
+- ~~**Is a confounded negative enough to act on?** T-175's result is that the skill was not reached in
+  a session that had read the very config the description names. Two confounds each supply an
+  alternative explanation, and neither can now be removed.~~ **Answered by the owner on 2026-08-21:
+  yes — act on it.** The reason, the two rejections and what the answer rules out are in the Log row
+  of that date.
 
 ## 2. Plan
 
@@ -114,5 +114,6 @@ run checks the other. That is the whole of the evidence, and there is no third v
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-21 | (no change) | **Answered by the owner: act on the negative.** [T-175](T-175-observe-whether-the-skill-triggers-in-a-migrated-away-project.md)'s result is treated as a real risk and the skill's `description` is to be examined, confounds and all. **The asymmetry is the reason, and it is the part worth keeping**: examining a description that turns out to be fine costs effort and is reversible, while shelving the result risks the plugin quietly doing nothing for every adopter — nobody writes this tool's name into their own always-loaded conventions, and not having to is what a skill description is for. *Rejected: shelve it as unanswerable*, which accepts that if the description does fail for adopters, nothing would ever say so. *Rejected: manufacture a cleaner venue* — removing this tool's name from the machine's user-level instruction file and probing a throwaway project outside the shell-first mode — which removes two of the three confounds and tests a synthetic project rather than an adopter, the objection the venue selection of 2026-08-19 was built around. **What it rules out**: no third venue is being sought, so §1's *Out: re-running the observation* has no branch behind it any more. This task still owes its own criteria and its lifecycle, and the follow-on description task is **its** to raise rather than something raised ahead of it. |
 | 2026-08-21 | (no change) | **Confirmed by the owner on 2026-08-21 as belonging**, having been raised outside the two-task grant of the same day — the same ruling as on [T-204](T-204-count-the-short-row-quiet-case-the-wide-row-audit-left-out.md). It matters more here than there: this task is the only thing carrying the expired premise, so cancelling it would have put that finding back out of every view. Written into this record rather than left in the reporting thread, for the reason [T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md) gives. |
 | 2026-08-21 | → proposed | Raised by [T-175](T-175-observe-whether-the-skill-triggers-in-a-migrated-away-project.md) §3 step 6, which is the step its fifth criterion required. `medium` and `s`: it settles whether anything follows that observation, and it is a decision rather than work. **It exists because a premise expired**: [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) put the naming confound in the project's own conventions and a venue was selected on that basis; the user-level instruction file names the tool in every session on this machine, so the selection could not have removed it. Its parent is T-175 rather than the closed umbrella above it, because that is where the question was produced. |
