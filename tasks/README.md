@@ -73,7 +73,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md) | Have an uninvolved reader test the sourced survivor bullet | `M6` | `proposed` | `specify` | T-168 | - | T-166, T-167, T-168 |
 | [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) | Write the next release note to the rule and say what it caught | `M6` | `proposed` | `specify` | T-135 | - | T-125, T-127, T-133 |
 | [T-187](T-187-say-that-the-one-design-rule-yields-to-a-system-limitation.md) | Say that the one design rule yields to a system limitation | `M6` | `proposed` | `specify` | - | - | T-012, T-179 |
-| [T-190](T-190-decide-whether-tier-1-restates-two-verification-rules-the-method-owns.md) | Decide whether tier 1 restates two verification rules the method owns | `M6` | `proposed` | `specify` | - | - | T-028, T-047, T-151 |
 | [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) | Audit whether each check class has a case it must not catch | `M6` | `proposed` | `specify` | - | - | T-100, T-150, T-151 |
 | [T-192](T-192-require-every-binding-to-declare-its-validator-coverage.md) | Require every binding to declare its validator coverage | `M6` | `proposed` | `specify` | - | - | T-009, T-139, T-178 |
 | [T-196](T-196-delete-the-scratch-repository-the-standing-check-ran-against.md) | Delete the scratch repository the standing check ran against | `M6` | `proposed` | `specify` | T-193 | - | T-108 |
@@ -267,6 +266,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-186](T-186-run-the-leak-check-in-the-suite-not-only-at-publication.md) | Run the leak check in the suite, not only at publication | `M6` | `done` | `review` | - | - | T-034, T-058, T-080, T-126, T-183 |
 | [T-188](T-188-report-a-counted-set-written-into-prose-that-the-code-owns.md) | Report a counted set written into prose that the code owns | `M6` | `done` | `review` | - | - | T-134, T-139, T-184, T-195 |
 | [T-189](T-189-say-whether-the-audit-s-method-finding-reached-the-repository-that-owns-it.md) | Say whether the audit's method finding reached the repository that owns it | `M6` | `done` | `review` | - | - | T-152, T-170 |
+| [T-190](T-190-decide-whether-tier-1-restates-two-verification-rules-the-method-owns.md) | Decide whether tier 1 restates two verification rules the method owns | `M6` | `done` | `review` | - | - | T-028, T-047, T-151 |
 | [T-193](T-193-make-the-standing-github-check-fail-before-trusting-it.md) | Make the standing GitHub check fail before trusting it | `M6` | `done` | `review` | T-178 | T-196 | T-108, T-151, T-181 |
 | [T-194](T-194-print-the-two-method-sections-this-project-cites-most.md) | Print the two method sections this project cites most | `M6` | `done` | `review` | T-093 | - | T-028, T-047 |
 | [T-195](T-195-hold-the-fixture-readme-against-the-fixtures-there-are.md) | Hold the fixture README against the fixtures there are | `M6` | `done` | `review` | - | - | T-134, T-139, T-188 |

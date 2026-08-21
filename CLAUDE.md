@@ -122,8 +122,23 @@ full, with what it costs to get wrong, is [`docs/SCOPE.md`](docs/SCOPE.md) §5.
 
 ## Verifying
 
-Claims about behaviour are verified by **running the thing on a real case**, never by reading the
-code or its documentation. In particular, a validator is only proven when it has been shown to
-**fail** on a case it is supposed to catch — a clean-tree pass proves nothing.
+**Any claim about behaviour** — in task work, in answering a question, in triaging a report — is
+verified by **running the thing on a real case**, never by reading the code or its
+documentation. In particular, a validator is only proven when it has been shown to **fail** on
+a case it is supposed to catch — a clean-tree pass proves nothing.
 
 State results as the actual command output, not as "works".
+
+<!--
+T-190. `plugin/skills/taskmd/docs/method/implement.md` *Verification* states both of these rules as
+well, and this file says elsewhere that a copy of the method found outside its one home is the
+defect. The owner ruled on 2026-08-19 that this is not that: these bind on **any** claim about
+behaviour, `implement.md` states them for the phase that has loaded the method, and a session
+answering a question or triaging a report never loads it — which is exactly where an unverified
+claim is most likely. So the two are one wider rule and one narrower one, not an original and a
+copy, and the opening clause above is what makes the difference readable rather than assumed.
+Deleting this section as a duplicate was offered and declined; so was measuring the session
+transcripts before ruling. This paragraph is a block comment because the harness strips one before
+injecting the file, so the argument costs the file and not the session — proved by
+`tests/test_budget.py`, not asserted here.
+-->
