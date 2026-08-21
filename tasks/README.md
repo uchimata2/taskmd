@@ -69,7 +69,6 @@ A label says which release the work is scheduled into. It never says the release
 
 | ID | Title | Work Package | Status | Phase | Parent | Children | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| [T-131](T-131-decide-whether-a-question-heavy-task-is-a-different-kind-of-work.md) | Decide whether a question-heavy task is a different kind of work | `M6` | `proposed` | `specify` | - | - | T-088, T-109, T-130 |
 | [T-175](T-175-observe-whether-the-skill-triggers-in-a-migrated-away-project.md) | Observe whether the skill triggers in a project that has migrated its backlog away | `M6` | `proposed` | `specify` | T-168 | - | T-050, T-168 |
 | [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md) | Have an uninvolved reader test the sourced survivor bullet | `M6` | `proposed` | `specify` | T-168 | - | T-166, T-167, T-168 |
 | [T-181](T-181-verify-the-handoff-github-recipe-on-a-live-issues-backed-project.md) | Verify the handoff GitHub recipe against a live issues-backed project | `M6` | `proposed` | `specify` | T-005 | - | T-108, T-193 |
@@ -214,6 +213,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-128](T-128-make-a-milestone-name-the-release-it-ships-in.md) | Make a milestone name the release it ships in | `M5` | `done` | `review` | - | - | T-086, T-110, T-125, T-135, T-136 |
 | [T-129](T-129-release-v0-5.md) | Release M5 | `M5` | `done` | `review` | - | - | T-085, T-125, T-126, T-127, T-133, T-135 |
 | [T-130](T-130-report-a-question-left-live-in-a-closed-task.md) | Report a question left live in a closed task | `M6` | `done` | `review` | - | - | T-025, T-095, T-107, T-121, T-131 |
+| [T-131](T-131-decide-whether-a-question-heavy-task-is-a-different-kind-of-work.md) | Decide whether a question-heavy task is a different kind of work | `M6` | `done` | `review` | - | - | T-088, T-109, T-130 |
 | [T-132](T-132-give-the-console-the-same-line-ending-on-every-platform.md) | Give the console the same line ending on every platform | `M5` | `done` | `review` | T-020 | - | T-002, T-020, T-022, T-049, T-064 |
 | [T-133](T-133-decide-what-to-do-about-a-published-release-note-that-breaks-the-rule.md) | Decide what to do about a published release note that breaks the rule | `M5` | `done` | `review` | - | - | T-079, T-081, T-125, T-126, T-127, T-129, T-135, T-182, T-183 |
 | [T-134](T-134-check-that-every-prose-list-of-the-commands-names-the-commands-there-are.md) | Check that every prose list of the commands names the commands there are | `M5` | `done` | `review` | T-117 | - | T-030, T-031, T-055, T-071, T-073, T-117, T-126, T-139, T-147, T-149, T-188, T-195 |
