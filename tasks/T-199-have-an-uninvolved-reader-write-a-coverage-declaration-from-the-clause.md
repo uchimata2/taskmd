@@ -69,7 +69,7 @@ is the one thing a session cannot stand in for.
 - **Who reads it?** The owner's to choose. It cannot be a session: `BINDING.md` is in this
   repository, so any session working here has the shipped bindings within reach and cannot honestly
   claim not to have read them. This is the same constraint
-  [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md) waits on.
+  [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md) waits on. **Answered in part by the owner on 2026-08-22: one route, chosen once and used for both tasks. Who that reader is remains open** — see the Log row of that date.
 
 ## 2. Plan
 
@@ -99,3 +99,4 @@ is the one thing a session cannot stand in for.
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-21 | → proposed | Raised by [T-192](T-192-require-every-binding-to-declare-its-validator-coverage.md)'s review. Its criterion 4 was **met** — a fragment was written from the clause and changed it — so this is not a gap left behind but the stronger version of a test that already paid for itself once. Raised rather than noted, because it needs a person and a note inside a closing task leaves every view a project has. `medium` and `s`: the exercise is short and the clause it judges is inherited by every binding anybody writes. **Waits on a person**, so the 2026-08-19 grant does not reach it. |
+| 2026-08-22 | (no change) | **The open question is answered in part by the owner: one route, chosen once and used for this task and for [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md).** Asked in the batched round of 2026-08-22. Both are blocked on this and on nothing else, so one answer unblocks two. *Rejected: a different reader for each*, which makes each reading true first contact, but needs two people and blocks both tasks until they are found. *Rejected: the owner reads both*, available immediately, but they cannot un-know material they have already ruled on — the exact weakness this task exists to remove. **Still open: who that reader is.** The shape is settled and the person is not, so §1's question is narrowed rather than closed. This row is the answer, not authorisation to start. |

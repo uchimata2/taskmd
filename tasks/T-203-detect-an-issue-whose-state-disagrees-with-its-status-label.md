@@ -88,12 +88,12 @@ R-9, R-16 (`docs/SCOPE.md`).
       rather than asserted
 
 **Open questions**
-- **Is a detected divergence enough, or does the mapping itself need revisiting?** The owner's wider
+- ~~**Is a detected divergence enough, or does the mapping itself need revisiting?** The owner's wider
   point on 2026-08-21 was that taskmd on this backend should be a guardrail over `gh` rather than
   anything holding its own copy — which the binding already is. This task takes the narrow reading: a
   fact stored twice, with nothing checking the two agree. If the answer is that a rendering nobody
   can be stopped from editing should not be materialised at all, that is a larger decision and the
-  owner's.
+  owner's.~~ **Answered by the owner on 2026-08-22: report the divergence; the mapping is not revisited** — see the Log row of that date.
 
 ## 2. Plan
 
@@ -123,3 +123,4 @@ R-9, R-16 (`docs/SCOPE.md`).
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-21 | → proposed | Raised by the owner on 2026-08-21, from reading assumption 2 of the GitHub binding. `high` and `s`: the row is small and what it guards is the only fact this backend stores twice, in a place one click changes and nothing reads. The evidence that it is unenforceable rather than merely fragile came out of [T-193](T-193-make-the-standing-github-check-fail-before-trusting-it.md)'s run - `enumerate` does not fetch `state`, so no row could compare it even if one wanted to. |
+| 2026-08-22 | (no change) | **The open question is answered by the owner: detecting the divergence is enough, and the mapping stands.** Asked in the batched round of 2026-08-22. METHOD §4 allows a materialised derived view but not one nothing reconciles, and a comparison of `state` against the `status:` label is that reconcile — reading `state` *against* the fact rather than *as* it. *Rejected: revisit the mapping first*, which avoids building a guard for something that might be removed, but leaves the hole open while it is decided and a click still leaves a task contradicting itself with every view reporting it fine. *Rejected: stop writing `state` at all*, which removes the second copy outright, but GitHub's own search, filters and UI read it, so the backlog gets harder to use in the tool people already have open. This row is the answer, not authorisation to start. |

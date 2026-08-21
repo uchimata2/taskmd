@@ -78,9 +78,9 @@ are a set the tree owns, described somewhere else.
 - [ ] `tests/fixtures/README.md` points at the marks rather than restating the set
 
 **Open questions**
-- **Does this replace the prose in `tests/fixtures/README.md`, or sit beside it?** The README is
+- ~~**Does this replace the prose in `tests/fixtures/README.md`, or sit beside it?** The README is
   read by a person deciding where to add a fixture, and a marker is read by a test. Both may be
-  wanted, and then the question is which is authoritative — the maintainer's, at `specify`.
+  wanted, and then the question is which is authoritative — the maintainer's, at `specify`.~~ **Answered by the owner on 2026-08-22: markers in the fixture are the authoritative list, and the README keeps a short note pointing at them** — see the Log row of that date.
 
 ## 2. Plan
 
@@ -110,3 +110,4 @@ are a set the tree owns, described somewhere else.
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-21 | → proposed | Raised as finding F-2 of [T-198](T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md), which is why that audit's first criterion is not met. `medium` and `s`: the mechanism exists twice in this repository already, and what it buys is that the audit above becomes repeatable instead of being a reading of a document. A child of T-198, which does not close until this resolves (`audit.md` step 5). |
+| 2026-08-22 | (no change) | **The open question is answered by the owner: the markers are authoritative, and `tests/fixtures/README.md` keeps a short note on why quiet cases exist that points at them.** Asked in the batched round of 2026-08-22. The set is then read from the tree, so a quiet case added next week is in the next sweep with nothing edited anywhere — which is the whole of F-2. *Rejected: markers only, deleting the prose*, one home and no possible drift, but a marker tells a test what to do and does not tell a newcomer why the case is there. *Rejected: the README stays authoritative*, no change for its existing readers, but the set stays hand-written and the defect this task removes survives. This row is the answer, not authorisation to start. |

@@ -84,13 +84,13 @@ away from a project the tool serves.
 - [ ] <written at `specify`>
 
 **Open questions**
-- **How is a description change verified, given that no clean venue exists?** A description is loaded
+- ~~**How is a description change verified, given that no clean venue exists?** A description is loaded
   by a harness at session start, so the only honest test is a session — and
   [T-205](T-205-decide-whether-a-clean-trigger-observation-is-reachable-on-this-machine.md) refused a
   synthetic project as *evidence about adopters*. Whether a synthetic project is acceptable as a **test
   rig** for a before-and-after comparison, where both runs share the same confounds and only the
   wording differs, is a different question and has not been put. **The maintainer's**, at `specify`,
-  because it decides whether this task can be finished at all.
+  because it decides whether this task can be finished at all.~~ **Answered by the owner on 2026-08-22: a synthetic project is acceptable as a **test rig** — two runs differing only in the wording** — see the Log row of that date.
 
 ## 2. Plan
 
@@ -120,3 +120,4 @@ away from a project the tool serves.
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-21 | → proposed | Raised as [T-205](T-205-decide-whether-a-clean-trigger-observation-is-reachable-on-this-machine.md) §3 step 4, which is what the owner's *act on the negative* decision of the same day produces. `high` because the description is the only thing that can route an adopter's request to this skill, and an adopter is by definition someone who has not written the tool's name into their own conventions; `m` because the test is a session and the honest way to run one is still an open question. **Its scope was shaped by T-205 §3 step 3 rather than by the decision alone**: the venue's config declares a GitHub-issues backend, so the candidate defect is a specific clause pulling against another and not a general failure to trigger. Typed `fix` rather than `research` so that it ends in a description that either changed or was shown not to need to, instead of in a recommendation that needs a third task to act on it. |
+| 2026-08-22 | (no change) | **The open question is answered by the owner: a synthetic project is acceptable as a test rig, run twice with only the wording changed.** Asked in the batched round of 2026-08-22. [T-205](T-205-decide-whether-a-clean-trigger-observation-is-reachable-on-this-machine.md) refused a synthetic project as *evidence about adopters*; a differenced before-and-after needs its confounds constant rather than absent, and only the wording varies between the runs, so the refusal does not reach this use. *Rejected: wait for a real adopter venue*, which would make the evidence about adopters directly, but no such venue exists, so the task could not be finished at all. *Rejected: change the wording on reasoning alone*, cheap and the clash between the two clauses is plain in the text, but this task exists to produce evidence either way. **The known cost is recorded with the answer**: a confound surviving the differencing would make the result look controlled when it is not. This row is the answer, not authorisation to start. |

@@ -78,7 +78,7 @@ repair presumes the answer.
 - [ ] <written at `specify`>
 
 **Open questions**
-- **Where does a product-wide qualification belong — `METHOD.md` §4, or `docs/SCOPE.md` §2
+- ~~**Where does a product-wide qualification belong — `METHOD.md` §4, or `docs/SCOPE.md` §2
   principle 1?** **The owner decides**, because it is the placement of the rule every design decision
   here is checked against and the two documents have different audiences: METHOD ships to adopters and
   says it is about *how work is tracked*; SCOPE is this project's own and says its principles govern
@@ -90,7 +90,7 @@ repair presumes the answer.
   things in full gets a second clause. *The alternative*: state the clause in §2 principle 1 and have
   METHOD §4 point up at it — truer to each document's stated scope, and it moves the clause out of
   everything an adopter receives, which is the half that made T-187 write the case generically in the
-  first place.
+  first place.~~ **Answered by the owner on 2026-08-22: the clause stays in `METHOD.md` §4, and `docs/SCOPE.md` §2's header is widened** — see the Log row of that date.
 
 ## 2. Plan
 
@@ -120,3 +120,4 @@ repair presumes the answer.
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-21 | → proposed | Raised under `CLAUDE.md`'s *surface what you discover* immediately after [T-187](T-187-say-that-the-one-design-rule-yields-to-a-system-limitation.md) closed, by re-reading `docs/SCOPE.md` §2 whole rather than the two principles that task's criterion named. `high` because it is the placement of the one rule every design decision here is checked against, and `s` because the argument is written and only the choice is missing. **Not covered by the grant T-187 ran under**, which reached three named tasks and nothing any of them raised. It carries an open question that is the owner's, so nothing starts on it. |
+| 2026-08-22 | (no change) | **The open question is answered by the owner: leave the clause in `METHOD.md` §4 and widen `docs/SCOPE.md` §2's header.** Asked in the batched round of 2026-08-22, and it is the recommendation §1 carried. An adopter receives METHOD and never receives SCOPE, so they are the reader who most needs the clause; `CLAUDE.md` already promises §4 states what *requires* does and does not forbid, so moving it would falsify tier 1 as well. *Rejected: state it in §2 principle 1 and have METHOD §4 point up*, truer to each document's stated scope, but it moves the clause out of everything an adopter receives — the half that made [T-187](T-187-say-that-the-one-design-rule-yields-to-a-system-limitation.md) write the case generically — and falsifies `CLAUDE.md`'s pointer too. The known inconsistency in §2's header is now repairable, but repairing it is this task's work and is not authorised by this row. |
