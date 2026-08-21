@@ -583,5 +583,76 @@ class TheLeakCheckIsRunHereRatherThanRemembered(unittest.TestCase):
                          "a class that stopped firing reads as a hole in the branch that did not, "
                          "and the repair it invites is loosening a branch that was already correct")
 
+
+# The class set the validator reports, read from `cli.py` rather than transcribed (T-192).
+#
+# `ADVISORY_PREFIXES` is already a module constant, so it is read as one. The problem prefixes are
+# string literals at their append sites and have no constant, so they are read out of the source.
+# **This is the first derivation of the problem half in the suite**, and
+# `tests/test_cli.py`'s hand-kept `LABELS` is the second copy T-197 exists to remove - that task
+# reuses this function rather than writing a third.
+PROBLEM_PREFIX_RE = re.compile(r'problems\.append\(\s*"([A-Z][A-Z ]+)')
+
+
+def check_classes():
+    """Every class `check` can print, problems and advisories together."""
+    cli = _cli()
+    source = read(cli.__file__)
+    problems = set(found.rstrip() for found in PROBLEM_PREFIX_RE.findall(source))
+    return problems | set(cli.ADVISORY_PREFIXES)
+
+
+def bindings():
+    """Every shipped binding, read from the directory so a new one is covered unasked."""
+    base = os.path.join(ROOT, "plugin", "skills", "taskmd", "docs", "bindings")
+    return sorted(os.path.join(base, name) for name in os.listdir(base) if name.endswith(".md"))
+
+
+class EveryBindingDeclaresWhatCannotOccur(unittest.TestCase):
+    """`BINDING.md` §4 requires each binding to name the classes its backend makes impossible.
+
+    **Only the hygiene is mechanical, and the clause says so.** Whether a class really cannot occur
+    on some hosting service is a fact about that service; nothing running here knows it, so that half
+    is reviewed by a person. What this catches is the half a hand-kept list dies of: a binding that
+    never carried the statement, and a binding naming a class the validator no longer reports.
+    """
+
+    MARKER = "cannot-occur"
+
+    def test_every_binding_carries_the_region(self):
+        missing = [os.path.relpath(p, ROOT).replace(os.sep, "/")
+                   for p in bindings() if region_lines(p, self.MARKER) is None]
+        self.assertEqual([], missing,
+                         "%s carries no taskmd:%s region, so BINDING.md section 4 asks it for a "
+                         "statement it does not make" % (", ".join(missing), self.MARKER))
+
+    def test_every_class_named_is_one_the_validator_reports(self):
+        known, unknown = check_classes(), []
+        for path in bindings():
+            lines = region_lines(path, self.MARKER)
+            if lines is None:
+                continue
+            named = set(re.findall(r"`([A-Z]{3,}(?: [A-Z]+)*)`", "\n".join(lines)))
+            for name in sorted(named - known):
+                unknown.append("%s names `%s`" % (os.path.relpath(path, ROOT).replace(os.sep, "/"), name))
+        self.assertEqual([], unknown,
+                         "a binding declares a class the validator does not report, so the "
+                         "declaration has drifted from the code it is about:\n  " +
+                         "\n  ".join(unknown))
+
+    def test_the_derivation_finds_the_classes_the_bindings_actually_name(self):
+        """The case without which both tests above pass vacuously.
+
+        If `check_classes()` returned nothing, `test_every_class_named` would report every name as
+        unknown - loud, and survivable. If it returned too much, that test passes by construction and
+        nothing says so. So the derivation is held against a class each shipped binding names: a run
+        where these are absent is a derivation that has stopped reading the code.
+        """
+        known = check_classes()
+        for name in ("DUPLICATE ID", "STALE INDEX", "PARKED TASK", "SECTION REF"):
+            self.assertIn(name, known, "check_classes() no longer finds %r" % name)
+        self.assertGreater(len(known), 15, "check_classes() found only %d classes" % len(known))
+
+
 if __name__ == "__main__":
     unittest.main()

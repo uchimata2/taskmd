@@ -38,6 +38,13 @@ assertion and eight do not, and nothing anywhere compares the two lists.
 [T-139](T-139-check-that-the-advisory-lines-the-readme-lists-are-the-ones-there-are.md) built that home precisely so a prose list could
 be checked against it. The problem half has the same need and none of the mechanism.
 
+**The derivation this needs already exists.**
+[T-192](T-192-require-every-binding-to-declare-its-validator-coverage.md) added `check_classes()` to
+`tests/test_publishing.py` on 2026-08-21 — it reads the problem prefixes out of `cli.py`'s source and
+unions them with `ADVISORY_PREFIXES`, and it is the first derivation of the problem half in the
+suite. **Reuse it rather than writing a second**: two derivations of one set is the defect this task
+exists to remove, arriving by the door it was watching.
+
 **What the risk actually is.** No present assertion is wrong. The failure is in the future and is
 silent: a class added to `cli.py` is never asserted absent from the other fixtures, so a check that
 starts firing spuriously on an unrelated fixture is not reported by anything. That is the shape
@@ -54,7 +61,7 @@ starts firing spuriously on an unrelated fixture is not reported by anything. Th
 - [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) §3 — the derivation,
   the 21, and the two counts side by side
 - `tests/test_cli.py` — `CheckFailsOnEveryClassItClaims`
-- `tests/test_publishing.py` — the derivation already in use
+- `tests/test_publishing.py` — `check_classes()`, the derivation to reuse, and the `ADVISORY_PREFIXES` read that is its precedent
 
 **Acceptance criteria**
 - [ ] The harness's class list is read from the code, and the derivation is the one thing a reader

@@ -136,6 +136,44 @@ Minimum entries — a binding states its position on each, even when the answer 
 | What the backend **cannot** represent, and what the binding does instead | A limit belongs in the binding; unstated, it becomes the method's problem |
 | What must already be true before the first operation works | Setup that is obvious to the binding's author and invisible to everyone else |
 | Whether identity is chosen locally or assigned by the backend | Decides whether ids can be predicted, referenced before creation, or reused |
+| Which of the validator's checks **cannot occur under this binding's mapping** | An adopter who moves here loses some of what `check` gave them, and needs to know which part rather than discovering it |
+
+### The coverage a binding declares, and why it is stated the short way
+
+**Name what cannot occur; say the rest either applies or still runs locally.** Some of the
+validator's classes describe a state that is impossible once this binding's mapping is in place — a
+stale index where the listing *is* the index, a duplicate id where the service allocates the id
+*and this binding uses it as the task id* — and an adopter needs those named, because that is the
+part of `check` they stop getting. Everything else falls under *the rest* and needs no entry.
+
+**It is the mapping that decides, not the service**, and that wording is the result of testing this
+clause rather than of writing it. Two bindings over comparable services answer differently on
+`DUPLICATE ID`: where §3's mapping makes the service's own identifier the task id, the class is
+impossible; where the binding keeps a human id in a property the service does not police, the same
+service leaves the class fully live. A binding that reads this row as *what can my backend do* will
+get that one wrong in the direction that loses an adopter a check they still needed.
+
+**It asks for the exceptions rather than for a coverage table on purpose.** A table with a row per
+check is a hand-written copy of a set the code owns, so **one new check falsifies every binding's
+table at once**, in every binding anybody ever writes. The short form is stable under a new check by
+construction: a class nobody has classified falls under *the rest*, and nothing needs editing. A
+binding may still carry a fuller table if its author finds it useful — `github-issues.md` does — but
+that is the binding's own detail and not what this contract asks for.
+
+**Put the class names in a marked region**, so the one thing a machine *can* check is checked:
+
+```text
+<!-- taskmd:cannot-occur -->
+... the statement, with each class named in `BACKTICKS` ...
+<!-- taskmd:end-cannot-occur -->
+```
+
+**What that check is, and what it is not.** It confirms every binding carries the statement and that
+each class it names is a class the validator actually reports — which is the staleness a hand-kept
+list dies of. It cannot confirm the classification is **true**: whether a class really cannot occur
+on some hosting service is a fact about that service, and nothing running locally knows it. So the
+substance of this clause is reviewed by a person, and only its hygiene is mechanical. A binding that
+says so plainly is easier to trust than one that implies the check settles more than it does.
 
 ---
 

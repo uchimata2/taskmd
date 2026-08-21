@@ -485,13 +485,26 @@ itself, which is why the run is worth more than its verdict.
 
 #### What this does not cover, and why
 
-Seventeen checks run on the local backend. Nine land here as rows above. The rest do not, and the
-reasons are worth reading rather than trusting:
+<!-- taskmd:cannot-occur -->
+**Four classes cannot occur here**, because GitHub makes the state they describe impossible:
+`DUPLICATE ID`, `ID WIDTH` and `PARKED TASK` — the service allocates issue numbers, never reuses one,
+and has no folders for a task to be parked in — and `STALE INDEX`, because the issue list *is* the
+index and is computed on demand. **The rest either apply here or still run locally**, against the
+working tree a migrated project keeps.
+<!-- taskmd:end-cannot-occur -->
+
+That is what [`../BINDING.md`](../BINDING.md) §4 asks every binding for. The table below is this
+binding's own detail rather than the contract's requirement — it says where each remaining check
+went, which is worth having and is the half that goes stale:
+
+Seventeen checks run on the local backend. Nine land here as rows above, and four cannot occur at
+all. The rest do not come across, and the reasons are worth reading rather than trusting:
+
+The four that cannot occur are above and are not repeated here. What follows is where each of
+the **remaining** ones went:
 
 | Check | Here |
 | :--- | :--- |
-| duplicate id, id width, parked task | **Cannot occur.** GitHub allocates issue numbers and never reuses one, and there are no folders for a task to be parked in |
-| stale index | **Cannot occur.** The issue list *is* the index, computed on demand — *After any write* says so |
 | unreachable template, template field | **Not applicable as written.** They read a task template in a folder. If your project keeps an issue template, nothing here checks it |
 | declared output that is gone | **Still local.** It compares declared paths against a working tree, which you still have. Run it there |
 | broken link, ignored link, wide table row, config drift, duplicate index | **Still local, and still run.** These five never take a task as input: they walk the documents from your project root, which a migrated project keeps. This is the measurement under *No validator* below — pointed at a migrated project, they reported two dead links and a config advisory |

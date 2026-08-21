@@ -189,6 +189,22 @@ a project's own notes carry no id at all, so neither is reported and the exclusi
 assumption 6 buys is intact. A project that wants a task out of the way and out of the report closes
 or cancels it, which is what those statuses are for.
 
+### What the validator cannot check here
+
+<!-- taskmd:cannot-occur -->
+**Nothing. Every class `check` reports can occur on this backend, and every one of them runs.** This
+is the backend the validator was written for: a task is a file, the index is a generated file, and
+there is no service in the way — so `DUPLICATE ID` is possible because you choose the ids,
+`STALE INDEX` is possible because the index is materialised, `PARKED TASK` is possible because there
+are folders to park one in, and the template classes are possible because the template is a file in
+`tasks_dir`. The rest apply.
+<!-- taskmd:end-cannot-occur -->
+
+**Written out rather than left obvious, because it is the row that gives the contract's clause its
+meaning.** A reader comparing bindings needs to see that *nothing cannot occur here* is an answer
+somebody gave, not a section somebody forgot — and it is the baseline every other binding's list is
+a subtraction from.
+
 ### After any write
 
 ```bash
