@@ -63,6 +63,32 @@ to say how work moves — [`METHOD.md`](METHOD.md) if you follow the method as s
 `tracker_repo` can usually be left out: it defaults to the repository resolved from the working
 directory, which is right whenever the issues and the work live together.
 
+### This recipe has been run
+
+**Verified on 2026-08-19 against a live issues-backed project** — a taskmd project whose backend is
+GitHub Issues, six issues carrying `status:`, `phase:`, `type:`, `business_value:` and `effort:`
+labels. Before that date this section was derived by reading two binding documents against each
+other and had never been executed.
+
+What ran, and what it printed:
+
+- **read** — `gh issue view 6 --json number,title,body,labels,state,url,comments` returned the item
+  whole. The status came back as the `status:proposed` **label** while `state` was `OPEN`, which is
+  the binding's own rule that `state` is not the status under a label form.
+- **write** — one combined
+  `gh issue edit 6 --add-label "status:done" --remove-label "status:proposed"` moved the status, and
+  **the issue stayed `OPEN`**. That is the `label:status:` form behaving as specified: the label is
+  the one stored fact and the write must not also close. Reverted immediately by the mirror-image
+  edit, and both states were recorded.
+- **`tracker_status_done`** was exercised by that write: `done` plus the `status:` prefix is the
+  `status:done` label, and the label existed, so the write succeeded rather than failing the way the
+  binding says a missing label safely does.
+
+**`tracker_workflow` was not exercised, and this is the honest limit of the run.** No operation reads
+it: it is a pointer a session follows, not an input to find, read, create, update or reference. Three
+of the four keys above are proven by a command; the fourth is proven by somebody opening what it
+names.
+
 ## The index is the part that goes stale silently
 
 A taskmd project has a **generated central index**. In handoff's terms that is topology (b) —
