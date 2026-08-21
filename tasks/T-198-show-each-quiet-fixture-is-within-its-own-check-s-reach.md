@@ -187,8 +187,32 @@ refuses any run whose output contains a traceback, which is the failure T-191 me
 | `malformed-date` | 3 | all three. A fourth — `keep-me`, a value that is not date-shaped — cannot be made to fire without becoming date-shaped, which is the class itself; recorded as **true by construction**, not as exercised |
 | `label-shaped-value` | 3 | all three |
 | `section-reference` | 3 | all three. Two further marks — a sub-number resolving against a list item, and a mark with no document beside it — were not mutated and are **unproven** |
-| `wide-table-row` | 4 | three, plus the front-matter case via the code guard. **One not in reach** → F-1 |
+| `wide-table-row` | 4 | three, plus the front-matter case via the code guard. **One not in reach** → F-1. *Annotated 2026-08-21 by [T-204](T-204-count-the-short-row-quiet-case-the-wide-row-audit-left-out.md): the fixture carries a **fifth** quiet case this audit did not reach, and the count of 4 is what was examined rather than what is there — see below the table* |
 | The other 16 fixtures of the derived 21 | — | **not exercised.** Their quiet cases are the cross-fixture `fails()` silence, which [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) exercised per class and this task did not exercise per fixture. Recorded as unproven |
+
+**Annotation, 2026-08-21 — `wide-table-row`'s fifth quiet case, added by
+[T-204](T-204-count-the-short-row-quiet-case-the-wide-row-audit-left-out.md).** This audit examined
+four and the fixture carries five; the fifth was substituted out rather than counted, so it appeared
+in the list above as neither proven nor unproven. `tests/fixtures/README.md` said *five* at the time
+and nothing compared the two. The five, each with what is known:
+
+| # | Quiet case | Status |
+| :-- | :--- | :--- |
+| 1 | A trailing cell with nothing in it | **in reach**, exercised above |
+| 2 | An escaped pipe, which is content | **in reach**, exercised above |
+| 3 | A table inside a fence | not in reach when this audit ran → F-1 → [T-201](T-201-give-the-fenced-table-case-a-row-that-could-be-reported.md), which repaired the fixture on 2026-08-21 |
+| 4 | A `\|`-separated front-matter menu | **in reach**, proven by removing the delimiter guard on a copy of `cli.py` |
+| 5 | **A short row, which Markdown pads** | **True by construction**, and **its line is shown in reach.** A short row cannot be made to speak while staying short — the only mutation is to add a cell, which turns it into the class — so it is `keep-me`'s twin and is *not* counted among the fifteen exercised. Unlike `keep-me` its reach was measured: giving line 47 a fourth cell reports `has 4 cells against a 3-column header`, so the silence is the row's shortness and not the check failing to read that table |
+
+**The totals above do not move, and that is the point of the row 5 classification.** Fifteen cases
+exercised, thirteen positives, one silence: the fifth case joins `keep-me` and
+`section-reference`'s two unmutated marks in the set this record names *outside* the exercised count.
+
+**A sixth candidate was considered and is not a case.** The fixture's last table — *And a real table
+after the fence, which is read* — is the fenced case's **control**, there to show the skip ends;
+counting it would make every correct table in the repository a quiet case. Its reach was measured
+anyway rather than argued: widening its row reports `tasks/T-002-...:67 has 3 cells against a
+2-column header`.
 
 ### Findings
 
@@ -258,6 +282,7 @@ will show it.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-21 | (no change) | **§3 annotated by [T-204](T-204-count-the-short-row-quiet-case-the-wide-row-audit-left-out.md), which closed the same day.** The fifth quiet case is now named with what is known about it, the step 4 table row says its 4 is what was examined rather than what is there, and a sixth candidate is recorded as considered and rejected with its reach measured. **The totals are unchanged and shown to be** — fifteen exercised, thirteen positives — because the fifth case is true by construction and joins `keep-me` outside that count. Nothing this audit said it did has been rewritten (METHOD rule 5). **This umbrella still does not close**: [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md) remains open (`audit.md` step 5). |
 | 2026-08-21 | (no change) | **A third child was raised against this record, so the two named in §4's last row are no longer the whole of what gates closure.** [T-204](T-204-count-the-short-row-quiet-case-the-wide-row-audit-left-out.md), from [T-201](T-201-give-the-fenced-table-case-a-row-that-could-be-reported.md)'s run: this audit counted **four** quiet cases for `wide-table-row` and the fixture carries **five** — the short row named by the test's own docstring is in neither the case list nor the table, so it is recorded as neither proven nor unproven. It was shown in reach on a copy, so the omission is in this record and not in the fixture. §4's verdict rows are left as written: they state what this audit did, and annotating the past is what METHOD rule 5 asks for instead. [T-201](T-201-give-the-fenced-table-case-a-row-that-could-be-reported.md) closed the same day; [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md) and [T-204](T-204-count-the-short-row-quiet-case-the-wide-row-audit-left-out.md) are open, so this umbrella stays open (`audit.md` step 5). |
 | 2026-08-21 | → review | **Fifteen quiet cases exercised across five fixtures; fourteen in reach, one not.** [T-201](T-201-give-the-fenced-table-case-a-row-that-could-be-reported.md): `wide-table-row`'s fenced table has two cells against a two-column header, so unfencing it reports nothing and the case cannot catch the regression it exists for - T-150's defect in T-150's own fixture. [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md): criterion 1 is **not met** - the derivation finds 21 fixtures and misses two it should have found, so a quiet case added since can still be missing. **Stays open**: `audit.md` step 5 gates closure on both children. |
 | 2026-08-21 | → proposed | Raised as finding F-2 of [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md). Typed `audit` rather than `fix` because it examines a body of fixtures for a problem nobody has alleged of any particular one, and its findings become children (METHOD §5). `m`: the condition means mutating each fixture, not reading it. A child of T-191, which does not close until this resolves (`audit.md` step 5). |
