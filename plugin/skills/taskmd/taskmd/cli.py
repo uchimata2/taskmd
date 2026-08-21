@@ -782,12 +782,14 @@ def check_section_references(root, schema, advisories, notes):
     reads as correct. It bound 1,796 marks and got 267 of them wrong, and its errors are the
     invisible kind.
 
-    **Advisory, not a problem, and that is a sequencing decision rather than a judgement about
-    severity.** The 241 misses aggregate to **nine** distinct document-and-section pairs, of which
-    two are `METHOD.md §3.1` and `§3.3` with 220 citations between them: sections this
-    project cites constantly and deliberately does not print as headings. Repairing that is not this
-    check's to do (METHOD §5), so a problem class would ship a gate this repository fails for a
-    reason nobody has agreed to fix yet. One line per pair, never per citation.
+    **Advisory, not a problem, and that was a sequencing decision rather than a judgement about
+    severity.** When this shipped, the misses aggregated to nine distinct document-and-section pairs,
+    two of which were `METHOD.md` sections that the document cited constantly and deliberately did
+    not print as headings. Repairing that was not this check's to do (METHOD §5), so a problem
+    class would have shipped a gate this repository failed for a reason nobody had agreed to fix.
+    **T-194 repaired them on 2026-08-19 and this repository now reports none**, which removes the
+    obstacle and does not by itself decide the promotion - that decision is named in T-093 and has
+    not been taken. One line per pair, never per citation.
     """
     visible = clone_would_receive(root)
     paths = [md for md in markdown_files(root, schema)
