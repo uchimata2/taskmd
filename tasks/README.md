@@ -74,10 +74,9 @@ A label says which release the work is scheduled into. It never says the release
 | [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) | Write the next release note to the rule and say what it caught | `M6` | `proposed` | `specify` | T-135 | - | T-125, T-127, T-133 |
 | [T-187](T-187-say-that-the-one-design-rule-yields-to-a-system-limitation.md) | Say that the one design rule yields to a system limitation | `M6` | `proposed` | `specify` | - | - | T-012, T-179 |
 | [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) | Audit whether each check class has a case it must not catch | `M6` | `review` | `review` | - | T-197, T-198 | T-100, T-150, T-151 |
-| [T-196](T-196-delete-the-scratch-repository-the-standing-check-ran-against.md) | Delete the scratch repository the standing check ran against | `M6` | `proposed` | `specify` | T-193 | - | T-108 |
-| [T-197](T-197-derive-the-test-harness-s-problem-class-list-from-the-code.md) | Derive the test harness's problem-class list from the code | `M6` | `proposed` | `specify` | T-191 | - | T-139, T-151 |
 | [T-198](T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md) | Show each quiet fixture is within its own check's reach | `M6` | `proposed` | `specify` | T-191 | - | T-150, T-151 |
 | [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md) | Have an uninvolved reader write a coverage declaration from the clause | `M6` | `proposed` | `specify` | T-192 | - | T-176 |
+| [T-200](T-200-discount-the-ids-a-task-file-carries-even-when-it-was-not-loaded.md) | Discount the ids a task file carries even when it was not loaded | `M6` | `proposed` | `specify` | - | - | T-062, T-121, T-197 |
 
 ## Closed
 
@@ -144,7 +143,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-059](T-059-audit-the-whole-project-after-the-plugin-restructure.md) | Audit the whole project after the plugin restructure | `M1` | `done` | `review` | - | T-060, T-061, T-062, T-063, T-064, T-065, T-066, T-067, T-068, T-069, T-070, T-071, T-072, T-073, T-074, T-075 | T-004, T-006, T-026, T-047, T-053 |
 | [T-060](T-060-point-the-task-templates-at-paths-that-exist.md) | Point the task templates at paths that exist | `M1` | `done` | `review` | T-059 | - | T-032, T-051, T-076, T-091 |
 | [T-061](T-061-stop-an-inherited-pythonpath-breaking-the-launcher.md) | Stop an inherited PYTHONPATH breaking the shell launcher | `M1` | `done` | `review` | T-059 | - | T-049, T-056, T-068 |
-| [T-062](T-062-report-two-tasks-claiming-one-id-instead-of-dropping.md) | Report two tasks claiming one id instead of dropping one | `M1` | `done` | `review` | T-059 | - | T-004, T-075, T-107 |
+| [T-062](T-062-report-two-tasks-claiming-one-id-instead-of-dropping.md) | Report two tasks claiming one id instead of dropping one | `M1` | `done` | `review` | T-059 | - | T-004, T-075, T-107, T-200 |
 | [T-063](T-063-measure-the-tier-1-member-the-rule-declares.md) | Measure the tier-1 member the rule declares | `M1` | `done` | `review` | T-059 | - | T-028, T-047, T-105, T-115, T-118 |
 | [T-064](T-064-stop-the-plugin-citing-documents-it-does-not-ship.md) | Stop the plugin citing documents it does not ship | `M1` | `done` | `review` | T-059 | - | T-006, T-053, T-083, T-117, T-132, T-161 |
 | [T-065](T-065-say-what-happens-to-a-field-the-schema-does-not-name.md) | Say what happens to a field the schema does not name | `M1` | `done` | `review` | T-059 | - | T-001, T-030, T-146 |
@@ -203,7 +202,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md) | Decide what leaves tier 1 when the budget binds | `M2` | `done` | `review` | - | - | T-026, T-028, T-035, T-047, T-050, T-063, T-115, T-119, T-143, T-152, T-155, T-169 |
 | [T-119](T-119-put-the-stranded-paragraph-under-a-heading-that-owns-it.md) | Put the stranded paragraph under a heading that owns it | `M2` | `done` | `review` | - | - | T-047, T-118 |
 | [T-120](T-120-echo-an-unknown-flag-as-the-caller-typed-it.md) | Echo an unknown flag as the caller typed it | `M2` | `done` | `review` | - | - | T-022, T-113, T-122, T-145 |
-| [T-121](T-121-report-a-second-index-of-the-same-tasks-outside-the-markers.md) | Report a second index of the same tasks sitting outside the generated markers | `M5` | `done` | `review` | - | - | T-025, T-096, T-100, T-101, T-107, T-130, T-139, T-141 |
+| [T-121](T-121-report-a-second-index-of-the-same-tasks-outside-the-markers.md) | Report a second index of the same tasks sitting outside the generated markers | `M5` | `done` | `review` | - | - | T-025, T-096, T-100, T-101, T-107, T-130, T-139, T-141, T-200 |
 | [T-122](T-122-echo-the-typed-flag-in-the-rejected-value-message.md) | Echo the typed flag in the rejected-value message too | `M2` | `done` | `review` | - | - | T-113, T-120 |
 | [T-123](T-123-decide-whether-a-replaced-vocabulary-row-is-drift.md) | Decide whether a replaced vocabulary row is drift or a choice | `M2` | `done` | `review` | - | - | T-082 |
 | [T-124](T-124-stop-a-test-asserting-this-repository-has-open-v0-2-work.md) | Stop a test asserting this repository has open M2 work | `M2` | `done` | `review` | - | - | T-087, T-110 |
@@ -273,5 +272,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-193](T-193-make-the-standing-github-check-fail-before-trusting-it.md) | Make the standing GitHub check fail before trusting it | `M6` | `done` | `review` | T-178 | T-196 | T-108, T-151, T-181 |
 | [T-194](T-194-print-the-two-method-sections-this-project-cites-most.md) | Print the two method sections this project cites most | `M6` | `done` | `review` | T-093 | - | T-028, T-047 |
 | [T-195](T-195-hold-the-fixture-readme-against-the-fixtures-there-are.md) | Hold the fixture README against the fixtures there are | `M6` | `done` | `review` | - | - | T-134, T-139, T-188 |
+| [T-196](T-196-delete-the-scratch-repository-the-standing-check-ran-against.md) | Delete the scratch repository the standing check ran against | `M6` | `done` | `review` | T-193 | - | T-108 |
+| [T-197](T-197-derive-the-test-harness-s-problem-class-list-from-the-code.md) | Derive the test harness's problem-class list from the code | `M6` | `done` | `review` | T-191 | - | T-139, T-151, T-200 |
 
 <!-- taskmd:end -->

@@ -584,22 +584,10 @@ class TheLeakCheckIsRunHereRatherThanRemembered(unittest.TestCase):
                          "and the repair it invites is loosening a branch that was already correct")
 
 
-# The class set the validator reports, read from `cli.py` rather than transcribed (T-192).
-#
-# `ADVISORY_PREFIXES` is already a module constant, so it is read as one. The problem prefixes are
-# string literals at their append sites and have no constant, so they are read out of the source.
-# **This is the first derivation of the problem half in the suite**, and
-# `tests/test_cli.py`'s hand-kept `LABELS` is the second copy T-197 exists to remove - that task
-# reuses this function rather than writing a third.
-PROBLEM_PREFIX_RE = re.compile(r'problems\.append\(\s*"([A-Z][A-Z ]+)')
-
-
-def check_classes():
-    """Every class `check` can print, problems and advisories together."""
-    cli = _cli()
-    source = read(cli.__file__)
-    problems = set(found.rstrip() for found in PROBLEM_PREFIX_RE.findall(source))
-    return problems | set(cli.ADVISORY_PREFIXES)
+# The class set is derived in `tests/classes.py`, which is its one home since T-197 - it is compared
+# against here and in `tests/test_cli.py`, and a second derivation would be the defect T-191 found.
+sys.path.insert(0, os.path.join(ROOT, "tests"))
+from classes import check_classes  # noqa: E402
 
 
 def bindings():

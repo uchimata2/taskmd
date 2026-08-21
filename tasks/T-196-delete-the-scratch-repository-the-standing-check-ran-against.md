@@ -2,8 +2,8 @@
 id: T-196
 title: Delete the scratch repository the standing check ran against
 type: admin
-status: proposed
-phase: specify
+status: done
+phase: review
 parent: T-193
 blocked_by: []
 related: [T-108]
@@ -65,21 +65,63 @@ scratch repository the same day for the same reason, and that disposal is the pr
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Ask the owner to delete it, since the credential a session reaches carries `repo` and not `delete_repo`. | The request made, and the owner's confirmation. |
+| 2 | Verify by running `gh repo view` against it and reading what comes back — not by trusting the confirmation. | The command's actual output, quoted. |
+| 3 | State what the repository held, so the record says what was and was not lost with it. | A sentence naming the contents and where the evidence lives instead. |
+
+**Sequencing.** Step 2 after step 1 and not instead of it: a session cannot delete the repository, so
+the only thing it can contribute is the check — and a task whose evidence is somebody else's word is
+the shape this project's *Verifying* rule exists to refuse.
 
 ## 3. Implement
 
+### Steps 1–2 — asked, and then checked
+
+The owner confirmed the deletion on 2026-08-21. Verified rather than taken:
+
+```text
+$ gh repo view uchimata2/taskmd-standing-check-scratch
+GraphQL: Could not resolve to a Repository with the name
+'uchimata2/taskmd-standing-check-scratch'. (repository)
+```
+
+That is the *not found* the criterion asks for, and it is GitHub answering rather than this record
+asserting.
+
+### Step 3 — what went with it
+
+The repository held 28 labels and 24 issues carrying a copy of this project's own public task
+records, created for
+[T-193](T-193-make-the-standing-github-check-fail-before-trusting-it.md)'s run and mutated twice
+during it. **Nothing in it is unrecoverable, and nothing in it was the evidence.** The four runs and
+what each printed are in that task's §3 and in the binding's *What this procedure has been run
+against*; anyone doubting them re-runs the procedure against a backlog of their own, which is what
+the register tells them to do. Re-creating this particular repository would prove nothing that
+reading it could have.
+
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+- **The confirmation was verified rather than accepted — rationale: `CLAUDE.md`'s *Verifying* rule
+  binds on any claim about behaviour, including somebody else's report of an action.** The check
+  costs one command and the alternative is a closed task whose only evidence is a sentence —
+  2026-08-21.
 
 **Outputs produced**
-- <path>
+
+- this record
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| `gh repo view uchimata2/taskmd-standing-check-scratch` fails with *not found*, and what it printed is recorded here | met | §3 quotes GitHub's own reply — `Could not resolve to a Repository with the name 'uchimata2/taskmd-standing-check-scratch'`. Run after the owner confirmed, not instead of confirming |
+| This record says the repository held nothing that is not reproducible by re-running the procedure, so nothing was lost with it | met | §3 step 3 names what it held — 28 labels, 24 issues copied from public task records — and where the evidence lives instead: T-193 §3 and the binding's register |
+
+**This closes T-193's fifth criterion**, which that task recorded as *not met* because a session
+cannot delete a repository. The half T-193 could meet — *the record says the destination was never
+the evidence* — was met there; this is the other half, and it needed the owner.
+
+**Open questions, re-read before closing.** §1 recorded none, and none arose.
 
 **Child fix tasks raised**
 - none
@@ -88,4 +130,5 @@ scratch repository the same day for the same reason, and that disposal is the pr
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-21 | → done | **Both criteria met.** The owner deleted it and confirmed; `gh repo view` was then run and returned *Could not resolve to a Repository*, which is the evidence rather than the confirmation. This closes [T-193](T-193-make-the-standing-github-check-fail-before-trusting-it.md)'s fifth criterion, the one a session could not meet. |
 | 2026-08-21 | → proposed | Raised by [T-193](T-193-make-the-standing-github-check-fail-before-trusting-it.md)'s review as the one criterion it did not meet. `medium` and `xs`: the repository is private and holds a copy of 24 public task records, so leaving it costs tidiness rather than exposure — but the criterion is not met until it is gone. A child of T-193 rather than a soft link, because T-193's criterion is what this closes. |

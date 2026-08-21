@@ -27,6 +27,9 @@ sys.path.insert(0, PKG)
 
 from taskmd import cli  # noqa: E402
 
+sys.path.insert(0, os.path.join(ROOT, "tests"))
+from classes import check_classes  # noqa: E402
+
 FIXTURES = os.path.join(ROOT, "tests", "fixtures")
 
 
@@ -125,17 +128,31 @@ class ChecksThisRepository(unittest.TestCase):
 class CheckFailsOnEveryClassItClaims(unittest.TestCase):
     """One fixture per class. Each must report its own class, and only its own."""
 
-    LABELS = ["VOCABULARY", "DANGLING", "NO BLOCKER", "CYCLE", "BROKEN LINK",
-              "STORED DERIVED", "MISSING OUTPUT", "CONFIG ERROR", "DUPLICATE ID", "ID WIDTH",
-              "STALE INDEX", "TEMPLATE UNREACHABLE", "TEMPLATE FIELD", "PARKED TASK"]
+    #: Every class `check` can print, derived in `tests/classes.py` (T-197). It was a hand-typed
+    #: list of fourteen against a real twenty-one until 2026-08-21, and nothing compared the two -
+    #: so a class added to `cli.py` got no cross-fixture silence assertion and nothing said so.
+    #: **Advisories are in**, answered by the owner on 2026-08-21 on the same ground as T-191's
+    #: sizing question: a noisy advisory trains a reader to skim the failing lines beside it.
+    LABELS = sorted(check_classes())
 
-    def fails(self, fixture, label, needle, code=1):
+    def fails(self, fixture, label, needle, code=1, also=()):
+        """`also` names classes this fixture is **known** to report as well as its own.
+
+        Each is asserted **present**, not merely excused. An entry is a defect somewhere else with a
+        task against it, so the day that defect is fixed this test fails and the entry is deleted —
+        which is what stops a temporary exclusion becoming a permanent blind spot.
+        """
         got, out = run("check", "--root", os.path.join(FIXTURES, fixture))
         self.assertEqual(got, code, out)
         self.assertIn(label, out)
         self.assertIn(needle, out)
+        for extra, why in also:
+            self.assertIn(extra, out,
+                          "%s no longer reports %s, so the exception recorded for it (%s) is stale "
+                          "- delete it rather than leave a class unasserted" % (fixture, extra, why))
+        excused = set(extra for extra, _ in also)
         for other in self.LABELS:
-            if other != label:
+            if other != label and other not in excused:
                 self.assertNotIn(other, out, "%s also reported %s:\n%s" % (fixture, other, out))
 
     def test_value_outside_its_vocabulary(self):
@@ -183,7 +200,8 @@ class CheckFailsOnEveryClassItClaims(unittest.TestCase):
 
     def test_two_files_claiming_one_id(self):
         """T-062. Before this class, three task files could produce two tasks and `OK`, exit 0."""
-        self.fails("broken-duplicate-id", "DUPLICATE ID", "T-001-second.md")
+        self.fails("broken-duplicate-id", "DUPLICATE ID", "T-001-second.md",
+                   also=[("DUPLICATE INDEX", "T-200")])
 
     def test_an_id_that_is_the_right_prefix_and_the_wrong_width(self):
         """T-075. `id_width` used to be honoured only when composing a new id, never when reading
