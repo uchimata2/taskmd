@@ -78,6 +78,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-203](T-203-detect-an-issue-whose-state-disagrees-with-its-status-label.md) | Detect an issue whose state disagrees with its status label | `M6` | `proposed` | `specify` | - | - | T-108, T-178, T-193 |
 | [T-206](T-206-test-whether-the-description-s-markdown-files-clause-turns-a-session-away.md) | Test whether the description's Markdown-files clause turns a session away | `M6` | `proposed` | `specify` | T-205 | - | T-050, T-175 |
 | [T-207](T-207-test-the-platform-claims-this-repository-s-own-second-copies-rest-on.md) | Test the platform claims this repository's own second copies rest on | `M6` | `proposed` | `specify` | - | - | T-072, T-187 |
+| [T-208](T-208-decide-where-the-product-wide-deviation-clause-belongs-now-that-it-exists.md) | Decide where the product-wide deviation clause belongs now that it exists | `M6` | `proposed` | `specify` | - | - | T-027, T-045, T-187 |
 
 ## Closed
 
@@ -109,7 +110,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-024](T-024-say-so-when-tasks-dir-names-something-that-is-not-a-folder.md) | Say so when tasks_dir names something that is not a folder | `M2` | `done` | `review` | - | - | T-019, T-023, T-078 |
 | [T-025](T-025-let-check-notice-a-stale-generated-index.md) | Let check notice a stale generated index | `M2` | `done` | `review` | - | - | T-002, T-009, T-011, T-019, T-026, T-039, T-084, T-089, T-095, T-096, T-121, T-130, T-141 |
 | [T-026](T-026-audit-the-whole-project-before-the-remaining-build.md) | Audit the whole project before the remaining build | `M2` | `done` | `review` | - | T-027, T-028, T-029, T-030, T-031, T-032, T-033, T-034 | T-003, T-006, T-010, T-025, T-036, T-059, T-086, T-088, T-110, T-118 |
-| [T-027](T-027-give-the-design-rule-one-home.md) | Give the design rule one home | `M1` | `done` | `review` | T-026 | - | T-017, T-031, T-045, T-046 |
+| [T-027](T-027-give-the-design-rule-one-home.md) | Give the design rule one home | `M1` | `done` | `review` | T-026 | - | T-017, T-031, T-045, T-046, T-208 |
 | [T-028](T-028-budget-the-whole-always-loaded-context-not-one-file.md) | Budget the whole always-loaded context, not one file | `M1` | `done` | `review` | T-026 | - | T-003, T-015, T-040, T-046, T-047, T-048, T-063, T-115, T-118, T-143, T-154, T-190, T-194 |
 | [T-029](T-029-reject-unknown-arguments-on-every-command.md) | Reject unknown arguments on every command | `M2` | `done` | `review` | T-026 | - | T-002, T-022, T-055, T-087, T-113, T-144, T-145 |
 | [T-030](T-030-settle-the-schema-module-s-own-entry-point.md) | Settle the schema module's own entry point | `M2` | `done` | `review` | T-026 | - | T-020, T-023, T-065, T-066, T-117, T-134 |
@@ -127,7 +128,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-042](T-042-make-the-github-bindings-update-preserve-what-it-did-not-touch.md) | Make the GitHub binding's update preserve what it did not touch | `M1` | `done` | `review` | - | - | T-010, T-041, T-044 |
 | [T-043](T-043-make-every-assumption-a-claim-about-the-adopting-project.md) | Make every assumption a claim about the adopting project | `M1` | `done` | `review` | - | - | T-004, T-009, T-010, T-040 |
 | [T-044](T-044-state-the-gh-version-the-github-binding-requires.md) | State the gh version the GitHub binding requires | `M1` | `done` | `review` | - | - | T-010, T-042 |
-| [T-045](T-045-decide-whether-scope-principles-may-state-the-rule-they-name.md) | Decide whether SCOPE §2 principles may state the rule they name | `M1` | `done` | `review` | - | - | T-017, T-027 |
+| [T-045](T-045-decide-whether-scope-principles-may-state-the-rule-they-name.md) | Decide whether SCOPE §2 principles may state the rule they name | `M1` | `done` | `review` | - | - | T-017, T-027, T-208 |
 | [T-046](T-046-reconcile-the-done-condition-claude-md-restates.md) | Reconcile the done-condition CLAUDE.md restates from the method | `M1` | `done` | `review` | - | - | T-027, T-028 |
 | [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `M2` | `done` | `review` | - | - | T-015, T-028, T-035, T-059, T-063, T-105, T-115, T-118, T-119, T-190, T-194 |
 | [T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md) | Say what "always-loaded" means in R-21, before the skill is built against it | `M1` | `done` | `review` | - | - | T-003, T-028 |
@@ -267,7 +268,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-184](T-184-report-a-date-shaped-value-that-is-not-a-date.md) | Report a date-shaped value that is not a date | `M6` | `done` | `review` | T-162 | - | T-106, T-146, T-188 |
 | [T-185](T-185-run-the-document-checks-in-a-project-whose-tasks-moved.md) | Run the document checks in a project whose tasks moved | `M6` | `done` | `review` | T-177 | - | T-095, T-108, T-178 |
 | [T-186](T-186-run-the-leak-check-in-the-suite-not-only-at-publication.md) | Run the leak check in the suite, not only at publication | `M6` | `done` | `review` | - | - | T-034, T-058, T-080, T-126, T-183 |
-| [T-187](T-187-say-that-the-one-design-rule-yields-to-a-system-limitation.md) | Say that the one design rule yields to a system limitation | `M6` | `done` | `review` | - | - | T-012, T-179, T-207 |
+| [T-187](T-187-say-that-the-one-design-rule-yields-to-a-system-limitation.md) | Say that the one design rule yields to a system limitation | `M6` | `done` | `review` | - | - | T-012, T-179, T-207, T-208 |
 | [T-188](T-188-report-a-counted-set-written-into-prose-that-the-code-owns.md) | Report a counted set written into prose that the code owns | `M6` | `done` | `review` | - | - | T-134, T-139, T-184, T-195 |
 | [T-189](T-189-say-whether-the-audit-s-method-finding-reached-the-repository-that-owns-it.md) | Say whether the audit's method finding reached the repository that owns it | `M6` | `done` | `review` | - | - | T-152, T-170 |
 | [T-190](T-190-decide-whether-tier-1-restates-two-verification-rules-the-method-owns.md) | Decide whether tier 1 restates two verification rules the method owns | `M6` | `done` | `review` | - | - | T-028, T-047, T-151 |
