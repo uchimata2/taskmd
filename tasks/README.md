@@ -79,7 +79,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md) | Mark a fixture's quiet cases so a sweep can find them | `M6` | `proposed` | `specify` | T-198 | - | T-134, T-151, T-197, T-204 |
 | [T-203](T-203-detect-an-issue-whose-state-disagrees-with-its-status-label.md) | Detect an issue whose state disagrees with its status label | `M6` | `proposed` | `specify` | - | - | T-108, T-178, T-193 |
 | [T-204](T-204-count-the-short-row-quiet-case-the-wide-row-audit-left-out.md) | Count the short-row quiet case the wide-row audit left out | `M6` | `proposed` | `specify` | T-198 | - | T-201, T-202 |
-| [T-205](T-205-decide-whether-a-clean-trigger-observation-is-reachable-on-this-machine.md) | Decide whether a clean trigger observation is reachable on this machine | `M6` | `proposed` | `specify` | T-175 | - | T-050, T-168 |
+| [T-206](T-206-test-whether-the-description-s-markdown-files-clause-turns-a-session-away.md) | Test whether the description's Markdown-files clause turns a session away | `M6` | `proposed` | `specify` | T-205 | - | T-050, T-175 |
 
 ## Closed
 
@@ -134,7 +134,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `M2` | `done` | `review` | - | - | T-015, T-028, T-035, T-059, T-063, T-105, T-115, T-118, T-119, T-190, T-194 |
 | [T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md) | Say what "always-loaded" means in R-21, before the skill is built against it | `M1` | `done` | `review` | - | - | T-003, T-028 |
 | [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) | Demonstrate a clone running on a second platform | `M1` | `done` | `review` | T-011 | T-057, T-058 | T-006, T-020, T-054, T-056, T-057, T-058, T-061, T-085, T-116, T-132 |
-| [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | `M1` | `done` | `review` | T-003 | - | T-006, T-052, T-053, T-118, T-159, T-175, T-205 |
+| [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | `M1` | `done` | `review` | T-003 | - | T-006, T-052, T-053, T-118, T-159, T-175, T-205, T-206 |
 | [T-051](T-051-say-where-a-project-s-task-template-lives.md) | Say where a project's task template lives | `M1` | `done` | `review` | - | - | T-001, T-003, T-060, T-076, T-091, T-101 |
 | [T-052](T-052-decide-what-of-claude-a-published-clone-carries.md) | Decide what of .claude a published clone carries, and ignore the rest | `M1` | `done` | `review` | - | - | T-003, T-006, T-050, T-053, T-067 |
 | [T-053](T-053-decide-the-plugin-s-boundary-and-what-its-skill-may-p.md) | Decide the plugin's boundary, and what its skill may point at | `M1` | `done` | `review` | - | - | T-003, T-006, T-050, T-052, T-054, T-059, T-064, T-067, T-072, T-083, T-103 |
@@ -259,7 +259,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-172](T-172-catch-a-template-placeholder-left-in-a-finished-record.md) | Catch a template placeholder left in a finished record | `M6` | `done` | `review` | - | - | T-032, T-151, T-171, T-173 |
 | [T-173](T-173-decide-whether-check-can-know-a-phase-without-breaking-every-adopter.md) | Decide whether check can know a phase without breaking every adopter | `M6` | `done` | `review` | - | - | T-146, T-151, T-172 |
 | [T-174](T-174-carry-the-command-that-produced-t-168-s-figures.md) | Carry the command that produced T-168's figures into a record that can re-run it | `M6` | `done` | `review` | T-168 | - | T-168 |
-| [T-175](T-175-observe-whether-the-skill-triggers-in-a-migrated-away-project.md) | Observe whether the skill triggers in a project that has migrated its backlog away | `M6` | `done` | `review` | T-168 | T-205 | T-050, T-168 |
+| [T-175](T-175-observe-whether-the-skill-triggers-in-a-migrated-away-project.md) | Observe whether the skill triggers in a project that has migrated its backlog away | `M6` | `done` | `review` | T-168 | T-205 | T-050, T-168, T-206 |
 | [T-177](T-177-run-the-checks-that-need-no-task-folder.md) | Decide whether check runs the checks that never look at a task file | `M6` | `done` | `review` | - | T-185 | T-163, T-178, T-179, T-180 |
 | [T-178](T-178-give-the-github-binding-a-standing-verification.md) | Give the GitHub binding a standing verification, not only a migration-day one | `M6` | `done` | `review` | - | T-193 | T-041, T-108, T-177, T-179, T-185, T-192, T-203 |
 | [T-179](T-179-restore-the-ordering-rule-on-the-github-backend.md) | Restore the what-next ordering rule on the GitHub backend | `M6` | `done` | `review` | - | - | T-022, T-108, T-177, T-178, T-187 |
@@ -279,5 +279,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-196](T-196-delete-the-scratch-repository-the-standing-check-ran-against.md) | Delete the scratch repository the standing check ran against | `M6` | `done` | `review` | T-193 | - | T-108 |
 | [T-197](T-197-derive-the-test-harness-s-problem-class-list-from-the-code.md) | Derive the test harness's problem-class list from the code | `M6` | `done` | `review` | T-191 | - | T-139, T-151, T-200, T-202 |
 | [T-201](T-201-give-the-fenced-table-case-a-row-that-could-be-reported.md) | Give the fenced-table case a row that could be reported | `M6` | `done` | `review` | T-198 | - | T-150, T-151, T-204 |
+| [T-205](T-205-decide-whether-a-clean-trigger-observation-is-reachable-on-this-machine.md) | Decide whether a clean trigger observation is reachable on this machine | `M6` | `done` | `review` | T-175 | T-206 | T-050, T-168 |
 
 <!-- taskmd:end -->
