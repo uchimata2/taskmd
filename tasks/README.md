@@ -79,6 +79,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-200](T-200-discount-the-ids-a-task-file-carries-even-when-it-was-not-loaded.md) | Discount the ids a task file carries even when it was not loaded | `M6` | `proposed` | `specify` | - | - | T-062, T-121, T-197 |
 | [T-201](T-201-give-the-fenced-table-case-a-row-that-could-be-reported.md) | Give the fenced-table case a row that could be reported | `M6` | `proposed` | `specify` | T-198 | - | T-150, T-151 |
 | [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md) | Mark a fixture's quiet cases so a sweep can find them | `M6` | `proposed` | `specify` | T-198 | - | T-134, T-151, T-197 |
+| [T-203](T-203-detect-an-issue-whose-state-disagrees-with-its-status-label.md) | Detect an issue whose state disagrees with its status label | `M6` | `proposed` | `specify` | - | - | T-108, T-178, T-193 |
 
 ## Closed
 
@@ -191,7 +192,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md) | Say where an authorised multi-phase run is recorded | `M3` | `done` | `review` | - | - | T-005, T-036, T-047, T-063 |
 | [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) | Say that the shipped config cannot gain a key without breaking every project that wrote one | `M3` | `done` | `review` | - | - | T-001, T-011, T-023, T-100, T-137, T-138, T-146, T-184 |
 | [T-107](T-107-say-so-when-a-valid-task-file-is-parked-where-nothing-reads-it.md) | Say so when a valid task file is parked where nothing reads it | `M2` | `done` | `review` | - | - | T-062, T-069, T-075, T-101, T-121, T-130, T-141 |
-| [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `M6` | `done` | `review` | - | - | T-004, T-009, T-010, T-041, T-082, T-163, T-164, T-166, T-178, T-179, T-181, T-185, T-193, T-196 |
+| [T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md) | Support a project moving its tasks from local files to GitHub Issues | `M6` | `done` | `review` | - | - | T-004, T-009, T-010, T-041, T-082, T-163, T-164, T-166, T-178, T-179, T-181, T-185, T-193, T-196, T-203 |
 | [T-109](T-109-decide-whether-a-task-that-settles-a-question-must-be-typed-decision.md) | Decide whether a task that settles a question must be typed decision | `M2` | `done` | `review` | - | - | T-088, T-090, T-093, T-097, T-098, T-103, T-104, T-110, T-131 |
 | [T-110](T-110-re-group-the-open-backlog-by-the-maintainers-release-rule.md) | Re-group the open backlog by the maintainer's release rule | `M2` | `done` | `review` | - | - | T-026, T-086, T-109, T-124, T-125, T-128, T-136 |
 | [T-111](T-111-stop-the-index-showing-a-closed-task-as-a-live-blocker.md) | Stop the index showing a closed task as a live blocker | `M2` | `done` | `review` | - | - | T-102 |
@@ -259,7 +260,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-173](T-173-decide-whether-check-can-know-a-phase-without-breaking-every-adopter.md) | Decide whether check can know a phase without breaking every adopter | `M6` | `done` | `review` | - | - | T-146, T-151, T-172 |
 | [T-174](T-174-carry-the-command-that-produced-t-168-s-figures.md) | Carry the command that produced T-168's figures into a record that can re-run it | `M6` | `done` | `review` | T-168 | - | T-168 |
 | [T-177](T-177-run-the-checks-that-need-no-task-folder.md) | Decide whether check runs the checks that never look at a task file | `M6` | `done` | `review` | - | T-185 | T-163, T-178, T-179, T-180 |
-| [T-178](T-178-give-the-github-binding-a-standing-verification.md) | Give the GitHub binding a standing verification, not only a migration-day one | `M6` | `done` | `review` | - | T-193 | T-041, T-108, T-177, T-179, T-185, T-192 |
+| [T-178](T-178-give-the-github-binding-a-standing-verification.md) | Give the GitHub binding a standing verification, not only a migration-day one | `M6` | `done` | `review` | - | T-193 | T-041, T-108, T-177, T-179, T-185, T-192, T-203 |
 | [T-179](T-179-restore-the-ordering-rule-on-the-github-backend.md) | Restore the what-next ordering rule on the GitHub backend | `M6` | `done` | `review` | - | - | T-022, T-108, T-177, T-178, T-187 |
 | [T-180](T-180-route-a-migrated-project-to-its-binding-not-to-adopt.md) | Route a migrated project to its binding rather than to adopt.md | `M6` | `done` | `review` | - | - | T-163, T-164, T-177 |
 | [T-181](T-181-verify-the-handoff-github-recipe-on-a-live-issues-backed-project.md) | Verify the handoff GitHub recipe against a live issues-backed project | `M6` | `done` | `review` | T-005 | - | T-108, T-193 |
@@ -271,7 +272,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-189](T-189-say-whether-the-audit-s-method-finding-reached-the-repository-that-owns-it.md) | Say whether the audit's method finding reached the repository that owns it | `M6` | `done` | `review` | - | - | T-152, T-170 |
 | [T-190](T-190-decide-whether-tier-1-restates-two-verification-rules-the-method-owns.md) | Decide whether tier 1 restates two verification rules the method owns | `M6` | `done` | `review` | - | - | T-028, T-047, T-151 |
 | [T-192](T-192-require-every-binding-to-declare-its-validator-coverage.md) | Require every binding to declare its validator coverage | `M6` | `done` | `review` | - | T-199 | T-009, T-139, T-178 |
-| [T-193](T-193-make-the-standing-github-check-fail-before-trusting-it.md) | Make the standing GitHub check fail before trusting it | `M6` | `done` | `review` | T-178 | T-196 | T-108, T-151, T-181 |
+| [T-193](T-193-make-the-standing-github-check-fail-before-trusting-it.md) | Make the standing GitHub check fail before trusting it | `M6` | `done` | `review` | T-178 | T-196 | T-108, T-151, T-181, T-203 |
 | [T-194](T-194-print-the-two-method-sections-this-project-cites-most.md) | Print the two method sections this project cites most | `M6` | `done` | `review` | T-093 | - | T-028, T-047 |
 | [T-195](T-195-hold-the-fixture-readme-against-the-fixtures-there-are.md) | Hold the fixture README against the fixtures there are | `M6` | `done` | `review` | - | - | T-134, T-139, T-188 |
 | [T-196](T-196-delete-the-scratch-repository-the-standing-check-ran-against.md) | Delete the scratch repository the standing check ran against | `M6` | `done` | `review` | T-193 | - | T-108 |
