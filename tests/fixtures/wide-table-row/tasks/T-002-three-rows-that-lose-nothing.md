@@ -48,10 +48,16 @@ Wider than the header and loses no text, so there is nothing to tell anyone.
 
 ## A table inside a fence, which is quoted output and not a table
 
+Three cells against a two-column header, so the row is genuinely wider than its header and
+reports the moment it is unfenced. The silence below is the fence's doing and nothing else's,
+which is what lets this case catch fence skipping breaking (T-201). It could not before: the
+row had two cells, so unfencing it produced nothing and the case was quiet for a reason it
+did not name.
+
 ```
 | ID | Title |
 | :--- | :--- |
-| T-001 | this row is wider than its header and is not read |
+| T-001 | a cell past the header | and this one renders nowhere |
 ```
 
 ## And a real table after the fence, which is read
