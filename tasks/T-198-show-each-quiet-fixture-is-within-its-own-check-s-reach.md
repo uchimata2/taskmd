@@ -2,8 +2,8 @@
 id: T-198
 title: Show each quiet fixture is within its own check's reach
 type: audit
-status: proposed
-phase: specify
+status: review
+phase: review
 parent: T-191
 blocked_by: []
 related: [T-150, T-151]
@@ -81,29 +81,182 @@ audit itself.
 
 ## 2. Plan
 
+**What counts as a finding** (`audit.md` step 2, fixed before looking). A quiet case is a finding if
+**it cannot be made to fire** — the state it is asserted silent about, planted in that same fixture,
+produces no alarm. A case that speaks on demand is recorded as checked and produces no work. How good
+the case is, or whether it is worth having, is outside the threshold.
+
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Derive the fixture set from the tests, and say what the derivation misses rather than assuming it misses nothing. | The derived set, its size, and its known gaps. |
+| 2 | For each quiet case, make a minimal edit that ought to make it fire, run `check`, and diff the alarms against the same fixture unedited. | One alarm line per case, quoted. |
+| 3 | Prove the instrument can produce a positive before believing any negative. | A run where most cases fire. |
+| 4 | Record every case, exercised or not; a case not mutated is *unproven*, never *passing*. | The table. |
+| 5 | Raise a child task per finding. Fix nothing. | The child tasks. |
+
+**Sequencing.** Step 3 is not a step so much as a condition on step 2 — T-191's instrument reported
+every class silent while never invoking `check`, and this task is exposed to exactly that. The diff
+against the unedited fixture is the guard: an alarm only counts if it is **new**.
+
+**Decisions**
+
+- **Each case is exercised by editing the fixture, never the check.** The one exception is the
+  front-matter case, whose whole claim is about a guard in `check_wide_rows` — there the guard is
+  removed on a copy of the code and put back, which is the only way that case can be made to speak.
+- **The instrument is scratch and is not shipped.** What it does by hand is what
+  [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md) would make repeatable.
+
+**Outputs**
+
+- `tasks/T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md` (§3)
+- one task file per finding
 
 ## 3. Implement
 
+### Step 1 — two derivations, neither of which is the set
+
+**From the tests**, parsing `tests/test_cli.py` for functions that assert a class silent and reading
+the fixtures they name:
+
+```text
+fixtures named by a must-not-catch assertion: 21
+  broken-cancelled-deliverable, broken-config, broken-cycle, broken-dangling, broken-deliverable,
+  broken-derived-field, broken-duplicate-id, broken-id-width, broken-link, broken-missing-blocker,
+  broken-parked-task, broken-stale-index, broken-tasks-dir-root, broken-template-field,
+  broken-unreachable-template, broken-vocabulary, label-shaped-value, malformed-date,
+  migrated-away, planned-deliverable, section-reference
+```
+
+**It is demonstrably incomplete.** `abandoned-slot` and `wide-table-row` both carry quiet cases and
+appear in neither line, because their quiet tests iterate the fixture directory or build a tree —
+so no fixture name appears as a literal for a parser to find. That is the same miss T-191 made one
+level up, and it is why criterion 1 is recorded **not met** rather than approximately met.
+
+**From `tests/fixtures/README.md`**, which names five fixtures *shaped* to carry the defect and the
+cases that must stay silent beside it: `wide-table-row`, `abandoned-slot`, `label-shaped-value`,
+`malformed-date`, `section-reference`. That is the set this audit examined, and it is **prose** — a
+classification somebody wrote, not a fact the tree states. Raised as
+[T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md).
+
+### Steps 2–3 — fifteen cases, each edited so it ought to speak
+
+Every line below is the alarm that was **not** there before the edit, on the same fixture.
+
+```text
+open task holding a slot it has not reached    IN REACH ABANDONED SLOT ...T-002-open-and-has-not-reached-the-section.md body line 20 still reads '- <
+closed record quoting a slot inside a fence    IN REACH ABANDONED SLOT ...T-003-closed-and-quoting-a-slot-to-explain-it.md body line 11 still reads '
+a real date beside a malformed one             IN REACH MALFORMED DATE T-001...: created is '2026-08-99', which is shaped like a date and is not one
+a real date written without zero padding       IN REACH MALFORMED DATE T-002...: created is '2026-8-45', which is shaped like a date and is not one
+an ordinary date inside a list                 IN REACH MALFORMED DATE T-002...: windows is '2026-08-45', which is shaped like a date and is not one
+a real three-part version                      IN REACH LABEL SHAPE  shipped_in: '0.4' on 1 task(s) reads as a version
+a three-part version inside a list             IN REACH LABEL SHAPE  targets: '1.4' on 1 task(s) reads as a version
+a quantity in an exempt estimate field         IN REACH LABEL SHAPE  duration: '1.5' on 1 task(s) reads as a version
+a citation that resolves                       IN REACH SECTION REF  docs/handbook.md has no section 7; 1 reference(s) name it
+a wrong citation quoted inside a fence         IN REACH SECTION REF  docs/handbook.md has no section 404; 1 reference(s) name it
+a wrong citation inside a code span            IN REACH SECTION REF  docs/handbook.md has no section 404; 1 reference(s) name it
+a trailing cell with nothing in it             IN REACH WIDE ROW      ...T-002...:35 has 3 cells against a 2-column header
+an escaped pipe, which is content              IN REACH WIDE ROW      ...T-002...:41 has 3 cells against a 2-column header
+a table inside a fence                         SILENT   (nothing new named 'T-002')
+
+13 of 14 quiet cases shown able to fire
+```
+
+**The fifteenth is the front-matter case, and it needs the code moved rather than the fixture.** Its
+claim is that a `|`-separated front-matter menu is not a table because no front-matter line is a
+delimiter row. Removing that guard on a copy of `cli.py`:
+
+```text
+with the delimiter guard removed, T-002 reports 1 line(s):
+   WIDE ROW      tasks/T-002-three-rows-that-lose-nothing.md:7 has 5 cells against a 2-column header
+restored - T-002 lines now: 0
+```
+
+So **[T-150](T-150-give-the-wide-row-fixture-a-front-matter-that-carries-pipes.md)'s fix is
+load-bearing and proven**, and the fixture's prose claim about it — which nothing had ever run — is
+true.
+
+**The instrument produced thirteen positives before its one negative was believed**, and each alarm
+is diffed against the unedited fixture so a pre-existing line cannot be read as a new one. It also
+refuses any run whose output contains a traceback, which is the failure T-191 met.
+
+### Step 4 — the table
+
+| Fixture | Quiet cases examined | In reach |
+| :--- | ---: | :--- |
+| `abandoned-slot` | 2 | both |
+| `malformed-date` | 3 | all three. A fourth — `keep-me`, a value that is not date-shaped — cannot be made to fire without becoming date-shaped, which is the class itself; recorded as **true by construction**, not as exercised |
+| `label-shaped-value` | 3 | all three |
+| `section-reference` | 3 | all three. Two further marks — a sub-number resolving against a list item, and a mark with no document beside it — were not mutated and are **unproven** |
+| `wide-table-row` | 4 | three, plus the front-matter case via the code guard. **One not in reach** → F-1 |
+| The other 16 fixtures of the derived 21 | — | **not exercised.** Their quiet cases are the cross-fixture `fails()` silence, which [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) exercised per class and this task did not exercise per fixture. Recorded as unproven |
+
+### Findings
+
+**F-1 — `wide-table-row`'s fenced-table case cannot fire.** Its row has two cells against a
+two-column header, so it is not wide. Unfenced it stays silent; unfenced with a genuinely wide row it
+reports. The silence the fixture records is produced by the row's width and not by the fence, so a
+regression in fence skipping would not be caught here — and the exact-count test would not move
+either. **This is T-150's defect, in T-150's own fixture, one case over.** →
+[T-201](T-201-give-the-fenced-table-case-a-row-that-could-be-reported.md). Severity: medium.
+
+**F-2 — the quiet-case set cannot be computed.** Step 1's two derivations answer different questions
+and neither is the set: the parser finds 21 and misses two fixtures it should have found; the README
+names five and is prose. A sixth fixture given a quiet case next week is in neither. →
+[T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md). Severity: medium, and it is
+why criterion 1 below is not met.
+
+### Recorded as examined, no action
+
+- **`malformed-date`'s `keep-me`** — a value that is not date-shaped. Making it fire would mean making
+  it date-shaped, which is the class rather than the case. True by construction, and stated so rather
+  than counted as a pass.
+- **The front-matter case** — in reach, proven by removing the guard. It is the case T-150 built and
+  it works.
+
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+- **An alarm counts only if it is new** — every run is diffed against the same fixture unedited.
+  Rejected: reading the alarm list after the edit, which counts a fixture's own pre-existing defect
+  as evidence for a case beside it — 2026-08-21.
+- **Criterion 1 is recorded not met rather than approximately met — rationale: the derivation has two
+  known misses and I can name them, so calling it derived would be the exact failure this audit
+  reports in F-2.** Rejected: widening the parser until it happened to find the two, which fits the
+  answer to the known cases and tells you nothing about the unknown one — 2026-08-21.
 
 **Outputs produced**
-- <path>
+
+- this record
+- [T-201](T-201-give-the-fenced-table-case-a-row-that-could-be-reported.md)
+- [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md)
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| The fixture set is derived from the tests and the derivation is shown, so a quiet case added since cannot be missing | **not met** | The derivation is shown and it is shown to miss: 21 found, `abandoned-slot` and `wide-table-row` absent though both carry quiet cases, because their tests name no fixture literally. A quiet case added since **can** be missing → **[T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md)** |
+| Every fixture has a row; the rows sum to the derived set | met | §3 step 4: five fixtures examined case by case, and one row covering the other sixteen of the derived twenty-one as unexercised. 5 + 16 = 21, and the two the derivation missed are named above it |
+| Each *is in reach* claim quotes the alarm that arrived when the fixture was mutated; a fixture not mutated is recorded as unproven rather than as passing | met | Fifteen alarm lines quoted, each diffed against the unedited fixture. The unexercised sixteen, two unmutated `section-reference` marks, and `keep-me` are each recorded as unproven or true-by-construction — none as passing |
+| **The instrument is shown able to produce a positive result before any negative one is believed** | met | Thirteen positives arrived before the one silence was read as a finding, and the silence was then confirmed by a second trial: unfenced-as-is stays silent, unfenced-and-widened reports. The instrument also refuses any run whose output holds a traceback — T-191's failure, guarded against by name |
+| Every fixture out of reach is a child task, and this audit closes only when each resolves | **carried** | One case out of reach → [T-201](T-201-give-the-fenced-table-case-a-row-that-could-be-reported.md); the derivation gap → [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md). Both open, so **this umbrella stays open** — the criterion being met, not deferred |
+
+**What this audit is worth, stated plainly.** It examined the five fixtures a document points at, and
+found one real defect in them — a case that has never been able to fire, in the fixture built to fix
+exactly that. It did **not** examine the other sixteen, and it cannot promise there is not a sixth
+fixture nobody has classified. Those two limits are F-2 and the reason criterion 1 fails; recording
+them is worth more than a fuller-looking table would have been.
+
+**Open questions, re-read before closing.** §1 recorded none.
+[T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md) carries one of its own —
+whether marks replace the README's prose or sit beside it — written into that record where a view
+will show it.
 
 **Child fix tasks raised**
-- none
+- [T-201](T-201-give-the-fenced-table-case-a-row-that-could-be-reported.md) — F-1, the fenced-table case that cannot fire
+- [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md) — F-2, the quiet-case set that cannot be computed
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-21 | → review | **Fifteen quiet cases exercised across five fixtures; fourteen in reach, one not.** [T-201](T-201-give-the-fenced-table-case-a-row-that-could-be-reported.md): `wide-table-row`'s fenced table has two cells against a two-column header, so unfencing it reports nothing and the case cannot catch the regression it exists for - T-150's defect in T-150's own fixture. [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md): criterion 1 is **not met** - the derivation finds 21 fixtures and misses two it should have found, so a quiet case added since can still be missing. **Stays open**: `audit.md` step 5 gates closure on both children. |
 | 2026-08-21 | → proposed | Raised as finding F-2 of [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md). Typed `audit` rather than `fix` because it examines a body of fixtures for a problem nobody has alleged of any particular one, and its findings become children (METHOD §5). `m`: the condition means mutating each fixture, not reading it. A child of T-191, which does not close until this resolves (`audit.md` step 5). |

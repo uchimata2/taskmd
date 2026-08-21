@@ -67,9 +67,14 @@ retires the rule.
 - [ ] <written at `specify`>
 
 **Open questions**
-- **What stops the clause swallowing the rule?** A deviation condition with no test is a licence, and
-  this is the rule the project is most careful with. Whether the amendment must name what does *not*
-  qualify is the maintainer's, at `specify`.
+- ~~**What stops the clause swallowing the rule?**~~ **Answered 2026-08-21: the amendment must name
+  what does *not* qualify.** The owner required it. The argument given is this project's own
+  [T-151](T-151-decide-whether-a-check-needs-a-case-that-must-not-fire.md) rule applied to prose: a
+  check is trusted only once it has been seen to refuse something, and a deviation clause with no
+  refusal case retires the rule it is attached to. Stating the condition alone was the alternative
+  and was rejected. **No phase was started on this answer**
+  ([T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md)): it settles what `specify`
+  owes, and the work is done when it is asked for.
 
 ## 2. Plan
 
@@ -98,4 +103,5 @@ retires the rule.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-21 | (no change) | **Answered by the owner: the amendment must name a case that does not qualify.** Stating the deviation condition alone was offered and rejected, on [T-151](T-151-decide-whether-a-check-needs-a-case-that-must-not-fire.md)'s ground - a rule trusted without having refused anything is a licence. §1's question is struck through with both. **No phase was started on this answer** ([T-105](T-105-say-where-an-authorised-multi-phase-run-is-recorded.md)). |
 | 2026-08-19 | → proposed | Raised from the owner's answer to [T-179](T-179-restore-the-ordering-rule-on-the-github-backend.md), given in the backlog-wide question round of 2026-08-19. `high` because the rule is the one every design decision here is checked against, and an unwritten deviation condition is currently settled by argument each time. **Not covered by any standing authorisation** — the round of 2026-08-19 answered questions and authorised [T-184](T-184-report-a-date-shaped-value-that-is-not-a-date.md) alone. |

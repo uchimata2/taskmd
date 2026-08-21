@@ -74,9 +74,11 @@ A label says which release the work is scheduled into. It never says the release
 | [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) | Write the next release note to the rule and say what it caught | `M6` | `proposed` | `specify` | T-135 | - | T-125, T-127, T-133 |
 | [T-187](T-187-say-that-the-one-design-rule-yields-to-a-system-limitation.md) | Say that the one design rule yields to a system limitation | `M6` | `proposed` | `specify` | - | - | T-012, T-179 |
 | [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) | Audit whether each check class has a case it must not catch | `M6` | `review` | `review` | - | T-197, T-198 | T-100, T-150, T-151 |
-| [T-198](T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md) | Show each quiet fixture is within its own check's reach | `M6` | `proposed` | `specify` | T-191 | - | T-150, T-151 |
+| [T-198](T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md) | Show each quiet fixture is within its own check's reach | `M6` | `review` | `review` | T-191 | T-201, T-202 | T-150, T-151 |
 | [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md) | Have an uninvolved reader write a coverage declaration from the clause | `M6` | `proposed` | `specify` | T-192 | - | T-176 |
 | [T-200](T-200-discount-the-ids-a-task-file-carries-even-when-it-was-not-loaded.md) | Discount the ids a task file carries even when it was not loaded | `M6` | `proposed` | `specify` | - | - | T-062, T-121, T-197 |
+| [T-201](T-201-give-the-fenced-table-case-a-row-that-could-be-reported.md) | Give the fenced-table case a row that could be reported | `M6` | `proposed` | `specify` | T-198 | - | T-150, T-151 |
+| [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md) | Mark a fixture's quiet cases so a sweep can find them | `M6` | `proposed` | `specify` | T-198 | - | T-134, T-151, T-197 |
 
 ## Closed
 
@@ -215,7 +217,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-131](T-131-decide-whether-a-question-heavy-task-is-a-different-kind-of-work.md) | Decide whether a question-heavy task is a different kind of work | `M6` | `done` | `review` | - | - | T-088, T-109, T-130 |
 | [T-132](T-132-give-the-console-the-same-line-ending-on-every-platform.md) | Give the console the same line ending on every platform | `M5` | `done` | `review` | T-020 | - | T-002, T-020, T-022, T-049, T-064 |
 | [T-133](T-133-decide-what-to-do-about-a-published-release-note-that-breaks-the-rule.md) | Decide what to do about a published release note that breaks the rule | `M5` | `done` | `review` | - | - | T-079, T-081, T-125, T-126, T-127, T-129, T-135, T-182, T-183 |
-| [T-134](T-134-check-that-every-prose-list-of-the-commands-names-the-commands-there-are.md) | Check that every prose list of the commands names the commands there are | `M5` | `done` | `review` | T-117 | - | T-030, T-031, T-055, T-071, T-073, T-117, T-126, T-139, T-147, T-149, T-188, T-195 |
+| [T-134](T-134-check-that-every-prose-list-of-the-commands-names-the-commands-there-are.md) | Check that every prose list of the commands names the commands there are | `M5` | `done` | `review` | T-117 | - | T-030, T-031, T-055, T-071, T-073, T-117, T-126, T-139, T-147, T-149, T-188, T-195, T-202 |
 | [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) | Derive what a release note must cover from the tasks it ships | `M6` | `done` | `review` | - | T-182 | T-086, T-125, T-127, T-128, T-129, T-133 |
 | [T-136](T-136-rename-the-milestone-labels-so-they-cannot-be-read-as-versions.md) | Rename the milestone labels so they cannot be read as versions | `M6` | `done` | `review` | - | - | T-086, T-110, T-125, T-128, T-137, T-138 |
 | [T-137](T-137-decide-what-taskmd-does-about-a-label-read-as-a-version.md) | Decide what taskmd does about a grouping label that can be read as a version | `M6` | `done` | `review` | - | - | T-004, T-082, T-087, T-088, T-100, T-106, T-136, T-138 |
@@ -231,8 +233,8 @@ A label says which release the work is scheduled into. It never says the release
 | [T-147](T-147-check-that-a-quoted-command-output-is-output-the-tool-produces.md) | Check that a quoted command output is output the tool produces | `M6` | `done` | `review` | - | - | T-095, T-134, T-139, T-141 |
 | [T-148](T-148-decide-whether-a-caller-outside-a-served-skill-can-find-the-launcher.md) | Decide whether a caller outside a served skill can find the launcher | `M6` | `done` | `review` | - | - | T-054, T-099, T-142 |
 | [T-149](T-149-check-that-every-prose-list-of-lists-options-names-the-options-there-are.md) | Check that every prose list of list's options names the options there are | `M6` | `done` | `review` | - | - | T-117, T-134, T-139, T-144 |
-| [T-150](T-150-give-the-wide-row-fixture-a-front-matter-that-carries-pipes.md) | Give the wide-row fixture a front matter that carries pipes | `M6` | `done` | `review` | - | - | T-032, T-141, T-151, T-191, T-198 |
-| [T-151](T-151-decide-whether-a-check-needs-a-case-that-must-not-fire.md) | Decide whether a check needs a case that must not fire | `M6` | `done` | `review` | - | - | T-100, T-141, T-150, T-172, T-173, T-190, T-191, T-193, T-197, T-198 |
+| [T-150](T-150-give-the-wide-row-fixture-a-front-matter-that-carries-pipes.md) | Give the wide-row fixture a front matter that carries pipes | `M6` | `done` | `review` | - | - | T-032, T-141, T-151, T-191, T-198, T-201 |
+| [T-151](T-151-decide-whether-a-check-needs-a-case-that-must-not-fire.md) | Decide whether a check needs a case that must not fire | `M6` | `done` | `review` | - | - | T-100, T-141, T-150, T-172, T-173, T-190, T-191, T-193, T-197, T-198, T-201, T-202 |
 | [T-152](T-152-audit-what-this-repository-costs-a-session-on-every-turn.md) | Audit — what this repository costs a session on every turn | `M6` | `done` | `review` | - | T-153, T-154, T-155, T-156, T-157, T-158 | T-118, T-143, T-170, T-189 |
 | [T-153](T-153-e-10-move-the-maintainer-s-justification-into-comments.md) | E-10 — Move the maintainer's justification into comments the harness strips | `M6` | `done` | `review` | T-152 | T-159, T-160 | T-142, T-155, T-169 |
 | [T-154](T-154-e-01-e-04-say-what-the-tier-1-budget-governs.md) | E-01/E-04 — Say what the tier-1 budget governs, and what it cannot see | `M6` | `done` | `review` | T-152 | - | T-028 |
@@ -273,6 +275,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-194](T-194-print-the-two-method-sections-this-project-cites-most.md) | Print the two method sections this project cites most | `M6` | `done` | `review` | T-093 | - | T-028, T-047 |
 | [T-195](T-195-hold-the-fixture-readme-against-the-fixtures-there-are.md) | Hold the fixture README against the fixtures there are | `M6` | `done` | `review` | - | - | T-134, T-139, T-188 |
 | [T-196](T-196-delete-the-scratch-repository-the-standing-check-ran-against.md) | Delete the scratch repository the standing check ran against | `M6` | `done` | `review` | T-193 | - | T-108 |
-| [T-197](T-197-derive-the-test-harness-s-problem-class-list-from-the-code.md) | Derive the test harness's problem-class list from the code | `M6` | `done` | `review` | T-191 | - | T-139, T-151, T-200 |
+| [T-197](T-197-derive-the-test-harness-s-problem-class-list-from-the-code.md) | Derive the test harness's problem-class list from the code | `M6` | `done` | `review` | T-191 | - | T-139, T-151, T-200, T-202 |
 
 <!-- taskmd:end -->
