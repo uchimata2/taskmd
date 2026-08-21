@@ -122,6 +122,30 @@ write is always enough, and no view can miss a link recorded on the far side ([w
 Recording the other side as well is allowed — it collapses into the same single link, so nobody has
 to know which end "owns" it. What the rule forbids is a design that *compels* the second write.
 
+**What the rule is for.** One home per fact is a **means**, not the end. What it buys is that nothing
+can disagree with itself and that nobody has to keep two things agreeing — inconsistency and
+administration are the two costs, and the rule exists to hold both near zero. Almost no second write
+buys anything against either, which is why the rule reads as absolute — and the paragraph above is
+not an exception to it, because nothing there *compels* the second write. **Knowing the purpose is
+not itself a second way to deviate.** A rule you may set aside whenever you judge the trade worth it
+is not a rule, and there is exactly one grounds, below.
+
+**A limitation of the system you are on is grounds to deviate.** Where a tracker, a platform or a
+file format offers no way to record a fact once — a field it will not derive, a configuration that
+replaces a default instead of extending it, a manifest that must repeat what another already states —
+write it twice. Then **say, where a reader meets the second copy, what forces it.** The rule is not
+suspended; it is exchanged for the obligation to keep the constraint visible, so that the day the
+system stops compelling the copy, somebody can find it and delete it.
+
+**A limitation you assumed does not qualify — only one you were refused.** *The platform needs both*
+is a claim about the platform. It is the cheapest claim here to check and among the easiest to be
+wrong about, and the usual result of checking is that one of the two copies was never required. So
+the test is not whether the second write **seems** unavoidable; it is whether the single write was
+**attempted and refused**, with the refusal recorded beside the copy it justifies. This is the case
+the clause exists to turn away, and it is the one that gets through — an untested claim about the
+system has the same shape as a real limitation, where convenience and *it reads better in both
+places* do not and never fooled anybody.
+
 ---
 
 ## 5. Audit

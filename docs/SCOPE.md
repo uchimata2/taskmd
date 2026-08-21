@@ -43,9 +43,17 @@ requirement is not. Decided in
 
 1. **One home per fact.** Every fact is written in exactly one place. Anything derivable is
    computed at read time, never stored. A feature that *requires* writing the same fact twice is
-   the wrong feature — and the emphasis is on "requires". The case where that distinction bites is
-   the inverse of a link, where one write is always sufficient and a second is permitted (R-2); what
-   the rule does and does not forbid there is stated once, in [`METHOD.md`](../plugin/skills/taskmd/docs/METHOD.md) §4.
+   the wrong feature — and the emphasis is on "requires". What the rule does and does not forbid is
+   stated once, in [`METHOD.md`](../plugin/skills/taskmd/docs/METHOD.md) §4: the case where the
+   distinction bites is the inverse of a link, where one write is always sufficient and a second is
+   permitted (R-2), and §4 also carries the condition under which a **system limitation** is grounds
+   to write a fact twice — together with the case that does not qualify, which is a limitation
+   assumed rather than demonstrated. *Widened here on 2026-08-21 by
+   [T-187](../tasks/T-187-say-that-the-one-design-rule-yields-to-a-system-limitation.md).* Until then
+   this pointer said §4 covered the inverse-of-a-link case, which was true when
+   [T-045](../tasks/T-045-decide-whether-scope-principles-may-state-the-rule-they-name.md) wrote it
+   and stopped being true when §4 gained the wider clause. T-045's decision is unchanged: this
+   section **points** and does not state.
 2. **Store the forward edge, derive the rest.** Recording a relationship on one task is *enough* —
    the other end is computed, so no view can miss it. *Not a local-file quirk:* GitHub exposes
    `--blocked-by` / `--blocking` as two views of one relation, and Notion's `Parent item`
