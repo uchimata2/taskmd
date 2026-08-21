@@ -33,6 +33,12 @@ harness named when it served this skill. Run `sh <that directory>/taskmd.sh <ver
 `powershell -File <that directory>\taskmd.ps1 <verb>` on Windows. It takes the same commands, and it
 is how every `taskmd <verb>` below — and in the documents this skill points at — is reached.
 
+**That paragraph is addressed to you — a session the harness told where this skill lives — and to
+nobody else.** A caller the harness never served cannot be told: a release gate, a hook or a plain
+script sees neither `PATH` nor a skill directory, and this plugin offers it no third route, because
+its own install location belongs to the harness. A project that needs one uses the copied-skill
+install in `README.md`, whose launcher sits at a path that project chose.
+
 These commands are the local-Markdown backend. If this project keeps its tasks somewhere else, its
 binding supplies the operations instead — and everything below is unchanged, which is the point.
 

@@ -277,6 +277,12 @@ mkdir tasks
 
 Both print the same line as the plugin does. The two shapes name different commands on purpose.
 
+**If something other than an agent runs taskmd, use this shape.** A release gate, a git hook or a
+plain script gets no `PATH` entry and is never told where a plugin was installed, so the plugin
+shape has no command such a caller can name. This one does, because you chose the directory. taskmd
+offers no third route: where a plugin lands is the harness's business, and a route to it would be a
+promise about someone else's layout.
+
 ## What it costs to start a task
 
 Starting one task on this repository, with the tool and without it:

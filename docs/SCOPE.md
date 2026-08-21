@@ -181,6 +181,18 @@ would cost the goal in §1.
     leak check remains a grep (T-013), and `deliverables` remains a validation rather than a
     command (T-002).
 
+12. **Locating the plugin's own files for a caller the harness never served.** A release gate, a
+    hook or a plain script has no `bin/` on `PATH` and is never handed a skill directory, and taskmd
+    offers it no route to the launcher: where a plugin is installed belongs to the harness, and a
+    route to it would be a promise about someone else's directory layout
+    ([T-054](../tasks/T-054-give-an-adopter-a-way-to-run-the-commands-the-skill-n.md) already
+    establishes this project does not control that). **Added 2026-08-19 by
+    [T-148](../tasks/T-148-decide-whether-a-caller-outside-a-served-skill-can-find-the-launcher.md)**,
+    raised by an adopter who tried to follow this project's own advice from a release gate and could
+    not. **The copied-skill install is not covered by this**: there the adopter chose the directory,
+    so the launcher has a stable path a gate can name, and `README.md` says so where the two shapes
+    are contrasted.
+
 ---
 
 ## 5. Constraints
