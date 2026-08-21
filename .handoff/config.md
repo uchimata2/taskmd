@@ -144,6 +144,16 @@ METHOD §3.1 and §3.3, verbatim, since T-047 — and that is not an exception t
 way to obey it: those two bind *before* the method is loaded, so tier 2 cannot be their home. Every
 other part of the method is pointed at, never copied.
 
+**A third overlap exists and is not a copy — read this before reporting one.** `CLAUDE.md`'s
+*Verifying* section states two rules that `plugin/skills/taskmd/docs/method/implement.md` also
+states. T-190 put that to the owner on 2026-08-19 and the ruling was that they are **one wider rule
+and one narrower one**: these bind on *any* claim about behaviour, `implement.md` binds inside a
+phase that has loaded the method, and a session answering a question or triaging a report never
+loads it. So the tier-1 text stays, and since 2026-08-21 its opening clause says the wider scope out
+loud. The argument sits in a block comment in `CLAUDE.md`, which the harness strips before injecting,
+so it costs the file and not the session. Deleting the section as a duplicate was offered and
+declined; so was measuring the transcripts first.
+
 **Since 2026-08-18 this project has its own `.taskmd/config.md`**, where it had none and ran the
 shipped default. It is that default with one field added, and the reason — deriving a release-note
 rule without adding a key to the shipped config, which T-106 shows would error every adopter's
