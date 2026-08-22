@@ -179,7 +179,10 @@ before this command, which is assumption 1 in practice.
   **Fetch it with `--template`, not with `--jq .body` or `-q .body`.** Both jq forms append a
   newline that is not in the body, and writing that back stores a body one byte longer — every time,
   compounding, invisible in rendered Markdown. Measured: five `--template` round trips held at 204
-  bytes; the jq form grew 230 → 231 → 232 over three. The `read` operation above is unaffected,
+  bytes; the jq form grew 230 → 231 → 232 over three. **Re-run 2026-08-23** on a fresh scratch
+  issue: `--template` held at 102 bytes over five round trips, `--jq .body` grew 96 → 97 → 98 → 99
+  over three. The byte figures differ because the body does; the behaviour is one byte per jq
+  round trip, unchanged. The `read` operation above is unaffected,
   because it consumes JSON rather than writing it back; this rule is only for the round trip.
 
 - **What a partial rewrite destroys.** Sending a body containing only the fields you meant to change
@@ -368,6 +371,8 @@ against the source on four things:
 **`blockedBy`, `blocking` and `subIssues` come back as `{"nodes": [...], "totalCount": N}`, not as
 lists.** `parent` is a plain object, or absent. Measured on `gh` 2.96.0; reading them as lists raises
 a type error rather than a wrong answer, which is the harmless way for this to go wrong.
+*Re-measured 2026-08-23 on `gh` 2.96.0, read-only:* all three came back as
+`{"nodes":[],"totalCount":0}` and `parent` as `null`, which is the absent form.
 
 **Do not check references by shape, which is the obvious rule and is wrong.** "No `T-NNN` survives
 anywhere" and "every `#N` names an issue" both look right and both produce false failures on ordinary
@@ -419,10 +424,13 @@ the rows runs the procedure again.
 
 #### The standing check
 
-On 2026-08-21 the nine rows below were run four times against a private scratch repository created
+On 2026-08-21 the **nine rows that existed then** were run four times against a private scratch
+repository created
 for the run: 28 labels, one per vocabulary value; then 24 tasks from this project's own backlog —
 20 closed and 4 open, with hierarchy, dependencies, soft links and cross-references — migrated by the
-two passes above, then broken on purpose and repaired.
+two passes above, then broken on purpose and repaired. **The table below now has ten**: row 10 was
+added after that run and was not in it. What has been run against row 10, and when, is under
+*What has and has not been re-run* below.
 
 | Run | Result |
 | :--- | :--- |
@@ -431,7 +439,7 @@ two passes above, then broken on purpose and repaired.
 | Against a backlog broken in two ways | **FAIL, 3** — row 2 named the reference repointed at an issue nothing holds, and row 3 named the issue whose `Related` line was deleted. Each row named its own defect, which is the criterion |
 | After repairing both | **PASS** |
 
-**Three of the nine rows examined nothing on this corpus**, and that is a property of the project's
+**Three of those nine rows examined nothing on this corpus**, and that is a property of the project's
 config rather than of the backlog: row 4 needs an issue labelled with the blocked status, row 8 needs
 a date-shaped value in a property block — `created` and `updated` have native carriers, so none
 reaches one — and row 9 needs the grouping field to be *enumerated*, which makes it a label; where it
@@ -440,9 +448,43 @@ nothing scores like a row that found nothing, so a run is worth reporting per ro
 not as a verdict.
 
 The scratch repository was created for this run and is the owner's to delete; the credential a
-session can reach carries `repo` and not `delete_repo`, measured on the day. It was never the
+session can reach carries `repo` and not `delete_repo`, measured on the day and again on
+2026-08-23, when `gh auth status` reported `gist`, `project`, `read:org`, `repo`, `workflow`. It was never the
 evidence — the counts above are, and anyone doubting them runs the procedure again rather than
 looking for an artefact.
+
+#### What has and has not been re-run
+
+*Written 2026-08-23, because a half-swept document reads as a swept one.* Every measurement in this
+document that describes `gh` or a real backlog is named here with what was done to it, so no reader
+has to work out which of its numbers are current.
+
+**Re-run on 2026-08-23**, against a private scratch repository built for the purpose:
+
+- **Rows 4, 8 and 9** — the three that examined nothing on the 2026-08-21 corpus. A five-issue corpus
+  was built to reach them: an issue labelled with the blocked status and no blocker, a property-block
+  `updated: 2026-13-45`, and a grouping label `work_package:v1.2`. Each row examined all five issues
+  and reported exactly its own one. After repair, each examined all five and reported none — so the
+  silence is inside the row's reach rather than beside it.
+- **Row 10**, run for the first time. It reported the closed issue carrying an open `status:` label,
+  stayed silent on the other four, and went silent after the issue was **reopened** — which is this
+  row's own repair rule, re-rendering `state` from the label rather than relabelling to match it.
+- **The round-trip byte behaviour** and **the `gh` 2.96.0 JSON shapes**, both above, each dated where
+  it sits.
+- **The credential's scopes**, above.
+
+**Not re-run, and left as dated records of the day they were taken:**
+
+- **The 165-task migration under *Verify*** — eight failures, all spurious. It needs that specific
+  165-task source, and this project's backlog has moved past it.
+- **The 2026-08-17 end-to-end run** under *What this procedure has been run against*. Its destination
+  was deleted the same day.
+- **The four Run/Result rows above**, and the *14 failures, all 14 spurious* under
+  *Checking a backlog that is already here*. They describe 24 tasks of this project's backlog as it
+  stood on 2026-08-21.
+
+**What that leaves.** The behavioural claims are current; the corpus-specific counts are historical
+and say so. Nothing here has been quietly carried forward.
 
 ### Checking a backlog that is already here
 
