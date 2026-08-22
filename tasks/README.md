@@ -74,11 +74,13 @@ A label says which release the work is scheduled into. It never says the release
 | [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) | Audit whether each check class has a case it must not catch | `M6` | `review` | `review` | - | T-197, T-198 | - | - | T-100, T-150, T-151, T-209, T-212, T-214 |
 | [T-198](T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md) | Show each quiet fixture is within its own check's reach | `M6` | `review` | `review` | T-191 | T-201, T-202, T-204, T-210 | - | - | T-150, T-151, T-209, T-211, T-212, T-215 |
 | [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md) | Have an uninvolved reader write a coverage declaration from the clause | `M6` | `proposed` | `specify` | T-192 | - | - | - | T-176 |
-| [T-212](T-212-report-a-closed-parent-that-still-has-an-open-child.md) | Report a closed parent that still has an open child | `M6` | `blocked` | `plan` | - | - | T-216 | - | T-191, T-198, T-209, T-216 |
+| [T-212](T-212-report-a-closed-parent-that-still-has-an-open-child.md) | Report a closed parent that still has an open child | `M6` | `blocked` | `plan` | - | - | T-216 | - | T-191, T-198, T-209, T-216, T-218 |
 | [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md) | Test whether the description loses a competition rather than turning a session away | `M6` | `proposed` | `specify` | - | - | - | - | T-175, T-205, T-206 |
 | [T-214](T-214-decide-whether-the-class-set-subtraction-that-removes-nothing-needs-a-reader.md) | Decide whether the class-set subtraction that removes nothing today needs a reader | `M6` | `proposed` | `specify` | - | - | - | - | T-191, T-197, T-211 |
 | [T-215](T-215-show-a-paired-fixture-s-quiet-case-is-in-reach-or-record-that-it-cannot-be.md) | Show a paired fixture's quiet case is in reach, or record that a per-fixture assertion cannot | `M6` | `proposed` | `specify` | - | - | - | - | T-089, T-198, T-202, T-211 |
-| [T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md) | Repair the three closed parents that still have an open child | `M6` | `proposed` | `specify` | - | - | - | T-212 | T-135, T-168, T-192, T-212 |
+| [T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md) | Repair the three closed parents that still have an open child | `M6` | `proposed` | `specify` | - | - | - | T-212 | T-135, T-168, T-192, T-212, T-218 |
+| [T-217](T-217-return-the-fields-list-can-filter-on-in-its-machine-form.md) | Return the fields list can filter on in its machine form | `M6` | `proposed` | `specify` | - | - | - | - | T-022, T-087 |
+| [T-218](T-218-give-the-rule-that-a-child-holds-its-parent-open-a-home-in-the-method.md) | Give the rule that a child holds its parent open a home in the method | `M6` | `proposed` | `specify` | - | - | - | - | T-209, T-212, T-216 |
 
 ## Closed
 
@@ -105,7 +107,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-019](T-019-report-a-tasks-dir-that-does-not-exist-at-setup.md) | Report a tasks_dir that does not exist at setup | `M1` | `done` | `review` | T-002 | - | - | - | T-003, T-006, T-023, T-024, T-025, T-078 |
 | [T-020](T-020-confirm-byte-identical-output-on-macos-and-linux.md) | Confirm byte-identical output on macOS and Linux | `M5` | `done` | `review` | T-002 | T-132 | - | - | T-006, T-023, T-030, T-049, T-085, T-132 |
 | [T-021](T-021-settle-what-the-context-closing-line-may-say.md) | Settle what the context closing line may say | `M2` | `done` | `review` | T-002 | - | - | - | T-003, T-022 |
-| [T-022](T-022-filtered-task-listing-for-scripts.md) | Filtered task listing for scripts | `M1` | `done` | `review` | - | - | - | - | T-003, T-007, T-021, T-029, T-031, T-032, T-070, T-071, T-073, T-086, T-087, T-102, T-113, T-120, T-132, T-143, T-144, T-179 |
+| [T-022](T-022-filtered-task-listing-for-scripts.md) | Filtered task listing for scripts | `M1` | `done` | `review` | - | - | - | - | T-003, T-007, T-021, T-029, T-031, T-032, T-070, T-071, T-073, T-086, T-087, T-102, T-113, T-120, T-132, T-143, T-144, T-179, T-217 |
 | [T-023](T-023-stop-config-errors-printing-an-absolute-install-path.md) | Stop config errors printing an absolute install path | `M2` | `done` | `review` | - | - | - | - | T-006, T-019, T-020, T-024, T-030, T-066, T-100, T-106 |
 | [T-024](T-024-say-so-when-tasks-dir-names-something-that-is-not-a-folder.md) | Say so when tasks_dir names something that is not a folder | `M2` | `done` | `review` | - | - | - | - | T-019, T-023, T-078 |
 | [T-025](T-025-let-check-notice-a-stale-generated-index.md) | Let check notice a stale generated index | `M2` | `done` | `review` | - | - | - | - | T-002, T-009, T-011, T-019, T-026, T-039, T-084, T-089, T-095, T-096, T-121, T-130, T-141 |
@@ -170,7 +172,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-084](T-084-correct-the-generated-index-preamble-after-the-move.md) | Correct the generated index preamble after the directory move | `M1` | `done` | `review` | - | - | - | - | T-006, T-025, T-083 |
 | [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) | Install the published plugin on a machine that has never seen it | `M5` | `done` | `review` | T-006 | - | - | - | T-020, T-049, T-054, T-067, T-099, T-129, T-142, T-183 |
 | [T-086](T-086-group-the-backlog-into-release-milestones.md) | Group the backlog into release milestones | `M2` | `done` | `review` | - | - | - | - | T-006, T-022, T-026, T-087, T-110, T-128, T-135, T-136 |
-| [T-087](T-087-let-list-filter-on-a-field-the-index-can-show.md) | Let list filter on a field the index can show | `M2` | `done` | `review` | - | - | - | - | T-022, T-029, T-086, T-102, T-124, T-137, T-143, T-144 |
+| [T-087](T-087-let-list-filter-on-a-field-the-index-can-show.md) | Let list filter on a field the index can show | `M2` | `done` | `review` | - | - | - | - | T-022, T-029, T-086, T-102, T-124, T-137, T-143, T-144, T-217 |
 | [T-088](T-088-put-audit-in-the-shipped-type-vocabulary-or-stop-calling-it-a-type.md) | Put audit in the shipped type vocabulary, or stop calling it a type | `M2` | `done` | `review` | - | - | - | - | T-001, T-026, T-032, T-100, T-104, T-109, T-131, T-137 |
 | [T-089](T-089-stop-check-reporting-an-open-task-s-planned-outputs-as-missing.md) | Stop check reporting an open task's planned outputs as missing | `M2` | `done` | `review` | - | T-090 | - | - | T-002, T-025, T-032, T-103, T-146, T-215 |
 | [T-090](T-090-decide-what-a-cancelled-task-s-declared-outputs-assert.md) | Decide what a cancelled task's declared outputs assert | `M2` | `done` | `review` | T-089 | - | - | - | T-002, T-032, T-103, T-109 |
@@ -287,7 +289,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-206](T-206-test-whether-the-description-s-markdown-files-clause-turns-a-session-away.md) | Test whether the description's Markdown-files clause turns a session away | `M6` | `done` | `review` | T-205 | - | - | - | T-050, T-175, T-213 |
 | [T-207](T-207-test-the-platform-claims-this-repository-s-own-second-copies-rest-on.md) | Test the platform claims this repository's own second copies rest on | `M6` | `done` | `review` | - | - | - | - | T-072, T-187 |
 | [T-208](T-208-decide-where-the-product-wide-deviation-clause-belongs-now-that-it-exists.md) | Decide where the product-wide deviation clause belongs now that it exists | `M6` | `done` | `review` | - | - | - | - | T-027, T-045, T-187 |
-| [T-209](T-209-report-an-open-child-as-a-blocker-on-the-parent-that-cannot-close.md) | Report an open child as a blocker on the parent that cannot close | `M6` | `done` | `review` | - | - | - | - | T-191, T-198, T-212 |
+| [T-209](T-209-report-an-open-child-as-a-blocker-on-the-parent-that-cannot-close.md) | Report an open child as a blocker on the parent that cannot close | `M6` | `done` | `review` | - | - | - | - | T-191, T-198, T-212, T-218 |
 | [T-210](T-210-account-for-the-two-derived-fixtures-t-198-s-partition-drops.md) | Account for the two derived fixtures T-198's partition drops | `M6` | `done` | `review` | T-198 | - | - | - | T-202, T-204, T-211 |
 | [T-211](T-211-mark-the-quiet-cases-in-the-two-fixtures-outside-t-202-s-scope.md) | Mark the quiet cases in the two fixtures outside T-202's scope | `M6` | `done` | `review` | - | - | - | - | T-198, T-202, T-210, T-214, T-215 |
 
