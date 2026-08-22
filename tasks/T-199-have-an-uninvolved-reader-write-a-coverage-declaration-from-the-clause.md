@@ -2,8 +2,8 @@
 id: T-199
 title: Have an uninvolved reader write a coverage declaration from the clause
 type: research
-status: proposed
-phase: specify
+status: done
+phase: review
 parent: null
 blocked_by: [T-222]
 related: [T-192, T-176]
@@ -76,9 +76,29 @@ is the one thing a session cannot stand in for.
 
 ## 2. Plan
 
+**Written 2026-08-22, after the run**, for the reason the same day's
+[T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md) §2 states: the owner ran
+the instrument before this record reached `plan`, so a forward-looking plan would be steps whose
+outcome is already known. The table is the steps as taken, kept so the next reader run has something
+to copy. **It is judged against nothing**, and §4 judges the five criteria instead.
+
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Extract `BINDING.md` §4 verbatim to a prompt outside this repository, carrying whatever it points at, and tell the reader to open nothing else — so *has not read a binding* is a property of their reach, not a promise | the extract, and the reader's own opening statement |
+| 2 | Let the reader choose the backend and state the §3 mapping **before** writing, since the clause turns on the mapping and not the service | Jira Cloud, and the mapping declared up front |
+| 3 | Record what they produced verbatim, including anything they refused to write | §3, blank included |
+| 4 | Turn every question they had to settle by guessing into a row: what §4 did not tell them, and what it should have said | the eight-row table |
+| 5 | Compare their classification against the author's own fragment, read **after** they finished | the criterion 4 section |
+| 6 | Repair the clause afterwards, or record why not | [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md) |
+
+**Step 1 is what makes the whole thing a test rather than an interview.** §1 rules out a session,
+because any session working here can reach `plugin/skills/taskmd/docs/bindings/`. Extracting the
+clause outside the repository removes the reach itself, which is what the constraint was protecting —
+and it is why criterion 1 could be met by a statement rather than needing to be assumed.
+
+**Step 6 is the step that was not taken inside this task, and §1 required that.** *Rewriting the
+clause during the exercise* is out of scope by name: a clause edited while somebody is reading it has
+been tested against nothing. So the repair left as a task, and this record waited on it by an edge.
 
 ## 3. Implement
 
@@ -187,15 +207,29 @@ rewrite rather than an edit, and the owner has not seen these findings. Put to t
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| The reader had not read either shipped binding, **stated rather than assumed** | met | Their own opening line, in §3. And the instrument makes it structural rather than a promise: the clause was extracted outside this repository and they had no reach to `plugin/skills/taskmd/docs/bindings/` at all |
+| What they produced is recorded verbatim, including anything they left blank | met | §3 carries the declaration whole. **The blank is the strongest single result and it is in the record as a blank** — filling it in would have destroyed it |
+| Every question they asked is recorded as a defect in the clause, with what the clause should have said | met | Eight rows, each naming what §4 did not tell them and what it should have said. The four *read it twice* places are recorded separately and **not** as defects, which is the honest split: a reader who has to read a contract twice has read a contract |
+| Whether their fragment classifies any class differently from the author's, and why, is stated | met | Same on `DUPLICATE ID`, and for the author's own reason — they used the mapping and not the service without being told to, which is the defect [T-192](T-192-require-every-binding-to-declare-its-validator-coverage.md) had to be shown. **On the stale-index class they could not classify at all**, which §3 records as the clause failing to be usable rather than as a disagreement |
+| The clause is repaired afterwards, or the reasons for leaving it are recorded | met | Repaired by [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md), closed 2026-08-22 — the branch the owner held this record to, rather than the recorded-reason branch it could have closed on. Which of the eight each repair answers is in T-222 §3 and is not copied here |
+
+**What the repair did to the blank, which is the one thing worth checking from this side.** The
+reader could not name the stale-index class because §4 described the state twice and named it never.
+The repaired clause names `STALE INDEX` in the sentence that describes it, and adds where the names
+come from for the ones it does not name. So the run that produced the blank would not produce it
+again — which is a statement about the text and **not** a measurement.
+[T-225](T-225-have-a-second-uninvolved-reader-write-a-declaration-from-the-repaired-clause.md) is
+the measurement, and it is deliberately not this task's: re-running the reader is out of scope here,
+and a second reading after a repair is a different question.
 
 **Child fix tasks raised**
-- none
+- [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md) — the repair, closed 2026-08-22; it raised three of its own
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-22 | proposed → done | `plan` and `review` under the four-task grant recorded below, and **the edge decided when**: this record was `blocked_by` [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md), T-222 closed earlier the same session, and this closed against a repaired clause rather than against a promise of one. **No second reading**, which §1 puts out and the grant repeats. **All five criteria met, and the fifth is the one that was open by design** — the owner held it to its repair branch rather than its recorded-reason branch, so it is met by T-222's repair and not by the reason being written down. **The plan is a record of what was done and says so**, for the reason T-176 §2 states the same day. **One thing is stated and deliberately not claimed**: the repaired clause names `STALE INDEX` where the blank was, so the blank would not recur — that is a reading of the text, not a measurement, and the measurement is [T-225](T-225-have-a-second-uninvolved-reader-write-a-declaration-from-the-repaired-clause.md). **The four *read it twice* places stay recorded as not-defects.** They are density rather than missing facts, and T-225's pass bar names them so a second reader's re-read questions are not counted as failures. |
 | 2026-08-22 | (no change) | **Multi-phase authorisation, and its limits.** The **project owner** instructed on **2026-08-22** that [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md), [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md), [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md)'s remaining phases and this task be worked through the **full lifecycle**, and the result committed and pushed. **What it covers here:** this record, from `plan` through to closure. **The order is forced by the edge, not by preference**: this record is `blocked_by` [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md), because the owner ruled the same day that criterion 5 is held to its repair branch rather than its recorded-reason branch. So T-222 closes first, and this closes against a repaired clause. **What it does not cover:** any other task, and no second reading - §1 puts re-running the reader out, and the verdict of 2026-08-22 stands. **It authorises phases, not answers.** Written into this record rather than kept in the session's handoff (`CLAUDE.md`, *one phase per request*). |
 | 2026-08-22 | (no change) | **The owner rules that this waits for [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md), and the wait is now an edge rather than a sentence.** Asked because the previous row contradicted the criterion it cited: criterion 5 permits repair **or** a recorded reason, the reason is recorded, so the criterion was met and the record could have closed - and the row nevertheless said it stays open. Both could not be right. **Answered: hold it to the first branch.** The *or* branch was written for a clause deliberately left alone; this one is not left alone, it is scheduled for repair elsewhere, and closing on "another task will do it" records a state nobody has reached. *Rejected: close now* - the criterion literally permits it and nothing about this task's own outcome is unfinished, but the record would read complete while the repair it points at is unstarted. **`blocked_by` now carries it.** Prose in a Log row is invisible to every view, so `list --open --limit 1` could have handed this record to a session as the next thing to work when it cannot be finished; the edge makes the ordering rule sort it last and the dependency derive rather than be restated. That is the project's one design rule applied to a fact this session had written twice in prose and zero times in a field. |
 | 2026-08-22 | (no change) | **Criterion 5's repair is raised as [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md)**, by the owner's decision of 2026-08-22. The criterion permits repair in place or a recorded reason; the reason is size, not process — eight defects in a contract every binding anybody writes inherits is a rewrite rather than an edit. This record stays open on that criterion alone, and closes when T-222 does. **The repair's shape is already constrained and T-222 carries the constraint**: §4 argues against a per-check coverage table because one new check would falsify every binding's table at once, so the class-name defect must not be answered by writing the list into the clause. Nothing else about this record changes. |
