@@ -125,7 +125,13 @@ of them finds here arrives as a branch with a failing test and a three-line pull
 every one of these repositories is cloned side by side on the owner's machine. They report instead of
 fixing only when the defect breaks a gate or destroys data. **Read a pull request the same way**: the
 four rules above still apply to the sentences in its body, and its test is the *running something*
-rule 4 asks for, already written. The two live threads carry a note saying so, and both registers
+rule 4 asks for, already written. **On 2026-08-22 one arrived carrying a feature rather than a
+finding** — a drafted method document, plus a task record saying it was a draft — and the four
+rules had nothing to say about it. A contribution is reviewed on a second axis they do not reach:
+not *is this true* but **is it agreed, and is it in the right place**. That one was true, and it
+sat at its declared deliverable path inside `plugin/`, where nothing but a task record knew it was
+unfinished and the next tag would have shipped it. Check where a contributed file lands before
+checking what it says. The two live threads carry a note saying so, and both registers
 that produced them are history rather than a practice.
 
 `plugin/skills/taskmd/docs/METHOD.md` is the working method itself. Since T-028 it is **tier 2** — loaded when task work
