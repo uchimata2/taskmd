@@ -73,11 +73,12 @@ A label says which release the work is scheduled into. It never says the release
 | [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md) | Test whether the description loses a competition rather than turning a session away | `M6` | `planned` | `plan` | - | - | - | - | T-175, T-205, T-206 |
 | [T-223](T-223-ship-the-pre-release-audit-as-a-method-document.md) | Ship the pre-release audit as a method document, so every adopter gets it | `M6` | `proposed` | `specify` | - | - | - | - | T-032, T-036, T-231 |
 | [T-224](T-224-re-run-the-binding-s-github-side-measurements-or-record-that-they-cannot-be.md) | Re-run the binding's GitHub-side measurements, or say in the document that they were not | `M6` | `proposed` | `specify` | - | - | - | - | T-166, T-168, T-221 |
-| [T-225](T-225-have-a-second-uninvolved-reader-write-a-declaration-from-the-repaired-clause.md) | Have a second uninvolved reader write a declaration from the repaired clause | `M6` | `proposed` | `specify` | - | - | - | - | T-176, T-199, T-222 |
+| [T-225](T-225-have-a-second-uninvolved-reader-write-a-declaration-from-the-repaired-clause.md) | Have a second uninvolved reader write a declaration from the repaired clause | `M6` | `review` | `review` | - | - | - | - | T-176, T-199, T-222, T-232 |
 | [T-226](T-226-decide-whether-taskmd-should-print-the-class-list-a-binding-author-needs.md) | Decide whether taskmd should print the class list a binding author needs | `M6` | `proposed` | `specify` | - | - | - | - | T-191, T-197, T-222 |
 | [T-228](T-228-decide-whether-the-reader-s-framing-verdict-reopens-the-accepted-balance.md) | Decide whether the reader's framing verdict reopens the accepted balance | `M6` | `proposed` | `specify` | - | - | - | - | T-166, T-167, T-176, T-221 |
 | [T-230](T-230-a-task-gated-on-an-external-event-has-no-field-and-sorts-as-startable.md) | A task gated on an external event has no field, and sorts as startable | `M6` | `proposed` | `specify` | - | - | - | - | T-087, T-182, T-199 |
-| [T-231](T-231-cut-the-next-release.md) | Cut the next release | `M6` | `proposed` | `specify` | - | - | - | T-182 | T-085, T-135, T-182, T-223 |
+| [T-231](T-231-cut-the-next-release.md) | Cut the next release | `M6` | `proposed` | `specify` | - | - | - | T-182 | T-085, T-135, T-182, T-223, T-232 |
+| [T-232](T-232-repair-the-coverage-clause-against-what-two-readers-found.md) | Repair the coverage clause against what two readers found | `M6` | `proposed` | `specify` | - | - | - | - | T-199, T-222, T-225, T-231 |
 
 ## Closed
 
@@ -280,7 +281,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-196](T-196-delete-the-scratch-repository-the-standing-check-ran-against.md) | Delete the scratch repository the standing check ran against | `M6` | `done` | `review` | T-193 | - | - | - | T-108 |
 | [T-197](T-197-derive-the-test-harness-s-problem-class-list-from-the-code.md) | Derive the test harness's problem-class list from the code | `M6` | `done` | `review` | T-191 | - | - | - | T-139, T-151, T-200, T-202, T-214, T-226, T-227 |
 | [T-198](T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md) | Show each quiet fixture is within its own check's reach | `M6` | `done` | `review` | T-191 | T-201, T-202, T-204, T-210 | - | - | T-150, T-151, T-209, T-211, T-212, T-215 |
-| [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md) | Have an uninvolved reader write a coverage declaration from the clause | `M6` | `done` | `review` | - | - | - | - | T-176, T-192, T-222, T-225, T-230 |
+| [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md) | Have an uninvolved reader write a coverage declaration from the clause | `M6` | `done` | `review` | - | - | - | - | T-176, T-192, T-222, T-225, T-230, T-232 |
 | [T-200](T-200-discount-the-ids-a-task-file-carries-even-when-it-was-not-loaded.md) | Discount the ids a task file carries even when it was not loaded | `M6` | `done` | `review` | - | - | - | - | T-062, T-121, T-197 |
 | [T-201](T-201-give-the-fenced-table-case-a-row-that-could-be-reported.md) | Give the fenced-table case a row that could be reported | `M6` | `done` | `review` | T-198 | - | - | - | T-150, T-151, T-204 |
 | [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md) | Mark a fixture's quiet cases so a sweep can find them | `M6` | `done` | `review` | T-198 | - | - | - | T-134, T-151, T-197, T-204, T-210, T-211, T-215, T-219 |
@@ -302,7 +303,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-219](T-219-let-a-quiet-mark-declare-a-value-that-begins-with-a-capital.md) | Let a quiet mark declare a value that begins with a capital | `M6` | `done` | `review` | - | - | - | - | T-202, T-211, T-212 |
 | [T-220](T-220-re-run-t-188-s-sweep-one-occurrence-at-a-time.md) | Re-run T-188's sweep one occurrence at a time | `M6` | `done` | `review` | - | - | - | - | T-139, T-188, T-212 |
 | [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md) | Correct the two behavioural claims the migrated-away run falsifies | `M6` | `done` | `review` | - | - | - | - | T-166, T-168, T-176, T-224, T-228, T-229 |
-| [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md) | Repair the coverage clause against the eight defects a stranger found | `M6` | `done` | `review` | - | - | - | - | T-192, T-199, T-225, T-226, T-227 |
+| [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md) | Repair the coverage clause against the eight defects a stranger found | `M6` | `done` | `review` | - | - | - | - | T-192, T-199, T-225, T-226, T-227, T-232 |
 | [T-227](T-227-the-marked-region-scan-cannot-see-a-class-whose-first-word-is-two-letters.md) | The marked-region scan cannot see a class whose first word is two letters | `M6` | `done` | `review` | - | - | - | - | T-192, T-197, T-222 |
 | [T-229](T-229-correct-the-migrated-away-fixture-s-own-prose-which-still-says-all-four-commands-refuse.md) | Correct the migrated-away fixture's own prose, which still says all four commands refuse | `M6` | `done` | `review` | - | - | - | - | T-164, T-177, T-185, T-221 |
 
