@@ -410,9 +410,12 @@ trust it.**
 | After repairing those | **PASS** |
 
 No taskmd command ran at any point in either pass: the four cannot reach a network and were not asked
-to. The destination is gone and was never the evidence — a migration is checked while it runs, by the
-comparison the procedure ends with, so anyone doubting this runs it again rather than inspecting an
-artefact.
+to. The destination is gone, so **nothing above can be checked by inspecting it**. What the rows report
+is the comparison the procedure ends with, recorded by the people who ran it — a migration is
+checked while it runs, because the comparison needs a source and a destination at the same moment.
+That is a real property and it is not a reason the artefact would have been worthless: kept, it
+could have been re-compared against the source's own id set, as *Verify* above does. Anyone doubting
+the rows runs the procedure again.
 
 #### The standing check
 
@@ -574,8 +577,11 @@ them whole, and nothing here is a format only taskmd can read.
 
 ## What taskmd still gives you here
 
-Read this after a move, or before one. It is a list of facts and it stops short of a recommendation,
-because the facts that would decide it are about your project and this document holds none of them.
+Read this after a move, or before one. It stops short of a recommendation, because the facts that
+would decide it are about your project and this document holds none of them. **That is not the same
+as having no position.** What is listed here, and in what order, was chosen by the people who wrote
+taskmd, and no selection made by an interested party is neutral because it declares itself to be.
+Weigh it as an argument you are being shown the workings of, not as a balance sheet.
 
 ### Three of the four commands do not come with you, and `check` half does
 
