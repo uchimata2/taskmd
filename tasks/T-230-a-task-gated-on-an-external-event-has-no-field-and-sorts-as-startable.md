@@ -12,7 +12,7 @@ owner: the project owner
 business_value: medium
 effort: s
 created: 2026-08-22
-updated: 2026-08-22
+updated: 2026-08-23
 deliverables: []
 ---
 
@@ -92,6 +92,73 @@ event, so the same defect has no remedy and nobody has said so.
   the decision, because *ask whether the remedy's target class is empty* is the question this kind of
   proposal skips. If the count is one, *nothing, plus a stated convention* is likely right.
 
+### The count, run 2026-08-23 — and the class is not the one this record names
+
+**Every open task was classified individually, not filtered.** A filter here would have to key on prose
+and would report its own coverage as complete; the ten were read one at a time and the groups sum, so
+a member cannot be dropped invisibly.
+
+| Task | Held up by | Does a view see it? |
+| :--- | :--- | :--- |
+| [T-235](T-235-recover-or-retire-the-reader-questions-t-225-s-review-says-its-record-carries.md) | **a person** — only the owner can say whether the reader output still exists | no — sorts first of ten |
+| T-230, this record | **a person** — it runs to this count and the decision is the owner's | no |
+| [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md) | **a person** — authorised for `plan` and no further, so the next phase needs the owner's word | no — sorts sixth, at `planned`, as if ready |
+| [T-233](T-233-give-the-uninvolved-reader-protocol-one-home-and-settle-its-count-rule.md) | **a person** — an unanswered owner question, and outside the grant | no |
+| [T-231](T-231-cut-the-next-release.md) | **a person** (the release is the owner's act) **and a task** | partly — reports blocked, but on the task half only |
+| [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) | **a task *starting*** — `blocked_by: [T-231]` says *until it closes*, which overstates the gate | partly — reports blocked, for the wrong reason |
+| [T-232](T-232-repair-the-coverage-clause-against-what-two-readers-found.md) | **a task closing** | yes, correctly |
+| [T-234](T-234-decide-whether-a-grant-s-membership-is-copied-into-every-record-or-derived.md) | nothing — the owner answered on 2026-08-22 | n/a |
+| [T-236](T-236-build-check-classes-and-give-the-class-derivation-one-home-in-the-package.md) | nothing — its four questions are measurements, none the owner's | n/a |
+| [T-224](T-224-re-run-the-binding-s-github-side-measurements-or-record-that-they-cannot-be.md) | nothing — the scratch repository was authorised on 2026-08-22 | n/a |
+
+**4 invisible and startable-looking + 1 person-gated but reported + 1 gated on a start + 1 correctly
+reported + 3 not gated = 10**, which is every open task.
+
+**Gated on an external event: zero.** §1's only named instance,
+[T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md), left the class on
+2026-08-22 when its event acquired a task. **So the class this record was raised for is empty, and the
+count found a different one that is not** — four tasks held up by a *person*, none of which any view
+can see, all sorting as though a session could pick them up. §1 admitted that shape as a secondary
+question; the count makes it the primary one.
+
+**The defect bites exactly where nothing points.** Every task gated on another *task* already reports
+blocked. Every task gated on a *person* reports nothing at all.
+
+### What the count changes about the recommendation
+
+**Measured, not assumed:** `list` rejects a filter on a field the project has not named —
+
+```text
+$ ./plugin/bin/taskmd list --waiting_on "the project owner" --open
+unknown filter: --waiting_on. This project accepts: --adopter_visible, --blocked_by, --blocks,
+--business_value, --children, --effort, --owner, --parent, --phase, --related, --status, --type,
+--work_package
+exit 2
+```
+
+`adopter_visible` is in that list and is **not** in the shipped schema — it is in this project's own
+`context_fields`. So a project can add a field, name it in its own config, and filter on it, with **no
+shipped-config key and no code change** — which is the constraint [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md)
+imposes and the reason the obvious candidate looked closed.
+
+**Revised recommendation, for the owner: ship nothing; add `waiting_on` to this project's own
+`context_fields`.** `list --waiting_on ...` then answers *what cannot be started* as a command, per
+project, and an adopter who wants it does the same in their config. *What it does not do, stated
+because it is the whole of the original complaint:* it does not change the **default ordering**, so
+those four still sort as startable. Buying that would mean teaching the ordering rule to read a status
+value, which overturns `is_blocked`'s own docstring — *"Not a status value — a task can be marked
+anything and still be held"* — and makes *blocked* a self-declaration nothing verifies.
+
+*Rejected: relax `NO BLOCKER` so `status: blocked` is legal with no edge* — it is the cheapest way to
+move the four to the bottom, and it trades a checked state for an unchecked one in the validator that
+exists to check states. *Rejected: a new shipped-config key* — T-106, every adopter's config errors on
+upgrade. *Rejected: nothing at all, plus a convention* — it is what happens today, and the third
+acceptance criterion would then have to put the convention somewhere a session reads, which means tier
+1, which is paid on every turn of every session for a class of four.
+
+**This record stops here**, as its grant row of 2026-08-22 says it should: the count is done and the
+decision is the owner's.
+
 ## 2. Plan
 
 | # | Step | Output |
@@ -119,6 +186,7 @@ event, so the same defect has no remedy and nobody has said so.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | (no change) | **The count is done and this record stops at it, exactly as its grant row says.** Phase and status are unchanged because the decision is the owner's and nothing here decides it. **The count refutes the record's own premise, which is what putting it first was for.** Tasks gated on an external event: **zero** — [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) left the class on 2026-08-22 when its event acquired a task. What the count found instead is **four open tasks held up by a *person***, invisible to every view and sorting as though a session could start them. §1 named that shape as a secondary question; it is the primary one. **The ten were classified one at a time and the groups sum to ten**, because a filter here would have to key on prose and would report its own coverage as complete. **The mechanism the recommendation now rests on was run rather than reasoned about**: `list` refuses `--waiting_on` with exit 2, and its own error names `adopter_visible`, which is in this project's `context_fields` and not in the shipped schema — so a per-project field costs no shipped key and no code, which is what [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md) appeared to have closed off. **What it does not buy is the default ordering**, and that is stated with the recommendation rather than left for the owner to discover. |
 | 2026-08-22 | (no change) | **The grant was extended a third time**, to [T-234](T-234-decide-whether-a-grant-s-membership-is-copied-into-every-record-or-derived.md), scoped there to finishing that record and not to building what it decides. The rows below are what the grant covered when each was written and are left as written; **T-234's own row carries the membership as it now stands**. Nothing about this record's authorisation changed. |
 | 2026-08-22 | (no change) | **The grant is extended a second time: it now reaches what the work raises.** The **project owner** instructed on **2026-08-22**, handing this batch to a new session, that it be worked **unattended, through the full lifecycle, committed and pushed, including any task raised during the execution**. **What that adds:** a task the session raises may be carried to closure under the same authority, without coming back for a phase. **What it does not add:** anything already excluded — [T-231](T-231-cut-the-next-release.md), which is the owner's act; [T-233](T-233-give-the-uninvolved-reader-protocol-one-home-and-settle-its-count-rule.md); [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md); [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md); and **any audit**, which remains the boundary the owner named. **A task raised under this extension carries the grant in its own Log, exactly as these six do.** That is the mechanism and not bookkeeping: a raised task with no grant row is not covered by the fact of having been raised. **It still authorises phases, not answers** — a raised task whose open question is the owner's stops where it stands. The same extension ran earlier today over six raised tasks: two carried no owner question and were closed, four did and were left at `specify`. |
 | 2026-08-22 | (no change) | **The grant was extended, later the same day.** The owner added [T-232](T-232-repair-the-coverage-clause-against-what-two-readers-found.md) to the unattended grant recorded below, because it became the blocker of [T-231](T-231-cut-the-next-release.md) and the release would otherwise have waited on one person. **The list in the row below is what the grant covered when it was given, and it is left as written**; T-232's own row carries the membership as it now stands. Nothing else about this record's authorisation changed. |
