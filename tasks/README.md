@@ -76,9 +76,10 @@ A label says which release the work is scheduled into. It never says the release
 | [T-228](T-228-decide-whether-the-reader-s-framing-verdict-reopens-the-accepted-balance.md) | Decide whether the reader's framing verdict reopens the accepted balance | `M6` | `proposed` | `specify` | - | - | - | - | T-166, T-167, T-176, T-221 |
 | [T-230](T-230-a-task-gated-on-an-external-event-has-no-field-and-sorts-as-startable.md) | A task gated on an external event has no field, and sorts as startable | `M6` | `proposed` | `specify` | - | - | - | - | T-087, T-182, T-199 |
 | [T-231](T-231-cut-the-next-release.md) | Cut the next release | `M6` | `proposed` | `specify` | - | - | T-232 | T-182 | T-085, T-135, T-182, T-223, T-232 |
-| [T-232](T-232-repair-the-coverage-clause-against-what-two-readers-found.md) | Repair the coverage clause against what two readers found | `M6` | `proposed` | `specify` | - | - | - | T-231 | T-199, T-222, T-225, T-231, T-233 |
-| [T-233](T-233-give-the-uninvolved-reader-protocol-one-home-and-settle-its-count-rule.md) | Give the uninvolved-reader protocol one home, and settle its count rule | `M6` | `proposed` | `specify` | - | - | - | - | T-165, T-166, T-176, T-199, T-225, T-232 |
+| [T-232](T-232-repair-the-coverage-clause-against-what-two-readers-found.md) | Repair the coverage clause against what two readers found | `M6` | `blocked` | `specify` | - | - | T-235 | T-231 | T-199, T-222, T-225, T-231, T-233, T-235 |
+| [T-233](T-233-give-the-uninvolved-reader-protocol-one-home-and-settle-its-count-rule.md) | Give the uninvolved-reader protocol one home, and settle its count rule | `M6` | `proposed` | `specify` | - | - | - | - | T-165, T-166, T-176, T-199, T-225, T-232, T-235 |
 | [T-234](T-234-decide-whether-a-grant-s-membership-is-copied-into-every-record-or-derived.md) | Decide whether a grant's membership is copied into every record or derived | `M6` | `proposed` | `specify` | - | - | - | - | T-087, T-106, T-136 |
+| [T-235](T-235-recover-or-retire-the-reader-questions-t-225-s-review-says-its-record-carries.md) | Recover or retire the reader questions T-225's review says its record carries | `M6` | `proposed` | `specify` | - | - | - | T-232 | T-225, T-232, T-233 |
 
 ## Closed
 
@@ -305,7 +306,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md) | Correct the two behavioural claims the migrated-away run falsifies | `M6` | `done` | `review` | - | - | - | - | T-166, T-168, T-176, T-224, T-228, T-229 |
 | [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md) | Repair the coverage clause against the eight defects a stranger found | `M6` | `done` | `review` | - | - | - | - | T-192, T-199, T-225, T-226, T-227, T-232 |
 | [T-223](T-223-ship-the-pre-release-audit-as-a-method-document.md) | Ship the pre-release audit as a method document, so every adopter gets it | `M6` | `done` | `review` | - | - | - | - | T-032, T-036, T-231 |
-| [T-225](T-225-have-a-second-uninvolved-reader-write-a-declaration-from-the-repaired-clause.md) | Have a second uninvolved reader write a declaration from the repaired clause | `M6` | `done` | `review` | - | - | - | - | T-176, T-199, T-222, T-232, T-233 |
+| [T-225](T-225-have-a-second-uninvolved-reader-write-a-declaration-from-the-repaired-clause.md) | Have a second uninvolved reader write a declaration from the repaired clause | `M6` | `done` | `review` | - | - | - | - | T-176, T-199, T-222, T-232, T-233, T-235 |
 | [T-227](T-227-the-marked-region-scan-cannot-see-a-class-whose-first-word-is-two-letters.md) | The marked-region scan cannot see a class whose first word is two letters | `M6` | `done` | `review` | - | - | - | - | T-192, T-197, T-222 |
 | [T-229](T-229-correct-the-migrated-away-fixture-s-own-prose-which-still-says-all-four-commands-refuse.md) | Correct the migrated-away fixture's own prose, which still says all four commands refuse | `M6` | `done` | `review` | - | - | - | - | T-164, T-177, T-185, T-221 |
 

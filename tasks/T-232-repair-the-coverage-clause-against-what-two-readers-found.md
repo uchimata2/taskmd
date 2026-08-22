@@ -2,17 +2,17 @@
 id: T-232
 title: Repair the coverage clause against what two readers found
 type: fix
-status: proposed
+status: blocked
 phase: specify
 parent: null
-blocked_by: []
+blocked_by: [T-235]
 related: [T-225, T-222, T-199, T-231, T-233]
 work_package: M6
 owner: the project owner
 business_value: high
 effort: m
 created: 2026-08-22
-updated: 2026-08-22
+updated: 2026-08-23
 deliverables:
   - plugin/skills/taskmd/docs/BINDING.md
 ---
@@ -106,6 +106,18 @@ measured defect for another.
   third time is the loop T-225 §1 warns about. Finding 3 suggests a test that is different in kind —
   give two readers the repaired clause and check whether they now declare the **same** set, which is
   what actually failed. That is still two readers, so the count rule needs settling first.
+- **Criterion 5 names a set that does not exist, so what should it be?** — the **project owner**,
+  who agreed it. *the fifteen single-mention questions in T-225 §3* were looked for on 2026-08-23 and
+  **§3 lists none of them**: it carries the two declarations, the eight walked one by one and the
+  divergence, with six of Reader B's questions inline in that walk and no group beyond them. T-225 §4
+  says nineteen and this record says fifteen; 19 − 6 = 13, and no list of any size is written
+  anywhere, `control/` included. Raised as
+  [T-235](T-235-recover-or-retire-the-reader-questions-t-225-s-review-says-its-record-carries.md),
+  which now blocks this record. **Recommendation: narrow criterion 5 to the six questions T-225 §3
+  actually names**, unless the owner still holds the run output — in which case it goes into T-225 as
+  an annexe and the criterion stands unchanged. *Rejected: answer whichever questions this session can
+  find and tick the criterion* — that is silent under-coverage recorded as coverage, which is the
+  defect this whole record exists to repair, reproduced in its own review.
 
 ## 2. Plan
 
@@ -134,6 +146,7 @@ measured defect for another.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | proposed → blocked | **`specify` cannot close: the fifth criterion names a set nobody can enumerate.** Worked under the unattended grant, and stopped by the rule the grant states rather than by the grant running out — *it authorises phases, not answers*, and the question is the owner's twice over: they ran the readers, and they agreed the criterion. **What was checked before calling it a finding**, because a scope line is a poor thing to contradict: T-225 §3 was read whole; its six inline mentions of Reader B's questions were counted in rows 3, 4, 6 and 7; the tree was swept for `fifteen` and `nineteen`; and `control/` was opened, being gitignored and the one home a sweep forgets. No list exists. **The three counts are 19, 6 and 15 and none derives from another.** Raised as [T-235](T-235-recover-or-retire-the-reader-questions-t-225-s-review-says-its-record-carries.md) and recorded as `blocked_by`, so the release path shows where it actually stops instead of a sentence saying so. **A dependency and not a child**: this record's outcome is `BINDING.md` §4 and is not incomplete without T-235 — it cannot *proceed* until criterion 5 has a set or has been withdrawn. **The other five criteria were not started**, and that is the phase rule rather than caution: a `specify` whose outcome is still moving cannot be exited, and repairing four findings against a sixth criterion nobody has settled would decide the owner's question by making it expensive to answer. **Nothing in T-225 was edited**; its review note is wrong about the present and correcting it is T-235's first criterion, not a tidy-up taken on the way past. |
 | 2026-08-22 | (no change) | **The grant was extended a third time**, to [T-234](T-234-decide-whether-a-grant-s-membership-is-copied-into-every-record-or-derived.md), scoped there to finishing that record and not to building what it decides. The rows below are what the grant covered when each was written and are left as written; **T-234's own row carries the membership as it now stands**. Nothing about this record's authorisation changed. |
 | 2026-08-22 | (no change) | **The grant is extended a second time: it now reaches what the work raises.** The **project owner** instructed on **2026-08-22**, handing this batch to a new session, that it be worked **unattended, through the full lifecycle, committed and pushed, including any task raised during the execution**. **What that adds:** a task the session raises may be carried to closure under the same authority, without coming back for a phase. **What it does not add:** anything already excluded — [T-231](T-231-cut-the-next-release.md), which is the owner's act; [T-233](T-233-give-the-uninvolved-reader-protocol-one-home-and-settle-its-count-rule.md); [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md); [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md); and **any audit**, which remains the boundary the owner named. **A task raised under this extension carries the grant in its own Log, exactly as these six do.** That is the mechanism and not bookkeeping: a raised task with no grant row is not covered by the fact of having been raised. **It still authorises phases, not answers** — a raised task whose open question is the owner's stops where it stands. The same extension ran earlier today over six raised tasks: two carried no owner question and were closed, four did and were left at `specify`. |
 | 2026-08-22 | (no change) | **Unattended authorisation, and its limits.** The **project owner** instructed on **2026-08-22** that a session work **unattended** toward a release they want soon, **stopping before the audit** that will precede it, and **extended that grant to this record later the same day** — because holding the release behind a repair nobody was authorised to do would have left the release waiting on one person. **What it covers here:** this record, through the full lifecycle to closure, without stopping to ask for each phase. **What the grant covers in total, as extended:** [T-223](T-223-ship-the-pre-release-audit-as-a-method-document.md), [T-226](T-226-decide-whether-taskmd-should-print-the-class-list-a-binding-author-needs.md), [T-228](T-228-decide-whether-the-reader-s-framing-verdict-reopens-the-accepted-balance.md), [T-230](T-230-a-task-gated-on-an-external-event-has-no-field-and-sorts-as-startable.md), [T-224](T-224-re-run-the-binding-s-github-side-measurements-or-record-that-they-cannot-be.md) and this record, and nothing else. **What it does not cover:** [T-231](T-231-cut-the-next-release.md), which this record unblocks but which is the owner's act to make; [T-233](T-233-give-the-uninvolved-reader-protocol-one-home-and-settle-its-count-rule.md); [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md); [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md); and **any audit** — no umbrella may be raised and none started. **It authorises phases, not answers.** **Specific to this task:** §1 fixes the shape and the grant does not loosen it — the repair must make the clause **name** classes without reading as an inventory, and one that solves finding 3 by deleting the names has traded one measured defect for another. The scope is T-225's findings and the fifteen single-mention questions; nothing [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md) settled is re-opened. **The one remaining open question does not stop this record**, and that is stated so a session does not stall on it: *what tests this repair* is put out of scope by §1 in the same breath as it is asked, so it is recorded as a follow-on decision and closure does not wait on it. Written into this record rather than kept in the session's handoff, because an authorisation kept anywhere else is one a later session can miss, or stretch to a task it never reached (`CLAUDE.md`, *one phase per request*). |
