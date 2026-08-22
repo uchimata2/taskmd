@@ -164,6 +164,30 @@ class CheckFailsOnEveryClassItClaims(unittest.TestCase):
     def test_blocked_with_nothing_blocking_it(self):
         self.fails("broken-missing-blocker", "NO BLOCKER", "blocked_by")
 
+    def test_closed_while_a_child_is_still_open(self):
+        self.fails("broken-closed-parent", "CLOSED PARENT", "T-001")
+
+    def test_the_two_cases_the_closed_parent_check_must_not_catch(self):
+        """The exact firing set, because the fixture's marks cannot carry this one on their own.
+
+        Both quiet cases are marked and `tests/test_quiet_cases.py` reads them - its assertion 1
+        (the class is one `check` can print) and assertion 3 (the class fires elsewhere in the same
+        fixture) both bite. **Assertion 2 cannot**: it matches a value written as `'<value>'`, and
+        this class names task ids bare, the way `NO BLOCKER` and `DANGLING` do. That limit is
+        stated in that module's own docstring, under *What this cannot see*. So the non-vacuous
+        form of the silence is here - one alarm, naming the pair that is wrong, and neither of the
+        two quiet parents anywhere in it.
+        """
+        out = run("check", "--root", os.path.join(FIXTURES, "broken-closed-parent"))[1]
+        firing = [line for line in out.splitlines() if line.startswith("CLOSED PARENT")]
+        self.assertEqual(1, len(firing), out)
+        self.assertIn("T-001", firing[0])
+        self.assertIn("T-002", firing[0])
+        for quiet in ("T-003", "T-005"):
+            self.assertNotIn(quiet, firing[0],
+                             "%s is a case this class must not catch, and it is named in: %s"
+                             % (quiet, firing[0]))
+
     def test_dependency_loop(self):
         self.fails("broken-cycle", "CYCLE", "T-001 -> T-002 -> T-001")
 

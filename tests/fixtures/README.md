@@ -89,6 +89,7 @@ where they could not be quietly trimmed to whatever turned out to be easy.
 | `broken-dangling` | Dangling reference | `blocked_by: [T-404]`, which does not exist |
 | `broken-missing-blocker` | Missing blocker | `status: blocked` with an empty `blocked_by` |
 | `broken-cycle` | Dependency cycle | T-001 and T-002 each block the other |
+| `broken-closed-parent` | Closed parent | T-001 is `done` with T-002 open under it; two quiet cases beside it |
 | `broken-link` | Broken link | A dead Markdown link inside a **dot-directory** |
 | `broken-derived-field` | Stale stored-derived field | A task stores `children:`, which is derived |
 | `broken-deliverable` | Missing deliverable | A **closed** task declares `out/report.md`, which is not there |

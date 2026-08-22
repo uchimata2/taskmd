@@ -526,8 +526,12 @@ That is what [`../BINDING.md`](../BINDING.md) §4 asks every binding for. The ta
 binding's own detail rather than the contract's requirement — it says where each remaining check
 went, which is worth having and is the half that goes stale:
 
-Seventeen checks run on the local backend. Nine land here as rows above, and four cannot occur at
-all. The rest do not come across, and the reasons are worth reading rather than trusting:
+The checks that run on the local backend split three ways here: some land above as rows, four
+cannot occur at all, and the rest do not come across. The reasons are worth reading rather than
+trusting. **The totals that used to open this paragraph are gone rather than corrected** - a count of
+a set the code owns is either dated as a measurement or not written at all, and adding one check on
+2026-08-22 falsified them. The four that cannot occur is a *stated list*, not a count of a mutable
+set, so it stays.
 
 The four that cannot occur are above and are not repeated here. What follows is where each of
 the **remaining** ones went:
@@ -537,6 +541,7 @@ the **remaining** ones went:
 | unreachable template, template field | **Not applicable as written.** They read a task template in a folder. If your project keeps an issue template, nothing here checks it |
 | declared output that is gone | **Still local.** It compares declared paths against a working tree, which you still have. Run it there |
 | broken link, ignored link, wide table row, config drift, duplicate index | **Still local, and still run.** These five never take a task as input: they walk the documents from your project root, which a migrated project keeps. This is the measurement under *No validator* below — pointed at a migrated project, they reported two dead links and a config advisory |
+| closed parent with an open child | **Can occur, and nothing here reports it.** GitHub lets you close a parent issue while a sub-issue is still open, so the state is reachable — which is why it is not in the *cannot occur* list above. No row in the procedure looks for it. A row would have to be run against a real backlog before it could be trusted, which is the standard every row above is held to |
 
 **Two limits of this list itself.** It is a hand-kept description of a set the code owns, so it goes
 stale the way any such list does — the local backend has a guard for that class and this document has

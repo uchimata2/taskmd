@@ -2,11 +2,11 @@
 id: T-212
 title: Report a closed parent that still has an open child
 type: fix
-status: blocked
-phase: plan
+status: done
+phase: review
 parent: null
 blocked_by: [T-216]
-related: [T-209, T-191, T-198]
+related: [T-209, T-191, T-198, T-219]
 work_package: M6
 owner: the project owner
 business_value: medium
@@ -177,25 +177,180 @@ cannot, steps 2–4 are re-cut and this table is edited in place rather than gue
 
 ## 3. Implement
 
+**Step 1 — the fixture, and the class failing before it existed**
+
+`tests/fixtures/broken-closed-parent/` carries all three cases in one project, which is what step 1
+was placed first to find out: T-001 `done` with T-002 open under it (the defect), T-003 `done` with
+its only child T-004 also `done` (quiet), and T-005 `in_progress` with T-006 open under it (quiet).
+One fixture holds them, so steps 2–4 were not re-cut.
+
+Two tests were written and run **before any check existed**:
+
+```text
+$ python -m pytest tests/test_cli.py -q -k "closed_while_a_child or two_cases_the_closed_parent"
+E       AssertionError: 1 != 0 : OK - 6 task(s), 30 field value(s), 33 front-matter value(s), ...
+FAILED tests/test_cli.py::CheckFailsOnEveryClassItClaims::test_closed_while_a_child_is_still_open
+FAILED tests/test_cli.py::CheckFailsOnEveryClassItClaims::test_the_two_cases_the_closed_parent_check_must_not_catch
+2 failed, 172 deselected in 0.33s
+```
+
+The `OK -` in the failure message is the evidence that matters: `check` read the fixture, found the
+defect entirely legible, and reported nothing.
+
+**Step 3 — the same fixture once the check existed**
+
+```text
+$ ./plugin/bin/taskmd check --root tests/fixtures/broken-closed-parent
+CLOSED PARENT T-001 is 'done' with child T-002 still open
+
+1 problem(s) - 6 task(s), 30 field value(s), 33 front-matter value(s), 3 reference(s), 0 dependency edge(s), 0 declared output(s), 0 index file(s), 3 closed record(s), 6 document(s), ...
+EXIT=1
+```
+
+**Exactly one problem**, of the new class, naming the pair that is wrong — and silent on T-003 and
+T-005, the two that must not fire.
+
+**Step 4 — the marks, read back**
+
+```text
+$ python tests/test_quiet_cases.py --list
+29 quiet case(s) in 27 mark(s), across 9 fixture(s):
+  ...
+  broken-closed-parent    2 case(s) in 2 mark(s)
+```
+
+**Step 5 — the cross-fixture silence assertion, verified rather than assumed**
+
+```text
+$ python -c "import sys; sys.path.insert(0,'tests'); import classes; c=sorted(classes.check_classes()); print(len(c)); print('CLOSED PARENT' in c)"
+22
+True
+```
+
+`tests/test_cli.py`'s `CheckFailsOnEveryClassItClaims.LABELS` **is** `sorted(check_classes())`, and
+its `fails()` helper asserts every label but the fixture's own is absent from that fixture's output.
+So every `broken-*` fixture is now asserted silent about `CLOSED PARENT` with no edit anywhere —
+which is what T-197 built the derivation for, and the suite below is the run that exercises it.
+
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+1. **The class is `CLOSED PARENT`** — 2026-08-22. It names the record at fault. **Rejected:
+   `OPEN CHILD`** — the child is in a perfectly ordinary state and is not the record to repair, so a
+   class named for it sends a reader to the wrong file. **Rejected: `HIERARCHY`** — it names the edge
+   kind rather than the state, and `STORED DERIVED` is already about edges, so the two would read as
+   variants of one thing.
+2. **The message names both ids bare and quotes the status** — 2026-08-22 — which is
+   `NO BLOCKER`'s shape exactly (`%s is '%s' with ...`), and the family convention throughout
+   `cli.py`: ids bare, values quoted.
+3. **The check reads the *derived* side of the hierarchy edge** — 2026-08-22 — the same side
+   `holds_open()` names, so a project that renames `parent` or `children` in its config needs no edit
+   here. Both ends are looked up in `tasks`, so a dangling edge stays `DANGLING`'s to report rather
+   than being reported twice under two names.
+4. **The two quiet marks carry no declared value, and `tests/test_cli.py` carries the real
+   assertion** — 2026-08-22. This is a limit worth stating plainly rather than leaving for a reader
+   to discover. `tests/test_quiet_cases.py` assertion 2 matches a value written as `'<value>'`; this
+   class writes ids bare, so **assertion 2 cannot bite on it** — the limit that module's own
+   docstring states under *What this cannot see*. Assertions 1 and 3 do bite: the class is one
+   `check` can print, and it fires elsewhere in the same fixture. The non-vacuous form of the
+   silence is `test_the_two_cases_the_closed_parent_check_must_not_catch`, which asserts the
+   **exact firing set** — one alarm, naming T-001 and T-002, with neither quiet parent in it.
+5. **The counts the addition falsified were deleted, not corrected** — 2026-08-22. `cmd_check`'s
+   docstring said *twelve checks open a task file* and `github-issues.md` said *seventeen checks run
+   on the local backend*. **Rejected: bump them to thirteen and eighteen** — the next class to be
+   added would falsify them again, which is exactly the drift `tests/test_publishing.py` records as
+   policy (T-188): *a count of one of these sets is either dated as a measurement or not written at
+   all*. Each place now says what it means without a number and says why the number went.
+   **One count was deliberately left**: `github-issues.md`'s blockquote is explicitly *measured
+   2026-08-18*, which is the exemption that policy names, and editing it would rewrite what a record
+   says about the past (METHOD rule 5).
+6. **Each shipped binding judged, and they came out differently** — 2026-08-22.
+   *`local-markdown.md`*: its declaration is *nothing cannot occur here*, and that survives — a file
+   marked `done` beside an open file naming it as `parent` is two ordinary files. The judgement is
+   written into the declaration rather than left to be re-derived. *`github-issues.md`*: the class
+   **can** occur, because GitHub lets you close a parent issue with a sub-issue still open, so it does
+   **not** join the four in the `cannot-occur` region. Its coverage table gains a row saying so and
+   admitting that no row of the procedure looks for it — a declared gap, which is what
+   [`BINDING.md`](../plugin/skills/taskmd/docs/BINDING.md) §4 asks for. Writing a procedure row would
+   need a run against a real backlog, the standard every row there is held to, and that is not this
+   task's scope.
+7. **The fixture is named in `tests/fixtures/README.md`** — 2026-08-22 — because
+   `tests/test_publishing.py` asserts every fixture directory is named there, and it failed on the
+   first full run. Recorded because it is the kind of step a plan does not think to include.
+
+**Step 7 — `check` on this repository**
+
+```text
+$ ./plugin/bin/taskmd check
+OK - 218 task(s), 1090 field value(s), 3673 front-matter value(s), 721 reference(s), 25 dependency edge(s), 331 declared output(s), 1 index file(s), 208 closed record(s), 250 document(s), 3298 link(s), 4734 table row(s), 2 template(s), 10 template field value(s), 5 vocabulary row(s), 3694 section reference(s)
+EXIT=0
+```
+
+Clean, and it is clean **because**
+[T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md) closed first. Run
+before that repair, this class reported three real records here and would have turned five tests in
+`tests/test_cli.py` red, which is why the dependency was recorded as an edge rather than as a
+sentence.
+
+**Step 8 — the suite, and the sweep**
+
+```text
+$ python -m pytest tests -q
+327 passed, 8 subtests passed in 44.14s
+```
+
+325 before, 327 after: the two tests of step 1. Swept for what the addition made stale, by searching
+every shipped document for a written-out number of checks:
+
+```text
+$ grep -rn -iE "\b(twelve|thirteen|...|twenty-two)\b" README.md docs/ plugin/ --include=*.md
+```
+
+Every remaining hit is either a dated measurement or about something else — slot lines, spurious
+angle-bracket matches, published documents. The two that were about this set are handled in decision
+5. No marked region enumerates the problem classes, and that is deliberate rather than an omission:
+`tests/test_publishing.py` records that `README.md` describes one class without claiming to describe
+them all, so a region there would assert something the document does not mean.
 
 **Outputs produced**
-- <path>
+- [`plugin/skills/taskmd/taskmd/cli.py`](../plugin/skills/taskmd/taskmd/cli.py)
+- [`plugin/skills/taskmd/docs/bindings/github-issues.md`](../plugin/skills/taskmd/docs/bindings/github-issues.md)
+- [`plugin/skills/taskmd/docs/bindings/local-markdown.md`](../plugin/skills/taskmd/docs/bindings/local-markdown.md)
+- `tests/fixtures/broken-closed-parent/` — six task files
+- [`tests/fixtures/README.md`](../tests/fixtures/README.md)
+- [`tests/test_cli.py`](../tests/test_cli.py)
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| The class is shown **failing first**, on a committed fixture holding exactly one such defect | met | §3 step 1. Two tests run before the check existed, both failing, and the failure message carries `check`'s own `OK -` line on the fixture — the defect fully legible and nothing reported. The fixture holds one defect and two quiet cases |
+| It is shown **not** to fire on a closed parent whose children are all closed, and not on an open parent with an open child — both quiet cases marked in the fixture so `tests/test_quiet_cases.py` reads them | met | §3 step 3 shows exactly one alarm, naming neither. Step 4 shows the reading holding both marks. **§3 decision 4 states which of that module's three assertions can bite on this class and which cannot**, and names the test that carries the part it cannot |
+| The class appears wherever the shipped documents enumerate classes, derived rather than hand-listed where a derivation exists — `tests/classes.py` is the one home for the set | met | §3 step 5: the derivation returns 22 and includes it, with no edit to `tests/classes.py`. No shipped document enumerates the problem classes — checked, and §3 step 8 records why that is by design |
+| Each shipped binding's *cannot occur* statement is judged against the new class, since `BINDING.md` §4 requires every binding to name what its backend makes impossible | met | §3 decision 6, one judgement each and they differ: `local-markdown` keeps *nothing cannot occur* and now says why for this class; `github-issues` judges that it **can** occur, so it stays out of the four, and declares that no row of its procedure looks for it |
+| `check` is clean on this repository afterwards, or the tasks it names are real | met | §3 step 7, exit 0 — and clean because T-216 closed first, which is what the dependency edge was for |
+
+**What review found beyond the table.** The mark syntax in `tests/test_quiet_cases.py` **cannot carry
+a declared value that begins with a capital letter**: its class pattern is `[A-Z][A-Z ]*[A-Z]`, so
+`quiet: CLOSED PARENT T-003 - ...` parses the class as `CLOSED PARENT T` and the value disappears.
+It failed loudly rather than silently — assertion 1 reported an unknown class — but it reported the
+*class* as wrong when the class was right, which is a diagnostic that sends a reader to the wrong
+place. Raised as [T-219](T-219-let-a-quiet-mark-declare-a-value-that-begins-with-a-capital.md) rather
+than fixed here.
+
+**Open questions, re-read before closing** (`review` step 5). §1's one question was answered by the
+owner on 2026-08-22 and is recorded there with both readings; it produced T-216 and T-218, both now
+closed. Nothing is addressed to anyone else.
 
 **Child fix tasks raised**
-- none
+- none. The one finding is a soft-linked task —
+  [T-219](T-219-let-a-quiet-mark-declare-a-value-that-begins-with-a-capital.md) — because this
+  task's outcome is complete without it (`METHOD.md` §4).
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-22 | → done | All five criteria met. `CLOSED PARENT` is class 22, shown failing first on `tests/fixtures/broken-closed-parent/` and then reporting exactly one alarm there, silent on both cases it must not catch. Unblocked by [T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md), which is why `check` is clean here. Two counts the addition falsified were **deleted rather than corrected**, per the policy in `tests/test_publishing.py` (T-188). One finding went to [T-219](T-219-let-a-quiet-mark-declare-a-value-that-begins-with-a-capital.md). **Worked under the multi-phase grant recorded at the top of this Log.** |
 | 2026-08-22 | (no change) | **The grant was extended a third time, and this row is the one to read on what it now reaches.** The **project owner** instructed on **2026-08-22**, at the start of the session that resumed the eight, to *include the tasks you raise during the execution of this eight, where my involvement is not needed, so make them complete too*. **What it adds:** a task **raised while working the eight** is covered on the same terms as the eight themselves — carried through the full lifecycle to closure without stopping to ask for each phase, then committed and pushed — **provided it needs nothing from the owner**. **What it does not change:** it still authorises **phases, not answers**, so a task that reaches an open question belonging to the owner stops there; that limit is what *where my involvement is not needed* means, and it is the same one the row below states. **It amends exactly one clause of the row below** — *any task raised after 2026-08-22* is outside the grant no longer, when the task is raised **by this work** and needs nobody. A task raised by a later session, and any task that needs the owner, stay outside it. The eight ids below are unchanged: they are still the set given directly, and this addition is defined by **how a task arises**, not by a description of the backlog — which is the distinction the row below was written to protect. Recorded here, and in each task this work raises, for the reason that row gives. |
 | 2026-08-22 | (no change) | **Multi-phase authorisation — current, and this row is the one to read.** The **project owner** granted it in three steps on **2026-08-22**: six tasks, then a seventh, then an eighth. **The set in force is eight**: [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md), [T-198](T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md), [T-212](T-212-report-a-closed-parent-that-still-has-an-open-child.md), [T-214](T-214-decide-whether-the-class-set-subtraction-that-removes-nothing-needs-a-reader.md), [T-215](T-215-show-a-paired-fixture-s-quiet-case-is-in-reach-or-record-that-it-cannot-be.md), [T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md), [T-217](T-217-return-the-fields-list-can-filter-on-in-its-machine-form.md), [T-218](T-218-give-the-rule-that-a-child-holds-its-parent-open-a-home-in-the-method.md). **What it covers:** this task — carried from where it now stands through the remaining phases to closure, without stopping to ask for each phase, then committed and pushed. **What it does not cover:** [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md), [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md), [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md), [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md), each waiting on the owner for something no session can supply; and **any task raised after 2026-08-22**. **The eight ids bind, and the fact that they currently exhaust the backlog is a coincidence, not the rule.** Measured this date, the eight are exactly the open tasks that need nobody, and the four above are exactly the ones that do — 8 + 4 = 12 open, checked per id rather than by the total. That makes *everything that does not need the owner* look like a safe restatement, and it is not: the next task raised would join that description and not this grant. It authorises **phases, not answers**: a task that reaches an open question belonging to the owner stops there. Written into this record rather than kept in the session's handoff, because an authorisation kept anywhere else is one a later session can miss, or stretch to a task it never reached (`CLAUDE.md`, *one phase per request*). **This row supersedes the *set and its bounds* in the rows below** — the grant as first given (six) and its first extension (seven). It does **not** supersede the limit specific to this task, which is stated below and still binds. |
 | 2026-08-22 | (no change) | **The grant was extended to a seventh task, later the same day.** The **project owner** added [T-218](T-218-give-the-rule-that-a-child-holds-its-parent-open-a-home-in-the-method.md) to the six named in the row below, on the same terms and after reading why it was raised. **The set now in force is seven**: [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md), [T-198](T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md), [T-212](T-212-report-a-closed-parent-that-still-has-an-open-child.md), [T-214](T-214-decide-whether-the-class-set-subtraction-that-removes-nothing-needs-a-reader.md), [T-215](T-215-show-a-paired-fixture-s-quiet-case-is-in-reach-or-record-that-it-cannot-be.md), [T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md), [T-218](T-218-give-the-rule-that-a-child-holds-its-parent-open-a-home-in-the-method.md). The row below records the instruction as first given — six ids — and its *what it does not cover* clause is amended by exactly this one addition. [T-217](T-217-return-the-fields-list-can-filter-on-in-its-machine-form.md) remains outside it, as does every task waiting on the owner. Nothing else changes: it still authorises **phases, not answers**. |

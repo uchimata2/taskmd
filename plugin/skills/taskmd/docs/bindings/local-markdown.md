@@ -197,7 +197,9 @@ is the backend the validator was written for: a task is a file, the index is a g
 there is no service in the way — so `DUPLICATE ID` is possible because you choose the ids,
 `STALE INDEX` is possible because the index is materialised, `PARKED TASK` is possible because there
 are folders to park one in, and the template classes are possible because the template is a file in
-`tasks_dir`. The rest apply.
+`tasks_dir`. The rest apply — including `CLOSED PARENT`, judged when that class was added on
+2026-08-22: a task file marked `done` with an open task naming it as `parent` is two ordinary files,
+and nothing about this backend prevents it.
 <!-- taskmd:end-cannot-occur -->
 
 **Written out rather than left obvious, because it is the row that gives the contract's clause its

@@ -536,6 +536,35 @@ def check_blocked_without_blocker(schema, tasks, problems):
     return [("task", len(tasks))]
 
 
+def check_closed_parent_open_child(schema, tasks, problems):
+    """A task closed while one of its children is still open - METHOD.md section 4.
+
+    **The closed half of a rule whose open half is deliberately silent.** T-209 settled that an
+    *open* parent with an open child is the ordinary condition of every umbrella mid-flight, so
+    nothing reports it. This is the opposite state and nothing was reporting it either, because
+    `context` answers about a task somebody opened and nobody opens a closed parent.
+
+    **It reads the derived side**, the same side `holds_open()` names, so a project that renames
+    `parent` or `children` in its config needs no edit here. Both ends are looked up in `tasks`:
+    an edge pointing at a task that does not exist is `DANGLING`'s to report, and reporting it
+    twice under two names would send a reader to fix the wrong record.
+    """
+    derived = [edge.derives for edge in schema.edges.values()
+               if edge.kind == "hierarchy" and edge.derives]
+    if not derived:
+        return []   # no hierarchy edge in this schema; claiming the task count would overstate it
+    for task in ordered(tasks):
+        if task.is_open:
+            continue
+        ids = sorted(set(other for name in derived for other in task.links(name)
+                         if other in tasks and tasks[other].is_open))
+        if ids:
+            problems.append("CLOSED PARENT %s is '%s' with %s %s still open"
+                            % (task.id, task.status,
+                               "child" if len(ids) == 1 else "children", ", ".join(ids)))
+    return [("task", len(tasks))]
+
+
 def check_cycles(schema, tasks, problems):
     dependencies = [f for f, e in schema.edges.items() if e.kind == "dependency"]
     seen, stack, reported = set(), [], set()
@@ -1278,10 +1307,15 @@ def cmd_check(root, schema, tasks, args):
     """Every check, or - on a project whose tasks moved to a backend - the ones that read documents.
 
     The split is `schema.tasks_unreadable`, set by the loader in the one case where a missing
-    `tasks_dir` means *migrated* rather than *broken* (T-185, ruling in T-177). Twelve checks open a
-    task file and have nothing to open; five walk the documents from the project root, which such a
-    project still keeps. Before this they were refused along with the twelve, and a real project in
+    `tasks_dir` means *migrated* rather than *broken* (T-185, ruling in T-177). Most checks open a
+    task file and have nothing to open; the rest walk the documents from the project root, which such
+    a project still keeps. Before this they were refused along with the others, and a real project in
     that state was carrying two dead links and a config advisory that nothing would ever report.
+
+    **The numbers that used to be in the paragraph above are gone rather than corrected** - they said
+    *twelve* and *five*, and adding one check falsified the first. A count of a set the code owns is
+    either dated as a measurement or not written at all; the argument is in `tests/test_publishing.py`
+    (T-188), and the two lists below are what a reader should count.
 
     **The `Scope` line is not decoration here, it is the condition the ruling was granted on.** A
     document-only run that did not say the task half went unexamined would read as a clean bill of
@@ -1299,6 +1333,7 @@ def cmd_check(root, schema, tasks, args):
         counted += check_dates(schema, tasks, problems)
         counted += check_references(schema, tasks, problems)
         counted += check_blocked_without_blocker(schema, tasks, problems)
+        counted += check_closed_parent_open_child(schema, tasks, problems)
         counted += check_cycles(schema, tasks, problems)
         counted += check_stored_derived(schema, tasks, problems)
         counted += check_deliverables(root, schema, tasks, problems)
