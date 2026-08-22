@@ -22,12 +22,15 @@ has to be true for the instructions below to be safe.
    task is written afterwards, on the task that owns it. If you have a habit of writing an id into
    a document, a branch name or a commit message before the task is real, that habit does not
    survive the move.
-2. **Nobody on your project closes or reopens an issue in the GitHub UI.** They will want to — it
-   is one click and it looks like finishing the task. Here `state` is a rendering of the `status:`
-   label, written from it and only from it (see *update*), and it is the one materialised derived
-   view this binding has. A click that changes the rendering without changing the fact leaves the
-   task contradicting itself, and no view will flag it. If your team works in the web UI as much as
-   the CLI, answer this one honestly.
+2. **Nobody on your project closes or reopens an issue in the GitHub UI** — or, if they do, you run
+   the standing check afterwards. They will want to: it is one click and it looks like finishing the
+   task. Here `state` is a rendering of the `status:` label, written from it and only from it (see
+   *update*), and it is the one materialised derived view this binding has. A click that changes the
+   rendering without changing the fact leaves the task contradicting itself.
+   **Row 10 of *Checking a backlog that is already here* is what notices**, so the assumption is no
+   longer a request nobody can enforce — but it is still an assumption, because nothing here is
+   scheduled and the row only answers when somebody runs it. If your team works in the web UI as
+   much as the CLI, answer this one honestly and run the check more often.
 3. **Every label the vocabulary needs already exists in the repository.** Labels are created per
    repository, `gh` will not invent one, and a mistyped label name fails the write rather than
    silently mislabelling. Creating them is your one setup action — see *Setup*.
@@ -220,8 +223,14 @@ that; set it above the issue count and check the result against it. Neither fail
 and a listing that is quietly 30 items long is the more convincing of the two because it looks like
 a complete answer.
 
-Nothing filters on `state` — that is assumption 2's "no operation reads it", and passing
-`--state all` is how this operation obeys it rather than merely agreeing with it.
+Nothing filters on `state`, and this fetch does not carry it — that is assumption 2's "no operation
+reads it", and passing `--state all` is how this operation obeys it rather than merely agreeing with
+it. **The standing check fetches `state` on purpose and that is not a contradiction**: the rule is
+that nothing reads `state` **as** the status, and row 10 reads it **against** the status. One
+substitutes the rendering for the fact; the other asks whether the two still agree. An operation that
+carried `state` here would put it within reach of every caller that wants to know whether a task is
+open, which is the substitution the rule exists to prevent — so the field is fetched where it is
+compared and nowhere else.
 
 **order** — *what should I work on next*, by the local backend's stated rule rather than by issue
 number. Every input the rule needs is already in *enumerate*'s output, so this is a sort over
@@ -439,8 +448,11 @@ same one the migration passes above obeyed.
 **Fetch once**, with both flags *enumerate* explains, and work from the result:
 
 ```bash
-gh issue list --state all --limit 1000 --json number,title,body,labels,parent,subIssues,blockedBy,blocking
+gh issue list --state all --limit 1000 --json number,title,body,labels,parent,subIssues,blockedBy,blocking,state
 ```
+
+**`state` is the one field here that *enumerate* does not fetch**, and it is added for row 10 alone.
+The paragraph under *enumerate* says why that is not a contradiction of assumption 2.
 
 Then answer these, each of which is one of the validator's classes as it lands here:
 
@@ -455,8 +467,25 @@ Then answer these, each of which is one of the validator's classes as it lands h
 | 7 | **No closed issue carries a template slot** | A closed issue whose body holds a whole line that is one of your task template's own slot lines, with fenced and inline code blanked first. **Not any angle-bracket span** — see below |
 | 8 | **No date-shaped value that is not a date** | Any property-block value shaped like a date that is not one |
 | 9 | **No label reads as a version** | A grouping label whose value is a two-part number. A release of that number is a different thing |
+| 10 | **`state` agrees with the `status:` label** | An issue whose `state` is `CLOSED` while its `status:` label is one of your open statuses, or `OPEN` while the label is a closed one. **The label is the fact**; `state` is its rendering, so the repair is to re-render `state` from the label with `gh issue close` / `gh issue reopen` — never to relabel the issue to match the button somebody pressed |
 
-**Two of the nine rows need something the fetch does not carry, and neither says so by its length.**
+**Row 10 is the only row that reads a materialised derived view, and it is the only one this backend
+needs.** `state` is written from the `status:` label and from nothing else (*update*), so the two can
+only disagree when something outside taskmd moved one of them — which on GitHub is one click, and is
+assumption 2. Every other derived thing here is computed by GitHub on demand and cannot drift.
+
+**Repair it by hand, not automatically.** A run that closed the gap it found would destroy the only
+evidence that anybody clicked, and the click is worth knowing about: it usually means somebody
+believes the button finishes the task, which is a thing to correct in a person rather than in a
+backlog.
+
+**Say how many issues this row examined, not only what it found.** An issue carrying no `status:`
+label, or two, has no single label to compare `state` against, so row 10 has nothing to say about it
+— row 1 is what reports those. Skipping them silently makes a backlog where half the issues are
+mislabelled produce the same *no disagreements* as a healthy one, which is the failure the paragraph
+below names for rows 3 and 7.
+
+**Two of the nine other rows need something the fetch does not carry, and neither says so by its length.**
 Row 3 needs a *fetch kept from before*, so the section heading above — *fetch once* — is true of the
 other eight and not of it. Row 7 needs your task template's **slot lines**, which are not issue data
 at all; the coverage table below says the two template checks do not come across, and row 7 is the
