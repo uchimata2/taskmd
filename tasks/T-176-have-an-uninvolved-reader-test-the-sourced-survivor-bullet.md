@@ -4,7 +4,7 @@ title: Have an uninvolved reader test the sourced survivor bullet
 type: research
 status: proposed
 phase: specify
-parent: T-168
+parent: null
 blocked_by: []
 related: [T-168, T-166, T-167]
 work_package: M6
@@ -12,7 +12,7 @@ owner: maintainer
 business_value: medium
 effort: s
 created: 2026-08-18
-updated: 2026-08-18
+updated: 2026-08-22
 deliverables: []
 ---
 
@@ -99,5 +99,6 @@ clothes. That decision is the one to copy.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-22 | (no change) | **Re-edged from `parent: T-168` to a soft edge, by [T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md).** [T-168](T-168-price-what-keeping-taskmd-installed-costs-a-project-with-no-tasks.md) was not raised from a failed criterion — five of its six were met and the sixth went to T-174. This task came out of `review` step 5, as a residue nobody there could settle: the bullet has not had an **uninvolved reader**, and no session can supply one. T-168's own outcome — the price, with the evidence behind it — exists and was checked. So this is a stronger test of a finished result, not a part of it, and holding T-168 open would park a closed research task on a person who may never be available. `related` was already recorded here, so the repair is one field. The alternative — reopening T-168 — is rejected on that reasoning and is recorded in T-216 §3. |
 | 2026-08-19 | (no change) | **The open question is answered by the owner: one reader, count fixed now.** Asked in the backlog-wide round of 2026-08-19. One reader with the verdict standing is the recorded precedent and the cheaper option, and setting the count before anyone reads is the whole of what makes it a check. *Rejected: the fuller [T-166](T-166-ground-the-post-migration-listing-s-survivor-claims.md) protocol*, which buys more confidence at more of the owner's time — and buys it only if the count is fixed in advance either way, since a second reader added after an unwelcome verdict converts the check into editing until somebody agrees. This row is the answer, not authorisation to start. |
 | 2026-08-18 | → proposed | Raised by [T-168](T-168-price-what-keeping-taskmd-installed-costs-a-project-with-no-tasks.md)'s review. Its §3 step 7 declared the gap rather than papering over it, which is what [`implement`](../plugin/skills/taskmd/docs/method/implement.md) asks for when no use is available; this is the task that makes the declaration actionable instead of a sentence in a closed record. **Not covered by the authorisation of 2026-08-18.** |

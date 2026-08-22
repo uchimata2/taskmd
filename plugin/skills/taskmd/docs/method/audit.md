@@ -41,8 +41,11 @@ the last subject's problems, which is how an audit comes to report what its auth
    that produced work.
 
 5. **Close the umbrella only when every child is resolved** — done, or dropped with a recorded
-   reason. An umbrella closed over open children erases the link between the examination and its
-   consequences.
+   reason. This is [`../METHOD.md`](../METHOD.md) §4's rule for hierarchy edges applied to an
+   umbrella, not a rule of an audit's own: the general statement lives there and is not repeated
+   here. What **is** specific to an audit is what it costs — an umbrella closed over open children
+   erases the link between the examination and its consequences, which is the whole product of an
+   audit.
 
 ## Why the no-inline-fix rule is the whole point
 

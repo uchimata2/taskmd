@@ -221,8 +221,9 @@ def label(name):
 def holds_open(schema, name):
     """Is `name` the *derived* side of a hierarchy edge — the children of this task?
 
-    Only that side holds a task open. The stored side is the parent, and an open parent stops
-    nothing: work on a child proceeds while its umbrella waits. A dependency's derived side
+    Only that side holds a task open, and it holds *every* parent open rather than only an audit
+    umbrella (METHOD.md section 4). The stored side is the parent, and an open parent stops
+    nothing: work on a child proceeds while its parent waits. A dependency's derived side
     (`blocks`) is the same asymmetry one edge over, and is already excluded by the caller.
     """
     for field, edge in schema.edges.items():

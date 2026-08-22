@@ -15,28 +15,36 @@ verdict phase, not a working phase.
 2. **Judge each one separately**, and record the result with a note saying what settled it. A bare
    tick is not a review; the note is what a later reader uses to decide whether to trust the tick.
 
-3. **For anything not met, raise a child task.** Not a to-do line, not a caveat in the summary — a
-   task, linked to this one, that someone can be given. Then this task can close honestly with the
-   gap visible instead of buried in a paragraph nobody re-reads.
+3. **For anything not met, raise a task for it.** Not a to-do line, not a caveat in the summary — a
+   task, linked to this one, that someone can be given. Then the gap is visible instead of buried in
+   a paragraph nobody re-reads.
+
+   **Which edge you give it decides whether this task can close** ([`../METHOD.md`](../METHOD.md)
+   §4). Where the outcome itself is incomplete, the new task is a **child**, and this one stays open
+   until it closes — a task whose own outcome is missing a piece is not done, whatever the table
+   says. Where the outcome is finished and the criterion asked for something **beyond** it — a
+   stronger test, a use that waits on an event nobody controls, a reader nobody can summon — the new
+   task is a **soft** link, and this one closes honestly.
 
 4. **Do not fix things here.** Review that repairs what it finds destroys the record of what was
    wrong ([`../METHOD.md`](../METHOD.md) §5) and re-opens work that has already been verified,
-   without re-verifying it. The fix is a child task, and it runs the lifecycle like anything else.
+   without re-verifying it. The fix is a child task — a repair to the outcome is part of the
+   outcome, so it holds this task open (step 3) — and it runs the lifecycle like anything else.
 
 5. **Read the task's own open questions before closing**, and route anything still live — an answer
    into the record, or a new task for what nobody here can settle. **No tool will do this for you**,
    and the reason is under *A question aimed at someone else*, below.
 
-6. **Close the task** when every criterion is met or carried, the record is current, and the
-   evidence from [`implement`](implement.md) is in place. Closing a task whose evidence is missing
-   is the failure this method exists to prevent — the outcome may well be fine, but nobody can now
-   tell.
+6. **Close the task** when every criterion is met or carried, **no child of it is open** (step 3
+   and [`../METHOD.md`](../METHOD.md) §4), the record is current, and the evidence from
+   [`implement`](implement.md) is in place. Closing a task whose evidence is missing is the failure
+   this method exists to prevent — the outcome may well be fine, but nobody can now tell.
 
 ## A question aimed at someone else
 
 A question addressed to somebody who is not doing the work — the owner, a specialist, whoever holds a
 fact nobody here has — is the one residue a review is built to miss. It fails no criterion, so steps
-2 and 3 never reach it: there is no row for it in the table and nothing to carry into a child task.
+2 and 3 never reach it: there is no row for it in the table and nothing to carry into a task of its own.
 And the moment the task closes it leaves every view a project has, because **views read open work**.
 It does not go stale; it goes invisible.
 
@@ -87,7 +95,11 @@ worthless, because a reader can no longer tell which criteria predated the work.
 | Where evidence cannot settle it, said as a finding | met | Cohort 4 is excluded and the exclusion is stated, with what it would take to include it |
 | An uninvolved reader can say what would change the conclusion | **not met** | The reader identified the cohort-definition risk but not the seasonal one, which is not stated anywhere → **child task: state the seasonal confounder** |
 
-Three met, one carried. The task closes; the gap is a task with an owner rather than a sentence in a
+Three met, one carried — **and this task does not close yet.** The seasonal confounder is missing
+from the deliverable itself, so the task raised for it is a **child**, which under
+[`../METHOD.md`](../METHOD.md) §4 holds this one open. Had the criterion instead asked for something beyond the
+outcome — a second reader for a conclusion that already stands — the task raised would be a soft
+link and this one would close. Either way the gap is a task with an owner rather than a sentence in a
 document nobody will re-read. Note that the second row's note points at what `implement` already
 found — review reports it, it does not re-do it.
 

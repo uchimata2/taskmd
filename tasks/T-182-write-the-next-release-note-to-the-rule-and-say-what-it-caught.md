@@ -4,15 +4,15 @@ title: Write the next release note to the rule and say what it caught
 type: deliverable
 status: proposed
 phase: specify
-parent: T-135
+parent: null
 blocked_by: []
-related: [T-125, T-127, T-133]
+related: [T-135, T-125, T-127, T-133]
 work_package: M6
 owner: maintainer
 business_value: medium
 effort: s
 created: 2026-08-18
-updated: 2026-08-18
+updated: 2026-08-22
 adopter_visible: no
 deliverables: []
 ---
@@ -86,4 +86,5 @@ is a rule to drop, and nothing but a real release can tell the difference.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-22 | (no change) | **Re-edged from `parent: T-135` to a soft edge, by [T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md).** This is the hardest of the three, because it *was* raised from a criterion [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) recorded as **not met**. The judgement is that T-135's outcome is nevertheless finished: the rule exists in `docs/PUBLISHING.md` §7 and was **used** — applied to `v0.4.0`'s note, where it found at least 21 omissions against the 6 a hand-sample had found. That is `implement`'s exit criterion satisfied on the real thing. The unmet criterion asks for the rule to be applied to a release that does not exist yet, which is an external condition and not a gap in the deliverable. Reopening T-135 would put a finished rule back on every open view until an unscheduled release happens. Rejected for that reason; recorded in T-216 §3. |
 | 2026-08-18 | → proposed | Raised by [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md)'s review, which carried its fourth criterion rather than meeting it. **Planned for at `plan`, not discovered at `review`**: satisfying it would have meant writing a note for a release nobody was making, which is a criterion describing the work instead of judging it. Gated on a real release, so it sits outside any standing grant until one is being made. |

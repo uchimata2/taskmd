@@ -34,7 +34,7 @@ one arrives. Everything here governs the work; the files in §7 do not, so they 
 | **specify** | Establish what the outcome is and how it will be judged. | Acceptance criteria written, and agreed by whoever owns the outcome. | [specify](method/specify.md) |
 | **plan** | Break the work into steps and name what each produces. | Every step names an output, and every output is named precisely enough that someone else could look for it. | [plan](method/plan.md) |
 | **implement** | Do the work. Record decisions as they are taken, not afterwards. | **The outcome has been checked by being used, and the evidence is recorded.** | [implement](method/implement.md) |
-| **review** | Judge the result against the acceptance criteria written in `specify`. | Every criterion is either met or carries a child task that will meet it. | [review](method/review.md) |
+| **review** | Judge the result against the acceptance criteria written in `specify`. | Every criterion is either met or carries a task that will meet it — §4 says which edge, and whether this task may then close. | [review](method/review.md) |
 
 **Phase and status are independent, and that independence is about movement.** *Phase* says where
 the work has got to; *status* whether it can move. Being stuck is not a phase — a task waiting on
@@ -106,12 +106,39 @@ not, because each is a different traversal.
 | **dependency** | a list | This task cannot proceed until those close. The inverse is what it is holding up. |
 | **soft** | a list | Context worth having in both directions. It gates nothing. |
 
+### A child holds its parent open
+
+**A task may not close while any of its children is open.** Hierarchy says the child *belongs to*
+the parent, so an open child is a part of the parent that is not finished, and a parent closed over
+one claims an outcome it has not got. This is the only edge that constrains **closure**: a dependency
+constrains when a task may *start*, a soft edge gates nothing, and neither says anything about when a
+task may close.
+
+**Decided on 2026-08-22, against the narrower reading that only an audit umbrella is held open** —
+and the narrower reading was measured before it was rejected, not argued away. Run over a real
+backlog of 218 tasks, the general rule found three closed parents with an open child and the audit
+reading found none. All three turned out to be the same thing: a **finished** outcome with a residual
+attached to it by the wrong edge. The narrower rule would not have permitted those three, it would
+have hidden them — which is the difference between a rule that is lenient and one that is blind.
+
+**What the general rule costs is that the choice of edge now matters**, which is what the next
+section is for.
+
 ### Which edge to use
 
+- Is the other task **part of this one's outcome**, so that this one is not finished until it is
+  done? **Yes** → hierarchy — and it will hold this task open, per the section above.
 - Can this task's work start and finish while the other is still open? **No** → dependency.
 - Would someone working this task make a worse decision without knowing about the other?
   **Yes** → soft.
 - Neither → do not link them. A graph that links everything says nothing.
+
+**The residual is the case this gets wrong**, and it is common enough to name. Work often throws off
+something that is *about* a finished task without being *part* of it: a stronger test of a result
+that already stands, a use that waits on an event nobody here controls, a reader nobody can summon.
+It arrives feeling like unfinished business, so it gets a hierarchy edge — and then holds a finished
+task open for as long as the world takes. **That is a soft edge.** The question is not whether the
+new task matters; it is whether the old one's outcome is incomplete without it.
 
 ### Store the forward edge; derive the rest
 

@@ -4,15 +4,15 @@ title: Have an uninvolved reader write a coverage declaration from the clause
 type: research
 status: proposed
 phase: specify
-parent: T-192
+parent: null
 blocked_by: []
-related: [T-176]
+related: [T-192, T-176]
 work_package: M6
 owner: the project owner
 business_value: medium
 effort: s
 created: 2026-08-21
-updated: 2026-08-21
+updated: 2026-08-22
 adopter_visible: no
 deliverables: []
 ---
@@ -98,5 +98,6 @@ is the one thing a session cannot stand in for.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-22 | (no change) | **Re-edged from `parent: T-192` to a soft edge, by [T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md).** The clearest of the three: every one of [T-192](T-192-require-every-binding-to-declare-its-validator-coverage.md)'s criteria is **met**, and its §4 already says in its own words why it closed — this task is *"a stronger test of a clause that already works rather than a gap in it"*. It waits on an uninvolved reader, which no session can supply. The soft edge keeps the pointer in both directions without holding a finished deliverable open. Reopening T-192 was rejected because there is no criterion to reopen it against; recorded in T-216 §3. |
 | 2026-08-21 | → proposed | Raised by [T-192](T-192-require-every-binding-to-declare-its-validator-coverage.md)'s review. Its criterion 4 was **met** — a fragment was written from the clause and changed it — so this is not a gap left behind but the stronger version of a test that already paid for itself once. Raised rather than noted, because it needs a person and a note inside a closing task leaves every view a project has. `medium` and `s`: the exercise is short and the clause it judges is inherited by every binding anybody writes. **Waits on a person**, so the 2026-08-19 grant does not reach it. |
 | 2026-08-22 | (no change) | **The open question is answered in part by the owner: one route, chosen once and used for this task and for [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md).** Asked in the batched round of 2026-08-22. Both are blocked on this and on nothing else, so one answer unblocks two. *Rejected: a different reader for each*, which makes each reading true first contact, but needs two people and blocks both tasks until they are found. *Rejected: the owner reads both*, available immediately, but they cannot un-know material they have already ruled on — the exact weakness this task exists to remove. **Still open: who that reader is.** The shape is settled and the person is not, so §1's question is narrowed rather than closed. This row is the answer, not authorisation to start. |
