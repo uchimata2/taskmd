@@ -79,12 +79,14 @@ came from outside.
       with nothing to compare it against
 
 **Open questions**
-- **Does a reader's framing verdict re-open an accepted balance?** — the project owner. The
+- ~~**Does a reader's framing verdict re-open an accepted balance?** — the project owner. The
   recommendation is **no for the arrangement and yes for the one sentence**: the arrangement was
   weighed and accepted, and a reader who calls the result a *mild* lean while crediting two sentences
   that cut against the tool has largely confirmed it. *"Declaring no opinion is a position"* is
   different — it is a claim the document makes about itself, not a matter of proportion, and it is
-  cheap to drop.
+  cheap to drop.~~ **Answered by the owner on 2026-08-22: no for the arrangement, yes for the one
+  sentence.** See the Log row of that date. **It covers two of the three findings**, and the third —
+  whether the two remaining limits are softening — is judgement this record still has to do.
 
 ## 2. Plan
 
@@ -113,4 +115,5 @@ came from outside.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-22 | (no change) | **The owner answers two of the three findings: no for the arrangement, yes for the one sentence.** Answered 2026-08-22. **The arrangement stands** — [T-167](T-167-stop-the-listing-pricing-only-the-rival.md) weighed it and accepted it, and a reader who calls the result a *mild* lean while separately crediting two sentences that cut against the tool has largely confirmed that decision rather than overturned it. ***"It is a list of facts and it stops short of a recommendation"* goes** — it is not a matter of proportion but a claim the document makes about itself, the reader's line on it is unanswerable (*"Declaring no opinion, in a document you wrote and ordered, is a position"*), and dropping it costs nothing the section needs. *Rejected: re-balance on the verdict* — it would reverse an owner decision on evidence collected for another purpose, which is the thing [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md)'s Log forbade in advance. *Rejected: change nothing* — it treats every finding as proportion when one is not. **The third finding is not covered and is this record's own work**: whether the two remaining limits are softening, and whether T-221's rewrite of the third changed how it reads. That is judgement made by reading the text, and it returns to the owner only if it changes the balance. |
 | 2026-08-22 | → proposed | Raised by [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md)'s fifth criterion, which requires anything the reader turned up outside that task's scope to leave as its own task rather than be repaired where it was found. Three findings had no home: the located lean, the *declaring no opinion* line, and two limits still reading as softening. **A decision rather than a fix**, by the schema's own test — the outcome is an answer somebody else could act on, and any change follows from it. **Raised with its default answer stated**: an accepted decision is not reversed by a reader's opinion, and the reason to put it up anyway is that the evidence is new, came from outside, and was collected without the reader knowing framing was the subject. **The unmeasured half is the one to watch** — [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md) rewrote one of the three limits the same day for an unrelated reason, and whether that removed the softening is nobody's finding yet. |

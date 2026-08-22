@@ -60,10 +60,12 @@ that **derive** the set: a command that prints it, or nothing.
       derivations has re-created T-191
 
 **Open questions**
-- **Is a fifth command worth it, against reading two places in `cli.py`?** — the project owner. The
+- ~~**Is a fifth command worth it, against reading two places in `cli.py`?** — the project owner. The
   recommendation is **yes, as `check --classes` rather than a fifth command**: it adds no verb to the
   surface, it sits on the command that owns the classes, and it makes the clause's instruction
-  runnable. The cost is one flag and moving the derivation into the package.
+  runnable. The cost is one flag and moving the derivation into the package.~~ **Answered by the
+  owner on 2026-08-22: yes, as `check --classes`.** See the Log row of that date — this record's
+  outcome is that answer, so what is left here is the lifecycle and not the decision.
 
 ## 2. Plan
 
@@ -92,4 +94,5 @@ that **derive** the set: a command that prints it, or nothing.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-22 | (no change) | **The owner answers the question this record exists to ask: yes, as `check --classes`.** Answered 2026-08-22. It adds no verb to a surface this project has held at four commands, it sits on the command that owns the classes, and it makes runnable an instruction `BINDING.md` §4 currently gives in the form *go and read `cli.py`*. *Rejected: a fifth command* — adopter-visible surface for something only a binding author needs. *Rejected: nothing, and leave the clause pointing at source* — honest, and it asks somebody to read Python in order to write Markdown. *Rejected: a list in a document* — the per-check coverage table §4 refuses, one column narrower. **The third criterion is not answered by this and is the part with teeth**: the derivation lives in `tests/classes.py`, a shipped flag needs one in the package, and two derivations is the defect T-191 found. **The outcome of this record now exists**, so what remains here is the lifecycle and a build task, not the decision. |
 | 2026-08-22 | → proposed | Raised from [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md), whose §1 puts changing the validator out of scope. The repaired clause tells a binding author where the class names live and that place is source code, which is the honest answer and is not a usable one — so the gap is recorded as a decision rather than left as a shrug in a shipped document. `decision` by the schema's own test: the outcome is an answer somebody else could act on, and the change follows from it. |

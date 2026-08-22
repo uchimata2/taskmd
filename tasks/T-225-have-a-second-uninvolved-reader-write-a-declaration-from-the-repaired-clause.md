@@ -60,10 +60,11 @@ ordinary density rather than about defects. Decide the bar with the owner before
 - [ ] The pass bar was written down before the run, and the verdict is given against it
 
 **Open questions**
-- **What is the pass bar, and how many readers?** — the project owner. The recommendation is **one
+- ~~**What is the pass bar, and how many readers?** — the project owner. The recommendation is **one
   reader**, and **pass = none of the eight recurs and no new defect blocks the declaration**; a
   re-read question is not a defect. Deciding this after seeing the result is what turns the
-  instrument into iteration.
+  instrument into iteration.~~ **Answered by the owner on 2026-08-22: the recommendation stands** —
+  one reader, and that pass bar. See the Log row of that date.
 
 ## 2. Plan
 
@@ -92,4 +93,5 @@ ordinary density rather than about defects. Decide the bar with the owner before
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-22 | (no change) | **The pass bar and the reader count are fixed by the owner, before the run: answered 2026-08-22.** **One reader**, and **pass = none of the eight defects recurs and no new defect blocks the declaration**; a re-read question is explicitly *not* a defect, because [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md)'s reader asked four of those and they were density rather than missing facts. *Rejected: decide the bar after seeing the result* — it is the same failure as writing acceptance criteria to a known verdict, one instrument along, and it is what turns a check into *edit until somebody agrees*. *Rejected: two readers* — more confidence, and only if the count is fixed in advance either way, which is the condition that makes one enough. **The date matters as much as the answer**: this row precedes any prompt being sent, so a later session can see the bar was not tuned to the result. |
 | 2026-08-22 | → proposed | Raised by [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md)'s sixth criterion, which asks what would test the repair and permits that test to be a separate task. **Separate rather than folded in**, for T-199's own reason: a repair measured by the person who wrote it is not measured. `medium` and `s` — the instrument exists and the run is one prompt. **The hazard is named in §1 rather than left to the run**: a second reader on a repaired document is one edit away from being iteration, so the count and the bar are set before the result is known. |

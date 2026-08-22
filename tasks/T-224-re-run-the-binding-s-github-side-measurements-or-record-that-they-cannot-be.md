@@ -58,9 +58,10 @@ removed only partly.
 - [ ] Any scratch repository created is private, and its deletion is recorded
 
 **Open questions**
-- **Is a scratch repository authorised, and on which account?** — the project owner. Creating issues
+- ~~**Is a scratch repository authorised, and on which account?** — the project owner. Creating issues
   is an outward-facing write and nothing here authorises one. The alternative is the second
-  disposition for every row, which costs nothing and proves nothing.
+  disposition for every row, which costs nothing and proves nothing.~~ **Answered by the owner on
+  2026-08-22: yes** — see the Log row of that date, which also records what the answer did not say.
 
 ## 2. Plan
 
@@ -90,4 +91,5 @@ removed only partly.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-22 | (no change) | **The owner authorises a scratch repository: answered 2026-08-22.** Put to them with the alternative priced: *reject and file every row as a dated historical record*, which costs nothing, needs no outward-facing write, and proves nothing — the document would say *not re-run* four times and a reader would still not know whether the numbers hold. **Answered: yes.** The fourth acceptance criterion already binds the shape — private, and its deletion recorded. **What the answer did not say is which account**, and this session decided it rather than asking again: `uchimata2`, the only account `gh` is authenticated as on this machine, which is also where this project's own repository lives. That is an implementation detail under the owner's standing delegation and it is written here so the task confirms it at the start rather than discovering it. **The authorisation is for phases and for the write it names**, not for anything else outward-facing: a scratch repository is not permission to touch `uchimata2/taskmd`'s own issues, which carry two adopter reports. |
 | 2026-08-22 | → proposed | Raised from [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md)'s step 4, whose criterion asked for **every** other behavioural claim in the document to be checked by running it. That was met for taskmd's commands and not for `gh`'s, and the gap is named in T-221's review rather than hidden in it. **Raised rather than absorbed** because closing it needs something T-221 had no authorisation for — writes to GitHub — and a task that quietly stopped short of its own criterion would leave the document looking swept. `medium`: the un-run claims are older and carry less weight than the two T-221 corrected, and the two read-only checks that were available were run on 2026-08-22 and held. **Read the `gh` version first** — the document names 2.96.0 and this machine ran 2.96.0 on 2026-08-22, so the field-shape claims were confirmed rather than assumed; a later session on a newer `gh` is in a different position. |
