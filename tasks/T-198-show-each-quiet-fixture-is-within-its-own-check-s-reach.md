@@ -188,7 +188,7 @@ refuses any run whose output contains a traceback, which is the failure T-191 me
 | `label-shaped-value` | 3 | all three |
 | `section-reference` | 3 | all three. Two further marks — a sub-number resolving against a list item, and a mark with no document beside it — were not mutated and are **unproven** |
 | `wide-table-row` | 4 | three, plus the front-matter case via the code guard. **One not in reach** → F-1. *Annotated 2026-08-21 by [T-204](T-204-count-the-short-row-quiet-case-the-wide-row-audit-left-out.md): the fixture carries a **fifth** quiet case this audit did not reach, and the count of 4 is what was examined rather than what is there — see below the table* |
-| The other 16 fixtures of the derived 21 | — | **not exercised.** Their quiet cases are the cross-fixture `fails()` silence, which [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) exercised per class and this task did not exercise per fixture. Recorded as unproven |
+| The other 16 fixtures of the derived 21 | — | **not exercised.** Their quiet cases are the cross-fixture `fails()` silence, which [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) exercised per class and this task did not exercise per fixture. Recorded as unproven. *Annotated 2026-08-22 by [T-210](T-210-account-for-the-two-derived-fixtures-t-198-s-partition-drops.md): 16 is the count of `broken-*` fixtures, not of the derived fixtures this audit did not examine, which is 18 — two are covered by no row at all, see below the table* |
 
 **Annotation, 2026-08-21 — `wide-table-row`'s fifth quiet case, added by
 [T-204](T-204-count-the-short-row-quiet-case-the-wide-row-audit-left-out.md).** This audit examined
@@ -213,6 +213,46 @@ after the fence, which is read* — is the fenced case's **control**, there to s
 counting it would make every correct table in the repository a quiet case. Its reach was measured
 anyway rather than argued: widening its row reports `tasks/T-002-...:67 has 3 cells against a
 2-column header`.
+
+**Annotation, 2026-08-22 — two members of the derived twenty-one are covered by no row, added by
+[T-210](T-210-account-for-the-two-derived-fixtures-t-198-s-partition-drops.md).** The table above gives five fixtures a row each and the remainder one row reading *the
+other 16*. **Only three of the five are members of the twenty-one**: `wide-table-row` and
+`abandoned-slot` are the two this audit *names* as missed by the derivation, in the paragraph above
+the table, so they cannot also be subtracted from it. The remainder is **18** — and 16 is not a slip,
+it is a number that is right about something else, being exactly the count of `broken-*` fixtures in
+the derived list. So `5 + 16 = 21` balances, while `migrated-away` and `planned-deliverable` appear
+once in this whole record — inside the derived list — and in no row.
+
+The partition, recomputed by parsing this record's own two lists rather than by retyping them:
+
+| Row | Members | Count | Status |
+| :--- | :--- | ---: | :--- |
+| Examined **and** derived | `label-shaped-value`, `malformed-date`, `section-reference` | 3 | exercised above |
+| Examined, **not** derived | `wide-table-row`, `abandoned-slot` | 2 | exercised above; these are the derivation's two known misses |
+| Derived, not examined — the `broken-*` set | the sixteen `broken-*` fixtures | 16 | unproven, as the last row of the table says |
+| Derived, not examined — **not** `broken-*` | `migrated-away`, `planned-deliverable` | 2 | unproven, and **previously covered by no row** |
+
+3 + 16 + 2 = 21 derived, with the 2 examined-but-not-derived sitting outside that set, which is what
+*the derivation misses two* means. **A double-counted member is invisible in a total**, which is why
+the audit's own second criterion caught nothing: two different sets of size five made the sum read
+correctly.
+
+**Neither of the two is described by the row that should have held them.** That row says the
+unexercised set's quiet cases are the cross-fixture `fails()` silence. Both of these are named by an
+assertion of their own:
+
+- **`planned-deliverable`** — `MISSING OUTPUT` must not fire on an **open** task declaring a path
+  that is not there. `test_an_open_task_declaring_a_path_that_does_not_exist_passes` asserts exit 0
+  and no `MISSING OUTPUT`. It is the positive half of T-089's pair, `broken-deliverable` being the
+  negative.
+- **`migrated-away`** — **two** quiet cases rather than one.
+  `test_a_link_that_resolves_is_not_reported` asserts exactly one `BROKEN LINK` and no report of
+  `notes.md`; `test_it_reports_a_document_defect_it_used_to_refuse_to_look_for` asserts **no**
+  `CONFIG ERROR`, on a fixture where `index` and `context` still report one.
+
+**Neither is exercised here and neither changes status** — both move from *absent* to *unproven*,
+which is where the other sixteen already sat. Mutating them is the question this audit declined to
+ask of any of the eighteen, and [T-210](T-210-account-for-the-two-derived-fixtures-t-198-s-partition-drops.md) does not reopen it.
 
 ### Findings
 
@@ -258,7 +298,7 @@ why criterion 1 below is not met.
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
 | The fixture set is derived from the tests and the derivation is shown, so a quiet case added since cannot be missing | **not met** | The derivation is shown and it is shown to miss: 21 found, `abandoned-slot` and `wide-table-row` absent though both carry quiet cases, because their tests name no fixture literally. A quiet case added since **can** be missing → **[T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md)** |
-| Every fixture has a row; the rows sum to the derived set | met | §3 step 4: five fixtures examined case by case, and one row covering the other sixteen of the derived twenty-one as unexercised. 5 + 16 = 21, and the two the derivation missed are named above it |
+| Every fixture has a row; the rows sum to the derived set | met | §3 step 4: five fixtures examined case by case, and one row covering the other sixteen of the derived twenty-one as unexercised. 5 + 16 = 21, and the two the derivation missed are named above it. *Annotated 2026-08-22 by [T-210](T-210-account-for-the-two-derived-fixtures-t-198-s-partition-drops.md): the sum balances on a coincidence — only three of the five examined are members of the twenty-one, so the remainder is eighteen and `migrated-away` and `planned-deliverable` are covered by no row. This verdict is left as written; the corrected partition is in §3* |
 | Each *is in reach* claim quotes the alarm that arrived when the fixture was mutated; a fixture not mutated is recorded as unproven rather than as passing | met | Fifteen alarm lines quoted, each diffed against the unedited fixture. The unexercised sixteen, two unmutated `section-reference` marks, and `keep-me` are each recorded as unproven or true-by-construction — none as passing |
 | **The instrument is shown able to produce a positive result before any negative one is believed** | met | Thirteen positives arrived before the one silence was read as a finding, and the silence was then confirmed by a second trial: unfenced-as-is stays silent, unfenced-and-widened reports. The instrument also refuses any run whose output holds a traceback — T-191's failure, guarded against by name |
 | Every fixture out of reach is a child task, and this audit closes only when each resolves | **carried** | One case out of reach → [T-201](T-201-give-the-fenced-table-case-a-row-that-could-be-reported.md); the derivation gap → [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md). Both open, so **this umbrella stays open** — the criterion being met, not deferred |
@@ -282,6 +322,7 @@ will show it.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-22 | (no change) | **§3's partition and §4's second verdict annotated by [T-210](T-210-account-for-the-two-derived-fixtures-t-198-s-partition-drops.md), which closed the same day.** Two members of the derived twenty-one — `migrated-away` and `planned-deliverable` — were covered by no row of the step-4 table, and the row that should have held them says **16** where the derived-and-unexamined set is **18**. The 16 is exactly the count of `broken-*` fixtures, so `5 + 16 = 21` balanced and the audit's own second criterion, which asks that the rows sum to the derived set, was marked met on it — only three of the five examined are members of the twenty-one. The corrected partition is a table below step 4, and both fixtures' quiet cases are named there from the assertions that state them, because the row they fell into describes the unexercised set as the cross-fixture `fails()` silence and neither is a `broken-*` fixture. **Nothing this audit said it did has been rewritten** (METHOD rule 5): the row keeps its 16, the verdict keeps its wording, and both carry a pointer. **Neither fixture was exercised** — they move from absent to unproven, where the other sixteen already sat. **This umbrella still does not close**: [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md) remains open (`audit.md` step 5). |
 | 2026-08-21 | (no change) | **§3 annotated by [T-204](T-204-count-the-short-row-quiet-case-the-wide-row-audit-left-out.md), which closed the same day.** The fifth quiet case is now named with what is known about it, the step 4 table row says its 4 is what was examined rather than what is there, and a sixth candidate is recorded as considered and rejected with its reach measured. **The totals are unchanged and shown to be** — fifteen exercised, thirteen positives — because the fifth case is true by construction and joins `keep-me` outside that count. Nothing this audit said it did has been rewritten (METHOD rule 5). **This umbrella still does not close**: [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md) remains open (`audit.md` step 5). |
 | 2026-08-21 | (no change) | **A third child was raised against this record, so the two named in §4's last row are no longer the whole of what gates closure.** [T-204](T-204-count-the-short-row-quiet-case-the-wide-row-audit-left-out.md), from [T-201](T-201-give-the-fenced-table-case-a-row-that-could-be-reported.md)'s run: this audit counted **four** quiet cases for `wide-table-row` and the fixture carries **five** — the short row named by the test's own docstring is in neither the case list nor the table, so it is recorded as neither proven nor unproven. It was shown in reach on a copy, so the omission is in this record and not in the fixture. §4's verdict rows are left as written: they state what this audit did, and annotating the past is what METHOD rule 5 asks for instead. [T-201](T-201-give-the-fenced-table-case-a-row-that-could-be-reported.md) closed the same day; [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md) and [T-204](T-204-count-the-short-row-quiet-case-the-wide-row-audit-left-out.md) are open, so this umbrella stays open (`audit.md` step 5). |
 | 2026-08-21 | → review | **Fifteen quiet cases exercised across five fixtures; fourteen in reach, one not.** [T-201](T-201-give-the-fenced-table-case-a-row-that-could-be-reported.md): `wide-table-row`'s fenced table has two cells against a two-column header, so unfencing it reports nothing and the case cannot catch the regression it exists for - T-150's defect in T-150's own fixture. [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md): criterion 1 is **not met** - the derivation finds 21 fixtures and misses two it should have found, so a quiet case added since can still be missing. **Stays open**: `audit.md` step 5 gates closure on both children. |
