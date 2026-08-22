@@ -269,6 +269,45 @@ operation in this document describes local behaviour too; the rule's one home is
 section of the schema config, and this restates it because whoever implements this backend should
 not have to read Python to learn the one behaviour that decides what people work on.
 
+### What the validator cannot check here
+
+<!-- taskmd:cannot-occur -->
+**Four classes cannot occur here**: `DUPLICATE ID`, `ID WIDTH`, `PARKED TASK` and `STALE INDEX`.
+
+`DUPLICATE ID` cannot occur because the mapping makes GitHub's own issue number the task id. The
+service allocates it at creation, never reuses one, and no writer supplies or edits it, so two
+tasks cannot arrive holding the same one.
+
+`ID WIDTH` cannot occur for the same reason one step on: a width is something a writer can mistype,
+and here nobody types the id at all.
+
+`PARKED TASK` cannot occur because the class is a task file sitting in a folder nothing enumerates,
+and this backend has no folders for one to sit in. Every issue is in the list or is not an issue.
+
+`STALE INDEX` cannot occur because nothing under this mapping holds a second copy of the task list.
+The issue list *is* the index and is computed on demand, so there is nothing that can fall behind
+the thing it indexes. A project that exports its issues to a file on a schedule and reads that file
+has put an index back, and this line stops being true for it.
+
+**All four rest on the mapping, not on the service.** A binding over this same service that kept a
+human-chosen id in an issue field would leave `DUPLICATE ID` and `ID WIDTH` fully live, because
+GitHub does not police that field. Read them as claims about what is written above, not about what
+GitHub can do.
+
+**The machine check on this section is hygiene, not truth.** It confirms the statement is present
+and that each name is one the validator reports. Whether GitHub really makes these four states
+impossible is a fact about GitHub, and nothing running locally knows it — so read the four
+paragraphs above as claims to be checked.
+
+**The rest either apply here or still run locally**, against the working tree a migrated project
+keeps.
+<!-- taskmd:end-cannot-occur -->
+
+That is what [`../BINDING.md`](../BINDING.md) §4 asks every binding for, in the heading, at the level
+and in the position it fixes. **Where each remaining check went is a longer answer and this binding's
+own detail**, not the contract's requirement: it is under *What this does not cover, and why*, below,
+kept beside the verification rows it refers to.
+
 ### After any write
 
 Nothing. There is no index to regenerate: the issue list *is* the index, computed on demand, and
@@ -569,17 +608,10 @@ itself, which is why the run is worth more than its verdict.
 
 #### What this does not cover, and why
 
-<!-- taskmd:cannot-occur -->
-**Four classes cannot occur here**, because GitHub makes the state they describe impossible:
-`DUPLICATE ID`, `ID WIDTH` and `PARKED TASK` — the service allocates issue numbers, never reuses one,
-and has no folders for a task to be parked in — and `STALE INDEX`, because the issue list *is* the
-index and is computed on demand. **The rest either apply here or still run locally**, against the
-working tree a migrated project keeps.
-<!-- taskmd:end-cannot-occur -->
-
-That is what [`../BINDING.md`](../BINDING.md) §4 asks every binding for. The table below is this
-binding's own detail rather than the contract's requirement — it says where each remaining check
-went, which is worth having and is the half that goes stale:
+**The declaration itself is above**, under *What the validator cannot check here*, which is where
+[`../BINDING.md`](../BINDING.md) §4 requires it since 2026-08-23. What follows is this binding's own
+detail rather than the contract's requirement — it says where each remaining check went, which is
+worth having and is the half that goes stale:
 
 The checks that run on the local backend split three ways here: some land above as rows, four
 cannot occur at all, and the rest do not come across. The reasons are worth reading rather than

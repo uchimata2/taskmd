@@ -260,9 +260,10 @@ Five more things follow, each of which was a question a writer had to settle by 
   impossible — they can only be told, and then check the reasoning.
 - **The lead carries the class names, not a bare count.** A count is a number a reader cannot act
   on; the names are what they came for.
-- **Give each named class its own reason, in a short paragraph.** The substance of this clause is
-  reviewed by a person, and a person needs something to review — a name with no reasoning is a
-  claim with nothing attached.
+- **Give each class you name as impossible its own reason, in a short paragraph.** The substance of
+  this clause is reviewed by a person, and a person needs something to review — a name with no
+  reasoning is a claim with nothing attached. **A declaration that names none is exempt**, having
+  nothing to give a reason for; `local-markdown.md` is that case and says so at length.
 - **The markers wrap the whole declaration** — bold lead, per-class reasoning, any gap paragraph,
   the *hygiene, not truth* caveat, and the closing line. **The region is the declaration, not only
   its classified part**, so no class name can sit outside what the machine reads.
@@ -333,10 +334,16 @@ list dies of. It cannot confirm the classification is **true**: whether a class 
 on some hosting service is a fact about that service, and nothing running locally knows it. So the
 substance of this clause is reviewed by a person, and only its hygiene is mechanical.
 
-**Say that in your declaration too — it is required, not advice.** One sentence inside the region,
-to the effect that the machine check is hygiene and not truth, and that the classification is a
-claim to be checked. A reader who does not know which half a green run settled will over-trust it,
-and the binding is the only place they are reading.
+**Say that in your declaration too, wherever it names a class as impossible — required, not
+advice.** One sentence inside the region, to the effect that the machine check is hygiene and not
+truth and that the classification is a claim to be checked. A reader who does not know which half a
+green run settled will over-trust it, and the binding is the only place they are reading.
+
+**A declaration naming no class is exempt from that sentence too**, and for a sharper reason than
+convenience: *nothing cannot occur here* is a claim about the validator and the mapping, both of
+which are open to anyone who installed them, so it is checkable locally and the caveat would be
+false. *Qualified 2026-08-23, by applying the rule to the two shipped bindings and finding it
+demanded a sentence from the one where it does not hold.*
 
 ---
 

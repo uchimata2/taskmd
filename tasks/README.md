@@ -76,7 +76,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-233](T-233-give-the-uninvolved-reader-protocol-one-home-and-settle-its-count-rule.md) | Give the uninvolved-reader protocol one home, and settle its count rule | `M6` | `proposed` | `specify` | - | - | - | - | T-165, T-166, T-176, T-199, T-225, T-232, T-235 |
 | [T-236](T-236-build-check-classes-and-give-the-class-derivation-one-home-in-the-package.md) | Build check --classes, and give the class derivation one home in the package | `M6` | `proposed` | `specify` | - | - | - | - | T-191, T-197, T-222, T-226 |
 | [T-237](T-237-the-softening-clause-t-228-repaired-has-a-second-instance-and-an-idiom-behind-it.md) | The softening clause T-228 repaired has a second instance, and an idiom behind it | `M6` | `proposed` | `specify` | - | - | - | - | T-176, T-193, T-196, T-228 |
-| [T-238](T-238-bring-the-github-binding-s-coverage-declaration-into-line-with-the-repaired-clause.md) | Bring the GitHub binding's coverage declaration into line with the repaired clause | `M6` | `proposed` | `specify` | - | - | - | - | T-222, T-232 |
 
 ## Closed
 
@@ -301,7 +300,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-219](T-219-let-a-quiet-mark-declare-a-value-that-begins-with-a-capital.md) | Let a quiet mark declare a value that begins with a capital | `M6` | `done` | `review` | - | - | - | - | T-202, T-211, T-212 |
 | [T-220](T-220-re-run-t-188-s-sweep-one-occurrence-at-a-time.md) | Re-run T-188's sweep one occurrence at a time | `M6` | `done` | `review` | - | - | - | - | T-139, T-188, T-212 |
 | [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md) | Correct the two behavioural claims the migrated-away run falsifies | `M6` | `done` | `review` | - | - | - | - | T-166, T-168, T-176, T-224, T-228, T-229 |
-| [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md) | Repair the coverage clause against the eight defects a stranger found | `M6` | `done` | `review` | - | - | - | - | T-192, T-199, T-225, T-226, T-227, T-232, T-236, T-238 |
+| [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md) | Repair the coverage clause against the eight defects a stranger found | `M6` | `done` | `review` | - | - | - | - | T-192, T-199, T-225, T-226, T-227, T-232, T-236, T-238, T-239 |
 | [T-223](T-223-ship-the-pre-release-audit-as-a-method-document.md) | Ship the pre-release audit as a method document, so every adopter gets it | `M6` | `done` | `review` | - | - | - | - | T-032, T-036, T-231 |
 | [T-224](T-224-re-run-the-binding-s-github-side-measurements-or-record-that-they-cannot-be.md) | Re-run the binding's GitHub-side measurements, or say in the document that they were not | `M6` | `done` | `review` | - | - | - | - | T-166, T-168, T-221 |
 | [T-225](T-225-have-a-second-uninvolved-reader-write-a-declaration-from-the-repaired-clause.md) | Have a second uninvolved reader write a declaration from the repaired clause | `M6` | `done` | `review` | - | - | - | - | T-176, T-199, T-222, T-232, T-233, T-235 |
@@ -309,8 +308,10 @@ A label says which release the work is scheduled into. It never says the release
 | [T-227](T-227-the-marked-region-scan-cannot-see-a-class-whose-first-word-is-two-letters.md) | The marked-region scan cannot see a class whose first word is two letters | `M6` | `done` | `review` | - | - | - | - | T-192, T-197, T-222 |
 | [T-228](T-228-decide-whether-the-reader-s-framing-verdict-reopens-the-accepted-balance.md) | Decide whether the reader's framing verdict reopens the accepted balance | `M6` | `done` | `review` | - | - | - | - | T-166, T-167, T-176, T-221, T-237 |
 | [T-229](T-229-correct-the-migrated-away-fixture-s-own-prose-which-still-says-all-four-commands-refuse.md) | Correct the migrated-away fixture's own prose, which still says all four commands refuse | `M6` | `done` | `review` | - | - | - | - | T-164, T-177, T-185, T-221 |
-| [T-232](T-232-repair-the-coverage-clause-against-what-two-readers-found.md) | Repair the coverage clause against what two readers found | `M6` | `done` | `review` | - | - | - | T-231 | T-199, T-222, T-225, T-231, T-233, T-235, T-238 |
+| [T-232](T-232-repair-the-coverage-clause-against-what-two-readers-found.md) | Repair the coverage clause against what two readers found | `M6` | `done` | `review` | - | - | - | T-231 | T-199, T-222, T-225, T-231, T-233, T-235, T-238, T-239 |
 | [T-234](T-234-decide-whether-a-grant-s-membership-is-copied-into-every-record-or-derived.md) | Decide whether a grant's membership is copied into every record or derived | `M6` | `done` | `review` | - | - | - | - | T-087, T-106, T-136 |
 | [T-235](T-235-recover-or-retire-the-reader-questions-t-225-s-review-says-its-record-carries.md) | Recover or retire the reader questions T-225's review says its record carries | `M6` | `done` | `review` | - | - | - | - | T-225, T-232, T-233 |
+| [T-238](T-238-bring-the-github-binding-s-coverage-declaration-into-line-with-the-repaired-clause.md) | Bring the GitHub binding's coverage declaration into line with the repaired clause | `M6` | `done` | `review` | - | - | - | - | T-222, T-232, T-239 |
+| [T-239](T-239-give-both-shipped-declarations-the-content-the-repaired-clause-now-requires.md) | Give both shipped declarations the content the repaired clause now requires | `M6` | `done` | `review` | - | - | - | - | T-222, T-232, T-238 |
 
 <!-- taskmd:end -->
