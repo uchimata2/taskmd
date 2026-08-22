@@ -78,7 +78,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-214](T-214-decide-whether-the-class-set-subtraction-that-removes-nothing-needs-a-reader.md) | Decide whether the class-set subtraction that removes nothing today needs a reader | `M6` | `proposed` | `specify` | - | - | T-191, T-197, T-211 |
 | [T-215](T-215-show-a-paired-fixture-s-quiet-case-is-in-reach-or-record-that-it-cannot-be.md) | Show a paired fixture's quiet case is in reach, or record that a per-fixture assertion cannot | `M6` | `proposed` | `specify` | - | - | T-089, T-198, T-202, T-211 |
 | [T-217](T-217-return-the-fields-list-can-filter-on-in-its-machine-form.md) | Return the fields list can filter on in its machine form | `M6` | `proposed` | `specify` | - | - | T-022, T-087 |
-| [T-219](T-219-let-a-quiet-mark-declare-a-value-that-begins-with-a-capital.md) | Let a quiet mark declare a value that begins with a capital | `M6` | `proposed` | `specify` | - | - | T-202, T-211, T-212 |
 
 ## Closed
 
@@ -293,5 +292,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-212](T-212-report-a-closed-parent-that-still-has-an-open-child.md) | Report a closed parent that still has an open child | `M6` | `done` | `review` | - | - | T-191, T-198, T-209, T-216, T-218, T-219 |
 | [T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md) | Repair the three closed parents that still have an open child | `M6` | `done` | `review` | - | - | T-135, T-168, T-192, T-212, T-218 |
 | [T-218](T-218-give-the-rule-that-a-child-holds-its-parent-open-a-home-in-the-method.md) | Give the rule that a child holds its parent open a home in the method | `M6` | `done` | `review` | - | - | T-209, T-212, T-216 |
+| [T-219](T-219-let-a-quiet-mark-declare-a-value-that-begins-with-a-capital.md) | Let a quiet mark declare a value that begins with a capital | `M6` | `done` | `review` | - | - | T-202, T-211, T-212 |
 
 <!-- taskmd:end -->

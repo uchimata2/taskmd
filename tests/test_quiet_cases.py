@@ -55,8 +55,16 @@ FIXTURES = os.path.join(ROOT, "tests", "fixtures")
 # `values` is non-greedy up to the first spaced hyphen, not `[^-]*` - a date is full of hyphens, and
 # a class of them stops matching the moment a value carries one. Two marks were dropped that way and
 # the reading still looked healthy, which is why `TheReadingLosesNothing` exists below.
+# The class is read as **whole words of two or more capitals**, not as a run of `[A-Z ]`. The run
+# form swallowed the first letter of any value that begins with a capital: `quiet: CLOSED PARENT
+# T-003 - ...` parsed as class `CLOSED PARENT T`, value `-003`, and assertion 1 then reported the
+# *class* as unknown while printing a set that plainly contained it - a loud failure pointing at the
+# wrong half (T-219). Every class `check` can print is words of two or more letters, so the shorter
+# word is a value; the trailing guard makes a word followed by a hyphen or digit - `T-003`, `AB-1` -
+# fail the class and fall through to `values`, where it belongs.
 MARK_RE = re.compile(
-    r"(?:#|<!--)\s*quiet:\s*(?P<cls>[A-Z][A-Z ]*[A-Z])\s*(?P<values>.*?)\s+-\s+"
+    r"(?:#|<!--)\s*quiet:\s*(?P<cls>[A-Z]{2,}(?:\s+[A-Z]{2,})*)(?![\w-])"
+    r"\s*(?P<values>.*?)\s+-\s+"
     r"(?P<why>.+?)\s*(?:-->)?\s*$")
 # A mark is the word inside a comment, and the guard below looks for exactly that - matching the
 # bare word instead makes any sentence using it read as a lost mark, which `tests/fixtures/README.md`
