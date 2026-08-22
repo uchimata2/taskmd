@@ -1,13 +1,22 @@
-# pre-release audit
+# pre-release audit — draft
 
-> One kind of audit, scaled up. Type and spine: [`../METHOD.md`](../METHOD.md) §5. Procedure:
-> [`audit`](audit.md).
+> **This is a draft and not a shipped method document.** It is the input to
+> [T-223](../tasks/T-223-ship-the-pre-release-audit-as-a-method-document.md)'s `specify`, and it
+> lives here rather than at its deliverable path because `plugin/` is what an install copies — a
+> draft sitting there is one a release publishes. Moved out of `plugin/` on 2026-08-22 at the
+> owner's instruction, together with the three pointers that named it. When T-223 produces the
+> deliverable, it goes to `plugin/skills/taskmd/docs/method/pre-release-audit.md` and those
+> pointers come back. **The name is settled**: the owner kept `pre-release audit` on 2026-08-22.
+> Its links below are written for this location and change when it moves.
+
+> One kind of audit, scaled up. Type and spine: [`../METHOD.md`](../plugin/skills/taskmd/docs/METHOD.md) §5. Procedure:
+> [`audit`](../plugin/skills/taskmd/docs/method/audit.md).
 
 A pre-release audit examines **everything a project is about to put in front of people**, rather than
 one area of it. It is the largest audit a project runs, and the only one whose stated scope is *all of
 it*.
 
-Everything in [`audit`](audit.md) holds — one umbrella, a finding threshold stated before looking, a
+Everything in [`audit`](../plugin/skills/taskmd/docs/method/audit.md) holds — one umbrella, a finding threshold stated before looking, a
 child task per actionable finding, no finding fixed where it is found, and the umbrella closed only
 when every child is resolved. **This file adds the six things that only start to matter at that
 size**, and nothing else.
@@ -45,7 +54,7 @@ it would otherwise quietly skip something.
 **Aspects keep the cycles from all becoming "documentation".** Pick a small set in the plan — four is
 usual — so that every cycle sits under one of them and two cycles never examine the same thing under
 different names. **What the aspects are is this audit's design and belongs in its plan**
-([`audit`](audit.md), *Procedure*): a set carried in from the last audit examines each new subject for
+([`audit`](../plugin/skills/taskmd/docs/method/audit.md), *Procedure*): a set carried in from the last audit examines each new subject for
 the last subject's problems. One project's set, as an illustration of the *shape* rather than a list
 to adopt: how the work is decided and tracked; the internal record; what an outsider reads; and the
 thing itself.
@@ -66,7 +75,7 @@ At this size the question stops being *what did you find* and becomes *what did 
 it is what makes a finished audit mean something: without it, *we looked at everything* is
 unfalsifiable, and the areas nobody reached are indistinguishable from the areas that were fine.
 
-State 2 is [`audit`](audit.md) step 4's no-action finding, kept per area rather than per finding, and
+State 2 is [`audit`](../plugin/skills/taskmd/docs/method/audit.md) step 4's no-action finding, kept per area rather than per finding, and
 it is the row a reader checks first.
 
 ---
@@ -106,7 +115,7 @@ A severity that only sorts the list is decoration. Each level names what it *req
 **Severity measures the audience's cost, not the fixer's effort.** A one-character error in the first
 instruction a newcomer follows is High. A long-unread background document that is out of date is Low.
 
-**Batching the Low level is deliberate.** [`audit`](audit.md) step 4 raises a child task per actionable
+**Batching the Low level is deliberate.** [`audit`](../plugin/skills/taskmd/docs/method/audit.md) step 4 raises a child task per actionable
 finding, which is right at ordinary scale and breaks at this one: sixty task records for sixty
 one-line corrections is a cost the tracker pays and nobody recovers. Batching keeps every finding in
 the record and stops the tracker from becoming the audit's byproduct. If most findings are Low, the
@@ -148,7 +157,7 @@ measurement refused; if genuinely none did, say that and say how it was checked.
 
 ## The umbrella, and when the findings move out of it
 
-[`audit`](audit.md) step 3 records every finding **in the umbrella**, which is correct and stays
+[`audit`](../plugin/skills/taskmd/docs/method/audit.md) step 3 records every finding **in the umbrella**, which is correct and stays
 correct for most audits. At this size it stops working: an umbrella carrying sixty findings, their
 evidence and their coverage ledger is no longer a task record, and the lifecycle sections disappear
 underneath it.

@@ -18,11 +18,6 @@ findings.
 
 ## Procedure
 
-**At one size this is not enough.** An audit whose subject is everything a project is about to
-release will not fit one session, cannot honestly narrow its scope, and needs a coverage account
-rather than a finding list: [pre-release audit](pre-release-audit.md) adds the six rules for that and
-changes nothing here.
-
 The five steps are what every audit does. **How this one examines its subject is not fixed here** —
 an audit is a task, so it has a `plan`, and the procedure for *this* audit is researched and written
 there: what will be read, in what order, and what the examination consists of. Step 2's threshold is

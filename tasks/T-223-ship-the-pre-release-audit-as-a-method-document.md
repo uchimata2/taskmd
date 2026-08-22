@@ -39,9 +39,12 @@ this record does — and `METHOD.md` §5 and §7 and [`audit`](../plugin/skills/
 already point at it by name. So the three open questions below are not held open at no cost: they
 are held open on a document that the next tag publishes as method, and that the adopting project is
 already waiting for — `htmldeck`'s `docs/AUDIT-METHOD.md` says *"`pre-release-audit.md` arrives
-with a taskmd release; until it does, this file names what it will carry"*. **Answering them, or
-moving the draft off the deliverable path, is what makes the *draft* claim true of the tree as well
-as of this record.**
+with a taskmd release; until it does, this file names what it will carry"*. **Both were done on 2026-08-22.** The owner answered all
+three, and chose to move the draft out as well: it is now
+[`docs/pre-release-audit-draft.md`](../docs/pre-release-audit-draft.md), outside `plugin/`, named
+for what it is, and the three pointers were removed with it. `deliverables:` still names the
+path the finished document goes to, which is now true rather than aspirational — and `check`
+does not object to an open task declaring an output that does not exist yet.
 
 **Outcome**
 
@@ -102,16 +105,18 @@ says a given audit's procedure belongs.
 
 **Open questions**
 
-- **Is the scale exception acceptable?** The draft lets findings move out of the umbrella into their own
+- ~~**Is the scale exception acceptable?** The draft lets findings move out of the umbrella into their own
   record once the umbrella stops being a task record, under three conditions. It is a documented
   deviation from [`audit`](../plugin/skills/taskmd/docs/method/audit.md) step 3, and it is the one place
-  the draft argues against an existing rule rather than extending it. Owner answers.
-- **Is `pre-release audit` the right name?** The document is about audit *scale*, and the release is only
+  the draft argues against an existing rule rather than extending it. Owner answers.~~ **Answered
+  2026-08-22: accept as written.** See the Log row of that date.
+- ~~**Is `pre-release audit` the right name?** The document is about audit *scale*, and the release is only
   the commonest reason to reach that scale. `audit at scale` would be more accurate and less findable.
-  Owner answers.
-- **Does the Low-batching rule belong here or in `audit`?** The draft batches Low findings instead of
+  Owner answers.~~ **Answered 2026-08-22: keep `pre-release audit`.** See the Log row of that date.
+- ~~**Does the Low-batching rule belong here or in `audit`?** The draft batches Low findings instead of
   raising a task each, and argues it as a scale rule. It may be a correction to
-  [`audit`](../plugin/skills/taskmd/docs/method/audit.md) step 4 at every scale. Owner answers.
+  [`audit`](../plugin/skills/taskmd/docs/method/audit.md) step 4 at every scale. Owner answers.~~
+  **Answered 2026-08-22: it is a scale rule and stays here.** See the Log row of that date.
 - ~~**Id collision.** `T-223` was the next free number when this branch was cut, and another session was
   committing to `master` at the time. Renumber at merge if it was taken.~~ **Settled 2026-08-22: it keeps
   `T-223`.** The other session had allocated the same number and neither could see the other. This branch
@@ -148,5 +153,6 @@ says a given audit's procedure belongs.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-22 | (no change) | **All three questions answered by the owner, and a fourth thing decided that nobody had asked.** Put as a survey with each option priced both ways. **The name stays `pre-release audit`** — findability beats accuracy for a document nobody searches for by size, and three documents plus `htmldeck` already name that path. *Rejected: `audit at scale`*, accurate and describes when to load it, at the cost of a path four places follow and a word nobody preparing a release would search for. *Rejected: keep the name and widen the §7 row*, which changes no path but leaves the row and the file name saying different things. **The scale exception is accepted as written** — bounded by three conditions, declared as a deviation, and aimed at a real failure: an umbrella carrying sixty findings is not a task record. *Rejected: findings always stay in the umbrella*, one rule and no exception, obeyed and useless at that size. *Rejected: fold it into `audit`*, which ends the override at the cost of every ordinary audit reading a paragraph about a size it will not reach. **Low-batching is a scale rule and stays here** — one task per finding is right and cheap at ordinary size. *Rejected: move it to `audit` as a correction at every scale*, untested small, and batching three findings hides two from every view. *Rejected: leave it and add a pointer in `audit`*, which stops step 4 misleading anyone at the cost of a pointer every audit pays for. **Fourth, and it went against the recommendation:** the draft was moved out of `plugin/` rather than left there now that its content is agreed. It is [`docs/pre-release-audit-draft.md`](../docs/pre-release-audit-draft.md), its own links rewritten for that location, and the three pointers in `METHOD.md` §5, §7 and [`audit`](../plugin/skills/taskmd/docs/method/audit.md) removed with it — leaving them would have pointed shipped documents at a file no install receives, which `check` cannot see. *Recommended and rejected: leave it in place*, on the ground that agreed content is no longer a risk; the owner's choice separates **content agreed** from **deliverable produced**, which is what the lifecycle is for and what this record could not say while the file sat at its own output address. **`check` now reads the draft where it is**, proven by breaking one of its links and watching `BROKEN LINK docs/pre-release-audit-draft.md` fire, then restoring it. |
 | 2026-08-22 | (no change) | **Reviewed at the owner's request, who was unsure the task had landed as it should.** Phase unchanged: this is an input to `specify`, not `specify` being done for them. **What verified clean.** The generic/local split is real and both sides state it rather than duplicate — `htmldeck`'s `docs/AUDIT-METHOD.md` opens *"The method is not here"* and points at the three taskmd documents, and its register defers §5's grading rule to this one by name. **R-9 holds**: a sweep for software vocabulary over the whole document returns `source` (as in *source of findings*), `file` (as in *this file*) and `Test` (a table heading), and the worked example is a training course. **§5's figures are sourced and were re-checked today** against the adopting project's own records — *two of thirteen held as written*, *every error was in the remedy and none in the observation*, *four rows were refused by a measurement taken while implementing them* — all three verbatim in `htmldeck`'s `docs/lessons/L-90.md` and `docs/CONTEXT-AUDIT.md`. `check` and the suite are green and tier 1 is unchanged. **What did not land: the draft is at the deliverable's address inside `plugin/`.** §1 above now carries that and what follows from it. **Two of the three open questions get more expensive after a release, not less** — the name is a path that `METHOD.md`, `audit.md` and a downstream document would all have to follow, and the scale exception is a published deviation from a published rule. **Nothing was raised from this review**: every finding is an input to this record's own `specify`, and routing them elsewhere would scatter one task's inputs. |
 | 2026-08-22 | → proposed | Raised from an adopting project that needed the method and found it was not shipped. A draft is in this branch at the deliverable path, as the input to `specify`. |
