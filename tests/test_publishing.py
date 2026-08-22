@@ -714,12 +714,17 @@ class TestTheGuardOnTheDerivedSetStillBites(unittest.TestCase):
     def test_the_class_does_not_come_out_of_a_source_that_appends_it(self):
         self.assertNotIn("CONFIG ERROR", check_classes(source=self.APPENDS_CONFIG_ERROR),
                          "the derivation now returns CONFIG ERROR, so the subtraction in "
-                         "tests/classes.py has stopped being applied")
+                         "taskmd/classes.py has stopped being applied")
 
     def test_it_would_come_out_without_the_guard(self):
         """The companion. Without this, the test above cannot tell a working guard from a source
         the regex never matched in the first place."""
-        import classes as classes_module
+        # **The package module, not the re-export.** `tests/classes.py` became a re-export when
+        # the derivation moved into the package (T-236), so rebinding the name here left
+        # `check_classes` reading the constant its own module owns and this test asserted
+        # nothing. It failed the moment the move landed, which is the guard-on-the-guard doing
+        # exactly what it exists for.
+        from taskmd import classes as classes_module
         kept = classes_module.NOT_A_CHECK_CLASS
         try:
             classes_module.NOT_A_CHECK_CLASS = ()
@@ -737,7 +742,12 @@ class TestTheGuardOnTheDerivedSetStillBites(unittest.TestCase):
         behaviour somebody made deliberately, and the two tests above become the live guard rather
         than a fixture-driven one. Failing here is the notification.
         """
-        import classes as classes_module
+        # **The package module, not the re-export.** `tests/classes.py` became a re-export when
+        # the derivation moved into the package (T-236), so rebinding the name here left
+        # `check_classes` reading the constant its own module owns and this test asserted
+        # nothing. It failed the moment the move landed, which is the guard-on-the-guard doing
+        # exactly what it exists for.
+        from taskmd import classes as classes_module
         kept = classes_module.NOT_A_CHECK_CLASS
         try:
             classes_module.NOT_A_CHECK_CLASS = ()

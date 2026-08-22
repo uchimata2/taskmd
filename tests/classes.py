@@ -1,79 +1,34 @@
-"""The set of classes `check` can print, derived from the code (T-197).
+"""Re-export of the package's class derivation, so the tests and the shipped flag share one (T-236).
 
-**One home for a set two test files compare against.** `tests/test_publishing.py` needs it to judge
-each binding's *cannot occur* declaration; `tests/test_cli.py` needs it so every fixture is asserted
-silent about every class but its own. Before this module the second was a hand-typed list of
-fourteen against a real twenty-one, and nothing anywhere compared the two — which is the defect
-T-191 found and this exists to remove. Writing the derivation twice would have re-created it in the
-place that was watching for it.
+**The derivation moved into the package on 2026-08-23 and this file is what is left of it.** It has
+to be in the package because `check --classes` prints from it and `tests/` is outside `plugin/`, so
+an install receives none of this directory. Keeping a second copy here is the defect T-191 found,
+re-created in the place written to remove it — so this file computes nothing.
 
-**Why the problem prefixes are read out of the source and the advisory ones are not.**
-`ADVISORY_PREFIXES` is already a module constant with one home, so it is imported. The problem
-prefixes have no constant: each is embedded in the format string at its own `problems.append` site,
-padded to a column. Giving them a constant would change `cli.py` at every append site, which is a
-plugin change with adopter reach and is out of T-197's scope — so this reads them where they live.
-
-**The cost of reading source text, stated rather than hidden.** A prefix that stopped matching this
-pattern would silently leave the set, and a shrunken set makes the assertions that use it *weaker*
-rather than louder. `TestTheDerivationCanStillRead` in `tests/test_publishing.py` is the reader that
-catches it: it holds the derivation against classes the shipped bindings name and against a floor on
-the size of the set.
+It stays rather than being deleted because two readers import from it by name:
+`tests/test_publishing.py`'s `TestTheDerivationCanStillRead` and
+`TestTheGuardOnTheDerivedSetStillBites`. Deleting it would move a shipped-code change into their
+import lines for no gain.
 
   python -c "import sys; sys.path.insert(0, 'tests'); import classes; print(sorted(classes.check_classes()))"
 """
 
 import os
-import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PKG = os.path.join(ROOT, "plugin", "skills", "taskmd")
 
-# The literal at each `problems.append` site, up to the column padding. `[A-Z][A-Z ]+` stops at the
-# first lowercase, which is where every message's variable part begins.
-PROBLEM_PREFIX_RE = re.compile(r'problems\.append\(\s*"([A-Z][A-Z ]+)')
+if PKG not in sys.path:
+    sys.path.insert(0, PKG)
 
-# Reported by the config loader while the schema loads, before any check runs. It is not a class
-# `check` owns, so it is not one a binding can declare or a fixture be asserted silent about.
-#
-# **It subtracts nothing today, and that is deliberate rather than dead** (T-214). `cli.py` prints
-# `CONFIG ERROR` with a bare `print()`, so `PROBLEM_PREFIX_RE` never finds it and the union below
-# never holds it. Turn either of those two prints into a `problems.append` - one line, and a change
-# somebody could make for good reasons - and the class enters the union and this line starts biting.
-# T-211 measured both states.
-#
-# **So it has a reader**, in `tests/test_publishing.py`: `TestTheGuardOnTheDerivedSetStillBites`
-# feeds `check_classes` the one source shape this line exists for and asserts the class does not
-# come out, with a companion assertion that it does come out when the guard is emptied. **Rejected:
-# a note and nothing else** - a note cannot fail, and the risk here is not that the line is wrong
-# but that it becomes permanently inert with nothing to say so. **Rejected: deleting it** - it does
-# real work one edit away, and without it a class no binding can declare and no fixture can be
-# marked silent about would enter the set every cross-fixture assertion iterates.
-NOT_A_CHECK_CLASS = ("CONFIG ERROR",)
+from taskmd.classes import (  # noqa: E402  - the path insert above has to come first
+    NOT_A_CHECK_CLASS,
+    PROBLEM_PREFIX_RE,
+    check_classes,
+)
 
-
-def _cli():
-    if PKG not in sys.path:
-        sys.path.insert(0, PKG)
-    from taskmd import cli
-    return cli
-
-
-def check_classes(source=None):
-    """Every class `check` can print — the problem prefixes and the advisories together.
-
-    `source` overrides the text the prefixes are read from, and exists for exactly one caller:
-    the reader on `NOT_A_CHECK_CLASS` above, which has to run this function over the shape that
-    makes the subtraction bite. Passing the text rather than asserting on the regex and the
-    constant separately is what keeps the guarded line itself in the run - a check built out of
-    the pieces would pass on a version of this function that had dropped the subtraction.
-    """
-    cli = _cli()
-    if source is None:
-        with open(cli.__file__, encoding="utf-8") as handle:
-            source = handle.read()
-    problems = set(found.rstrip() for found in PROBLEM_PREFIX_RE.findall(source))
-    return (problems | set(cli.ADVISORY_PREFIXES)) - set(NOT_A_CHECK_CLASS)
+__all__ = ["NOT_A_CHECK_CLASS", "PROBLEM_PREFIX_RE", "check_classes"]
 
 
 if __name__ == "__main__":

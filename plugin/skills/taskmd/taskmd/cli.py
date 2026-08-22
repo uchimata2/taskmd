@@ -1639,15 +1639,29 @@ def usage_line(command=None):
         % (command, "".join(" " + placeholder for placeholder in ARGUMENTS[command]))
 
 
+def check_help():
+    """What `check` accepts: the top-level line, then its one option (T-236).
+
+    **T-144's rule applied to a second command, not extended.** That ruling allows a per-command
+    line exactly where the top-level line's `[args]` hides a real option, and forbids one that
+    would restate — which is what T-029 rejected. `check` had no options until `--classes`, and
+    now it has one, so it falls inside the rule rather than needing a new one. Same superset
+    shape as `list`: the top-level line first, then what it adds.
+    """
+    return "%s\nusage: taskmd check [--classes]  print the classes check can report, and exit" \
+        % usage_line()
+
+
 def list_help(root):
     """What `list` accepts: the top-level line, then its own, then this project's filters.
 
-    A **superset, never a different answer** (T-144). Three of the four commands take no options, so
+    A **superset, never a different answer** (T-144). Two of the four commands take no options, so
     for them the top-level line is already the whole truth and printing a per-command one would
-    restate it — which is most of what the maintainer rejected on 2026-08-07 (T-029). `list` is the
-    one command whose options that line's `[args]` hides, so it prints the same line and adds to it.
-    An agent that probed `check --help` first has therefore been told nothing this contradicts, which
-    is the reason the superset was chosen over the conventional per-command replacement.
+    restate it — which is most of what the maintainer rejected on 2026-08-07 (T-029). `list` and,
+    since T-236, `check` are the commands whose options that line's `[args]` hides, so each prints
+    the same line and adds to it. An agent that probed another command's `--help` first has
+    therefore been told nothing this contradicts, which is the reason the superset was chosen over
+    the conventional per-command replacement.
 
     The filters need the project's config, which `--help` is otherwise answered without. Where there
     is no project to read — or its config does not load — the two usage lines still print and the
@@ -1681,7 +1695,7 @@ def main(argv):
         if hasattr(stream, "reconfigure"):
             stream.reconfigure(encoding="utf-8", errors="replace", newline="\n")
 
-    root, rest, asked_for_help = None, [], False
+    root, rest, asked_for_help, asked_for_classes = None, [], False, False
     argv = list(argv)
     while argv:
         arg = argv.pop(0)
@@ -1692,6 +1706,8 @@ def main(argv):
             root = argv.pop(0)
         elif arg in ("--help", "-h"):
             asked_for_help = True
+        elif arg == "--classes":
+            asked_for_classes = True
         else:
             rest.append(arg)
 
@@ -1711,7 +1727,24 @@ def main(argv):
     # two happened. So help answers for no command and for a real one, and a name that is neither
     # falls through to the gate below.
     if asked_for_help and (not rest or rest[0] in COMMANDS):
-        print(list_help(root) if rest[:1] == ["list"] else usage_line())
+        if rest[:1] == ["list"]:
+            print(list_help(root))
+        elif rest[:1] == ["check"]:
+            print(check_help())
+        else:
+            print(usage_line())
+        return 0
+
+    # `check --classes` answers here, before discovery, and that is the point of it rather than
+    # an optimisation. Its caller is writing a binding's *cannot occur* declaration and has no
+    # project in mind (T-236); running the checks first would fail on whatever directory they
+    # happen to be standing in and tell them nothing about the names they came for. So it prints
+    # the set and exits 0. The set is derived from this module's own source, so it answers for
+    # the version the caller has installed rather than for the one this comment was written in.
+    if asked_for_classes and rest[:1] == ["check"]:
+        from . import classes
+        for name in sorted(classes.check_classes()):
+            print(name)
         return 0
 
     if not rest or rest[0] not in COMMANDS:

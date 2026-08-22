@@ -1147,11 +1147,19 @@ class Usage(unittest.TestCase):
 
     def test_asking_what_the_tool_does_is_not_misuse(self):
         """It printed the right line and exited 2. The intended caller is an agent working out the
-        surface, and the conventional probe told it the tool had failed."""
-        for args in (("--help",), ("-h",), ("check", "--help"), ("context", "--help")):
+        surface, and the conventional probe told it the tool had failed.
+
+        **`check` answers with a superset since T-236**, having gained `--classes`; it is asserted
+        below rather than here, because what this test is about is the exit code and the top-level
+        line, and both still hold for it.
+        """
+        for args in (("--help",), ("-h",), ("context", "--help")):
             code, out = run(*args)
             self.assertEqual(code, 0, "%r: %r" % (args, out))
             self.assertEqual(cli.usage_line(), out.strip(), "%r" % (args,))
+        code, out = run("check", "--help")
+        self.assertEqual(code, 0, out)
+        self.assertTrue(out.strip().startswith(cli.usage_line()), out)
 
     def test_help_does_not_answer_for_a_command_that_does_not_exist(self):
         """T-145. `--help` was collected while parsing and answered before the command name was
@@ -1236,11 +1244,20 @@ class ListSaysWhatItAccepts(unittest.TestCase):
         self.assertEqual([], re.findall(r"""["']--[a-z_]""", source), source)
 
     def test_it_adds_to_the_top_level_line_rather_than_replacing_it(self):
-        """The superset rule. Three commands answer this probe with the top-level line alone, so an
-        agent that probed one of them first must not have been told anything `list` contradicts."""
+        """The superset rule. Every command answers this probe with the top-level line first, so an
+        agent that probed one of them must not have been told anything another contradicts.
+
+        **Two commands now add to it rather than one** (T-236): `check` gained `--classes`, which is
+        precisely the condition T-144 set for a per-command line — a real option the top-level
+        line's `[args]` hides. The commands that still take no options answer with that line alone.
+        """
         self.assertIn(cli.usage_line(), self.printed())
-        for command in ("check", "index", "context"):
+        for command in ("index", "context"):
             self.assertEqual(cli.usage_line(), run(command, "--help")[1].strip(), command)
+        for command in ("check", "list"):
+            out = run(command, "--help")[1].strip()
+            self.assertTrue(out.startswith(cli.usage_line()), "%s: %r" % (command, out))
+            self.assertGreater(len(out), len(cli.usage_line()), command)
 
     def test_it_answers_outside_a_project_too(self):
         """Asking a tool what it does must not become conditional on standing in the right
@@ -2244,6 +2261,57 @@ class SlotLeftInAClosedRecord(unittest.TestCase):
             os.remove(os.path.join(project, "tasks", "_task-template.md"))
             code, out = run("check", "--root", project)
         self.assertNotIn("ABANDONED SLOT", out)
+
+
+class PrintsTheClassesABindingAuthorNeeds(unittest.TestCase):
+    """`check --classes` (T-236).
+
+    `BINDING.md` section 4 requires a binding to name the classes its mapping makes impossible, in
+    the validator's own names, and until this flag existed it told the author to go and read
+    `cli.py`. Two uninvolved readers found the answer that way and both reported they could not
+    reach it from the text.
+    """
+
+    def test_it_prints_one_class_per_line_sorted(self):
+        code, out = run("check", "--classes", "--root", ROOT)
+        names = [line for line in out.splitlines() if line.strip()]
+        self.assertEqual(0, code, out)
+        self.assertEqual(sorted(names), names, "the output is not sorted")
+        self.assertIn("STALE INDEX", names)
+        self.assertIn("DUPLICATE ID", names)
+
+    def test_it_prints_the_same_set_the_tests_compare_against(self):
+        """The whole point of moving the derivation into the package: one home, two callers.
+
+        If these ever disagree, a binding has been judged against a set the shipped command does not
+        print - which is T-191's defect wearing the fix's clothes.
+        """
+        from classes import check_classes
+        _, out = run("check", "--classes", "--root", ROOT)
+        printed = set(line for line in out.splitlines() if line.strip())
+        self.assertEqual(check_classes(), printed)
+
+    def test_it_answers_without_a_project(self):
+        """Its caller is writing a binding and has no backlog in mind, so standing in the wrong
+        directory must not turn the question into an error."""
+        with tempfile.TemporaryDirectory() as tmp:
+            code, out = run("check", "--classes", "--root", tmp)
+        self.assertEqual(0, code, out)
+        self.assertIn("STALE INDEX", out)
+
+    def test_config_error_is_not_one_of_them(self):
+        """It is raised while the schema loads, before any check runs, so it is not a class a
+        binding can declare or this flag can offer. The guard that removes it lives in
+        `taskmd/classes.py` and has its own reader in `test_publishing.py`."""
+        _, out = run("check", "--classes", "--root", ROOT)
+        self.assertNotIn("CONFIG ERROR", out)
+
+    def test_check_help_names_the_flag(self):
+        """T-144's rule: a per-command line exactly where the top-level line's `[args]` hides a real
+        option. `check` had none until this one."""
+        code, out = run("check", "--help", "--root", ROOT)
+        self.assertEqual(0, code, out)
+        self.assertIn("--classes", out)
 
 
 if __name__ == "__main__":

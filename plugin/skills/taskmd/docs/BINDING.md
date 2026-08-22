@@ -196,8 +196,18 @@ being written. So the names have one home and it is the validator's own source â
 `problems.append` site in `taskmd/cli.py`, together with the `ADVISORY_PREFIXES` constant beside
 them. Nothing outside those two places is the list, and anything that looked like it would be a copy.
 
-**To read the set rather than guess at it**, run `check` on any project and read the prefixes it
-prints, or read those two places. Both are in what an adopter installs.
+**To read the set rather than guess at it, run this** â€” it prints one class per line, sorted,
+and exits:
+
+```bash
+taskmd check --classes
+```
+
+**It needs no project**, deliberately: you are writing a binding, not validating a backlog, and
+it would be useless if it failed on whichever directory you happened to be in. It derives the
+set from the copy of taskmd **you have installed**, so it answers for your version rather than
+for the one this page was written against. Reading the two places in the source still works and
+is the same answer; both are in what an adopter installs.
 
 **Do not guess a name from the state this clause describes.** The prose here is not the name, and a
 guess costs more than it looks: it will pass any human reader and fail the marked-region check, which
