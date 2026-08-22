@@ -2,8 +2,8 @@
 id: T-206
 title: Test whether the description's Markdown-files clause turns a session away
 type: fix
-status: in_progress
-phase: implement
+status: done
+phase: review
 parent: T-205
 blocked_by: []
 related: [T-175, T-050]
@@ -199,31 +199,96 @@ diff -r arm-old arm-new
 **One line differs, and it is the description.** Same for the control pair. That is criterion 2, shown
 by differencing rather than declared.
 
-### Step 3 — the instrument, and where this stops
+### Step 3 — the instrument, and what each arm loaded
 
-**The instrument cannot start.** A fresh session is the only honest way to observe a `description`,
-and the headless CLI on this machine cannot authenticate:
+**The first attempt could not start.** On 2026-08-22 the headless CLI answered
+*401 OAuth access token has expired* from the rig and from this repository alike, so no arm ran and
+nothing was claimed. The owner re-authenticated the same day and the run below is the resumption;
+the rig was not rebuilt, because nothing about it had changed.
+
+**Each arm quoted the wording it was actually given**, from its own session rather than from the
+file on disk:
 
 ```text
-$ claude -p "Quote verbatim the description of the skill named rigtask ..."
-Failed to authenticate. API Error: 401 OAuth access token has expired. Re-authenticate to continue.
+arm-old  Work with tasks kept as Markdown files - one per task, plus a generated index, real
+         dependency links and a validator - ... (a folder of Markdown task files, or a .taskmd
+         config) ...
 
-$ claude -p "say ok"        # from this repository, to rule out the rig
-Failed to authenticate. API Error: 401 OAuth access token has expired. Re-authenticate to continue.
+arm-new  Work with tasks tracked by rigtask - one task per record, plus a generated index, real
+         dependency links and a validator - ... (a .taskmd config, whatever backend it names - a
+         folder of Markdown task files, an issue tracker, anything else) ...
 ```
 
-It is not the rig: the same failure arrives from this repository's own directory with a prompt that
-touches nothing. **No arm has been run**, so steps 4, 5 and 6 have produced nothing and no result is
-claimed for them.
+That is the failure this rig was most exposed to, closed: neither arm ran the other's text.
 
-**This is not yet *cannot be determined by this rig*.** That verdict is available under criterion 1
-and this run has not earned it: the rig is built and differenced, and what is missing is one
-authentication that the owner can restore and this session cannot. Reporting *cannot be determined*
-now would record a property of the experiment where the truth is a property of the machine — and the
-next reader would take the description as tested.
+### Step 4 — the run count, then the runs
 
-**What is needed, named:** re-authenticate the Claude CLI on this machine (`claude` will prompt), and
-this task resumes at step 3 with the rig already built. Nothing else about it has to be redone.
+**Fixed before any routing result was read: three runs per arm, one per control.** Nothing but this
+record's own ordering attests that, which is the limit of the criterion rather than of the run —
+stated because the criterion exists to stop a count moving after a result, and a reader should know
+what is and is not evidence of that.
+
+**Detection is from the event stream, not the prose.** Each run was taken with
+`--output-format stream-json`, and a run counts as routing to the skill only if a `Skill` tool call
+naming `rigtask` appears. The raw streams are kept beside the rig so a run can be re-read without
+being re-run.
+
+The prompt is `What should I do next?` — near the description's own words, as in the observation
+[T-175](T-175-observe-whether-the-skill-triggers-in-a-migrated-away-project.md) recorded.
+
+```text
+ctl-old    Skill invocations: ['rigtask']    RIGTASK INVOKED: True
+ctl-new    Skill invocations: ['rigtask']    RIGTASK INVOKED: True
+
+arm-old-1  Skill invocations: ['rigtask']    RIGTASK INVOKED: True
+arm-old-2  Skill invocations: ['rigtask']    RIGTASK INVOKED: True
+arm-old-3  Skill invocations: ['rigtask']    RIGTASK INVOKED: True
+
+arm-new-1  Skill invocations: ['rigtask']    RIGTASK INVOKED: True
+arm-new-2  Skill invocations: ['rigtask']    RIGTASK INVOKED: True
+arm-new-3  Skill invocations: ['rigtask']    RIGTASK INVOKED: True
+```
+
+**Eight of eight.** The controls answer criterion 4 before any negative is read: the rig *can*
+produce a positive, so a null from it is a null rather than a silent instrument.
+
+### Step 5 — the controls, and the majority case
+
+`ctl-old` and `ctl-new` are a folder of Markdown task files — the case the description already gets
+right and the one the scope says must not regress. Both routed to the skill. **Under the candidate
+wording as well as the current one**, so the change, if it had been made, would not have cost the
+majority case.
+
+### Step 6 — the confounds that survive the differencing
+
+Each is present in **both** arms, so none biases the comparison. What they do is bound what the
+comparison could have detected, which is the half worth writing down.
+
+| Confound | What it does to the result |
+| :--- | :--- |
+| **One skill in the field, not 68** | The big one. The observed session weighed this description against 67 others; a rig session has nothing to lose to, so a positive is close to forced in both arms. **This rig can detect a description that turns a session away, and cannot detect one that comes second** |
+| A project-local skill, not a plugin skill | A different serving mechanism, which may carry different weight. Unavoidable: a plugin skill is a snapshot of what was installed, so an arm could not have carried its own wording |
+| The skill is named `rigtask`, not `taskmd` | Necessary — under the real name the installed plugin would be served too and both arms would be contaminated. The cost is that the description's last clause, *whenever the user says taskmd*, is unexercised in either arm |
+| No instruction file in the arm | A fidelity choice rather than a defect: the observed venue had none either |
+| The arms hold no actual backlog | The session had nothing to route *to* and routed anyway, which makes the null slightly stronger rather than weaker |
+| One model, one day | Routing is a model behaviour, not a fixed function. A null today is not a null forever |
+
+### Step 7 — the direction, and what ships
+
+**The clause does not turn a session away.** Three runs under the current wording, in a project whose
+config says *there are no task files*, and all three invoked the skill. That is the hypothesis §1
+stated, answered in the direction that requires no change.
+
+**So the description ships unchanged**, and the candidate drafted in step 1 is not applied. Nothing
+else moves: the `description` is byte-identical, so the tier-1 figure is untouched — re-measured
+anyway rather than assumed, `tier 1 6451 chars under by 1403 (bound 7854)`.
+
+**The confound that could not be removed is a task, not a caveat.** *Does not apply* and *does not
+win* are different hypotheses, and only the first was tested — the observation this task came from is
+consistent with both. Raised as
+[T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md)
+rather than tested here, because the run count was fixed before these results were read and adding a
+condition after seeing a clean null is exactly the iteration criterion 5 exists to stop.
 
 **Decisions & assumptions**
 
@@ -235,27 +300,53 @@ this task resumes at step 3 with the rig already built. Nothing else about it ha
 - **The candidate wording is drafted and priced but not shipped** — the evidence that it is needed is
   exactly what this run failed to produce, and shipping it would be the change criterion 1 refuses -
   2026-08-22.
-- **The run count is not stated yet, on purpose.** Criterion 5 asks for it fixed *before results are
-  read*; fixing it now, with the instrument down, would put a number in the record that no run
-  informed and that a later session might read as already decided - 2026-08-22.
+- **The run count was fixed at three per arm and one per control before any result was read** - and
+  the record says that only this record's ordering attests it, which is the criterion's limit rather
+  than the run's - 2026-08-22.
+- **A run counts as routing only on a `Skill` tool call naming the rig's skill**, read from the event
+  stream. Rejected: reading the session's prose, which describes what it did and is not what it did -
+  2026-08-22.
+- **The description ships unchanged.** The hypothesis was tested in the direction that requires no
+  change, and applying the candidate anyway would be a rewording the rig did not support -
+  2026-08-22.
+- **The competition hypothesis is a task, not a second condition here** - the run count was fixed
+  before these results were read, so adding an arm pair after seeing a clean null is the iteration
+  criterion 5 exists to stop - 2026-08-22.
 
 **Outputs produced**
 
-- none shipped. The rig exists outside this repository, in the session scratch directory, and is
-  rebuilt by its own `build.py` rather than committed — it is an instrument, not a deliverable
+- no change to any shipped file: `plugin/skills/taskmd/SKILL.md` is byte-identical, which is this
+  task's outcome in the *shown not to need to* direction
+- [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md)
+- the rig itself is not committed. It lives in the session scratch directory and is rebuilt by its
+  own `build.py` — an instrument, not a deliverable
 
 ## 4. Review
 
-**Not reached.** `implement`'s exit criterion is that the outcome has been checked by being used;
-no arm has run, so there is nothing to judge against the nine criteria and none is marked. Marking
-them now would be the *review* of an experiment that did not happen.
+| Acceptance criterion | Result | Note |
+| :--- | :---: | :--- |
+| **The result names a direction and does not hedge** | met | *The clause does not turn a session away* — §3 step 7. Three runs under the current wording on a non-file backend, all three routing to the skill. The competition question is named as a **different** hypothesis and given its own task, not offered as a second reading of this one |
+| **The two arms are shown to differ only in the wording**, by diffing | met | §3 step 2: `diff -r` gives one changed line, the `description`, for the arm pair and for the control pair |
+| **Each arm's instrument is shown to have loaded the wording it is testing**, quoted from the run | met | §3 step 3, both arms quoted from their own sessions. Neither ran the other's text |
+| **The rig is shown able to produce a positive before any negative is believed** | met | Both controls routed to the skill, §3 step 4. As it turned out no negative arrived at all, so the null is a null and not a silent instrument |
+| **The run count per arm is fixed and stated before the results are read** | met, with its limit stated | Three per arm, one per control. §3 step 4 says plainly that only this record's ordering attests it |
+| **The local-Markdown case is shown not to regress**, under the same rig | met | §3 step 5: both controls routed, under the candidate wording as well as the current one |
+| **If the description changes, the new text is quoted beside the old and tier 1 is re-measured** | n/a, and measured anyway | It does not change. The candidate is quoted beside the current text in §3 step 1 with its +60-char cost, and the suite was re-run: `tier 1 6451 chars under by 1403 (bound 7854)` |
+| **The confounds that survive the differencing are named**, with what each does to the result | met | §3 step 6, six of them, one row each. The first is the one that bounds the answer, and it is why [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md) exists |
+| `check` is clean and the suite passes | met | `OK - 213 task(s), ...` and the suite below |
 
-The criteria stand as written. Two are already satisfied in substance and will be re-quoted when the
-rest can be: the arms are shown to differ only in the wording (§3 step 2), and the tier-1 cost of the
-candidate is measured (§3 step 1).
+**What this does not settle, stated plainly.** The rig serves **one** skill. It can show that a
+description does not turn a session away, and it cannot show whether one comes second in a field of
+sixty-eight — which is the condition
+[T-175](T-175-observe-whether-the-skill-triggers-in-a-migrated-away-project.md) actually observed. So
+this task answers the hypothesis it stated and leaves the observation it came from unexplained.
+That is [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md), and until it runs nobody should read this null as *the observation was noise*.
+
+**Open questions, re-read before closing.** §1 recorded one and it was answered by the owner on
+2026-08-22. Nothing in §3 raised a question for the owner: the competition hypothesis is a task.
 
 **Child fix tasks raised**
-- none
+- [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md) — whether the description loses a competition, which this rig cannot see
 
 ## Log
 
@@ -264,5 +355,6 @@ candidate is measured (§3 step 1).
 | 2026-08-21 | → proposed | Raised as [T-205](T-205-decide-whether-a-clean-trigger-observation-is-reachable-on-this-machine.md) §3 step 4, which is what the owner's *act on the negative* decision of the same day produces. `high` because the description is the only thing that can route an adopter's request to this skill, and an adopter is by definition someone who has not written the tool's name into their own conventions; `m` because the test is a session and the honest way to run one is still an open question. **Its scope was shaped by T-205 §3 step 3 rather than by the decision alone**: the venue's config declares a GitHub-issues backend, so the candidate defect is a specific clause pulling against another and not a general failure to trigger. Typed `fix` rather than `research` so that it ends in a description that either changed or was shown not to need to, instead of in a recommendation that needs a third task to act on it. |
 | 2026-08-22 | (no change) | **The open question is answered by the owner: a synthetic project is acceptable as a test rig, run twice with only the wording changed.** Asked in the batched round of 2026-08-22. [T-205](T-205-decide-whether-a-clean-trigger-observation-is-reachable-on-this-machine.md) refused a synthetic project as *evidence about adopters*; a differenced before-and-after needs its confounds constant rather than absent, and only the wording varies between the runs, so the refusal does not reach this use. *Rejected: wait for a real adopter venue*, which would make the evidence about adopters directly, but no such venue exists, so the task could not be finished at all. *Rejected: change the wording on reasoning alone*, cheap and the clash between the two clauses is plain in the text, but this task exists to produce evidence either way. **The known cost is recorded with the answer**: a confound surviving the differencing would make the result look controlled when it is not. This row is the answer, not authorisation to start. |
 | 2026-08-22 | → specified | **Specify agreed: nine criteria written, where §1 had carried a placeholder.** They are built around the one thing a synthetic rig is bad at — looking controlled — so four of the nine are about the instrument rather than the answer: the arms must be diffed rather than declared identical, each arm must **quote** the wording it actually loaded, the rig must produce a positive before a negative is believed, and the run count per arm is fixed before any result is read. **The third of those is the one this project has been bitten by**: a harness fixes its skill list at session start, so the session that edits a `description` cannot observe the edit, and an arm that silently ran the old text yields two identical arms and a null result indistinguishable from a real one. **`cannot be determined` is written in as a passing outcome**, because the task's stated end is a description that changed *or was shown not to need to*, and a criterion that forced a direction would steer the rig toward a usable answer. One criterion carries the tier-1 cost: the `description` is paid on every turn of every session, so a rewording is re-measured by running the suite rather than assumed cheap. Phase stays at `specify`; `plan` is not authorised (METHOD §3.1). |
+| 2026-08-22 | → done | **Resumed after the owner re-authenticated, and the answer is that the clause does not turn a session away — so the description ships unchanged.** Eight runs, **eight positives**: three per arm and one per control, detected from the `Skill` tool call in the event stream rather than from the session's prose. Both arms quoted back the wording they were actually given, which closes the failure this rig was most exposed to. Both controls routed under both wordings, so the majority case is shown not to regress and the rig is shown able to fire before any null was read. **The run count was fixed at three per arm before any result was read, and the record says only its own ordering attests that** — the criterion's limit, stated rather than papered over. **The confound that bounds the answer is the field size**: the arms serve one skill and the observation this task came from happened among sixty-eight, so *does not apply* is answered and *does not win* is not. Raised as [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md) rather than tested by adding a condition here, because that is the iteration criterion 5 exists to stop. Tier 1 unchanged and re-measured anyway: 6451 chars, under by 1403. |
 | 2026-08-22 | → in_progress | **Plan written and the rig built; the lifecycle stops at step 3 because the instrument cannot start.** Four synthetic projects exist — two arms on a backend whose config says there are no task files, two controls that are a folder of Markdown task files — each carrying the wording as a **project-local** skill, because a served skill is a snapshot of the installed subtree and editing this working tree would not reach any session. `diff -r` shows each pair differing on **one line**, which is criterion 2 met by differencing rather than by assertion. The candidate wording is drafted and priced: **+60 chars against a tier-1 margin of 1403**, read from the suite. **Then `claude -p` returned *401 OAuth access token has expired* — from the rig and from this repository alike**, so no arm ran. **This is deliberately not recorded as *cannot be determined by this rig***: that verdict is available under criterion 1 and has not been earned, because what is missing is one authentication the owner can restore, not a limit of the experiment — and a record saying otherwise would leave the next reader believing the description was tested. **Status is `in_progress` and not `blocked`**: nothing in the task graph holds this up, and `blocked` with no dependency is a claim the graph does not support. Phase stays at `implement`; it resumes at step 3 with the rig already built. |
 | 2026-08-22 | (no change) | **Multi-phase authorisation, and its limits.** The **project owner** instructed on **2026-08-22** that the six remaining tasks be scheduled to the next session with the **full lifecycle**. **What it covers:** this task, one of the six — [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md), [T-203](T-203-detect-an-issue-whose-state-disagrees-with-its-status-label.md), [T-206](T-206-test-whether-the-description-s-markdown-files-clause-turns-a-session-away.md), [T-207](T-207-test-the-platform-claims-this-repository-s-own-second-copies-rest-on.md), [T-208](T-208-decide-where-the-product-wide-deviation-clause-belongs-now-that-it-exists.md) and [T-209](T-209-report-an-open-child-as-a-blocker-on-the-parent-that-cannot-close.md) — carried from where it now stands through `plan` → `implement` → `review` to closure, without stopping to ask for each phase. **What it does not cover:** any other task. The owner was asked on the same date whether the grant reached [T-198](T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md) and [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md), whose closure these six unblock, and answered **the six only** — so that boundary is a decision taken rather than a silence. It authorises **phases, not answers**: an open question that is the owner's stops this record where it stands, because no grant of phases can answer one. Written into this record rather than kept in the session's handoff, because an authorisation kept anywhere else is one a later session can miss, or stretch to a task it never reached (`CLAUDE.md`, *one phase per request*). **Specific to this task: the lifecycle may honestly end at *cannot be determined*, and that is not a failure to finish it.** A harness fixes its skill list at session start, so each arm needs an instrument that did not start with the wording it is testing — recorded in *Inputs*. If no such instrument can be shown to have loaded the text, the criteria say to report that rather than to force a direction. |

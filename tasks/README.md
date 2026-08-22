@@ -74,9 +74,9 @@ A label says which release the work is scheduled into. It never says the release
 | [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) | Audit whether each check class has a case it must not catch | `M6` | `review` | `review` | - | T-197, T-198 | T-100, T-150, T-151, T-209, T-212 |
 | [T-198](T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md) | Show each quiet fixture is within its own check's reach | `M6` | `review` | `review` | T-191 | T-201, T-202, T-204, T-210 | T-150, T-151, T-209, T-211, T-212 |
 | [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md) | Have an uninvolved reader write a coverage declaration from the clause | `M6` | `proposed` | `specify` | T-192 | - | T-176 |
-| [T-206](T-206-test-whether-the-description-s-markdown-files-clause-turns-a-session-away.md) | Test whether the description's Markdown-files clause turns a session away | `M6` | `in_progress` | `implement` | T-205 | - | T-050, T-175 |
 | [T-211](T-211-mark-the-quiet-cases-in-the-two-fixtures-outside-t-202-s-scope.md) | Mark the quiet cases in the two fixtures outside T-202's scope | `M6` | `proposed` | `specify` | - | - | T-198, T-202, T-210 |
 | [T-212](T-212-report-a-closed-parent-that-still-has-an-open-child.md) | Report a closed parent that still has an open child | `M6` | `proposed` | `specify` | - | - | T-191, T-198, T-209 |
+| [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md) | Test whether the description loses a competition rather than turning a session away | `M6` | `proposed` | `specify` | - | - | T-175, T-205, T-206 |
 
 ## Closed
 
@@ -256,7 +256,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-172](T-172-catch-a-template-placeholder-left-in-a-finished-record.md) | Catch a template placeholder left in a finished record | `M6` | `done` | `review` | - | - | T-032, T-151, T-171, T-173 |
 | [T-173](T-173-decide-whether-check-can-know-a-phase-without-breaking-every-adopter.md) | Decide whether check can know a phase without breaking every adopter | `M6` | `done` | `review` | - | - | T-146, T-151, T-172 |
 | [T-174](T-174-carry-the-command-that-produced-t-168-s-figures.md) | Carry the command that produced T-168's figures into a record that can re-run it | `M6` | `done` | `review` | T-168 | - | T-168 |
-| [T-175](T-175-observe-whether-the-skill-triggers-in-a-migrated-away-project.md) | Observe whether the skill triggers in a project that has migrated its backlog away | `M6` | `done` | `review` | T-168 | T-205 | T-050, T-168, T-206 |
+| [T-175](T-175-observe-whether-the-skill-triggers-in-a-migrated-away-project.md) | Observe whether the skill triggers in a project that has migrated its backlog away | `M6` | `done` | `review` | T-168 | T-205 | T-050, T-168, T-206, T-213 |
 | [T-177](T-177-run-the-checks-that-need-no-task-folder.md) | Decide whether check runs the checks that never look at a task file | `M6` | `done` | `review` | - | T-185 | T-163, T-178, T-179, T-180 |
 | [T-178](T-178-give-the-github-binding-a-standing-verification.md) | Give the GitHub binding a standing verification, not only a migration-day one | `M6` | `done` | `review` | - | T-193 | T-041, T-108, T-177, T-179, T-185, T-192, T-203 |
 | [T-179](T-179-restore-the-ordering-rule-on-the-github-backend.md) | Restore the what-next ordering rule on the GitHub backend | `M6` | `done` | `review` | - | - | T-022, T-108, T-177, T-178, T-187 |
@@ -281,7 +281,8 @@ A label says which release the work is scheduled into. It never says the release
 | [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md) | Mark a fixture's quiet cases so a sweep can find them | `M6` | `done` | `review` | T-198 | - | T-134, T-151, T-197, T-204, T-210, T-211 |
 | [T-203](T-203-detect-an-issue-whose-state-disagrees-with-its-status-label.md) | Detect an issue whose state disagrees with its status label | `M6` | `done` | `review` | - | - | T-108, T-178, T-193 |
 | [T-204](T-204-count-the-short-row-quiet-case-the-wide-row-audit-left-out.md) | Count the short-row quiet case the wide-row audit left out | `M6` | `done` | `review` | T-198 | - | T-201, T-202, T-210 |
-| [T-205](T-205-decide-whether-a-clean-trigger-observation-is-reachable-on-this-machine.md) | Decide whether a clean trigger observation is reachable on this machine | `M6` | `done` | `review` | T-175 | T-206 | T-050, T-168 |
+| [T-205](T-205-decide-whether-a-clean-trigger-observation-is-reachable-on-this-machine.md) | Decide whether a clean trigger observation is reachable on this machine | `M6` | `done` | `review` | T-175 | T-206 | T-050, T-168, T-213 |
+| [T-206](T-206-test-whether-the-description-s-markdown-files-clause-turns-a-session-away.md) | Test whether the description's Markdown-files clause turns a session away | `M6` | `done` | `review` | T-205 | - | T-050, T-175, T-213 |
 | [T-207](T-207-test-the-platform-claims-this-repository-s-own-second-copies-rest-on.md) | Test the platform claims this repository's own second copies rest on | `M6` | `done` | `review` | - | - | T-072, T-187 |
 | [T-208](T-208-decide-where-the-product-wide-deviation-clause-belongs-now-that-it-exists.md) | Decide where the product-wide deviation clause belongs now that it exists | `M6` | `done` | `review` | - | - | T-027, T-045, T-187 |
 | [T-209](T-209-report-an-open-child-as-a-blocker-on-the-parent-that-cannot-close.md) | Report an open child as a blocker on the parent that cannot close | `M6` | `done` | `review` | - | - | T-191, T-198, T-212 |
