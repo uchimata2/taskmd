@@ -204,6 +204,7 @@ it belongs in the more durable one and the other **points** at it.
 | [implement](method/implement.md) | Executing a plan |
 | [review](method/review.md) | Judging a finished outcome against its criteria |
 | [audit](method/audit.md) | Examining a body of work, or handling findings |
+| [the uninvolved reader](method/uninvolved-reader.md) | The outcome is a document, and its author cannot tell whether it can be used |
 | [pre-release audit](method/pre-release-audit.md) | The audit is of everything about to be released, and will not fit one session |
 | [where facts live](method/where-facts-live.md) | About to write something down and unsure where it belongs |
 | [rationale](method/rationale.md) | A rule looks wrong, or someone proposes changing one |

@@ -36,7 +36,7 @@ Verification is therefore whatever exercises the deliverable **the way it will a
 | The deliverable | Verified by |
 | :--- | :--- |
 | A procedure or runbook | Someone follows it, start to finish, without the author narrating |
-| A written analysis | A reader who was not involved states the conclusion back, and can say what would change it |
+| A written analysis | A reader who was not involved states the conclusion back, and can say what would change it — [the uninvolved reader](uninvolved-reader.md) is how to run that without getting the answer you expected |
 | A course or training material | Someone in the target audience works through it and is measured on what it claimed to teach |
 | A talk or deck | Delivered to a stand-in audience, timed, questions taken |
 | A decision | The people bound by it can state what it commits them to |
