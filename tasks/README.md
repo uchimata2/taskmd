@@ -73,7 +73,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) | Write the next release note to the rule and say what it caught | `M6` | `proposed` | `specify` | - | - | T-125, T-127, T-133, T-135 |
 | [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md) | Have an uninvolved reader write a coverage declaration from the clause | `M6` | `proposed` | `specify` | - | - | T-176, T-192 |
 | [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md) | Test whether the description loses a competition rather than turning a session away | `M6` | `proposed` | `specify` | - | - | T-175, T-205, T-206 |
-| [T-217](T-217-return-the-fields-list-can-filter-on-in-its-machine-form.md) | Return the fields list can filter on in its machine form | `M6` | `proposed` | `specify` | - | - | T-022, T-087 |
 
 ## Closed
 
@@ -217,7 +216,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-136](T-136-rename-the-milestone-labels-so-they-cannot-be-read-as-versions.md) | Rename the milestone labels so they cannot be read as versions | `M6` | `done` | `review` | - | - | T-086, T-110, T-125, T-128, T-137, T-138 |
 | [T-137](T-137-decide-what-taskmd-does-about-a-label-read-as-a-version.md) | Decide what taskmd does about a grouping label that can be read as a version | `M6` | `done` | `review` | - | - | T-004, T-082, T-087, T-088, T-100, T-106, T-136, T-138 |
 | [T-138](T-138-report-a-front-matter-value-that-reads-as-a-version.md) | Report a front-matter value that reads as a version | `M6` | `done` | `review` | - | - | T-100, T-106, T-136, T-137, T-139, T-162 |
-| [T-139](T-139-check-that-the-advisory-lines-the-readme-lists-are-the-ones-there-are.md) | Check that the advisory lines the README lists are the advisory lines there are | `M6` | `done` | `review` | - | - | T-100, T-121, T-134, T-138, T-141, T-147, T-149, T-161, T-188, T-192, T-195, T-197 |
+| [T-139](T-139-check-that-the-advisory-lines-the-readme-lists-are-the-ones-there-are.md) | Check that the advisory lines the README lists are the advisory lines there are | `M6` | `done` | `review` | - | - | T-100, T-121, T-134, T-138, T-141, T-147, T-149, T-161, T-188, T-192, T-195, T-197, T-220 |
 | [T-140](T-140-restore-the-log-row-a-table-cell-swallowed.md) | Restore the log row a table cell swallowed in T-099 | `M6` | `done` | `review` | - | - | T-099, T-141 |
 | [T-141](T-141-report-a-table-row-with-more-cells-than-its-header.md) | Report a table row with more cells than its header | `M6` | `done` | `review` | - | - | T-025, T-095, T-107, T-121, T-139, T-140, T-147, T-150, T-151, T-162 |
 | [T-142](T-142-stop-the-entry-point-stating-the-path-mechanism-as-given.md) | Stop the entry point stating the PATH mechanism as given | `M6` | `done` | `review` | - | T-161 | T-054, T-085, T-099, T-148, T-153, T-161 |
@@ -264,7 +263,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-185](T-185-run-the-document-checks-in-a-project-whose-tasks-moved.md) | Run the document checks in a project whose tasks moved | `M6` | `done` | `review` | T-177 | - | T-095, T-108, T-178 |
 | [T-186](T-186-run-the-leak-check-in-the-suite-not-only-at-publication.md) | Run the leak check in the suite, not only at publication | `M6` | `done` | `review` | - | - | T-034, T-058, T-080, T-126, T-183 |
 | [T-187](T-187-say-that-the-one-design-rule-yields-to-a-system-limitation.md) | Say that the one design rule yields to a system limitation | `M6` | `done` | `review` | - | - | T-012, T-179, T-207, T-208 |
-| [T-188](T-188-report-a-counted-set-written-into-prose-that-the-code-owns.md) | Report a counted set written into prose that the code owns | `M6` | `done` | `review` | - | - | T-134, T-139, T-184, T-195 |
+| [T-188](T-188-report-a-counted-set-written-into-prose-that-the-code-owns.md) | Report a counted set written into prose that the code owns | `M6` | `done` | `review` | - | - | T-134, T-139, T-184, T-195, T-220 |
 | [T-189](T-189-say-whether-the-audit-s-method-finding-reached-the-repository-that-owns-it.md) | Say whether the audit's method finding reached the repository that owns it | `M6` | `done` | `review` | - | - | T-152, T-170 |
 | [T-190](T-190-decide-whether-tier-1-restates-two-verification-rules-the-method-owns.md) | Decide whether tier 1 restates two verification rules the method owns | `M6` | `done` | `review` | - | - | T-028, T-047, T-151 |
 | [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) | Audit whether each check class has a case it must not catch | `M6` | `done` | `review` | - | T-197, T-198 | T-100, T-150, T-151, T-209, T-212, T-214 |
@@ -287,11 +286,13 @@ A label says which release the work is scheduled into. It never says the release
 | [T-209](T-209-report-an-open-child-as-a-blocker-on-the-parent-that-cannot-close.md) | Report an open child as a blocker on the parent that cannot close | `M6` | `done` | `review` | - | - | T-191, T-198, T-212, T-218 |
 | [T-210](T-210-account-for-the-two-derived-fixtures-t-198-s-partition-drops.md) | Account for the two derived fixtures T-198's partition drops | `M6` | `done` | `review` | T-198 | - | T-202, T-204, T-211 |
 | [T-211](T-211-mark-the-quiet-cases-in-the-two-fixtures-outside-t-202-s-scope.md) | Mark the quiet cases in the two fixtures outside T-202's scope | `M6` | `done` | `review` | - | - | T-198, T-202, T-210, T-214, T-215, T-219 |
-| [T-212](T-212-report-a-closed-parent-that-still-has-an-open-child.md) | Report a closed parent that still has an open child | `M6` | `done` | `review` | - | - | T-191, T-198, T-209, T-216, T-218, T-219 |
+| [T-212](T-212-report-a-closed-parent-that-still-has-an-open-child.md) | Report a closed parent that still has an open child | `M6` | `done` | `review` | - | - | T-191, T-198, T-209, T-216, T-218, T-219, T-220 |
 | [T-214](T-214-decide-whether-the-class-set-subtraction-that-removes-nothing-needs-a-reader.md) | Decide whether the class-set subtraction that removes nothing today needs a reader | `M6` | `done` | `review` | - | - | T-191, T-197, T-211 |
 | [T-215](T-215-show-a-paired-fixture-s-quiet-case-is-in-reach-or-record-that-it-cannot-be.md) | Show a paired fixture's quiet case is in reach, or record that a per-fixture assertion cannot | `M6` | `done` | `review` | - | - | T-089, T-198, T-202, T-211 |
 | [T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md) | Repair the three closed parents that still have an open child | `M6` | `done` | `review` | - | - | T-135, T-168, T-192, T-212, T-218 |
+| [T-217](T-217-return-the-fields-list-can-filter-on-in-its-machine-form.md) | Return the fields list can filter on in its machine form | `M6` | `done` | `review` | - | - | T-022, T-087 |
 | [T-218](T-218-give-the-rule-that-a-child-holds-its-parent-open-a-home-in-the-method.md) | Give the rule that a child holds its parent open a home in the method | `M6` | `done` | `review` | - | - | T-209, T-212, T-216 |
 | [T-219](T-219-let-a-quiet-mark-declare-a-value-that-begins-with-a-capital.md) | Let a quiet mark declare a value that begins with a capital | `M6` | `done` | `review` | - | - | T-202, T-211, T-212 |
+| [T-220](T-220-re-run-t-188-s-sweep-one-occurrence-at-a-time.md) | Re-run T-188's sweep one occurrence at a time | `M6` | `done` | `review` | - | - | T-139, T-188, T-212 |
 
 <!-- taskmd:end -->

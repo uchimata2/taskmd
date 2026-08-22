@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Proof for T-002: the three commands, and `check` shown failing on every class it claims.
+"""Proof for T-002: the commands, and `check` shown failing on every class it claims.
 
 The negative cases are the point. A validator is worth exactly your confidence that it *would*
 catch what it claims to, and the only way to earn that is to watch it fail on a case it should

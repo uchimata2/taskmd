@@ -352,7 +352,7 @@ class EveryMarkedListNamesTheSetTheCodeOwns(unittest.TestCase):
     def test_a_name_mentioned_in_a_sentence_is_not_a_list(self):
         """On the real tree. `README.md` names commands in prose outside their region - an FAQ row,
         a paragraph about filters - an advisory outside theirs, in the `WIDE ROW` paragraph that
-        contrasts itself with them, and three of `list`'s four options across the same document.
+        contrasts itself with them, and several of `list`'s options across the same document.
         None of that is checked, because the region is what declares an intent to be complete.
 
         **A kind `README.md` carries no region of is still exercised, with the whole file counting as

@@ -1577,15 +1577,23 @@ def cmd_list(root, schema, tasks, args):
 
     columns = [schema.status_field] + [c for c in schema.index_columns if c != schema.status_field]
     if options["json"]:
+        # **The machine form carries every field this command accepts as a filter** (T-217), which
+        # is `filter_names` - the same function `parse_filters` validates against and `list --help`
+        # renders. Before that it carried `index_columns` only, so `--effort xs` selected correctly
+        # and the object had no `effort`: a caller could not confirm what it asked for, group by the
+        # value, or sort on it without opening every task file. One function, two readers, so the
+        # flags and the keys cannot drift apart.
+        #
+        # `index_columns` still decides the **line** form below, and deliberately: what a person's
+        # index shows and what a script can read back are different questions, and the earlier shape
+        # answered both with one key. This widens the machine half without touching the human one.
         import json
         payload = []
         for task in chosen:
             row = {"id": task.id, "title": task.title,
                    "blocked": is_blocked(schema, tasks, task), "open": task.is_open}
-            for column in columns:
-                row[column] = task.fields.get(column, "")
-            for name in link_names(schema):
-                row[name] = task.links(name)
+            for name, kind in filter_names(schema).items():
+                row[name] = task.links(name) if kind == "link" else task.fields.get(name, "")
             payload.append(row)
         print(json.dumps(payload, indent=2, sort_keys=True))
         return 0

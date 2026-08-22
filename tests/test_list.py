@@ -396,6 +396,52 @@ class RendersBothForms(unittest.TestCase):
         self.assertEqual([t["id"] for t in data], ids(line))
 
 
+def accepted(root):
+    """The filter names a project takes, read from the command's own rejection line.
+
+    Derived, never typed: it is the same string `list --help` prints, so this cannot drift from what
+    the tool accepts without the tool's own message changing first.
+    """
+    out = run("list", "--a-flag-no-project-has", "x", "--root", root)[1]
+    assert "This project accepts:" in out, out
+    names = out.split("This project accepts:")[1].strip().splitlines()[0]
+    return sorted(n.strip().lstrip("-") for n in names.split(",") if n.strip())
+
+
+class TheMachineFormCarriesWhatItCanFilterOn(unittest.TestCase):
+    """A caller that can select on a field can read it back from `--json` (T-217).
+
+    Before this, `--effort xs` selected correctly and the object carried no `effort`, so a machine
+    caller had to trust the filter blindly: it could not confirm what it asked for, group by the
+    value, or sort on it without opening every task file - the thing this tool exists to stop.
+
+    **The two sides are derived from the same place**, `filter_names()`: the flags come from the
+    command's own rejection line and the keys from its own JSON, so neither list is typed here and
+    the two cannot drift apart again.
+    """
+
+    ALT = os.path.join(FIXTURES, "alt-project")
+
+    def check(self, root):
+        names = accepted(root)
+        self.assertTrue(names, "no filter names were read from %s, so this test is vacuous" % root)
+        rows = json.loads(run("list", "--limit", "1", "--json", "--root", root)[1])
+        self.assertTrue(rows, "no task came back from %s, so there is no object to inspect" % root)
+        missing = [name for name in names if name not in rows[0]]
+        self.assertEqual([], missing,
+                         "list accepts --%s as a filter and the machine form carries no such key, "
+                         "so a caller cannot read back what it selected on. Keys: %s"
+                         % (", --".join(missing), sorted(rows[0])))
+
+    def test_on_this_project(self):
+        self.check(ROOT)
+
+    def test_on_a_project_with_a_different_schema(self):
+        """`alt-project` names different fields, so a pass here is about the rule and not about
+        this repository's own config happening to line up."""
+        self.check(self.ALT)
+
+
 class WritesNothing(unittest.TestCase):
     """`docs/SCOPE.md` §1 Invisibility, and T-022's no-cache constraint: listing is a read."""
 

@@ -302,12 +302,22 @@ Read the **files**, which is [`local-markdown.md`](local-markdown.md)'s *read* �
 body together, whole.
 
 `taskmd list --json` looks like the export for this job and is not. It is a **view** contract: it
-emits `id`, `title`, the columns `index_columns` names, and both directions of every edge. Measured
-on 2026-08-17 against a 163-task project running the shipped default
+emits `id`, `title`, and every field this project can **filter** on — its vocabularies, the fields it
+names in a view, and both directions of every edge. It does not emit the **body**, and it does not
+emit a field the project has named nowhere.
+
+*Measured on 2026-08-17, against a 163-task project running the shipped default
 (`index_columns: [work_package, status, phase]`), it carried no `type`, `owner`, `business_value`,
 `effort` or `deliverables` — five schema-named fields this binding must carry as labels or as
-property-block lines, and it carried no body. Widening `index_columns` would add them and is the
-wrong repair: it changes what every reader's index shows in order to feed a migration that runs once.
+property-block lines, and it carried no body. **Four of those five arrived on 2026-08-22**, when the
+machine form was widened to every field `list` accepts as a filter; `deliverables` did not, because
+nothing filters on it. The measurement is left as the record of that day.*
+
+**The body is the half that still makes this the wrong source**, and it is the half no schema change
+reaches. Widening `index_columns` to add the missing fields was considered in 2026-08-17 and rejected
+as the wrong repair — it changes what every reader's index shows in order to feed a migration that
+runs once — and that reasoning held: the repair went to the machine form and left the human index
+alone.
 
 It does have a job here, in *Verify* below. Because it is derived by the tool rather than by whatever
 read the files, comparing against it is a genuine second opinion rather than the same reconstruction
