@@ -32,6 +32,17 @@ audit should be a taskmd feature rather than one project's local document**, so 
 This branch carries a **draft** at the deliverable path. It is the input to `specify`, not a finished
 deliverable, and the outcome is not agreed until this task says so.
 
+*Reviewed 2026-08-22, after the branch merged.* **That is true of the draft's status and false of
+its location.** The branch is `master` now, and the deliverable path is inside `plugin/`, which is
+exactly what an install copies (T-053). Nothing in the tree says the document is a draft — only
+this record does — and `METHOD.md` §5 and §7 and [`audit`](../plugin/skills/taskmd/docs/method/audit.md)
+already point at it by name. So the three open questions below are not held open at no cost: they
+are held open on a document that the next tag publishes as method, and that the adopting project is
+already waiting for — `htmldeck`'s `docs/AUDIT-METHOD.md` says *"`pre-release-audit.md` arrives
+with a taskmd release; until it does, this file names what it will carry"*. **Answering them, or
+moving the draft off the deliverable path, is what makes the *draft* claim true of the tree as well
+as of this record.**
+
 **Outcome**
 
 One tier-3 method document, loaded on demand, that a session can follow to run an audit whose subject
@@ -137,4 +148,5 @@ says a given audit's procedure belongs.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-22 | (no change) | **Reviewed at the owner's request, who was unsure the task had landed as it should.** Phase unchanged: this is an input to `specify`, not `specify` being done for them. **What verified clean.** The generic/local split is real and both sides state it rather than duplicate — `htmldeck`'s `docs/AUDIT-METHOD.md` opens *"The method is not here"* and points at the three taskmd documents, and its register defers §5's grading rule to this one by name. **R-9 holds**: a sweep for software vocabulary over the whole document returns `source` (as in *source of findings*), `file` (as in *this file*) and `Test` (a table heading), and the worked example is a training course. **§5's figures are sourced and were re-checked today** against the adopting project's own records — *two of thirteen held as written*, *every error was in the remedy and none in the observation*, *four rows were refused by a measurement taken while implementing them* — all three verbatim in `htmldeck`'s `docs/lessons/L-90.md` and `docs/CONTEXT-AUDIT.md`. `check` and the suite are green and tier 1 is unchanged. **What did not land: the draft is at the deliverable's address inside `plugin/`.** §1 above now carries that and what follows from it. **Two of the three open questions get more expensive after a release, not less** — the name is a path that `METHOD.md`, `audit.md` and a downstream document would all have to follow, and the scale exception is a published deviation from a published rule. **Nothing was raised from this review**: every finding is an input to this record's own `specify`, and routing them elsewhere would scatter one task's inputs. |
 | 2026-08-22 | → proposed | Raised from an adopting project that needed the method and found it was not shipped. A draft is in this branch at the deliverable path, as the input to `specify`. |

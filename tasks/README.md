@@ -69,13 +69,14 @@ A label says which release the work is scheduled into. It never says the release
 
 | ID | Title | Work Package | Status | Phase | Parent | Children | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) | Write the next release note to the rule and say what it caught | `M6` | `proposed` | `specify` | - | - | T-125, T-127, T-133, T-135 |
+| [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) | Write the next release note to the rule and say what it caught | `M6` | `proposed` | `specify` | - | - | T-125, T-127, T-133, T-135, T-230 |
 | [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md) | Test whether the description loses a competition rather than turning a session away | `M6` | `planned` | `plan` | - | - | T-175, T-205, T-206 |
 | [T-223](T-223-ship-the-pre-release-audit-as-a-method-document.md) | Ship the pre-release audit as a method document, so every adopter gets it | `M6` | `proposed` | `specify` | - | - | T-032, T-036 |
 | [T-224](T-224-re-run-the-binding-s-github-side-measurements-or-record-that-they-cannot-be.md) | Re-run the binding's GitHub-side measurements, or say in the document that they were not | `M6` | `proposed` | `specify` | - | - | T-166, T-168, T-221 |
 | [T-225](T-225-have-a-second-uninvolved-reader-write-a-declaration-from-the-repaired-clause.md) | Have a second uninvolved reader write a declaration from the repaired clause | `M6` | `proposed` | `specify` | - | - | T-176, T-199, T-222 |
 | [T-226](T-226-decide-whether-taskmd-should-print-the-class-list-a-binding-author-needs.md) | Decide whether taskmd should print the class list a binding author needs | `M6` | `proposed` | `specify` | - | - | T-191, T-197, T-222 |
 | [T-228](T-228-decide-whether-the-reader-s-framing-verdict-reopens-the-accepted-balance.md) | Decide whether the reader's framing verdict reopens the accepted balance | `M6` | `proposed` | `specify` | - | - | T-166, T-167, T-176, T-221 |
+| [T-230](T-230-a-task-gated-on-an-external-event-has-no-field-and-sorts-as-startable.md) | A task gated on an external event has no field, and sorts as startable | `M6` | `proposed` | `specify` | - | - | T-087, T-182, T-199 |
 
 ## Closed
 
@@ -167,7 +168,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-084](T-084-correct-the-generated-index-preamble-after-the-move.md) | Correct the generated index preamble after the directory move | `M1` | `done` | `review` | - | - | T-006, T-025, T-083 |
 | [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) | Install the published plugin on a machine that has never seen it | `M5` | `done` | `review` | T-006 | - | T-020, T-049, T-054, T-067, T-099, T-129, T-142, T-183 |
 | [T-086](T-086-group-the-backlog-into-release-milestones.md) | Group the backlog into release milestones | `M2` | `done` | `review` | - | - | T-006, T-022, T-026, T-087, T-110, T-128, T-135, T-136 |
-| [T-087](T-087-let-list-filter-on-a-field-the-index-can-show.md) | Let list filter on a field the index can show | `M2` | `done` | `review` | - | - | T-022, T-029, T-086, T-102, T-124, T-137, T-143, T-144, T-217 |
+| [T-087](T-087-let-list-filter-on-a-field-the-index-can-show.md) | Let list filter on a field the index can show | `M2` | `done` | `review` | - | - | T-022, T-029, T-086, T-102, T-124, T-137, T-143, T-144, T-217, T-230 |
 | [T-088](T-088-put-audit-in-the-shipped-type-vocabulary-or-stop-calling-it-a-type.md) | Put audit in the shipped type vocabulary, or stop calling it a type | `M2` | `done` | `review` | - | - | T-001, T-026, T-032, T-100, T-104, T-109, T-131, T-137 |
 | [T-089](T-089-stop-check-reporting-an-open-task-s-planned-outputs-as-missing.md) | Stop check reporting an open task's planned outputs as missing | `M2` | `done` | `review` | - | T-090 | T-002, T-025, T-032, T-103, T-146, T-215 |
 | [T-090](T-090-decide-what-a-cancelled-task-s-declared-outputs-assert.md) | Decide what a cancelled task's declared outputs assert | `M2` | `done` | `review` | T-089 | - | T-002, T-032, T-103, T-109 |
@@ -278,7 +279,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-196](T-196-delete-the-scratch-repository-the-standing-check-ran-against.md) | Delete the scratch repository the standing check ran against | `M6` | `done` | `review` | T-193 | - | T-108 |
 | [T-197](T-197-derive-the-test-harness-s-problem-class-list-from-the-code.md) | Derive the test harness's problem-class list from the code | `M6` | `done` | `review` | T-191 | - | T-139, T-151, T-200, T-202, T-214, T-226, T-227 |
 | [T-198](T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md) | Show each quiet fixture is within its own check's reach | `M6` | `done` | `review` | T-191 | T-201, T-202, T-204, T-210 | T-150, T-151, T-209, T-211, T-212, T-215 |
-| [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md) | Have an uninvolved reader write a coverage declaration from the clause | `M6` | `done` | `review` | - | - | T-176, T-192, T-222, T-225 |
+| [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md) | Have an uninvolved reader write a coverage declaration from the clause | `M6` | `done` | `review` | - | - | T-176, T-192, T-222, T-225, T-230 |
 | [T-200](T-200-discount-the-ids-a-task-file-carries-even-when-it-was-not-loaded.md) | Discount the ids a task file carries even when it was not loaded | `M6` | `done` | `review` | - | - | T-062, T-121, T-197 |
 | [T-201](T-201-give-the-fenced-table-case-a-row-that-could-be-reported.md) | Give the fenced-table case a row that could be reported | `M6` | `done` | `review` | T-198 | - | T-150, T-151, T-204 |
 | [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md) | Mark a fixture's quiet cases so a sweep can find them | `M6` | `done` | `review` | T-198 | - | T-134, T-151, T-197, T-204, T-210, T-211, T-215, T-219 |
