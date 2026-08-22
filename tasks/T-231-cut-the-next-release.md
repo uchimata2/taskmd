@@ -5,7 +5,7 @@ type: deliverable
 status: proposed
 phase: specify
 parent: null
-blocked_by: []
+blocked_by: [T-232]
 related: [T-182, T-085, T-135, T-223]
 work_package: M6
 owner: the project owner
@@ -105,4 +105,5 @@ would have to remember unaided:
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-22 | (no change) | **Blocked by [T-232](T-232-repair-the-coverage-clause-against-what-two-readers-found.md), by the owner's decision of 2026-08-22.** `plugin/skills/taskmd/docs/BINDING.md` ships, and cutting a release now would publish a clause this project has already measured and found wanting — [T-225](T-225-have-a-second-uninvolved-reader-write-a-declaration-from-the-repaired-clause.md)'s verdict is a **FAIL** against a bar fixed before its run. *Rejected: release now and repair after* — nothing an adopter meets is wrong today, both readers shipped a declaration, so the cost of shipping is a worse binding somebody writes later rather than a broken one now; the owner weighed that and chose to hold. **The edge is recorded here rather than as a sentence**, because this record's blocker is a task and therefore expressible — which is exactly what [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md)'s was not until this record existed. |
 | 2026-08-22 | → proposed | Raised at the owner's request on 2026-08-22, when they said a release was wanted soon and a survey of the open backlog found **no task carried it**. **Raised rather than left as an act** for the reason this project's own records give twice over: `0.4.0` shipped with nothing checking it from outside, and the dash gate was red for two releases because it lived in a document read only at publication. An act with no record repeats both. **Deliberately outside the unattended grant of the same date** — tagging and publishing are outward-facing and the owner's to make, and the grant's own boundary says the release is not in it. **It gives [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) a blocker it never had**, which is worth more than it looks: that record was gated on *there being a release to make*, an event no field could carry, and it sorted as startable in every view. The gate is now an edge. |

@@ -6,7 +6,7 @@ status: proposed
 phase: specify
 parent: null
 blocked_by: []
-related: [T-225, T-222, T-199, T-231]
+related: [T-225, T-222, T-199, T-231, T-233]
 work_package: M6
 owner: the project owner
 business_value: high
@@ -94,13 +94,13 @@ measured defect for another.
 - [ ] Both shipped bindings are checked against the repaired clause and any non-compliance is named
 
 **Open questions**
-- **Does this block the release?** — the project owner. `BINDING.md` ships, and
+- ~~**Does this block the release?** — the project owner. `BINDING.md` ships, and
   [T-231](T-231-cut-the-next-release.md) would publish this clause with a measured failing verdict
   against it. The recommendation is **yes, block it**: the defect is in a contract every binding
   inherits, the repair is `m` rather than `l`, and the alternative is shipping a document this
   project has already measured and found wanting. Against: nothing an adopter meets is *wrong* — one
   reader under-declared and both shipped — so the cost of shipping is a worse binding somebody writes
-  later, not a broken one today.
+  later, not a broken one today.~~ **Answered 2026-08-22: yes.** [T-231](T-231-cut-the-next-release.md) carries `blocked_by` naming this record. See the Log row of that date.
 - **What tests this repair, given a third reader is the obvious answer and probably the wrong one?**
   — the project owner. The recommendation is **not a third reader by default**: the same instrument a
   third time is the loop T-225 §1 warns about. Finding 3 suggests a test that is different in kind —
@@ -134,4 +134,5 @@ measured defect for another.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-22 | (no change) | **The owner answers the first open question: yes, this blocks the release.** [T-231](T-231-cut-the-next-release.md) now carries `blocked_by` naming this record, so the ordering rule sorts it last and reports it blocked rather than a session having to remember a sentence. **What that commits to**: the repair is on the critical path of a release the owner wants soon, so its scope is the four findings and the fifteen single-mention questions, and not a re-opening of anything T-222 settled. **The second open question is untouched and now has a record beside it** — what tests this repair, where the obvious answer is a third reader and the obvious answer is probably the loop T-225 was built to avoid. [T-233](T-233-give-the-uninvolved-reader-protocol-one-home-and-settle-its-count-rule.md) settles the count rule that question waits on; it is a soft edge because the repair itself does not wait on it, only its test does. |
 | 2026-08-22 | → proposed | Raised from [T-225](T-225-have-a-second-uninvolved-reader-write-a-declaration-from-the-repaired-clause.md)'s run, whose §1 puts repairing out of scope by name — a clause repaired inside the task measuring it has been tested against nothing. **`high`, and higher than the defect count suggests**: one of the four findings is a defect the previous repair *introduced*, and its failure mode is silent under-declaration that no check can see, because every class name involved is real. **The verdict it comes from is a FAIL against a bar written before the prompt existed**, which is the only reason the fail can be trusted rather than argued with. **Two questions go up rather than being decided here**: whether this blocks [T-231](T-231-cut-the-next-release.md), since the clause ships and would ship measured-and-failing; and what tests the repair, where the obvious answer is a third reader and the obvious answer is probably the loop T-225 was built to avoid. **Not in the unattended grant of 2026-08-22** — that grant names five records and this is not one, and its scope was fixed before this run existed. |
