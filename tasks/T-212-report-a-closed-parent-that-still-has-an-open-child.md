@@ -79,7 +79,48 @@ a different set of things to get right.
 - [ ] `check` is clean on this repository afterwards, or the tasks it names are real
 
 **Open questions**
-- **None.** The scope is the residual T-209 named while answering its own criterion.
+
+- ~~**None.** The scope is the residual T-209 named while answering its own criterion.~~
+  **Superseded on 2026-08-22, before `plan` began** — the question below was found by measuring this
+  repository rather than by reading the rule, and it decides what the class means.
+
+- **Does a child hold *every* parent open, or only an audit umbrella? — the project owner.**
+  §1 above cites [`audit.md`](../plugin/skills/taskmd/docs/method/audit.md) step 5 as the rule this
+  class enforces. That step reads *"Close the **umbrella** only when every child is resolved"*, and an
+  umbrella is an **audit's** umbrella task. The class as scoped would report every closed parent.
+
+  **The two readings are not equivalent here, and this repository is the evidence.** Run against the
+  live tree, the proposed class fires **three** times, and not one parent is an audit:
+
+  | Parent | type | Open child | type |
+  | :--- | :--- | :--- | :--- |
+  | [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) | `deliverable` | [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) | `deliverable` |
+  | [T-168](T-168-price-what-keeping-taskmd-installed-costs-a-project-with-no-tasks.md) | `research` | [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md) | `research` |
+  | [T-192](T-192-require-every-binding-to-declare-its-validator-coverage.md) | `deliverable` | [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md) | `research` |
+
+  All three are the same shape: a task finished its own work and left a residual that is parked on an
+  external condition. **The tool's own model says they are defects** — `cli.py`'s `holds_open()`
+  states that the derived side of a hierarchy edge is the only side that holds a task open, without
+  qualifying it to audits. **The method's written rule says they are not**, because it names the
+  umbrella.
+
+  **Neither reading is free:**
+
+  - *Every parent.* The three above are real defects and must be repaired before this class can ship,
+    because five tests in `tests/test_cli.py` assert `check --root ROOT` exits 0 — so a class that
+    fires here turns the suite red rather than merely reporting. The natural repair is **not** to
+    reopen three finished tasks but to move those children from `parent` to `related`, which is what
+    this project already does for a residual: [T-211](T-211-mark-the-quiet-cases-in-the-two-fixtures-outside-t-202-s-scope.md)
+    raised its two on 2026-08-22 with `parent: null` and a `related` edge.
+  - *Audit umbrellas only.* The class must then read `type: audit`, which is **project vocabulary**
+    rather than method vocabulary, so it needs a config key — and [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md)
+    shows a new key errors every adopter's config on upgrade. The class fires zero times on this
+    repository, so it would also ship with no live case.
+
+  **This is not a plan question and it cannot be assumed away.** It decides the class's meaning, its
+  shipped behaviour, whether three records in this repository are wrong, and whether the suite can be
+  green with it. The grant on this record authorises phases and not answers, so `plan` has not been
+  written.
 
 ## 2. Plan
 
@@ -109,4 +150,5 @@ a different set of things to get right.
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-22 | (no change) | **Multi-phase authorisation, and its limits.** The **project owner** instructed on **2026-08-22**, in the session that raised this task, that [T-211](T-211-mark-the-quiet-cases-in-the-two-fixtures-outside-t-202-s-scope.md) and [T-212](T-212-report-a-closed-parent-that-still-has-an-open-child.md) be worked with the **full lifecycle**, and that the result be committed and pushed. **What it covers:** this task, one of the two — carried from where it now stands through `plan` → `implement` → `review` to closure, without stopping to ask for each phase, then committed and pushed. **What it does not cover:** any other task. In particular it does **not** reach [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md), raised the same day and not named; nor [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) or [T-198](T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md), whose closure the earlier grant of the same date already confined away from. It authorises **phases, not answers**: an open question that is the owner's stops this record where it stands, because no grant of phases can answer one. Written into this record rather than kept in the session's handoff, because an authorisation kept anywhere else is one a later session can miss, or stretch to a task it never reached (`CLAUDE.md`, *one phase per request*). **Specific to this task: it adds a check class, so it owes the two things a class owes here.** A committed fixture holding exactly one defect, shown failing first; and a judgement of every shipped binding's *cannot occur* statement against the new class, which `plugin/skills/taskmd/docs/BINDING.md` §4 requires and `tests/test_publishing.py` reads. Its quiet cases mark themselves, per [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md). |
+| 2026-08-22 | (no change) | **Stopped at an open question before `plan`, under the grant recorded above.** Measuring this repository rather than reading the rule showed the class as scoped would fire three times here, on parents that are `deliverable` and `research` and not one of them an audit - while the rule §1 cites, `audit.md` step 5, is written about an audit's **umbrella**. So the class's meaning is unsettled, and with it whether three records here are wrong. It is not a plan detail: five tests assert `check` is clean on this repository, so a class that fires here turns the suite red rather than reporting. The grant authorises phases and not answers, so no plan was written. The question, both readings and what each costs are in §1. |
 | 2026-08-22 | → proposed | Raised from [T-209](T-209-report-an-open-child-as-a-blocker-on-the-parent-that-cannot-close.md) while answering that task's fourth criterion — *whether `check` reports it too* — by building the case and running it rather than reasoning about it. The answer for the **open** parent is no: an umbrella with an open child is the ordinary state of every audit mid-flight, and reporting it would make a healthy backlog noisy. The **closed** parent is the opposite and returns `OK`, quoted in §1. Raised rather than folded into T-209 because it is a new validator class with a fixture and coverage rows, not a change to what a derived line says — a different size and a different set of things to get right. `medium` and `s`: the rule, the edge and the derivation all exist, so this is a reader for data already there. |
