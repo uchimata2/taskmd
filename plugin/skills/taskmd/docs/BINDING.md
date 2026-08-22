@@ -127,7 +127,9 @@ false, and a project following the binding exactly would leave its index stale w
 comply. Nothing in that binding was wrong about the backend; the assumption about the project was
 never surfaced to be checked.
 
-Minimum entries — a binding states its position on each, even when the answer is "none":
+Minimum entries — a binding states its position on each, even when the answer is "none". Each is an
+entry **in that section**, except the last, which gets a section of its own for the reason under
+*Where the declaration goes*, below.
 
 | Must state | Why it bites |
 | :--- | :--- |
@@ -141,10 +143,14 @@ Minimum entries — a binding states its position on each, even when the answer 
 ### The coverage a binding declares, and why it is stated the short way
 
 **Name what cannot occur; say the rest either applies or still runs locally.** Some of the
-validator's classes describe a state that is impossible once this binding's mapping is in place — a
-stale index where the listing *is* the index, a duplicate id where the service allocates the id
+validator's classes describe a state that is impossible once this binding's mapping is in place —
+`STALE INDEX` where the listing *is* the index, `DUPLICATE ID` where the service allocates the id
 *and this binding uses it as the task id* — and an adopter needs those named, because that is the
 part of `check` they stop getting. Everything else falls under *the rest* and needs no entry.
+
+*Those two are named here, in the names the validator uses, since 2026-08-22.* The clause used to
+describe both states in prose and name neither, which left a writer describing a state correctly and
+then guessing what it is called.
 
 **It is the mapping that decides, not the service**, and that wording is the result of testing this
 clause rather than of writing it. Two bindings over comparable services answer differently on
@@ -160,13 +166,65 @@ construction: a class nobody has classified falls under *the rest*, and nothing 
 binding may still carry a fuller table if its author finds it useful — `github-issues.md` does — but
 that is the binding's own detail and not what this contract asks for.
 
+#### Where the class names come from
+
+**No document holds the list, and that is this clause's own argument applied to itself.** A list of
+every class, written here, is the table above with its second column removed: it would be falsified
+by exactly the same event, and one was added to this validator on 2026-08-22 while this paragraph was
+being written. So the names have one home and it is the validator's own source — the literal at each
+`problems.append` site in `taskmd/cli.py`, together with the `ADVISORY_PREFIXES` constant beside
+them. Nothing outside those two places is the list, and anything that looked like it would be a copy.
+
+**To read the set rather than guess at it**, run `check` on any project and read the prefixes it
+prints, or read those two places. Both are in what an adopter installs.
+
+**Do not guess a name from the state this clause describes.** The prose here is not the name, and a
+guess costs more than it looks: it will pass any human reader and fail the marked-region check, which
+is the one thing that half of this clause exists to support. Where the name cannot be found, leave
+the class out and say so in the declaration — an honest gap is reviewable and a wrong name is not.
+
+#### Where the declaration goes, and what shape it takes
+
+**A section of its own, not an entry in *Assumptions this binding makes*.** The minimum-entries table
+says a binding must state a position on this; it does not put the position in that section, and both
+shipped bindings give it a section. Three things follow, and each was a question a writer had to
+settle by guessing until 2026-08-22:
+
+- **The thirty-second budget does not reach it.** That budget is over the Assumptions section's bold
+  leads, and this declaration is not one of them. There is no per-lead word figure to divide out.
+- **It opens with a bold lead that states the answer**, and that lead is a fact about the **mapping**,
+  not a claim about the adopter's project. This is the one place in a binding exempt from the
+  claim-about-your-project rule, because an adopter cannot confirm or deny what their tracker makes
+  impossible — they can only be told, and then check the reasoning.
+- **The markers wrap the whole declaration**, bold lead included, so no class name can sit outside
+  what the machine reads.
+
+**When nothing is local, the closing line has a second form.** *The rest either applies or still runs
+locally* presumes the adopter kept a working copy of documents on disk. A binding whose backend is
+remote-only writes *the rest applies as written* and stops; a binding for a project that still has
+files writes both halves, as `github-issues.md` does.
+
 **Put the class names in a marked region**, so the one thing a machine *can* check is checked:
 
 ```text
 <!-- taskmd:cannot-occur -->
-... the statement, with each class named in `BACKTICKS` ...
+... the whole declaration, with each class named in `BACKTICKS` ...
 <!-- taskmd:end-cannot-occur -->
 ```
+
+**What that check reads.** Inside the region and nowhere else, it takes every backticked run of three
+or more capitals — `WORD`, or `WORD WORD` — and requires each to be a class the validator reports.
+Measured 2026-08-22 against a specimen holding all four kinds: `STALE INDEX` and `DUPLICATE ID` were
+accepted, `JQL` and `API` were reported as classes the validator does not report, and `check` and
+`gh` were never looked at, being lowercase. So a backticked command inside the region is safe — as
+`local-markdown.md`'s declaration has always shown — and a backticked acronym is not. Write an
+acronym without backticks, or keep it outside the markers.
+
+**And what it misses, which matters more.** The three-capital floor also excludes a class name whose
+first word is shorter than that. Measured the same day, on this validator that is exactly one class,
+and `github-issues.md` declares it: the scan reads that binding's region and finds three of the four
+names it carries. So the check is a guard against a stale name, not a guarantee that every name in a
+region was checked — and a declaration is still read by a person.
 
 **What that check is, and what it is not.** It confirms every binding carries the statement and that
 each class it names is a class the validator actually reports — which is the staleness a hand-kept
