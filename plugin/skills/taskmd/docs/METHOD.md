@@ -181,6 +181,9 @@ An audit is a **task type, not a phase** — requested, never automatic, and not
 it. It produces one umbrella task whose findings become child tasks, under one rule: **a finding is
 never fixed where it is found.** Procedure: [audit](method/audit.md).
 
+An audit whose subject is **everything a project is about to release** is the same type at a size
+that needs six rules the ordinary procedure does not: [pre-release audit](method/pre-release-audit.md).
+
 ---
 
 ## 6. Where each kind of fact lives
@@ -201,6 +204,7 @@ it belongs in the more durable one and the other **points** at it.
 | [implement](method/implement.md) | Executing a plan |
 | [review](method/review.md) | Judging a finished outcome against its criteria |
 | [audit](method/audit.md) | Examining a body of work, or handling findings |
+| [pre-release audit](method/pre-release-audit.md) | The audit is of everything about to be released, and will not fit one session |
 | [where facts live](method/where-facts-live.md) | About to write something down and unsure where it belongs |
 | [rationale](method/rationale.md) | A rule looks wrong, or someone proposes changing one |
 

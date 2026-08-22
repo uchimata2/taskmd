@@ -75,6 +75,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md) | Test whether the description loses a competition rather than turning a session away | `M6` | `planned` | `plan` | - | - | - | - | T-175, T-205, T-206 |
 | [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md) | Correct the two behavioural claims the migrated-away run falsifies | `M6` | `planned` | `plan` | - | - | - | - | T-166, T-168, T-176 |
 | [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md) | Repair the coverage clause against the eight defects a stranger found | `M6` | `proposed` | `specify` | - | - | - | T-199 | T-192, T-199 |
+| [T-223](T-223-ship-the-pre-release-audit-as-a-method-document.md) | Ship the pre-release audit as a method document, so every adopter gets it | `M6` | `proposed` | `specify` | - | - | - | - | T-032, T-036 |
 
 ## Closed
 
@@ -111,11 +112,11 @@ A label says which release the work is scheduled into. It never says the release
 | [T-029](T-029-reject-unknown-arguments-on-every-command.md) | Reject unknown arguments on every command | `M2` | `done` | `review` | T-026 | - | - | - | T-002, T-022, T-055, T-087, T-113, T-144, T-145 |
 | [T-030](T-030-settle-the-schema-module-s-own-entry-point.md) | Settle the schema module's own entry point | `M2` | `done` | `review` | T-026 | - | - | - | T-020, T-023, T-065, T-066, T-117, T-134 |
 | [T-031](T-031-give-the-list-rationale-one-home.md) | Give the list rationale one home | `M2` | `done` | `review` | T-026 | - | - | - | T-022, T-027, T-102, T-117, T-134 |
-| [T-032](T-032-repair-the-audit-template-and-validate-templates.md) | Repair the audit template, and validate templates at all | `M2` | `done` | `review` | T-026 | - | - | - | T-003, T-022, T-036, T-060, T-076, T-088, T-089, T-090, T-091, T-101, T-150, T-172 |
+| [T-032](T-032-repair-the-audit-template-and-validate-templates.md) | Repair the audit template, and validate templates at all | `M2` | `done` | `review` | T-026 | - | - | - | T-003, T-022, T-036, T-060, T-076, T-088, T-089, T-090, T-091, T-101, T-150, T-172, T-223 |
 | [T-033](T-033-resolve-the-f1-reference-inside-this-repository.md) | Resolve the F1 reference inside this repository | `M2` | `done` | `review` | T-026 | - | - | - | T-005, T-013 |
 | [T-034](T-034-let-the-pre-publish-check-see-files-not-yet-tracked.md) | Let the pre-publish check see files not yet tracked | `M1` | `done` | `review` | T-026 | - | - | - | T-006, T-013, T-018, T-035, T-058, T-080, T-092, T-094, T-095, T-097, T-098, T-183, T-186 |
 | [T-035](T-035-warn-that-a-fabricated-specimen-must-not-cross-a-shell.md) | Warn that a fabricated specimen must not cross a shell | `M2` | `done` | `review` | - | - | - | - | T-013, T-018, T-034, T-047, T-058, T-118 |
-| [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | `M2` | `done` | `review` | - | - | - | - | T-026, T-032, T-105 |
+| [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | `M2` | `done` | `review` | - | - | - | - | T-026, T-032, T-105, T-223 |
 | [T-037](T-037-delete-the-throwaway-proof-repository.md) | Delete the throwaway repository the GitHub binding was proven on | `M1` | `done` | `review` | - | - | - | - | T-010, T-041, T-077 |
 | [T-038](T-038-reconcile-bindings-worked-example-with-the-real-binding.md) | Reconcile BINDING section 5's worked example with the binding it predicted | `M1` | `done` | `review` | - | - | - | - | T-009, T-010 |
 | [T-039](T-039-let-a-plan-name-a-deliverable-that-does-not-exist-yet.md) | Let a plan name a deliverable that does not exist yet | `M1` | `done` | `review` | - | - | - | - | T-010, T-025 |
