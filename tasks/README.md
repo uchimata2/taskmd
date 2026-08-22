@@ -76,9 +76,9 @@ A label says which release the work is scheduled into. It never says the release
 | [T-231](T-231-cut-the-next-release.md) | Cut the next release | `M6` | `proposed` | `specify` | - | - | T-232 | T-182 | T-085, T-135, T-182, T-223, T-232 |
 | [T-232](T-232-repair-the-coverage-clause-against-what-two-readers-found.md) | Repair the coverage clause against what two readers found | `M6` | `blocked` | `specify` | - | - | T-235 | T-231 | T-199, T-222, T-225, T-231, T-233, T-235 |
 | [T-233](T-233-give-the-uninvolved-reader-protocol-one-home-and-settle-its-count-rule.md) | Give the uninvolved-reader protocol one home, and settle its count rule | `M6` | `proposed` | `specify` | - | - | - | - | T-165, T-166, T-176, T-199, T-225, T-232, T-235 |
-| [T-234](T-234-decide-whether-a-grant-s-membership-is-copied-into-every-record-or-derived.md) | Decide whether a grant's membership is copied into every record or derived | `M6` | `proposed` | `specify` | - | - | - | - | T-087, T-106, T-136 |
 | [T-235](T-235-recover-or-retire-the-reader-questions-t-225-s-review-says-its-record-carries.md) | Recover or retire the reader questions T-225's review says its record carries | `M6` | `proposed` | `specify` | - | - | - | T-232 | T-225, T-232, T-233 |
 | [T-236](T-236-build-check-classes-and-give-the-class-derivation-one-home-in-the-package.md) | Build check --classes, and give the class derivation one home in the package | `M6` | `proposed` | `specify` | - | - | - | - | T-191, T-197, T-222, T-226 |
+| [T-237](T-237-the-softening-clause-t-228-repaired-has-a-second-instance-and-an-idiom-behind-it.md) | The softening clause T-228 repaired has a second instance, and an idiom behind it | `M6` | `proposed` | `specify` | - | - | - | - | T-176, T-193, T-196, T-228 |
 
 ## Closed
 
@@ -259,7 +259,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-173](T-173-decide-whether-check-can-know-a-phase-without-breaking-every-adopter.md) | Decide whether check can know a phase without breaking every adopter | `M6` | `done` | `review` | - | - | - | - | T-146, T-151, T-172 |
 | [T-174](T-174-carry-the-command-that-produced-t-168-s-figures.md) | Carry the command that produced T-168's figures into a record that can re-run it | `M6` | `done` | `review` | T-168 | - | - | - | T-168 |
 | [T-175](T-175-observe-whether-the-skill-triggers-in-a-migrated-away-project.md) | Observe whether the skill triggers in a project that has migrated its backlog away | `M6` | `done` | `review` | T-168 | T-205 | - | - | T-050, T-168, T-206, T-213 |
-| [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md) | Have an uninvolved reader test the sourced survivor bullet | `M6` | `done` | `review` | - | - | - | - | T-166, T-167, T-168, T-199, T-221, T-225, T-228, T-233 |
+| [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md) | Have an uninvolved reader test the sourced survivor bullet | `M6` | `done` | `review` | - | - | - | - | T-166, T-167, T-168, T-199, T-221, T-225, T-228, T-233, T-237 |
 | [T-177](T-177-run-the-checks-that-need-no-task-folder.md) | Decide whether check runs the checks that never look at a task file | `M6` | `done` | `review` | - | T-185 | - | - | T-163, T-178, T-179, T-180, T-229 |
 | [T-178](T-178-give-the-github-binding-a-standing-verification.md) | Give the GitHub binding a standing verification, not only a migration-day one | `M6` | `done` | `review` | - | T-193 | - | - | T-041, T-108, T-177, T-179, T-185, T-192, T-203 |
 | [T-179](T-179-restore-the-ordering-rule-on-the-github-backend.md) | Restore the what-next ordering rule on the GitHub backend | `M6` | `done` | `review` | - | - | - | - | T-022, T-108, T-177, T-178, T-187 |
@@ -275,10 +275,10 @@ A label says which release the work is scheduled into. It never says the release
 | [T-190](T-190-decide-whether-tier-1-restates-two-verification-rules-the-method-owns.md) | Decide whether tier 1 restates two verification rules the method owns | `M6` | `done` | `review` | - | - | - | - | T-028, T-047, T-151 |
 | [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) | Audit whether each check class has a case it must not catch | `M6` | `done` | `review` | - | T-197, T-198 | - | - | T-100, T-150, T-151, T-209, T-212, T-214, T-226, T-236 |
 | [T-192](T-192-require-every-binding-to-declare-its-validator-coverage.md) | Require every binding to declare its validator coverage | `M6` | `done` | `review` | - | - | - | - | T-009, T-139, T-178, T-199, T-216, T-222, T-227 |
-| [T-193](T-193-make-the-standing-github-check-fail-before-trusting-it.md) | Make the standing GitHub check fail before trusting it | `M6` | `done` | `review` | T-178 | T-196 | - | - | T-108, T-151, T-181, T-203 |
+| [T-193](T-193-make-the-standing-github-check-fail-before-trusting-it.md) | Make the standing GitHub check fail before trusting it | `M6` | `done` | `review` | T-178 | T-196 | - | - | T-108, T-151, T-181, T-203, T-237 |
 | [T-194](T-194-print-the-two-method-sections-this-project-cites-most.md) | Print the two method sections this project cites most | `M6` | `done` | `review` | T-093 | - | - | - | T-028, T-047 |
 | [T-195](T-195-hold-the-fixture-readme-against-the-fixtures-there-are.md) | Hold the fixture README against the fixtures there are | `M6` | `done` | `review` | - | - | - | - | T-134, T-139, T-188 |
-| [T-196](T-196-delete-the-scratch-repository-the-standing-check-ran-against.md) | Delete the scratch repository the standing check ran against | `M6` | `done` | `review` | T-193 | - | - | - | T-108 |
+| [T-196](T-196-delete-the-scratch-repository-the-standing-check-ran-against.md) | Delete the scratch repository the standing check ran against | `M6` | `done` | `review` | T-193 | - | - | - | T-108, T-237 |
 | [T-197](T-197-derive-the-test-harness-s-problem-class-list-from-the-code.md) | Derive the test harness's problem-class list from the code | `M6` | `done` | `review` | T-191 | - | - | - | T-139, T-151, T-200, T-202, T-214, T-226, T-227, T-236 |
 | [T-198](T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md) | Show each quiet fixture is within its own check's reach | `M6` | `done` | `review` | T-191 | T-201, T-202, T-204, T-210 | - | - | T-150, T-151, T-209, T-211, T-212, T-215 |
 | [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md) | Have an uninvolved reader write a coverage declaration from the clause | `M6` | `done` | `review` | - | - | - | - | T-176, T-192, T-222, T-225, T-230, T-232, T-233 |
@@ -308,7 +308,8 @@ A label says which release the work is scheduled into. It never says the release
 | [T-225](T-225-have-a-second-uninvolved-reader-write-a-declaration-from-the-repaired-clause.md) | Have a second uninvolved reader write a declaration from the repaired clause | `M6` | `done` | `review` | - | - | - | - | T-176, T-199, T-222, T-232, T-233, T-235 |
 | [T-226](T-226-decide-whether-taskmd-should-print-the-class-list-a-binding-author-needs.md) | Decide whether taskmd should print the class list a binding author needs | `M6` | `done` | `review` | - | - | - | - | T-191, T-197, T-222, T-236 |
 | [T-227](T-227-the-marked-region-scan-cannot-see-a-class-whose-first-word-is-two-letters.md) | The marked-region scan cannot see a class whose first word is two letters | `M6` | `done` | `review` | - | - | - | - | T-192, T-197, T-222 |
-| [T-228](T-228-decide-whether-the-reader-s-framing-verdict-reopens-the-accepted-balance.md) | Decide whether the reader's framing verdict reopens the accepted balance | `M6` | `done` | `review` | - | - | - | - | T-166, T-167, T-176, T-221 |
+| [T-228](T-228-decide-whether-the-reader-s-framing-verdict-reopens-the-accepted-balance.md) | Decide whether the reader's framing verdict reopens the accepted balance | `M6` | `done` | `review` | - | - | - | - | T-166, T-167, T-176, T-221, T-237 |
 | [T-229](T-229-correct-the-migrated-away-fixture-s-own-prose-which-still-says-all-four-commands-refuse.md) | Correct the migrated-away fixture's own prose, which still says all four commands refuse | `M6` | `done` | `review` | - | - | - | - | T-164, T-177, T-185, T-221 |
+| [T-234](T-234-decide-whether-a-grant-s-membership-is-copied-into-every-record-or-derived.md) | Decide whether a grant's membership is copied into every record or derived | `M6` | `done` | `review` | - | - | - | - | T-087, T-106, T-136 |
 
 <!-- taskmd:end -->
