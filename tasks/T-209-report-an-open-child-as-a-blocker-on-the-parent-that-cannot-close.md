@@ -35,6 +35,31 @@ the tool says otherwise. Measured 2026-08-22:
 | [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) | T-197 done, **T-198 review** | `STATE  open, no blocker outstanding` |
 | [T-198](T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md) | T-201 done, **T-202 proposed**, T-204 done | `STATE  open, no blocker outstanding` |
 
+**Re-measured later on 2026-08-22, after this repository's own work moved one of the rows.** The
+table above is left as it was taken. T-198 has since gained a fourth child and T-202 has moved
+`proposed` → `specified`, so the row's detail is no longer current — and the defect it was taken to
+show is unchanged, which is the point of re-running it rather than reasoning about it:
+
+```text
+$ taskmd context T-191
+CHILDREN
+  T-197        done        Derive the test harness's problem-class list from the code
+  T-198        review      Show each quiet fixture is within its own check's reach
+STATE  open, no blocker outstanding
+
+$ taskmd context T-198
+CHILDREN
+  T-201        done        Give the fenced-table case a row that could be reported
+  T-202        specified   Mark a fixture's quiet cases so a sweep can find them
+  T-204        done        Count the short-row quiet case the wide-row audit left out
+  T-210        done        Account for the two derived fixtures T-198's partition drops
+STATE  open, no blocker outstanding
+```
+
+**Three of T-198's four children are now resolved and the fourth is further along than it was, and
+the line has not moved** — because it never read them. `CHILDREN` prints the very thing `STATE`
+claims is absent, four lines above it, which is the sharpest form the defect takes.
+
 `check` is green over both, and `list --open` ranks them alongside tasks that really are free to
 start. So a session choosing what to work on is told that two of the ten open tasks have nothing in
 front of them, when each is behind a chain it cannot shorten.
@@ -75,6 +100,11 @@ question it answered.
       if the answer is that it does not
 
 **Open questions**
+- **This question is why `specify` is worked but not agreed, and the status stays `proposed`.** It
+  changes the outcome rather than only a later phase — the scope's last *Out* defers to it, and the
+  effort estimate covers the child half alone — so `specify.md` step 5 says it must be answered before
+  this phase can end. It was **not** part of the batched round the owner answered on 2026-08-22: this
+  task was raised after that round went out. No grant of phases can answer it.
 - **Do waits that are not tasks belong in the model at all?** Every one of the ten open tasks is
   waiting on something, and only two of those waits are task-to-task. The rest are an owner's
   answer, a person who has not been named ([T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md),
@@ -118,3 +148,4 @@ question it answered.
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-22 | → proposed | Raised under `CLAUDE.md`'s *surface what you discover* while answering a request for the open list with a blocks column. Building that column meant reading `blocked_by` on all ten open tasks, finding it empty on every one, and then checking `context` against the two parents that visibly cannot close — which is where the disagreement with `audit.md` step 5 turned up. `medium` rather than `high`: nothing is corrupted and no gate passes work it should stop, so the damage is a misread rather than a bad state — but the rival was argued, on the ground that the method states a rule nothing enforces and `no blocker outstanding` is an assertion rather than a silence. `s` because both the parent edge and the derived children already exist, so nothing is stored and only the report changes; that estimate covers the child half only, and the open question could widen it. It carries an open question that is the owner's, so nothing starts on it. |
+| 2026-08-22 | (no change) | **`specify` worked and deliberately not agreed; the status stays `proposed`.** The evidence was re-run rather than re-read, and it needed to be: this session's own work gave T-198 a fourth child and moved T-202 to `specified`, so §1's table was stale within hours of being written. The table is **left as it was taken** and the re-measurement sits below it (METHOD rule 5). **The defect is unchanged and now shows more sharply** — three of T-198's four children are resolved, the fourth has advanced a phase, and `STATE` still prints `open, no blocker outstanding` four lines under a `CHILDREN` block that lists them. **What does not move is the phase.** The open question — whether waits that are not task-to-task belong in the model — changes this task's outcome and not merely a later phase: the scope's last *Out* defers to it and the `s` estimate covers the child half alone. So `specify.md` step 5 forbids ending the phase, and the multi-phase grant this session ran under authorises **phases, not answers**. The question was never in the batched round of 2026-08-22 — this task was raised after it went out — and it is carried to the owner with the recommendation and both costs §1 already records. |
