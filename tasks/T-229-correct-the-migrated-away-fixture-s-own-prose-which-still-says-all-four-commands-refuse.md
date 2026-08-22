@@ -1,5 +1,5 @@
 ---
-id: T-223
+id: T-229
 title: Correct the migrated-away fixture's own prose, which still says all four commands refuse
 type: fix
 status: proposed
@@ -17,7 +17,7 @@ deliverables:
   - tests/fixtures/migrated-away/.taskmd/config.md
 ---
 
-# T-223 — Correct the migrated-away fixture's own prose, which still says all four commands refuse
+# T-229 — Correct the migrated-away fixture's own prose, which still says all four commands refuse
 
 ## 1. Specify
 
@@ -95,4 +95,5 @@ contributor opens to learn what the fixture is for.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-22 | (no change) | **Renumbered from T-223 on the day it was raised**, before it was pushed. A concurrent branch had already taken that id and merged it as pull request #2, so two files claimed `T-223` the moment the two lines met. The one that had been published keeps the id and this one moves — the ordering rule is which was reachable by anybody else, not which was written first. `check` reports the state as `DUPLICATE ID`, which is what would have caught it had the merge been pushed unread. Recorded because a record whose id changed is a record whose old id may still be written somewhere: [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md) carried two references and both were rewritten in the same commit. |
 | 2026-08-22 | → proposed | Raised from [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md)'s step-4 sweep, which was reading the binding document and found the same defect in the fixture that document's evidence is measured against. **Raised rather than absorbed**: T-221 declares one deliverable and this is a second, so folding it in would have made that record false about what it changed. `medium` rather than `high` because it misleads a contributor rather than an adopter — no clone of the plugin receives `tests/`. **The sweep bound is deliberate**: this file was found by opening it, not by a sweep of the fixture tree, and a second instance would make the sweep the task instead of the fix. |

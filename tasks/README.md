@@ -71,12 +71,13 @@ A label says which release the work is scheduled into. It never says the release
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) | Write the next release note to the rule and say what it caught | `M6` | `proposed` | `specify` | - | - | T-125, T-127, T-133, T-135 |
 | [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md) | Test whether the description loses a competition rather than turning a session away | `M6` | `planned` | `plan` | - | - | T-175, T-205, T-206 |
-| [T-223](T-223-correct-the-migrated-away-fixture-s-own-prose-which-still-says-all-four-commands-refuse.md) | Correct the migrated-away fixture's own prose, which still says all four commands refuse | `M6` | `proposed` | `specify` | - | - | T-164, T-177, T-185, T-221 |
+| [T-223](T-223-ship-the-pre-release-audit-as-a-method-document.md) | Ship the pre-release audit as a method document, so every adopter gets it | `M6` | `proposed` | `specify` | - | - | T-032, T-036 |
 | [T-224](T-224-re-run-the-binding-s-github-side-measurements-or-record-that-they-cannot-be.md) | Re-run the binding's GitHub-side measurements, or say in the document that they were not | `M6` | `proposed` | `specify` | - | - | T-166, T-168, T-221 |
 | [T-225](T-225-have-a-second-uninvolved-reader-write-a-declaration-from-the-repaired-clause.md) | Have a second uninvolved reader write a declaration from the repaired clause | `M6` | `proposed` | `specify` | - | - | T-176, T-199, T-222 |
 | [T-226](T-226-decide-whether-taskmd-should-print-the-class-list-a-binding-author-needs.md) | Decide whether taskmd should print the class list a binding author needs | `M6` | `proposed` | `specify` | - | - | T-191, T-197, T-222 |
 | [T-227](T-227-the-marked-region-scan-cannot-see-a-class-whose-first-word-is-two-letters.md) | The marked-region scan cannot see a class whose first word is two letters | `M6` | `proposed` | `specify` | - | - | T-192, T-197, T-222 |
 | [T-228](T-228-decide-whether-the-reader-s-framing-verdict-reopens-the-accepted-balance.md) | Decide whether the reader's framing verdict reopens the accepted balance | `M6` | `proposed` | `specify` | - | - | T-166, T-167, T-176, T-221 |
+| [T-229](T-229-correct-the-migrated-away-fixture-s-own-prose-which-still-says-all-four-commands-refuse.md) | Correct the migrated-away fixture's own prose, which still says all four commands refuse | `M6` | `proposed` | `specify` | - | - | T-164, T-177, T-185, T-221 |
 
 ## Closed
 
@@ -113,11 +114,11 @@ A label says which release the work is scheduled into. It never says the release
 | [T-029](T-029-reject-unknown-arguments-on-every-command.md) | Reject unknown arguments on every command | `M2` | `done` | `review` | T-026 | - | T-002, T-022, T-055, T-087, T-113, T-144, T-145 |
 | [T-030](T-030-settle-the-schema-module-s-own-entry-point.md) | Settle the schema module's own entry point | `M2` | `done` | `review` | T-026 | - | T-020, T-023, T-065, T-066, T-117, T-134 |
 | [T-031](T-031-give-the-list-rationale-one-home.md) | Give the list rationale one home | `M2` | `done` | `review` | T-026 | - | T-022, T-027, T-102, T-117, T-134 |
-| [T-032](T-032-repair-the-audit-template-and-validate-templates.md) | Repair the audit template, and validate templates at all | `M2` | `done` | `review` | T-026 | - | T-003, T-022, T-036, T-060, T-076, T-088, T-089, T-090, T-091, T-101, T-150, T-172 |
+| [T-032](T-032-repair-the-audit-template-and-validate-templates.md) | Repair the audit template, and validate templates at all | `M2` | `done` | `review` | T-026 | - | T-003, T-022, T-036, T-060, T-076, T-088, T-089, T-090, T-091, T-101, T-150, T-172, T-223 |
 | [T-033](T-033-resolve-the-f1-reference-inside-this-repository.md) | Resolve the F1 reference inside this repository | `M2` | `done` | `review` | T-026 | - | T-005, T-013 |
 | [T-034](T-034-let-the-pre-publish-check-see-files-not-yet-tracked.md) | Let the pre-publish check see files not yet tracked | `M1` | `done` | `review` | T-026 | - | T-006, T-013, T-018, T-035, T-058, T-080, T-092, T-094, T-095, T-097, T-098, T-183, T-186 |
 | [T-035](T-035-warn-that-a-fabricated-specimen-must-not-cross-a-shell.md) | Warn that a fabricated specimen must not cross a shell | `M2` | `done` | `review` | - | - | T-013, T-018, T-034, T-047, T-058, T-118 |
-| [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | `M2` | `done` | `review` | - | - | T-026, T-032, T-105 |
+| [T-036](T-036-say-where-a-plan-is-revised-and-that-it-is-not-an-audit.md) | Say where a plan is revised, and that reviewing one is not an audit | `M2` | `done` | `review` | - | - | T-026, T-032, T-105, T-223 |
 | [T-037](T-037-delete-the-throwaway-proof-repository.md) | Delete the throwaway repository the GitHub binding was proven on | `M1` | `done` | `review` | - | - | T-010, T-041, T-077 |
 | [T-038](T-038-reconcile-bindings-worked-example-with-the-real-binding.md) | Reconcile BINDING section 5's worked example with the binding it predicted | `M1` | `done` | `review` | - | - | T-009, T-010 |
 | [T-039](T-039-let-a-plan-name-a-deliverable-that-does-not-exist-yet.md) | Let a plan name a deliverable that does not exist yet | `M1` | `done` | `review` | - | - | T-010, T-025 |
@@ -245,7 +246,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-161](T-161-give-the-entry-point-comments-pointer-a-reader.md) | Give the entry-point comments' pointer a reader | `M6` | `done` | `review` | T-142 | - | T-064, T-099, T-139, T-142, T-160 |
 | [T-162](T-162-decide-whether-check-reads-a-date-shaped-field-as-a-date.md) | Decide whether check reads a date-shaped field as a date | `M6` | `done` | `review` | - | T-184 | T-095, T-113, T-138, T-141 |
 | [T-163](T-163-tell-a-migrated-project-what-taskmd-still-provides.md) | Tell a migrated project what taskmd still provides, without judging whether it should stay | `M6` | `done` | `review` | - | T-165 | T-108, T-164, T-166, T-167, T-177, T-180 |
-| [T-164](T-164-say-something-truthful-when-a-migrated-project-runs-a-command.md) | Say something truthful when a migrated project runs one of the four commands | `M6` | `done` | `review` | - | - | T-108, T-163, T-180, T-223 |
+| [T-164](T-164-say-something-truthful-when-a-migrated-project-runs-a-command.md) | Say something truthful when a migrated project runs one of the four commands | `M6` | `done` | `review` | - | - | T-108, T-163, T-180, T-229 |
 | [T-165](T-165-have-an-uninvolved-reader-test-the-post-migration-listing.md) | Have an uninvolved reader test the post-migration listing | `M6` | `done` | `review` | T-163 | - | T-166, T-167 |
 | [T-166](T-166-ground-the-post-migration-listing-s-survivor-claims.md) | Stop the post-migration listing framing toward keeping taskmd | `M6` | `done` | `review` | - | - | T-108, T-163, T-165, T-167, T-168, T-176, T-221, T-224, T-228 |
 | [T-167](T-167-stop-the-listing-pricing-only-the-rival.md) | Stop the post-migration listing pricing only the rival skill | `M6` | `cancelled` | `specify` | - | - | T-163, T-165, T-166, T-168, T-176, T-228 |
@@ -258,14 +259,14 @@ A label says which release the work is scheduled into. It never says the release
 | [T-174](T-174-carry-the-command-that-produced-t-168-s-figures.md) | Carry the command that produced T-168's figures into a record that can re-run it | `M6` | `done` | `review` | T-168 | - | T-168 |
 | [T-175](T-175-observe-whether-the-skill-triggers-in-a-migrated-away-project.md) | Observe whether the skill triggers in a project that has migrated its backlog away | `M6` | `done` | `review` | T-168 | T-205 | T-050, T-168, T-206, T-213 |
 | [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md) | Have an uninvolved reader test the sourced survivor bullet | `M6` | `done` | `review` | - | - | T-166, T-167, T-168, T-199, T-221, T-225, T-228 |
-| [T-177](T-177-run-the-checks-that-need-no-task-folder.md) | Decide whether check runs the checks that never look at a task file | `M6` | `done` | `review` | - | T-185 | T-163, T-178, T-179, T-180, T-223 |
+| [T-177](T-177-run-the-checks-that-need-no-task-folder.md) | Decide whether check runs the checks that never look at a task file | `M6` | `done` | `review` | - | T-185 | T-163, T-178, T-179, T-180, T-229 |
 | [T-178](T-178-give-the-github-binding-a-standing-verification.md) | Give the GitHub binding a standing verification, not only a migration-day one | `M6` | `done` | `review` | - | T-193 | T-041, T-108, T-177, T-179, T-185, T-192, T-203 |
 | [T-179](T-179-restore-the-ordering-rule-on-the-github-backend.md) | Restore the what-next ordering rule on the GitHub backend | `M6` | `done` | `review` | - | - | T-022, T-108, T-177, T-178, T-187 |
 | [T-180](T-180-route-a-migrated-project-to-its-binding-not-to-adopt.md) | Route a migrated project to its binding rather than to adopt.md | `M6` | `done` | `review` | - | - | T-163, T-164, T-177 |
 | [T-181](T-181-verify-the-handoff-github-recipe-on-a-live-issues-backed-project.md) | Verify the handoff GitHub recipe against a live issues-backed project | `M6` | `done` | `review` | T-005 | - | T-108, T-193 |
 | [T-183](T-183-decide-what-to-do-about-a-machine-block-already-published-in-t-085.md) | Decide what to do about a machine block already published in T-085 | `M6` | `done` | `review` | - | - | T-034, T-080, T-085, T-133, T-186 |
 | [T-184](T-184-report-a-date-shaped-value-that-is-not-a-date.md) | Report a date-shaped value that is not a date | `M6` | `done` | `review` | T-162 | - | T-106, T-146, T-188 |
-| [T-185](T-185-run-the-document-checks-in-a-project-whose-tasks-moved.md) | Run the document checks in a project whose tasks moved | `M6` | `done` | `review` | T-177 | - | T-095, T-108, T-178, T-223 |
+| [T-185](T-185-run-the-document-checks-in-a-project-whose-tasks-moved.md) | Run the document checks in a project whose tasks moved | `M6` | `done` | `review` | T-177 | - | T-095, T-108, T-178, T-229 |
 | [T-186](T-186-run-the-leak-check-in-the-suite-not-only-at-publication.md) | Run the leak check in the suite, not only at publication | `M6` | `done` | `review` | - | - | T-034, T-058, T-080, T-126, T-183 |
 | [T-187](T-187-say-that-the-one-design-rule-yields-to-a-system-limitation.md) | Say that the one design rule yields to a system limitation | `M6` | `done` | `review` | - | - | T-012, T-179, T-207, T-208 |
 | [T-188](T-188-report-a-counted-set-written-into-prose-that-the-code-owns.md) | Report a counted set written into prose that the code owns | `M6` | `done` | `review` | - | - | T-134, T-139, T-184, T-195, T-220 |
@@ -300,7 +301,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-218](T-218-give-the-rule-that-a-child-holds-its-parent-open-a-home-in-the-method.md) | Give the rule that a child holds its parent open a home in the method | `M6` | `done` | `review` | - | - | T-209, T-212, T-216 |
 | [T-219](T-219-let-a-quiet-mark-declare-a-value-that-begins-with-a-capital.md) | Let a quiet mark declare a value that begins with a capital | `M6` | `done` | `review` | - | - | T-202, T-211, T-212 |
 | [T-220](T-220-re-run-t-188-s-sweep-one-occurrence-at-a-time.md) | Re-run T-188's sweep one occurrence at a time | `M6` | `done` | `review` | - | - | T-139, T-188, T-212 |
-| [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md) | Correct the two behavioural claims the migrated-away run falsifies | `M6` | `done` | `review` | - | - | T-166, T-168, T-176, T-223, T-224, T-228 |
+| [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md) | Correct the two behavioural claims the migrated-away run falsifies | `M6` | `done` | `review` | - | - | T-166, T-168, T-176, T-224, T-228, T-229 |
 | [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md) | Repair the coverage clause against the eight defects a stranger found | `M6` | `done` | `review` | - | - | T-192, T-199, T-225, T-226, T-227 |
 
 <!-- taskmd:end -->
