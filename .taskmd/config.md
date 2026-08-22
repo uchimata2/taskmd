@@ -22,7 +22,7 @@ effort_field: effort         # estimated cost; `none` to not order by it
 after_write: none          # command taskmd runs after it writes a file; `none` for no hook
 
 # ------------------------------------------------------------------- views
-context_fields: [status, phase, type, work_package, owner, adopter_visible]
+context_fields: [status, phase, type, work_package, owner, adopter_visible, waiting_on]
 index_columns: [work_package, status, phase]
 ---
 

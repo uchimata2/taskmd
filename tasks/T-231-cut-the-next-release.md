@@ -9,6 +9,7 @@ blocked_by: [T-232]
 related: [T-182, T-085, T-135, T-223]
 work_package: M6
 owner: the project owner
+waiting_on: the project owner
 business_value: high
 effort: m
 created: 2026-08-22

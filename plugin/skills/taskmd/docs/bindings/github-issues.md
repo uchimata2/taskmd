@@ -488,9 +488,12 @@ not as a verdict.
 
 The scratch repository was created for this run and is the owner's to delete; the credential a
 session can reach carries `repo` and not `delete_repo`, measured on the day and again on
-2026-08-23, when `gh auth status` reported `gist`, `project`, `read:org`, `repo`, `workflow`. It was never the
-evidence — the counts above are, and anyone doubting them runs the procedure again rather than
-looking for an artefact.
+2026-08-23, when `gh auth status` reported `gist`, `project`, `read:org`, `repo`, `workflow`.
+**Nothing above can be checked by inspecting it now**, because it is gone: the counts are the
+record of what the rows reported, written by the people who ran them, and anyone doubting them
+runs the procedure again. **Kept, it could have been re-run against** — the nine rows take a live
+repository — so what the deletion costs is an independent re-check, which is a price rather than
+a thing that was never worth having.
 
 #### What has and has not been re-run
 

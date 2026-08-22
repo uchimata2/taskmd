@@ -71,11 +71,9 @@ A label says which release the work is scheduled into. It never says the release
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) | Write the next release note to the rule and say what it caught | `M6` | `proposed` | `specify` | - | - | T-231 | - | T-125, T-127, T-133, T-135, T-230, T-231 |
 | [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md) | Test whether the description loses a competition rather than turning a session away | `M6` | `planned` | `plan` | - | - | - | - | T-175, T-205, T-206 |
-| [T-230](T-230-a-task-gated-on-an-external-event-has-no-field-and-sorts-as-startable.md) | A task gated on an external event has no field, and sorts as startable | `M6` | `proposed` | `specify` | - | - | - | - | T-087, T-182, T-199 |
 | [T-231](T-231-cut-the-next-release.md) | Cut the next release | `M6` | `proposed` | `specify` | - | - | - | T-182 | T-085, T-135, T-182, T-223, T-232 |
 | [T-233](T-233-give-the-uninvolved-reader-protocol-one-home-and-settle-its-count-rule.md) | Give the uninvolved-reader protocol one home, and settle its count rule | `M6` | `proposed` | `specify` | - | - | - | - | T-165, T-166, T-176, T-199, T-225, T-232, T-235 |
 | [T-236](T-236-build-check-classes-and-give-the-class-derivation-one-home-in-the-package.md) | Build check --classes, and give the class derivation one home in the package | `M6` | `proposed` | `specify` | - | - | - | - | T-191, T-197, T-222, T-226 |
-| [T-237](T-237-the-softening-clause-t-228-repaired-has-a-second-instance-and-an-idiom-behind-it.md) | The softening clause T-228 repaired has a second instance, and an idiom behind it | `M6` | `proposed` | `specify` | - | - | - | - | T-176, T-193, T-196, T-228 |
 
 ## Closed
 
@@ -308,9 +306,11 @@ A label says which release the work is scheduled into. It never says the release
 | [T-227](T-227-the-marked-region-scan-cannot-see-a-class-whose-first-word-is-two-letters.md) | The marked-region scan cannot see a class whose first word is two letters | `M6` | `done` | `review` | - | - | - | - | T-192, T-197, T-222 |
 | [T-228](T-228-decide-whether-the-reader-s-framing-verdict-reopens-the-accepted-balance.md) | Decide whether the reader's framing verdict reopens the accepted balance | `M6` | `done` | `review` | - | - | - | - | T-166, T-167, T-176, T-221, T-237 |
 | [T-229](T-229-correct-the-migrated-away-fixture-s-own-prose-which-still-says-all-four-commands-refuse.md) | Correct the migrated-away fixture's own prose, which still says all four commands refuse | `M6` | `done` | `review` | - | - | - | - | T-164, T-177, T-185, T-221 |
+| [T-230](T-230-a-task-gated-on-an-external-event-has-no-field-and-sorts-as-startable.md) | A task gated on an external event has no field, and sorts as startable | `M6` | `done` | `review` | - | - | - | - | T-087, T-182, T-199 |
 | [T-232](T-232-repair-the-coverage-clause-against-what-two-readers-found.md) | Repair the coverage clause against what two readers found | `M6` | `done` | `review` | - | - | - | T-231 | T-199, T-222, T-225, T-231, T-233, T-235, T-238, T-239 |
 | [T-234](T-234-decide-whether-a-grant-s-membership-is-copied-into-every-record-or-derived.md) | Decide whether a grant's membership is copied into every record or derived | `M6` | `done` | `review` | - | - | - | - | T-087, T-106, T-136 |
 | [T-235](T-235-recover-or-retire-the-reader-questions-t-225-s-review-says-its-record-carries.md) | Recover or retire the reader questions T-225's review says its record carries | `M6` | `done` | `review` | - | - | - | - | T-225, T-232, T-233 |
+| [T-237](T-237-the-softening-clause-t-228-repaired-has-a-second-instance-and-an-idiom-behind-it.md) | The softening clause T-228 repaired has a second instance, and an idiom behind it | `M6` | `done` | `review` | - | - | - | - | T-176, T-193, T-196, T-228 |
 | [T-238](T-238-bring-the-github-binding-s-coverage-declaration-into-line-with-the-repaired-clause.md) | Bring the GitHub binding's coverage declaration into line with the repaired clause | `M6` | `done` | `review` | - | - | - | - | T-222, T-232, T-239 |
 | [T-239](T-239-give-both-shipped-declarations-the-content-the-repaired-clause-now-requires.md) | Give both shipped declarations the content the repaired clause now requires | `M6` | `done` | `review` | - | - | - | - | T-222, T-232, T-238 |
 
