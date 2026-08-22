@@ -218,6 +218,19 @@ def label(name):
     return name.replace("_", " ").upper()
 
 
+def holds_open(schema, name):
+    """Is `name` the *derived* side of a hierarchy edge — the children of this task?
+
+    Only that side holds a task open. The stored side is the parent, and an open parent stops
+    nothing: work on a child proceeds while its umbrella waits. A dependency's derived side
+    (`blocks`) is the same asymmetry one edge over, and is already excluded by the caller.
+    """
+    for field, edge in schema.edges.items():
+        if edge.kind == "hierarchy" and edge.derives and name == edge.derives:
+            return True
+    return False
+
+
 def summarise(task):
     return "%-12s %-11s %s" % (task.id, task.status, task.title)
 
@@ -249,7 +262,7 @@ def cmd_context(root, schema, tasks, args):
     out.append(" | ".join("%s %s" % (f, v or "-") for f, v in shown))
     out.append("file   %s" % rel(root, os.path.relpath(task.path, root)))
 
-    open_blockers = []
+    open_blockers, open_children = [], []
     for name in link_names(schema):
         linked = [tasks[t] for t in task.links(name) if t in tasks]
         if not linked:
@@ -261,6 +274,9 @@ def cmd_context(root, schema, tasks, args):
             if name in schema.edges and schema.edges[name].kind == "dependency" and other.is_open:
                 flag = "  <-- still open"
                 open_blockers.append(other)
+            elif holds_open(schema, name) and other.is_open:
+                flag = "  <-- still open"
+                open_children.append(other)
             out.append("  " + summarise(other) + flag)
 
     if task.deliverables:
@@ -275,9 +291,14 @@ def cmd_context(root, schema, tasks, args):
     # which blockers are still open — because the stored fields are already on the header line and
     # printing them twice would be two homes for one fact.
     out.append("")
+    waits = []
     if open_blockers:
-        out.append("STATE  open, waiting on %s"
-                   % ", ".join(sorted(set(b.id for b in open_blockers))))
+        waits.append(", ".join(sorted(set(b.id for b in open_blockers))))
+    if open_children:
+        ids = sorted(set(c.id for c in open_children))
+        waits.append("%s %s" % ("child" if len(ids) == 1 else "children", ", ".join(ids)))
+    if waits and task.is_open:
+        out.append("STATE  open, waiting on %s" % " and on ".join(waits))
     elif task.is_open:
         out.append("STATE  open, no blocker outstanding")
     else:

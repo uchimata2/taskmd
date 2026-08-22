@@ -540,6 +540,53 @@ class Context(unittest.TestCase):
         code, out = run("context", "T-002", "--root", self.tmp)
         self.assertIn("STATE  open, waiting on T-001", out)
 
+    def test_an_open_child_is_named_in_the_closing_line(self):
+        """T-209. `audit.md` step 5 holds an umbrella open until every child resolves, and the
+        line said `no blocker outstanding` four lines under a CHILDREN block listing the open one.
+        Measured on this repository's own backlog before the fix: two umbrellas, both wrong."""
+        self.task("T-001", "The umbrella")
+        self.task("T-002", "The child", "parent: T-001\n")
+        code, out = run("context", "T-001", "--root", self.tmp)
+        self.assertEqual(code, 0)
+        self.assertIn("STATE  open, waiting on child T-002", out)
+        self.assertIn("<-- still open", out)
+
+    def test_two_open_children_are_named_together(self):
+        self.task("T-001", "The umbrella")
+        self.task("T-002", "First child", "parent: T-001\n")
+        self.task("T-003", "Second child", "parent: T-001\n")
+        self.assertIn("STATE  open, waiting on children T-002, T-003",
+                      run("context", "T-001", "--root", self.tmp)[1])
+
+    def test_a_parent_whose_children_are_all_resolved_reports_no_blocker_outstanding(self):
+        """The case that must not fire. An umbrella whose children have all closed is free, and a
+        line that named them anyway would make every finished audit look held up."""
+        self.task("T-001", "The umbrella")
+        self.task("T-002", "The child", "parent: T-001\n")
+        path = os.path.join(self.tmp, "tasks", "T-002-x.md")
+        cli.write(path, cli.read(path).replace("status: proposed", "status: done"))
+        out = run("context", "T-001", "--root", self.tmp)[1]
+        self.assertIn("STATE  open, no blocker outstanding", out)
+        self.assertNotIn("<-- still open", out)
+
+    def test_an_open_parent_does_not_hold_its_child_open(self):
+        """The asymmetry, and the second case that must not fire. Only the derived side of a
+        hierarchy edge holds a task open: work on a child proceeds while its umbrella waits."""
+        self.task("T-001", "The umbrella")
+        self.task("T-002", "The child", "parent: T-001\n")
+        out = run("context", "T-002", "--root", self.tmp)[1]
+        self.assertIn("PARENT", out)
+        self.assertIn("STATE  open, no blocker outstanding", out)
+
+    def test_a_blocker_and_an_open_child_are_both_named(self):
+        """Two different reasons a task cannot proceed, so the line says which is which rather
+        than merging them into one list of ids."""
+        self.task("T-001", "The blocker")
+        self.task("T-002", "Blocked and a parent", "blocked_by: [T-001]\n")
+        self.task("T-003", "The child", "parent: T-002\n")
+        self.assertIn("STATE  open, waiting on T-001 and on child T-003",
+                      run("context", "T-002", "--root", self.tmp)[1])
+
     def test_a_closed_task_says_so(self):
         self.task("T-001", "Finished")
         path = os.path.join(self.tmp, "tasks", "T-001-x.md")
