@@ -2,8 +2,8 @@
 id: T-176
 title: Have an uninvolved reader test the sourced survivor bullet
 type: research
-status: proposed
-phase: specify
+status: done
+phase: review
 parent: null
 blocked_by: []
 related: [T-168, T-166, T-167]
@@ -93,9 +93,32 @@ commissioned it.
 
 ## 2. Plan
 
+**Written 2026-08-22, after the run, and it is a record of what was done rather than a plan for what
+to do.** The owner ran the instrument before this record reached `plan`, so writing a forward-looking
+plan now would be writing steps whose outcome is already known — the same defect §1 states about its
+own criteria, one phase earlier. What is worth having is the steps in the order they were taken, so
+the next reader run has something to copy and something to disagree with. **A plan written this way
+cannot fail**, and that is exactly why nothing in §4 is judged against it: the six criteria judge the
+instrument, the record and the scope, and this table is none of those.
+
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Extract the binding **whole** and verbatim to a path outside this repository, per T-166 §3 step 9 — never the bullet alone, because the repair under test points at a section above it | the extract, 43,912 characters on the day |
+| 2 | Put **five** questions to **one** fresh reader in one prompt, no repository within reach, framing never mentioned, *sales pitch* offered as an available answer | the reader's five answers |
+| 3 | Record the verdict as given, including anything in it that is factually wrong, and do not argue with it | §3 |
+| 4 | Settle by **running** anything the verdict asserts about behaviour, rather than by reasoning about it | the command output, and which half of the contradiction it kills |
+| 5 | Route what the run turned up outside this task's scope to its own task, rather than repairing it here | [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md) |
+| 6 | Judge the six criteria, none of which judges the verdict | §4 |
+
+**Step 2's fifth question is the step that could have been skipped and would have cost half the
+scope.** The four-question set belongs to [T-165](T-165-have-an-uninvolved-reader-test-the-post-migration-listing.md),
+which judged the whole listing; §1 here has a second scope item those four structurally cannot reach.
+A run that cannot answer half a scope returns a partial answer that reads as complete — which is why
+the fifth was added **before** the run and recorded as an addition.
+
+**Step 4 is the step that turns a reader's doubt into a fact.** The reader made their recommendation
+conditional on something they could not check. A session had the command, so the condition was
+settled the same day — and it resolved against the document rather than against the reader.
 
 ## 3. Implement
 
@@ -161,6 +184,14 @@ is wrong, and *"the commands exit 2 either way"* is wrong for one of the four. *
 recommendation resolves to keep on its own stated condition** — *"if there is a way to run those five
 on a project with no tasks folder, the install still does unique work and I would keep it."*
 
+*Annotated 2026-08-22, later the same day.* **It is not five and the membership was wrong too**, which
+[T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md) established by
+running the checks rather than by reading the table this paragraph trusted: `duplicate index` never
+ran on such a project and `section reference` was missing from the list. The paragraph above is left
+as written because it is what this run concluded on the day; the conclusion it carries — that checks
+are reached, that the note is wrong, and that the reader's condition resolves to *keep* — is
+unaffected by the count.
+
 **Both falsified sentences leave as [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md)**, not repaired here: §1 puts re-balancing and the figures out of scope, and correcting a document inside the task that measures how it reads destroys the evidence that the measurement happened — which is T-166's own reasoning applied to itself.
 
 **Decisions & assumptions**
@@ -185,15 +216,29 @@ on a project with no tasks folder, the install still does unique work and I woul
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| The reader was uninvolved, **shown by how they were run** — the document extracted whole and verbatim outside this repository, nothing else within reach | met | The extract is 43,912 characters, and that figure is checkable rather than asserted: the binding at `2af1b6e`, the commit the reader was given, measures 43,912 bytes exactly. Whole, not sliced, per T-166 §3 step 9 |
+| The number of readers was fixed before any verdict was read, and the run matches it | met | One, fixed by the owner on 2026-08-19 in the Log below — three days before the run — and one ran |
+| The verdict is recorded as given, including anything factually wrong in it, and the record does not argue with it | met | §3 carries all three answers in the reader's own words, including the recommendation they made conditional. Nothing in the verdict was wrong: what was wrong was the document, and the record settles that by running a command rather than by disputing the reader |
+| Both halves of §1's scope are answered; where one was not reached, the record says so and why | met | The second half is answered directly and in the reader's own classification — the unobserved clause is **honest**, from someone who called three other limits softening the same turn. **The first half is answered by a non-nomination and the record says so**: asked what makes the document lean, the reader named specific mechanisms and the bullet was not among them, while engaging closely enough with the same bullet elsewhere to classify half of it. That is evidence rather than proof, and it is the strongest form the question admits without leading them to the bullet |
+| Anything outside this task's scope left as its own task rather than being repaired here | met | Two. The contradiction of fact left as [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md), now closed. The framing findings — the located lean, *declaring no opinion is a position*, and two limits still reading as softening — left as [T-228](T-228-decide-whether-the-reader-s-framing-verdict-reopens-the-accepted-balance.md), raised as a decision for the owner rather than as a repair, because T-167 accepted that balance |
+| The listing is unchanged by this task | met | `git log` on `plugin/skills/taskmd/docs/bindings/github-issues.md` names no commit from this task. It did change on 2026-08-22, by T-221 — which is the separation working rather than a breach of this row |
+
+**The one thing this task could not do, stated rather than left as a clean sweep.** A single reader
+answering five questions is not a survey of the document's framing, and the first scope item rests on
+what they did *not* name. §1 fixed the count at one on purpose, and the alternative to accepting that
+limit is a second reader, which is iteration. So the honest reading of this result is: **one competent
+outsider, told nothing about what was being measured, did not find the bullet tilting the document,
+and did find something else.**
 
 **Child fix tasks raised**
-- <T-NNN or "none">
+- [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md) — the two falsified sentences, closed 2026-08-22
+- [T-228](T-228-decide-whether-the-reader-s-framing-verdict-reopens-the-accepted-balance.md) — the framing findings, as a decision for the owner
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-22 | proposed → done | `plan` and `review` — the remaining phases and not the usual set — under the four-task grant recorded below. **No second reader ran**, which the grant warns against by name; one reader with the verdict standing is the owner's decision of 2026-08-19 and it holds. **The plan is written as a record of what was done and says so**: the run preceded the record, so a forward-looking plan would have been steps whose outcome was already known, which is the defect §1 already states about its own criteria. It is judged against nothing for that reason. **All six criteria met, and the fourth is the one worth reading.** The second scope half is answered in the reader's own classification — the unobserved clause is *honest*, from someone who called three other limits softening in the same turn. The first is answered by a **non-nomination**: asked what makes the document lean, they named mechanisms and the bullet was not among them. The review says that out loud rather than reporting it as a clean result, because one reader who did not name something is evidence and not proof. **The instrument's own figure was checked rather than trusted** — 43,912 characters, and the binding at the commit the reader was given measures 43,912 bytes. **One task raised**: the framing findings had no home and criterion 5 required one, so [T-228](T-228-decide-whether-the-reader-s-framing-verdict-reopens-the-accepted-balance.md) puts them to the owner as a decision — which is also where [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md) said a revisit of the accepted balance belongs. **§3 was annotated, not rewritten**: T-221 found the *five checks* count wrong later the same day, and METHOD rule 5 says correct the present and annotate the past. |
 | 2026-08-22 | (no change) | **Multi-phase authorisation, and its limits.** The **project owner** instructed on **2026-08-22** that [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md), [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md), this task's **remaining phases** and [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md) be worked through the **full lifecycle**, and the result committed and pushed. **What *remaining* means here, and it is not the usual set:** `specify` is complete and §3 already holds the reader run of 2026-08-22, so what is left is `plan` and `review`. A session must not read *full lifecycle* as licence to run a second reader - one reader with the verdict standing is the owner's decision of 2026-08-19, and a second after an unwelcome first is iteration wearing a fresh reader's clothes. **What it does not cover:** any other task; re-balancing the listing, which §1 puts out and [T-167](T-167-stop-the-listing-pricing-only-the-rival.md) settled; and the two falsified sentences, which left as [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md). **It authorises phases, not answers.** Written into this record rather than kept in the session's handoff (`CLAUDE.md`, *one phase per request*). |
 | 2026-08-22 | (no change) | **Acceptance criteria written, and written late — which is stated in §1 rather than hidden.** The owner directed this on 2026-08-22, after the reader had already run. **Criteria written once a verdict is known can be tuned to it**, so none of the six judges what the verdict says; each judges the instrument, the record or the scope, whose right answers were all fixed before anyone read anything. The verdict itself is the measurement, and a measurement cannot be an acceptance criterion of the task that commissioned it. Recorded this way rather than by writing criteria the run is already known to pass, which would make `review` decorative. Status is unchanged: `specify` is now complete, `plan` has not been written, and no phase beyond this one was authorised. |
 | 2026-08-22 | (no change) | **The reader ran, and the record is deliberately not advanced.** The owner ran the instrument on 2026-08-22 and returned its answers, which are recorded in §3 in full. **Status stays `proposed` because §1's acceptance criteria are still the placeholder `<written at specify>`** — the run happened ahead of `specify` finishing, so there is nothing written down for the verdict to be judged against, and advancing the record would let criteria be written after the result is known. That is the shape [T-206](T-206-test-whether-the-description-s-markdown-files-clause-turns-a-session-away.md)'s criterion 5 exists to stop, applied to a different phase. Recorded rather than repaired: writing the criteria is `specify`, and no phase was authorised on this task. **Two findings left the run and neither was absorbed.** The fifth question — added before the run, for the scope half T-166's four cannot reach — answered §1's second scope item, and the sourced bullet's unobserved half was read as **honest**. And question 3 turned up a contradiction of fact rather than of framing, which a command settled the same day and which leaves as [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md). |
