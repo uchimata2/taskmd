@@ -16,7 +16,7 @@ updated: 2026-08-18
 deliverables: []
 ---
 
-# T-003 — Closed and quoting a slot to explain it
+# T-003 — Closed and quoting a slot to explain it <!-- quiet: ABANDONED SLOT - the whole record: it is closed, so the gate lets the rule read it, and the slot it holds is inside a fence to explain what one looks like -->
 
 ## 1. Specify
 

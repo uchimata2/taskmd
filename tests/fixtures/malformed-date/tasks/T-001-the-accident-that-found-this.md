@@ -2,7 +2,7 @@
 id: T-001
 title: The two shapes a real off-by-one produced
 status: proposed
-created: 2026-08-18
+created: 2026-08-18  # quiet: MALFORMED DATE - a real date beside a malformed one, so the fixture cannot pass by reporting everything
 updated: 2026-08-165
 ---
 

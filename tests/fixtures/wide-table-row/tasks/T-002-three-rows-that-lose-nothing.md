@@ -4,14 +4,14 @@ title: Three rows that lose nothing
 status: proposed
 type: fix | research
 business_value: high | low
-effort: xs | s | m | l | xl
+effort: xs | s | m | l | xl  # quiet: WIDE ROW - the third of three |-separated menu lines, and the only one that would report: a header is only a header when the next line is a delimiter row, and no front-matter line is (T-150)
 ---
 
 # T-002 - Three rows that lose nothing
 
 Every table below is quiet, and each is quiet for its own reason, and so is the front matter above.
 
-The three pipe-carrying lines up there are the fourth quiet case (T-150). They are the shape of the
+The three pipe-carrying lines up there are a quiet case of their own (T-150), marked as one. They are the shape of the
 shipped task template — the same three fields, each a `|`-separated menu — which an adopter's own
 scanner reported as the only defect in their tree: five pipes, no table. Ours does not fire, because
 a header is only a header when the next line is a delimiter row and no front-matter line is. That
@@ -26,7 +26,7 @@ nothing. With three, removing the guard makes `type` a 2-column header, skips `b
 reads `effort` as a 5-cell row that reports. That is what makes this fixture load-bearing rather
 than present.
 
-## A trailing cell with nothing in it
+## A trailing cell with nothing in it <!-- quiet: WIDE ROW - wider than the header and it loses no text, so there is nothing to tell anyone -->
 
 Wider than the header and loses no text, so there is nothing to tell anyone.
 
@@ -34,19 +34,19 @@ Wider than the header and loses no text, so there is nothing to tell anyone.
 | :--- | :--- |
 | 2026-08-15 | A note | |
 
-## An escaped pipe, which is content and not a boundary
+## An escaped pipe, which is content and not a boundary <!-- quiet: WIDE ROW - an escaped pipe is content, not a cell boundary -->
 
 | Name | Pattern |
 | :--- | :--- |
 | grep | a \| b |
 
-## A short row, which Markdown pads
+## A short row, which Markdown pads <!-- quiet: WIDE ROW - a short row loses nothing, because Markdown pads it -->
 
 | Date | Status | Note |
 | :--- | :--- | :--- |
 | 2026-08-15 | done |
 
-## A table inside a fence, which is quoted output and not a table
+## A table inside a fence, which is quoted output and not a table <!-- quiet: WIDE ROW - a fenced table is quoted output; the row inside is genuinely wide, so the silence is the fence's doing (T-201) -->
 
 Three cells against a two-column header, so the row is genuinely wider than its header and
 reports the moment it is unfenced. The silence below is the fence's doing and nothing else's,

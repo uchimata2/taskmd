@@ -1,4 +1,4 @@
-# Working notes
+# Working notes <!-- quiet: PARKED TASK - the whole file: a project's own material beside its tasks, carrying no id field at all, which is the whole of the test -->
 
 The other half of the class, and the reason it is in this fixture rather than described in a task.
 

@@ -18,10 +18,11 @@ readings agree would have passed either implementation and proved nothing (T-022
 `leak-check` is **not a taskmd project** — the only folder here that is not, which is worth saying
 because every neighbour is, and a reader following the convention would look for a `.taskmd/` that
 is deliberately absent. It is nine lines of text for the pre-publish grep in `docs/PUBLISHING.md`
-§6 — moved there from `CLAUDE.md` by T-047 — five that
-must be caught and four safe forms that must not. It is excluded by name from the normal run and
-included in the proof run, which is the whole of the arrangement (T-018). Every path in it is
-fabricated.
+§6 — moved there from `CLAUDE.md` by T-047. **Its lines say for themselves
+which must be caught and which must not**, and `tests/test_publishing.py` reads those marks rather
+than a count written here; the counts are not repeated in this document for the reason the next
+section gives. It is excluded by name from the normal run and included in the proof run, which is
+the whole of the arrangement (T-018). Every path in it is fabricated.
 
 `planned-deliverable` exists as a **pair** with
 `broken-deliverable`: the same missing `out/report.md`, declared by an open task instead of a closed
@@ -58,20 +59,18 @@ silent beside it, in one project. That is the rule
 states — a check needs a case it must not catch, and that case has to be shown able to fire — and it
 is why these are not one-defect fixtures like the table below.
 
-- `wide-table-row` holds a row with more cells than its header, beside five classes that must not
-  fire and a test asserting an exact count, so a new alarm breaks it.
-- `abandoned-slot` holds a template placeholder left in a **closed** record, beside two that must
-  stay quiet: the same line in an open task, which has simply not got there yet, and one inside a
-  fenced block.
-- `label-shaped-value` holds a grouping label a reader resolves as a version, beside a real version,
-  a quantity in the effort field, and a **list-valued** field — the shape that crashed the check on
-  the first real tree it met.
-- `malformed-date` holds the two shapes a real off-by-one produced and one deliberate specimen,
-  under a field name no config mentions, beside a date written without zero padding that must stay
-  silent.
-- `section-reference` holds a citation of a section its target does not print, beside one that
-  resolves, a sub-number naming a list item, a mark nothing binds, and the same wrong citation
-  quoted in a fence and in a code span.
+**Which cases those are is not written here, and must not be.** Each quiet case marks itself, on the
+line that carries it, and the set is read out of the tree:
+
+```bash
+python tests/test_quiet_cases.py --list
+```
+
+That module is also where the marks' form and its limits are stated. A list in *this* document was
+the authority until T-202, and being prose it was a classification somebody wrote rather than a fact
+the tree states: a fixture given a quiet case next week appeared in no derivation at all, and the
+audit built to catch exactly that could not see it. That is finding F-2 of T-198, and a list here is
+how it comes back.
 
 `migrated-away` is the project whose tasks moved to a backend: `id_width: none` says a backend hands
 out the ids, and the `tasks_dir` it names is deliberately absent. It carries **documents**, because
@@ -99,7 +98,7 @@ where they could not be quietly trimmed to whatever turned out to be easy.
 | `broken-id-width` | Id width | `id: T-0001`, one digit too wide for `id_width: 3` |
 | `broken-unreachable-template` | Unreachable template | A template in `tasks/_templates/`, which nothing lists |
 | `broken-template-field` | Rotted template front-matter | A reachable template storing `children:`, naming a `type` the schema lacks, and offering a `business_value` menu one value short |
-| `broken-parked-task` | Parked task | A valid `T-002` in `tasks/_drafts/`, beside a `notes.md` that must stay unreported |
+| `broken-parked-task` | Parked task | A valid `T-002` in `tasks/_drafts/` |
 | `broken-config` | Config error at setup — a **key** | `id_witdh` — a typo in a key name |
 | `broken-tasks-dir` | Config error at setup — a **value** | `tasks_dir: taks`, beside a real `tasks/` |
 | `broken-tasks-dir-file` | Config error at setup — a **name already taken** | `tasks_dir: tasks`, where `tasks` is a **file** |

@@ -16,7 +16,7 @@ updated: 2026-08-18
 deliverables: []
 ---
 
-# T-002 — Open and has not reached the section
+# T-002 — Open and has not reached the section <!-- quiet: ABANDONED SLOT - the whole record: it is open at specify, so every slot below sits in a section the work has not reached -->
 
 ## 1. Specify
 

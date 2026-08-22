@@ -2,10 +2,10 @@
 id: T-002
 title: A month and a day that do not exist
 status: proposed
-created: 2026-8-5
+created: 2026-8-5  # quiet: MALFORMED DATE - a real date written without zero padding; the class is date-shaped and not a date, and this is a date
 updated: 2026-13-99
 reviewed_on: 2026-08-161
-windows: [2026-08-01, 2026-02-30, keep-me]
+windows: [2026-08-01, 2026-02-30, keep-me]  # quiet: MALFORMED DATE 2026-08-01, keep-me - an ordinary date inside a list, and a value that is not date-shaped at all
 ---
 
 # T-002 - A month and a day that do not exist
