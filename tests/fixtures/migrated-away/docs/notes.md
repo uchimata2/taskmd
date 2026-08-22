@@ -1,4 +1,4 @@
-# Notes
+# Notes <!-- quiet: BROKEN LINK guide.md - the file is there, so the whole document is quiet for this class and the fixture cannot pass by reporting every link -->
 
 A second document, so the count in the summary is a count of something rather than of one file.
 

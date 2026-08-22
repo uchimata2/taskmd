@@ -334,6 +334,17 @@ and marked; 7 are marked and not named; 3 are named and not marked. 19 + 7 = 26 
 audit's second criterion passed on a coincidence -
 [T-210](T-210-account-for-the-two-derived-fixtures-t-198-s-partition-drops.md).
 
+**Annotation, 2026-08-22 by [T-211](T-211-mark-the-quiet-cases-in-the-two-fixtures-outside-t-202-s-scope.md) — one of the three is now marked and two never can be.**
+The table above and its arithmetic are what this task measured on the day it ran, and they stay as
+written. Since then T-211 put each of the three marks in and ran the reader: `migrated-away`'s
+`BROKEN LINK` case is **marked**, so that row's **-2** is now **-1**; and the remaining two are
+refused by the reader itself, for reasons that are not scope. `CONFIG ERROR` is not a class `check`
+owns, so assertion 1 refuses it; `planned-deliverable`'s `MISSING OUTPUT` fires nowhere inside its own
+fixture, so assertion 3 refuses it. **The reading no longer defers to this table** — both refusals,
+with their reasons asserted rather than described, are in `tests/test_quiet_cases.py`'s
+`NAMED_AND_UNMARKED`, which is where a later reader should look. The residual work is
+[T-215](T-215-show-a-paired-fixture-s-quiet-case-is-in-reach-or-record-that-it-cannot-be.md).
+
 **The three unmarked cases are [T-211](T-211-mark-the-quiet-cases-in-the-two-fixtures-outside-t-202-s-scope.md)**, raised rather than
 absorbed. `migrated-away` and `planned-deliverable` are outside the five this task's agreed scope
 names, and widening a scope the owner agreed at `specify` is the owner's - the grant in this record

@@ -71,12 +71,13 @@ A label says which release the work is scheduled into. It never says the release
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md) | Have an uninvolved reader test the sourced survivor bullet | `M6` | `proposed` | `specify` | T-168 | - | T-166, T-167, T-168, T-199 |
 | [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) | Write the next release note to the rule and say what it caught | `M6` | `proposed` | `specify` | T-135 | - | T-125, T-127, T-133 |
-| [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) | Audit whether each check class has a case it must not catch | `M6` | `review` | `review` | - | T-197, T-198 | T-100, T-150, T-151, T-209, T-212 |
-| [T-198](T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md) | Show each quiet fixture is within its own check's reach | `M6` | `review` | `review` | T-191 | T-201, T-202, T-204, T-210 | T-150, T-151, T-209, T-211, T-212 |
+| [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) | Audit whether each check class has a case it must not catch | `M6` | `review` | `review` | - | T-197, T-198 | T-100, T-150, T-151, T-209, T-212, T-214 |
+| [T-198](T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md) | Show each quiet fixture is within its own check's reach | `M6` | `review` | `review` | T-191 | T-201, T-202, T-204, T-210 | T-150, T-151, T-209, T-211, T-212, T-215 |
 | [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md) | Have an uninvolved reader write a coverage declaration from the clause | `M6` | `proposed` | `specify` | T-192 | - | T-176 |
-| [T-211](T-211-mark-the-quiet-cases-in-the-two-fixtures-outside-t-202-s-scope.md) | Mark the quiet cases in the two fixtures outside T-202's scope | `M6` | `proposed` | `specify` | - | - | T-198, T-202, T-210 |
 | [T-212](T-212-report-a-closed-parent-that-still-has-an-open-child.md) | Report a closed parent that still has an open child | `M6` | `proposed` | `specify` | - | - | T-191, T-198, T-209 |
 | [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md) | Test whether the description loses a competition rather than turning a session away | `M6` | `proposed` | `specify` | - | - | T-175, T-205, T-206 |
+| [T-214](T-214-decide-whether-the-class-set-subtraction-that-removes-nothing-needs-a-reader.md) | Decide whether the class-set subtraction that removes nothing today needs a reader | `M6` | `proposed` | `specify` | - | - | T-191, T-197, T-211 |
+| [T-215](T-215-show-a-paired-fixture-s-quiet-case-is-in-reach-or-record-that-it-cannot-be.md) | Show a paired fixture's quiet case is in reach, or record that a per-fixture assertion cannot | `M6` | `proposed` | `specify` | - | - | T-089, T-198, T-202, T-211 |
 
 ## Closed
 
@@ -170,7 +171,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-086](T-086-group-the-backlog-into-release-milestones.md) | Group the backlog into release milestones | `M2` | `done` | `review` | - | - | T-006, T-022, T-026, T-087, T-110, T-128, T-135, T-136 |
 | [T-087](T-087-let-list-filter-on-a-field-the-index-can-show.md) | Let list filter on a field the index can show | `M2` | `done` | `review` | - | - | T-022, T-029, T-086, T-102, T-124, T-137, T-143, T-144 |
 | [T-088](T-088-put-audit-in-the-shipped-type-vocabulary-or-stop-calling-it-a-type.md) | Put audit in the shipped type vocabulary, or stop calling it a type | `M2` | `done` | `review` | - | - | T-001, T-026, T-032, T-100, T-104, T-109, T-131, T-137 |
-| [T-089](T-089-stop-check-reporting-an-open-task-s-planned-outputs-as-missing.md) | Stop check reporting an open task's planned outputs as missing | `M2` | `done` | `review` | - | T-090 | T-002, T-025, T-032, T-103, T-146 |
+| [T-089](T-089-stop-check-reporting-an-open-task-s-planned-outputs-as-missing.md) | Stop check reporting an open task's planned outputs as missing | `M2` | `done` | `review` | - | T-090 | T-002, T-025, T-032, T-103, T-146, T-215 |
 | [T-090](T-090-decide-what-a-cancelled-task-s-declared-outputs-assert.md) | Decide what a cancelled task's declared outputs assert | `M2` | `done` | `review` | T-089 | - | T-002, T-032, T-103, T-109 |
 | [T-091](T-091-make-the-shipped-task-template-survive-being-copied.md) | Make the shipped task template survive being copied into another project | `M2` | `done` | `review` | - | - | T-032, T-051, T-060, T-076, T-097, T-101, T-112, T-114 |
 | [T-092](T-092-decide-whether-a-bare-path-in-prose-is-a-reference.md) | Decide whether a bare path in prose is a reference check must resolve | `M2` | `done` | `review` | - | - | T-034, T-093, T-094, T-095, T-097, T-103, T-112 |
@@ -275,10 +276,10 @@ A label says which release the work is scheduled into. It never says the release
 | [T-194](T-194-print-the-two-method-sections-this-project-cites-most.md) | Print the two method sections this project cites most | `M6` | `done` | `review` | T-093 | - | T-028, T-047 |
 | [T-195](T-195-hold-the-fixture-readme-against-the-fixtures-there-are.md) | Hold the fixture README against the fixtures there are | `M6` | `done` | `review` | - | - | T-134, T-139, T-188 |
 | [T-196](T-196-delete-the-scratch-repository-the-standing-check-ran-against.md) | Delete the scratch repository the standing check ran against | `M6` | `done` | `review` | T-193 | - | T-108 |
-| [T-197](T-197-derive-the-test-harness-s-problem-class-list-from-the-code.md) | Derive the test harness's problem-class list from the code | `M6` | `done` | `review` | T-191 | - | T-139, T-151, T-200, T-202 |
+| [T-197](T-197-derive-the-test-harness-s-problem-class-list-from-the-code.md) | Derive the test harness's problem-class list from the code | `M6` | `done` | `review` | T-191 | - | T-139, T-151, T-200, T-202, T-214 |
 | [T-200](T-200-discount-the-ids-a-task-file-carries-even-when-it-was-not-loaded.md) | Discount the ids a task file carries even when it was not loaded | `M6` | `done` | `review` | - | - | T-062, T-121, T-197 |
 | [T-201](T-201-give-the-fenced-table-case-a-row-that-could-be-reported.md) | Give the fenced-table case a row that could be reported | `M6` | `done` | `review` | T-198 | - | T-150, T-151, T-204 |
-| [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md) | Mark a fixture's quiet cases so a sweep can find them | `M6` | `done` | `review` | T-198 | - | T-134, T-151, T-197, T-204, T-210, T-211 |
+| [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md) | Mark a fixture's quiet cases so a sweep can find them | `M6` | `done` | `review` | T-198 | - | T-134, T-151, T-197, T-204, T-210, T-211, T-215 |
 | [T-203](T-203-detect-an-issue-whose-state-disagrees-with-its-status-label.md) | Detect an issue whose state disagrees with its status label | `M6` | `done` | `review` | - | - | T-108, T-178, T-193 |
 | [T-204](T-204-count-the-short-row-quiet-case-the-wide-row-audit-left-out.md) | Count the short-row quiet case the wide-row audit left out | `M6` | `done` | `review` | T-198 | - | T-201, T-202, T-210 |
 | [T-205](T-205-decide-whether-a-clean-trigger-observation-is-reachable-on-this-machine.md) | Decide whether a clean trigger observation is reachable on this machine | `M6` | `done` | `review` | T-175 | T-206 | T-050, T-168, T-213 |
@@ -287,5 +288,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-208](T-208-decide-where-the-product-wide-deviation-clause-belongs-now-that-it-exists.md) | Decide where the product-wide deviation clause belongs now that it exists | `M6` | `done` | `review` | - | - | T-027, T-045, T-187 |
 | [T-209](T-209-report-an-open-child-as-a-blocker-on-the-parent-that-cannot-close.md) | Report an open child as a blocker on the parent that cannot close | `M6` | `done` | `review` | - | - | T-191, T-198, T-212 |
 | [T-210](T-210-account-for-the-two-derived-fixtures-t-198-s-partition-drops.md) | Account for the two derived fixtures T-198's partition drops | `M6` | `done` | `review` | T-198 | - | T-202, T-204, T-211 |
+| [T-211](T-211-mark-the-quiet-cases-in-the-two-fixtures-outside-t-202-s-scope.md) | Mark the quiet cases in the two fixtures outside T-202's scope | `M6` | `done` | `review` | - | - | T-198, T-202, T-210, T-214, T-215 |
 
 <!-- taskmd:end -->

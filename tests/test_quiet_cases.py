@@ -71,6 +71,31 @@ LEAK = os.path.join(FIXTURES, "leak-check", "samples.txt")
 LEAK_QUIET = "<- must be ignored"
 LEAK_LOUD = "<- must be caught"
 
+# The quiet cases T-198's record names that this reading does **not** hold (T-211). Each carries the
+# reason it cannot be marked, and each reason is **asserted below rather than described**, so the day
+# one stops holding this module fails instead of ageing into a sentence nobody re-checks. Marking one
+# of these without removing its reason is the mistake those assertions exist to catch.
+NAMED_AND_UNMARKED = [
+    {
+        "fixture": "migrated-away",
+        "cls": "CONFIG ERROR",
+        "case": "no CONFIG ERROR, on a fixture where `index` and `context` still report one",
+        "why": "not a class `check` owns - `cli.py` prints it from the config loader with a bare "
+               "print(), not a problems.append(), so the derivation in tests/classes.py never "
+               "picks it up and assertion 1 refuses the mark. That module also names it in "
+               "NOT_A_CHECK_CLASS, which is a guard against the day the print becomes an "
+               "append and subtracts nothing today - measured 2026-08-22, T-214",
+    },
+    {
+        "fixture": "planned-deliverable",
+        "cls": "MISSING OUTPUT",
+        "case": "MISSING OUTPUT must not fire on an open task declaring a path that is not there",
+        "why": "the class fires nowhere in that fixture, so assertion 3 refuses the mark: this is "
+               "one half of a pair, and the firing half is `broken-deliverable`, one fixture over "
+               "where a per-fixture reach assertion cannot see it - measured 2026-08-22, T-215",
+    },
+]
+
 
 def read(path):
     return io.open(path, encoding="utf-8").read()
@@ -277,6 +302,45 @@ class EveryMarkedCaseIsQuietAndItsClassIsInReach(unittest.TestCase):
                             % (fixture, cls, cls))
 
 
+class TheReadingIsShortByTwoAndSaysWhy(unittest.TestCase):
+    """The reconciliation against T-198, kept live (T-211).
+
+    T-198's record names three quiet cases in the two fixtures T-202's agreed scope excluded.
+    **T-211 marked one and could not mark two**, so this reading is short against that record by
+    exactly `len(NAMED_AND_UNMARKED)` - and the difference is *not* that a fixture was out of scope,
+    which is the reading T-211's second criterion rules out. Both reasons are mechanical, and both
+    are asserted here, so neither can quietly stop being true.
+    """
+
+    def test_neither_named_case_is_marked(self):
+        """If one of them acquires a mark, its row here is stale and must go - the mark is the
+        authority, and the two would otherwise be homes for one fact, disagreeing."""
+        marked = set((m["fixture"], m["cls"]) for m in marks() if m["cls"])
+        for row in NAMED_AND_UNMARKED:
+            self.assertNotIn(
+                (row["fixture"], row["cls"]), marked,
+                "%s now marks a case for %s, so its row in NAMED_AND_UNMARKED is stale: remove the "
+                "row, because the mark is the authority and the two now disagree"
+                % (row["fixture"], row["cls"]))
+
+    def test_the_config_error_row_is_refused_by_the_derived_class_set(self):
+        """Its stated reason, run rather than read."""
+        row = [r for r in NAMED_AND_UNMARKED if r["cls"] == "CONFIG ERROR"][0]
+        self.assertNotIn(
+            row["cls"], check_classes(),
+            "CONFIG ERROR is now a class `check` owns, so the reason this row gives no longer holds "
+            "and the case can be marked")
+
+    def test_the_missing_output_row_is_refused_by_reach(self):
+        """Its stated reason, run rather than read. Marking it while the class is silent in its own
+        fixture would record a silence produced by the check not looking."""
+        row = [r for r in NAMED_AND_UNMARKED if r["cls"] == "MISSING OUTPUT"][0]
+        self.assertEqual(
+            [], alarms(check_output(row["fixture"]), row["cls"]),
+            "%s now reports %s, so the reach assertion would admit the mark and this row is stale"
+            % (row["fixture"], row["cls"]))
+
+
 def cases(mark):
     """How many quiet cases one mark vouches for. A mark narrowed to a list of values carries one
     per value - `windows: [2026-08-01, 2026-02-30, keep-me]` is one line holding two quiet cases and
@@ -294,10 +358,18 @@ def listing():
         own = [m for m in rows if m["fixture"] == fixture]
         out.append("  %-22s %2d case(s) in %d mark(s)"
                    % (fixture, sum(cases(m) for m in own), len(own)))
+    out.append("  %-22s %2d case(s) named by T-198 and not marked - reasons below"
+               % ("(no fixture)", len(NAMED_AND_UNMARKED)))
     out.append("")
     for mark in rows:
         out.append("  %-*s  line %-3d  %-14s %s"
                    % (width, mark["rel"], mark["line"], mark["cls"] or "(leak-check)", mark["why"]))
+    out.append("")
+    out.append("Named by T-198 and not marked - the reading is short by %d, and not because "
+               "a fixture was out of scope:" % len(NAMED_AND_UNMARKED))
+    for row in NAMED_AND_UNMARKED:
+        out.append("  %-22s %-15s %s" % (row["fixture"], row["cls"], row["case"]))
+        out.append("  %-22s %-15s   because %s" % ("", "", row["why"]))
     return "\n".join(out)
 
 
