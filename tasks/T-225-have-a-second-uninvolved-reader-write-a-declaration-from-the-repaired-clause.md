@@ -150,6 +150,51 @@ back as a reader's own caveat, which is the one thing in this run that reads as 
 | 7 | what the hygiene check scans | **No, and the form of the answer is the finding.** B asked for the pattern written out once rather than inferred from a four-sample measurement: an identifier like a team key plus number, a mixed-case name, and a bare two-letter word are all unanswerable from it. A asked for the acronym rule, **which is present and explicit in that same paragraph** — a reader missed a stated sentence, which is the same defect seen from the other side |
 | 8 | does *still runs locally* presume a working copy | **Yes. Recurred, from both readers.** The repair's three sentences key on three different things: sentence one on the project (*the adopter kept a working copy*), sentence two on the backend (*a binding whose backend is remote-only*), sentence three on the project again. B named the mismatch exactly; A said it was left to infer. Confirmed by reading the paragraph |
 
+### Reader B's questions in full — supplied by the owner and recorded 2026-08-23
+
+**This annexe is what the review note below said §3 already carried, and it did not.** Raised as
+[T-235](T-235-recover-or-retire-the-reader-questions-t-225-s-review-says-its-record-carries.md) on
+2026-08-23 when [T-232](T-232-repair-the-coverage-clause-against-what-two-readers-found.md) could not
+find the set its fifth criterion names; the owner supplied the reader's reply the same day. **Added,
+not rewritten** — nothing dated 2026-08-22 below is altered, and this section is dated for what it is.
+
+**About the contract's own rules — nineteen.**
+
+| # | What the reader had to settle by guessing | What they wanted the text to say |
+| :-- | :--- | :--- |
+| 1 | Which fact picks the closing-line form. The clause keys it on the backend being remote-only, but the presumption it describes — *the adopter kept a working copy* — is a fact about the project. Linear is remote-only, so they wrote *the rest applies as written* | Say which fact decides, and what a remote backend **with a local mirror** writes |
+| 2 | Whether that closing line is a literal string. Copied word for word in case something reads it | State whether it is fixed boilerplate or a sense to paraphrase, and whether anything mechanical looks at it |
+| 3 | Whether the closing line sits inside the markers. The stated reason for the markers is that no class name may sit outside, and this line has none. Put inside | One sentence saying the region is the whole declaration, closing line included |
+| 4 | Heading text and level. Chose *Checks that cannot occur under this binding* at `##` | A canonical heading, or an explicit statement that it is free |
+| 5 | Where the section goes. *Assumptions* is *near the top*; this one is unplaced. Put after the mapping section, since it cites §3 | A position rule, even a loose one |
+| 6 | Whether the bold lead must carry the class names. Named both in the lead | Say whether the lead carries names or a bare count |
+| 7 | Whether per-class reasoning is required. Never asked for, but *the substance is reviewed by a person* implies a reviewer needs something to review. Wrote a paragraph each | Ask for the reason outright |
+| 8 | Whether the mapping-not-service point is restated per binding. The clause argues it at contract level; restated once under `DUPLICATE ID` | Say whether that restatement is wanted or noise |
+| 9 | How an honest gap is worded. *Leave the class out and say so* does not say how much to say. Describing the unnamed state in prose is what the pre-2026-08-22 clause did and it produced guessing, so they described no state and declared the gap categorically | A specimen sentence for a gap, and a ruling on whether describing an unnamed state is allowed |
+| 10 | Whether a binding may ship without the validator source having been read. The instruction is to run `check` or read `cli.py`; both are *in what an adopter installs* and they had neither | Say whether a declaration built only from the contract's two example names is publishable, or incomplete by definition |
+| 11 | Whether the two named classes are a set or examples. Read as examples, which is why the gap paragraph exists. If they are the set, that paragraph is dead weight | Say which |
+| 12 | Whether *no index at all* is the same case as *the listing is the index*. The licensed case is the folder listing; theirs is a computed query with no index in any form. Treated as the same reasoning | State the **property** that kills the class — no second copy of the list — rather than one instance of it |
+| 13 | Whether a cannot-occur claim may depend on §3 **forbidding** something. Their `STALE INDEX` line is a fact about the mapping only because §3 bans a scheduled export; without the ban it is a claim about the adopter's project, which this section is exempt from making | Say that such dependence is allowed, and that the prohibition must live in the mapping section |
+| 14 | Overlap with the *derived / materialised* Assumptions entry. Same ground from two directions; stated the substance in both | Say whether to duplicate or to point |
+| 15 | Whether the *hygiene, not truth* caveat belongs in every binding. It reads as advice about bindings but appears in the contract's description of its own check. Included it | Decide it once |
+| 16 | What the scan does with mixed tokens. A backticked `ENG-42` opens with three capitals; could not tell whether the scan takes `ENG` as a candidate, so they backticked no capitalised token inside the region and wrote every acronym bare. Same for mixed case (`GraphQL`) and a bare two-letter caps word | The pattern written out once, precisely, instead of inferred from a four-sample measurement |
+| 17 | Whether the region may hold anything besides class names and their reasoning. Put the gap paragraph and the caveat inside | Say whether the region is the declaration, or only the classified part |
+| 18 | That §3 is the mapping section. Inferred from the clause's own *where §3's mapping…* and cross-referenced it in shipped text | A stated numbering convention for bindings |
+| 19 | Whether a partial fuller table is acceptable. Optional per the contract, and `github-issues.md` has one; wrote none, because a table they could not complete is worse than no table | Say that the optional table must be complete or not attempted |
+
+**About Linear, which the clause could not tell them and they did not verify — three.**
+
+| # | Assumption |
+| :-- | :--- |
+| 20 | The issue identifier is unique across the workspace and never reused after deletion. **The whole `DUPLICATE ID` line fails if a freed number is handed out again** |
+| 21 | The identifier is not editable by any user. Assumed, not checked |
+| 22 | Identifier churn on a team move is not this section's problem — moving an issue between teams changes its key, so ids are unique but not **stable**. Uniqueness is what `DUPLICATE ID` is about, so stability was left to the identity entry in *Assumptions*. Wanted: confirmation that this section is about uniqueness only |
+
+**The reader's own closing note, which is the row that matters most.** *"Items 20 to 22 are the
+substance, and they are the part I have the least right to assert. The declaration is structurally
+shippable and substantively unverified."* That is the clause's *hygiene is not truth* paragraph
+arriving back as the reader's own caveat, and §3 already recorded it in summary above.
+
 ### The finding neither reader could have produced alone
 
 **Naming two classes in the clause made one reader treat them as the set.** *Some of the validator's
@@ -186,7 +231,7 @@ above is recorded as a deviation and its result kept.
 | :--- | :---: | :--- |
 | The reader states, in their own words, that they had read no taskmd binding | met | Both did, in their first line, unprompted |
 | The declaration is recorded verbatim, including anything they refused to write | met | Both in §3. Reader B's refusal to name a class it could not source is recorded as written, and it is the half of that reading worth most |
-| Every question settled by guessing is listed, and each matched against the eight | met | The eight are walked one by one in §3, and the questions falling outside them are grouped there rather than dropped. Reader B produced nineteen about the contract and three about Linear; the three about Linear are outside the clause and are marked so |
+| Every question settled by guessing is listed, and each matched against the eight | met, and **over-claimed** | The eight are walked one by one in §3, and the questions falling outside them are grouped there rather than dropped. Reader B produced nineteen about the contract and three about Linear; the three about Linear are outside the clause and are marked so. *Annotated 2026-08-23 by [T-235](T-235-recover-or-retire-the-reader-questions-t-225-s-review-says-its-record-carries.md), and the verdict left as written: **they were not grouped there**. §3 named six of the nineteen, inline in the walk, and the rest appeared nowhere. The counts in this note are right — nineteen and three, confirmed against the reader's reply — and the claim about where they live was not. They are now in §3 as a dated annexe.* |
 | The pass bar was written down before the run, and the verdict is given against it | met | Bar fixed 2026-08-22 in the Log, before the prompt was built. Verdict below |
 
 **Verdict: FAIL, on the first half of the bar.**

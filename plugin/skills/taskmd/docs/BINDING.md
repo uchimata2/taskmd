@@ -143,14 +143,28 @@ entry **in that section**, except the last, which gets a section of its own for 
 ### The coverage a binding declares, and why it is stated the short way
 
 **Name what cannot occur; say the rest either applies or still runs locally.** Some of the
-validator's classes describe a state that is impossible once this binding's mapping is in place —
-`STALE INDEX` where the listing *is* the index, `DUPLICATE ID` where the service allocates the id
-*and this binding uses it as the task id* — and an adopter needs those named, because that is the
-part of `check` they stop getting. Everything else falls under *the rest* and needs no entry.
+validator's classes describe a state that is impossible once this binding's mapping is in place, and
+an adopter needs those named, because that is the part of `check` they stop getting. Everything else
+falls under *the rest* and needs no entry.
+
+**The two worked below are examples of the reasoning, not the set — and a declaration naming only
+them is incomplete by definition**, because it was written from this page instead of from the
+validator. Said outright because leaving it to be read off has already failed: two uninvolved
+readers were given this clause on 2026-08-22, and one declared exactly these two *"because they
+were explicitly identified in Section 4"* while the other read them as examples and declared the
+gap. Both declarations were shippable and they claimed different things.
+
+- **`STALE INDEX`** cannot occur where **nothing under the mapping holds a second copy of the task
+  list**. A folder listing that *is* the index is one instance of that; a list computed per query
+  and discarded is another. **State the property, not the instance** — a backend with no index *in
+  any form* is the same case, and a writer matching only the instance will not see it.
+- **`DUPLICATE ID`** cannot occur where **the backend allocates the identifier and this binding
+  uses that identifier as the task id**, so no writer supplies or edits it.
 
 *Those two are named here, in the names the validator uses, since 2026-08-22.* The clause used to
 describe both states in prose and name neither, which left a writer describing a state correctly and
-then guessing what it is called.
+then guessing what it is called. Naming them produced the opposite failure within one measurement,
+which is what the paragraph above is for: the repair for a blank was never a list.
 
 **It is the mapping that decides, not the service**, and that wording is the result of testing this
 clause rather than of writing it. Two bindings over comparable services answer differently on
@@ -159,12 +173,19 @@ impossible; where the binding keeps a human id in a property the service does no
 service leaves the class fully live. A binding that reads this row as *what can my backend do* will
 get that one wrong in the direction that loses an adopter a check they still needed.
 
+**Restate that in your own declaration, once per class it applies to.** It is argued here for every
+binding; a reader of *yours* is deciding whether to trust *your* claim, and *this rests on the
+mapping, not the service* is the sentence telling them what to check. One line per affected class,
+not a repeat of the argument.
+
 **It asks for the exceptions rather than for a coverage table on purpose.** A table with a row per
 check is a hand-written copy of a set the code owns, so **one new check falsifies every binding's
 table at once**, in every binding anybody ever writes. The short form is stable under a new check by
 construction: a class nobody has classified falls under *the rest*, and nothing needs editing. A
 binding may still carry a fuller table if its author finds it useful — `github-issues.md` does — but
-that is the binding's own detail and not what this contract asks for.
+that is the binding's own detail and not what this contract asks for. **If you write one, complete
+it or leave it out.** A table covering some of the classes reads as covering all of them, which is
+the failure the short form exists to avoid, arriving as an optional extra.
 
 #### Where the class names come from
 
@@ -183,12 +204,53 @@ guess costs more than it looks: it will pass any human reader and fail the marke
 is the one thing that half of this clause exists to support. Where the name cannot be found, leave
 the class out and say so in the declaration — an honest gap is reviewable and a wrong name is not.
 
+**How to word the gap, since *say so* does not say how much to say.** Declare it categorically and
+**describe no unnamed state** — describing one in prose is what this clause did before 2026-08-22,
+and it is what produced the guessing. A specimen you may copy:
+
+> This binding names no other class, and that is a gap rather than a finding. The class names have
+> one home, the validator's own source, and this binding was written without access to it. Before
+> adoption, run `check` against a live project, read the prefixes it prints, and add any further
+> class this mapping makes impossible.
+
+**A cannot-occur claim may rest on your mapping forbidding something.** A binding that bans a
+scheduled export to a file may say the stale-index class cannot occur, because the ban is part of
+the mapping. **The prohibition must then live in the mapping section**, not in the declaration:
+without it the claim is about the adopter's project, which is the one thing this section is exempt
+from asserting.
+
 #### Where the declaration goes, and what shape it takes
 
 **A section of its own, not an entry in *Assumptions this binding makes*.** The minimum-entries table
 says a binding must state a position on this; it does not put the position in that section, and both
-shipped bindings give it a section. Three things follow, and each was a question a writer had to
-settle by guessing until 2026-08-22:
+shipped bindings give it a section.
+
+**Heading, level and position — all three fixed here since 2026-08-23**, because *a section of its
+own* named none of them and two readers guessed differently:
+
+- **Heading: `What the validator cannot check here`.** Use those words. It states the claim rather
+  than gesturing at it, which matters because this is the section an adopter looks for when a check
+  they relied on stops reporting.
+- **Level: `###`.** A third-level heading, so it sits inside the binding's own structure rather than
+  competing with its top-level sections.
+- **Position: after the section that states the mapping, and before anything about what to do after
+  a write.** It has to come after the mapping because every claim in it cites the mapping, and
+  before the write step because an adopter reads that step while working and this one while
+  deciding.
+
+**Measured against the two shipped bindings on 2026-08-23, and reported rather than quietly
+repaired.** `local-markdown.md` already matches all three, which is why these are the values
+chosen rather than invented: its declaration sits at `###`, under that heading, after
+*Operations* and before *After any write*. **`github-issues.md` matches none** — it is
+`#### What this does not cover, and why`, and it sits after its *After any write* step, inside
+the migration-verification material. Bringing it into line is its own task.
+
+**Sections are named, not numbered.** A binding has no section numbers, so cite the section by
+what it is — *the mapping section*, *Operations* — and never as *§3*. This document numbers its own
+sections and a binding does not, which has already been read the wrong way round by a reader
+cross-referencing *§3* into shipped text.
+
+Five more things follow, each of which was a question a writer had to settle by guessing:
 
 - **The thirty-second budget does not reach it.** That budget is over the Assumptions section's bold
   leads, and this declaration is not one of them. There is no per-lead word figure to divide out.
@@ -196,13 +258,35 @@ settle by guessing until 2026-08-22:
   not a claim about the adopter's project. This is the one place in a binding exempt from the
   claim-about-your-project rule, because an adopter cannot confirm or deny what their tracker makes
   impossible — they can only be told, and then check the reasoning.
-- **The markers wrap the whole declaration**, bold lead included, so no class name can sit outside
-  what the machine reads.
+- **The lead carries the class names, not a bare count.** A count is a number a reader cannot act
+  on; the names are what they came for.
+- **Give each named class its own reason, in a short paragraph.** The substance of this clause is
+  reviewed by a person, and a person needs something to review — a name with no reasoning is a
+  claim with nothing attached.
+- **The markers wrap the whole declaration** — bold lead, per-class reasoning, any gap paragraph,
+  the *hygiene, not truth* caveat, and the closing line. **The region is the declaration, not only
+  its classified part**, so no class name can sit outside what the machine reads.
 
-**When nothing is local, the closing line has a second form.** *The rest either applies or still runs
-locally* presumes the adopter kept a working copy of documents on disk. A binding whose backend is
-remote-only writes *the rest applies as written* and stops; a binding for a project that still has
-files writes both halves, as `github-issues.md` does.
+**Where this overlaps the *derived / materialised* entry in Assumptions, point rather than repeat.**
+That entry says what your backend materialises; this section says which checks that makes
+impossible. They meet on the same fact, and stating it twice gives it two homes — so the
+Assumptions entry states it and the declaration cites the entry.
+
+**The closing line has two forms, and one fact chooses between them: whether documents the
+validator can walk are still on disk after the move.** Not whether the backend is remote — a remote
+backend whose project keeps a local mirror still has documents to walk, and writes both halves.
+Not whether the adopter *kept* anything, which is a fact about them rather than about the mapping.
+
+- **Documents remain on disk** → *the rest either applies or still runs locally*, as
+  `github-issues.md` writes it.
+- **Nothing remains on disk** → *the rest applies as written*, and stop.
+
+*Corrected 2026-08-23.* This keyed on the project in one sentence and on the backend in the next,
+so a remote backend with a local mirror fell between them and was unanswerable. Both readers of
+2026-08-22 reported it, independently.
+
+**The line is a sense, not boilerplate, and nothing mechanical reads it.** Paraphrase it if your
+binding reads better that way. It goes **inside** the markers with the rest of the declaration.
 
 **Put the class names in a marked region**, so the one thing a machine *can* check is checked:
 
@@ -212,13 +296,27 @@ files writes both halves, as `github-issues.md` does.
 <!-- taskmd:end-cannot-occur -->
 ```
 
-**What that check reads.** Inside the region and nowhere else, it takes every backticked run of three
-or more capitals — `WORD`, or `WORD WORD` — and requires each to be a class the validator reports.
-Measured 2026-08-22 against a specimen holding all four kinds: `STALE INDEX` and `DUPLICATE ID` were
-accepted, `JQL` and `API` were reported as classes the validator does not report, and `check` and
-`gh` were never looked at, being lowercase. So a backticked command inside the region is safe — as
-`local-markdown.md`'s declaration has always shown — and a backticked acronym is not. Write an
-acronym without backticks, or keep it outside the markers.
+**What that check reads — the rule, not a sample of its behaviour.** Inside the region and nowhere
+else, a backticked token is read as a class name when it is **either** one run of **three or more**
+capital letters, **or** two or more runs of **two or more** capitals separated by single spaces.
+Nothing else is read: not a token containing a digit, a hyphen or any lower-case letter, and not a
+single run of two capitals.
+
+| Backticked token | Read? | Why |
+| :--- | :---: | :--- |
+| `STALE INDEX`, `ID WIDTH` | yes | two runs, each two or more capitals |
+| `CYCLE`, `DANGLING` | yes | one run of three or more |
+| `API`, `JQL` | yes | one run of three or more — **so an acronym is read, and reported as a class the validator does not have** |
+| `ENG-42`, `GraphQL` | no | a hyphen, a digit or lower case anywhere stops it |
+| `check`, `gh` | no | lower case |
+| `ID` | **no, and reported anyway** | a single two-letter run is not read by the scan — and a second check counts from the other side, so it is reported as a name the region offers and the scan cannot see |
+
+So a backticked command inside the region is safe, as `local-markdown.md`'s declaration has always
+shown; a backticked acronym is not. **Write an acronym without backticks, or keep it outside the
+markers**, and do the same for an identifier like a team key plus number.
+
+*Stated as a rule since 2026-08-23.* It was previously given as what four specimens did, which
+answered none of the three shapes above that no specimen covered.
 
 **It reads every class name, and that is newer than this document.** Until 2026-08-22 the pattern
 required three capitals **first**, so a class whose opening word was shorter was read as nothing at
@@ -233,8 +331,12 @@ instead of going quiet. A single two-letter word is still not a class name and s
 each class it names is a class the validator actually reports — which is the staleness a hand-kept
 list dies of. It cannot confirm the classification is **true**: whether a class really cannot occur
 on some hosting service is a fact about that service, and nothing running locally knows it. So the
-substance of this clause is reviewed by a person, and only its hygiene is mechanical. A binding that
-says so plainly is easier to trust than one that implies the check settles more than it does.
+substance of this clause is reviewed by a person, and only its hygiene is mechanical.
+
+**Say that in your declaration too — it is required, not advice.** One sentence inside the region,
+to the effect that the machine check is hygiene and not truth, and that the classification is a
+claim to be checked. A reader who does not know which half a green run settled will over-trust it,
+and the binding is the only place they are reading.
 
 ---
 
