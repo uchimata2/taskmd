@@ -74,9 +74,17 @@ would have to remember unaided:
   what [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) records.
   Against it: T-085 also found half of that verification unreachable from any machine here, so a repeat
   buys less than the first one did and the reachable half is the cheaper half.
-- **Which version number?** — the project owner. Not derivable: the standing policy spends one bump on
-  a batch rather than on a single fix, and whether this batch is a minor or a patch is a judgement about
-  what adopters meet.
+- **Is a third exception taken, or does M6 ship as `0.6.0`?** — the project owner. *Corrected
+  2026-08-22: this asked "which version number" and called it not derivable, which was wrong.*
+  [`tasks/README.md`](README.md) states the rule and its two exceptions, so the default is `0.6.0` and
+  the only judgement left is whether this is a third exception. The recommendation is **no exception,
+  ship `0.6.0`**: the two that exist were mid-milestone batch bumps taken to get fixes out, and this
+  is a milestone.
+- **Which milestone does this release ship, given M6 holds ten open tasks?** — the project owner.
+  M6's three stated capabilities are all closed and none of the ten is one of them, so this is a
+  scoping decision rather than a lookup: ship M6 as it stands, or move what is not release-critical
+  to a later label first. The recommendation is to **decide it here and record it**, because §7's
+  release-note rule runs against whatever this answers.
 
 ## 2. Plan
 
@@ -105,5 +113,6 @@ would have to remember unaided:
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-22 | (no change) | **Reconcile: one of this record's open questions was answered by a project document, and this record said it was not derivable.** [`tasks/README.md`](README.md) states the rule in its own words — *the digit says which release the work is scheduled into, `M5` ships as `0.5.0`, `M6` as `0.6.0`* — with two named exceptions, `M2` as `0.4.0` and `M3` inside the `v0.3.0` batch bump. So the default **is** derivable and it is `0.6.0`; the judgement that remains is narrower, and it is whether to take a third exception. The question is corrected in §1 rather than deleted, because *not derivable* was wrong and a reader of this record would have gone looking for a decision nobody had to make. **And the milestone question is live rather than a formality.** M6's purpose in that same document names three capabilities — the GitHub Issues migration, taskmd as a tracker binding for the handoff skill, and what `check` does with a section reference — and all three are closed ([T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md), [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) with [T-181](T-181-verify-the-handoff-github-recipe-on-a-live-issues-backed-project.md), and T-093). The ten tasks still open in M6 are none of those. That is not a defect in the index, which says in its own words that a purpose is not an exit criterion — but it makes *which milestone this release ships* a real decision for this record, not a lookup. |
 | 2026-08-22 | (no change) | **Blocked by [T-232](T-232-repair-the-coverage-clause-against-what-two-readers-found.md), by the owner's decision of 2026-08-22.** `plugin/skills/taskmd/docs/BINDING.md` ships, and cutting a release now would publish a clause this project has already measured and found wanting — [T-225](T-225-have-a-second-uninvolved-reader-write-a-declaration-from-the-repaired-clause.md)'s verdict is a **FAIL** against a bar fixed before its run. *Rejected: release now and repair after* — nothing an adopter meets is wrong today, both readers shipped a declaration, so the cost of shipping is a worse binding somebody writes later rather than a broken one now; the owner weighed that and chose to hold. **The edge is recorded here rather than as a sentence**, because this record's blocker is a task and therefore expressible — which is exactly what [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md)'s was not until this record existed. |
 | 2026-08-22 | → proposed | Raised at the owner's request on 2026-08-22, when they said a release was wanted soon and a survey of the open backlog found **no task carried it**. **Raised rather than left as an act** for the reason this project's own records give twice over: `0.4.0` shipped with nothing checking it from outside, and the dash gate was red for two releases because it lived in a document read only at publication. An act with no record repeats both. **Deliberately outside the unattended grant of the same date** — tagging and publishing are outward-facing and the owner's to make, and the grant's own boundary says the release is not in it. **It gives [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) a blocker it never had**, which is worth more than it looks: that record was gated on *there being a release to make*, an event no field could carry, and it sorted as startable in every view. The gate is now an edge. |
