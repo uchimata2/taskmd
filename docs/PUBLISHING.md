@@ -118,6 +118,43 @@ holds the before and the audit that produced the text and is the reason it reads
 record was the wrong home for a value the gate below has to read: task files are excluded from this
 rule, so a gate would have had to scan what the rule exempts (T-081).
 
+## 4a. The plugin's name is written twice, and what forces it
+
+`taskmd` is the value of `name` in **both** `.claude-plugin/marketplace.json` (at `plugins[0].name`)
+and `plugin/.claude-plugin/plugin.json`. One fact, two homes — which
+[`METHOD.md`](../plugin/skills/taskmd/docs/METHOD.md) §4 permits only where the single write was
+**attempted and refused**. It was, on 2026-08-22, in both directions:
+
+```text
+$ claude plugin validate .          # with plugins[0].name deleted
+  ❯ plugins.0.name: Invalid input: expected string, received undefined
+✘ Validation failed                                                    exit 1
+
+$ claude plugin validate .          # with plugin.json's name deleted
+  ❯ plugins[0] plugin.json → name: Invalid input: expected string, received undefined
+✘ Validation failed                                                    exit 1
+
+$ claude plugin validate .          # both restored
+✔ Validation passed with warnings                                      exit 0
+```
+
+**Both manifests require it, so neither copy can go.** The day one of them stops requiring it, delete
+that copy and this section.
+
+**This is written here rather than beside either copy because JSON carries no comment**, and the one
+place that could hold it answers with a standing complaint:
+
+```text
+$ claude plugin validate .          # with an explanatory key added to plugins[0]
+  ❯ plugins[0]._why_name_is_here: Unknown field '_why_name_is_here'. Claude Code ignores it at
+    load time.
+```
+
+An explanation that makes every future run of the gate print a warning is worse than one a directory
+away, so the constraint lives in the document that governs the manifests — which is the nearest a
+reader gets to meeting it. Recorded by
+[T-207](../tasks/T-207-test-the-platform-claims-this-repository-s-own-second-copies-rest-on.md).
+
 ## 5. The gate
 
 Run before publishing, and before any redeployment. It must print a file count and **nothing else**.
