@@ -73,7 +73,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) | Write the next release note to the rule and say what it caught | `M6` | `proposed` | `specify` | - | - | T-125, T-127, T-133, T-135 |
 | [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md) | Have an uninvolved reader write a coverage declaration from the clause | `M6` | `proposed` | `specify` | - | - | T-176, T-192 |
 | [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md) | Test whether the description loses a competition rather than turning a session away | `M6` | `proposed` | `specify` | - | - | T-175, T-205, T-206 |
-| [T-215](T-215-show-a-paired-fixture-s-quiet-case-is-in-reach-or-record-that-it-cannot-be.md) | Show a paired fixture's quiet case is in reach, or record that a per-fixture assertion cannot | `M6` | `proposed` | `specify` | - | - | T-089, T-198, T-202, T-211 |
 | [T-217](T-217-return-the-fields-list-can-filter-on-in-its-machine-form.md) | Return the fields list can filter on in its machine form | `M6` | `proposed` | `specify` | - | - | T-022, T-087 |
 
 ## Closed
@@ -290,6 +289,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-211](T-211-mark-the-quiet-cases-in-the-two-fixtures-outside-t-202-s-scope.md) | Mark the quiet cases in the two fixtures outside T-202's scope | `M6` | `done` | `review` | - | - | T-198, T-202, T-210, T-214, T-215, T-219 |
 | [T-212](T-212-report-a-closed-parent-that-still-has-an-open-child.md) | Report a closed parent that still has an open child | `M6` | `done` | `review` | - | - | T-191, T-198, T-209, T-216, T-218, T-219 |
 | [T-214](T-214-decide-whether-the-class-set-subtraction-that-removes-nothing-needs-a-reader.md) | Decide whether the class-set subtraction that removes nothing today needs a reader | `M6` | `done` | `review` | - | - | T-191, T-197, T-211 |
+| [T-215](T-215-show-a-paired-fixture-s-quiet-case-is-in-reach-or-record-that-it-cannot-be.md) | Show a paired fixture's quiet case is in reach, or record that a per-fixture assertion cannot | `M6` | `done` | `review` | - | - | T-089, T-198, T-202, T-211 |
 | [T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md) | Repair the three closed parents that still have an open child | `M6` | `done` | `review` | - | - | T-135, T-168, T-192, T-212, T-218 |
 | [T-218](T-218-give-the-rule-that-a-child-holds-its-parent-open-a-home-in-the-method.md) | Give the rule that a child holds its parent open a home in the method | `M6` | `done` | `review` | - | - | T-209, T-212, T-216 |
 | [T-219](T-219-let-a-quiet-mark-declare-a-value-that-begins-with-a-capital.md) | Let a quiet mark declare a value that begins with a capital | `M6` | `done` | `review` | - | - | T-202, T-211, T-212 |

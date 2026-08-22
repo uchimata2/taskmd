@@ -32,6 +32,16 @@ the line's own value.
 two shapes are what assertion 2 matches. A class naming a value some third way would be missed here,
 and the mark would pass unearned.
 
+**A gate case can never satisfy assertion 3, and that is the assertion working** (T-215). Some quiet
+cases are quiet because the check **excluded the input before looking** - `MISSING OUTPUT` skips an
+open task, so `planned-deliverable`'s declared path is never examined and `check` on that fixture
+reports `0 declared output(s)`. Assertion 3 asks whether the check reached the case; for a gate case
+the honest answer is no, and no fixture, pair or mark can change that without removing the gate. So
+such a case stays in `NAMED_AND_UNMARKED` **permanently**, and what is asserted instead is the gate:
+`TheGateCaseShowsItsGateInstead` below holds the same input with the gating field flipped and
+requires the class to fire there. That is a weaker claim than reach and is labelled as one - it says
+the silence is produced by the gate rather than by the check being absent.
+
   python tests/test_quiet_cases.py --list      # the reading
   python tests/test_quiet_cases.py             # the assertions
 """
@@ -98,9 +108,21 @@ NAMED_AND_UNMARKED = [
         "fixture": "planned-deliverable",
         "cls": "MISSING OUTPUT",
         "case": "MISSING OUTPUT must not fire on an open task declaring a path that is not there",
-        "why": "the class fires nowhere in that fixture, so assertion 3 refuses the mark: this is "
-               "one half of a pair, and the firing half is `broken-deliverable`, one fixture over "
-               "where a per-fixture reach assertion cannot see it - measured 2026-08-22, T-215",
+        "why": "the check does not examine the case at all, so no per-fixture assertion can ever "
+               "show it in reach - `check` on that fixture reports `0 declared output(s)`, its own "
+               "denominator saying it looked at nothing, because check_deliverables skips an open "
+               "task before counting (T-089). This row is permanent by construction, not a "
+               "residual awaiting work - measured 2026-08-22, T-215",
+        #: The gate case's own evidence, asserted by `TheGateCaseShowsItsGateInstead` below. Not
+        #: reach: the partner is a different project, and a class firing there says nothing about
+        #: whether the check looked here. What it shows is that the **gate** is what produces the
+        #: silence - same declared path, same missing file, the one gating field flipped.
+        "pair": {
+            "fires_in": "broken-deliverable",
+            "denominator": "declared output",
+            "gating_field": "status",
+            "shared_value": "out/report.md",
+        },
     },
 ]
 
@@ -379,6 +401,69 @@ def listing():
         out.append("  %-22s %-15s %s" % (row["fixture"], row["cls"], row["case"]))
         out.append("  %-22s %-15s   because %s" % ("", "", row["why"]))
     return "\n".join(out)
+
+
+class TheGateCaseShowsItsGateInstead(unittest.TestCase):
+    """What the reading does about a quiet case assertion 3 can never accept (T-215).
+
+    A **gate case** is quiet because the check excluded its input before looking, so the fixture has
+    nothing for a reach assertion to find and never will. Its row in `NAMED_AND_UNMARKED` carries a
+    `pair` instead, and the three tests here are what keep that row honest. Together they say: the
+    check really did look at nothing here, the same input does fire once the gate opens, and the two
+    fixtures differ in the gating field and agree on everything the class reads.
+
+    **This is not reach and does not claim to be.** The partner is a different project root; a class
+    firing there proves nothing about whether the check examined this one. The first test is what
+    carries that half, and it carries it as a *zero*.
+    """
+
+    ROWS = [row for row in NAMED_AND_UNMARKED if row.get("pair")]
+
+    def test_there_is_at_least_one_gate_case_to_check(self):
+        """Without this, all three below pass on a `NAMED_AND_UNMARKED` that lost its `pair` rows."""
+        self.assertTrue(self.ROWS, "no row in NAMED_AND_UNMARKED carries a pair, so the three "
+                                   "assertions below are running over nothing")
+
+    def test_the_check_examined_nothing_in_the_quiet_fixture(self):
+        """The denominator, which is the measurement that makes the row permanent."""
+        for row in self.ROWS:
+            out = check_output(row["fixture"])
+            noun = row["pair"]["denominator"]
+            self.assertIn("0 %s(s)" % noun, out,
+                          "%s no longer reports a zero %s denominator, so the check now examines "
+                          "the case and this row may have stopped being a gate case - re-judge it "
+                          "rather than editing the number:\n%s" % (row["fixture"], noun, out))
+
+    def test_the_same_input_fires_once_the_gate_opens(self):
+        for row in self.ROWS:
+            partner = row["pair"]["fires_in"]
+            out = check_output(partner)
+            self.assertTrue(alarms(out, row["cls"]),
+                            "%s is named as where %s fires with the gate open, and it does not - "
+                            "so the pair no longer shows that the gate is what produces %s's "
+                            "silence:\n%s" % (partner, row["cls"], row["fixture"], out))
+
+    def test_the_pair_differs_in_the_gating_field_and_agrees_on_the_rest(self):
+        """A partner that fires for some *other* reason would pass the test above and prove nothing."""
+        for row in self.ROWS:
+            field, shared = row["pair"]["gating_field"], row["pair"]["shared_value"]
+            values = {}
+            for which in (row["fixture"], row["pair"]["fires_in"]):
+                text = ""
+                base = os.path.join(FIXTURES, which)
+                for where, _dirs, names in os.walk(base):
+                    for name in sorted(names):
+                        if name.endswith(".md"):
+                            text += read(os.path.join(where, name))
+                self.assertIn(shared, text,
+                              "%s no longer carries %r, so the two halves are not the same input "
+                              "any more" % (which, shared))
+                found = re.findall(r"^%s:\s*(\S+)\s*$" % re.escape(field), text, re.M)
+                self.assertTrue(found, "%s carries no %s: line" % (which, field))
+                values[which] = sorted(set(found))
+            self.assertNotEqual(values[row["fixture"]], values[row["pair"]["fires_in"]],
+                                "%s and %s now agree on %s, so nothing in the pair is the gate"
+                                % (row["fixture"], row["pair"]["fires_in"], field))
 
 
 if __name__ == "__main__":
