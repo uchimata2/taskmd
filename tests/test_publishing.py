@@ -137,6 +137,23 @@ def _cli():
 #: carry a region of this kind.
 Kind = collections.namedtuple("Kind", "name pattern owned required")
 
+#: A backticked class or advisory name: a multi-word run whose every word is two or more capitals,
+#: or a single word of three or more. One home, read by the `advisories` kind below and by the
+#: *cannot occur* region check further down.
+#:
+#: **The two-word arm is the repair** (T-227). This required three capitals *first*, so a class
+#: whose opening word is shorter was read as nothing at all - neither passed nor failed, which
+#: looks exactly like a pass. Measured 2026-08-22: two of the twenty-two classes were invisible,
+#: ID WIDTH and NO BLOCKER, and `github-issues.md` declares one of them, so four names in that
+#: region were guarded three. Over every shipped document the wider arm newly matches exactly one
+#: token, and it is ID WIDTH.
+#:
+#: **A single two-letter word still does not match, and that is load-bearing** rather than a
+#: leftover. The advisory region also contains `` `OK` ``, in the sentence about `check` saying it
+#: twice over a duplicated index; a floor of two would read it as a fourth advisory. The floor
+#: moves only where a second word confirms the shape.
+CLASS_IN_BACKTICKS = r"`([A-Z]{2,}(?: [A-Z]{2,})+|[A-Z]{3,})`"
+
 # T-139 generalised this from commands to any marked list of a set the code owns. Adding a kind is
 # one row here and a pair of markers in the document - no test below is edited, and none names a
 # member of any set.
@@ -144,16 +161,16 @@ Kind = collections.namedtuple("Kind", "name pattern owned required")
 # The patterns differ because the registers do. A command is written as an invocation in both places
 # that list them (`taskmd context <id>` in a table of purposes, `python -m taskmd context T-002` in a
 # block of invocations), so one expression reads both. An advisory is written as a backticked
-# all-caps name. `{3,}` on the first word is not decoration: the advisory region also contains
-# `` `OK` ``, in the sentence about `check` saying it twice over a duplicated index, and a two-letter
-# token would have been read as a fourth advisory.
+# all-caps name, which `CLASS_IN_BACKTICKS` above reads - the same expression the *cannot occur*
+# regions are read with. It was written out twice until 2026-08-22, and the defect T-227 repaired
+# was in both copies - which is the ordinary reason for one home, arriving in the file that enforces it.
 KINDS = (
     Kind("commands",
          re.compile(r"taskmd\s+([a-z][a-z0-9-]*)"),
          lambda cli: set(cli.COMMANDS),
          ("README.md", os.path.join("plugin", "skills", "taskmd", "taskmd", "cli.py"))),
     Kind("advisories",
-         re.compile(r"`([A-Z]{3,}(?: [A-Z]+)*)`"),
+         re.compile(CLASS_IN_BACKTICKS),
          lambda cli: set(cli.ADVISORY_PREFIXES),
          ("README.md",)),
     Kind("list-options",
@@ -620,13 +637,41 @@ class EveryBindingDeclaresWhatCannotOccur(unittest.TestCase):
             lines = region_lines(path, self.MARKER)
             if lines is None:
                 continue
-            named = set(re.findall(r"`([A-Z]{3,}(?: [A-Z]+)*)`", "\n".join(lines)))
+            named = set(re.findall(CLASS_IN_BACKTICKS, "\n".join(lines)))
             for name in sorted(named - known):
                 unknown.append("%s names `%s`" % (os.path.relpath(path, ROOT).replace(os.sep, "/"), name))
         self.assertEqual([], unknown,
                          "a binding declares a class the validator does not report, so the "
                          "declaration has drifted from the code it is about:\n  " +
                          "\n  ".join(unknown))
+
+    def test_the_pattern_reads_every_name_a_region_carries(self):
+        """The guard on the guard (T-227).
+
+        The test above can only judge what the pattern hands it, so a pattern that stops seeing a
+        name makes it **quieter** rather than louder - and that is what had happened. A three-capital
+        floor on the first word hid `ID WIDTH`, so `github-issues.md` carried four names and three
+        were guarded, with nothing anywhere to say which three.
+
+        So this counts from the other side. Anything a region backticks that is capitals and spaces
+        throughout is a name the region is offering to be checked, and the pattern must read all of
+        them. It is a wider net than the pattern on purpose: the day they disagree, one of the two is
+        wrong and this says so instead of shrinking.
+        """
+        offered = re.compile(r"`([A-Z][A-Z ]*[A-Z])`")
+        unread = []
+        for path in bindings():
+            lines = region_lines(path, self.MARKER)
+            if lines is None:
+                continue
+            text = "\n".join(lines)
+            for name in sorted(set(offered.findall(text)) - set(re.findall(CLASS_IN_BACKTICKS, text))):
+                unread.append("%s carries `%s`" % (os.path.relpath(path, ROOT).replace(os.sep, "/"), name))
+        self.assertEqual([], unread,
+                         "a declaration backticks an all-capitals name the region scan does not "
+                         "read, so it is neither passed nor failed - which looks like a pass. Either "
+                         "CLASS_IN_BACKTICKS is too narrow, or the token is not a class name and "
+                         "belongs outside the markers:\n  " + "\n  ".join(unread))
 
     def test_the_derivation_finds_the_classes_the_bindings_actually_name(self):
         """The case without which both tests above pass vacuously.

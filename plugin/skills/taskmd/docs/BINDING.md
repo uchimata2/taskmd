@@ -220,11 +220,14 @@ accepted, `JQL` and `API` were reported as classes the validator does not report
 `local-markdown.md`'s declaration has always shown — and a backticked acronym is not. Write an
 acronym without backticks, or keep it outside the markers.
 
-**And what it misses, which matters more.** The three-capital floor also excludes a class name whose
-first word is shorter than that. Measured the same day, on this validator that is exactly one class,
-and `github-issues.md` declares it: the scan reads that binding's region and finds three of the four
-names it carries. So the check is a guard against a stale name, not a guarantee that every name in a
-region was checked — and a declaration is still read by a person.
+**It reads every class name, and that is newer than this document.** Until 2026-08-22 the pattern
+required three capitals **first**, so a class whose opening word was shorter was read as nothing at
+all — neither passed nor failed, which looks exactly like a pass. Two of the validator's classes were
+invisible to it and `github-issues.md` declared one, so that region carried four names of which three
+were guarded, and nothing anywhere said which three. The pattern now also accepts a multi-word run
+whose every word is two or more capitals, and a second check counts from the other side: anything a
+region backticks in capitals throughout must be a name the scan reads, so the next narrowing fails
+instead of going quiet. A single two-letter word is still not a class name and still does not match.
 
 **What that check is, and what it is not.** It confirms every binding carries the statement and that
 each class it names is a class the validator actually reports — which is the staleness a hand-kept

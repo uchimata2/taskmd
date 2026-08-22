@@ -75,7 +75,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-224](T-224-re-run-the-binding-s-github-side-measurements-or-record-that-they-cannot-be.md) | Re-run the binding's GitHub-side measurements, or say in the document that they were not | `M6` | `proposed` | `specify` | - | - | T-166, T-168, T-221 |
 | [T-225](T-225-have-a-second-uninvolved-reader-write-a-declaration-from-the-repaired-clause.md) | Have a second uninvolved reader write a declaration from the repaired clause | `M6` | `proposed` | `specify` | - | - | T-176, T-199, T-222 |
 | [T-226](T-226-decide-whether-taskmd-should-print-the-class-list-a-binding-author-needs.md) | Decide whether taskmd should print the class list a binding author needs | `M6` | `proposed` | `specify` | - | - | T-191, T-197, T-222 |
-| [T-227](T-227-the-marked-region-scan-cannot-see-a-class-whose-first-word-is-two-letters.md) | The marked-region scan cannot see a class whose first word is two letters | `M6` | `proposed` | `specify` | - | - | T-192, T-197, T-222 |
 | [T-228](T-228-decide-whether-the-reader-s-framing-verdict-reopens-the-accepted-balance.md) | Decide whether the reader's framing verdict reopens the accepted balance | `M6` | `proposed` | `specify` | - | - | T-166, T-167, T-176, T-221 |
 | [T-229](T-229-correct-the-migrated-away-fixture-s-own-prose-which-still-says-all-four-commands-refuse.md) | Correct the migrated-away fixture's own prose, which still says all four commands refuse | `M6` | `proposed` | `specify` | - | - | T-164, T-177, T-185, T-221 |
 
@@ -303,5 +302,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-220](T-220-re-run-t-188-s-sweep-one-occurrence-at-a-time.md) | Re-run T-188's sweep one occurrence at a time | `M6` | `done` | `review` | - | - | T-139, T-188, T-212 |
 | [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md) | Correct the two behavioural claims the migrated-away run falsifies | `M6` | `done` | `review` | - | - | T-166, T-168, T-176, T-224, T-228, T-229 |
 | [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md) | Repair the coverage clause against the eight defects a stranger found | `M6` | `done` | `review` | - | - | T-192, T-199, T-225, T-226, T-227 |
+| [T-227](T-227-the-marked-region-scan-cannot-see-a-class-whose-first-word-is-two-letters.md) | The marked-region scan cannot see a class whose first word is two letters | `M6` | `done` | `review` | - | - | T-192, T-197, T-222 |
 
 <!-- taskmd:end -->
