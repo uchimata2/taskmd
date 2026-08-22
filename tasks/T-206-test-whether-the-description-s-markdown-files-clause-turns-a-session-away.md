@@ -2,7 +2,7 @@
 id: T-206
 title: Test whether the description's Markdown-files clause turns a session away
 type: fix
-status: proposed
+status: specified
 phase: specify
 parent: T-205
 blocked_by: []
@@ -12,7 +12,7 @@ owner: the project owner
 business_value: high
 effort: m
 created: 2026-08-21
-updated: 2026-08-21
+updated: 2026-08-22
 adopter_visible: yes
 deliverables: []
 ---
@@ -79,9 +79,46 @@ away from a project the tool serves.
 - [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) §3 step 9 — the one positive this
   question has, and the confound on it
 - `plugin/skills/taskmd/SKILL.md` — the description under test, and line 42
+- **A session that did not start with the wording it is testing.** A harness fixes its skill list at
+  session start, so the session that edits a `description` is the one session that cannot observe the
+  edit. Whatever instrument runs an arm has to be shown to have *loaded* the wording under test —
+  which is a criterion below rather than a plan step, because a rig that silently ran the old text
+  would produce two arms that differ in nothing and a null result that looks like an answer
 
 **Acceptance criteria**
-- [ ] <written at `specify`>
+
+Written on 2026-08-22, after the owner's answer fixed the venue. They are written to make *cannot be
+determined* a legitimate passing outcome: this task ends in a description that changed or was shown
+not to need to, and "the rig could not tell" is one of the ways it can be shown not to have been.
+
+- [ ] **The result names a direction and does not hedge** — the clause turns a session away, does not,
+      or cannot be determined by this rig. A conclusion that reports both readings and picks neither
+      fails this
+- [ ] **The two arms are shown to differ only in the wording**, by diffing the rigs rather than by
+      asserting it. What failure looks like: any second difference between the arms — a file, an
+      instruction, a project name — which makes the comparison measure something nobody chose
+- [ ] **Each arm's instrument is shown to have loaded the wording it is testing**, quoted from the run
+      rather than inferred from the file on disk. A harness fixes its skill list at session start, so
+      an arm that ran the old text is the failure this rig is most exposed to, and it is invisible in
+      the result
+- [ ] **The rig is shown able to produce a positive before any negative is believed** — at least one
+      run in which the skill *is* invoked. Without that, *the session did not use the skill* measures
+      the rig, and a silent instrument and a working one score alike
+- [ ] **The number of runs per arm is fixed and stated before the results are read.** Adding a run
+      after seeing an unwelcome one turns an experiment into iteration, and nothing in the record
+      afterwards can distinguish the two
+- [ ] **The local-Markdown case is shown not to regress**, under the same rig — a project that is a
+      folder of Markdown task files still routes to the skill under whichever wording ends up shipped.
+      It is the majority case and the scope names it
+- [ ] **If the description changes, the new text is quoted beside the old and the tier-1 figure is
+      re-measured by running the suite**, with the number stated. The `description` is paid on every
+      turn of every session, so a wording that fixed the routing and broke the budget would be a
+      regression this task caused
+- [ ] **The confounds that survive the differencing are named**, and the answer says what each does to
+      the result. The owner's answer of 2026-08-22 records this as the known cost of a synthetic rig:
+      a surviving confound makes the result look controlled when it is not, and an unnamed one cannot
+      be weighed by whoever reads the conclusion
+- [ ] `check` is clean and the suite passes
 
 **Open questions**
 - ~~**How is a description change verified, given that no clean venue exists?** A description is loaded
@@ -91,6 +128,8 @@ away from a project the tool serves.
   rig** for a before-and-after comparison, where both runs share the same confounds and only the
   wording differs, is a different question and has not been put. **The maintainer's**, at `specify`,
   because it decides whether this task can be finished at all.~~ **Answered by the owner on 2026-08-22: a synthetic project is acceptable as a **test rig** — two runs differing only in the wording** — see the Log row of that date.
+- **None outstanding.** The criteria above were written after the answer and judge the rig it
+  licenses.
 
 ## 2. Plan
 
@@ -121,3 +160,4 @@ away from a project the tool serves.
 | :--- | :--- | :--- |
 | 2026-08-21 | → proposed | Raised as [T-205](T-205-decide-whether-a-clean-trigger-observation-is-reachable-on-this-machine.md) §3 step 4, which is what the owner's *act on the negative* decision of the same day produces. `high` because the description is the only thing that can route an adopter's request to this skill, and an adopter is by definition someone who has not written the tool's name into their own conventions; `m` because the test is a session and the honest way to run one is still an open question. **Its scope was shaped by T-205 §3 step 3 rather than by the decision alone**: the venue's config declares a GitHub-issues backend, so the candidate defect is a specific clause pulling against another and not a general failure to trigger. Typed `fix` rather than `research` so that it ends in a description that either changed or was shown not to need to, instead of in a recommendation that needs a third task to act on it. |
 | 2026-08-22 | (no change) | **The open question is answered by the owner: a synthetic project is acceptable as a test rig, run twice with only the wording changed.** Asked in the batched round of 2026-08-22. [T-205](T-205-decide-whether-a-clean-trigger-observation-is-reachable-on-this-machine.md) refused a synthetic project as *evidence about adopters*; a differenced before-and-after needs its confounds constant rather than absent, and only the wording varies between the runs, so the refusal does not reach this use. *Rejected: wait for a real adopter venue*, which would make the evidence about adopters directly, but no such venue exists, so the task could not be finished at all. *Rejected: change the wording on reasoning alone*, cheap and the clash between the two clauses is plain in the text, but this task exists to produce evidence either way. **The known cost is recorded with the answer**: a confound surviving the differencing would make the result look controlled when it is not. This row is the answer, not authorisation to start. |
+| 2026-08-22 | → specified | **Specify agreed: nine criteria written, where §1 had carried a placeholder.** They are built around the one thing a synthetic rig is bad at — looking controlled — so four of the nine are about the instrument rather than the answer: the arms must be diffed rather than declared identical, each arm must **quote** the wording it actually loaded, the rig must produce a positive before a negative is believed, and the run count per arm is fixed before any result is read. **The third of those is the one this project has been bitten by**: a harness fixes its skill list at session start, so the session that edits a `description` cannot observe the edit, and an arm that silently ran the old text yields two identical arms and a null result indistinguishable from a real one. **`cannot be determined` is written in as a passing outcome**, because the task's stated end is a description that changed *or was shown not to need to*, and a criterion that forced a direction would steer the rig toward a usable answer. One criterion carries the tier-1 cost: the `description` is paid on every turn of every session, so a rewording is re-measured by running the suite rather than assumed cheap. Phase stays at `specify`; `plan` is not authorised (METHOD §3.1). |

@@ -2,7 +2,7 @@
 id: T-208
 title: Decide where the product-wide deviation clause belongs now that it exists
 type: decision
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: []
@@ -12,7 +12,7 @@ owner: the project owner
 business_value: high
 effort: s
 created: 2026-08-21
-updated: 2026-08-21
+updated: 2026-08-22
 deliverables: []
 ---
 
@@ -75,7 +75,38 @@ repair presumes the answer.
 - `plugin/skills/taskmd/docs/METHOD.md` §4 — the clause as written, and §1 rule 3 which defers to it
 
 **Acceptance criteria**
-- [ ] <written at `specify`>
+
+Written on 2026-08-22, once the owner's answer fixed which repair they judge. The decision itself is
+recorded and is not one of these: what remains is `docs/SCOPE.md` §2's header, and showing that
+nothing else rested on the sentence it replaces.
+
+- [ ] **§2's header is true of principle 1 as principle 1 now stands.** A reader who applies the
+      header to that principle finds no pointer the header does not license. What failure looks like:
+      the header still licenses only a *narrower rule about how work is tracked*, while principle 1
+      points at METHOD §4 for a product-wide exception that is neither narrower nor about tracking
+- [ ] **The header is checked against every principle in §2, and the check is shown** — not against
+      the one that prompted this. A header is a claim about its section, and this task exists because
+      [T-187](T-187-say-that-the-one-design-rule-yields-to-a-system-limitation.md)'s criterion was
+      judged against two named principles and never reached the header above them. Judging the repair
+      the same narrow way would be the same mistake one turn later
+- [ ] **The header names the kind of thing METHOD may hold on a principle's behalf, and that kind
+      covers a product-wide exception.** A header widened only far enough to admit T-187's clause by
+      name leaves the next widening to re-open this silently, which is the failure mode
+      [T-045](T-045-decide-whether-scope-principles-may-state-the-rule-they-name.md)'s wording
+      already demonstrated once
+- [ ] **Principle 1's own wording is unchanged**, shown by a diff — the owner's answer confines the
+      repair to the header, and a principle edited to fit its header would be the decision reversed
+      without being re-asked
+- [ ] **The clause in `plugin/skills/taskmd/docs/METHOD.md` §4 is byte-identical afterwards**, shown
+      by a diff. Its wording is out of scope and this task must be able to prove it did not drift
+- [ ] **T-045's decision is left standing and the record says so.** §2 still *points* rather than
+      stating a narrower rule; what changed is that a wider one now exists, which T-045's wording did
+      not anticipate. What failure looks like: a header that reads as reversing T-045, so the next
+      reader cannot tell which of the two decisions is live
+- [ ] **`CLAUDE.md`'s pointer is shown still true, not assumed true** — §4 is read and confirmed to
+      state what the pointer promises about the word *requires*. If `CLAUDE.md` is edited at all, the
+      tier-1 figure is re-measured by running the suite and the number is stated
+- [ ] `check` is clean and the suite passes
 
 **Open questions**
 - ~~**Where does a product-wide qualification belong — `METHOD.md` §4, or `docs/SCOPE.md` §2
@@ -91,6 +122,8 @@ repair presumes the answer.
   METHOD §4 point up at it — truer to each document's stated scope, and it moves the clause out of
   everything an adopter receives, which is the half that made T-187 write the case generically in the
   first place.~~ **Answered by the owner on 2026-08-22: the clause stays in `METHOD.md` §4, and `docs/SCOPE.md` §2's header is widened** — see the Log row of that date.
+- **None outstanding.** The acceptance criteria above were written after the answer, so they judge the
+  repair the owner chose rather than the choice.
 
 ## 2. Plan
 
@@ -121,3 +154,4 @@ repair presumes the answer.
 | :--- | :--- | :--- |
 | 2026-08-21 | → proposed | Raised under `CLAUDE.md`'s *surface what you discover* immediately after [T-187](T-187-say-that-the-one-design-rule-yields-to-a-system-limitation.md) closed, by re-reading `docs/SCOPE.md` §2 whole rather than the two principles that task's criterion named. `high` because it is the placement of the one rule every design decision here is checked against, and `s` because the argument is written and only the choice is missing. **Not covered by the grant T-187 ran under**, which reached three named tasks and nothing any of them raised. It carries an open question that is the owner's, so nothing starts on it. |
 | 2026-08-22 | (no change) | **The open question is answered by the owner: leave the clause in `METHOD.md` §4 and widen `docs/SCOPE.md` §2's header.** Asked in the batched round of 2026-08-22, and it is the recommendation §1 carried. An adopter receives METHOD and never receives SCOPE, so they are the reader who most needs the clause; `CLAUDE.md` already promises §4 states what *requires* does and does not forbid, so moving it would falsify tier 1 as well. *Rejected: state it in §2 principle 1 and have METHOD §4 point up*, truer to each document's stated scope, but it moves the clause out of everything an adopter receives — the half that made [T-187](T-187-say-that-the-one-design-rule-yields-to-a-system-limitation.md) write the case generically — and falsifies `CLAUDE.md`'s pointer too. The known inconsistency in §2's header is now repairable, but repairing it is this task's work and is not authorised by this row. |
+| 2026-08-22 | → specified | **Specify agreed: eight criteria written, where §1 had carried a placeholder.** They judge only what the owner's answer leaves to do — `docs/SCOPE.md` §2's header — and they say twice, in different words, that the header must not be repaired the narrow way. **That is deliberate and is this task's own lesson turned on itself**: T-208 exists because [T-187](T-187-say-that-the-one-design-rule-yields-to-a-system-limitation.md)'s criterion was judged against two named principles and never reached the header above them, so a criterion here requires the header be checked against **every** principle in §2, and another requires it name a *kind* of thing rather than admit T-187's clause by name — a header widened to fit one clause re-opens this the next time the clause widens, which is exactly how [T-045](T-045-decide-whether-scope-principles-may-state-the-rule-they-name.md)'s wording expired. Two criteria are diffs — principle 1 and METHOD §4's clause must both come out byte-identical — because the answer confines the repair to the header and a task that widened anything else would have reversed a decision without re-asking. Phase stays at `specify`; `plan` is not authorised (METHOD §3.1). |
