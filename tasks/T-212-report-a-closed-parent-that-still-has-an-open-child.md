@@ -2,10 +2,10 @@
 id: T-212
 title: Report a closed parent that still has an open child
 type: fix
-status: proposed
-phase: specify
+status: blocked
+phase: plan
 parent: null
-blocked_by: []
+blocked_by: [T-216]
 related: [T-209, T-191, T-198]
 work_package: M6
 owner: the project owner
@@ -119,14 +119,61 @@ a different set of things to get right.
 
   **This is not a plan question and it cannot be assumed away.** It decides the class's meaning, its
   shipped behaviour, whether three records in this repository are wrong, and whether the suite can be
-  green with it. The grant on this record authorises phases and not answers, so `plan` has not been
-  written.
+  green with it. The grant on this record authorises phases and not answers, so it was put to the owner.
+
+  **Answered by the project owner on 2026-08-22: a child holds *every* parent open.** Not only an
+  audit umbrella. Three consequences, and none of them is a plan detail: the class is a **problem**
+  rather than an advisory; it needs no `type` filter and therefore no config key; and the three cases
+  above are **real defects in this repository** →
+  [T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md), raised on the same
+  instruction and not covered by this record's grant. The two readings that were rejected are priced
+  in §2's shape decision, where the alternatives to a rejected choice belong.
 
 ## 2. Plan
 
+**The question above is answered, and the answer is what this plan is built on.** The owner settled
+on **2026-08-22** that a child holds **every** parent open, not only an audit umbrella. So the class
+is a **problem** rather than an advisory, it needs no `type` filter and therefore no config key, and
+the three cases in this repository are real defects →
+[T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md), which this task now
+waits on.
+
+**Sequencing.** Step 1 is first because it is the failing-first evidence *and* the step that can
+invalidate the rest: if the fixture cannot hold the defect and both quiet cases in one project, the
+shape of steps 2–4 changes. Step 6 is placed before the gates rather than after them because the
+counts it corrects are prose that a green run does not read — the way this addition goes wrong
+silently is by leaving *seventeen checks* and *twelve checks* behind where they are now eighteen and
+thirteen.
+
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Build the fixture — one closed parent with an open child, plus the two cases that must stay silent: a closed parent whose children are all closed, and an **open** parent with an open child. Write the test that asserts the class is reported, run it, and record it **failing** before any check exists. | The fixture under `tests/fixtures/`, the test in `tests/test_cli.py`, and the failing run quoted in §3 |
+| 2 | Name the class and write the check. The name answers to `tests/classes.py`'s derivation, so it must be a `problems.append("<NAME> ...` literal in the shape `PROBLEM_PREFIX_RE` reads; the message names the parent, its status and the open child. | `check_closed_parent_open_child` in `cli.py`, registered in `cmd_check`, and a decision in §3 naming the class with the rejected names and why |
+| 3 | Run `check` on the fixture. It must report **exactly one** problem, of the new class, and be silent on both quiet cases. | The run quoted in §3, beside step 1's failing run |
+| 4 | Mark the two quiet cases in the fixture, in the form `tests/test_quiet_cases.py` defines, and read them back. The reach assertion is satisfiable here because the firing case is in the same fixture — which is the property [T-215](T-215-show-a-paired-fixture-s-quiet-case-is-in-reach-or-record-that-it-cannot-be.md) records `planned-deliverable` as lacking. | The marks, and the `--list` reading quoted in §3 |
+| 5 | Confirm every other fixture is asserted silent about the new class. `tests/test_cli.py` reads the class set from `tests/classes.py`, so this should follow with no edit — **verify it rather than assume it**, by checking the new name appears in the derived set and that the per-fixture silence assertion covers it. | The derived set printed in §3, and a statement of which assertion covers the new class |
+| 6 | Judge each shipped binding's *cannot occur* statement against the new class, and correct every count the addition falsifies. Known: `cmd_check`'s docstring says *twelve checks open a task file*; `github-issues.md` says *seventeen checks run on the local backend*. Both are prose the addition makes wrong. | Each binding's judgement recorded in §3 with its reason, the edited regions, and every corrected count named |
+| 7 | Run `check` on this repository. It must be clean — which needs [T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md) closed, since until then the class reports three real records here and five tests in `tests/test_cli.py` assert exit 0. | The run quoted in §3 |
+| 8 | Run the binding's *after any write*, run the suite, and sweep what this change made stale. | `index`, `check` and suite output in §3, and every document the sweep touched named |
+
+**Shape of the deliverable, decided — 2026-08-22.** A **problem** class in `cli.py`, one **fixture**
+carrying the defect and both quiet cases, and **rows in the shipped documents that enumerate
+classes**. *Rejected: an advisory*, which would keep this repository green without T-216 and was
+offered to the owner as one of three readings on 2026-08-22; it was not chosen, and it would report
+as advice a state the method forbids. *Rejected: scoping the class to `type: audit`*, also offered
+and not chosen — it needs project vocabulary, so a config key, and [T-106](T-106-say-that-the-shipped-config-cannot-gain-a-key.md)
+records that a new key errors every adopter's config on upgrade.
+
+**Not planned past its horizon.** Step 1 decides whether one fixture can carry all three cases; if it
+cannot, steps 2–4 are re-cut and this table is edited in place rather than guessed at now.
+
+**Outputs** — plain paths, because none of them exists yet:
+
+- plugin/skills/taskmd/taskmd/cli.py
+- plugin/skills/taskmd/docs/bindings/github-issues.md
+- plugin/skills/taskmd/docs/bindings/local-markdown.md
+- tests/fixtures/ — one new fixture directory, named at step 1
+- tests/test_cli.py
 
 ## 3. Implement
 
@@ -150,5 +197,6 @@ a different set of things to get right.
 | Date | Status change | Note |
 | :--- | :--- | :--- |
 | 2026-08-22 | (no change) | **Multi-phase authorisation, and its limits.** The **project owner** instructed on **2026-08-22**, in the session that raised this task, that [T-211](T-211-mark-the-quiet-cases-in-the-two-fixtures-outside-t-202-s-scope.md) and [T-212](T-212-report-a-closed-parent-that-still-has-an-open-child.md) be worked with the **full lifecycle**, and that the result be committed and pushed. **What it covers:** this task, one of the two — carried from where it now stands through `plan` → `implement` → `review` to closure, without stopping to ask for each phase, then committed and pushed. **What it does not cover:** any other task. In particular it does **not** reach [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md), raised the same day and not named; nor [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) or [T-198](T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md), whose closure the earlier grant of the same date already confined away from. It authorises **phases, not answers**: an open question that is the owner's stops this record where it stands, because no grant of phases can answer one. Written into this record rather than kept in the session's handoff, because an authorisation kept anywhere else is one a later session can miss, or stretch to a task it never reached (`CLAUDE.md`, *one phase per request*). **Specific to this task: it adds a check class, so it owes the two things a class owes here.** A committed fixture holding exactly one defect, shown failing first; and a judgement of every shipped binding's *cannot occur* statement against the new class, which `plugin/skills/taskmd/docs/BINDING.md` §4 requires and `tests/test_publishing.py` reads. Its quiet cases mark themselves, per [T-202](T-202-mark-a-fixture-s-quiet-cases-so-a-sweep-can-find-them.md). |
+| 2026-08-22 | proposed → blocked | Question answered by the **project owner** on 2026-08-22 - a child holds **every** parent open - and the plan written against it. The class is a problem, not an advisory, and needs no config key. **Blocked on [T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md)** rather than merely waiting on it: step 7 needs `check` clean on this repository, and until those three records are repaired the class reports them, which turns five tests in `tests/test_cli.py` red. T-216 was raised on the owner's own instruction and is **outside this record's grant**, which names T-211 and T-212 and no other task - so this task stops at the end of `plan`. |
 | 2026-08-22 | (no change) | **Stopped at an open question before `plan`, under the grant recorded above.** Measuring this repository rather than reading the rule showed the class as scoped would fire three times here, on parents that are `deliverable` and `research` and not one of them an audit - while the rule §1 cites, `audit.md` step 5, is written about an audit's **umbrella**. So the class's meaning is unsettled, and with it whether three records here are wrong. It is not a plan detail: five tests assert `check` is clean on this repository, so a class that fires here turns the suite red rather than reporting. The grant authorises phases and not answers, so no plan was written. The question, both readings and what each costs are in §1. |
 | 2026-08-22 | → proposed | Raised from [T-209](T-209-report-an-open-child-as-a-blocker-on-the-parent-that-cannot-close.md) while answering that task's fourth criterion — *whether `check` reports it too* — by building the case and running it rather than reasoning about it. The answer for the **open** parent is no: an umbrella with an open child is the ordinary state of every audit mid-flight, and reporting it would make a healthy backlog noisy. The **closed** parent is the opposite and returns `OK`, quoted in §1. Raised rather than folded into T-209 because it is a new validator class with a fixture and coverage rows, not a change to what a derived line says — a different size and a different set of things to get right. `medium` and `s`: the rule, the edge and the derivation all exist, so this is a reader for data already there. |
