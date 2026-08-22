@@ -548,9 +548,10 @@ the **remaining** ones went:
 
 | Check | Here |
 | :--- | :--- |
-| unreachable template, template field | **Not applicable as written.** They read a task template in a folder. If your project keeps an issue template, nothing here checks it |
+| unreachable template, template field | **Not applicable as written.** They read a task template in a folder. If your project keeps an issue template, nothing here checks it. They do still *run* on a migrated project and find nothing to read, which is why they are not in the row below |
 | declared output that is gone | **Still local.** It compares declared paths against a working tree, which you still have. Run it there |
-| broken link, ignored link, wide table row, config drift, duplicate index | **Still local, and still run.** These five never take a task as input: they walk the documents from your project root, which a migrated project keeps. This is the measurement under *No validator* below — pointed at a migrated project, they reported two dead links and a config advisory |
+| broken link, ignored link, wide table row, config drift, section reference | **Still local, and still run.** None of these takes a task as input: they walk the documents from your project root, which a migrated project keeps. Re-run 2026-08-22 against this repository's own `tests/fixtures/migrated-away`, they reported one dead link and a config advisory, and `check` exited 1. This is the measurement under *No validator* below |
+| duplicate index | **Can occur, and nothing here reports it — `check` included.** *Corrected 2026-08-22.* This row used to sit above, and it was wrong on the day it was written rather than drifted into being wrong: the check recognises a second table by the task ids it already knows, so a project with no task folder gives it nothing, and it is not reached at all. Measured 2026-08-22 — one document firing `DUPLICATE INDEX  BACKLOG.md: a second table of 3 known task ids sits outside the taskmd markers` went silent, unedited, once the task folder was taken away |
 | closed parent with an open child | **Can occur, and nothing here reports it.** GitHub lets you close a parent issue while a sub-issue is still open, so the state is reachable — which is why it is not in the *cannot occur* list above. No row in the procedure looks for it. A row would have to be run against a real backlog before it could be trusted, which is the standard every row above is held to |
 
 **Two limits of this list itself.** It is a hand-kept description of a set the code owns, so it goes
@@ -576,24 +577,41 @@ them whole, and nothing here is a format only taskmd can read.
 Read this after a move, or before one. It is a list of facts and it stops short of a recommendation,
 because the facts that would decide it are about your project and this document holds none of them.
 
-### The four commands do not come with you
+### Three of the four commands do not come with you, and `check` half does
 
-`context`, `index`, `check` and `list` read a folder of task files. After the move there is no folder.
-Measured on 2026-08-17, each of the four against a project root with no task directory:
+`context`, `index` and `list` read a folder of task files. After the move there is no folder, so they
+stop — they do not degrade, warn, or fall back. Re-run 2026-08-22 against this repository's own
+`tests/fixtures/migrated-away`, a project of exactly this shape:
 
 ```
-CONFIG ERROR  <shipped default>: tasks_dir is 'tasks', but the project root has no such folder.
+CONFIG ERROR  .taskmd/config.md: tasks_dir is 'tasks', but the project root has no such folder. …
 exit=2
 ```
 
-They do not degrade, warn, or fall back. They stop.
+**`check` is the exception, and it used to be counted in the sentence above.** *Corrected
+2026-08-22.* This paragraph said **each of the four** stops, measured on 2026-08-17 — true on that
+date and false from 2026-08-19, when `check` was split so that the checks reading documents run on a
+project whose tasks have moved. The tool moved and this paragraph did not, which is worth more to you
+than a quiet repair would be, and is why the old date is still here. On the same project, the same
+day:
+
+```
+BROKEN LINK   docs/guide.md -> plan.md
+1 problem(s) - 3 document(s), 2 link(s), 2 table row(s), …
+CONFIG DRIFT  status: shipped default adds 'specified', 'planned', …
+Scope  no task file was read, and the checks that open one did not run. …
+exit=1
+```
+
+The `Scope` line is the half to read. It names what went unexamined, so a document-only run cannot be
+taken for a clean bill of health on a backlog it never opened.
 
 | Command | Replaced by | What that costs you |
 | :--- | :--- | :--- |
 | `context` | *read* above — `gh issue view <n> --json …` | Nothing material. One fetch, one issue, whole |
 | `index` | nothing to replace — *After any write* says why | Nothing. The issue list is the index, computed on demand |
 | `list` | *enumerate* above, then *order* | The enumeration survives, and so does the ordering — as a procedure you run rather than a command that runs it |
-| `check` | **nothing** | Everything it checked is now unchecked |
+| `check` | **partly itself** | The checks that open a task file: references, vocabularies, dates, cycles, the index. The ones that walk your documents still run — *What this does not cover* above says which |
 
 ### What survives
 
@@ -615,20 +633,32 @@ They do not degrade, warn, or fall back. They stop.
 ### What is gone and has no replacement here
 
 Three things, stated plainly because they are the ones that would otherwise be found later. **None of
-them is a reason to keep taskmd installed**: the commands exit 2 either way, so these are costs of the
-move and they are already paid whatever you decide here.
+them is a reason to keep taskmd installed**: `context`, `index` and `list` exit 2 on a project with no
+task folder, so those costs are already paid whatever you decide here.
+
+**`check` is not covered by that sentence, and this is the correction rather than the conclusion.**
+*Corrected 2026-08-22.* The sentence used to read *the commands exit 2 either way*, which was the
+whole of the argument; `check` exits 1 and reports real problems, so one of the four does work an
+uninstalled taskmd cannot. **What follows from that is stated here and not acted on.** The balance of
+this section — what it lists, and that it stops short of a recommendation — was settled as a decision
+on a wider set of facts than one exit code, and re-weighing it on the back of a correction of fact
+would be reversing that decision as a side effect. So: the *either way* argument is now weaker for one
+command out of four, item 1 below says what that command still does, and the reader weighs it.
 
 1. **No validator.** `check` verified that every reference resolved, that every field value was in
    its vocabulary, and that the index matched the tasks it came from. Nothing on this backend does
    any of that. A `Related` line naming an issue that was never created is not reported by anything.
 
-   > **True as behaviour, overstated as necessity — measured 2026-08-18.** `check` runs
-   > seventeen checks and **five of them never take a task as input**: they walk the documents from
-   > the project root, which is exactly what a migrated project still keeps. You lose all seventeen
-   > only because the config error is raised while the schema loads, before any check is reached.
-   > Run against a migrated project holding ordinary documents, those five reported two dead links
-   > and a config advisory. So the sentence above describes where one guard sits, not what this
-   > backend makes impossible.
+   > **True as behaviour, overstated as necessity — measured 2026-08-18, corrected 2026-08-22.**
+   > `check` **splits** on a project with no task folder: the checks that open a task file do not
+   > run, and the ones that walk the documents from your project root do — which is exactly what a
+   > migrated project still keeps. *The 2026-08-18 sentence here said you lose all of them, because
+   > the config error was raised while the schema loaded, before any check was reached. That was true
+   > when it was written, and stopped being true on 2026-08-19; the date stays so you can see that
+   > the tool moved and the document did not.* Re-run 2026-08-22 against this repository's own
+   > `tests/fixtures/migrated-away`: one dead link, a config advisory, exit 1, and a `Scope` line
+   > naming the half that went unexamined. So the sentence above describes where one guard sits, not
+   > what this backend makes impossible.
 
 
 2. **No ordering *command*.** `list --open --limit 1` answered "what to work on next" by a stated
