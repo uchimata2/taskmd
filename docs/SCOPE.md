@@ -34,12 +34,22 @@ If a change makes any of the three worse, it is against the goal even if it is a
 ## 2. Principles
 
 Three rules that every requirement below is an application of. They govern the **whole product** —
-the schema, the generated index, the config, the code — which is why they are stated here in full
-rather than pointed at. Where a principle *also* holds as a narrower rule about how work is tracked,
-[`METHOD.md`](../plugin/skills/taskmd/docs/METHOD.md) states that version and this section points at it. **This is not the
-convention in §3**, which governs requirements and is stated there — a principle is a rule, and a
-requirement is not. Decided in
-[T-045](../tasks/T-045-decide-whether-scope-principles-may-state-the-rule-they-name.md).
+the schema, the generated index, the config, the code — which is why the rules themselves are stated
+here in full rather than pointed at.
+
+**What a rule's words do and do not require is a different fact, and its home is
+[`METHOD.md`](../plugin/skills/taskmd/docs/METHOD.md).** A principle's boundary cases, and the
+grounds on which it yields, are stated there once — **at whatever scope they hold, product-wide
+included** — and this section points at them. The scope is left open on purpose: a header widened
+just far enough to admit the one qualification that prompted it is a header the next qualification
+re-opens in silence, which is how the sentence this replaces expired. **This is not the convention
+in §3**, which governs requirements and is stated there — a principle is a rule, and a requirement is
+not. Decided in
+[T-045](../tasks/T-045-decide-whether-scope-principles-may-state-the-rule-they-name.md), whose
+decision stands: this section **points** and does not state. What its wording did not anticipate is
+a qualification wider than the tracking scope `METHOD.md`'s own first line describes — widened here
+on 2026-08-22 by
+[T-208](../tasks/T-208-decide-where-the-product-wide-deviation-clause-belongs-now-that-it-exists.md).
 
 1. **One home per fact.** Every fact is written in exactly one place. Anything derivable is
    computed at read time, never stored. A feature that *requires* writing the same fact twice is
