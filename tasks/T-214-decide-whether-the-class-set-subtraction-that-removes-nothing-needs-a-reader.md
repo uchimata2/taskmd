@@ -2,8 +2,8 @@
 id: T-214
 title: Decide whether the class-set subtraction that removes nothing today needs a reader
 type: decision
-status: proposed
-phase: specify
+status: done
+phase: review
 parent: null
 blocked_by: []
 related: [T-197, T-211, T-191]
@@ -83,29 +83,127 @@ down.
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Re-measure the state §1 describes, against the tree as it is now rather than as T-211 found it. | The probe's output in §3 |
+| 2 | Choose between the three options and record the choice **beside the constant**, with each rejection and its reason. | The comment block in `tests/classes.py`, and a decision in §3 |
+| 3 | If a reader is chosen, make the guarded line reachable from a test without faking it — the guard is a subtraction *inside* `check_classes`, so an assertion built from the regex and the constant separately would pass on a version that had dropped it. | Whatever `tests/classes.py` needs to let the real function run over a chosen source |
+| 4 | Write the reader, and a companion that stops it passing vacuously. | Tests in `tests/test_publishing.py` |
+| 5 | Show it **failing first**, on a tree where the guard has stopped mattering — which is produced by emptying the constant. | The failing run quoted in §3 |
+| 6 | Restore the guard, run the module and the suite. | Their output in §3 |
+
+**Shape decision — the reader lives in `tests/test_publishing.py`, beside the other reader of this
+derivation.** `TestTheDerivationCanStillRead` is already there and is already the thing that catches
+`check_classes` returning too little; this is the same subject one level down. **Rejected: a new
+test module**, which would split one derivation's readers across two files. **Rejected:
+`tests/test_quiet_cases.py`**, whose subject is marks rather than the class set.
+
+**Step 3 is where this could have gone wrong quietly.** The obvious test — assert
+`PROBLEM_PREFIX_RE` finds the class and `NOT_A_CHECK_CLASS` contains it — never runs the subtraction,
+so it would stay green on a `check_classes` that had lost the line it exists to protect.
+
+**Outputs**
+- tests/classes.py
+- tests/test_publishing.py
 
 ## 3. Implement
 
+**Step 1 — the state, re-measured**
+
+```text
+CONFIG ERROR in problem prefixes : False
+CONFIG ERROR in ADVISORY_PREFIXES: False
+union before subtraction         : False
+NOT_A_CHECK_CLASS                : ('CONFIG ERROR',)
+classes now                      : 22
+```
+
+Unchanged from what T-211 found, on a tree where the class set has since grown by one
+([T-212](T-212-report-a-closed-parent-that-still-has-an-open-child.md)). The subtraction removes
+nothing. `cli.py` prints the class from two `print()` sites in the config loader, neither of them a
+`problems.append`.
+
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+1. **Give it a reader** — 2026-08-22 — rather than leaving it with a note or deleting it.
+   **Rejected: a note and nothing else.** It already has one, and the note is *true*: the class is
+   not one `check` owns. What the note cannot do is fail. The risk §1 names is that the line becomes
+   permanently inert — the derivation's shape changing so the class could never enter the union
+   again — and a note is silent about exactly that.
+   **Rejected: deleting it.** T-211 measured that the guard does real work one edit away: with the
+   `print` turned into a `problems.append` and the guard in place the derived set was unchanged;
+   with the guard also gone the class entered the set. Without it, a class no binding can declare
+   and no fixture can be marked silent about joins the set that `tests/test_cli.py` iterates for
+   every fixture.
+2. **`check_classes()` takes an optional `source`** — 2026-08-22 — so the reader runs **the real
+   function** over the shape the guard exists for. **Rejected: asserting on `PROBLEM_PREFIX_RE` and
+   `NOT_A_CHECK_CLASS` separately**, which is the obvious test and never executes the subtraction:
+   it would pass unchanged on a `check_classes` that had dropped the line. The parameter defaults to
+   `None` and every existing caller — three test modules — is untouched.
+3. **The reader is three tests, and two of them exist to stop the first being vacuous** —
+   2026-08-22.
+   - *the class does not come out of a source that appends it* — the guard doing its job;
+   - *it would come out without the guard* — without this, a synthetic source the regex could not
+     read would produce the same green as a working guard;
+   - *the guard is inert against the real source, and that is recorded* — the §1 measurement kept
+     live instead of written in prose. The day it fails, `cli.py` has started reporting the class as
+     a problem, and the failure is the notification rather than a defect.
+4. **`cli.py` was not touched** — 2026-08-22 — §1 puts how a config error is reported out of scope,
+   and the decision here does not need it: the reader is built to work in both worlds, and its third
+   test is what announces a move between them.
+
+**Step 5 — failing first, with the guard emptied**
+
+```text
+$ # tests/classes.py: NOT_A_CHECK_CLASS = ()
+$ python -m pytest tests/test_publishing.py -q -k "GuardOnTheDerivedSet"
+E  AssertionError: 'CONFIG ERROR' unexpectedly found in {'CONFIG ERROR', 'CONFIG DRIFT', 'SECTION REF', 'LABEL SHAPE', 'DUPLICATE INDEX'} : the derivation now returns CONFIG ERROR, so the subtraction in tests/classes.py has stopped being applied
+FAILED tests/test_publishing.py::TestTheGuardOnTheDerivedSetStillBites::test_the_class_does_not_come_out_of_a_source_that_appends_it
+1 failed, 2 passed, 17 deselected in 0.11s
+```
+
+The set in that message is the evidence that the run is real: four advisories, plus the class the
+synthetic source appends. The two companions passed on the same run, which is what they are for.
+
+**Step 6 — the guard restored, and the gates**
+
+```text
+$ python -m pytest tests/test_publishing.py -q -k "GuardOnTheDerivedSet"
+3 passed, 17 deselected in 0.03s
+
+$ python -m pytest tests -q
+330 passed, 8 subtests passed in 42.89s
+```
+
+327 before, 330 after: the three tests above.
 
 **Outputs produced**
-- <path>
+- [`tests/classes.py`](../tests/classes.py)
+- [`tests/test_publishing.py`](../tests/test_publishing.py)
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| The decision is recorded in `tests/classes.py` beside the constant, with its rejected alternatives and the reason each was rejected | met | The comment block above `NOT_A_CHECK_CLASS`: what it subtracts today and why that is deliberate, where its reader is, and both rejections — *a note and nothing else*, because a note cannot fail, and *deleting it*, because T-211 measured the work it does one edit away |
+| If a reader is added, it is shown **failing first** on a tree where the guard has stopped mattering | met | §3 step 5. The guard emptied is exactly *the guard has stopped mattering*, and the run is quoted with the derived set in the message. It failed on the assertion that names the subtraction, not on an import or a collection error |
+| `python tests/test_quiet_cases.py` and the suite are green, and the output is quoted | met | §3 step 6. The suite is `330 passed, 8 subtests passed`, which includes `tests/test_quiet_cases.py`'s ten tests; the guard's own three are quoted separately |
+
+**What review found beyond the table.** Nothing outside this task. Worth recording inside it: the
+choice that mattered was **step 3, not the three-way decision**. Leave / read / delete was settled by
+§1's own evidence in a paragraph. Whether the reader touches the guarded line is what decides if
+this task produced a guard or a second thing to keep in sync, and the obvious test would have
+produced the second.
+
+**Open questions, re-read before closing** (`review` step 5). §1 recorded none and none arose.
+Nothing is addressed to anyone else.
 
 **Child fix tasks raised**
-- none
+- none.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-22 | → done | All three criteria met. **Decision: give it a reader**, recorded beside the constant with both rejections. The reader runs the real `check_classes` over a synthetic source, so the subtraction itself is in the run — the obvious test, built from the regex and the constant, would never have executed it. Shown failing first with the guard emptied, and it has a companion whose only job is to stop it passing vacuously. 327 → 330 tests. **Worked under the multi-phase grant recorded at the top of this Log.** |
 | 2026-08-22 | (no change) | **The grant was extended a third time, and this row is the one to read on what it now reaches.** The **project owner** instructed on **2026-08-22**, at the start of the session that resumed the eight, to *include the tasks you raise during the execution of this eight, where my involvement is not needed, so make them complete too*. **What it adds:** a task **raised while working the eight** is covered on the same terms as the eight themselves — carried through the full lifecycle to closure without stopping to ask for each phase, then committed and pushed — **provided it needs nothing from the owner**. **What it does not change:** it still authorises **phases, not answers**, so a task that reaches an open question belonging to the owner stops there; that limit is what *where my involvement is not needed* means, and it is the same one the row below states. **It amends exactly one clause of the row below** — *any task raised after 2026-08-22* is outside the grant no longer, when the task is raised **by this work** and needs nobody. A task raised by a later session, and any task that needs the owner, stay outside it. The eight ids below are unchanged: they are still the set given directly, and this addition is defined by **how a task arises**, not by a description of the backlog — which is the distinction the row below was written to protect. Recorded here, and in each task this work raises, for the reason that row gives. |
 | 2026-08-22 | (no change) | **Multi-phase authorisation — current, and this row is the one to read.** The **project owner** granted it in three steps on **2026-08-22**: six tasks, then a seventh, then an eighth. **The set in force is eight**: [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md), [T-198](T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md), [T-212](T-212-report-a-closed-parent-that-still-has-an-open-child.md), [T-214](T-214-decide-whether-the-class-set-subtraction-that-removes-nothing-needs-a-reader.md), [T-215](T-215-show-a-paired-fixture-s-quiet-case-is-in-reach-or-record-that-it-cannot-be.md), [T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md), [T-217](T-217-return-the-fields-list-can-filter-on-in-its-machine-form.md), [T-218](T-218-give-the-rule-that-a-child-holds-its-parent-open-a-home-in-the-method.md). **What it covers:** this task — carried from where it now stands through the remaining phases to closure, without stopping to ask for each phase, then committed and pushed. **What it does not cover:** [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md), [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md), [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md), [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md), each waiting on the owner for something no session can supply; and **any task raised after 2026-08-22**. **The eight ids bind, and the fact that they currently exhaust the backlog is a coincidence, not the rule.** Measured this date, the eight are exactly the open tasks that need nobody, and the four above are exactly the ones that do — 8 + 4 = 12 open, checked per id rather than by the total. That makes *everything that does not need the owner* look like a safe restatement, and it is not: the next task raised would join that description and not this grant. It authorises **phases, not answers**: a task that reaches an open question belonging to the owner stops there. Written into this record rather than kept in the session's handoff, because an authorisation kept anywhere else is one a later session can miss, or stretch to a task it never reached (`CLAUDE.md`, *one phase per request*). **This row supersedes the *set and its bounds* in the rows below** — the grant as first given (six) and its first extension (seven). It does **not** supersede the limit specific to this task, which is stated below and still binds. |
 | 2026-08-22 | (no change) | **The grant was extended to a seventh task, later the same day.** The **project owner** added [T-218](T-218-give-the-rule-that-a-child-holds-its-parent-open-a-home-in-the-method.md) to the six named in the row below, on the same terms and after reading why it was raised. **The set now in force is seven**: [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md), [T-198](T-198-show-each-quiet-fixture-is-within-its-own-check-s-reach.md), [T-212](T-212-report-a-closed-parent-that-still-has-an-open-child.md), [T-214](T-214-decide-whether-the-class-set-subtraction-that-removes-nothing-needs-a-reader.md), [T-215](T-215-show-a-paired-fixture-s-quiet-case-is-in-reach-or-record-that-it-cannot-be.md), [T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md), [T-218](T-218-give-the-rule-that-a-child-holds-its-parent-open-a-home-in-the-method.md). The row below records the instruction as first given — six ids — and its *what it does not cover* clause is amended by exactly this one addition. [T-217](T-217-return-the-fields-list-can-filter-on-in-its-machine-form.md) remains outside it, as does every task waiting on the owner. Nothing else changes: it still authorises **phases, not answers**. |

@@ -35,6 +35,20 @@ PROBLEM_PREFIX_RE = re.compile(r'problems\.append\(\s*"([A-Z][A-Z ]+)')
 
 # Reported by the config loader while the schema loads, before any check runs. It is not a class
 # `check` owns, so it is not one a binding can declare or a fixture be asserted silent about.
+#
+# **It subtracts nothing today, and that is deliberate rather than dead** (T-214). `cli.py` prints
+# `CONFIG ERROR` with a bare `print()`, so `PROBLEM_PREFIX_RE` never finds it and the union below
+# never holds it. Turn either of those two prints into a `problems.append` - one line, and a change
+# somebody could make for good reasons - and the class enters the union and this line starts biting.
+# T-211 measured both states.
+#
+# **So it has a reader**, in `tests/test_publishing.py`: `TestTheGuardOnTheDerivedSetStillBites`
+# feeds `check_classes` the one source shape this line exists for and asserts the class does not
+# come out, with a companion assertion that it does come out when the guard is emptied. **Rejected:
+# a note and nothing else** - a note cannot fail, and the risk here is not that the line is wrong
+# but that it becomes permanently inert with nothing to say so. **Rejected: deleting it** - it does
+# real work one edit away, and without it a class no binding can declare and no fixture can be
+# marked silent about would enter the set every cross-fixture assertion iterates.
 NOT_A_CHECK_CLASS = ("CONFIG ERROR",)
 
 
@@ -45,11 +59,19 @@ def _cli():
     return cli
 
 
-def check_classes():
-    """Every class `check` can print — the problem prefixes and the advisories together."""
+def check_classes(source=None):
+    """Every class `check` can print — the problem prefixes and the advisories together.
+
+    `source` overrides the text the prefixes are read from, and exists for exactly one caller:
+    the reader on `NOT_A_CHECK_CLASS` above, which has to run this function over the shape that
+    makes the subtraction bite. Passing the text rather than asserting on the regex and the
+    constant separately is what keeps the guarded line itself in the run - a check built out of
+    the pieces would pass on a version of this function that had dropped the subtraction.
+    """
     cli = _cli()
-    with open(cli.__file__, encoding="utf-8") as handle:
-        source = handle.read()
+    if source is None:
+        with open(cli.__file__, encoding="utf-8") as handle:
+            source = handle.read()
     problems = set(found.rstrip() for found in PROBLEM_PREFIX_RE.findall(source))
     return (problems | set(cli.ADVISORY_PREFIXES)) - set(NOT_A_CHECK_CLASS)
 

@@ -642,5 +642,68 @@ class EveryBindingDeclaresWhatCannotOccur(unittest.TestCase):
         self.assertGreater(len(known), 15, "check_classes() found only %d classes" % len(known))
 
 
+class TestTheGuardOnTheDerivedSetStillBites(unittest.TestCase):
+    """`NOT_A_CHECK_CLASS` subtracts nothing today, so nothing was exercising it (T-214).
+
+    Measured 2026-08-22: `CONFIG ERROR` is in neither the problem prefixes nor `ADVISORY_PREFIXES`,
+    so it is not in the union the constant is subtracted from. `cli.py` prints it from the config
+    loader with a bare `print()`, before any check runs.
+
+    **That makes it a guard for a world one edit away, not dead code.** Turning either of those two
+    prints into a `problems.append` puts the class into the union and the subtraction starts
+    mattering. The danger is the ordinary one for a guard nobody reads: if the derivation's shape
+    changed so the class could never enter the union again, the line would be inert permanently and
+    nothing would report it - the same silence T-191 and T-197 exist over, one module down.
+
+    So this feeds `check_classes` the one source shape the guard exists for, and asserts both
+    directions. **The second assertion is what stops the first passing vacuously**: without it, a
+    `check_classes` that had quietly dropped the subtraction would still produce a set with no
+    `CONFIG ERROR` in it, because the synthetic source might have stopped matching the regex.
+    """
+
+    #: The shape `cli.py` would have if either `print("CONFIG ERROR ...")` became a problem. Written
+    #: here rather than read from anywhere, because the point is a source this repository does *not*
+    #: contain - a fixture for a one-line edit.
+    APPENDS_CONFIG_ERROR = 'problems.append("CONFIG ERROR  %s" % exc)'
+
+    def test_the_class_does_not_come_out_of_a_source_that_appends_it(self):
+        self.assertNotIn("CONFIG ERROR", check_classes(source=self.APPENDS_CONFIG_ERROR),
+                         "the derivation now returns CONFIG ERROR, so the subtraction in "
+                         "tests/classes.py has stopped being applied")
+
+    def test_it_would_come_out_without_the_guard(self):
+        """The companion. Without this, the test above cannot tell a working guard from a source
+        the regex never matched in the first place."""
+        import classes as classes_module
+        kept = classes_module.NOT_A_CHECK_CLASS
+        try:
+            classes_module.NOT_A_CHECK_CLASS = ()
+            self.assertIn("CONFIG ERROR", check_classes(source=self.APPENDS_CONFIG_ERROR),
+                          "with the guard emptied the class still does not appear, so the test "
+                          "above is passing on a source the derivation cannot read - the guard is "
+                          "not what is keeping it out")
+        finally:
+            classes_module.NOT_A_CHECK_CLASS = kept
+
+    def test_the_guard_is_inert_against_the_real_source_and_that_is_recorded(self):
+        """The measurement the two above are built on, kept live rather than written in prose.
+
+        The day this fails, `CONFIG ERROR` has entered the real union - which is a change to shipped
+        behaviour somebody made deliberately, and the two tests above become the live guard rather
+        than a fixture-driven one. Failing here is the notification.
+        """
+        import classes as classes_module
+        kept = classes_module.NOT_A_CHECK_CLASS
+        try:
+            classes_module.NOT_A_CHECK_CLASS = ()
+            self.assertNotIn("CONFIG ERROR", check_classes(),
+                             "CONFIG ERROR is now in the derived set before subtraction, so the "
+                             "guard has started biting on the real source. That is not a defect - "
+                             "it means cli.py now reports it as a problem, and this test is the "
+                             "record of when that stopped being true")
+        finally:
+            classes_module.NOT_A_CHECK_CLASS = kept
+
+
 if __name__ == "__main__":
     unittest.main()
