@@ -5,7 +5,7 @@ type: deliverable
 status: proposed
 phase: specify
 parent: null
-blocked_by: []
+blocked_by: [T-231]
 related: [T-135, T-125, T-127, T-133]
 work_package: M6
 owner: maintainer
@@ -55,8 +55,11 @@ is a rule to drop, and nothing but a real release can tell the difference.
 - [ ] The opening sentence claims no completeness, per §7
 
 **Open questions**
-- **When does this run?** It is gated on there being a release to make, so it cannot be scheduled from
-  here. Whoever tags the next version runs it as part of publishing.
+- ~~**When does this run?** It is gated on there being a release to make, so it cannot be scheduled from
+  here. Whoever tags the next version runs it as part of publishing.~~ **Answered 2026-08-22: after
+  [T-231](T-231-cut-the-next-release.md)**, which now carries the release and is recorded as this
+  record's `blocked_by`. See the Log row of that date, which also carries a tension the scheduling
+  raises for §1.
 
 ## 2. Plan
 
@@ -86,6 +89,7 @@ is a rule to drop, and nothing but a real release can tell the difference.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-22 | (no change) | **The gate is an edge now.** The owner raised [T-231](T-231-cut-the-next-release.md) on 2026-08-22 and scheduled this record **after** it, so `blocked_by` carries what an *Open questions* bullet carried before — and `list --open` sorts this record last and reports it blocked, where it had been sorting as startable in every view. That is the repair [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md) made for a wait on a task, now available here because the event acquired one. **A tension the scheduling raises, recorded rather than resolved:** §1's scope says §7's commands run *before the note is styled*, and a release cut first means the note already exists when this record starts — so whoever works it must check whether the outcome is still reachable, or say what it became. That is this record's own `specify` and not something to settle from outside it. **Not in the unattended grant of the same date**, and its own exclusion is recorded in the five records that grant covers. |
 | 2026-08-22 | (no change) | **The owner's answer: a project-wide audit comes before the release.** Asked in the batched round of 2026-08-22 — §1's open question says the trigger is an **event** rather than a decision, so the only thing an owner can settle is whether that event is wanted now. **Answered: not yet.** An audit of the entire project runs first, and its requirements are to be given separately; this task is unaffected by what that audit contains and stays gated on a release actually being made. So the gate is now two conditions where §1 records one, and neither is scheduled from here. This row is the answer, not authorisation to start. |
 | 2026-08-22 | (no change) | **Re-edged from `parent: T-135` to a soft edge, by [T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md).** This is the hardest of the three, because it *was* raised from a criterion [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) recorded as **not met**. The judgement is that T-135's outcome is nevertheless finished: the rule exists in `docs/PUBLISHING.md` §7 and was **used** — applied to `v0.4.0`'s note, where it found at least 21 omissions against the 6 a hand-sample had found. That is `implement`'s exit criterion satisfied on the real thing. The unmet criterion asks for the rule to be applied to a release that does not exist yet, which is an external condition and not a gap in the deliverable. Reopening T-135 would put a finished rule back on every open view until an unscheduled release happens. Rejected for that reason; recorded in T-216 §3. |
 | 2026-08-18 | → proposed | Raised by [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md)'s review, which carried its fourth criterion rather than meeting it. **Planned for at `plan`, not discovered at `review`**: satisfying it would have meant writing a note for a release nobody was making, which is a criterion describing the work instead of judging it. Gated on a real release, so it sits outside any standing grant until one is being made. |
