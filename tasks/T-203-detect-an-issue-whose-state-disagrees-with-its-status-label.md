@@ -279,12 +279,24 @@ OK - 211 task(s), ... 243 document(s), 2901 link(s), ... 3479 section reference(
 
 ### Step 9 — the scratch repository, handed back
 
-**`uchimata2/taskmd-state-label-scratch` still exists and this session cannot delete it.** `gh auth
-status` reports scopes `gist, project, read:org, repo, workflow` — `repo` created it, and
-`delete_repo` is absent, which is the same arrangement
-[T-193](T-193-make-the-standing-github-check-fail-before-trusting-it.md) ended on. **Deleting it is
-the owner's**, and it is asked for by name here and in the session's closing report rather than left
-as a note somebody might not read.
+**`uchimata2/taskmd-state-label-scratch` existed at the end of this task's run and this session
+could not delete it.** `gh auth status` reported scopes `gist, project, read:org, repo, workflow` —
+`repo` created it, and `delete_repo` is absent, which is the same arrangement
+[T-193](T-193-make-the-standing-github-check-fail-before-trusting-it.md) ended on. **Deleting it was
+the owner's**, and it was asked for by name here and in the session's closing report rather than
+left as a note somebody might not read.
+
+> **Discharged 2026-08-22.** The owner deleted it, and this is the check rather than their word for
+> it:
+>
+> ```text
+> $ gh repo view uchimata2/taskmd-state-label-scratch
+> GraphQL: Could not resolve to a Repository with the name
+> 'uchimata2/taskmd-state-label-scratch'. (repository)
+> ```
+>
+> Nothing is outstanding on the owner's account from this task. The paragraph above is left as it
+> was written, because it is a dated statement about what was true then (METHOD rule 5).
 
 **Decisions & assumptions**
 
@@ -323,8 +335,9 @@ whole binding.
 
 **Open questions, re-read before closing.** §1 recorded two and both are answered — the mapping
 question by the owner on 2026-08-22, and the scratch-repository permission by the owner the same day.
-Neither is left live. **One obligation leaves this task open in the world rather than in the record**:
-the scratch repository is the owner's to delete, asked for by name in §3 step 9.
+Neither is left live. **One obligation left this task open in the world rather than in the record** —
+the scratch repository — and it is **discharged**: the owner deleted it on 2026-08-22 and §3 step 9
+carries the command that confirms it is gone.
 
 **Child fix tasks raised**
 - none
