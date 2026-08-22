@@ -101,8 +101,13 @@ says a given audit's procedure belongs.
 - **Does the Low-batching rule belong here or in `audit`?** The draft batches Low findings instead of
   raising a task each, and argues it as a scale rule. It may be a correction to
   [`audit`](../plugin/skills/taskmd/docs/method/audit.md) step 4 at every scale. Owner answers.
-- **Id collision.** `T-223` was the next free number when this branch was cut, and another session was
-  committing to `master` at the time. Renumber at merge if it was taken.
+- ~~**Id collision.** `T-223` was the next free number when this branch was cut, and another session was
+  committing to `master` at the time. Renumber at merge if it was taken.~~ **Settled 2026-08-22: it keeps
+  `T-223`.** The other session had allocated the same number and neither could see the other. This branch
+  was merged first and so was reachable by anybody else, which is the rule that decided it; the other
+  record renumbered to
+  [T-229](T-229-correct-the-migrated-away-fixture-s-own-prose-which-still-says-all-four-commands-refuse.md)
+  and its references moved with it. Nothing here changed.
 
 ## 2. Plan
 
