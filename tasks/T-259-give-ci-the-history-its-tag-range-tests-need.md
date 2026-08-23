@@ -2,8 +2,8 @@
 id: T-259
 title: Give CI the history its tag-range tests need, and make a blind instrument say so
 type: fix
-status: in_progress
-phase: implement
+status: done
+phase: review
 parent: T-257
 blocked_by: []
 related: [T-243, T-116]
@@ -169,16 +169,31 @@ The unmodified module in a full clone: `Ran 29 tests ... OK`.
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| The `tests` workflow is green on a real push, read from the run rather than predicted | met | Run `32666064211` on commit `abfe8b4`: `completed success`, 57s. Read with `gh run watch --exit-status`, `rc=0`. **The first green run after 19 consecutive failures.** |
+| The class is shown **failing** when the rule is genuinely wrong, so the repair did not buy green by making it blind | met | §3 step 4: in a full clone with the range resolving, section 7's `/^plugin\//` ship test was made unmatchable and both original assertions fired with their own messages. **The first attempt at this proved nothing and is recorded** — it substituted a string absent from the document, so the run returned `OK` with the specimen never applied. |
+| A checkout with no tags produces a message naming the missing range, not an assertion about the release | met | §3 step 2, run against a shallow clone carrying 0 tags, before the checkout was fixed. The message names the range, says the rule was never run, and points at `actions/checkout`'s depth-1 default. |
+| The local suite and CI agree on this module, checked on the same commit | met | Commit `abfe8b4`, both. Local: `350 passed, 8 subtests passed`. CI: `success`. **This is the criterion the whole task exists for** — they disagreed for a day, and the local half was the one that looked trustworthy. |
 
-**Adopter-visible?** <yes or no - then set adopter_visible in the front matter, per the test in docs/PUBLISHING.md section 7>
+**Adopter-visible?** no — `.github/workflows/tests.yml` is outside the plugin boundary and
+`tests/` is not copied by an install, so nothing here reaches an adopter. `adopter_visible: no` set
+at `specify` and unchanged.
 
 **Child fix tasks raised**
-- none yet
+- none. The guard covers the general case — any test in the class that runs the command calls it
+  — so there is no residual.
+
+**One thing worth knowing, and it is not this task's to fix.** The pipeline in section 7 exits 0 even
+when its `git log` fails, which is why an unresolvable range reached an assertion at all rather than
+raising in `run_shipped_set`. The guard makes that harmless here by testing the range first. Whether
+the documented command should itself fail loudly is a question about
+[`../docs/PUBLISHING.md`](../docs/PUBLISHING.md) §7 rather than about this test, and nothing
+currently depends on it.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | in_progress → done | **CI green on run `32666064211`, the first success after 19 consecutive failures.** All four criteria met. The two causes now report separately: a wrong rule fails on the original assertions, a tagless checkout fails naming the range. Local suite and CI agree on `abfe8b4`, which is the disagreement this task existed to end. |
+| 2026-08-23 | planned → in_progress | Guard written and shown firing against a shallow clone first, because that case stops existing the moment the checkout is fixed. |
 | 2026-08-23 | specified → planned | Five steps, ordered so the no-tags case is exercised **before** the checkout is fixed - it is the only window in which that case exists. Step 4 exists because a repair that made the class blind would pass every other step. |
 | 2026-08-23 | → specified | **Found by pushing T-257's fix and reading the run rather than predicting it.** The clone check exited 0 and the full local suite passed 350 tests, and CI was still red - on a module whose cause is the runner's shallow checkout. Raised as a child of T-257 because that task's stated outcome includes a green workflow, which it cannot now deliver alone. |
