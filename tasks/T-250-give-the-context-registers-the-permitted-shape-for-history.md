@@ -2,8 +2,8 @@
 id: T-250
 title: Give the context registers and shipped documents the permitted shape for history
 type: fix
-status: in_progress
-phase: implement
+status: done
+phase: review
 parent: null
 blocked_by: []
 related: [T-249, T-073, T-092]
@@ -268,17 +268,40 @@ run after each of the four tracked files, not once at the end.
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| Every file edited is listed with what was compressed and what it now cites, so a reader can check that no fact was dropped rather than relocated | met | §3's *Outputs produced* table, five rows, two columns doing exactly that. **The criterion did its job rather than merely passing**: checking it found two facts in the register with no home anywhere — the sibling's disproof of a brief written here, and the one handoff ever written into that checkout — and both were restored rather than dropped. `grep -rl` over `tasks/` and `docs/` is what showed they had no home |
+| No adopter-facing statement changed meaning. The shipped documents are contracts | met | Four shipped files edited, passage by passage. Every edit deleted an account of a previous wording; none rewrote a claim, and the before/after is the table's second column. The mechanical half is `check exit=0` and `345 passed, 7 skipped` re-run after each file rather than once at the end |
+| `control/LOCAL-CONTEXT.md` holds no cell that restates a task record it already cites | met | No cell now carries a trail. **30,810 → 11,469 bytes, longest cell 11,374 → 907 chars.** What survives is identity, the facts with no other home, and a command per row. Its own former last sentence — *"this row is the trail; the tasks carry the detail"* — is what the file had been admitting and now acts on |
+| `taskmd check` passes, and the shipped documents still pass whatever the suite asserts of them | met | `check exit=0`, `index exit=0`, `345 passed, 7 skipped, 6 subtests passed`, after each of the four tracked edits |
+| The membership of this sweep is derived from the rule's own test at implement time, not from the table above | met | Derived at implement, and it disagreed with the table in both directions — `docs/PUBLISHING.md` absent from the table and carrying two real passages, `local-markdown.md` listed with five changelog lines and carrying none. Had the table been the membership, one file would have been edited that needed nothing and one needing work would never have been opened |
 
-**Adopter-visible?** <yes or no - then set adopter_visible in the front matter, per the test in docs/PUBLISHING.md section 7>
+**Adopter-visible?** no. Four of the five edited files ship inside `plugin/`, so this is the row that
+needed thinking about rather than assuming. What changed in them is prose recording how their own
+wording was reached; **no rule, no operation, no assumption and no promise moved**, which is the
+second acceptance criterion and is why it was written to be judged separately from the first. An
+adopter who installs the next release sees the same output, receives the same files and has nothing
+to do differently — they read four documents that are shorter. `docs/PUBLISHING.md` and
+`control/LOCAL-CONTEXT.md` are not shipped at all.
 
 **Child fix tasks raised**
-- none
+- none. Every criterion is met.
+
+**Two residuals, routed rather than dropped.**
+
+- **The register now carries a forward rule that nothing enforces**: *a record raised from a sibling
+  cites that sibling's label*. It is what keeps the derived trail column complete, and today it rests
+  on a session remembering. Not raised as a task, because the register is gitignored and a checker
+  for a convention in an unpublished file is a cost this project has declined before
+  ([T-146](T-146-decide-whether-a-field-can-be-required-at-a-status.md)); the residue it protects is
+  a closed set and is written out beside it.
+- **The one-commit-per-file answer cannot reach `control/LOCAL-CONTEXT.md`**, which is gitignored and
+  produced no commit. Stated in §3 as an assumption rather than treated as an exception, because the
+  owner's answer was given before that consequence was visible.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | → done | **`review` done and the record closed**, under the grant below. Five criteria, five met, no child raised. The first one is the row to read: checking that no fact was dropped rather than relocated found two facts in the register with no home anywhere, and both were restored. `adopter_visible` is `no` and was judged rather than assumed — four of the five edited files ship, and what moved in them is prose about their own wording, not a rule, an operation, an assumption or a promise. Two residuals are named in §4 rather than left for a sweep: the forward rule the register now depends on, and that the one-commit-per-file answer cannot reach a gitignored file. |
 | 2026-08-23 | → in_progress | **`implement` done**, under the grant below. **25 candidates derived, 5 edited, 20 read and left**, and §3 lists all twenty because a list of hits cannot show what was examined. Three things the plan did not foresee, all in §3 as decisions: **§1's table was wrong in both directions** — `docs/PUBLISHING.md` is absent from it and carried two real passages, while `local-markdown.md` is listed with five changelog lines and has none, which is the fifth criterion earning its keep; **the register's derived trail is not equivalent to the enumeration it replaced**, so the file states its reach, lists the closed residue and adds the forward rule that completes it; and **four foreign task ids were found in the register, every one colliding with a real task here**. |
 | 2026-08-23 | → planned | **`plan` written**, under the grant below. Six steps. Two shape it: step 1 states the corpus size before anything is classified, so the sweep has a denominator; and step 3 records a verdict for every candidate, not only the ones edited, because a list of hits alone cannot show what was read. `reference/` was decided out — imported evidence, like the adopter-report copies. |
 | 2026-08-23 | (no change) | **The owner re-stated the grant on resuming**, 2026-08-23: *"continue with T-250, full lifecycle, commit and push."* Recorded because it arrived in a session that had not yet opened this record, and the row below — *"No phase beyond `specify` was authorised"* — was written before it and is about the answers to the two questions, not about the grant two rows down. Neither is corrected; both were true when written. |
