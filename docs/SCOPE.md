@@ -308,8 +308,11 @@ published `v0.5.0` tag onto a profile that had never held any of this, and it wo
 says. The plugin shape has not, because the profile that satisfies *never held it* has no `claude`
 CLI and preparing one stops it being that profile.
 [T-085](../tasks/T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) closed on
-that boundary on 2026-08-16, with the half unmet and no successor task — so this is where the item
-rests, not a gap something is working on. The
+that boundary on 2026-08-16, with the half unmet and, at the time, no successor task.
+[T-241](../tasks/T-241-verify-the-published-0-6-0-from-outside-and-record-what-cannot-be-reached.md)
+was raised on 2026-08-23 and repeats the reachable half against `v0.6.0`; it inherits the same
+boundary rather than removing it, so the unmet half is still where the item rests and not a gap
+something is working on. The
 last bullet was amended at publication, in that task and not here, because the history carries one
 absolute path the working-tree check cannot see.
 

@@ -50,7 +50,12 @@ Read by the `handoff` skill. Plain Markdown, read by the agent — no parser.
 ## Notes for whoever resumes
 
 **Published on 2026-08-09** at `github.com/uchimata2/taskmd`, in both shapes. **The current release
-is `v0.5.0`**, tagged and released on 2026-08-11, and the manifest reads `0.5.0`.
+is `v0.6.0`**, tagged and released on 2026-08-23, and the manifest reads `0.6.0`. It is the first
+release whose note was written to `docs/PUBLISHING.md` §7's rule, and the rule stopped it: 78 closed
+tasks in the milestone had never been judged for the note. What that cost and what it caught is in
+[T-182](../tasks/T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) and
+[T-242](../tasks/T-242-judge-adopter-visible-on-the-closed-m6-tasks-the-release-note-must-cover.md),
+not here.
 
 **Version bumps and milestone labels are two sequences, and they have already come apart once.** A
 bump exists because `claude plugin update` compares version strings, so a directory install whose

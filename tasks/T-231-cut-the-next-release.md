@@ -2,8 +2,8 @@
 id: T-231
 title: Cut the next release
 type: deliverable
-status: proposed
-phase: implement
+status: done
+phase: review
 parent: null
 blocked_by: [T-232, T-242, T-182]
 related: [T-182, T-085, T-135, T-223]
@@ -125,7 +125,7 @@ after it. It did.
 
 **Decisions & assumptions**
 
-- **The cut is stopped at step 1, and steps 4 to 6 were not run — 2026-08-23.** §7's counts do not
+- **The cut was stopped at step 1, and steps 4 to 6 were not run at that time — 2026-08-23.** §7's counts do not
   sum: 108 closed tasks in M6, 11 marked `adopter_visible: yes`, 19 marked `no`, and **78 carrying no
   value**. §7 says an unmarked task blocks the note and does not pass as `no`. Raised as
   [T-242](T-242-judge-adopter-visible-on-the-closed-m6-tasks-the-release-note-must-cover.md), which
@@ -167,32 +167,53 @@ without the fixture exclusion:   those 2, plus exactly 5 in the leak-check fixtu
 The second run is what a clean tree cannot prove on its own: every class in the pattern still fires,
 so the first run's near-silence is a pass rather than a check that read nothing.
 
+**What happened after the owner answered — 2026-08-23**
+
+The three decisions above stood; the stop was lifted rather than reversed. The owner answered three
+questions as a survey and the cut resumed from step 4 of §2's plan.
+
+- **The manifest was bumped, and the tag and release followed in the same act** — `0.6.0` in
+  `plugin/.claude-plugin/plugin.json`, tag `v0.6.0`, and the GitHub release of the same name. The
+  bump was deliberately not taken while the release was blocked, for the reason recorded above.
+- **The tag message and the release body are two texts, both passed by path** — `git tag -F` and
+  `gh release create --notes-file`. The tag was read back with `git tag -l -n99` before the release
+  was created, and the published body was read back from GitHub afterwards. Neither carries a
+  transit artifact, which is the failure `v0.4.0` shipped with and which §1 of
+  [`docs/PUBLISHING.md`](../docs/PUBLISHING.md) records.
+- **Both gates were run again after the bump**, because the manifest is one of the four files §5's
+  pathspec covers: `4 file(s) covered`, exit 1, and §6 printing only the accepted block. A gate run
+  before the change it is meant to judge has judged nothing.
+- **The suite was run after the bump and before the tag** — `341 passed, 3 skipped`, exit 0.
+
 **Outputs produced**
-- none. No commit, no tag, no release, no manifest change.
+- `plugin/.claude-plugin/plugin.json` at version `0.6.0`
+- The annotated tag `v0.6.0`
+- The published release at `https://github.com/uchimata2/taskmd/releases/tag/v0.6.0`
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-| The manifest version, the tag and the published release all name the same version | not met | None of the three exists. The cut stopped at §7 |
-| §5's gate and §6's check were both **run**, and their output recorded — including §5's file count | met | §3 above, both gates, with the count and the exit code rather than the silence |
-| Which milestone the release ships is stated, so §7 has a set to run against | met | M6, answered by the owner on 2026-08-23 and recorded in §1. It is what §7 was run against |
-| What the cut was stopped for is recorded, and if the answer is *nothing*, how that was checked | met | §7's counts, and [T-242](T-242-judge-adopter-visible-on-the-closed-m6-tasks-the-release-note-must-cover.md) |
-| Whether this release is verified from outside is decided and recorded either way | met | Yes, decided by the owner on 2026-08-23 and carried by [T-241](T-241-verify-the-published-0-6-0-from-outside-and-record-what-cannot-be-reached.md) |
+| The manifest version, the tag and the published release all name the same version | met | `0.6.0`, `v0.6.0`, `v0.6.0`. The release was read back from GitHub rather than assumed from the command succeeding |
+| §5's gate and §6's check were both **run**, and their output recorded — including §5's file count | met | Twice each: before the cut, and again after the manifest bump changed a file §5 covers. Counts and exit codes in §3 |
+| Which milestone the release ships is stated, so §7 has a set to run against | met | M6, plus two tasks that closed inside the release window under older labels. [T-243](T-243-key-the-release-note-rule-on-what-the-release-ships-not-on-a-milestone-label.md) carries why that needed saying |
+| What the cut was stopped for is recorded, and if the answer is *nothing*, how that was checked | met | It was stopped, twice over: 78 unjudged tasks, and a defect in §7 itself. Both in §3 and in [T-242](T-242-judge-adopter-visible-on-the-closed-m6-tasks-the-release-note-must-cover.md) and [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) |
+| Whether this release is verified from outside is decided and recorded either way | met | Yes, and [T-241](T-241-verify-the-published-0-6-0-from-outside-and-record-what-cannot-be-reached.md) carries it. It became startable the moment this record closed |
 
-Four of five criteria are met and the first cannot be met by this session. The record stays open on
-its new blocker rather than closing over a criterion nothing will meet.
+All five met. **The record of the stop is left standing rather than tidied away**, because it is the
+answer to the fourth criterion and the most useful thing this release produced.
 
 **Child fix tasks raised**
-- [T-242](T-242-judge-adopter-visible-on-the-closed-m6-tasks-the-release-note-must-cover.md) — as a
-  dependency, not a child. It is not part of this record's outcome; it is a thing this record cannot
-  proceed without, which is the distinction [`METHOD.md`](../plugin/skills/taskmd/docs/METHOD.md) §4
-  draws.
+- [T-242](T-242-judge-adopter-visible-on-the-closed-m6-tasks-the-release-note-must-cover.md) and
+  [T-243](T-243-key-the-release-note-rule-on-what-the-release-ships-not-on-a-milestone-label.md) —
+  both as dependencies or soft edges rather than children, per
+  [`METHOD.md`](../plugin/skills/taskmd/docs/METHOD.md) §4. Neither is part of this record's outcome.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | → done | **`0.6.0` is tagged and published**, from a manifest bumped in the same act. The stop recorded above was lifted by the owner answering three questions as a survey, and the cut resumed at step 4 of its own plan. **Both gates were run a second time after the bump**, because the manifest is one of the four files §5 covers and a gate run before the change it judges has judged nothing. **Both published texts were read back from where they landed** — the tag with `git tag -l -n99`, the release body from GitHub — rather than trusted because the commands exited 0; that is the check `v0.4.0` did not get and shipped a transit artifact for. All five criteria met. **The record of the stop stays where it is**: it answers the fourth criterion, and it is worth more than the tag. |
 | 2026-08-23 | (no change) | **The edge to [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) is reversed, on the owner's answer of 2026-08-23.** This record is now blocked by the note rather than blocking it. **Measured, not argued**: `gh release create` takes the body as an input, so the note has to exist before the act this record performs, and the ordering set on 2026-08-23 had them the other way round. *Rejected: write the note inside this record* — it needs no edge change, but §1's scope says in its own words that the note is out of scope here, so this record would have become false the moment it wrote one. *Rejected: publish a short note and expand it after* — [T-133](T-133-decide-what-to-do-about-a-published-release-note-that-breaks-the-rule.md) settled that a dated public record is not rewritten. |
 | 2026-08-23 | (no change) | **The cut was attempted under the owner's unattended instruction of 2026-08-23, and stopped at the first step of its own plan.** `docs/PUBLISHING.md` §7's counts do not sum — 108 closed tasks in M6, 30 marked, **78 with no `adopter_visible` value at all** — and §7 says an unmarked task blocks the note. Raised as [T-242](T-242-judge-adopter-visible-on-the-closed-m6-tasks-the-release-note-must-cover.md) and recorded here as a dependency. **Nothing outward-facing was done**: no manifest bump, no commit of one, no tag, no release. **Both mechanical gates were run and passed** and their output is in §3 — §5's gate covering four files at exit 1, and §6's leak check in both of its runs, the second proving every class still fires. So the release is held by one thing and it is named. `phase` advances to `implement` because that is where the work reached; `status` is left alone, since the tool derives *blocked* from the edge and writing it twice is the one rule this project does not break. |
 | 2026-08-23 | (no change) | **The owner answers the fourth question: no audit before this tag.** They will run one after the release and said not to deal with it now, so **nothing was raised for it** — recording the decision is the whole of the work, and the standing boundary that a session starts no audit is unchanged rather than lifted. **The release now has nothing in front of it.** Asked rather than inferred, because the same owner had said on 2026-08-22 that an audit *would* precede the release, and a sequence stated in those words is not reversed by an instruction that omits it — the answer confirms the change and costs one line, which is what asking was for. |
