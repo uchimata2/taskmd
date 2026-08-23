@@ -19,7 +19,7 @@ This is repository machinery. It is outside `plugin/`, so an install never copie
 Usage:
 
     python tools/audit_cycles.py            # the verdict alone
-    python tools/audit_cycles.py --plan     # T-244 §2's Files and Bytes columns
+    python tools/audit_cycles.py --plan     # per-cycle files and bytes, as a table
     python tools/audit_cycles.py --cycle 4  # the files one cycle reads
 """
 
@@ -153,7 +153,12 @@ def verdict(root=ROOT):
 
 
 def plan_table(assignment, root=ROOT):
-    """T-244 §2's Files and Bytes columns, ready to paste."""
+    """Per-cycle file counts and byte totals, as a table.
+
+    **T-244 §2 no longer has columns for these** — they were cut on 2026-08-23, because
+    replacing typed figures with fresh ones bought about three hours before they drifted again.
+    So this is read when a session wants the sizing, not pasted into a record.
+    """
     rows = []
     total_files = 0
     total_bytes = 0
