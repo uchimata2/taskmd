@@ -83,8 +83,9 @@ A label says which release the work is scheduled into. It never says the release
 | [T-254](T-254-sweep-for-history-prose-living-outside-markdown.md) | Sweep for history prose living outside Markdown, which T-250's corpus could not see | `M7` | `proposed` | `specify` | - | - | - | - | T-244, T-249, T-250 |
 | [T-255](T-255-derive-the-audit-cycle-membership-instead-of-typing-it.md) | Derive the audit cycle membership instead of typing it | `M7` | `proposed` | `specify` | - | - | - | T-244 | - |
 | [T-256](T-256-improve-the-pre-release-audit-method-from-what-its-first-run-teaches.md) | Improve the pre-release audit method from what its first run teaches | `M7` | `proposed` | `specify` | - | - | T-244 | - | T-223 |
-| [T-257](T-257-decide-what-a-deliverable-a-clone-never-receives-asserts.md) | Decide what a deliverable a clone never receives asserts, and get CI green | `M7` | `planned` | `plan` | - | - | - | - | T-089, T-090, T-103, T-250, T-258 |
+| [T-257](T-257-decide-what-a-deliverable-a-clone-never-receives-asserts.md) | Decide what a deliverable a clone never receives asserts, and get CI green | `M7` | `review` | `review` | - | T-259 | - | - | T-089, T-090, T-103, T-250, T-258 |
 | [T-258](T-258-report-a-declared-output-a-clone-never-receives-as-excluded-not-missing.md) | Report a declared output a clone never receives as excluded, not missing | `M7` | `proposed` | `specify` | - | - | - | - | T-013, T-098, T-103, T-257 |
+| [T-259](T-259-give-ci-the-history-its-tag-range-tests-need.md) | Give CI the history its tag-range tests need, and make a blind instrument say so | `M7` | `in_progress` | `implement` | T-257 | - | - | - | T-116, T-243 |
 
 ## Closed
 
@@ -205,7 +206,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-113](T-113-name-an-unknown-filter-before-complaining-it-has-no-value.md) | Name an unknown filter before complaining it has no value | `M2` | `done` | `review` | - | - | - | - | T-022, T-029, T-120, T-122, T-144, T-145, T-162 |
 | [T-114](T-114-make-the-launcher-tests-say-which-bash-they-found.md) | Make the launcher tests say which bash they found | `M2` | `done` | `review` | - | - | - | - | T-091, T-112 |
 | [T-115](T-115-give-the-tier-1-budget-something-that-enforces-it.md) | Give the tier 1 budget something that enforces it | `M2` | `done` | `review` | - | - | - | - | T-028, T-047, T-063, T-116, T-118, T-126 |
-| [T-116](T-116-decide-whether-the-published-repository-runs-its-own-suite.md) | Decide whether the published repository runs its own suite | `M2` | `done` | `review` | - | - | - | - | T-011, T-049, T-115 |
+| [T-116](T-116-decide-whether-the-published-repository-runs-its-own-suite.md) | Decide whether the published repository runs its own suite | `M2` | `done` | `review` | - | - | - | - | T-011, T-049, T-115, T-259 |
 | [T-117](T-117-decide-whether-the-command-surface-needs-one-statement.md) | Decide whether the command surface needs one statement | `M5` | `done` | `review` | - | T-134 | - | - | T-030, T-031, T-064, T-073, T-134, T-149 |
 | [T-118](T-118-decide-what-leaves-tier-1-when-the-budget-binds.md) | Decide what leaves tier 1 when the budget binds | `M2` | `done` | `review` | - | - | - | - | T-026, T-028, T-035, T-047, T-050, T-063, T-115, T-119, T-143, T-152, T-155, T-169 |
 | [T-119](T-119-put-the-stranded-paragraph-under-a-heading-that-owns-it.md) | Put the stranded paragraph under a heading that owns it | `M2` | `done` | `review` | - | - | - | - | T-047, T-118 |
@@ -331,7 +332,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-239](T-239-give-both-shipped-declarations-the-content-the-repaired-clause-now-requires.md) | Give both shipped declarations the content the repaired clause now requires | `M6` | `done` | `review` | - | - | - | - | T-222, T-232, T-238 |
 | [T-241](T-241-verify-the-published-0-6-0-from-outside-and-record-what-cannot-be-reached.md) | Verify the published 0.6.0 from outside, and record what cannot be reached | `M6` | `done` | `review` | - | T-252 | - | - | T-085, T-231, T-246, T-253 |
 | [T-242](T-242-judge-adopter-visible-on-the-closed-m6-tasks-the-release-note-must-cover.md) | Judge adopter_visible on the closed M6 tasks the release note must cover | `M6` | `done` | `review` | - | - | - | - | T-135, T-182, T-231, T-243, T-245, T-248, T-251 |
-| [T-243](T-243-key-the-release-note-rule-on-what-the-release-ships-not-on-a-milestone-label.md) | Key the release-note rule on what the release ships, not on a milestone label | `M6` | `done` | `review` | - | - | - | T-244 | T-135, T-182, T-231, T-242, T-246, T-248 |
+| [T-243](T-243-key-the-release-note-rule-on-what-the-release-ships-not-on-a-milestone-label.md) | Key the release-note rule on what the release ships, not on a milestone label | `M6` | `done` | `review` | - | - | - | T-244 | T-135, T-182, T-231, T-242, T-246, T-248, T-259 |
 | [T-245](T-245-prompt-the-adopter-visible-judgement-at-the-moment-a-record-closes.md) | Prompt the adopter_visible judgement at the moment a record closes | `M7` | `done` | `review` | - | - | - | T-244 | T-146, T-172, T-182, T-242, T-248, T-251 |
 | [T-248](T-248-judge-adopter-visible-on-the-three-records-the-new-rule-reports-unmarked.md) | Judge adopter_visible on the three records the new release-note rule reports unmarked | `M7` | `done` | `review` | - | - | - | - | T-242, T-243, T-245, T-251 |
 | [T-249](T-249-cut-the-handoff-config-back-to-a-config.md) | Cut the handoff config back to a config, and rehome what only it records | `M7` | `done` | `review` | - | - | - | - | T-047, T-073, T-135, T-190, T-250, T-254 |

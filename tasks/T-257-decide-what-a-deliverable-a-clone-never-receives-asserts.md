@@ -2,8 +2,8 @@
 id: T-257
 title: Decide what a deliverable a clone never receives asserts, and get CI green
 type: decision
-status: planned
-phase: plan
+status: review
+phase: review
 parent: null
 blocked_by: []
 related: [T-103, T-089, T-090, T-250]
@@ -14,7 +14,9 @@ effort: s
 created: 2026-08-23
 updated: 2026-08-23
 adopter_visible: yes
-deliverables: []
+deliverables:
+  - plugin/skills/taskmd/docs/bindings/local-markdown.md
+  - tasks/T-250-give-the-context-registers-the-permitted-shape-for-history.md
 ---
 
 # T-257 — Decide what a deliverable a clone never receives asserts, and get CI green
@@ -134,26 +136,90 @@ The step 1 record is a task rather than an output, so it is not listed here.
 ## 3. Implement
 
 **Decisions & assumptions**
-- <decision — rationale — date>
+- **The decision goes in the binding and not in METHOD** — T-103's split, followed deliberately.
+  METHOD names no field, and this answer is about `deliverables`; METHOD rule 5 already carries the
+  principle it rests on. Change either and the other stays true, which is the test for whether a
+  second statement is a copy — 2026-08-23.
+- **The paragraph names its own successor.** It says it is superseded when T-258 ships, because a
+  reading taken to recover a gate should not read as the settled answer once the gate is fine —
+  2026-08-23.
+- **The survey was re-derived, not copied from §1.** A figure quoted in a spec may never have been
+  run, and it is the baseline the whole *one, not one-of-many* claim rests on — 2026-08-23.
+
+**Evidence — what was actually run**
+
+**The survey, re-derived on 2026-08-23.** Every `deliverables:` value in `tasks/` tested against
+`git ls-files`, counting a path tracked through its contents as present:
+
+```
+tasks declaring any deliverable: 162
+declared paths total: 373
+absent from a clone entirely: 0
+directories, tracked through contents: 8   (all T-002, tests/fixtures/broken-*)
+```
+
+This reproduces §1's survey exactly — 374 paths and one absent before the edit, 373 and none after —
+and the eight are the same fixture directories. **The class was one and it is now zero.**
+
+**The clone, and the delta rather than the exit code.** A clean clone of this repository, the same
+command run twice, one commit apart:
+
+```
+clone @ HEAD~1 : check --root <clone>  ->  rc=1
+                 MISSING OUTPUT T-250 declares 'control/LOCAL-CONTEXT.md', which does not exist
+                 1 problem(s) - 257 task(s) ...
+clone @ HEAD   : check --root <clone>  ->  rc=0
+                 OK - 258 task(s) ...
+```
+
+The failing run is what makes the passing one worth anything: the instrument was shown able to fire
+on the case it exists to catch, in the same clone, before it was shown quiet. A working tree exits 0
+at both commits, which is why it went unseen for a day.
+
+**The suite in the clone**: `350 passed, 8 subtests passed`.
+
+**CI, read rather than predicted — and still red.** Run `32665552639` on commit `acec56b` failed.
+Two of the three modules went green; `tests/test_publishing.py` stayed red on **a different and
+independent cause**, which the `check` exit had been masking. Reproduced rather than inferred: the
+workflow checks out shallow, a shallow clone has 0 tags, and the range `v0.5.0..v0.6.0` cannot
+resolve, so `TheReleaseNoteSetIsKeyedOnWhatShips` asserts about an empty list. **Raised as
+[T-259](T-259-give-ci-the-history-its-tag-range-tests-need.md), a child of this task**, because this
+task's outcome includes a green workflow and it cannot deliver that alone.
 
 **Outputs produced**
-- none yet
+- `plugin/skills/taskmd/docs/bindings/local-markdown.md` — two paragraphs: the reading, and what it
+  cost with both rejected alternatives priced
+- `tasks/T-250-give-the-context-registers-the-permitted-shape-for-history.md` — one path removed from
+  `deliverables`, one Log row keeping the fact the declaration carried
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| The decision is written in the method or the binding, and says which of the three readings was taken and what the other two cost | met | In the binding, beside T-103's *moved* and *deleted* paragraphs — the block a reader chasing a `MISSING OUTPUT` lands in. Reading 1 taken; reading 2 priced and raised as T-258; reading 3 recorded as rejected on sight with its ground. |
+| A **fresh clone** exits 0 on `check` | met | Shown as a delta in one clone, not as an exit code: `rc=1` at `HEAD~1` naming the defect, `rc=0` at `HEAD`. §3. |
+| The `tests` workflow is green on a real push, verified by reading the run rather than by predicting it | **not met** | Run `32665552639` failed. Not this task's defect: two of three modules recovered, and the third is the shallow-checkout cause now held by **[T-259](T-259-give-ci-the-history-its-tag-range-tests-need.md)**, a child of this task. Reading the run rather than predicting it is what found it — the local suite passed 350 tests on the same commit. |
+| The survey above is recorded, so a later reader knows the class was one and not one-of-many | met | Re-derived rather than copied, and it reproduces §1 exactly. 373 paths, 162 tasks, 0 absent, 8 fixture directories. §3. |
 
-**Adopter-visible?** <yes or no - then set adopter_visible in the front matter, per the test in docs/PUBLISHING.md section 7>
+**This task may not close.** [T-259](T-259-give-ci-the-history-its-tag-range-tests-need.md) is an
+open child, and METHOD §4 holds a parent open over one. That is the honest state: the decision is
+made and applied, and the outcome this task claims — a green gate — does not exist yet.
+
+**Adopter-visible?** yes — the binding paragraph ships, and it changes what an adopter is told to
+put in `deliverables`. `adopter_visible: yes` was already set at `specify` and is unchanged.
 
 **Child fix tasks raised**
-- none yet
+- [T-258](T-258-report-a-declared-output-a-clone-never-receives-as-excluded-not-missing.md) — reading 2,
+  raised as step 1 of the plan and **before** the unblock landed. A soft edge: this task's outcome is
+  complete without it.
+- [T-259](T-259-give-ci-the-history-its-tag-range-tests-need.md) — the second cause behind the red
+  gate. A child, because a green workflow is part of this task's stated outcome.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | planned → review | Steps 1—6 run. The decision is in the binding, the unblock is applied, and a clone exits 0 where it exited 1 one commit earlier. **CI is still red, on a second and independent cause the first was masking** — raised as [T-259](T-259-give-ci-the-history-its-tag-range-tests-need.md) and not fixed here, per the rule that a finding is not repaired where it is found. This task stays open over that child. |
 | 2026-08-23 | specified → planned | Six steps, ordered so the follow-up record is raised **before** the one-line edit lands — the owner's answer names that as its own failure mode. **The owner granted `specify`, `plan`, `implement` and `review` on every task named in the handoff of 2026-08-23, in the invocation that resumed it** (*resume, all mentioned tasks with full lifecycle*). For this record that grant covers all four phases through to close. It does not reach the pre-release audit, which is gated on its own dependency and on the standing rule that a session starts no audit. |
 | 2026-08-23 | proposed → specified | **The owner chose *unblock now, fix properly after* on 2026-08-23**, from a survey of all three readings priced both ways. So: drop `control/LOCAL-CONTEXT.md` from T-250's declared outputs to recover the gate today, then teach `check` the distinction it already draws for documents. **The second half is a separate record and must be raised before the one-line edit lands** — the option the owner picked names its own failure mode, which is that a follow-up loses its constituency the moment the pain stops. **The owner also ordered this ahead of T-247 and T-255**, both of which they had chosen before the red gate was found. |
 | 2026-08-23 | → proposed | **Raised from the owner's report of failing CI notifications since 15:42 on 2026-08-23.** The session had run the suite green four times and pushed three commits against a red job without noticing, because `pytest` on the working tree and the workflow's per-module run in a clone are different instruments and only the second sees the defect. **Diagnosed by cloning rather than by reading**: the clone exits 1 and names one problem, the working tree exits 0. **Not fixed here.** The one-line unblock is available and the reading behind it is a policy question this project has already answered three times for three neighbouring cases, so choosing silently would set the fourth precedent without anyone deciding it. |

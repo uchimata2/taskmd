@@ -824,6 +824,26 @@ def sh_is_available():
 SH = sh_is_available()
 
 
+def range_resolves(tag_range):
+    """Whether both ends of a tag range exist here, as a (bool, detail) pair.
+
+    Written because CI reported the opposite of what was wrong (T-259). `actions/checkout` fetches
+    shallow by default, a shallow checkout carries no tags, and section 7's command is a pipeline -
+    so `git rev-list` failed, the pipeline still exited 0, and the class below asserted about an
+    empty list. The message a reader got was that the release note had dropped a task and that
+    nothing shipped an adopter notices. Both are statements about the runner.
+
+    A missing range is reported as a failure and never as a skip: a skip keeps the gate green while
+    silently ending the measurement, which is the one outcome that cannot be noticed.
+    """
+    done = subprocess.Popen(["git", "rev-list", "--quiet", tag_range, "--"], cwd=ROOT,
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = done.communicate()
+    if done.returncode == 0:
+        return True, ""
+    return False, err.decode("utf-8", "replace").strip()
+
+
 @unittest.skipUnless(GIT and SH, "section 7's command is a git and sh pipeline")
 class TheReleaseNoteSetIsKeyedOnWhatShips(unittest.TestCase):
     """§7's set is derived from the tag range, and this is what says it still is.
@@ -831,13 +851,27 @@ class TheReleaseNoteSetIsKeyedOnWhatShips(unittest.TestCase):
     The tag range is a published fact: `v0.5.0..v0.6.0` does not change when the project moves on,
     so these assertions do not need updating at each release. What they protect is the property the
     milestone query did not have - that a task is found by what it shipped and not by its label.
+
+    **Every test here that runs the command checks the range resolves first.** Without that, a
+    checkout with no tags turns each of them into a confident false statement about the release
+    rather than a report that the input never arrived (T-259).
     """
+
+    def assert_range_is_available(self):
+        ok, detail = range_resolves(VERIFIED_RANGE)
+        if not ok:
+            self.fail(
+                "the range %s does not resolve in this checkout, so section 7's rule was never "
+                "run and nothing below is a statement about the release. This is almost always a "
+                "shallow clone: `actions/checkout` fetches depth 1 by default and a shallow "
+                "checkout carries no tags. git said: %s" % (VERIFIED_RANGE, detail or "(nothing)"))
 
     def test_the_document_still_yields_a_command(self):
         self.assertTrue(shipped_set_command_from_the_document().strip(),
                         "section 7's command is empty")
 
     def test_the_set_contains_the_task_the_milestone_query_missed(self):
+        self.assert_range_is_available()
         lines = run_shipped_set(shipped_set_command_from_the_document(), VERIFIED_RANGE)
         found = [line for line in lines if line.split()[-1] == MUST_BE_IN_THE_SET]
         self.assertTrue(
@@ -857,6 +891,7 @@ class TheReleaseNoteSetIsKeyedOnWhatShips(unittest.TestCase):
 
     def test_the_three_marks_partition_the_set(self):
         """§7 says the counts must sum. A filter cannot report what it failed to see."""
+        self.assert_range_is_available()
         lines = run_shipped_set(shipped_set_command_from_the_document(), VERIFIED_RANGE)
         marks = collections.Counter(line.split()[0] for line in lines)
         self.assertEqual(

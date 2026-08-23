@@ -32,6 +32,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history and tags. The default is a shallow depth-1 checkout, which carries no
+          # tags, and `tests/test_publishing.py` runs section 7's rule over the tag range
+          # `v0.5.0..v0.6.0`. Without this the range cannot resolve (T-259).
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
