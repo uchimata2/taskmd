@@ -81,6 +81,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-246](T-246-cut-1-0-0-once-the-audit-s-findings-are-applied.md) | Cut 1.0.0 once the audit's findings are applied | `M7` | `proposed` | `specify` | - | - | T-244 | - | T-231, T-241, T-243 |
 | [T-247](T-247-decide-whether-taskmd-validates-a-finding-field-against-a-register.md) | Decide whether taskmd validates a finding field against a register | `M7` | `proposed` | `specify` | - | - | - | - | T-146, T-173, T-223, T-244 |
 | [T-248](T-248-judge-adopter-visible-on-the-three-records-the-new-rule-reports-unmarked.md) | Judge adopter_visible on the three records the new release-note rule reports unmarked | `M7` | `proposed` | `specify` | - | - | - | - | T-242, T-243, T-245 |
+| [T-249](T-249-cut-the-handoff-config-back-to-a-config.md) | Cut the handoff config back to a config, and rehome what only it records | `M7` | `proposed` | `specify` | - | - | - | - | T-047, T-073, T-135, T-190 |
 
 ## Closed
 
@@ -132,7 +133,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-044](T-044-state-the-gh-version-the-github-binding-requires.md) | State the gh version the GitHub binding requires | `M1` | `done` | `review` | - | - | - | - | T-010, T-042 |
 | [T-045](T-045-decide-whether-scope-principles-may-state-the-rule-they-name.md) | Decide whether SCOPE §2 principles may state the rule they name | `M1` | `done` | `review` | - | - | - | - | T-017, T-027, T-208 |
 | [T-046](T-046-reconcile-the-done-condition-claude-md-restates.md) | Reconcile the done-condition CLAUDE.md restates from the method | `M1` | `done` | `review` | - | - | - | - | T-027, T-028 |
-| [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `M2` | `done` | `review` | - | - | - | - | T-015, T-028, T-035, T-059, T-063, T-105, T-115, T-118, T-119, T-190, T-194 |
+| [T-047](T-047-move-the-conduct-rules-that-bind-before-task-work-into-tier-1.md) | Move the conduct rules that bind before task work into tier 1 | `M2` | `done` | `review` | - | - | - | - | T-015, T-028, T-035, T-059, T-063, T-105, T-115, T-118, T-119, T-190, T-194, T-249 |
 | [T-048](T-048-say-what-always-loaded-means-in-r-21-before-the-skill-is-built.md) | Say what "always-loaded" means in R-21, before the skill is built against it | `M1` | `done` | `review` | - | - | - | - | T-003, T-028 |
 | [T-049](T-049-demonstrate-a-clone-running-on-a-second-platform.md) | Demonstrate a clone running on a second platform | `M1` | `done` | `review` | T-011 | T-057, T-058 | - | - | T-006, T-020, T-054, T-056, T-057, T-058, T-061, T-085, T-116, T-132 |
 | [T-050](T-050-measure-the-skill-s-tiers-on-a-session-handed-it.md) | Measure the skill's tiers on a session that was handed it | `M1` | `done` | `review` | T-003 | - | - | - | T-006, T-052, T-053, T-118, T-159, T-175, T-205, T-206 |
@@ -158,7 +159,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-070](T-070-decide-whether-an-unused-field-column-is-shown.md) | Decide whether an unused field column is shown at all | `M1` | `done` | `review` | T-059 | - | - | - | T-001, T-022, T-102 |
 | [T-071](T-071-let-the-usage-test-assert-every-command-there-is.md) | Let the usage test assert every command there is | `M1` | `done` | `review` | T-059 | - | - | - | T-022, T-055, T-134 |
 | [T-072](T-072-give-the-description-and-version-one-home-each.md) | Give the plugin's description and version one home each | `M1` | `done` | `review` | T-059 | - | - | - | T-006, T-053, T-207 |
-| [T-073](T-073-correct-the-command-surface-local-context-states.md) | Correct the command surface local context still states | `M1` | `done` | `review` | T-059 | - | - | - | T-013, T-022, T-117, T-134 |
+| [T-073](T-073-correct-the-command-surface-local-context-states.md) | Correct the command surface local context still states | `M1` | `done` | `review` | T-059 | - | - | - | T-013, T-022, T-117, T-134, T-249 |
 | [T-074](T-074-let-the-skill-point-where-it-currently-restates.md) | Let the skill point where it currently restates | `M1` | `done` | `review` | T-059 | - | - | - | T-003, T-009 |
 | [T-075](T-075-enforce-id-width-when-a-task-file-is-read.md) | Enforce id width when a task file is read | `M1` | `done` | `review` | T-059 | - | - | - | T-004, T-062, T-082, T-107 |
 | [T-076](T-076-decide-what-a-template-s-links-resolve-against.md) | Decide what a template's links resolve against | `M1` | `done` | `review` | - | - | - | - | T-032, T-051, T-060, T-091, T-101, T-103, T-104 |
@@ -220,7 +221,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-132](T-132-give-the-console-the-same-line-ending-on-every-platform.md) | Give the console the same line ending on every platform | `M5` | `done` | `review` | T-020 | - | - | - | T-002, T-020, T-022, T-049, T-064 |
 | [T-133](T-133-decide-what-to-do-about-a-published-release-note-that-breaks-the-rule.md) | Decide what to do about a published release note that breaks the rule | `M5` | `done` | `review` | - | - | - | - | T-079, T-081, T-125, T-126, T-127, T-129, T-135, T-182, T-183 |
 | [T-134](T-134-check-that-every-prose-list-of-the-commands-names-the-commands-there-are.md) | Check that every prose list of the commands names the commands there are | `M5` | `done` | `review` | T-117 | - | - | - | T-030, T-031, T-055, T-071, T-073, T-117, T-126, T-139, T-147, T-149, T-188, T-195, T-202 |
-| [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) | Derive what a release note must cover from the tasks it ships | `M6` | `done` | `review` | - | - | - | - | T-086, T-125, T-127, T-128, T-129, T-133, T-182, T-216, T-231, T-242, T-243 |
+| [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) | Derive what a release note must cover from the tasks it ships | `M6` | `done` | `review` | - | - | - | - | T-086, T-125, T-127, T-128, T-129, T-133, T-182, T-216, T-231, T-242, T-243, T-249 |
 | [T-136](T-136-rename-the-milestone-labels-so-they-cannot-be-read-as-versions.md) | Rename the milestone labels so they cannot be read as versions | `M6` | `done` | `review` | - | - | - | - | T-086, T-110, T-125, T-128, T-137, T-138, T-234 |
 | [T-137](T-137-decide-what-taskmd-does-about-a-label-read-as-a-version.md) | Decide what taskmd does about a grouping label that can be read as a version | `M6` | `done` | `review` | - | - | - | - | T-004, T-082, T-087, T-088, T-100, T-106, T-136, T-138 |
 | [T-138](T-138-report-a-front-matter-value-that-reads-as-a-version.md) | Report a front-matter value that reads as a version | `M6` | `done` | `review` | - | - | - | - | T-100, T-106, T-136, T-137, T-139, T-162 |
@@ -275,7 +276,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-187](T-187-say-that-the-one-design-rule-yields-to-a-system-limitation.md) | Say that the one design rule yields to a system limitation | `M6` | `done` | `review` | - | - | - | - | T-012, T-179, T-207, T-208 |
 | [T-188](T-188-report-a-counted-set-written-into-prose-that-the-code-owns.md) | Report a counted set written into prose that the code owns | `M6` | `done` | `review` | - | - | - | - | T-134, T-139, T-184, T-195, T-220 |
 | [T-189](T-189-say-whether-the-audit-s-method-finding-reached-the-repository-that-owns-it.md) | Say whether the audit's method finding reached the repository that owns it | `M6` | `done` | `review` | - | - | - | - | T-152, T-170 |
-| [T-190](T-190-decide-whether-tier-1-restates-two-verification-rules-the-method-owns.md) | Decide whether tier 1 restates two verification rules the method owns | `M6` | `done` | `review` | - | - | - | - | T-028, T-047, T-151 |
+| [T-190](T-190-decide-whether-tier-1-restates-two-verification-rules-the-method-owns.md) | Decide whether tier 1 restates two verification rules the method owns | `M6` | `done` | `review` | - | - | - | - | T-028, T-047, T-151, T-249 |
 | [T-191](T-191-audit-whether-each-check-class-has-a-case-it-must-not-catch.md) | Audit whether each check class has a case it must not catch | `M6` | `done` | `review` | - | T-197, T-198 | - | - | T-100, T-150, T-151, T-209, T-212, T-214, T-226, T-236 |
 | [T-192](T-192-require-every-binding-to-declare-its-validator-coverage.md) | Require every binding to declare its validator coverage | `M6` | `done` | `review` | - | - | - | - | T-009, T-139, T-178, T-199, T-216, T-222, T-227 |
 | [T-193](T-193-make-the-standing-github-check-fail-before-trusting-it.md) | Make the standing GitHub check fail before trusting it | `M6` | `done` | `review` | T-178 | T-196 | - | - | T-108, T-151, T-181, T-203, T-237 |
