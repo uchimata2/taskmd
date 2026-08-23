@@ -15,6 +15,7 @@ created: 2026-08-23
 updated: 2026-08-23
 adopter_visible: no
 deliverables:
+  - control/LOCAL-CONTEXT.md
   - plugin/skills/taskmd/docs/BINDING.md
   - plugin/skills/taskmd/docs/bindings/github-issues.md
   - docs/PUBLISHING.md

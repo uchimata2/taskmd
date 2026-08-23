@@ -1441,6 +1441,80 @@ class ScratchProject(unittest.TestCase):
         return int(found.group(1))
 
 
+class ADeclaredOutputAnIgnoreRuleKeepsOutOfEveryClone(ScratchProject):
+    """T-258. `check` reported *a clone would not receive them* for documents and applied no such
+    awareness to `deliverables:`, so a closed task declaring a deliberately-untracked artefact failed
+    for every reader but the machine that made it. It cost this repository a red CI job for a day,
+    and the working tree passed throughout - which is why every assertion below runs where the file
+    is **absent**, as it is in a clone.
+
+    `clone_would_receive` cannot answer this, and that is the point worth pinning: in a clone the
+    untracked file is missing from that set for the same reason a deleted file is. `git check-ignore`
+    answers about a path that does not exist, which is what separates them.
+    """
+
+    def closed_task_declaring(self, root, path):
+        cli.write(os.path.join(root, "tasks", "T-002-y.md"),
+                  "---\nid: T-002\ntitle: Two\ntype: fix\nstatus: done\nphase: review\n"
+                  "blocked_by: []\nowner: someone\ndeliverables:\n  - %s\n---\n\n# T-002\n" % path)
+
+    @unittest.skipUnless(GIT, "git is not available")
+    def test_an_ignored_declared_output_is_reported_and_does_not_fail(self):
+        """The quiet half. The file is never created, so this is the clone's view of it."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(tmp, {".gitignore": "control/\n"})
+            self.closed_task_declaring(root, "control/LOCAL-CONTEXT.md")
+            self.git(root, "init")
+            self.git(root, "add", "-A")
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 0, out)
+            self.assertIn("1 declared output(s) not checked: an ignore rule keeps them out of "
+                          "every clone", out)
+            self.assertNotIn("MISSING OUTPUT", out)
+
+    @unittest.skipUnless(GIT, "git is not available")
+    def test_the_same_path_fails_once_the_ignore_rule_is_gone(self):
+        """**This is what makes the run above evidence rather than a tautology.**
+
+        A case that stays quiet proves nothing until it is known to be able to speak. Same task, same
+        declared path, same absent file - only the ignore rule differs, and the verdict flips. Without
+        this, a check that had simply stopped looking at `deliverables:` would pass the test above.
+        """
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(tmp, {".gitignore": "somethingelse/\n"})
+            self.closed_task_declaring(root, "control/LOCAL-CONTEXT.md")
+            self.git(root, "init")
+            self.git(root, "add", "-A")
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 1, out)
+            self.assertIn("MISSING OUTPUT", out)
+            self.assertIn("control/LOCAL-CONTEXT.md", out)
+
+    @unittest.skipUnless(GIT, "git is not available")
+    def test_a_genuinely_deleted_declared_output_still_fails(self):
+        """The rule the change must not weaken. A deletion makes the assertion false, and a closed
+        task whose outcome no longer exists is a thing to know."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(tmp, {".gitignore": "control/\n"})
+            self.closed_task_declaring(root, "docs/deleted-by-mistake.md")
+            self.git(root, "init")
+            self.git(root, "add", "-A")
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 1, out)
+            self.assertIn("MISSING OUTPUT", out)
+            self.assertIn("docs/deleted-by-mistake.md", out)
+
+    def test_without_git_every_declared_path_is_judged_on_existence_alone(self):
+        """No git means no ignore rule, so nothing is being suppressed - but the quiet has a
+        precondition and it is worth pinning that it degrades rather than goes silent."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = self.project(tmp, {".gitignore": "control/\n"})
+            self.closed_task_declaring(root, "control/LOCAL-CONTEXT.md")
+            code, out = run("check", "--root", root)
+            self.assertEqual(code, 1, out)
+            self.assertIn("MISSING OUTPUT", out)
+
+
 class CheckAnswersTheQuestionAFreshCloneWouldAsk(ScratchProject):
     """T-094. `check` walked every `.md` in the tree, while the pre-publish grep standing next to it
     in `CLAUDE.md` is built on `git ls-files --cached --others --exclude-standard` *precisely* so it

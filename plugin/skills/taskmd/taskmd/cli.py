@@ -166,6 +166,42 @@ def clone_would_receive(root):
                for name in out.split(b"\0") if name)
 
 
+def clone_would_never_receive(root, paths):
+    """Which of `paths` an ignore rule keeps out of every clone, as a {path: rule} map.
+
+    **`clone_would_receive` cannot answer this and it looks as though it should.** That set lists what
+    a clone *would contain*, so in a clone a deliberately-untracked file is missing from it for the
+    same reason a deleted file is - and the two cases have to be told apart precisely there, which is
+    where `check` runs in CI (T-258).
+
+    `git check-ignore` answers about a path that **does not exist**, which is the whole point: it
+    matches the path against the ignore rules rather than looking at the filesystem. It also names the
+    rule that matched, so the report can say why rather than assert it.
+
+    Returns `{}` where there is no git to ask - never `None` - because "nothing is ignored" and "there
+    is no git here" lead to the same behaviour for this check: every declared path is judged on
+    existence alone, which is what happened before this existed.
+    """
+    if not paths:
+        return {}
+    try:
+        done = subprocess.Popen(["git", "check-ignore", "-v", "-z", "--stdin"], cwd=root,
+                                stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+        out = done.communicate(b"\0".join(p.encode("utf-8") for p in paths))[0]
+    except OSError:
+        return {}                       # no git on PATH at all
+    if done.returncode not in (0, 1):
+        return {}                       # not inside a work tree; 1 is "nothing matched"
+    # `-v -z` emits four NUL-separated fields per match: source, line number, pattern, pathname.
+    fields = [f.decode("utf-8", "replace") for f in out.split(b"\0")]
+    ignored = {}
+    for i in range(0, len(fields) - 3, 4):
+        source, line, pattern, path = fields[i:i + 4]
+        ignored[path] = "%s:%s:%s" % (source, line, pattern)
+    return ignored
+
+
 def link_names(schema):
     """Every name a link can appear under — stored fields and derived inverses, in config order."""
     names = []
@@ -607,7 +643,7 @@ def source_of(schema, derived):
     return "?"
 
 
-def check_deliverables(root, schema, tasks, problems):
+def check_deliverables(root, schema, tasks, problems, notes=None):
     """Declared outputs must exist — but only once the task claims to have produced them.
 
     `deliverables` asserts production, and METHOD §1 rule 5 is the one place the method requires an
@@ -620,15 +656,26 @@ def check_deliverables(root, schema, tasks, problems):
     """
     if not schema.deliverables_field:
         return [("declared output", 0)]
+    absent = []
     examined = 0
     for task in ordered(tasks):
         if task.is_open:
             continue
         for path in task.deliverables:
             if not os.path.exists(os.path.join(root, path.replace("/", os.sep))):
-                problems.append("MISSING OUTPUT %s declares '%s', which does not exist"
-                                % (task.id, path))
+                absent.append((task, path))
             examined += 1
+    ignored = clone_would_never_receive(root, [path for _, path in absent])
+    excluded = 0
+    for task, path in absent:
+        if path in ignored:
+            excluded += 1
+            continue
+        problems.append("MISSING OUTPUT %s declares '%s', which does not exist"
+                        % (task.id, path))
+    if excluded and notes is not None:
+        notes.append("%d declared output(s) not checked: an ignore rule keeps them out of every "
+                     "clone" % excluded)
     return [("declared output", examined)]
 
 
@@ -1336,7 +1383,7 @@ def cmd_check(root, schema, tasks, args):
         counted += check_closed_parent_open_child(schema, tasks, problems)
         counted += check_cycles(schema, tasks, problems)
         counted += check_stored_derived(schema, tasks, problems)
-        counted += check_deliverables(root, schema, tasks, problems)
+        counted += check_deliverables(root, schema, tasks, problems, notes)
         counted += check_stale_index(root, schema, tasks, problems)
         counted += check_abandoned_slots(root, schema, tasks, problems)
         counted += check_label_shape(schema, tasks, advisory["LABEL SHAPE"])

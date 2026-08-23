@@ -74,24 +74,22 @@ is a thing to know rather than a message to clear. Restore the artefact, or reco
 the task and take the consequence deliberately. Editing the field until `check` goes quiet is the one
 response that loses the information.
 
-**A deliverable names something a reader can obtain, so do not declare an artefact no clone will
-ever receive.** This is the third case in the same rule and it looks like none of the others: the
-file exists, it was produced by the task that declares it, and it is absent from every copy of the
-project but one — because it is deliberately untracked. `check` reads it as missing and fails, and it
-fails only for other people, which is why a working tree can pass all day while the gate is red. Where
-a task produces something quarantined — machine-local context, credentials, anything an ignore rule
-keeps out on purpose — record it in the task's implement section and its log, and leave it out of
-`deliverables`.
+**An artefact an ignore rule keeps out of every clone is declared like any other, and `check` says
+so rather than failing.** This is the third case in the same rule and it looks like none of the
+others: the file exists where it was made, it was produced by the task that declares it, and it is
+absent from every copy of the project but one — because it is deliberately untracked. Machine-local
+context, credentials, anything quarantined on purpose. Declare it; the record of what the task
+produced is the point, and losing it to keep a validator quiet is the trade the rule above refuses.
 
-**What that costs, since it is the half a reader will not see.** The declaration is the only form of
-the fact a command can reach; a log row is prose. So this reading buys a green gate today and gives
-up the mechanical record that the artefact was produced. Two alternatives were weighed on 2026-08-23
-and both were priced before this one was taken (T-257): **teaching `check` the distinction** — it
-already reports *a clone would not receive them* for documents and applies no such awareness to
-declared outputs — is the truer answer and is a product change rather than an edit, so it is raised
-as its own record (T-258) and this paragraph is superseded when that ships; and **tracking the file**,
-rejected on sight, because the artefact is quarantined on purpose and publishing local machine data
-is what the ignore rule exists to prevent.
+`check` reports these in its `Scope` lines — *n declared output(s) not checked: an ignore rule keeps
+them out of every clone* — and does not move the exit code. It asks `git check-ignore`, which answers
+about a path that is not there, so the distinction survives in a clone, which is the only place it
+matters. **A path that is simply gone still fails**, unchanged and for the reason the paragraph above
+gives: the two look identical on the filesystem and are not the same fact.
+
+**Where there is no git to ask, every declared path is judged on existence alone.** A project without
+version control cannot have an ignore rule, so nothing is being suppressed — but it is worth knowing
+that the quiet has a precondition.
 
 **Backend limits: none that reach the method.** A file holds any field, any edge and any content,
 so nothing in METHOD is absorbed or approximated here. That is what makes this binding the wrong
