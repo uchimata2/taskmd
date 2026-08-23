@@ -2,7 +2,7 @@
 id: T-250
 title: Give the context registers and shipped documents the permitted shape for history
 type: fix
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: []
@@ -85,16 +85,22 @@ that sorts by them and edits the top is measuring the wrong thing.
       the table above — that table is dated evidence and will be stale
 
 **Open questions**
-- **One commit per file, or one for the sweep?** — whoever implements it. The recommendation is
-  **one commit per file**, because the shipped bindings are contracts and a reviewer needs to see
-  each against its own diff. *Against: six commits for one outcome, and the sweep then has no single
-  point where it can be judged complete — mitigated by the first acceptance criterion, which is that
-  list.*
-- **Does `control/LOCAL-CONTEXT.md` count as a record?** — the project owner. The recommendation is
-  **no, it is a register**: history is what it holds, but its rows reproduce narratives that already
-  live in the task records they cite, which is the duplication the rule exists to stop. *Against: it
-  is gitignored and costs nothing to publish, so the only reader it burdens is a session that opens
-  it — which is the same argument that let the handoff config reach 16 KB.*
+- ~~**One commit per file, or one for the sweep?**~~ **Answered by the owner on 2026-08-23: one
+  commit per file.** *The question as it stood, kept so a later reader can see what was chosen over
+  what: — whoever implements it. The recommendation is* **one commit per file**, *because the shipped
+  bindings are contracts and a reviewer needs to see each against its own diff. Against: six commits
+  for one outcome, and the sweep then has no single point where it can be judged complete — mitigated
+  by the first acceptance criterion, which is that list.*
+- ~~**Does `control/LOCAL-CONTEXT.md` count as a record?**~~ **Answered by the owner on 2026-08-23:
+  no — it is a register, and is compressed.** *The question as it stood: — the project owner. The
+  recommendation is* **no, it is a register**: *history is what it holds, but its rows reproduce
+  narratives that already live in the task records they cite, which is the duplication the rule
+  exists to stop. Against: it is gitignored and costs nothing to publish, so the only reader it
+  burdens is a session that opens it — which is the same argument that let the handoff config reach
+  16 KB.*
+
+Both answers leave the acceptance criteria unchanged; §1 already covered either outcome. The second
+one settles which file the third criterion binds on.
 
 ## 2. Plan
 
@@ -125,4 +131,5 @@ that sorts by them and edits the top is measuring the wrong thing.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | → specified | **Both open questions answered by the owner on 2026-08-23**, in these words: *"Your picks accepted."* `control/LOCAL-CONTEXT.md` is a register and is compressed; the sweep lands one commit per file. The rejected halves are kept in §1 beside each question. No acceptance criterion moved. **No phase beyond `specify` was authorised.** |
 | 2026-08-23 | → proposed | **Raised on the owner's request of 2026-08-23**: *"Raise a task for control/LOCAL-CONTEXT.md, any other similar files in the project."* The membership was measured rather than guessed, and the measurement narrowed it: the two 25 KB configs carry one date between them and are almost entirely guide prose, so they are a five-line edit each and not the sweep they look like. |
