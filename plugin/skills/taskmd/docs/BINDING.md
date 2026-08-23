@@ -98,8 +98,7 @@ looks exactly like a first one.
 saved board — or **a single property on a single task**. The second kind is the one that gets
 missed, because it does not look like a view: it looks like an ordinary field, it is written by the
 same operation that writes everything else, and there is no separate file whose staleness anyone
-would think to check. §5 missed exactly this and drew the wrong conclusion from an earlier draft of
-this paragraph that offered only the two large examples. If a backend stores something your schema
+would think to check. §5 missed exactly this. If a backend stores something your schema
 *derives*, that is a materialised view whatever its size, and both rules above apply to it.
 
 ---
@@ -116,10 +115,9 @@ bold sentence that is the whole claim, and those sentences alone are what an ado
 whether anything here is false for them; the prose under each is for when the answer is "no" or "not
 sure", and is not part of the budget. State it this way because the alternative was tested and
 failed — measured against whole sections, neither existing binding came close (498 and 401 words,
-around two minutes and ninety seconds), and the figure had been carried for as long as it existed
-without anyone measuring it. Against the claim lines, both come in at 65 and 44 words, under twenty
-seconds. To check a binding: read its bold leads, in order, and stop at the first one you cannot
-answer for your project.
+around two minutes and ninety seconds). Against the claim lines, both come in at 65 and 44 words,
+under twenty seconds. To check a binding: read its bold leads, in order, and stop at the first one
+you cannot answer for your project.
 
 This section exists because of a failure that had already happened elsewhere: a binding stated "the
 folder is the index" as a premise. For a project whose index is a *generated file*, that premise is
@@ -215,8 +213,8 @@ is the one thing that half of this clause exists to support. Where the name cann
 the class out and say so in the declaration — an honest gap is reviewable and a wrong name is not.
 
 **How to word the gap, since *say so* does not say how much to say.** Declare it categorically and
-**describe no unnamed state** — describing one in prose is what this clause did before 2026-08-22,
-and it is what produced the guessing. A specimen you may copy:
+**describe no unnamed state** — describing one in prose is what produces the guessing. A specimen
+you may copy:
 
 > This binding names no other class, and that is a gap rather than a finding. The class names have
 > one home, the validator's own source, and this binding was written without access to it. Before
@@ -326,17 +324,12 @@ So a backticked command inside the region is safe, as `local-markdown.md`'s decl
 shown; a backticked acronym is not. **Write an acronym without backticks, or keep it outside the
 markers**, and do the same for an identifier like a team key plus number.
 
-*Stated as a rule since 2026-08-23.* It was previously given as what four specimens did, which
-answered none of the three shapes above that no specimen covered.
-
-**It reads every class name, and that is newer than this document.** Until 2026-08-22 the pattern
-required three capitals **first**, so a class whose opening word was shorter was read as nothing at
-all — neither passed nor failed, which looks exactly like a pass. Two of the validator's classes were
-invisible to it and `github-issues.md` declared one, so that region carried four names of which three
-were guarded, and nothing anywhere said which three. The pattern now also accepts a multi-word run
-whose every word is two or more capitals, and a second check counts from the other side: anything a
-region backticks in capitals throughout must be a name the scan reads, so the next narrowing fails
-instead of going quiet. A single two-letter word is still not a class name and still does not match.
+**It reads every class name.** The pattern accepts a run of three capitals or more, and a multi-word
+run whose every word is two or more capitals; a single two-letter word is not a class name and does
+not match. A second check counts from the other side: anything a region backticks in capitals
+throughout must be a name the scan reads, **so the next narrowing of the pattern fails instead of
+going quiet** — a pattern that reads a class as neither passing nor failing looks exactly like a
+pass, which is how two of the validator's classes were once invisible to it (2026-08-22).
 
 **What that check is, and what it is not.** It confirms every binding carries the statement and that
 each class it names is a class the validator actually reports — which is the staleness a hand-kept
@@ -380,19 +373,11 @@ work; this is one operation, written to test the contract's wording rather than 
 > reason its enumeration must ask for every state explicitly rather than merely to avoid missing
 > closed work — filtering on `state` would turn a rendering into an input.
 
-**What this changed in the contract: §3, twice.** Every operation in §1 was already written as a
-guarantee about a result, and none of them moved. §3 gained the "may satisfy a derived view
-natively" paragraph — GitHub meets the both-ends guarantee without enumerating, and an earlier draft
-that said derived views *are computed from* `enumerate` would have made a conforming backend
-non-conforming for being better at it. That correction is the value of having written this before
-the bindings rather than after.
-
-The second change came the other way round, and is worth more. Writing the real binding
+**What this section is evidence of, and what it is not.** Writing the real binding
 ([`bindings/github-issues.md`](bindings/github-issues.md)) found the `state` property above, which
-this example had confidently said did not exist — so §3 gained *Size is not the test*. **A worked
-example written from documentation mispredicted the binding written from the tool**, and the
-mispredicted part was the one thing on this backend that a project could get wrong without ever
-seeing a symptom. Read that as the limit of exercises like this one: §5 is good evidence that the
+this example had confidently said did not exist. **A worked example written from documentation
+mispredicted the binding written from the tool**, and the mispredicted part was the one thing on this
+backend that a project could get wrong without ever seeing a symptom. So §5 is good evidence that the
 contract's *wording* does not assume a filesystem, and no evidence at all about what a backend
 actually stores.
 
