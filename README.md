@@ -260,8 +260,8 @@ prose you have not agreed to change is a gate that gets switched off.
 ### As a plain skill
 
 Copy [`plugin/skills/taskmd/`](plugin/skills/taskmd) into your skills directory, so that it lands at
-`~/.claude/skills/taskmd/`. That folder is self-contained: 21 files, no path to edit, and nothing
-cited that it does not carry.
+`~/.claude/skills/taskmd/`. That folder is self-contained: no path to edit, and nothing cited that it
+does not carry.
 
 A copied skill gets no `PATH` entry, because that mechanism belongs to plugins. This shape therefore
 runs the launcher inside the folder:
@@ -276,6 +276,25 @@ mkdir tasks
 ```
 
 Both print the same line as the plugin does. The two shapes name different commands on purpose.
+
+**To check the copy arrived whole, point that same command at the skill folder itself.** It then
+reads the skill's own documents instead of a project's:
+
+```bash
+mkdir ~/.claude/skills/taskmd/tasks
+~/.claude/skills/taskmd/taskmd.sh check --root ~/.claude/skills/taskmd
+```
+
+```powershell
+mkdir ~\.claude\skills\taskmd\tasks
+& ~\.claude\skills\taskmd\taskmd.ps1 check --root ~\.claude\skills\taskmd
+```
+
+The empty `tasks` folder is what any project needs before the commands run, and you can delete it
+afterwards. `OK` with a document count in the teens means every file the skill cites is there.
+**A short copy fails loudly, whichever half is missing**: a missing document gives `BROKEN LINK`
+naming what points at it, and a missing code file stops the launcher before it prints anything.
+Both were checked by being made to happen.
 
 **If something other than an agent runs taskmd, use this shape.** A release gate, a git hook or a
 plain script gets no `PATH` entry and is never told where a plugin was installed, so the plugin

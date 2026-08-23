@@ -76,12 +76,11 @@ A label says which release the work is scheduled into. It never says the release
 | ID | Title | Work Package | Status | Phase | Parent | Children | Blocked By | Blocks | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [T-240](T-240-the-competition-rig-does-not-reproduce-the-silence-it-was-built-to-explain.md) | The competition rig does not reproduce the silence it was built to explain | `M6` | `proposed` | `specify` | - | - | - | - | T-175, T-206, T-213 |
-| [T-241](T-241-verify-the-published-0-6-0-from-outside-and-record-what-cannot-be-reached.md) | Verify the published 0.6.0 from outside, and record what cannot be reached | `M6` | `in_progress` | `implement` | - | T-252 | - | - | T-085, T-231, T-246 |
 | [T-244](T-244-audit-everything-0-6-0-ships-before-1-0-0-and-review-the-audit-method-while-using-it.md) | Audit everything 0.6.0 ships before 1.0.0, and review the audit method while using it | `M7` | `proposed` | `specify` | - | - | - | T-246 | T-152, T-223, T-231, T-247 |
 | [T-246](T-246-cut-1-0-0-once-the-audit-s-findings-are-applied.md) | Cut 1.0.0 once the audit's findings are applied | `M7` | `proposed` | `specify` | - | - | T-244 | - | T-231, T-241, T-243 |
 | [T-247](T-247-decide-whether-taskmd-validates-a-finding-field-against-a-register.md) | Decide whether taskmd validates a finding field against a register | `M7` | `proposed` | `specify` | - | - | - | - | T-146, T-173, T-223, T-244 |
 | [T-248](T-248-judge-adopter-visible-on-the-three-records-the-new-rule-reports-unmarked.md) | Judge adopter_visible on the three records the new release-note rule reports unmarked | `M7` | `proposed` | `specify` | - | - | - | - | T-242, T-243, T-245, T-251 |
-| [T-252](T-252-correct-the-readme-s-file-count-for-the-copied-skill.md) | Correct the README's file count for the copied skill, and decide whether a number belongs there | `M6` | `proposed` | `specify` | T-241 | - | - | - | T-083, T-085 |
+| [T-253](T-253-exercise-the-plugin-install-route-against-a-published-release.md) | Exercise the plugin install route against a published release, or decide it will not be | `M6` | `proposed` | `specify` | - | - | - | - | T-067, T-085, T-241 |
 
 ## Closed
 
@@ -153,7 +152,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-064](T-064-stop-the-plugin-citing-documents-it-does-not-ship.md) | Stop the plugin citing documents it does not ship | `M1` | `done` | `review` | T-059 | - | - | - | T-006, T-053, T-083, T-117, T-132, T-161 |
 | [T-065](T-065-say-what-happens-to-a-field-the-schema-does-not-name.md) | Say what happens to a field the schema does not name | `M1` | `done` | `review` | T-059 | - | - | - | T-001, T-030, T-146 |
 | [T-066](T-066-reconcile-two-open-tasks-with-the-fix-that-landed.md) | Reconcile two open tasks with the fix that already landed | `M1` | `done` | `review` | T-059 | - | - | - | T-011, T-023, T-030 |
-| [T-067](T-067-prove-the-install-route-an-adopter-actually-takes.md) | Prove the install route an adopter actually takes | `M1` | `done` | `review` | T-059 | - | - | - | T-006, T-052, T-053, T-054, T-077, T-085, T-099 |
+| [T-067](T-067-prove-the-install-route-an-adopter-actually-takes.md) | Prove the install route an adopter actually takes | `M1` | `done` | `review` | T-059 | - | - | - | T-006, T-052, T-053, T-054, T-077, T-085, T-099, T-253 |
 | [T-068](T-068-cover-the-entry-point-an-adopter-runs.md) | Cover the entry point an adopter runs | `M1` | `done` | `review` | T-059 | - | - | - | T-054, T-061 |
 | [T-069](T-069-skip-a-nested-project-at-any-depth.md) | Skip a nested project at any depth, not below the first | `M1` | `done` | `review` | T-059 | - | - | - | T-011, T-078, T-107 |
 | [T-070](T-070-decide-whether-an-unused-field-column-is-shown.md) | Decide whether an unused field column is shown at all | `M1` | `done` | `review` | T-059 | - | - | - | T-001, T-022, T-102 |
@@ -171,7 +170,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-082](T-082-let-id-width-say-the-backend-allocates-the-ids.md) | Let id_width say that the backend allocates the ids | `M2` | `done` | `review` | T-004 | - | - | - | T-010, T-075, T-108, T-123, T-137 |
 | [T-083](T-083-make-the-skill-directory-self-contained.md) | Make the skill directory self-contained | `M1` | `done` | `review` | - | - | - | - | T-053, T-054, T-064, T-084, T-099, T-103, T-252 |
 | [T-084](T-084-correct-the-generated-index-preamble-after-the-move.md) | Correct the generated index preamble after the directory move | `M1` | `done` | `review` | - | - | - | - | T-006, T-025, T-083 |
-| [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) | Install the published plugin on a machine that has never seen it | `M5` | `done` | `review` | T-006 | - | - | - | T-020, T-049, T-054, T-067, T-099, T-129, T-142, T-183, T-231, T-241, T-252 |
+| [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) | Install the published plugin on a machine that has never seen it | `M5` | `done` | `review` | T-006 | - | - | - | T-020, T-049, T-054, T-067, T-099, T-129, T-142, T-183, T-231, T-241, T-252, T-253 |
 | [T-086](T-086-group-the-backlog-into-release-milestones.md) | Group the backlog into release milestones | `M2` | `done` | `review` | - | - | - | - | T-006, T-022, T-026, T-087, T-110, T-128, T-135, T-136 |
 | [T-087](T-087-let-list-filter-on-a-field-the-index-can-show.md) | Let list filter on a field the index can show | `M2` | `done` | `review` | - | - | - | - | T-022, T-029, T-086, T-102, T-124, T-137, T-143, T-144, T-217, T-230, T-234 |
 | [T-088](T-088-put-audit-in-the-shipped-type-vocabulary-or-stop-calling-it-a-type.md) | Put audit in the shipped type vocabulary, or stop calling it a type | `M2` | `done` | `review` | - | - | - | - | T-001, T-026, T-032, T-100, T-104, T-109, T-131, T-137 |
@@ -317,7 +316,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-228](T-228-decide-whether-the-reader-s-framing-verdict-reopens-the-accepted-balance.md) | Decide whether the reader's framing verdict reopens the accepted balance | `M6` | `done` | `review` | - | - | - | - | T-166, T-167, T-176, T-221, T-237 |
 | [T-229](T-229-correct-the-migrated-away-fixture-s-own-prose-which-still-says-all-four-commands-refuse.md) | Correct the migrated-away fixture's own prose, which still says all four commands refuse | `M6` | `done` | `review` | - | - | - | - | T-164, T-177, T-185, T-221 |
 | [T-230](T-230-a-task-gated-on-an-external-event-has-no-field-and-sorts-as-startable.md) | A task gated on an external event has no field, and sorts as startable | `M6` | `done` | `review` | - | - | - | - | T-087, T-182, T-199 |
-| [T-231](T-231-cut-the-next-release.md) | Cut the next release | `M6` | `done` | `review` | - | - | - | T-241 | T-085, T-135, T-182, T-223, T-232, T-241, T-242, T-243, T-244, T-246 |
+| [T-231](T-231-cut-the-next-release.md) | Cut the next release | `M6` | `done` | `review` | - | - | - | - | T-085, T-135, T-182, T-223, T-232, T-241, T-242, T-243, T-244, T-246 |
 | [T-232](T-232-repair-the-coverage-clause-against-what-two-readers-found.md) | Repair the coverage clause against what two readers found | `M6` | `done` | `review` | - | - | - | - | T-199, T-222, T-225, T-231, T-233, T-235, T-238, T-239 |
 | [T-233](T-233-give-the-uninvolved-reader-protocol-one-home-and-settle-its-count-rule.md) | Give the uninvolved-reader protocol one home, and settle its count rule | `M6` | `done` | `review` | - | - | - | - | T-165, T-166, T-176, T-199, T-225, T-232, T-235 |
 | [T-234](T-234-decide-whether-a-grant-s-membership-is-copied-into-every-record-or-derived.md) | Decide whether a grant's membership is copied into every record or derived | `M6` | `done` | `review` | - | - | - | - | T-087, T-106, T-136 |
@@ -326,11 +325,13 @@ A label says which release the work is scheduled into. It never says the release
 | [T-237](T-237-the-softening-clause-t-228-repaired-has-a-second-instance-and-an-idiom-behind-it.md) | The softening clause T-228 repaired has a second instance, and an idiom behind it | `M6` | `done` | `review` | - | - | - | - | T-176, T-193, T-196, T-228 |
 | [T-238](T-238-bring-the-github-binding-s-coverage-declaration-into-line-with-the-repaired-clause.md) | Bring the GitHub binding's coverage declaration into line with the repaired clause | `M6` | `done` | `review` | - | - | - | - | T-222, T-232, T-239 |
 | [T-239](T-239-give-both-shipped-declarations-the-content-the-repaired-clause-now-requires.md) | Give both shipped declarations the content the repaired clause now requires | `M6` | `done` | `review` | - | - | - | - | T-222, T-232, T-238 |
+| [T-241](T-241-verify-the-published-0-6-0-from-outside-and-record-what-cannot-be-reached.md) | Verify the published 0.6.0 from outside, and record what cannot be reached | `M6` | `done` | `review` | - | T-252 | - | - | T-085, T-231, T-246, T-253 |
 | [T-242](T-242-judge-adopter-visible-on-the-closed-m6-tasks-the-release-note-must-cover.md) | Judge adopter_visible on the closed M6 tasks the release note must cover | `M6` | `done` | `review` | - | - | - | - | T-135, T-182, T-231, T-243, T-245, T-248, T-251 |
 | [T-243](T-243-key-the-release-note-rule-on-what-the-release-ships-not-on-a-milestone-label.md) | Key the release-note rule on what the release ships, not on a milestone label | `M6` | `done` | `review` | - | - | - | T-244 | T-135, T-182, T-231, T-242, T-246, T-248 |
 | [T-245](T-245-prompt-the-adopter-visible-judgement-at-the-moment-a-record-closes.md) | Prompt the adopter_visible judgement at the moment a record closes | `M7` | `done` | `review` | - | - | - | T-244 | T-146, T-172, T-182, T-242, T-248, T-251 |
 | [T-249](T-249-cut-the-handoff-config-back-to-a-config.md) | Cut the handoff config back to a config, and rehome what only it records | `M7` | `done` | `review` | - | - | - | - | T-047, T-073, T-135, T-190, T-250 |
 | [T-250](T-250-give-the-context-registers-the-permitted-shape-for-history.md) | Give the context registers and shipped documents the permitted shape for history | `M7` | `done` | `review` | - | - | - | T-244 | T-073, T-092, T-249 |
 | [T-251](T-251-give-the-open-records-the-adopter-visible-prompt-they-predate.md) | Give the open records the adopter_visible prompt they predate | `M7` | `done` | `review` | - | - | - | - | T-242, T-245, T-248 |
+| [T-252](T-252-correct-the-readme-s-file-count-for-the-copied-skill.md) | Correct the README's file count for the copied skill, and decide whether a number belongs there | `M6` | `done` | `review` | T-241 | - | - | - | T-083, T-085 |
 
 <!-- taskmd:end -->
