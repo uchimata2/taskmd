@@ -3,9 +3,9 @@ id: T-231
 title: Cut the next release
 type: deliverable
 status: proposed
-phase: specify
+phase: implement
 parent: null
-blocked_by: [T-232]
+blocked_by: [T-232, T-242]
 related: [T-182, T-085, T-135, T-223]
 work_package: M6
 owner: the project owner
@@ -109,29 +109,91 @@ should not read an open M6 as a reason to stop.
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Run `docs/PUBLISHING.md` §7's three counts against M6, before anything is written or bumped. | The three figures, recorded, and whether they sum |
+| 2 | Run §5's dash gate and read its **count**, not its silence. | The file count and the gate's own exit code, recorded |
+| 3 | Run §6's pre-publish leak check twice — with the fixture exclusion and without it. | Both outputs, recorded, showing the accepted set and that the check fires |
+| 4 | Set `plugin/.claude-plugin/plugin.json` to the version §1's second answer fixed. | The manifest at `0.6.0` |
+| 5 | Compose the tag message and release body **to a file**, never through a shell. | Two files, unstyled, ready for §2's humanizer pass |
+| 6 | Commit, `git tag -F`, push, and `gh release create --notes-file`. | The tag and the published release |
+| 7 | Record what the cut was stopped for, or how *nothing* was checked. | This record's §3 |
+
+Step 1 is first on purpose, and it is the sequencing rule in [`plan`](../plugin/skills/taskmd/docs/method/plan.md)
+doing its work rather than a formality: it is the one step whose result can invalidate every step
+after it. It did.
 
 ## 3. Implement
 
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+- **The cut is stopped at step 1, and steps 4 to 6 were not run — 2026-08-23.** §7's counts do not
+  sum: 108 closed tasks in M6, 11 marked `adopter_visible: yes`, 19 marked `no`, and **78 carrying no
+  value**. §7 says an unmarked task blocks the note and does not pass as `no`. Raised as
+  [T-242](T-242-judge-adopter-visible-on-the-closed-m6-tasks-the-release-note-must-cover.md), which
+  now blocks this record. *Rejected: mark the 78 in passing and carry on.* The derivation was
+  computed — it is in T-242 §1 and yields 60 `yes` and 18 `no` — and applying it unattended was
+  refused for one reason: a release note is a dated public record that
+  [T-133](T-133-decide-what-to-do-about-a-published-release-note-that-breaks-the-rule.md) forbids
+  rewriting, so a note resting on 78 marks made silently at the moment of writing prose about the
+  release is the exact thing §7 says the field exists to prevent. Stopping is recoverable; the note
+  is not.
+- **The manifest was not bumped either — 2026-08-23.** A version bump with no tag behind it leaves
+  the repository claiming a release that does not exist, and `claude plugin update` compares version
+  strings, so a directory install would start reporting a version nobody published. The bump belongs
+  to the same act as the tag.
+- **The owner's instruction of 2026-08-23 covers the full lifecycle of this record, unattended** —
+  given on resuming the handoff, in these words: *"Do the full release. Deploy, Tag, Create release,
+  update project, commit and push, unattended."* It is recorded here rather than inherited, per §1's
+  note that this record sits outside the grant of 2026-08-22. **It authorized the acts; it did not
+  answer what stops them**, and §1's own acceptance criteria ask for a stop to be recorded rather
+  than worked around.
+
+**What the two mechanical gates said**
+
+§5's dash gate, exit code captured separately from the pipe:
+
+```text
+4 file(s) covered
+EXIT=1
+```
+
+Exit 1 is the clean outcome in §5's own table, and the count is the half that matters: four files
+covered, not zero. §6's leak check, both runs, reduced to one line per file:
+
+```text
+with the fixture exclusion:      2 hits in the T-085 record        (the whole accepted set)
+without the fixture exclusion:   those 2, plus exactly 5 in the leak-check fixture
+```
+
+The second run is what a clean tree cannot prove on its own: every class in the pattern still fires,
+so the first run's near-silence is a pass rather than a check that read nothing.
 
 **Outputs produced**
-- `deliverables/...`
+- none. No commit, no tag, no release, no manifest change.
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| The manifest version, the tag and the published release all name the same version | not met | None of the three exists. The cut stopped at §7 |
+| §5's gate and §6's check were both **run**, and their output recorded — including §5's file count | met | §3 above, both gates, with the count and the exit code rather than the silence |
+| Which milestone the release ships is stated, so §7 has a set to run against | met | M6, answered by the owner on 2026-08-23 and recorded in §1. It is what §7 was run against |
+| What the cut was stopped for is recorded, and if the answer is *nothing*, how that was checked | met | §7's counts, and [T-242](T-242-judge-adopter-visible-on-the-closed-m6-tasks-the-release-note-must-cover.md) |
+| Whether this release is verified from outside is decided and recorded either way | met | Yes, decided by the owner on 2026-08-23 and carried by [T-241](T-241-verify-the-published-0-6-0-from-outside-and-record-what-cannot-be-reached.md) |
+
+Four of five criteria are met and the first cannot be met by this session. The record stays open on
+its new blocker rather than closing over a criterion nothing will meet.
 
 **Child fix tasks raised**
-- none
+- [T-242](T-242-judge-adopter-visible-on-the-closed-m6-tasks-the-release-note-must-cover.md) — as a
+  dependency, not a child. It is not part of this record's outcome; it is a thing this record cannot
+  proceed without, which is the distinction [`METHOD.md`](../plugin/skills/taskmd/docs/METHOD.md) §4
+  draws.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | (no change) | **The cut was attempted under the owner's unattended instruction of 2026-08-23, and stopped at the first step of its own plan.** `docs/PUBLISHING.md` §7's counts do not sum — 108 closed tasks in M6, 30 marked, **78 with no `adopter_visible` value at all** — and §7 says an unmarked task blocks the note. Raised as [T-242](T-242-judge-adopter-visible-on-the-closed-m6-tasks-the-release-note-must-cover.md) and recorded here as a dependency. **Nothing outward-facing was done**: no manifest bump, no commit of one, no tag, no release. **Both mechanical gates were run and passed** and their output is in §3 — §5's gate covering four files at exit 1, and §6's leak check in both of its runs, the second proving every class still fires. So the release is held by one thing and it is named. `phase` advances to `implement` because that is where the work reached; `status` is left alone, since the tool derives *blocked* from the edge and writing it twice is the one rule this project does not break. |
 | 2026-08-23 | (no change) | **The owner answers the fourth question: no audit before this tag.** They will run one after the release and said not to deal with it now, so **nothing was raised for it** — recording the decision is the whole of the work, and the standing boundary that a session starts no audit is unchanged rather than lifted. **The release now has nothing in front of it.** Asked rather than inferred, because the same owner had said on 2026-08-22 that an audit *would* precede the release, and a sequence stated in those words is not reversed by an instruction that omits it — the answer confirms the change and costs one line, which is what asking was for. |
 | 2026-08-23 | (no change) | **The owner answers all three questions, and instructs that the release be cut in a new session.** **Yes** to a verification-from-outside task, raised as [T-241](T-241-verify-the-published-0-6-0-from-outside-and-record-what-cannot-be-reached.md) with `blocked_by` naming this record — raised now rather than at tag time, because a task that exists only as an answer inside a closed question is invisible to every view, which is the defect [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md) recorded. **No third exception: `0.6.0`.** **Ship M6 as it stands**, the offered alternative of moving non-release-critical work to a later label declined. **`waiting_on` is cleared**: it was set on 2026-08-23 because the release was the owner's act with nothing else holding it, and the instruction to ship removes that gate — the field is the one [T-230](T-230-a-task-gated-on-an-external-event-has-no-field-and-sorts-as-startable.md) built, so leaving it set would make a view say this is still waiting on a person. **No phase is advanced here.** The answers are recorded and the work is the next session's; `specify` is not closed by a session that was asked to write a handoff. **The third answer's premise moved and the answer is recorded against the premise it now has** — §1 says what shipping as-is commits to, which is that M6 does not close when the tag does. |
 | 2026-08-22 | (no change) | **Reconcile: one of this record's open questions was answered by a project document, and this record said it was not derivable.** [`tasks/README.md`](README.md) states the rule in its own words — *the digit says which release the work is scheduled into, `M5` ships as `0.5.0`, `M6` as `0.6.0`* — with two named exceptions, `M2` as `0.4.0` and `M3` inside the `v0.3.0` batch bump. So the default **is** derivable and it is `0.6.0`; the judgement that remains is narrower, and it is whether to take a third exception. The question is corrected in §1 rather than deleted, because *not derivable* was wrong and a reader of this record would have gone looking for a decision nobody had to make. **And the milestone question is live rather than a formality.** M6's purpose in that same document names three capabilities — the GitHub Issues migration, taskmd as a tracker binding for the handoff skill, and what `check` does with a section reference — and all three are closed ([T-108](T-108-support-a-project-moving-its-tasks-from-files-to-github-issues.md), [T-005](T-005-align-with-the-handoff-tracker-binding-contract.md) with [T-181](T-181-verify-the-handoff-github-recipe-on-a-live-issues-backed-project.md), and T-093). The ten tasks still open in M6 are none of those. That is not a defect in the index, which says in its own words that a purpose is not an exit criterion — but it makes *which milestone this release ships* a real decision for this record, not a lookup. |

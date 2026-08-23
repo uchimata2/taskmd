@@ -69,10 +69,11 @@ A label says which release the work is scheduled into. It never says the release
 
 | ID | Title | Work Package | Status | Phase | Parent | Children | Blocked By | Blocks | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) | Write the next release note to the rule and say what it caught | `M6` | `proposed` | `specify` | - | - | T-231 | - | T-125, T-127, T-133, T-135, T-230, T-231 |
-| [T-231](T-231-cut-the-next-release.md) | Cut the next release | `M6` | `proposed` | `specify` | - | - | - | T-182, T-241 | T-085, T-135, T-182, T-223, T-232, T-241 |
+| [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) | Write the next release note to the rule and say what it caught | `M6` | `proposed` | `specify` | - | - | T-231 | - | T-125, T-127, T-133, T-135, T-230, T-231, T-242 |
+| [T-231](T-231-cut-the-next-release.md) | Cut the next release | `M6` | `proposed` | `implement` | - | - | T-242 | T-182, T-241 | T-085, T-135, T-182, T-223, T-232, T-241, T-242 |
 | [T-240](T-240-the-competition-rig-does-not-reproduce-the-silence-it-was-built-to-explain.md) | The competition rig does not reproduce the silence it was built to explain | `M6` | `proposed` | `specify` | - | - | - | - | T-175, T-206, T-213 |
 | [T-241](T-241-verify-the-published-0-6-0-from-outside-and-record-what-cannot-be-reached.md) | Verify the published 0.6.0 from outside, and record what cannot be reached | `M6` | `proposed` | `specify` | - | - | T-231 | - | T-085, T-231 |
+| [T-242](T-242-judge-adopter-visible-on-the-closed-m6-tasks-the-release-note-must-cover.md) | Judge adopter_visible on the closed M6 tasks the release note must cover | `M6` | `proposed` | `specify` | - | - | - | T-231 | T-135, T-182, T-231 |
 
 ## Closed
 
@@ -212,7 +213,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-132](T-132-give-the-console-the-same-line-ending-on-every-platform.md) | Give the console the same line ending on every platform | `M5` | `done` | `review` | T-020 | - | - | - | T-002, T-020, T-022, T-049, T-064 |
 | [T-133](T-133-decide-what-to-do-about-a-published-release-note-that-breaks-the-rule.md) | Decide what to do about a published release note that breaks the rule | `M5` | `done` | `review` | - | - | - | - | T-079, T-081, T-125, T-126, T-127, T-129, T-135, T-182, T-183 |
 | [T-134](T-134-check-that-every-prose-list-of-the-commands-names-the-commands-there-are.md) | Check that every prose list of the commands names the commands there are | `M5` | `done` | `review` | T-117 | - | - | - | T-030, T-031, T-055, T-071, T-073, T-117, T-126, T-139, T-147, T-149, T-188, T-195, T-202 |
-| [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) | Derive what a release note must cover from the tasks it ships | `M6` | `done` | `review` | - | - | - | - | T-086, T-125, T-127, T-128, T-129, T-133, T-182, T-216, T-231 |
+| [T-135](T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) | Derive what a release note must cover from the tasks it ships | `M6` | `done` | `review` | - | - | - | - | T-086, T-125, T-127, T-128, T-129, T-133, T-182, T-216, T-231, T-242 |
 | [T-136](T-136-rename-the-milestone-labels-so-they-cannot-be-read-as-versions.md) | Rename the milestone labels so they cannot be read as versions | `M6` | `done` | `review` | - | - | - | - | T-086, T-110, T-125, T-128, T-137, T-138, T-234 |
 | [T-137](T-137-decide-what-taskmd-does-about-a-label-read-as-a-version.md) | Decide what taskmd does about a grouping label that can be read as a version | `M6` | `done` | `review` | - | - | - | - | T-004, T-082, T-087, T-088, T-100, T-106, T-136, T-138 |
 | [T-138](T-138-report-a-front-matter-value-that-reads-as-a-version.md) | Report a front-matter value that reads as a version | `M6` | `done` | `review` | - | - | - | - | T-100, T-106, T-136, T-137, T-139, T-162 |
