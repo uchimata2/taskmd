@@ -2,8 +2,8 @@
 id: T-250
 title: Give the context registers and shipped documents the permitted shape for history
 type: fix
-status: planned
-phase: plan
+status: in_progress
+phase: implement
 parent: null
 blocked_by: []
 related: [T-249, T-073, T-092]
@@ -14,7 +14,12 @@ effort: m
 created: 2026-08-23
 updated: 2026-08-23
 adopter_visible: no
-deliverables: []
+deliverables:
+  - control/LOCAL-CONTEXT.md
+  - plugin/skills/taskmd/docs/BINDING.md
+  - plugin/skills/taskmd/docs/bindings/github-issues.md
+  - docs/PUBLISHING.md
+  - plugin/skills/taskmd/docs/method/uninvolved-reader.md
 ---
 
 # T-250 — Give the context registers and shipped documents the permitted shape for history
@@ -143,11 +148,121 @@ the fifth acceptance criterion forbids
 
 ## 3. Implement
 
-**Decisions & assumptions**
-- <decision — rationale — date>
+**The corpus, derived 2026-08-23, and its size.** Every Markdown file the project keeps, minus the
+out-list and minus `reference/`: **25 candidates** — 24 tracked plus `control/LOCAL-CONTEXT.md`,
+which is gitignored and which `git ls-files` cannot see. **Five were edited and twenty were read and
+left alone**, and the twenty are listed because a list of only the hits cannot show what was
+examined.
 
-**Outputs produced**
-- none yet
+**Decisions & assumptions**
+
+- **The prose signal was recomputed and then distrusted, in that order** — 2026-08-23. It reproduces
+  §1's own figures — `control/` at 1.60 dates/KB, `github-issues.md` at 0.61, the two configs at 0.04,
+  and the calibration case `.handoff/config.md` at 1.11 *after* being fixed — which is what says the
+  derivation is the same one, and what says it cannot judge. Every file was classified by reading the
+  passages, never by the count. **The signal's blind spot, stated before it was used**: it is keyed on
+  English phrasing, so a history block that never says *previously* or *used to* is invisible to it.
+  One such block was found by reading — `METHOD.md`'s dated decision on the child-holds-parent rule,
+  which scored zero and is *kept*, being a decision with its rejected alternative rather than an
+  account of a wording.
+
+- **Two files the signal ranked low turned out to matter and one it ranked high did not** —
+  2026-08-23, and this is the fifth acceptance criterion earning its keep. `docs/PUBLISHING.md`
+  **is not in §1's table at all** and carried two real passages; `plugin/skills/taskmd/docs/method/
+  uninvolved-reader.md` scored two hits and carried one. Meanwhile
+  `plugin/skills/taskmd/docs/bindings/local-markdown.md`, which §1's table lists as a shipped file
+  with five changelog lines, has **none**: both its hits are ordinary prose about behaviour — *"a
+  closed task whose outcome no longer exists"* and *"a renamed file is still found"*.
+
+- **The two 25 KB configs needed no edit at all**, against §1's expectation of a five-line edit each
+  — 2026-08-23. Their three hits apiece are *"renamed fields"* and *"a claim the task no longer
+  makes"*, both ordinary prose. §1 predicted the direction of the finding (their bulk is guide prose)
+  and overstated the residue.
+
+- **`control/LOCAL-CONTEXT.md` produces no commit, and the owner's one-commit-per-file answer cannot
+  reach it** — 2026-08-23. It is gitignored. It was backed up to a scratch copy before editing for
+  the same reason, since `git checkout --` has nothing to restore it from.
+
+- **The register's trail columns became a command rather than a list, and then the command was
+  measured** — 2026-08-23. `grep -rl "<label>" tasks/` returns the records that cite a label, which
+  is **not** the same set the old rows enumerated: seven of the deck-building sibling's named tasks,
+  four of the Handoff sibling's, three of the context-audit sibling's and two of the first adopting
+  project's do not cite their label and are unreachable by it. Rather than present the derivation as
+  equivalent, the file states what it reaches, lists that closed residue, and adds the forward rule
+  that makes it complete — a record raised from a sibling cites that sibling's label.
+  *Rejected: keeping the enumeration*, which drifts; *rejected: leaving the derivation unqualified*,
+  which is a filter reporting its own completeness.
+
+- **Four foreign task ids were found in the register and deleted rather than relabelled** —
+  2026-08-23. The old rows carried the deck-building sibling's `T-042`, `T-062`, `T-161` and `T-218`
+  in running prose beside our own ids with nothing marking them foreign, and **every one of the four
+  collides with a real task in this repository** — ours are *Make the GitHub binding's update
+  preserve what it did not touch*, *Report two tasks claiming one id*, *Give the entry-point
+  comments' pointer a reader* and *Give the rule that a child holds its parent open a home*. Each
+  belonged to a narrative that is the sibling's own to keep, so they went with it, and the file now
+  states that a foreign id is written with its owner named beside it or not written.
+
+**Outputs produced — the five edited**
+
+| File | What was compressed | What it now cites |
+| :--- | :--- | :--- |
+| `control/LOCAL-CONTEXT.md` | Six label-map rows carrying the whole trail of what each sibling reported and what came of it; a blockquote recording that a sentence about the config count *stopped being true later the same day*; nine lines of another project's open defects; the account of the shell trap the suite section used to warn about. **30,810 → 11,469 bytes; longest cell 11,374 → 1,616 chars** | `grep -rl "<label>" tasks/` per row; the two `adopter-report-*.md` copies beside it; `github.com/uchimata2/taskmd/issues/1` and pull request 2; T-135 §3 and T-173 §3 for the config counts; the maintainer's global conventions for the WSL/Git Bash trap and for the fix-it-there rule |
+| [`plugin/skills/taskmd/docs/BINDING.md`](../plugin/skills/taskmd/docs/BINDING.md) | Five accounts of what the document used to say: an earlier draft of *Size is not the test*, an unmeasured word count carried "for as long as it existed", what the gap clause did before 2026-08-22, the class-name pattern before 2026-08-22, and the two §3 edits §5 caused | Nothing new — every claim was already stated beside its history and now stands alone |
+| [`plugin/skills/taskmd/docs/bindings/github-issues.md`](../plugin/skills/taskmd/docs/bindings/github-issues.md) | Five: the totals removed from the coverage preamble, *this row used to sit above*, the paragraph preserving its own wrong date, the superseded *either way* sentence, and what the no-ordering item used to say | Nothing new; same reason |
+| [`docs/PUBLISHING.md`](../docs/PUBLISHING.md) | §6's *two earlier drafts were wrong*, restated as two failure shapes to expect; §7's *keyed on `--work_package` until 2026-08-23*, restated as the rejected alternative | [T-243](T-243-key-the-release-note-rule-on-what-the-release-ships-not-on-a-milestone-label.md), which already held the decision |
+| [`plugin/skills/taskmd/docs/method/uninvolved-reader.md`](../plugin/skills/taskmd/docs/method/uninvolved-reader.md) | *Corrected after a run that used two where its own rule said one*, and the closing sentence about what the rule had been written to forbid | Nothing new; the measured claim stands alone |
+
+**Read and left alone — the twenty**
+
+Four groups, and **9 + 3 + 1 + 7 = 20**, which with the five edited is the 25 the corpus derived.
+
+- **Ordinary prose the signal mistook for history (9):** `.taskmd/config.md`,
+  `plugin/skills/taskmd/taskmd/defaults/config.md`, `README.md`, `docs/SCOPE.md`,
+  `plugin/skills/taskmd/docs/bindings/local-markdown.md`,
+  `plugin/skills/taskmd/docs/method/review.md`, `plugin/skills/taskmd/docs/HANDOFF.md`,
+  `plugin/skills/taskmd/adopt.md`, `plugin/skills/taskmd/docs/method/pre-release-audit.md` —
+  *renamed*, *no longer exists*, *superseded* used as description, not as a changelog.
+- **Already the permitted shape (3):** `.handoff/config.md`, T-249's own output and the calibration
+  case; `plugin/skills/taskmd/docs/METHOD.md`'s dated child-holds-parent decision, which carries its
+  rejected alternative and its 218-task measurement; `plugin/skills/taskmd/docs/method/plan.md`'s
+  *superseded steps are the rejected alternative*, which is the rule itself.
+- **Annotated evidence, where rewriting falsifies the record (1):** `docs/BRIEF.md`, whose blockquote
+  says two of its own sentences stopped being true on 2026-08-18 and are kept because the argument
+  they carry is what raised the work. That is METHOD rule 5's *annotate the past* applied correctly,
+  in a document whose content is dated evidence. Its other signal hit, *a declared file that had been
+  deleted*, is ordinary prose.
+- **No history and no signal hit (7):** `CLAUDE.md`, `plugin/skills/taskmd/SKILL.md`, and the method
+  files `where-facts-live.md`, `specify.md`, `rationale.md`, `implement.md`, `audit.md`.
+
+`docs/PUBLISHING.md` is **not** in these groups — it is one of the five edited. Its §4 passage *it
+moved here from T-079 §3* was read and left, being fact, source and one clause of why; that is a
+passage left alone inside an edited file, not a file left alone.
+
+**Checked by using it.**
+
+*The corpus is derived, and it sums.* 24 tracked candidates plus 1 gitignored = 25; 5 edited + 20
+left = 25.
+
+*Every derived pointer in the register resolves*, which is the thing a command in place of a list can
+get wrong:
+
+```text
+the Notion-backed project         3      the deck-building sibling      14
+the throwaway proof repository    1      the diagram-modelling sibling   2
+the install-rehearsal repository  1      sibling plugin                  4
+the first adopting project       14      the context-audit sibling       2
+```
+
+*No adopter-facing statement changed meaning*, checked passage by passage on the four shipped files.
+Every edit deleted an account of a previous wording and left the claim; none rewrote a claim. The
+before/after pairs are the *What was compressed* column above, and the mechanical half is:
+
+```text
+check exit=0
+345 passed, 7 skipped, 6 subtests passed
+```
+
+run after each of the four tracked files, not once at the end.
 
 ## 4. Review
 
@@ -164,6 +279,7 @@ the fifth acceptance criterion forbids
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | → in_progress | **`implement` done**, under the grant below. **25 candidates derived, 5 edited, 20 read and left**, and §3 lists all twenty because a list of hits cannot show what was examined. Three things the plan did not foresee, all in §3 as decisions: **§1's table was wrong in both directions** — `docs/PUBLISHING.md` is absent from it and carried two real passages, while `local-markdown.md` is listed with five changelog lines and has none, which is the fifth criterion earning its keep; **the register's derived trail is not equivalent to the enumeration it replaced**, so the file states its reach, lists the closed residue and adds the forward rule that completes it; and **four foreign task ids were found in the register, every one colliding with a real task here**. |
 | 2026-08-23 | → planned | **`plan` written**, under the grant below. Six steps. Two shape it: step 1 states the corpus size before anything is classified, so the sweep has a denominator; and step 3 records a verdict for every candidate, not only the ones edited, because a list of hits alone cannot show what was read. `reference/` was decided out — imported evidence, like the adopter-report copies. |
 | 2026-08-23 | (no change) | **The owner re-stated the grant on resuming**, 2026-08-23: *"continue with T-250, full lifecycle, commit and push."* Recorded because it arrived in a session that had not yet opened this record, and the row below — *"No phase beyond `specify` was authorised"* — was written before it and is about the answers to the two questions, not about the grant two rows down. Neither is corrected; both were true when written. |
 | 2026-08-23 | (no change) | **The owner authorises the full lifecycle on this record, with commit and push** — given 2026-08-23 in these words: *"Work T-250, T-241, full lifecycle, commit and push, including anything raised during the work of these tasks."* Recorded here rather than only in the handoff, because an authorisation kept anywhere else is one a later session can miss or stretch to a record it never covered. **What it covers:** this record's `specify` through `review`, committing and pushing, and the same for any task raised *by this work*. **What it does not:** any other task in the backlog — T-244, T-246, T-247, T-248 and T-240 are untouched by it. |
