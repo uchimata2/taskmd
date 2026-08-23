@@ -618,10 +618,9 @@ worth having and is the half that goes stale:
 
 The checks that run on the local backend split three ways here: some land above as rows, four
 cannot occur at all, and the rest do not come across. The reasons are worth reading rather than
-trusting. **The totals that used to open this paragraph are gone rather than corrected** - a count of
-a set the code owns is either dated as a measurement or not written at all, and adding one check on
-2026-08-22 falsified them. The four that cannot occur is a *stated list*, not a count of a mutable
-set, so it stays.
+trusting. **No totals here** — a count of a set the code owns is either dated as a measurement or not
+written at all, since adding one check falsifies it. The four that cannot occur is a *stated list*,
+not a count of a mutable set, so it stays.
 
 The four that cannot occur are above and are not repeated here. What follows is where each of
 the **remaining** ones went:
@@ -631,7 +630,7 @@ the **remaining** ones went:
 | unreachable template, template field | **Not applicable as written.** They read a task template in a folder. If your project keeps an issue template, nothing here checks it. They do still *run* on a migrated project and find nothing to read, which is why they are not in the row below |
 | declared output that is gone | **Still local.** It compares declared paths against a working tree, which you still have. Run it there |
 | broken link, ignored link, wide table row, config drift, section reference | **Still local, and still run.** None of these takes a task as input: they walk the documents from your project root, which a migrated project keeps. Re-run 2026-08-22 against this repository's own `tests/fixtures/migrated-away`, they reported one dead link and a config advisory, and `check` exited 1. This is the measurement under *No validator* below |
-| duplicate index | **Can occur, and nothing here reports it — `check` included.** *Corrected 2026-08-22.* This row used to sit above, and it was wrong on the day it was written rather than drifted into being wrong: the check recognises a second table by the task ids it already knows, so a project with no task folder gives it nothing, and it is not reached at all. Measured 2026-08-22 — one document firing `DUPLICATE INDEX  BACKLOG.md: a second table of 3 known task ids sits outside the taskmd markers` went silent, unedited, once the task folder was taken away |
+| duplicate index | **Can occur, and nothing here reports it — `check` included.** The check recognises a second table by the task ids it already knows, so a project with no task folder gives it nothing and it is not reached at all. Measured 2026-08-22 — one document firing `DUPLICATE INDEX  BACKLOG.md: a second table of 3 known task ids sits outside the taskmd markers` went silent, unedited, once the task folder was taken away |
 | closed parent with an open child | **Can occur, and nothing here reports it.** GitHub lets you close a parent issue while a sub-issue is still open, so the state is reachable — which is why it is not in the *cannot occur* list above. No row in the procedure looks for it. A row would have to be run against a real backlog before it could be trusted, which is the standard every row above is held to |
 
 **Two limits of this list itself.** It is a hand-kept description of a set the code owns, so it goes
@@ -671,12 +670,8 @@ CONFIG ERROR  .taskmd/config.md: tasks_dir is 'tasks', but the project root has 
 exit=2
 ```
 
-**`check` is the exception, and it used to be counted in the sentence above.** *Corrected
-2026-08-22.* This paragraph said **each of the four** stops, measured on 2026-08-17 — true on that
-date and false from 2026-08-19, when `check` was split so that the checks reading documents run on a
-project whose tasks have moved. The tool moved and this paragraph did not, which is worth more to you
-than a quiet repair would be, and is why the old date is still here. On the same project, the same
-day:
+**`check` is the exception.** Since 2026-08-19 it is split, so the checks that read documents run on
+a project whose tasks have moved while the rest stand down. On the same project, the same day:
 
 ```
 BROKEN LINK   docs/guide.md -> plan.md
@@ -719,14 +714,11 @@ Three things, stated plainly because they are the ones that would otherwise be f
 them is a reason to keep taskmd installed**: `context`, `index` and `list` exit 2 on a project with no
 task folder, so those costs are already paid whatever you decide here.
 
-**`check` is not covered by that sentence, and this is the correction rather than the conclusion.**
-*Corrected 2026-08-22.* The sentence used to read *the commands exit 2 either way*, which was the
-whole of the argument; `check` exits 1 and reports real problems, so one of the four does work an
-uninstalled taskmd cannot. **What follows from that is stated here and not acted on.** The balance of
-this section — what it lists, and that it stops short of a recommendation — was settled as a decision
-on a wider set of facts than one exit code, and re-weighing it on the back of a correction of fact
-would be reversing that decision as a side effect. So: the *either way* argument is now weaker for one
-command out of four, item 1 below says what that command still does, and the reader weighs it.
+**`check` is not covered by that sentence.** It exits 1 and reports real problems, so one of the four
+does work an uninstalled taskmd cannot. **What follows from that is stated here and not acted on**:
+the balance of this section — what it lists, and that it stops short of a recommendation — was
+settled on a wider set of facts than one exit code, so item 1 below says what that command still
+does and the reader weighs it.
 
 1. **No validator.** `check` verified that every reference resolved, that every field value was in
    its vocabulary, and that the index matched the tasks it came from. Nothing on this backend does
@@ -748,11 +740,10 @@ command out of four, item 1 below says what that command still does, and the rea
    rule — blocked last, then effective value, then effort, then id. GitHub sorts by number, recency
    or whatever a saved filter says.
 
-   > **The rule is not gone, only the command — corrected 2026-08-19.** This item used to say the
-   > question goes back to a person. It does not have to: every input the rule needs is in
-   > *enumerate*'s output, so the rule is written out under *order* in *Operations* above and an
-   > agent runs it. What is genuinely lost is that nothing computes it for you and nothing checks
-   > the inputs, which *order* states as three named limits rather than as a caveat.
+   > **The rule is not gone, only the command.** Every input it needs is in *enumerate*'s output, so
+   > the rule is written out under *order* in *Operations* above and an agent runs it. What is
+   > genuinely lost is that nothing computes it for you and nothing checks the inputs, which *order*
+   > states as three named limits rather than as a caveat.
 3. **No offline copy.** The local backend's tasks are readable and editable with no tool installed.
    Here you need network access and `gh`.
 
