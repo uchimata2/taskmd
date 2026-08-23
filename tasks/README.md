@@ -76,12 +76,13 @@ A label says which release the work is scheduled into. It never says the release
 | ID | Title | Work Package | Status | Phase | Parent | Children | Blocked By | Blocks | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [T-240](T-240-the-competition-rig-does-not-reproduce-the-silence-it-was-built-to-explain.md) | The competition rig does not reproduce the silence it was built to explain | `M6` | `proposed` | `specify` | - | - | - | - | T-175, T-206, T-213 |
-| [T-244](T-244-audit-everything-0-6-0-ships-before-1-0-0-and-review-the-audit-method-while-using-it.md) | Audit everything 1.0.0 will ship, and review the audit method while using it | `M7` | `planned` | `plan` | - | - | T-255 | T-246 | T-152, T-223, T-231, T-247, T-254 |
+| [T-244](T-244-audit-everything-0-6-0-ships-before-1-0-0-and-review-the-audit-method-while-using-it.md) | Audit everything 1.0.0 will ship, and review the audit method while using it | `M7` | `planned` | `plan` | - | - | T-255 | T-246, T-256 | T-152, T-223, T-231, T-247, T-254 |
 | [T-246](T-246-cut-1-0-0-once-the-audit-s-findings-are-applied.md) | Cut 1.0.0 once the audit's findings are applied | `M7` | `proposed` | `specify` | - | - | T-244 | - | T-231, T-241, T-243 |
 | [T-247](T-247-decide-whether-taskmd-validates-a-finding-field-against-a-register.md) | Decide whether taskmd validates a finding field against a register | `M7` | `proposed` | `specify` | - | - | - | - | T-146, T-173, T-223, T-244 |
 | [T-253](T-253-exercise-the-plugin-install-route-against-a-published-release.md) | Exercise the plugin install route against a published release, or decide it will not be | `M6` | `proposed` | `specify` | - | - | - | - | T-067, T-085, T-241 |
 | [T-254](T-254-sweep-for-history-prose-living-outside-markdown.md) | Sweep for history prose living outside Markdown, which T-250's corpus could not see | `M7` | `proposed` | `specify` | - | - | - | - | T-244, T-249, T-250 |
 | [T-255](T-255-derive-the-audit-cycle-membership-instead-of-typing-it.md) | Derive the audit cycle membership instead of typing it | `M7` | `proposed` | `specify` | - | - | - | T-244 | - |
+| [T-256](T-256-improve-the-pre-release-audit-method-from-what-its-first-run-teaches.md) | Improve the pre-release audit method from what its first run teaches | `M7` | `proposed` | `specify` | - | - | T-244 | - | T-223 |
 
 ## Closed
 
@@ -309,7 +310,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-220](T-220-re-run-t-188-s-sweep-one-occurrence-at-a-time.md) | Re-run T-188's sweep one occurrence at a time | `M6` | `done` | `review` | - | - | - | - | T-139, T-188, T-212 |
 | [T-221](T-221-correct-the-two-behavioural-claims-the-migrated-away-run-falsifies.md) | Correct the two behavioural claims the migrated-away run falsifies | `M6` | `done` | `review` | - | - | - | - | T-166, T-168, T-176, T-224, T-228, T-229 |
 | [T-222](T-222-repair-the-coverage-clause-against-the-eight-defects-a-stranger-found.md) | Repair the coverage clause against the eight defects a stranger found | `M6` | `done` | `review` | - | - | - | - | T-192, T-199, T-225, T-226, T-227, T-232, T-236, T-238, T-239 |
-| [T-223](T-223-ship-the-pre-release-audit-as-a-method-document.md) | Ship the pre-release audit as a method document, so every adopter gets it | `M6` | `done` | `review` | - | - | - | - | T-032, T-036, T-231, T-244, T-247 |
+| [T-223](T-223-ship-the-pre-release-audit-as-a-method-document.md) | Ship the pre-release audit as a method document, so every adopter gets it | `M6` | `done` | `review` | - | - | - | - | T-032, T-036, T-231, T-244, T-247, T-256 |
 | [T-224](T-224-re-run-the-binding-s-github-side-measurements-or-record-that-they-cannot-be.md) | Re-run the binding's GitHub-side measurements, or say in the document that they were not | `M6` | `done` | `review` | - | - | - | - | T-166, T-168, T-221 |
 | [T-225](T-225-have-a-second-uninvolved-reader-write-a-declaration-from-the-repaired-clause.md) | Have a second uninvolved reader write a declaration from the repaired clause | `M6` | `done` | `review` | - | - | - | - | T-176, T-199, T-222, T-232, T-233, T-235 |
 | [T-226](T-226-decide-whether-taskmd-should-print-the-class-list-a-binding-author-needs.md) | Decide whether taskmd should print the class list a binding author needs | `M6` | `done` | `review` | - | - | - | - | T-191, T-197, T-222, T-236 |
