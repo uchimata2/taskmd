@@ -100,6 +100,8 @@ gone wrong *around* the act rather than in it. An act with no record repeats the
 | :--- | :---: | :--- |
 |  |  |  |
 
+**Adopter-visible?** <yes or no - then set adopter_visible in the front matter, per the test in docs/PUBLISHING.md section 7>
+
 **Child fix tasks raised**
 - none yet
 

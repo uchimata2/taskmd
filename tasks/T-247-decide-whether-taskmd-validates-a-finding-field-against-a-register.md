@@ -126,6 +126,8 @@ It is written here as something to test rather than as an answer.
 | :--- | :---: | :--- |
 |  |  |  |
 
+**Adopter-visible?** <yes or no - then set adopter_visible in the front matter, per the test in docs/PUBLISHING.md section 7>
+
 **Child fix tasks raised**
 - none
 

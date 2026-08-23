@@ -118,6 +118,8 @@ plan did not know it had to.
 | :--- | :---: | :--- |
 |  |  |  |
 
+**Adopter-visible?** <yes or no - then set adopter_visible in the front matter, per the test in docs/PUBLISHING.md section 7>
+
 **Child fix tasks raised**
 - none
 

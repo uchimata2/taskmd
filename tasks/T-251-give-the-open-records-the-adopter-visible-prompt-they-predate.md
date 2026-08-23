@@ -2,8 +2,8 @@
 id: T-251
 title: Give the open records the adopter_visible prompt they predate
 type: fix
-status: planned
-phase: plan
+status: in_progress
+phase: implement
 parent: null
 blocked_by: []
 related: [T-245, T-248, T-242]
@@ -14,7 +14,13 @@ effort: xs
 created: 2026-08-23
 updated: 2026-08-23
 adopter_visible: no
-deliverables: []
+deliverables:
+  - tasks/T-240-the-competition-rig-does-not-reproduce-the-silence-it-was-built-to-explain.md
+  - tasks/T-241-verify-the-published-0-6-0-from-outside-and-record-what-cannot-be-reached.md
+  - tasks/T-244-audit-everything-0-6-0-ships-before-1-0-0-and-review-the-audit-method-while-using-it.md
+  - tasks/T-246-cut-1-0-0-once-the-audit-s-findings-are-applied.md
+  - tasks/T-247-decide-whether-taskmd-validates-a-finding-field-against-a-register.md
+  - tasks/T-248-judge-adopter-visible-on-the-three-records-the-new-rule-reports-unmarked.md
 ---
 
 # T-251 — Give the open records the adopter_visible prompt they predate
@@ -128,10 +134,10 @@ the open backlog rather than the closed one.
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 | Copy the six records to a scratch directory outside the tree, before anything is edited. | Six byte copies, which step 4 restores from |
+| 1 | Copy the six records to a scratch directory outside the tree — **once before step 2, and again after it**. | Two sets of six byte copies: the pre-edit set, and the post-edit set that step 4 restores from |
 | 2 | Insert the template's prompt line, and a blank line, immediately above `**Child fix tasks raised**` in each record's `## 4. Review`. The anchor was counted first and occurs exactly once in each of the six. | Six records each carrying the line, in the section T-245 chose for it |
 | 3 | Prove the six lines are byte-identical to the template's rather than asserting it. | An empty `diff` of the six extracted lines against the template's |
-| 4 | Show the rule bites: set one of the six to a closed status with its slot unfilled, run `check`, capture its report **and its exit code separately**, then restore that record from step 1 and run `check` again. | The `ABANDONED SLOT` text with `check exit=1`, followed by `exit=0` on the restored tree |
+| 4 | Show the rule bites: set one of the six to a closed status with its slot unfilled, run `check`, capture its report **and its exit code separately**. Then run the **control** — the same record closed with its **pre-edit** body — so the prompt's own contribution is separated from what already fired. Then restore from step 1's post-edit copy and run `check` again. | The `ABANDONED SLOT` text with `check exit=1`; the control's report, missing the prompt's line; `exit=0` on the restored tree |
 | 5 | Show nothing else moved. | `git diff --stat` naming six files, and a `git diff` whose only added lines are the prompt and its blank line |
 | 6 | Regenerate the index, then validate. | `taskmd index` and `taskmd check`, exit codes captured |
 
@@ -165,10 +171,101 @@ tasks/T-248-judge-adopter-visible-on-the-three-records-the-new-rule-reports-unma
 ## 3. Implement
 
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+- **The plan's step 1 was wrong and was revised in place, at step 4** — 2026-08-23. It took the
+  copies *before* step 2 and named them as what step 4 restores from; those copies are the records
+  **without** the prompt, so restoring from them would have undone the fix and left a clean `check`
+  saying so. A second set is now taken after step 2, and step 4 restores from that. *The superseded
+  version was the pre-edit copy alone*, abandoned because it protects the wrong state: the state at
+  risk is the one the task just produced, not the one the repository still holds. The pre-edit set
+  was kept and earned its place at the control below.
+
+- **The demonstration was given a control, which the plan did not ask for** — 2026-08-23. Closing
+  T-240 with the prompt unfilled gave `check exit=1` and **two** `ABANDONED SLOT` lines, not one:
+  the second was `- <decision — rationale — date>` in `## 3`, a slot the record already carried. So
+  the exit code proves nothing about the prompt — that record was already reportable on closing, and
+  a reader given only `exit=1` would credit this work with an alarm it did not raise. The control is
+  the same record closed with its pre-edit body; its report is quoted below and the prompt's line is
+  absent from it. **What the prompt adds is one named line, and that is the claim** — not the exit
+  status.
+
+- **The insertion is anchored on `**Child fix tasks raised**`, counted before use** — 2026-08-23.
+  It occurs exactly once in each of the six, and in the template the prompt sits immediately above
+  it, so the position matches T-245's placement without any record needing a second rule.
+
+- **The prompt was copied out of the template by command, never retyped** — 2026-08-23. It is a slot
+  matched by exact string, so a retyped near-miss is a line `check` cannot see, which is the failure
+  the first acceptance criterion names.
 
 **Outputs produced**
-- none yet
+
+- The six records below, one line each — the prompt and the blank line under it — inserted in
+  `## 4. Review` immediately above `**Child fix tasks raised**`. Nothing else in any of them moved:
+
+  ```text
+  6 files changed, 12 insertions(+)
+  ```
+
+  and every added line, across all six, is one of exactly two:
+
+  ```text
+        6 +
+        6 +**Adopter-visible?** <yes or no - then set adopter_visible in the front matter, per the test in docs/PUBLISHING.md section 7>
+  ```
+
+**Checked by using it.**
+
+*The six lines are the template's, proved rather than asserted.* The line was extracted from
+`tasks/_task-template.md` and from each of the six, and the six were diffed against six copies of
+the source:
+
+```text
+diff exit=0
+```
+
+*The rule bites on a real record.* T-240 — one of the six, not a fixture — was set to `done` with
+its slot unfilled:
+
+```text
+check exit=1
+ABANDONED SLOT tasks/T-240-...-explain.md body line 92 still reads
+'- <decision — rationale — date>'; the record is closed, so nothing is going to fill it
+ABANDONED SLOT tasks/T-240-...-explain.md body line 103 still reads
+'**Adopter-visible?** <yes or no - then set adopter_visible in the front matter, per the test in
+docs/PUBLISHING.md section 7>'; the record is closed, so nothing is going to fill it
+```
+
+*And the control says which half this work is responsible for.* The same record, closed, with its
+**pre-edit** body:
+
+```text
+control check exit=1
+ABANDONED SLOT tasks/T-240-...-explain.md body line 92 still reads
+'- <decision — rationale — date>'; the record is closed, so nothing is going to fill it
+```
+
+One line, not two, and no mention of the prompt. **So `exit=1` was reachable on this record before
+this work and is not evidence for it; the second line is.** Worth knowing for the other five as
+well: any of the six closed today reports its unfilled `## 3` decision slot too, because none of
+them has reached that phase.
+
+*The record was then restored and the restoration was verified*, from the post-edit copy rather than
+from `HEAD`:
+
+```text
+restored byte-identical to the post-edit copy
+status now: proposed
+prompt present: 1
+6 files changed, 12 insertions(+)
+```
+
+*The tree is clean on every mechanical check available.*
+
+```text
+index exit=0
+check exit=0
+345 passed, 7 skipped, 6 subtests passed in 44.49s
+```
 
 ## 4. Review
 
@@ -185,6 +282,7 @@ tasks/T-248-judge-adopter-visible-on-the-three-records-the-new-rule-reports-unma
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | → in_progress | **`implement` done**, under the grant below. Six records changed, one line each, `6 files changed, 12 insertions(+)`. Two things the plan did not foresee are in §3 as decisions: **its step 1 copied the wrong state** and was revised in place, and **the demonstration needed a control** — closing one of the six reports two abandoned slots, not one, because none of them has reached `## 3` either, so `check exit=1` was already reachable and is not evidence for this work. The named line is. |
 | 2026-08-23 | (no change) | **`plan` written**, under the grant below. Six steps. The one worth knowing about is step 1, which copies the six records before they are edited: step 4 has to break one of them *after* step 2 has changed it, and at that moment the repository holds no copy of the state to restore — `git checkout --` would silently take the record back to `HEAD` and undo the fix along with the breakage. |
 | 2026-08-23 | → specified | **`specify` closed on the owner's answer of 2026-08-23.** The second acceptance criterion was dropped and the scope now says so; the measurements behind the decision, and the two alternatives rejected with it, are in §1 *Open questions*. A fourth criterion was added in its place, asserting that nothing outside the six `## 4. Review` sections moved — the criterion the dropped one was reaching for and could not state. |
 | 2026-08-23 | (no change) | **`specify` worked under the grant below and stopped at one question**, which is why the phase is not closed. Two things changed in §1 and neither widens the outcome. **The denominator was corrected**: the record said *all six open records* when six is how many lack the prompt and eight are open, and the table now carries every open record so the counts sum. The in-set was right, so nothing about the work changed. **The second acceptance criterion was challenged, not removed** — it asks for a field whose presence `docs/PUBLISHING.md` §7, `taskmd context` and `check` were each measured unable to observe, while the scope forbids giving it a value. It stands until the owner answers. |

@@ -106,6 +106,8 @@ The owner asked for it on 2026-08-23, immediately after `v0.6.0` was published, 
 | :--- | :---: | :--- |
 |  |  |  |
 
+**Adopter-visible?** <yes or no - then set adopter_visible in the front matter, per the test in docs/PUBLISHING.md section 7>
+
 **Child fix tasks raised**
 - none yet
 
