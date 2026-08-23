@@ -111,13 +111,11 @@ description is the 32nd and does not.
 Per [`pre-release-audit`](../plugin/skills/taskmd/docs/method/pre-release-audit.md) §1. The grade is
 the brief each item is examined under, and every item carries exactly one.
 
-| Grade | What it applies to here | Files | Bytes |
-| :--- | :--- | ---: | ---: |
-| **Wide** | everything an adopter reads or runs: the entry points, the landing surface, the adoption path, the three binding documents, the ten method documents, and the two small modules | 29 | 245,269 |
-| **Narrow** | *no members.* Nothing in this subject is settled record — an install copies only what is current, so the grade that exists for closed and superseded material has nothing to apply to here | 0 | 0 |
-| **Instrument only** | `cli.py` and `schema.py`, examined by being run against cases they are supposed to catch | 2 | 135,277 |
-| | **read (Wide + Narrow)** | **29** | **245,269** |
-| | **the subject** | **31** | **380,546** |
+| Grade | What it applies to here |
+| :--- | :--- |
+| **Wide** | everything an adopter reads or runs: the entry points, the landing surface, the adoption path, the three binding documents, the ten method documents, and the two small modules |
+| **Narrow** | *no members.* Nothing in this subject is settled record — an install copies only what is current, so the grade that exists for closed and superseded material has nothing to apply to here |
+| **Instrument only** | `cli.py` and `schema.py`, examined by being run against cases they are supposed to catch |
 
 **The empty Narrow row is stated rather than omitted.** A grade with no members is a fact about the
 subject — that this project ships nothing settled — and dropping the row would leave a reader unable
@@ -146,11 +144,12 @@ hand-typed count fails: two tables that could not reconcile, four files unread, 
 one. **Gating rather than warning is what stops this run repeating it** — a caution printed beside
 a table is read once, by whoever wrote it.
 
-**The figures below already moved once, which is the point.** As typed on 2026-08-23 cycle 4 read
-94,850 bytes; the command returns 96,417, and the whole difference is
-`docs/bindings/local-markdown.md` gaining 1,567 bytes later the same day from
-[T-257](T-257-decide-what-a-deliverable-a-clone-never-receives-asserts.md). Correct when written and
-stale within a day, from a change made by the project itself.
+**Nothing here states a size, and that is the change.** Cycle 4 was typed as 94,850 bytes on
+2026-08-23 and was wrong the same evening: `docs/bindings/local-markdown.md` grew under
+[T-257](T-257-decide-what-a-deliverable-a-clone-never-receives-asserts.md) a few hours later.
+Replacing the figure with a fresh one bought about three hours — it had drifted again before
+the day ended. **A derived value typed into a record is stale the moment something moves, so
+this table names no counts at all** and the command answers when asked.
 
 ### The finding threshold, stated before looking
 
@@ -189,34 +188,33 @@ density and by what would invalidate the rest, never by how the files are filed.
 session boundary**: it may be run alone, and it ends with its ledger rows written and committed.
 Each row's Items figure is that cycle's own denominator and is never merged into another's.
 
-| # | Subject | Asp | Files | Bytes | Items | Brief | Status |
-| :-- | :--- | :-: | ---: | ---: | ---: | :--- | :--- |
-| | *Stage 1 — does it start at all.* First because an out-of-the-box failure is High and changes what every later cycle is examining. It is also the only stage no amount of reading can answer. | | | | | | |
-| 1 | The entry points | A | 6 | 8,487 | 6 | `bin/taskmd`, `bin/taskmd.cmd`, `taskmd.sh`, `taskmd.ps1`, `taskmd/__main__.py`, `taskmd/__init__.py`, run from a fresh clone on Git Bash and PowerShell 7 before anything is read. Exit codes captured to a file, never through a pipe or after `&&`. | pending |
-| | *Stage 2 — what a stranger meets, and the path they walk.* Highest audience cost: the method's §4 makes a one-character error in the first instruction a newcomer follows a High. | | | | | | |
-| 2 | The landing surface | B | 4 | 23,514 | 5 | `README.md`, `LICENSE`, `.claude-plugin/marketplace.json`, `plugin/.claude-plugin/plugin.json`, and the GitHub repository description. Every self-claim executed rather than read — [T-252](T-252-correct-the-readme-s-file-count-for-the-copied-skill.md) was one such count and there is no reason to think it was the only one. The two manifests agree with each other. | pending |
-| 3 | The adoption path | C | 4 | 42,047 | 4 | `SKILL.md`, `adopt.md`, `docs/HANDOFF.md`, `taskmd/defaults/config.md`, walked as one sequence by a reader holding only what an install copies. The output names where the walk first stopped resolving, or states that it did not. | pending |
-| | *Stage 3 — the shipped guidance, densest first.* 149,693 bytes, 61% of the reading. Cycle 4 leads it: two of its three documents were rewritten by [T-250](T-250-give-the-context-registers-the-permitted-shape-for-history.md) after the tag. | | | | | | |
-| 4 | The binding documents | D | 3 | 96,417 | 3 | `docs/BINDING.md`, `docs/bindings/github-issues.md`, `docs/bindings/local-markdown.md`. The heaviest readable cycle in the run. | pending |
-| 5 | The method spine and its phases | D | 5 | 34,737 | 5 | `docs/METHOD.md`, `method/specify.md`, `method/plan.md`, `method/implement.md`, `method/review.md`, against each other and against §7's load-on-demand table. | pending |
-| 6 | The method's supporting documents | D | 4 | 20,106 | 4 | `method/audit.md`, `method/rationale.md`, `method/uninvolved-reader.md`, `method/where-facts-live.md`. A rule stated twice and differing. | pending |
-| | *Stage 4 — the engine.* Placed after the documents because cycle 1 already proved it starts, so nothing here can invalidate a document cycle — only contradict one, which is the finding. | | | | | | |
-| 7 | `cli.py`, `schema.py`, and the two small modules | A | 4 | 143,867 | 4 | **Instrument only** for `cli.py` (93 KB) and `schema.py` (42 KB): run against cases they are supposed to catch, and a validator is proven only by being made to **fail**. `classes.py` and `discovery.py` are 8.6 KB and are read. [T-254](T-254-sweep-for-history-prose-living-outside-markdown.md) is already raised against a docstring here — record it examined and carried, do not raise it again. | pending |
-| | *Stage 5 — the instrument on trial.* Last of the examining cycles because it can only be judged against a run that has happened. | | | | | | |
-| 8 | `method/pre-release-audit.md` | B | 1 | 11,371 | 1 | Read against what this run actually did, under the same threshold as any other shipped document. Its own six rules are judged separately, in step 11. | pending |
-| | **Examining total** | | **31** | **380,546** | **32** | | |
-| | *Stage 6 — synthesis.* No items of their own; they consume what the cycles produced. | | | | | | |
-| 9 | Re-examine what the remedies changed | — | — | — | — | Every cycle whose subject a remedy touched, plus the densest cycle a second time. **This is where an audit's own damage shows.** | pending |
-| 10 | Triage, rank, raise | — | — | — | — | A severity per the method's §4 table and the record it obliges. High and Medium get a child task; Low is batched or accepted with a reason and a date. | pending |
-| 11 | Judge the six rules | — | — | — | — | Which earned their place on this run, which were dead weight, which were missing — including *nothing was missing*, said plainly. **Five observations are already banked and each must end judged**, from planning rather than from running, so the run is what decides them: (1) a partition needs a command that fails on an unassigned item, not a rule saying it must not happen; (2) a grade with no members is stated, not omitted; (3) a cycle-size figure does not travel between projects; (4) aspects and stages are two things and the method names one; (5) two projects independently invented the same display. Each ends **applied, refused with a reason, or superseded**, and the run adds what planning could not see. Their statements live in [T-256](T-256-improve-the-pre-release-audit-method-from-what-its-first-run-teaches.md) §1 and are deliberately not restated here — the method's own umbrella rule is that two copies of an observation disagree the first time either is edited. Any change the method needs is a separate task, and T-256 is it. | pending |
-| 12 | Grade the ranking | — | — | — | — | Predicted against actual, per finding. It must name a prediction the measurement refused, or say how it was checked that none did. | pending |
+| # | Subject | Asp | Brief | Status |
+| :-- | :--- | :-: | :--- | :--- |
+| | *Stage 1 — does it start at all.* First because an out-of-the-box failure is High and changes what every later cycle is examining. It is also the only stage no amount of reading can answer. | | |
+| 1 | The entry points | A | `bin/taskmd`, `bin/taskmd.cmd`, `taskmd.sh`, `taskmd.ps1`, `taskmd/__main__.py`, `taskmd/__init__.py`, run from a fresh clone on Git Bash and PowerShell 7 before anything is read. Exit codes captured to a file, never through a pipe or after `&&`. | pending |
+| | *Stage 2 — what a stranger meets, and the path they walk.* Highest audience cost: the method's §4 makes a one-character error in the first instruction a newcomer follows a High. | | |
+| 2 | The landing surface | B | `README.md`, `LICENSE`, `.claude-plugin/marketplace.json`, `plugin/.claude-plugin/plugin.json`, and the GitHub repository description. Every self-claim executed rather than read — [T-252](T-252-correct-the-readme-s-file-count-for-the-copied-skill.md) was one such count and there is no reason to think it was the only one. The two manifests agree with each other. | pending |
+| 3 | The adoption path | C | `SKILL.md`, `adopt.md`, `docs/HANDOFF.md`, `taskmd/defaults/config.md`, walked as one sequence by a reader holding only what an install copies. The output names where the walk first stopped resolving, or states that it did not. | pending |
+|  |  |  | `SKILL.md`, `adopt.md`, `docs/HANDOFF.md`, `taskmd/defaults/config.md`, walked as one sequence by a reader holding only what an install copies. The output names where the walk first stopped resolving, or states that it did not. | pending |
+| | *Stage 3 — the shipped guidance, densest first.* The majority of the reading, by a wide margin. Cycle 4 leads it: two of its three documents were rewritten by [T-250](T-250-give-the-context-registers-the-permitted-shape-for-history.md) after the tag. | | |
+| 4 | The binding documents | D | `docs/BINDING.md`, `docs/bindings/github-issues.md`, `docs/bindings/local-markdown.md`. The heaviest readable cycle in the run. | pending |
+| 5 | The method spine and its phases | D | `docs/METHOD.md`, `method/specify.md`, `method/plan.md`, `method/implement.md`, `method/review.md`, against each other and against §7's load-on-demand table. | pending |
+| 6 | The method's supporting documents | D | `method/audit.md`, `method/rationale.md`, `method/uninvolved-reader.md`, `method/where-facts-live.md`. A rule stated twice and differing. | pending |
+| | *Stage 4 — the engine.* Placed after the documents because cycle 1 already proved it starts, so nothing here can invalidate a document cycle — only contradict one, which is the finding. | | |
+| 7 | `cli.py`, `schema.py`, and the two small modules | A | **Instrument only** for `cli.py` (93 KB) and `schema.py` (42 KB): run against cases they are supposed to catch, and a validator is proven only by being made to **fail**. `classes.py` and `discovery.py` are 8.6 KB and are read. [T-254](T-254-sweep-for-history-prose-living-outside-markdown.md) is already raised against a docstring here — record it examined and carried, do not raise it again. | pending |
+| | *Stage 5 — the instrument on trial.* Last of the examining cycles because it can only be judged against a run that has happened. | | |
+| 8 | `method/pre-release-audit.md` | B | Read against what this run actually did, under the same threshold as any other shipped document. Its own six rules are judged separately, in step 11. | pending |
+| | *Stage 6 — synthesis.* No items of their own; they consume what the cycles produced. | | |
+| 9 | Re-examine what the remedies changed | — | Every cycle whose subject a remedy touched, plus the densest cycle a second time. **This is where an audit's own damage shows.** | pending |
+| 10 | Triage, rank, raise | — | A severity per the method's §4 table and the record it obliges. High and Medium get a child task; Low is batched or accepted with a reason and a date. | pending |
+| 11 | Judge the six rules | — | Which earned their place on this run, which were dead weight, which were missing — including *nothing was missing*, said plainly. **Five observations are already banked and each must end judged**, from planning rather than from running, so the run is what decides them: (1) a partition needs a command that fails on an unassigned item, not a rule saying it must not happen; (2) a grade with no members is stated, not omitted; (3) a cycle-size figure does not travel between projects; (4) aspects and stages are two things and the method names one; (5) two projects independently invented the same display. Each ends **applied, refused with a reason, or superseded**, and the run adds what planning could not see. Their statements live in [T-256](T-256-improve-the-pre-release-audit-method-from-what-its-first-run-teaches.md) §1 and are deliberately not restated here — the method's own umbrella rule is that two copies of an observation disagree the first time either is edited. Any change the method needs is a separate task, and T-256 is it. | pending |
+| 12 | Grade the ranking | — | Predicted against actual, per finding. It must name a prediction the measurement refused, or say how it was checked that none did. | pending |
 
-**6 + 4 + 4 + 3 + 5 + 4 + 4 + 1 = 31 files, and 32 items with the repository description.** The sum
-is written out because a partition that does not sum is the failure this record's own criteria name,
-and a double-counted member is invisible in a total. **It is now asserted rather than checked once**:
-`tests/test_audit_cycles.py` sums the cycles against the subject in both directions and reports a
-path claimed twice separately, because a doubled member keeps the total correct while one of the
-two readings is wrong.
+**That the cycles sum to the whole subject is asserted, not written down.**
+`tests/test_audit_cycles.py` sums them against `git ls-files` in both directions on every
+change, and reports a path claimed by two cycles separately — a doubled member keeps the
+total correct while one of the two readings is wrong, so a sum alone cannot see it. The
+repository description is the one item that is not a file and carries no bytes.
 
 **Every finding carries the command that proves it.** That is [`../CLAUDE.md`](../CLAUDE.md)
 *Verifying* applied to this run rather than a new criterion, and it is written here because a cycle's
@@ -276,16 +274,17 @@ volume alone this is one or two cycles. Three reasons the yardstick does not tra
 
 **The two figures in this decision are as they stood when it was taken, and are left that way.**
 METHOD rule 5 corrects what a record says about the present and annotates what it says about the
-past, and these are the evidence an owner accepted on 2026-08-23. As of that evening the subject is
-380,546 bytes and the Wide mass 245,269, both 1,567 higher for the reason §2 now gives. **The
-argument is unaffected**: the gap it turns on is a factor of ten, and 1,567 bytes does not move it.
+past, and these are the evidence an owner accepted on 2026-08-23. Both have since grown, and
+`python tools/audit_cycles.py --plan` is what says by how much. **The argument is unaffected**: the gap it
+turns on is a factor of ten, and the drift is three figures short of moving it.
 
-**That these figures needed annotating at all is a finding about this record**, raised while closing
-[T-255](T-255-derive-the-audit-cycle-membership-instead-of-typing-it.md): the subject total lives in
-§2's grade table, in §2's cycle table, and twice more in the prose here. The command replaces the
-first two and cannot reach the others, so a derived value still has four homes in one document and
-three of them are sentences. Recorded rather than fixed, because rewriting a dated decision is the
-thing rule 5 forbids.
+**That these figures needed annotating at all was the finding**, raised while closing
+[T-255](T-255-derive-the-audit-cycle-membership-instead-of-typing-it.md): the subject total had four
+homes in this one document, and three of them were sentences. The two tables were cut on the
+owner's instruction of 2026-08-23; **this paragraph is the last place the numbers survive**, and it
+keeps them only because rewriting a dated decision is what rule 5 forbids. A grade-level total is
+the one figure no command emits yet — the grades split cycle 7 and the membership rules do not
+know that.
 - **A cycle is a session boundary, and boundaries are the point.** Eight give eight places to stop
   with the ledger written; two give one, and the method's own rule is that a cycle ends with its
   record written including one that ran out of time half way.
@@ -379,6 +378,7 @@ item in none of the three is a gap in the audit, not a clean item.**
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | (no change) | **The Files, Bytes and Items columns were cut from §2's two tables on the owner's instruction**, 2026-08-23. Replacing the typed figures with derived ones earlier the same day bought about three hours before they drifted again, which is the argument for holding none at all. `python tools/audit_cycles.py --plan` answers when asked, and `tests/test_audit_cycles.py` asserts the partition on every change. **One figure no command emits is a grade-level total**, because the grades split cycle 7 and the membership rules do not know that. The *Eight cycles, not fewer* decision keeps its own numbers as dated evidence, per METHOD rule 5. |
 | 2026-08-23 | (no change) | **Unblocked: [T-255](T-255-derive-the-audit-cycle-membership-instead-of-typing-it.md) closed on 2026-08-23**, so §2’s figures are printed by a command and its *how to run one cycle* step 2 resolves. **The audit is still not started, and the owner confirmed that boundary when asked directly on 2026-08-23** — offered the whole audit, one cycle, or neither, they chose to stop before it. So starting it remains a request they make, unchanged by the unblocking. |
 | 2026-08-23 | (no change) | **Step 11's brief now names the five observations banked in [T-256](T-256-improve-the-pre-release-audit-method-from-what-its-first-run-teaches.md)**, on the owner's instruction of 2026-08-23. Without it a session reaching step 11 would not know they exist and would judge the six rules against that session's own reading alone. **Their statements were not copied.** The brief carries a one-line handle each and points at T-256 §1, because the method's own umbrella rule is that a finding has exactly one home and two copies disagree the first time either is edited — the same rule this record applies to its own findings. What the brief adds beyond the handles is the obligation: each of the five ends **applied, refused with a reason, or superseded**, so none can be quietly left out of the judgement. |
 | 2026-08-23 | (no change) | **Blocked by [T-255](T-255-derive-the-audit-cycle-membership-instead-of-typing-it.md), on the owner's instruction of 2026-08-23.** The session had recommended only that the generator *should probably* land first and left it a soft link; the owner made it a gate, so no cycle now runs against a membership no command has verified. **`status` stays `planned` and is deliberately not set to `blocked`** — `list` already derives that column from the graph and prints it for this record, so writing the value would be the same fact in two homes, which is the one design rule. `check` guards only the opposite error, a `blocked` status with no edge behind it. **Three statements the edge falsified were corrected, not left standing:** §2 no longer says the defect is shipped knowingly, *how to run one cycle* step 2 no longer describes a manual check that will never run, and T-255's own criterion and Log row were updated. Its `related` edge back to here was dropped as duplication of the dependency. |
