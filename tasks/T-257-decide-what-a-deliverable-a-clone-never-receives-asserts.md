@@ -1,0 +1,142 @@
+---
+id: T-257
+title: Decide what a deliverable a clone never receives asserts, and get CI green
+type: decision
+status: specified
+phase: specify
+parent: null
+blocked_by: []
+related: [T-103, T-089, T-090, T-250]
+work_package: M7
+owner: the project owner
+business_value: critical
+effort: s
+created: 2026-08-23
+updated: 2026-08-23
+adopter_visible: yes
+deliverables: []
+---
+
+# T-257 — Decide what a deliverable a clone never receives asserts, and get CI green
+
+## 1. Specify
+
+**Outcome**
+A decision, written where a project reading this method will find it, on what `deliverables` asserts
+when the artefact **exists and is deliberately never tracked**. Applied, so `check` exits 0 in a clone
+and the `tests` workflow is green.
+
+**Why this one**
+**CI has been red on every push since 2026-08-23, 18 consecutive runs, and the whole value of that
+job is that green means something.** Its own header states the position: *it is GREEN, and every
+failure is now a regression*. A permanently-red job cannot show a regression, so the project has been
+without its only Linux signal for a day — and every run since has been unreadable rather than merely
+failing.
+
+**One defect, reproduced rather than inferred.** The working tree passes and a clone does not:
+
+```
+git clone <this repo> /tmp/clone && /tmp/clone/plugin/bin/taskmd check --root /tmp/clone
+MISSING OUTPUT T-250 declares 'control/LOCAL-CONTEXT.md', which does not exist
+1 problem(s) - 256 task(s) ...
+```
+
+Working tree: exit 0. Clone: exit 1. `control/` is gitignored on purpose —
+[T-013](T-013-quarantine-local-only-information-behind-gitignore.md) put it there to quarantine
+local-only information — so the file exists here, always will, and no clone will ever have it.
+[T-250](T-250-give-the-context-registers-the-permitted-shape-for-history.md) declared it on closing
+today, and three test modules fail from that single `check` exit: `tests/test_cli.py`,
+`tests/test_publishing.py`, `tests/test_runtime.py`.
+
+**A survey, so the fix is not mistaken for the class.** All 374 declared paths across the 162 tasks
+that declare any were tested against `git ls-files`. **Exactly one** is absent from a clone; eight
+others flagged by a first pass were fixture *directories*, tracked through their contents, and are
+false positives of that check rather than defects.
+
+**This is a third case the recorded decisions do not cover.**
+[T-089](T-089-stop-check-reporting-an-open-task-s-planned-outputs-as-missing.md) settled the **open**
+task. [T-090](T-090-decide-what-a-cancelled-task-s-declared-outputs-assert.md) has the **cancelled**
+one. [T-103](T-103-say-whether-a-closed-task-s-declared-output-may-be-repointed.md) settled
+**moved** — declared outputs follow the artefact — and said a deletion is not a move. **Not moved,
+not deleted, and not missing: present, and permanently invisible to every reader but one.** T-103 was
+itself raised as `R-5` by the first adopting project over this same path, so this is the second time
+this exact file has exposed a gap in the same rule.
+
+**Scope**
+- In: what `deliverables` asserts for an artefact that exists but is never tracked, and where that is
+  written — the method, the binding, or both, following T-103's split
+- In: applying it, so a clone's `check` exits 0 and the workflow is green
+- In: whether `check` should say *a clone would not receive this* rather than *does not exist*, since
+  it already draws that distinction for documents and not for declared outputs
+- Out: changing what `check` reports about a path that is genuinely gone. That is right under any
+  answer
+- Out: the audit. [T-244](T-244-audit-everything-0-6-0-ships-before-1-0-0-and-review-the-audit-method-while-using-it.md)
+  would have met this in cycle 7, and a gate red today cannot wait for it
+
+**Inputs**
+- [T-103](T-103-say-whether-a-closed-task-s-declared-output-may-be-repointed.md) — the closest
+  recorded decision, and the one that names this same file as `R-5`
+- [T-250](T-250-give-the-context-registers-the-permitted-shape-for-history.md) — the record carrying
+  the declaration
+- `.github/workflows/tests.yml` — what the job asserts about itself
+
+**Acceptance criteria**
+- [ ] The decision is written in the method or the binding, and says which of the three readings was
+      taken and what the other two cost
+- [ ] A **fresh clone** exits 0 on `check`. A green working tree proves nothing — it is the tree that
+      has been passing throughout
+- [ ] The `tests` workflow is green on a real push, verified by reading the run rather than by
+      predicting it
+- [ ] The survey above is recorded, so a later reader knows the class was one and not one-of-many
+
+**Open questions**
+- ~~**Which reading?**~~ **Answered by the owner on 2026-08-23: unblock now, fix properly after** —
+  reading 1 today so the gate recovers, then reading 2 as a follow-up. Asked as a survey with all
+  three priced both ways. **Both halves are the answer, and the second half is the one that gets
+  lost**: the plan must raise the checker change as its own record before the one-line edit lands, so
+  it does not depend on anyone remembering a red job that is no longer red. The owner named that risk
+  in the option they chose. The three readings, unchanged:
+  1. **A deliverable names something a reader can obtain** — so an untracked artefact is not declared,
+     and T-250's line is removed with a Log row saying it was produced and is quarantined. *Cheapest,
+     loses the record that T-250 produced the file.*
+  2. **`check` learns the distinction** — it already reports *83 document(s) not read: a clone would
+     not receive them*, and applies no such awareness to `deliverables`. Reporting the same way here
+     makes the asymmetry go away. *Truest to what happened, and it is a product change that ships.*
+  3. **Track the file.** *Rejected on sight and named only so the record shows it was considered — it
+     is quarantined deliberately and the publishing constraints forbid machine-local data.*
+
+  **Recommendation: 2, with 1 as the immediate unblock if the decision needs longer than the gate can
+  wait.** The asymmetry in `check` is a real defect an adopter meets the first time they gitignore
+  anything a task produced, and this project has now met it twice.
+
+## 2. Plan
+
+| # | Step | Output |
+| :-- | :--- | :--- |
+| 1 |  |  |
+
+## 3. Implement
+
+**Decisions & assumptions**
+- <decision — rationale — date>
+
+**Outputs produced**
+- none yet
+
+## 4. Review
+
+| Acceptance criterion | Result | Note |
+| :--- | :---: | :--- |
+|  |  |  |
+
+**Adopter-visible?** <yes or no - then set adopter_visible in the front matter, per the test in docs/PUBLISHING.md section 7>
+
+**Child fix tasks raised**
+- none yet
+
+## Log
+
+| Date | Status change | Note |
+| :--- | :--- | :--- |
+| 2026-08-23 | proposed → specified | **The owner chose *unblock now, fix properly after* on 2026-08-23**, from a survey of all three readings priced both ways. So: drop `control/LOCAL-CONTEXT.md` from T-250's declared outputs to recover the gate today, then teach `check` the distinction it already draws for documents. **The second half is a separate record and must be raised before the one-line edit lands** — the option the owner picked names its own failure mode, which is that a follow-up loses its constituency the moment the pain stops. **The owner also ordered this ahead of T-247 and T-255**, both of which they had chosen before the red gate was found. |
+| 2026-08-23 | → proposed | **Raised from the owner's report of failing CI notifications since 15:42 on 2026-08-23.** The session had run the suite green four times and pushed three commits against a red job without noticing, because `pytest` on the working tree and the workflow's per-module run in a clone are different instruments and only the second sees the defect. **Diagnosed by cloning rather than by reading**: the clone exits 1 and names one problem, the working tree exits 0. **Not fixed here.** The one-line unblock is available and the reading behind it is a policy question this project has already answered three times for three neighbouring cases, so choosing silently would set the fourth precedent without anyone deciding it. |

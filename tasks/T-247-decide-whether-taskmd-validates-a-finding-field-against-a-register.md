@@ -2,7 +2,7 @@
 id: T-247
 title: Decide whether taskmd validates a finding field against a register
 type: decision
-status: proposed
+status: specified
 phase: specify
 parent: null
 blocked_by: []
@@ -96,6 +96,14 @@ It is written here as something to test rather than as an answer.
 - [ ] The adopter can tell from this record whether to close their own gap or wait
 
 **Open questions**
+- ~~**Does an adopter blocked on a real audit reopen a refusal taken twice on cost?**~~ **Answered by
+  the owner on 2026-08-23: no. Record it as the third row.** Asked as a survey with the two
+  alternatives priced — build it, or test the body-link route before deciding — and the recommendation
+  below was taken as written. **What this settles and what it does not:** the refusal is settled, and
+  the *Against* argument below stands unrefuted rather than defeated, so it is kept as written for
+  whoever meets a fourth request. The body-link route stays in scope as something to test and record,
+  because the third row is stronger if it says what a project can do instead. The argument the owner
+  weighed, unchanged:
 - **Does an adopter blocked on a real audit reopen a refusal taken twice on cost?** — the project
   owner. The recommendation is **no: record it as the third row**. The two existing refusals were not
   about whether anyone wanted the capability; they were about the cost falling on every configured
@@ -135,4 +143,5 @@ It is written here as something to test rather than as an answer.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | proposed → specified | **The owner answered the open question on 2026-08-23: no, record the third refusal.** Put as a survey with all three readings priced both ways — decline and record it, test the body-link route first, or build it — and the recorded recommendation was taken unchanged. **Specify is complete; the work is not.** What remains is the third row in `.taskmd/config.md`'s *What this rule has already refused*, in the shape the two existing rows use, and the body-link test that says what a project can do instead. **The *Against* argument in §1 was not defeated and is kept verbatim**, because a fourth request should meet the strongest case for the other side rather than three refusals in a row. |
 | 2026-08-23 | → proposed | **Raised on the owner's instruction of 2026-08-23**, after a check of taskmd's readiness for the adopter's audit found this scoped out of [T-223](T-223-ship-the-pre-release-audit-as-a-method-document.md) with no successor record. **Raised as a `decision` rather than as tool work**, because `.taskmd/config.md` has already refused this exact shape twice on one ground, and the live question is whether a blocked adopter is evidence that moves it. **What taskmd does today was measured rather than assumed**: `finding:` is an unnamed field, so it is carried and never interpreted, and a `check` run over the adopter's 220 tasks raised nothing about it — the failing lint is theirs. **The body-link route is named but not claimed**, because it plausibly covers the document and not the row, and this record is not the place to guess which. |
