@@ -6,7 +6,7 @@ status: proposed
 phase: specify
 parent: null
 blocked_by: []
-related: [T-244]
+related: []
 work_package: M7
 owner: the project owner
 business_value: high
@@ -62,7 +62,8 @@ lesson taken before the same cost is paid here, per
 - [ ] Adding a file to `plugin/` and re-running it makes the command **fail**, naming that path. A
       clean run on an untouched tree proves nothing
 - [ ] A single cycle's file list can be asked for, and the whole-partition verdict prints first
-- [ ] T-244 §2 says the columns are printed rather than typed, and its manual step 2 is removed
+- [ ] T-244 §2's Files and Bytes are printed by this command rather than typed, and its *how to run
+      one cycle* step 2 — which already names this command — resolves to something that runs
 
 **Open questions**
 - **Where it lives, and whether it is one script or a check inside the suite.** `tests/` already runs
@@ -98,4 +99,5 @@ lesson taken before the same cost is paid here, per
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | (no change) | **This task now blocks [T-244](T-244-audit-everything-0-6-0-ships-before-1-0-0-and-review-the-audit-method-while-using-it.md)**, on the owner's instruction of 2026-08-23. It was raised as a soft link on the session's recommendation that the generator *should probably* land first; the owner made it a gate. **What changed in T-244:** the edge is on that record's `blocked_by`, its §2 no longer says the defect is shipped knowingly, and its *how to run one cycle* step 2 now asks this command for the file list instead of describing a manual `git ls-files` check nobody would have run. **The `related` edge here was removed** — a dependency already connects the pair in both directions and the inverse is derived, so keeping both would have been the same fact in two homes. |
 | 2026-08-23 | → proposed | **Raised while planning [T-244](T-244-audit-everything-0-6-0-ships-before-1-0-0-and-review-the-audit-method-while-using-it.md)**, 2026-08-23, on the owner's instruction to compare that plan against htmldeck's run of the same method and take the better of the two. The comparison returned one defect rather than a preference: T-244's per-cycle Files and Bytes are hand-typed, and htmldeck's `PR-06` is the measured cost of that exact shape — four files unread, two tables that could not reconcile. **Raised rather than fixed inside T-244** because it is machinery T-244 consumes and not part of the audit, per METHOD §5 and this repository's rule that a discovery outside the current task costs one record. T-244 §2 ships the defect knowingly and names this task beside it, so a session running a cycle before it lands knows the partition check is manual. |

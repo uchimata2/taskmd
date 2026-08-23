@@ -76,12 +76,12 @@ A label says which release the work is scheduled into. It never says the release
 | ID | Title | Work Package | Status | Phase | Parent | Children | Blocked By | Blocks | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [T-240](T-240-the-competition-rig-does-not-reproduce-the-silence-it-was-built-to-explain.md) | The competition rig does not reproduce the silence it was built to explain | `M6` | `proposed` | `specify` | - | - | - | - | T-175, T-206, T-213 |
-| [T-244](T-244-audit-everything-0-6-0-ships-before-1-0-0-and-review-the-audit-method-while-using-it.md) | Audit everything 1.0.0 will ship, and review the audit method while using it | `M7` | `planned` | `plan` | - | - | - | T-246 | T-152, T-223, T-231, T-247, T-254, T-255 |
+| [T-244](T-244-audit-everything-0-6-0-ships-before-1-0-0-and-review-the-audit-method-while-using-it.md) | Audit everything 1.0.0 will ship, and review the audit method while using it | `M7` | `planned` | `plan` | - | - | T-255 | T-246 | T-152, T-223, T-231, T-247, T-254 |
 | [T-246](T-246-cut-1-0-0-once-the-audit-s-findings-are-applied.md) | Cut 1.0.0 once the audit's findings are applied | `M7` | `proposed` | `specify` | - | - | T-244 | - | T-231, T-241, T-243 |
 | [T-247](T-247-decide-whether-taskmd-validates-a-finding-field-against-a-register.md) | Decide whether taskmd validates a finding field against a register | `M7` | `proposed` | `specify` | - | - | - | - | T-146, T-173, T-223, T-244 |
 | [T-253](T-253-exercise-the-plugin-install-route-against-a-published-release.md) | Exercise the plugin install route against a published release, or decide it will not be | `M6` | `proposed` | `specify` | - | - | - | - | T-067, T-085, T-241 |
 | [T-254](T-254-sweep-for-history-prose-living-outside-markdown.md) | Sweep for history prose living outside Markdown, which T-250's corpus could not see | `M7` | `proposed` | `specify` | - | - | - | - | T-244, T-249, T-250 |
-| [T-255](T-255-derive-the-audit-cycle-membership-instead-of-typing-it.md) | Derive the audit cycle membership instead of typing it | `M7` | `proposed` | `specify` | - | - | - | - | T-244 |
+| [T-255](T-255-derive-the-audit-cycle-membership-instead-of-typing-it.md) | Derive the audit cycle membership instead of typing it | `M7` | `proposed` | `specify` | - | - | - | T-244 | - |
 
 ## Closed
 

@@ -5,7 +5,7 @@ type: audit
 status: planned
 phase: plan
 parent: null
-blocked_by: [T-243, T-245, T-250]
+blocked_by: [T-243, T-245, T-250, T-255]
 related: [T-223, T-231, T-152, T-254]
 work_package: M7
 owner: the project owner
@@ -130,12 +130,14 @@ decay.** The subject total is re-derived by one command and the cell is never th
 git ls-files plugin/ README.md LICENSE .claude-plugin/marketplace.json | xargs wc -c | tail -1
 ```
 
-**The per-cycle figures below cannot be re-derived that way, and that is a defect this plan is
-shipping knowingly.** They were computed once, by hand, from a membership list that lives nowhere in
-the repository — so a file added to `plugin/` after today belongs to no cycle and nothing says so.
-[T-255](T-255-derive-the-audit-cycle-membership-instead-of-typing-it.md) raises the generator that
-fixes it, and htmldeck's `PR-06` is the evidence that a hand-typed count fails: two tables that could
-not reconcile, four files unread, and it looked like one.
+**The per-cycle figures below cannot be re-derived that way, and no cycle runs until they can.** They
+were computed once, by hand, from a membership list that lives nowhere in the repository — so a file
+added to `plugin/` after today belongs to no cycle and nothing says so.
+[T-255](T-255-derive-the-audit-cycle-membership-instead-of-typing-it.md) is the generator that fixes
+it, and it is a **`blocked_by` on this record**, on the owner's instruction of 2026-08-23. htmldeck's
+`PR-06` is the evidence that a hand-typed count fails: two tables that could not reconcile, four files
+unread, and it looked like one. **Gating rather than warning is what stops this run repeating it** — a
+caution printed beside a table is read once, by whoever wrote it.
 
 ### The finding threshold, stated before looking
 
@@ -210,9 +212,10 @@ readings are what the threshold above exists to exclude.
 
 1. Read [`pre-release-audit`](../plugin/skills/taskmd/docs/method/pre-release-audit.md), this section,
    and §3's register.
-2. Take the cycle's file list from its Brief above. **Re-derive `git ls-files plugin/` first and stop
-   if it returns a path no cycle claims** — until [T-255](T-255-derive-the-audit-cycle-membership-instead-of-typing-it.md)
-   lands, this check is manual and it is the one that keeps the partition honest.
+2. Ask [T-255](T-255-derive-the-audit-cycle-membership-instead-of-typing-it.md)'s command for the
+   cycle's file list. **It reports the whole partition's verdict before it answers**, so a tracked
+   path that has fallen outside every cycle stops the reading rather than surviving it. Read what it
+   names, not the Brief above — the Brief is prose and the command is the membership.
 3. Examine under the cycle's grade. Append a register row per finding, and one coverage row per item
    — including *examined, clean*, with what was checked.
 4. Set the cycle's Status above, commit, stop. **Never leave a cycle half-read and unwritten.**
@@ -348,6 +351,7 @@ item in none of the three is a gap in the audit, not a clean item.**
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | (no change) | **Blocked by [T-255](T-255-derive-the-audit-cycle-membership-instead-of-typing-it.md), on the owner's instruction of 2026-08-23.** The session had recommended only that the generator *should probably* land first and left it a soft link; the owner made it a gate, so no cycle now runs against a membership no command has verified. **`status` stays `planned` and is deliberately not set to `blocked`** — `list` already derives that column from the graph and prints it for this record, so writing the value would be the same fact in two homes, which is the one design rule. `check` guards only the opposite error, a `blocked` status with no edge behind it. **Three statements the edge falsified were corrected, not left standing:** §2 no longer says the defect is shipped knowingly, *how to run one cycle* step 2 no longer describes a manual check that will never run, and T-255's own criterion and Log row were updated. Its `related` edge back to here was dropped as duplication of the dependency. |
 | 2026-08-23 | (no change) | **The plan was compared against htmldeck's `T-219` on the owner's instruction, and the better of the two shapes taken.** That project is 12 cycles into the first and only execution of this method anywhere, so its display is evidence rather than preference. **Adopted:** the coverage-grade table with a totals row, stage separators that argue their own placement, per-cycle Files, Bytes and Status columns, a reserved `TM-nn` register id space, the Severity × Raised/Tasked/Accepted/Open summary, *how to run one cycle in a fresh session*, and the requirement that every finding carry the command that proves it. **Not adopted:** its stages in place of aspects — stages order work, aspects are lenses, and the method asks for the second. **What the comparison returned that was not a preference:** its Files and Bytes are printed by a command that fails when a tracked path belongs to no cycle, and this plan's are typed. Raised as [T-255](T-255-derive-the-audit-cycle-membership-instead-of-typing-it.md) rather than fixed here. **Two decisions the owner then accepted, both recorded in §2 with what was rejected:** eight cycles rather than fewer, and the register stays in the umbrella below 20 findings. |
 | 2026-08-23 | proposed → planned | **The owner settled the subject and the record was planned.** The instruction, 2026-08-23: *"audit what 1.0.0 will ship, not the tag"* — which answers the question the row below flagged as the plan's, and it is recorded here because it changed §1 rather than only §2. **What moved in §1:** the Outcome and the title now name `1.0.0` instead of `v0.6.0`, and `LICENSE` is named in the Scope's stranger-reads clause, which is that clause applied rather than widened. **What the plan added:** the subject pinned at `ca25d87` and re-derived rather than copied, a finding threshold of five items stated before looking, four aspects, and eight examining cycles over **32 items** whose per-cycle counts sum to the pinned total. **The filename still says `0-6-0` and was deliberately not changed** — 13 references across 9 files point at it, three of them archived handoffs, which are records and are not edited. The id is what resolves. |
 | 2026-08-23 | (no change) | **The owner is beginning this record in the next session**, stated 2026-08-23: *"isn't this the right moment to start the T-244 (audit)? … let me start the new session with that."* Recorded here because the standing rule is that a session starts no audit, so **this is the owner beginning it and not a session deciding to** — and a pointer in a handoff is context rather than authorisation. **What this row is:** the owner opening the record. **What it is not:** a grant of phases. No lifecycle beyond what that session asks for is authorised by it, and anything wider belongs in a row of its own. **All three `blocked_by` are closed** — T-243, T-245 and T-250 — so nothing mechanical holds it. |
