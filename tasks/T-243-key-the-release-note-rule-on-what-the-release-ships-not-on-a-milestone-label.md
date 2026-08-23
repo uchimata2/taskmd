@@ -74,10 +74,12 @@ release, with nothing to label and nothing to keep in step.
 - [ ] Running the new rule against `0.6.0` returns a set that contains `T-006`
 
 **Open questions**
-- **Does §7 key on the tag range, keep the milestone, or read both?** — the project owner. The
-  recommendation is **the tag range**, because it is derived and a label is maintained. *Against:
-  the milestone is what a reader of the note thinks in, and a tag range says nothing about which
-  release a piece of work was scheduled into — reading both keeps that and costs a second command.*
+- ~~**Does §7 key on the tag range, keep the milestone, or read both?**~~ **Answered by the project
+  owner on 2026-08-23: the tag range.** *The question as it stood, kept so a later reader can see what
+  was chosen over what: — the project owner. The recommendation is* **the tag range**, *because it is
+  derived and a label is maintained. Against: the milestone is what a reader of the note thinks in,
+  and a tag range says nothing about which release a piece of work was scheduled into — reading both
+  keeps that and costs a second command.* The rejected options and their costs are in the Log.
 
 ## 2. Plan
 
@@ -106,4 +108,5 @@ release, with nothing to label and nothing to keep in step.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | (no change) | **Answered by the owner on 2026-08-23: §7 keys on the tag range.** *Rejected: read both* — it keeps the milestone as the thing a reader thinks in and still catches the strays, at the cost of two sets to reconcile by hand every release and a rule with two answers. *Rejected: keep the milestone and add strays by hand*, which is what `0.6.0` did: no work now, and the gap returns at every release depending on somebody noticing it again — which this time took running the rule rather than reading it. **The work is unchanged by the answer**; §1's acceptance criteria already covered either outcome, and the criterion requiring the new rule to return a set containing `T-006` is now the one that matters. |
 | 2026-08-23 | → proposed | **Raised on the owner's answer of 2026-08-23**, given as a survey while `0.6.0` was blocked. They chose *add the two strays to this release's set by hand and raise the rule change separately*, over *change the rule now* — which was cheaper to state and would have held the release for a rule edit — and over *ship M6 as it stands*, which would have dropped `T-006` *"Package, document and publish"* and its 23 shipped files out of the note with nobody choosing to drop them. So this record carries the durable half and `0.6.0` is not waiting on it. **The measurement is here rather than in the release record**, because it is a fact about the rule and outlives the release that found it. |
