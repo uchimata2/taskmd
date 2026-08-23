@@ -149,9 +149,9 @@ every config would each be larger than the problem — no key has been added sin
 
 ## What this rule has already refused
 
-Two capabilities have been asked for under the rule above and declined, recorded here so the next
-person to want one meets the answer instead of the gap. Both needed the tool to learn a fact about
-*where a task has got to*. That is project vocabulary, and vocabulary is a key in this file.
+Three capabilities have been asked for under the rule above and declined, recorded here so the next
+person to want one meets the answer instead of the gap. Each needed the tool to learn project
+vocabulary — which field carries a fact — and vocabulary is a key in this file.
 
 - **`check` knowing a task's phase**, so that a placeholder left in a section the task has already
   passed is reportable, and not only one left in a closed record. Every route that works adds a key
@@ -164,15 +164,34 @@ person to want one meets the answer instead of the gap. Both needed the tool to 
 - **A field required at a status, or two fields that must agree** — *this field is set when a task
   closes*, or *these two always move together*. Declined on the same ground, by the same routes
   failing the same way.
+- **`check` validating a `finding:` value against a findings register** — so that a task
+  naming `PR-06` fails when the register holds no such row. Declined on the same ground, and it needs
+  the tool to learn **two** project facts rather than one: which field carries the finding id, and
+  where the register lives. Both are vocabulary, and both are keys here.
 
-**What a project does instead.** Where the point is that a record should not look finished when it is
+**What a project does instead.** **For a findings register, carry the pointer as an ordinary Markdown
+link in the task body.** `check` resolves every link in every task it reads, with no key and no
+vocabulary, and it reports a section that is not there. Measured on 2026-08-23 against a register
+with two rows, this buys two of the three halves:
+
+- **the register exists** — enforced. A link to a missing document is `BROKEN LINK` and takes the
+  exit code to 1.
+- **the section exists** — reported, not enforced. `SECTION REF docs/FINDINGS.md has no section 9`
+  printed while the run still exited **0**, so it informs and does not gate.
+- **the row exists** — not covered. A task naming `PR-99`, which the register does not hold, raised
+  nothing at all. A finding is a table row, and no reference kind resolves one.
+
+So the body link answers *is the register there* and not *is my finding in it*. A project needing
+the third half enforces it outside taskmd, against the task files directly.
+
+Where the point is instead that a record should not look finished when it is
 not, the record can say so itself: a section stating that the phase was never run reads correctly to
 a person, needs no key, and cannot drift from a rule. Where the convention genuinely has to be
 enforced rather than stated, enforce it outside taskmd and against the task files directly. They are
 Markdown with front matter, in a folder this file names, and nothing about them is hidden from a
 script a project writes for itself.
 
-Neither refusal says the capability is worthless. Both are the arithmetic above: the cost falls on
+No refusal here says the capability is worthless. All three are the arithmetic above: the cost falls on
 every project that has written a config, it falls on the upgrade rather than at the moment of asking,
 and it falls whether or not that project ever wanted the feature.
 

@@ -2,8 +2,8 @@
 id: T-247
 title: Decide whether taskmd validates a finding field against a register
 type: decision
-status: specified
-phase: specify
+status: done
+phase: review
 parent: null
 blocked_by: []
 related: [T-223, T-146, T-173, T-244]
@@ -14,7 +14,9 @@ effort: s
 created: 2026-08-23
 updated: 2026-08-23
 adopter_visible: yes
-deliverables: []
+deliverables:
+  - plugin/skills/taskmd/taskmd/defaults/config.md
+  - .taskmd/config.md
 ---
 
 # T-247 — Decide whether taskmd validates a finding field against a register
@@ -116,32 +118,101 @@ It is written here as something to test rather than as an answer.
 
 ## 2. Plan
 
+**The decision was already taken; this plans what it obliges.** The owner answered on 2026-08-23 —
+*no, record it as the third row* — so no step below re-opens it. §1 keeps the *Against* argument
+unrefuted rather than defeated, and that is deliberate: a fourth request meets the same page.
+
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Run the body-link route on a real register rather than reading the code, and record each half separately: the document, the section, and the finding row. | The measurement, in §3 |
+| 2 | Write the third row into the **shipped** config's refused list, in the shape the two rows use, and put what step 1 measured into *What a project does instead*. | `plugin/skills/taskmd/taskmd/defaults/config.md` |
+| 3 | Carry the same text into this project's own config, which is a copy of that file. | `.taskmd/config.md` |
+| 4 | Answer the adopter plainly: close their own gap, or wait. | §4 |
+
+**Outputs this task will produce**
+
+- `plugin/skills/taskmd/taskmd/defaults/config.md`
+- `.taskmd/config.md`
 
 ## 3. Implement
 
 **Decisions & assumptions**
-- <decision — rationale — date>
+- **The row goes in the shipped config first, and in this project's copy because it is a copy** —
+  2026-08-23. §1 named `.taskmd/config.md` alone, and that is where a reader of *this* repository
+  meets it — but the outcome says *the next person to want it*, and that person is an adopter, who
+  reads the shipped file. Writing only the one §1 named would have left the answer invisible to
+  everyone it is for.
+- **The measurement is reported in three halves, not two** — 2026-08-23. §1 predicted the body link
+  would buy the *document* half and not the *row* half. Running it splits the middle: the section
+  half is **reported and does not gate**, which is a third state §1 did not have a word for.
+
+**Evidence — the body-link route, run on a register**
+
+A throwaway project: a two-row findings register at `docs/FINDINGS.md`, and one task carrying
+`finding: PR-06` in front matter and four body references. `check` run against it:
+
+```
+BROKEN LINK   tasks/T-001-...md -> ../docs/MISSING-REGISTER.md
+1 problem(s) - ... 11 front-matter value(s) ...            rc=1
+```
+
+```
+OK - 1 task(s), ... 5 section reference(s)
+SECTION REF  docs/FINDINGS.md has no section 9; 1 reference(s) name it     rc=0
+```
+
+Read per case rather than as a verdict:
+
+| The reference | What `check` did | Gates? |
+| :--- | :--- | :---: |
+| `finding: PR-06` in front matter | counted among 11 front-matter values, **no vocabulary problem** | no |
+| a link to a register that does not exist | `BROKEN LINK`, `rc=1` | **yes** |
+| `[the register](...) §1`, a section that exists | silent | — |
+| `[the register](...) §9`, a section that does not | `SECTION REF ... has no section 9`, **`rc=0`** | no |
+| `PR-99`, an id the register does not hold | **nothing at all** | no |
+
+**So the body link answers *is the register there* and not *is my finding in it*.** The last row is
+the one that matters: a finding is a table row, and no reference kind resolves a row. The fourth row
+is the surprise — the section check informs without moving the exit code, so a project relying on it
+as a gate would be relying on a message.
+
+**What taskmd does with `finding:` today, confirmed rather than assumed**: carried and never
+interpreted. It is not in the schema, so it is neither validated nor complained about, which is
+exactly what §1 states and what the 11 counted front-matter values show.
 
 **Outputs produced**
-- none yet
+- `plugin/skills/taskmd/taskmd/defaults/config.md` — the third refused row, the count sentence
+  corrected from two to three, and the measured register route added to *What a project does instead*
+- `.taskmd/config.md` — the same text. The two files now differ in exactly one line, `context_fields`,
+  as they did before
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| The answer is recorded, with what it rejected and why | met | The third row states the refusal and its ground — two project facts, not one. §1 keeps the *Against* argument as written, so a fourth request meets the counter-case rather than only the answer. |
+| If declined, `.taskmd/config.md`'s refused list carries a third row, and it says what a project does instead | met | Carried in both that file and the shipped config it is a copy of. *What a project does instead* now names the body-link route with what it does and does not cover. |
+| What the body-link route covers and does not cover is stated, from having run it rather than from reading the code | met | Run against a real register, five cases, table in §3. It refined the prediction rather than confirming it: the section half is reported and does not gate. |
+| The adopter can tell from this record whether to close their own gap or wait | met | **Close their own gap.** See below. |
 
-**Adopter-visible?** <yes or no - then set adopter_visible in the front matter, per the test in docs/PUBLISHING.md section 7>
+**The answer to the adopter, plainly.** Close your own gap; do not wait for taskmd. `finding:` will
+not be validated, and the refusal is now recorded where you will meet it. The body link is worth
+adopting anyway — it costs nothing and catches a register that has moved or gone — but it will not
+catch a finding id that is absent from the register, and the section check that comes closest does
+not move the exit code. Your `findings.py` is doing the half that no key-free route reaches.
+
+**Adopter-visible?** yes — the shipped config is copied by every install, and the third row plus the
+register route change what an adopter reads. `adopter_visible: yes` was set at `specify`, unchanged.
 
 **Child fix tasks raised**
-- none
+- [T-260](T-260-assert-that-a-project-s-config-and-the-shipped-default-still-agree.md) — writing this
+  row twice exposed that nothing asserts the two files agree. They differ in exactly one line today
+  and only because both were edited by hand in the same minute.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | specified → done | Full lifecycle in one session, under the grant recorded on the handoff resumed 2026-08-23. **No step re-opened the decision** — the owner had already answered it. The measurement refined §1's prediction: the section half is reported and does **not** gate, a third state the record had no word for. The row went into the shipped config as well as this project's, because the person it is written for is an adopter. |
 | 2026-08-23 | proposed → specified | **The owner answered the open question on 2026-08-23: no, record the third refusal.** Put as a survey with all three readings priced both ways — decline and record it, test the body-link route first, or build it — and the recorded recommendation was taken unchanged. **Specify is complete; the work is not.** What remains is the third row in `.taskmd/config.md`'s *What this rule has already refused*, in the shape the two existing rows use, and the body-link test that says what a project can do instead. **The *Against* argument in §1 was not defeated and is kept verbatim**, because a fourth request should meet the strongest case for the other side rather than three refusals in a row. |
 | 2026-08-23 | → proposed | **Raised on the owner's instruction of 2026-08-23**, after a check of taskmd's readiness for the adopter's audit found this scoped out of [T-223](T-223-ship-the-pre-release-audit-as-a-method-document.md) with no successor record. **Raised as a `decision` rather than as tool work**, because `.taskmd/config.md` has already refused this exact shape twice on one ground, and the live question is whether a blocked adopter is evidence that moves it. **What taskmd does today was measured rather than assumed**: `finding:` is an unnamed field, so it is carried and never interpreted, and a `check` run over the adopter's 220 tasks raised nothing about it — the failing lint is theirs. **The body-link route is named but not claimed**, because it plausibly covers the document and not the row, and this record is not the place to guess which. |
