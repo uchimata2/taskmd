@@ -13,6 +13,7 @@ business_value: low
 effort: s
 created: 2026-08-11
 updated: 2026-08-11
+adopter_visible: no
 deliverables: [tests/test_publishing.py, README.md, plugin/skills/taskmd/taskmd/cli.py]
 ---
 
@@ -185,6 +186,7 @@ held together by something, which is what it was missing.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | (no change) | **`adopter_visible: no`, judged under [T-248](T-248-judge-adopter-visible-on-the-three-records-the-new-rule-reports-unmarked.md)**, 2026-08-23. Annotated, not rewritten. **This one was checked rather than assumed**, because its outputs include a shipped file: the marked regions in `plugin/skills/taskmd/taskmd/cli.py`. They sit in that module's **docstring**, not in the usage text the tool prints — running the tool with no arguments prints `usage: taskmd {check,context,index,list} [args] [--root PATH]` and no marker. So the shipped change is inert to an adopter, and `tests/test_publishing.py` is not shipped at all. |
 | 2026-08-16 | (no change) | Kept current, not rewritten: §1's *the flags are out* line and its §3 decision both carry a note that the reason expired on 2026-08-15, when T-144 gave the flags a home. [T-149](T-149-check-that-every-prose-list-of-lists-options-names-the-options-there-are.md) guards them. Nothing above is edited — a rejection that was right when taken stays as it was, with what overtook it recorded beside it. |
 | 2026-08-11 | → done | All four criteria met, and the check was shown firing **three** ways rather than the two asked for: a fifth command added to `COMMANDS`, a command dropped from the README list, and the markers deleted. The third is **D2** and it is the one worth keeping — without an assertion that the regions exist, deleting a marker leaves nothing to compare and every other assertion passes. Q1 was decided under the standing delegation: a marked region, because a heuristic stops checking a document the moment one name drops out of it, which is the failure being guarded, and a list of documents inside the test is a third statement of the surface's whereabouts. The quiet case is checked on the real tree and asserts its own premise first, so it cannot go vacuous in silence. |
 | 2026-08-11 | → in_progress | One expression reads both registers (**D1**), since README's table of purposes and `cli.py`'s block of invocations both write `taskmd <name>`; two parsers would have been a second thing to keep in step inside a task about things not being kept in step. **D3** accepts an HTML comment inside a Python docstring, which reads foreign, in exchange for one marker convention across both files. 236 tests. |
