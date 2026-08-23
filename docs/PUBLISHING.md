@@ -318,9 +318,9 @@ discipline in `../CLAUDE.md`, and it holds only if every new identity goes into
 The pattern was verified by being made to fail, and the fixture that did it is the one named above
 rather than a transcript pasted into a task — which is what T-018 was raised to fix, after the pasted
 copy left a real drive path in the tracked tree and made the documented "prints nothing" unreachable.
-Two earlier drafts were wrong: one matched `http://` and a `d:\n` escape, and one ended a branch in
-`\\`, which grep read as an escaped `|` and which silently swallowed the entire IP branch. Both bugs
-were invisible on a clean tree.
+**Two failure shapes to expect if you edit it**: a branch that matches `http://` and a `d:\n`
+escape, and a branch ending in `\\`, which grep reads as an escaped `|` and which silently swallows
+everything after it. Both are invisible on a clean tree, which is why the fixture above exists.
 
 ## 7. What a release note must not omit
 
@@ -356,8 +356,8 @@ subtree ([T-053](../tasks/T-053-decide-the-plugin-s-boundary-and-what-its-skill-
 it. No label is consulted, which is the point: a task carrying `M1` and a task carrying `M6` are
 found by the same query if they both shipped.
 
-**Why not the milestone.** §7 keyed on `--work_package <milestone>` until 2026-08-23, and a task that
-shipped inside the release window while carrying an older label was invisible to it. Measured while
+**Why not the milestone.** The rejected alternative is keying on `--work_package <milestone>`, which
+cannot see a task that shipped inside the release window while carrying an older label. Measured while
 cutting `0.6.0`: the milestone query returned 72 tasks and the rule above returns 104, a strict
 superset containing every one of the 72. Among the 32 it adds is
 [T-006](../tasks/T-006-package-document-and-publish.md) *"Package, document and publish"*, closed
