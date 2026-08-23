@@ -70,8 +70,8 @@ A label says which release the work is scheduled into. It never says the release
 | ID | Title | Work Package | Status | Phase | Parent | Children | Blocked By | Blocks | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [T-182](T-182-write-the-next-release-note-to-the-rule-and-say-what-it-caught.md) | Write the next release note to the rule and say what it caught | `M6` | `proposed` | `specify` | - | - | T-231 | - | T-125, T-127, T-133, T-135, T-230, T-231 |
-| [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md) | Test whether the description loses a competition rather than turning a session away | `M6` | `planned` | `plan` | - | - | - | - | T-175, T-205, T-206 |
 | [T-231](T-231-cut-the-next-release.md) | Cut the next release | `M6` | `proposed` | `specify` | - | - | - | T-182 | T-085, T-135, T-182, T-223, T-232 |
+| [T-240](T-240-the-competition-rig-does-not-reproduce-the-silence-it-was-built-to-explain.md) | The competition rig does not reproduce the silence it was built to explain | `M6` | `proposed` | `specify` | - | - | - | - | T-175, T-206, T-213 |
 
 ## Closed
 
@@ -251,7 +251,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-172](T-172-catch-a-template-placeholder-left-in-a-finished-record.md) | Catch a template placeholder left in a finished record | `M6` | `done` | `review` | - | - | - | - | T-032, T-151, T-171, T-173 |
 | [T-173](T-173-decide-whether-check-can-know-a-phase-without-breaking-every-adopter.md) | Decide whether check can know a phase without breaking every adopter | `M6` | `done` | `review` | - | - | - | - | T-146, T-151, T-172 |
 | [T-174](T-174-carry-the-command-that-produced-t-168-s-figures.md) | Carry the command that produced T-168's figures into a record that can re-run it | `M6` | `done` | `review` | T-168 | - | - | - | T-168 |
-| [T-175](T-175-observe-whether-the-skill-triggers-in-a-migrated-away-project.md) | Observe whether the skill triggers in a project that has migrated its backlog away | `M6` | `done` | `review` | T-168 | T-205 | - | - | T-050, T-168, T-206, T-213 |
+| [T-175](T-175-observe-whether-the-skill-triggers-in-a-migrated-away-project.md) | Observe whether the skill triggers in a project that has migrated its backlog away | `M6` | `done` | `review` | T-168 | T-205 | - | - | T-050, T-168, T-206, T-213, T-240 |
 | [T-176](T-176-have-an-uninvolved-reader-test-the-sourced-survivor-bullet.md) | Have an uninvolved reader test the sourced survivor bullet | `M6` | `done` | `review` | - | - | - | - | T-166, T-167, T-168, T-199, T-221, T-225, T-228, T-233, T-237 |
 | [T-177](T-177-run-the-checks-that-need-no-task-folder.md) | Decide whether check runs the checks that never look at a task file | `M6` | `done` | `review` | - | T-185 | - | - | T-163, T-178, T-179, T-180, T-229 |
 | [T-178](T-178-give-the-github-binding-a-standing-verification.md) | Give the GitHub binding a standing verification, not only a migration-day one | `M6` | `done` | `review` | - | T-193 | - | - | T-041, T-108, T-177, T-179, T-185, T-192, T-203 |
@@ -281,13 +281,14 @@ A label says which release the work is scheduled into. It never says the release
 | [T-203](T-203-detect-an-issue-whose-state-disagrees-with-its-status-label.md) | Detect an issue whose state disagrees with its status label | `M6` | `done` | `review` | - | - | - | - | T-108, T-178, T-193 |
 | [T-204](T-204-count-the-short-row-quiet-case-the-wide-row-audit-left-out.md) | Count the short-row quiet case the wide-row audit left out | `M6` | `done` | `review` | T-198 | - | - | - | T-201, T-202, T-210 |
 | [T-205](T-205-decide-whether-a-clean-trigger-observation-is-reachable-on-this-machine.md) | Decide whether a clean trigger observation is reachable on this machine | `M6` | `done` | `review` | T-175 | T-206 | - | - | T-050, T-168, T-213 |
-| [T-206](T-206-test-whether-the-description-s-markdown-files-clause-turns-a-session-away.md) | Test whether the description's Markdown-files clause turns a session away | `M6` | `done` | `review` | T-205 | - | - | - | T-050, T-175, T-213 |
+| [T-206](T-206-test-whether-the-description-s-markdown-files-clause-turns-a-session-away.md) | Test whether the description's Markdown-files clause turns a session away | `M6` | `done` | `review` | T-205 | - | - | - | T-050, T-175, T-213, T-240 |
 | [T-207](T-207-test-the-platform-claims-this-repository-s-own-second-copies-rest-on.md) | Test the platform claims this repository's own second copies rest on | `M6` | `done` | `review` | - | - | - | - | T-072, T-187 |
 | [T-208](T-208-decide-where-the-product-wide-deviation-clause-belongs-now-that-it-exists.md) | Decide where the product-wide deviation clause belongs now that it exists | `M6` | `done` | `review` | - | - | - | - | T-027, T-045, T-187 |
 | [T-209](T-209-report-an-open-child-as-a-blocker-on-the-parent-that-cannot-close.md) | Report an open child as a blocker on the parent that cannot close | `M6` | `done` | `review` | - | - | - | - | T-191, T-198, T-212, T-218 |
 | [T-210](T-210-account-for-the-two-derived-fixtures-t-198-s-partition-drops.md) | Account for the two derived fixtures T-198's partition drops | `M6` | `done` | `review` | T-198 | - | - | - | T-202, T-204, T-211 |
 | [T-211](T-211-mark-the-quiet-cases-in-the-two-fixtures-outside-t-202-s-scope.md) | Mark the quiet cases in the two fixtures outside T-202's scope | `M6` | `done` | `review` | - | - | - | - | T-198, T-202, T-210, T-214, T-215, T-219 |
 | [T-212](T-212-report-a-closed-parent-that-still-has-an-open-child.md) | Report a closed parent that still has an open child | `M6` | `done` | `review` | - | - | - | - | T-191, T-198, T-209, T-216, T-218, T-219, T-220 |
+| [T-213](T-213-test-whether-the-description-loses-a-competition-rather-than-turning-a-session-away.md) | Test whether the description loses a competition rather than turning a session away | `M6` | `done` | `review` | - | - | - | - | T-175, T-205, T-206, T-240 |
 | [T-214](T-214-decide-whether-the-class-set-subtraction-that-removes-nothing-needs-a-reader.md) | Decide whether the class-set subtraction that removes nothing today needs a reader | `M6` | `done` | `review` | - | - | - | - | T-191, T-197, T-211 |
 | [T-215](T-215-show-a-paired-fixture-s-quiet-case-is-in-reach-or-record-that-it-cannot-be.md) | Show a paired fixture's quiet case is in reach, or record that a per-fixture assertion cannot | `M6` | `done` | `review` | - | - | - | - | T-089, T-198, T-202, T-211 |
 | [T-216](T-216-repair-the-three-closed-parents-that-still-have-an-open-child.md) | Repair the three closed parents that still have an open child | `M6` | `done` | `review` | - | - | - | - | T-135, T-168, T-192, T-212, T-218 |
