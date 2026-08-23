@@ -89,12 +89,10 @@ iteration wearing an instrument's clothes — the loop is *read, dislike, read a
 agrees* — and it needs an edit or a verdict in between to happen at all. Parallel running forbids it
 by construction, which is why two is safe here and a second reader tomorrow is not.
 
-**Why two rather than one.** *Corrected after a run that used two where its own rule said one, and
-recorded the deviation rather than the improvement.* The two readers produced declarations that were
+**Why two rather than one.** Measured on a real run: the two readers produced declarations that were
 both shippable and **claimed different things** from the same text. That is a finding a single reader
-cannot produce at any level of care: one reading tells you what one competent person concluded, and
-two tell you whether the document has one meaning. The rule had been written to forbid a hazard it
-described correctly and had banned the wrong thing.
+cannot produce at any level of care — one reading tells you what one competent person concluded, and
+two tell you whether the document has one meaning.
 
 **A disagreement between the two is a finding, not a tie to be broken.** Do not add a third to settle
 it. Record both readings and treat the divergence as what the document did.
