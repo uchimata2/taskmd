@@ -2,8 +2,8 @@
 id: T-249
 title: Cut the handoff config back to a config, and rehome what only it records
 type: fix
-status: proposed
-phase: specify
+status: done
+phase: review
 parent: null
 blocked_by: []
 related: [T-073, T-135, T-190, T-047]
@@ -14,7 +14,11 @@ effort: m
 created: 2026-08-23
 updated: 2026-08-23
 adopter_visible: no
-deliverables: []
+deliverables:
+  - .handoff/config.md
+  - CLAUDE.md
+  - docs/BRIEF.md
+  - docs/PUBLISHING.md
 ---
 
 # T-249 — Cut the handoff config back to a config, and rehome what only it records
@@ -60,16 +64,25 @@ appears anywhere else:
 | The four rules for reading an adopter report | Verify against this repository first; resolve every id cited; ask whether a defect in the reporter's own code is still there; test the reasons, not only the asks |
 | The version-bump policy | Why a bump exists at all, and the owner's 2026-08-10 confirmation that one bump covers a batch rather than a single fix |
 
+**The test, set by the owner on 2026-08-23.** Prose in a config or instruction file **stays** when
+it is a general guide — what something means, how to use or update it. It **goes** when it is update
+history or a log entry. So this is not *prose versus no prose*, which is what this record assumed
+before the answer; the keys section is in scope after all, because its notes are guidance wrapped
+around three dated incident reports.
+
 **Scope**
 - In: `## Notes for whoever resumes`, block by block — classify each as *delete* or *move*, and act
-- In: rephrasing whatever stays so it reads as configuration, and correcting the `M6` line
+- In: the keys section, where a note recites how a key reached its current value
 - In: the two homeless blocks above, which get a home in this repository
+- In: recording the general rule durably, so keeping the policy does not depend on an audit
+  re-finding this. The owner's answer of 2026-08-23: `../CLAUDE.md`
 - Out: **the handoff skill itself.** Its schema is right and this record does not change it
-- Out: the keys section (lines 1 to 49). Its inline notes explain *why a key is shaped as it is*,
-  which is what config guidance is for, and they are not the defect
-- Out: **losing the provenance deliberately.** The owner has already accepted that a shorter record
-  may not name where each fact came from; where a task record already holds the provenance, the
-  moved text points at it rather than restating it
+- Out: **`.taskmd/config.md` and other instruction files.** The owner scoped this to the handoff
+  config for now; the rule recorded above is what reaches the rest
+- Out: **the 249 records already written.** New writing only — METHOD rule 5 forbids rewriting what
+  a record says about the past
+- Out: **losing the provenance.** Where a task already holds it, the surviving text cites the id
+  rather than restating the story
 
 **Inputs**
 - [`.handoff/config.md`](../.handoff/config.md) — the file, and its own `reconcile_targets` note,
@@ -92,34 +105,98 @@ appears anywhere else:
       `check` does read it, unlike the live handoff
 
 **Open questions**
-- **Where do the two homeless blocks go?** — the project owner. The recommendation is
-  **[`docs/BRIEF.md`](../docs/BRIEF.md) §*Carried lessons*** for the four adopter-report rules, since
-  that section exists for exactly this and the rules are lessons rather than procedure; and
-  **[`docs/PUBLISHING.md`](../docs/PUBLISHING.md)** for the bump policy, since it is a release rule and
-  that document is where release rules live. *Against: the report rules are arguably method rather
-  than lesson, which would put them in `plugin/skills/taskmd/docs/` — rejected in the recommendation
-  because that subtree ships, and how this project reads its own adopters' reports is not something an
-  adopter installs.*
+- ~~**Where do the two homeless blocks go?**~~ **Decided at implement, 2026-08-23**, on the standing
+  delegation, since the owner's answers covered the rule and the scope but not this: the four
+  adopter-report rules to [`docs/BRIEF.md`](../docs/BRIEF.md), the bump policy to
+  [`docs/PUBLISHING.md`](../docs/PUBLISHING.md). *Rejected: `plugin/skills/taskmd/docs/`* — that
+  subtree ships, and how this project reads its own adopters' reports is not something an adopter
+  installs.
 
 ## 2. Plan
 
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Classify every block in the file against the owner's guide-or-history test | The table in §3 |
+| 2 | Move the two blocks that have no other home | `docs/BRIEF.md`, `docs/PUBLISHING.md` §8 |
+| 3 | Rewrite the file to keys plus guide-only notes | `.handoff/config.md` |
+| 4 | Record the general rule where it binds before anyone announces they are writing prose | `CLAUDE.md` |
+| 5 | Prove `check` reads this file, rather than assume it | A recorded failing run, in §3 |
 
 ## 3. Implement
 
+**Every block, and where it went.** Sixteen blocks: two moved, fourteen deleted because the fact
+already had a home. Listed so a reader can check that none was dropped without a decision.
+
+| # | Block | Verdict | Its home |
+| :-- | :--- | :---: | :--- |
+| 1 | Published at GitHub; current release is `v0.6.0` | delete | `git tag` and the manifest; T-182, T-242 |
+| 2 | Version bumps versus milestone labels | **move** | [`docs/PUBLISHING.md`](../docs/PUBLISHING.md) §8 |
+| 3 | Milestone labels `M1`…`M6`, and what is left | delete | Each task's `work_package`; T-136. This is the block that had gone false |
+| 4 | A release is not the last step of a release | delete | [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) |
+| 5 | Start with `SCOPE.md`, then `BRIEF.md` | delete | `../CLAUDE.md` *Read in this order*; the `project_docs` key still names `SCOPE.md` |
+| 6 | Adopters outside this repository, and the roster counts | delete | `control/LOCAL-CONTEXT.md`, which the block itself named as the home |
+| 7 | The four rules for reading an adopter report | **move** | [`docs/BRIEF.md`](../docs/BRIEF.md) *Reading a report from outside* |
+| 8 | Siblings send a branch, not a report | delete | The owner's global instructions, loaded every turn |
+| 9 | The three tiers; T-053's boundary; T-083's self-containment | delete | `../CLAUDE.md` *Three tiers*; T-053, T-083 |
+| 10 | The third overlap and T-190's ruling | delete | [T-190](T-190-decide-whether-tier-1-restates-two-verification-rules-the-method-owns.md) |
+| 11 | This project has its own `.taskmd/config.md` | delete | T-135, and the file itself |
+| 12 | The schema question is answered; how to run the CLI | delete | `../CLAUDE.md` *Run the commands here as* |
+| 13 | Walking up to find the project; the launchers; `after_write` | delete | `plugin/skills/taskmd/SKILL.md` |
+| 14 | `BINDING.md` is the backend contract | delete | `SKILL.md`'s load-on-demand table |
+| 15 | `reference/` is prior art, not the plugin | delete | `../CLAUDE.md` *What this is* |
+| 16 | This repository will be published | delete | `../CLAUDE.md` *Publishing constraints* |
+
+**The two keys notes were compressed, not kept and not cut.** Each was a rule wrapped around dated
+incident reports. The rule is guidance and stays; the incidents are log entries and go, with the task
+id and date left as the pointer — `reconcile_targets` keeps *patterns, never an enumeration, no depth
+limit* and cites T-073; `tracker_lint` keeps *a lint that cannot start reads as a pass* and cites
+T-005 and T-054.
+
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+- **The rule went to `CLAUDE.md`, not to `docs/`** — 2026-08-23, the owner's answer. It binds while
+  editing any document, and nobody announces that they are about to write prose, which is the one
+  exception `CLAUDE.md` itself names as earning always-loaded space. It cost **551 characters**:
+  tier 1 was 6,451 and is 7,002 against a 7,854 bound, so headroom fell from 1,403 to 852.
+- **This record is written to the rule it establishes.** The block table is a table rather than
+  sixteen paragraphs, and each row cites a home rather than restating what is there.
+- **A session cannot verify its own `CLAUDE.md` edit**, since the file is fixed before the first tool
+  call. `tests/test_budget.py` measures its size, and nothing here measures whether a later session
+  obeys it. Stated rather than claimed.
 
 **Outputs produced**
-- none yet
+
+- [`.handoff/config.md`](../.handoff/config.md) — **16,159 bytes to 1,845**, an 89% cut.
+- [`CLAUDE.md`](../CLAUDE.md) — *Write the fact, not its history*.
+- [`docs/BRIEF.md`](../docs/BRIEF.md) — *Reading a report from outside*, four rules as four rows.
+- [`docs/PUBLISHING.md`](../docs/PUBLISHING.md) §8 — *When to spend a version bump*.
+
+**Checked by using it.** `check` reads this file, shown by breaking it rather than by a clean pass:
+
+```text
+check with broken link exit=1
+BROKEN LINK   .handoff/config.md -> ../docs/NO-SUCH-FILE.md
+restored, check exit=0
+```
+
+`taskmd check` exits 0 and the suite is 350 passed, `tests/test_budget.py` included.
+
+**One self-inflicted failure, kept because the blast radius is the lesson.** A `T-190` link in this
+record was composed from a remembered title rather than resolved, and the file did not exist. That
+one bad link took `check` to exit 1, and with it **eight tests**: the whole `ChecksThisRepository`
+class, `CheckReportsWhatItExamined`, and a launcher test in `test_runtime.py` that runs `check` and
+asserts exit 0. It read as unrelated flakiness until the launcher test was opened. Resolving the
+filename with `ls` fixed all eight.
 
 ## 4. Review
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| `## Notes for whoever resumes` is gone, and every block was deleted or moved, shown block by block | met | §3's table: 16 blocks, 2 moved, 14 deleted, each with the home that made deleting it safe |
+| Each homeless block resolves to a named file and section, reachable without the config | met | `docs/BRIEF.md` *Reading a report from outside*; `docs/PUBLISHING.md` §8 |
+| No statement in the file is false; no count or release number as prose | met | The `M6` block is gone rather than corrected — it was derived from `work_package` and had no business being written down. No count, roster size or release number survives |
+| The file matches the skill's schema: keys, tracker keys, guidance about keys | met | Two key blocks and two guide notes. Nothing else |
+| `taskmd check` passes and the moved text's links resolve | met | Exit 0, and `check` was shown to fail on a planted broken link in this exact file |
 
 **Adopter-visible?** no — `.handoff/config.md` is this repository's own handoff configuration. An
 adopter installs `plugin/` and never receives it.
@@ -131,4 +208,7 @@ adopter installs `plugin/` and never receives it.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | → done | Landed. 16,159 bytes to 1,845. The one thing the survey did not settle — where the two homeless blocks go — was decided on the standing delegation and the rejection recorded in §1. |
+| 2026-08-23 | (no change) | **The owner authorises the full lifecycle on this record**, given 2026-08-23: *"Update T-249 accordingly, the you can work the full lifecycle, commit and push."* **Covers:** this record's `specify` through `review`, and committing and pushing. **Does not cover:** any other file or task, including `.taskmd/config.md`, which the same answer scoped out. |
+| 2026-08-23 | (no change) | **Answered by the owner on 2026-08-23**, four questions in one survey. The test is *guide or changelog*, not *prose or none* — so the keys section came into scope and this record's original *Out* line for it was wrong. Scope stays the handoff config alone, with the general rule recorded in `CLAUDE.md` so the policy does not depend on an audit re-finding it. Existing records are untouched: new writing only. |
 | 2026-08-23 | → proposed | **Raised on the owner's observation of 2026-08-23**, in these words: *"The Handoff config should be specific with the historical information, only the important information should be added. This is neither a log file, nor a task file, but a config."* They asked first whether the fault lies with the handoff skill or with this project, and it is this project's: grepping the whole skill for a notes or narrative section returns nothing, and its schema says to keep the shape simple. The owner also accepted in advance that a shorter record may lose the source of some information, which is why *Out* names that rather than treating it as a cost to avoid. |

@@ -416,3 +416,14 @@ identifiable from its descriptions. At least twenty-one adopter-visible changes 
 against the six a hand-sample found. The measurement is in
 [T-135](../tasks/T-135-derive-what-a-release-note-must-cover-from-the-tasks-it-ships.md) §3 and is
 not repeated here.
+
+## 8. When to spend a version bump
+
+**One bump per batch, never per fix.** A bump exists because `claude plugin update` compares version
+strings: a directory install whose manifest never changes reports "already at the latest version"
+and keeps serving the snapshot it copied. Confirmed by the maintainer on 2026-08-10, against the
+strongest case for the alternative — an adopter updating for something unrelated meets a new failure
+class.
+
+**A bump is not a milestone.** Some are taken mid-milestone to get fixes out, so a version number
+says what shipped and a milestone label says what the work was scheduled into. §7 reads the first.

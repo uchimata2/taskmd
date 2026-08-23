@@ -133,6 +133,22 @@ Learned the expensive way in the source project. Each cost something.
 | **Determinism is a platform property** | A regression comparison failed on all 196 lines on Windows — text-mode newline translation. Write with `newline="\n"`. |
 | **An imported convention carries its author's assumptions** | State this plugin's assumptions where an adopter can check them, rather than leaving them implicit. |
 
+## Reading a report from outside
+
+Four rules, each paid for by a real report. The trail for each report is in
+`control/LOCAL-CONTEXT.md`, one row per adopter.
+
+| | Rule |
+| :--- | :--- |
+| **Read the shipped artifact first** | At the version the reporter names. Two of six rows in one report asked for behaviour that version already shipped. |
+| **Resolve every id they cite** | Including the ones labelled as ours: one was correctly namespaced and still the wrong task. |
+| **Ask whether their own defect is still there** | A row records the observation, not the repair. We handed one back that they had already fixed. |
+| **Test the reasons, not only the asks** | A row that declines to act still claims something about this tool. One such claim was false, and worth more than either task the same comment produced. |
+
+A report is a set of leads to verify, never findings to implement.
+
+---
+
 ---
 
 ## Open questions

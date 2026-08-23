@@ -77,6 +77,17 @@ The exception is why this paragraph is here and not one tier down. The rule, wha
 why the bound is another file's length: T-118.
 -->
 
+### Write the fact, not its history
+
+**Config and instruction files carry what is true now** — keys, rules, and short notes on what
+something means or how to change it. Never a changelog, never how the current wording was reached.
+
+**Tasks, handoffs, commit messages and lessons may carry history**, in this shape: the fact, its
+source reference, the date, and one clause of why it is there. Not a justification, and never a
+detail copied out of the source it cites.
+
+Prose accreted the other way is unsupervisable, and it is paid for on every read.
+
 ### Two rules that bind before there is any task
 
 <!--
