@@ -384,9 +384,12 @@ counts must sum to the number of lines the command printed:
 ```
 
 A filter cannot report what it failed to see, so the sum is the thing that shows nothing was skipped.
-`UNMARKED` must be zero before tagging;
-[T-245](../tasks/T-245-prompt-the-adopter-visible-judgement-at-the-moment-a-record-closes.md) is what
-stops the count growing again.
+`UNMARKED` must be zero before tagging. Two records keep the count from growing again, and they cover
+different halves:
+[T-245](../tasks/T-245-prompt-the-adopter-visible-judgement-at-the-moment-a-record-closes.md) put the
+prompt in the templates, which reaches every record created after it, and
+[T-251](../tasks/T-251-give-the-open-records-the-adopter-visible-prompt-they-predate.md) put it in the
+records that were already open, which the templates could never reach.
 
 ### What this rule cannot judge
 

@@ -82,7 +82,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-247](T-247-decide-whether-taskmd-validates-a-finding-field-against-a-register.md) | Decide whether taskmd validates a finding field against a register | `M7` | `proposed` | `specify` | - | - | - | - | T-146, T-173, T-223, T-244 |
 | [T-248](T-248-judge-adopter-visible-on-the-three-records-the-new-rule-reports-unmarked.md) | Judge adopter_visible on the three records the new release-note rule reports unmarked | `M7` | `proposed` | `specify` | - | - | - | - | T-242, T-243, T-245, T-251 |
 | [T-250](T-250-give-the-context-registers-the-permitted-shape-for-history.md) | Give the context registers and shipped documents the permitted shape for history | `M7` | `specified` | `specify` | - | - | - | T-244 | T-073, T-092, T-249 |
-| [T-251](T-251-give-the-open-records-the-adopter-visible-prompt-they-predate.md) | Give the open records the adopter_visible prompt they predate | `M7` | `in_progress` | `implement` | - | - | - | - | T-242, T-245, T-248 |
 
 ## Closed
 
@@ -331,5 +330,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-243](T-243-key-the-release-note-rule-on-what-the-release-ships-not-on-a-milestone-label.md) | Key the release-note rule on what the release ships, not on a milestone label | `M6` | `done` | `review` | - | - | - | T-244 | T-135, T-182, T-231, T-242, T-246, T-248 |
 | [T-245](T-245-prompt-the-adopter-visible-judgement-at-the-moment-a-record-closes.md) | Prompt the adopter_visible judgement at the moment a record closes | `M7` | `done` | `review` | - | - | - | T-244 | T-146, T-172, T-182, T-242, T-248, T-251 |
 | [T-249](T-249-cut-the-handoff-config-back-to-a-config.md) | Cut the handoff config back to a config, and rehome what only it records | `M7` | `done` | `review` | - | - | - | - | T-047, T-073, T-135, T-190, T-250 |
+| [T-251](T-251-give-the-open-records-the-adopter-visible-prompt-they-predate.md) | Give the open records the adopter_visible prompt they predate | `M7` | `done` | `review` | - | - | - | - | T-242, T-245, T-248 |
 
 <!-- taskmd:end -->

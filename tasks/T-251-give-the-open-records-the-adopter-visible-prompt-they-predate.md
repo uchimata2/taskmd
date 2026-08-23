@@ -2,8 +2,8 @@
 id: T-251
 title: Give the open records the adopter_visible prompt they predate
 type: fix
-status: in_progress
-phase: implement
+status: done
+phase: review
 parent: null
 blocked_by: []
 related: [T-245, T-248, T-242]
@@ -271,17 +271,30 @@ check exit=0
 
 | Acceptance criterion | Result | Note |
 | :--- | :---: | :--- |
-|  |  |  |
+| Every open record carries the prompt, byte-identical to the template's line | met | Judged against *every open record*, which is eight, not the six edited. All eight return `prompt=1`. Byte-identity was proved by `diff` of the six extracted lines against six copies of the template's: `diff exit=0`. The two not edited were compared with `cat -A` in §1 |
+| Closing one of them without answering the prompt is reported, shown by making `check` fail on a real case rather than by a clean tree | met | T-240, a real record from the six, set to `done` with its slot unfilled: `check exit=1`, and the prompt named at body line 103. **The exit code is not what settles this** — the control in §3 shows `exit=1` was already reachable from the record's unfilled `## 3` slot. What this work added is the second reported line, absent from the control |
+| `taskmd check` still exits 0 on the tree, since all six remain open | met | `check exit=0` after the record was restored, and again after this record's own writes. `index exit=0`, and the suite `345 passed, 7 skipped` |
+| Nothing outside the six records' `## 4. Review` sections changed — no front matter, no other body section, no template | met | Each of the six diffed against its pre-edit copy: **2 added lines, 0 removed**, six times over — the prompt and the blank line under it. Repository-wide the same edit read `6 files changed, 12 insertions(+)`. This record's own front matter and body changed, which is the task record and not one of the six |
 
-**Adopter-visible?** <yes or no - then set adopter_visible in the front matter, per the test in docs/PUBLISHING.md section 7>
+**Adopter-visible?** no — the six records are this repository's own backlog. An install copies
+`plugin/`, which this work did not touch, so an adopter sees no different output, receives no
+different file and has nothing to do differently. `adopter_visible: no` was already in the front
+matter and this review is what agrees it.
 
 **Child fix tasks raised**
-- none
+- none. Every criterion is met, so nothing is carried.
+
+**One residual, routed rather than dropped.** `docs/PUBLISHING.md` §7 ends *"[T-245] is what stops
+the count growing again"*, which was true of records created after it and silent about the ones
+already open — the gap this record exists to close. The sentence is not false, so it is not a
+finding; it is now incomplete, and naming this record beside T-245 is a one-clause reconcile rather
+than work. Done at close and logged below, not left for a sweep to find.
 
 ## Log
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | → done | **`review` done and the record closed**, under the grant below. Four criteria, four met, no child raised. The second criterion is the one to read: it is met on the **named line** in `check`'s report and not on the exit code, because §3's control showed `exit=1` was already reachable from the unfilled `## 3` slot every one of the six still carries. **One residual was routed rather than dropped**: `docs/PUBLISHING.md` §7 named T-245 alone as what stops the `UNMARKED` count growing, which covered records created after it and not the ones already open. It now names both, a clause apiece. That is a reconcile of a statement this work completed, not a widening of scope. |
 | 2026-08-23 | → in_progress | **`implement` done**, under the grant below. Six records changed, one line each, `6 files changed, 12 insertions(+)`. Two things the plan did not foresee are in §3 as decisions: **its step 1 copied the wrong state** and was revised in place, and **the demonstration needed a control** — closing one of the six reports two abandoned slots, not one, because none of them has reached `## 3` either, so `check exit=1` was already reachable and is not evidence for this work. The named line is. |
 | 2026-08-23 | (no change) | **`plan` written**, under the grant below. Six steps. The one worth knowing about is step 1, which copies the six records before they are edited: step 4 has to break one of them *after* step 2 has changed it, and at that moment the repository holds no copy of the state to restore — `git checkout --` would silently take the record back to `HEAD` and undo the fix along with the breakage. |
 | 2026-08-23 | → specified | **`specify` closed on the owner's answer of 2026-08-23.** The second acceptance criterion was dropped and the scope now says so; the measurements behind the decision, and the two alternatives rejected with it, are in §1 *Open questions*. A fourth criterion was added in its place, asserting that nothing outside the six `## 4. Review` sections moved — the criterion the dropped one was reaching for and could not state. |
