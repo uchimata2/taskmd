@@ -329,11 +329,42 @@ note or consciously waived.** Not a list of what a note must contain — §1's a
 generated changelog stands, and a note naming 47 tasks is worse than one describing eight changes
 well. This bounds what may be left out, which is the only half that can go wrong silently.
 
-The set comes from the tracker, never from memory of it:
+The set comes from **what the release ships**, never from a label on it, and never from memory:
 
 ```bash
-taskmd list --work_package <milestone> --closed --adopter_visible yes
+RANGE=<previous tag>..HEAD
+( cd "$(git rev-parse --show-toplevel)" && git log "$RANGE" --format='%x40COMMIT' --name-only | awk '
+    /^@COMMIT$/ { if (ship) for (i = 1; i <= n; i++) print t[i]; n = 0; ship = 0; next }
+    /^plugin\// { ship = 1 }
+    /^tasks\/T-[0-9]+.*\.md$/ { t[++n] = $0 }
+    END { if (ship) for (i = 1; i <= n; i++) print t[i] }
+  ' | sort -u | while IFS= read -r f; do
+    [ -f "$f" ] || continue
+    fm=$(awk 'NR==1 && $0=="---" { inb=1; next } inb && $0=="---" { exit } inb' "$f")
+    st=$(printf '%s' "$fm" | sed -n 's/^status: *//p' | head -1)
+    case "$st" in done|cancelled) ;; *) continue ;; esac
+    id=$(printf '%s' "$fm" | sed -n 's/^id: *//p' | head -1)
+    av=$(printf '%s' "$fm" | sed -n 's/^adopter_visible: *//p' | head -1)
+    echo "${av:-UNMARKED} $id"
+  done | sort -u )
 ```
+
+It prints one `<mark> <id>` line per closed task the release ships. **A task ships when a commit in
+the range changed both its record and something under `plugin/`** — an install copies exactly that
+subtree ([T-053](../tasks/T-053-decide-the-plugin-s-boundary-and-what-its-skill-may-p.md)), so the
+`plugin/` half is the release, and the commit is what ties a shipped file to the work that produced
+it. No label is consulted, which is the point: a task carrying `M1` and a task carrying `M6` are
+found by the same query if they both shipped.
+
+**Why not the milestone.** §7 keyed on `--work_package <milestone>` until 2026-08-23, and a task that
+shipped inside the release window while carrying an older label was invisible to it. Measured while
+cutting `0.6.0`: the milestone query returned 72 tasks and the rule above returns 104, a strict
+superset containing every one of the 72. Among the 32 it adds is
+[T-006](../tasks/T-006-package-document-and-publish.md) *"Package, document and publish"*, closed
+under `M1` and carrying 23 shipped files changed after the `v0.5.0` tag, which the milestone query
+would have dropped from the note with nobody choosing to drop it. The decision and what it rejected
+are in
+[T-243](../tasks/T-243-key-the-release-note-rule-on-what-the-release-ships-not-on-a-milestone-label.md).
 
 **Judgement happens once, on the task, at the time the work is understood** — not months later while
 writing prose about a release. The field is `adopter_visible`, named in this project's
@@ -343,17 +374,19 @@ CI decisions and instruction files are `no`.
 
 **An unmarked task blocks the note, and does not pass as `no`.** Absent means nobody judged it, which
 is a different fact from *judged and not visible*. Two states would let an unexamined task default
-quietly out of the note, which is the failure this rule exists to stop. Before tagging, these must
-agree:
+quietly out of the note, which is the failure this rule exists to stop. Before tagging, these three
+counts must sum to the number of lines the command printed:
 
 ```bash
-taskmd list --work_package <milestone> --closed | wc -l        # the whole set
-taskmd list --work_package <milestone> --closed --adopter_visible yes | wc -l
-taskmd list --work_package <milestone> --closed --adopter_visible no  | wc -l
+... | grep -c '^yes '
+... | grep -c '^no '
+... | grep -c '^UNMARKED '
 ```
 
-The two filtered counts must sum to the first. A filter cannot report what it failed to see, so the
-sum is the thing that shows nothing was skipped.
+A filter cannot report what it failed to see, so the sum is the thing that shows nothing was skipped.
+`UNMARKED` must be zero before tagging;
+[T-245](../tasks/T-245-prompt-the-adopter-visible-judgement-at-the-moment-a-record-closes.md) is what
+stops the count growing again.
 
 ### What this rule cannot judge
 

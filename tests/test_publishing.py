@@ -760,5 +760,114 @@ class TestTheGuardOnTheDerivedSetStillBites(unittest.TestCase):
             classes_module.NOT_A_CHECK_CLASS = kept
 
 
+# `docs/PUBLISHING.md` §7 is the third rule in this file that lives in the document and is enforced
+# from here. Until 2026-08-23 it keyed the release note's set on a milestone label, and a task
+# carrying an older label fell outside the query with nobody choosing to leave it out -- measured
+# while cutting `0.6.0`, where `T-006` shipped 23 files under `plugin/` after the `v0.5.0` tag and
+# the milestone query could not see it (T-243).
+#
+# **Nothing about the rule is written here.** The command is read out of §7, which stays its one
+# home, for the reason `gate_from_the_document` and `leak_check_from_the_document` are: a restated
+# command is a second copy that goes stale the moment somebody edits the document, which is the
+# failure mode this whole module exists to remove.
+
+SHIPPED_SET_RE = re.compile(r"```bash\n(RANGE=<previous tag>\.\.HEAD\n.*?)```", re.S)
+
+# The release this rule is verified against, and the task the milestone query could not see. Both
+# are historical facts about a tag that is already published, so neither moves when the project does.
+VERIFIED_RANGE = "v0.5.0..v0.6.0"
+MUST_BE_IN_THE_SET = "T-006"
+
+
+def shipped_set_command_from_the_document():
+    """§7's command, lifted from `docs/PUBLISHING.md`.
+
+    Strict for the same reason the two above are: a shape this cannot parse means the documented
+    rule and the enforced one have come apart.
+    """
+    text = read(PUBLISHING)
+    parts = text.split("## 7. What a release note must not omit", 1)
+    if len(parts) != 2:
+        raise AssertionError("docs/PUBLISHING.md has no '## 7. What a release note must not omit' - "
+                             "the rule has moved, and this test reads it from there rather than "
+                             "restating it")
+    block = SHIPPED_SET_RE.search(parts[1])
+    if not block:
+        raise AssertionError("could not read section 7's shipped-set command out of "
+                             "docs/PUBLISHING.md; it must be a fenced bash block opening with "
+                             "'RANGE=<previous tag>..HEAD', and this test will not guess it")
+    return block.group(1)
+
+
+def run_shipped_set(command, tag_range):
+    """What §7's command prints for one tag range, as a list of '<mark> <id>' lines."""
+    script = command.replace("RANGE=<previous tag>..HEAD", "RANGE=%s" % tag_range)
+    done = subprocess.Popen(["sh", "-c", script], cwd=ROOT,
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = done.communicate()
+    if done.returncode != 0:
+        raise AssertionError("section 7's command failed (%d): %s"
+                             % (done.returncode, err.decode("utf-8", "replace")))
+    return [line for line in out.decode("utf-8").splitlines() if line.strip()]
+
+
+def sh_is_available():
+    try:
+        done = subprocess.Popen(["sh", "-c", "exit 0"],
+                                stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        done.communicate()
+    except OSError:
+        return False
+    return done.returncode == 0
+
+
+SH = sh_is_available()
+
+
+@unittest.skipUnless(GIT and SH, "section 7's command is a git and sh pipeline")
+class TheReleaseNoteSetIsKeyedOnWhatShips(unittest.TestCase):
+    """§7's set is derived from the tag range, and this is what says it still is.
+
+    The tag range is a published fact: `v0.5.0..v0.6.0` does not change when the project moves on,
+    so these assertions do not need updating at each release. What they protect is the property the
+    milestone query did not have - that a task is found by what it shipped and not by its label.
+    """
+
+    def test_the_document_still_yields_a_command(self):
+        self.assertTrue(shipped_set_command_from_the_document().strip(),
+                        "section 7's command is empty")
+
+    def test_the_set_contains_the_task_the_milestone_query_missed(self):
+        lines = run_shipped_set(shipped_set_command_from_the_document(), VERIFIED_RANGE)
+        found = [line for line in lines if line.split()[-1] == MUST_BE_IN_THE_SET]
+        self.assertTrue(
+            found,
+            "section 7's rule run over %s does not return %s, which is the whole reason it stopped "
+            "keying on a milestone label: that task carries M1, shipped 23 files under plugin/ "
+            "after the v0.5.0 tag, and a label-keyed query dropped it from the note with nobody "
+            "choosing to drop it. See T-243." % (VERIFIED_RANGE, MUST_BE_IN_THE_SET))
+
+    def test_no_label_appears_in_the_rule(self):
+        """The property, not the output: a query naming a work package is a label-keyed query."""
+        command = shipped_set_command_from_the_document()
+        self.assertNotIn("work_package", command,
+                         "section 7's command names work_package again, so the set is keyed on a "
+                         "label and a task carrying a different one is invisible to it - the exact "
+                         "defect T-243 removed")
+
+    def test_the_three_marks_partition_the_set(self):
+        """§7 says the counts must sum. A filter cannot report what it failed to see."""
+        lines = run_shipped_set(shipped_set_command_from_the_document(), VERIFIED_RANGE)
+        marks = collections.Counter(line.split()[0] for line in lines)
+        self.assertEqual(
+            marks["yes"] + marks["no"] + marks["UNMARKED"], len(lines),
+            "section 7's command printed a mark that is none of yes/no/UNMARKED, so the three "
+            "counts no longer partition the set and the sum stops proving nothing was skipped: %r"
+            % dict(marks))
+        self.assertTrue(marks["yes"], "no task in %s is marked adopter_visible: yes, which would "
+                                      "mean the release shipped nothing an adopter notices"
+                                      % VERIFIED_RANGE)
+
+
 if __name__ == "__main__":
     unittest.main()
