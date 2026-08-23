@@ -76,11 +76,12 @@ A label says which release the work is scheduled into. It never says the release
 | ID | Title | Work Package | Status | Phase | Parent | Children | Blocked By | Blocks | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [T-240](T-240-the-competition-rig-does-not-reproduce-the-silence-it-was-built-to-explain.md) | The competition rig does not reproduce the silence it was built to explain | `M6` | `proposed` | `specify` | - | - | - | - | T-175, T-206, T-213 |
-| [T-241](T-241-verify-the-published-0-6-0-from-outside-and-record-what-cannot-be-reached.md) | Verify the published 0.6.0 from outside, and record what cannot be reached | `M6` | `planned` | `plan` | - | - | - | - | T-085, T-231, T-246 |
+| [T-241](T-241-verify-the-published-0-6-0-from-outside-and-record-what-cannot-be-reached.md) | Verify the published 0.6.0 from outside, and record what cannot be reached | `M6` | `in_progress` | `implement` | - | T-252 | - | - | T-085, T-231, T-246 |
 | [T-244](T-244-audit-everything-0-6-0-ships-before-1-0-0-and-review-the-audit-method-while-using-it.md) | Audit everything 0.6.0 ships before 1.0.0, and review the audit method while using it | `M7` | `proposed` | `specify` | - | - | - | T-246 | T-152, T-223, T-231, T-247 |
 | [T-246](T-246-cut-1-0-0-once-the-audit-s-findings-are-applied.md) | Cut 1.0.0 once the audit's findings are applied | `M7` | `proposed` | `specify` | - | - | T-244 | - | T-231, T-241, T-243 |
 | [T-247](T-247-decide-whether-taskmd-validates-a-finding-field-against-a-register.md) | Decide whether taskmd validates a finding field against a register | `M7` | `proposed` | `specify` | - | - | - | - | T-146, T-173, T-223, T-244 |
 | [T-248](T-248-judge-adopter-visible-on-the-three-records-the-new-rule-reports-unmarked.md) | Judge adopter_visible on the three records the new release-note rule reports unmarked | `M7` | `proposed` | `specify` | - | - | - | - | T-242, T-243, T-245, T-251 |
+| [T-252](T-252-correct-the-readme-s-file-count-for-the-copied-skill.md) | Correct the README's file count for the copied skill, and decide whether a number belongs there | `M6` | `proposed` | `specify` | T-241 | - | - | - | T-083, T-085 |
 
 ## Closed
 
@@ -168,9 +169,9 @@ A label says which release the work is scheduled into. It never says the release
 | [T-080](T-080-stop-the-pre-publish-check-reporting-its-own-fixture.md) | Stop the pre-publish check reporting its own fixture from a subdirectory | `M1` | `done` | `review` | - | - | - | - | T-018, T-034, T-058, T-081, T-095, T-098, T-183, T-186 |
 | [T-081](T-081-gate-every-deployment-on-the-humanizer-pass.md) | Gate every deployment on the humanizer pass, not just the next one | `M1` | `done` | `review` | - | - | - | - | T-079, T-080, T-125, T-126, T-127, T-133 |
 | [T-082](T-082-let-id-width-say-the-backend-allocates-the-ids.md) | Let id_width say that the backend allocates the ids | `M2` | `done` | `review` | T-004 | - | - | - | T-010, T-075, T-108, T-123, T-137 |
-| [T-083](T-083-make-the-skill-directory-self-contained.md) | Make the skill directory self-contained | `M1` | `done` | `review` | - | - | - | - | T-053, T-054, T-064, T-084, T-099, T-103 |
+| [T-083](T-083-make-the-skill-directory-self-contained.md) | Make the skill directory self-contained | `M1` | `done` | `review` | - | - | - | - | T-053, T-054, T-064, T-084, T-099, T-103, T-252 |
 | [T-084](T-084-correct-the-generated-index-preamble-after-the-move.md) | Correct the generated index preamble after the directory move | `M1` | `done` | `review` | - | - | - | - | T-006, T-025, T-083 |
-| [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) | Install the published plugin on a machine that has never seen it | `M5` | `done` | `review` | T-006 | - | - | - | T-020, T-049, T-054, T-067, T-099, T-129, T-142, T-183, T-231, T-241 |
+| [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) | Install the published plugin on a machine that has never seen it | `M5` | `done` | `review` | T-006 | - | - | - | T-020, T-049, T-054, T-067, T-099, T-129, T-142, T-183, T-231, T-241, T-252 |
 | [T-086](T-086-group-the-backlog-into-release-milestones.md) | Group the backlog into release milestones | `M2` | `done` | `review` | - | - | - | - | T-006, T-022, T-026, T-087, T-110, T-128, T-135, T-136 |
 | [T-087](T-087-let-list-filter-on-a-field-the-index-can-show.md) | Let list filter on a field the index can show | `M2` | `done` | `review` | - | - | - | - | T-022, T-029, T-086, T-102, T-124, T-137, T-143, T-144, T-217, T-230, T-234 |
 | [T-088](T-088-put-audit-in-the-shipped-type-vocabulary-or-stop-calling-it-a-type.md) | Put audit in the shipped type vocabulary, or stop calling it a type | `M2` | `done` | `review` | - | - | - | - | T-001, T-026, T-032, T-100, T-104, T-109, T-131, T-137 |

@@ -2,8 +2,8 @@
 id: T-241
 title: Verify the published 0.6.0 from outside, and record what cannot be reached
 type: audit
-status: planned
-phase: plan
+status: in_progress
+phase: implement
 parent: null
 blocked_by: [T-231]
 related: [T-085, T-231]
@@ -125,10 +125,81 @@ so *the install is missing something the tree has* is the expected state and not
 ## 3. Implement
 
 **Decisions & assumptions**
-- <decision — rationale — date>
+
+- **Step 1 justified itself immediately, and this is the decision the whole audit rests on** —
+  2026-08-23. The machine carries `~/.claude/plugins/cache/taskmd/taskmd/0.6.0`, which reads as an
+  installed release. The host's own registry says otherwise:
+
+  ```text
+  "taskmd": { "source": { "source": "directory",
+                          "path": "C:\\Work\\AgentPlugins\\taskmd" } }
+  ```
+
+  **It is a directory install of this working tree.** Auditing it would have compared the tree
+  against itself, found no differences and reported a pass — the vacuous outcome the plan named. The
+  subject was therefore taken as a fresh clone of the published tag, `cb0702c` / `v0.6.0`, fetched
+  from `github.com/uchimata2/taskmd`. *Rejected: the cache*, for the reason above.
+
+- **The plugin install route was not run, on the owner's decision of 2026-08-23** — see *What could
+  not be reached*, below. It is recorded as unreachable with today's reason, not with T-085's.
+
+- **My own exercise polluted the measurement, and the number it produced is a known trap** —
+  2026-08-23. Running the published launcher inside the clone created six `.pyc` files, taking a
+  filesystem count of `plugin/skills/taskmd/` from 25 to **31**. That is exactly the number
+  [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) predicted *an
+  adopter's own `ls` would show after they run the tool once*. Recorded rather than quietly
+  discounted, because 31 is the figure a reader arrives at independently and it is not evidence of
+  anything shipping.
 
 **Outputs produced**
-- <path>
+
+This is an audit; its deliverable is the findings below, and nothing was repaired.
+
+### What was examined, and with what
+
+| Step | Done with | Result |
+| :--- | :--- | :--- |
+| 1. Provenance | `known_marketplaces.json`; `git clone --branch v0.6.0` | The local install is **not** the release. Subject re-taken as the published clone, `cb0702c` |
+| 2. Inventory vs the tag | `git ls-files plugin/` against the cache | Published `plugin/` is **28 files**; the cache is **40**. Nothing published is missing from the cache |
+| 3. Exercise | the **published** launcher, on a fresh empty project outside both trees | `check exit=0`; `check --classes exit=0` listing the class names |
+| 4. T-085's unreachable half | see below | Re-checked. Still not run, for a **different** reason than T-085's |
+| 5. What `0.6.0` newly shipped | file presence in the clone | All present: `pre-release-audit.md`, `classes.py` and the `--classes` flag, both repaired bindings, `uninvolved-reader.md` |
+| 6. Host's own validator | `claude plugin validate` on the clone | Passes, with one warning: `plugin.json` names no `author` |
+
+### Findings
+
+| # | Finding | Severity | Action |
+| :-- | :--- | :---: | :--- |
+| 1 | **`README.md` says `plugin/skills/taskmd/` is "21 files". The published `0.6.0` has 25.** A copied-skill adopter uses that number to check the copy is complete, and it is now wrong by four. [T-085](T-085-install-the-published-plugin-on-a-machine-that-has-never-seen-it.md) verified it as **true** for `0.5.0` and recorded it as *"a claim nobody had checked from outside"* — so it was right when written and the folder grew past it | Medium | Child task — [T-252](T-252-correct-the-readme-s-file-count-for-the-copied-skill.md) |
+| 2 | The published artifact carries nothing it should not: no `control/`, no live handoff, no local scratch, and the cache's 11 extra `.pyc` files are absent from it | — | No action. Checked, and it is the answer criterion 4 asks be stated rather than left silent |
+| 3 | The README's quoted empty-project `check` output is **byte-identical** to what the published tool prints — compared with `diff`, not by eye | — | No action. Recorded because a quoted output is the kind of claim that reads as evidence and is never re-run |
+| 4 | `plugin.json` names no `author`; the host's own validator warns on every validate of the published plugin | — | **No action, and the threshold is why.** It is not a statement an adopter acts on, not a missing promise, and not a route that fails. Raising it would be lowering the bar after looking, which is the thing step 2 of [`audit`](../plugin/skills/taskmd/docs/method/audit.md) exists to stop. Recorded so the owner can decide, not so a session can |
+| 5 | This machine's `0.6.0` install is a **directory** install of the working tree, so every session served the plugin here is served the tree | — | No action **here**. It is a fact about this machine, not about the release, and the boundary it turns on is already settled in [T-053](T-053-decide-the-plugin-s-boundary-and-what-its-skill-may-p.md). It is written up because it is what made step 1 necessary, and because anything reading that cache as "the release" is wrong |
+
+### What could not be reached
+
+**The plugin install route — `claude plugin marketplace add` then `claude plugin install` — was not
+run, and the reason has changed since T-085.**
+
+T-085 could not run it because the candidate profile had no Node, no `claude` CLI, and installing one
+ended in an interactive sign-in. **Both halves of that are now false**: `claude` 2.1.241 is on this
+machine's `PATH` and authenticated. So the re-check the third criterion asks for produced a real
+answer rather than an inherited one — *unreachable in August was a fact about the machines of that
+week*, and it no longer holds.
+
+**What stops it today is different and is a decision, not an obstacle.** The marketplace named
+`taskmd` on this machine points at the working directory. Running the route means removing that
+entry, adding the GitHub one, installing, and restoring — with a restart needed before the
+maintainer's setup behaves as before, and a hand repair if it fails partway. **The owner was asked on
+2026-08-23 and chose not to**, on the grounds that an audit which breaks the maintainer's development
+loop to prove a route costs more than the answer is worth.
+
+**So the honest statement of coverage is:** the published artifact was fetched, inventoried,
+exercised and validated from outside this tree; the *host's own install mechanism* applied to the
+*published* source was not exercised, and no machine available today is free of that cost. What is
+proven is that the artifact is complete and runs. What is not is that `claude plugin install` fetches
+and lands it correctly — which is a claim about the host, exercised for `0.5.0` no more than for
+`0.6.0`.
 
 ## 4. Review
 
@@ -145,6 +216,7 @@ so *the install is missing something the tree has* is the expected state and not
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | → in_progress | **`implement` done — the audit ran**, under the grant below. **Step 1 paid for itself**: this machine's `0.6.0` is a *directory* install of the working tree, per the host's own registry, so auditing the cache would have compared the tree against itself and reported a pass. The subject was re-taken as a fresh clone of the tag, `cb0702c`. **Five findings, one needing action** — [T-252](T-252-correct-the-readme-s-file-count-for-the-copied-skill.md), the README's "21 files" against the artifact's 25. **T-085's unreachable half was re-checked and its reason is now false** — `claude` is installed and authenticated here; what stops the route today is that running it would replace the maintainer's directory install, and the owner chose on 2026-08-23 not to. |
 | 2026-08-23 | → planned | **`specify` closed and `plan` written**, under the grant below, re-stated by the owner the same day on resuming: *"continue with T-241, full lifecycle, commit and push."* `specify` needed nothing — its open questions were already none, and no criterion moved. The plan carries the two things [`audit`](../plugin/skills/taskmd/docs/method/audit.md) says belong there rather than in a standing checklist: **the finding threshold, stated before looking**, and how this subject in particular is examined. **This record now carries the `adopter_visible` prompt** and still no field, which is [T-251](T-251-give-the-open-records-the-adopter-visible-prompt-they-predate.md) working as intended — the prompt asks at close, the field is written when it is answered. |
 | 2026-08-23 | (no change) | **The owner authorises the full lifecycle on this record, with commit and push** — given 2026-08-23 in these words: *"Work T-250, T-241, full lifecycle, commit and push, including anything raised during the work of these tasks."* Recorded here rather than only in the handoff, because an authorisation kept anywhere else is one a later session can miss or stretch to a record it never covered. **What it covers:** this record's `specify` through `review`, committing and pushing, and the same for any task raised *by this work*. **What it does not:** any other task in the backlog — T-244, T-246, T-247, T-248 and T-240 are untouched by it. |
 | 2026-08-23 | → proposed | Raised on the **project owner's** answer of 2026-08-23 to [T-231](T-231-cut-the-next-release.md)'s first question. **Raised now rather than at tag time**, and that is the point of raising it at all: an answer recorded only inside a struck-through question is invisible to every view, which is the defect [T-199](T-199-have-an-uninvolved-reader-write-a-coverage-declaration-from-the-clause.md) recorded when its own wait lived in a Log row. `blocked_by` names T-231, so the ordering rule reports this held until the release exists rather than a session having to remember a sentence. **`audit` by type and by the rule that follows from it**: its findings become their own tasks and none is repaired here. **Not part of the unattended grant** — that grant excluded the release and anything scheduled after it, and this is scheduled after it. Whoever picks it up is acting on the owner's answer above, not on that grant. **The half T-085 could not reach is in scope as a re-check, not as an inherited excuse**: unreachable in August is a fact about the machines of that week, and carrying it forward untested is how an audit comes to report what its author already expected. |
