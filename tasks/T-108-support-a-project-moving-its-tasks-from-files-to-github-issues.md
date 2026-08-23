@@ -13,6 +13,7 @@ business_value: high
 effort: l
 created: 2026-08-10
 updated: 2026-08-17
+adopter_visible: yes
 deliverables: [plugin/skills/taskmd/docs/bindings/github-issues.md]
 ---
 

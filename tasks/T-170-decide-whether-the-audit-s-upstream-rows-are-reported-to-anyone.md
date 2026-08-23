@@ -13,6 +13,7 @@ business_value: low
 effort: xs
 created: 2026-08-17
 updated: 2026-08-19
+adopter_visible: no
 deliverables: []
 ---
 

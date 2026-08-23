@@ -1,6 +1,6 @@
 {
   "name": "taskmd",
   "description": "Markdown files as a task tracker: one file per task, a generated index, real dependency links, and a validator. For any kind of work, not only software.",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "license": "MIT"
 }

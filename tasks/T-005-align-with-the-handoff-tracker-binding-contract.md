@@ -13,6 +13,7 @@ business_value: medium
 effort: m
 created: 2026-08-04
 updated: 2026-08-18
+adopter_visible: yes
 deliverables: [plugin/skills/taskmd/docs/HANDOFF.md, plugin/skills/taskmd/SKILL.md]
 ---
 

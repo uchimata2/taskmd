@@ -13,6 +13,7 @@ business_value: medium
 effort: xs
 created: 2026-08-22
 updated: 2026-08-22
+adopter_visible: no
 deliverables:
   - tests/fixtures/migrated-away/.taskmd/config.md
 ---

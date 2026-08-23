@@ -13,6 +13,7 @@ business_value: high
 effort: s
 created: 2026-08-21
 updated: 2026-08-22
+adopter_visible: no
 deliverables: [docs/SCOPE.md]
 ---
 

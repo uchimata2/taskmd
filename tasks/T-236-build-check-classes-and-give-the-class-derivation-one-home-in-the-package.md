@@ -13,6 +13,7 @@ business_value: medium
 effort: s
 created: 2026-08-23
 updated: 2026-08-23
+adopter_visible: yes
 deliverables:
   - plugin/skills/taskmd/taskmd/classes.py
   - plugin/skills/taskmd/taskmd/cli.py

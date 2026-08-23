@@ -13,6 +13,7 @@ business_value: medium
 effort: m
 created: 2026-08-15
 updated: 2026-08-17
+adopter_visible: no
 deliverables: [docs/audits/2026-08-15-context-economy-portable.md, docs/audits/2026-08-15-context-economy-taskmd.md]
 ---
 

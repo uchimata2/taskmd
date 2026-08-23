@@ -13,6 +13,7 @@ business_value: high
 effort: xs
 created: 2026-08-15
 updated: 2026-08-15
+adopter_visible: no
 deliverables: [tasks/T-099-give-an-adopter-a-command-that-runs-without-bin-on-path.md]
 ---
 

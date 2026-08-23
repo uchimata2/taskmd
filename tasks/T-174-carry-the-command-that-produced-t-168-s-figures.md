@@ -13,6 +13,7 @@ business_value: medium
 effort: xs
 created: 2026-08-18
 updated: 2026-08-19
+adopter_visible: yes
 deliverables: [tasks/T-168-price-what-keeping-taskmd-installed-costs-a-project-with-no-tasks.md]
 ---
 

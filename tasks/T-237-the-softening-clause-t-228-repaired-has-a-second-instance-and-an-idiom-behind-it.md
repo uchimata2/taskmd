@@ -13,6 +13,7 @@ business_value: medium
 effort: xs
 created: 2026-08-23
 updated: 2026-08-23
+adopter_visible: yes
 deliverables:
   - plugin/skills/taskmd/docs/bindings/github-issues.md
 ---

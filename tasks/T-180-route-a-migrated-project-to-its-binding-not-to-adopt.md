@@ -13,6 +13,7 @@ business_value: medium
 effort: xs
 created: 2026-08-18
 updated: 2026-08-18
+adopter_visible: yes
 deliverables: [plugin/skills/taskmd/SKILL.md]
 ---
 

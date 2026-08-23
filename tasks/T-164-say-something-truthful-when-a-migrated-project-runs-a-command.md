@@ -13,6 +13,7 @@ business_value: medium
 effort: s
 created: 2026-08-17
 updated: 2026-08-17
+adopter_visible: yes
 deliverables: [plugin/skills/taskmd/taskmd/schema.py, tests/fixtures/migrated-away/.taskmd/config.md, tests/test_cli.py]
 ---
 

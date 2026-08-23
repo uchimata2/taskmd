@@ -13,6 +13,7 @@ business_value: medium
 effort: s
 created: 2026-08-21
 updated: 2026-08-22
+adopter_visible: yes
 deliverables: [docs/PUBLISHING.md, plugin/bin/taskmd.cmd]
 ---
 

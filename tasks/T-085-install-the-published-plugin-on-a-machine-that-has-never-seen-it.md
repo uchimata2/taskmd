@@ -13,6 +13,7 @@ business_value: medium
 effort: s
 created: 2026-08-09
 updated: 2026-08-16
+adopter_visible: no
 deliverables: []
 ---
 

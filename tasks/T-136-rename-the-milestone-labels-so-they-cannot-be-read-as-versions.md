@@ -13,6 +13,7 @@ business_value: medium
 effort: m
 created: 2026-08-12
 updated: 2026-08-12
+adopter_visible: no
 deliverables:
   - tasks/README.md
   - .handoff/config.md

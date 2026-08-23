@@ -13,6 +13,7 @@ business_value: critical
 effort: l
 created: 2026-08-04
 updated: 2026-08-16
+adopter_visible: yes
 deliverables: []
 ---
 

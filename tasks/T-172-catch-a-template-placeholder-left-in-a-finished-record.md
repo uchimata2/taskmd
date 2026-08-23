@@ -13,6 +13,7 @@ business_value: low
 effort: s
 created: 2026-08-18
 updated: 2026-08-18
+adopter_visible: yes
 deliverables: [plugin/skills/taskmd/taskmd/cli.py, tests/test_cli.py, tests/fixtures/abandoned-slot/tasks/T-001-closed-with-a-slot-nobody-filled.md, README.md, plugin/skills/taskmd/docs/bindings/local-markdown.md]
 ---
 

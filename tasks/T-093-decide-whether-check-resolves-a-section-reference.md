@@ -13,6 +13,7 @@ business_value: medium
 effort: l
 created: 2026-08-09
 updated: 2026-08-19
+adopter_visible: yes
 deliverables: [plugin/skills/taskmd/taskmd/cli.py, tests/test_cli.py, README.md]
 ---
 

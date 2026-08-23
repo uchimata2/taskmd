@@ -13,6 +13,7 @@ business_value: high
 effort: s
 created: 2026-08-19
 updated: 2026-08-21
+adopter_visible: yes
 deliverables: [plugin/skills/taskmd/docs/METHOD.md, docs/SCOPE.md]
 ---
 

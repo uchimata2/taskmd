@@ -13,6 +13,7 @@ business_value: high
 effort: m
 created: 2026-08-12
 updated: 2026-08-12
+adopter_visible: yes
 deliverables:
   - plugin/skills/taskmd/taskmd/cli.py
   - plugin/skills/taskmd/taskmd/defaults/config.md
