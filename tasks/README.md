@@ -81,6 +81,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-246](T-246-cut-1-0-0-once-the-audit-s-findings-are-applied.md) | Cut 1.0.0 once the audit's findings are applied | `M7` | `proposed` | `specify` | - | - | T-244 | - | T-231, T-241, T-243 |
 | [T-247](T-247-decide-whether-taskmd-validates-a-finding-field-against-a-register.md) | Decide whether taskmd validates a finding field against a register | `M7` | `proposed` | `specify` | - | - | - | - | T-146, T-173, T-223, T-244 |
 | [T-248](T-248-judge-adopter-visible-on-the-three-records-the-new-rule-reports-unmarked.md) | Judge adopter_visible on the three records the new release-note rule reports unmarked | `M7` | `proposed` | `specify` | - | - | - | - | T-242, T-243, T-245 |
+| [T-250](T-250-give-the-context-registers-the-permitted-shape-for-history.md) | Give the context registers and shipped documents the permitted shape for history | `M7` | `proposed` | `specify` | - | - | - | - | T-073, T-092, T-249 |
 
 ## Closed
 
@@ -158,7 +159,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-070](T-070-decide-whether-an-unused-field-column-is-shown.md) | Decide whether an unused field column is shown at all | `M1` | `done` | `review` | T-059 | - | - | - | T-001, T-022, T-102 |
 | [T-071](T-071-let-the-usage-test-assert-every-command-there-is.md) | Let the usage test assert every command there is | `M1` | `done` | `review` | T-059 | - | - | - | T-022, T-055, T-134 |
 | [T-072](T-072-give-the-description-and-version-one-home-each.md) | Give the plugin's description and version one home each | `M1` | `done` | `review` | T-059 | - | - | - | T-006, T-053, T-207 |
-| [T-073](T-073-correct-the-command-surface-local-context-states.md) | Correct the command surface local context still states | `M1` | `done` | `review` | T-059 | - | - | - | T-013, T-022, T-117, T-134, T-249 |
+| [T-073](T-073-correct-the-command-surface-local-context-states.md) | Correct the command surface local context still states | `M1` | `done` | `review` | T-059 | - | - | - | T-013, T-022, T-117, T-134, T-249, T-250 |
 | [T-074](T-074-let-the-skill-point-where-it-currently-restates.md) | Let the skill point where it currently restates | `M1` | `done` | `review` | T-059 | - | - | - | T-003, T-009 |
 | [T-075](T-075-enforce-id-width-when-a-task-file-is-read.md) | Enforce id width when a task file is read | `M1` | `done` | `review` | T-059 | - | - | - | T-004, T-062, T-082, T-107 |
 | [T-076](T-076-decide-what-a-template-s-links-resolve-against.md) | Decide what a template's links resolve against | `M1` | `done` | `review` | - | - | - | - | T-032, T-051, T-060, T-091, T-101, T-103, T-104 |
@@ -177,7 +178,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-089](T-089-stop-check-reporting-an-open-task-s-planned-outputs-as-missing.md) | Stop check reporting an open task's planned outputs as missing | `M2` | `done` | `review` | - | T-090 | - | - | T-002, T-025, T-032, T-103, T-146, T-215 |
 | [T-090](T-090-decide-what-a-cancelled-task-s-declared-outputs-assert.md) | Decide what a cancelled task's declared outputs assert | `M2` | `done` | `review` | T-089 | - | - | - | T-002, T-032, T-103, T-109 |
 | [T-091](T-091-make-the-shipped-task-template-survive-being-copied.md) | Make the shipped task template survive being copied into another project | `M2` | `done` | `review` | - | - | - | - | T-032, T-051, T-060, T-076, T-097, T-101, T-112, T-114 |
-| [T-092](T-092-decide-whether-a-bare-path-in-prose-is-a-reference.md) | Decide whether a bare path in prose is a reference check must resolve | `M2` | `done` | `review` | - | - | - | - | T-034, T-093, T-094, T-095, T-097, T-103, T-112 |
+| [T-092](T-092-decide-whether-a-bare-path-in-prose-is-a-reference.md) | Decide whether a bare path in prose is a reference check must resolve | `M2` | `done` | `review` | - | - | - | - | T-034, T-093, T-094, T-095, T-097, T-103, T-112, T-250 |
 | [T-093](T-093-decide-whether-check-resolves-a-section-reference.md) | Decide whether check resolves a section reference | `M6` | `done` | `review` | - | T-194 | - | - | T-092, T-095, T-109 |
 | [T-094](T-094-make-check-answer-the-question-a-fresh-clone-would-ask.md) | Make check answer the question a fresh clone would ask | `M2` | `done` | `review` | - | - | - | - | T-013, T-034, T-092, T-095, T-097, T-098 |
 | [T-095](T-095-report-what-check-examined-not-only-that-it-passed.md) | Report what check examined, not only that it passed | `M2` | `done` | `review` | - | T-096 | - | - | T-025, T-034, T-080, T-092, T-093, T-094, T-098, T-100, T-101, T-112, T-130, T-141, T-147, T-162, T-185 |
@@ -328,6 +329,6 @@ A label says which release the work is scheduled into. It never says the release
 | [T-242](T-242-judge-adopter-visible-on-the-closed-m6-tasks-the-release-note-must-cover.md) | Judge adopter_visible on the closed M6 tasks the release note must cover | `M6` | `done` | `review` | - | - | - | - | T-135, T-182, T-231, T-243, T-245, T-248 |
 | [T-243](T-243-key-the-release-note-rule-on-what-the-release-ships-not-on-a-milestone-label.md) | Key the release-note rule on what the release ships, not on a milestone label | `M6` | `done` | `review` | - | - | - | T-244 | T-135, T-182, T-231, T-242, T-246, T-248 |
 | [T-245](T-245-prompt-the-adopter-visible-judgement-at-the-moment-a-record-closes.md) | Prompt the adopter_visible judgement at the moment a record closes | `M7` | `done` | `review` | - | - | - | T-244 | T-146, T-172, T-182, T-242, T-248 |
-| [T-249](T-249-cut-the-handoff-config-back-to-a-config.md) | Cut the handoff config back to a config, and rehome what only it records | `M7` | `done` | `review` | - | - | - | - | T-047, T-073, T-135, T-190 |
+| [T-249](T-249-cut-the-handoff-config-back-to-a-config.md) | Cut the handoff config back to a config, and rehome what only it records | `M7` | `done` | `review` | - | - | - | - | T-047, T-073, T-135, T-190, T-250 |
 
 <!-- taskmd:end -->
