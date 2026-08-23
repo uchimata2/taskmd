@@ -76,12 +76,11 @@ A label says which release the work is scheduled into. It never says the release
 | ID | Title | Work Package | Status | Phase | Parent | Children | Blocked By | Blocks | Related |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [T-240](T-240-the-competition-rig-does-not-reproduce-the-silence-it-was-built-to-explain.md) | The competition rig does not reproduce the silence it was built to explain | `M6` | `proposed` | `specify` | - | - | - | - | T-175, T-206, T-213 |
-| [T-244](T-244-audit-everything-0-6-0-ships-before-1-0-0-and-review-the-audit-method-while-using-it.md) | Audit everything 1.0.0 will ship, and review the audit method while using it | `M7` | `planned` | `plan` | - | - | T-255 | T-246, T-256 | T-152, T-223, T-231, T-247, T-254 |
+| [T-244](T-244-audit-everything-0-6-0-ships-before-1-0-0-and-review-the-audit-method-while-using-it.md) | Audit everything 1.0.0 will ship, and review the audit method while using it | `M7` | `planned` | `plan` | - | - | - | T-246, T-256 | T-152, T-223, T-231, T-247, T-254 |
 | [T-246](T-246-cut-1-0-0-once-the-audit-s-findings-are-applied.md) | Cut 1.0.0 once the audit's findings are applied | `M7` | `proposed` | `specify` | - | - | T-244 | - | T-231, T-241, T-243 |
 | [T-247](T-247-decide-whether-taskmd-validates-a-finding-field-against-a-register.md) | Decide whether taskmd validates a finding field against a register | `M7` | `specified` | `specify` | - | - | - | - | T-146, T-173, T-223, T-244 |
 | [T-253](T-253-exercise-the-plugin-install-route-against-a-published-release.md) | Exercise the plugin install route against a published release, or decide it will not be | `M6` | `proposed` | `specify` | - | - | - | - | T-067, T-085, T-241 |
 | [T-254](T-254-sweep-for-history-prose-living-outside-markdown.md) | Sweep for history prose living outside Markdown, which T-250's corpus could not see | `M7` | `proposed` | `specify` | - | - | - | - | T-244, T-249, T-250 |
-| [T-255](T-255-derive-the-audit-cycle-membership-instead-of-typing-it.md) | Derive the audit cycle membership instead of typing it | `M7` | `proposed` | `specify` | - | - | - | T-244 | - |
 | [T-256](T-256-improve-the-pre-release-audit-method-from-what-its-first-run-teaches.md) | Improve the pre-release audit method from what its first run teaches | `M7` | `proposed` | `specify` | - | - | T-244 | - | T-223 |
 | [T-258](T-258-report-a-declared-output-a-clone-never-receives-as-excluded-not-missing.md) | Report a declared output a clone never receives as excluded, not missing | `M7` | `proposed` | `specify` | - | - | - | - | T-013, T-098, T-103, T-257 |
 
@@ -337,6 +336,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-250](T-250-give-the-context-registers-the-permitted-shape-for-history.md) | Give the context registers and shipped documents the permitted shape for history | `M7` | `done` | `review` | - | - | - | T-244 | T-073, T-092, T-249, T-254, T-257 |
 | [T-251](T-251-give-the-open-records-the-adopter-visible-prompt-they-predate.md) | Give the open records the adopter_visible prompt they predate | `M7` | `done` | `review` | - | - | - | - | T-242, T-245, T-248 |
 | [T-252](T-252-correct-the-readme-s-file-count-for-the-copied-skill.md) | Correct the README's file count for the copied skill, and decide whether a number belongs there | `M6` | `done` | `review` | T-241 | - | - | - | T-083, T-085 |
+| [T-255](T-255-derive-the-audit-cycle-membership-instead-of-typing-it.md) | Derive the audit cycle membership instead of typing it | `M7` | `done` | `review` | - | - | - | T-244 | - |
 | [T-257](T-257-decide-what-a-deliverable-a-clone-never-receives-asserts.md) | Decide what a deliverable a clone never receives asserts, and get CI green | `M7` | `done` | `review` | - | T-259 | - | - | T-089, T-090, T-103, T-250, T-258 |
 | [T-259](T-259-give-ci-the-history-its-tag-range-tests-need.md) | Give CI the history its tag-range tests need, and make a blind instrument say so | `M7` | `done` | `review` | T-257 | - | - | - | T-116, T-243 |
 
