@@ -102,8 +102,8 @@ The leak check in `../CLAUDE.md` runs **after** any rewrite, never before. A rew
 new text is exactly what that check exists to read.
 
 **The release note is written to §7 before it is written to the humanizer.** What it must not omit is
-derived from the tracker, so the coverage question is settled while the note is still a draft rather
-than after it has been styled.
+derived from what the release ships, so the coverage question is settled while the note is still a
+draft rather than after it has been styled.
 
 ## 4. Where the repository description lives
 

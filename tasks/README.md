@@ -77,11 +77,12 @@ A label says which release the work is scheduled into. It never says the release
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [T-240](T-240-the-competition-rig-does-not-reproduce-the-silence-it-was-built-to-explain.md) | The competition rig does not reproduce the silence it was built to explain | `M6` | `proposed` | `specify` | - | - | - | - | T-175, T-206, T-213 |
 | [T-241](T-241-verify-the-published-0-6-0-from-outside-and-record-what-cannot-be-reached.md) | Verify the published 0.6.0 from outside, and record what cannot be reached | `M6` | `proposed` | `specify` | - | - | - | - | T-085, T-231, T-246 |
-| [T-244](T-244-audit-everything-0-6-0-ships-before-1-0-0-and-review-the-audit-method-while-using-it.md) | Audit everything 0.6.0 ships before 1.0.0, and review the audit method while using it | `M7` | `proposed` | `specify` | - | - | - | T-246 | T-152, T-223, T-231, T-247 |
+| [T-244](T-244-audit-everything-0-6-0-ships-before-1-0-0-and-review-the-audit-method-while-using-it.md) | Audit everything 0.6.0 ships before 1.0.0, and review the audit method while using it | `M7` | `proposed` | `specify` | - | - | T-250 | T-246 | T-152, T-223, T-231, T-247 |
 | [T-246](T-246-cut-1-0-0-once-the-audit-s-findings-are-applied.md) | Cut 1.0.0 once the audit's findings are applied | `M7` | `proposed` | `specify` | - | - | T-244 | - | T-231, T-241, T-243 |
 | [T-247](T-247-decide-whether-taskmd-validates-a-finding-field-against-a-register.md) | Decide whether taskmd validates a finding field against a register | `M7` | `proposed` | `specify` | - | - | - | - | T-146, T-173, T-223, T-244 |
-| [T-248](T-248-judge-adopter-visible-on-the-three-records-the-new-rule-reports-unmarked.md) | Judge adopter_visible on the three records the new release-note rule reports unmarked | `M7` | `proposed` | `specify` | - | - | - | - | T-242, T-243, T-245 |
-| [T-250](T-250-give-the-context-registers-the-permitted-shape-for-history.md) | Give the context registers and shipped documents the permitted shape for history | `M7` | `specified` | `specify` | - | - | - | - | T-073, T-092, T-249 |
+| [T-248](T-248-judge-adopter-visible-on-the-three-records-the-new-rule-reports-unmarked.md) | Judge adopter_visible on the three records the new release-note rule reports unmarked | `M7` | `proposed` | `specify` | - | - | - | - | T-242, T-243, T-245, T-251 |
+| [T-250](T-250-give-the-context-registers-the-permitted-shape-for-history.md) | Give the context registers and shipped documents the permitted shape for history | `M7` | `specified` | `specify` | - | - | - | T-244 | T-073, T-092, T-249 |
+| [T-251](T-251-give-the-open-records-the-adopter-visible-prompt-they-predate.md) | Give the open records the adopter_visible prompt they predate | `M7` | `proposed` | `specify` | - | - | - | - | T-242, T-245, T-248 |
 
 ## Closed
 
@@ -326,9 +327,9 @@ A label says which release the work is scheduled into. It never says the release
 | [T-237](T-237-the-softening-clause-t-228-repaired-has-a-second-instance-and-an-idiom-behind-it.md) | The softening clause T-228 repaired has a second instance, and an idiom behind it | `M6` | `done` | `review` | - | - | - | - | T-176, T-193, T-196, T-228 |
 | [T-238](T-238-bring-the-github-binding-s-coverage-declaration-into-line-with-the-repaired-clause.md) | Bring the GitHub binding's coverage declaration into line with the repaired clause | `M6` | `done` | `review` | - | - | - | - | T-222, T-232, T-239 |
 | [T-239](T-239-give-both-shipped-declarations-the-content-the-repaired-clause-now-requires.md) | Give both shipped declarations the content the repaired clause now requires | `M6` | `done` | `review` | - | - | - | - | T-222, T-232, T-238 |
-| [T-242](T-242-judge-adopter-visible-on-the-closed-m6-tasks-the-release-note-must-cover.md) | Judge adopter_visible on the closed M6 tasks the release note must cover | `M6` | `done` | `review` | - | - | - | - | T-135, T-182, T-231, T-243, T-245, T-248 |
+| [T-242](T-242-judge-adopter-visible-on-the-closed-m6-tasks-the-release-note-must-cover.md) | Judge adopter_visible on the closed M6 tasks the release note must cover | `M6` | `done` | `review` | - | - | - | - | T-135, T-182, T-231, T-243, T-245, T-248, T-251 |
 | [T-243](T-243-key-the-release-note-rule-on-what-the-release-ships-not-on-a-milestone-label.md) | Key the release-note rule on what the release ships, not on a milestone label | `M6` | `done` | `review` | - | - | - | T-244 | T-135, T-182, T-231, T-242, T-246, T-248 |
-| [T-245](T-245-prompt-the-adopter-visible-judgement-at-the-moment-a-record-closes.md) | Prompt the adopter_visible judgement at the moment a record closes | `M7` | `done` | `review` | - | - | - | T-244 | T-146, T-172, T-182, T-242, T-248 |
+| [T-245](T-245-prompt-the-adopter-visible-judgement-at-the-moment-a-record-closes.md) | Prompt the adopter_visible judgement at the moment a record closes | `M7` | `done` | `review` | - | - | - | T-244 | T-146, T-172, T-182, T-242, T-248, T-251 |
 | [T-249](T-249-cut-the-handoff-config-back-to-a-config.md) | Cut the handoff config back to a config, and rehome what only it records | `M7` | `done` | `review` | - | - | - | - | T-047, T-073, T-135, T-190, T-250 |
 
 <!-- taskmd:end -->

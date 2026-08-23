@@ -5,7 +5,7 @@ type: audit
 status: proposed
 phase: specify
 parent: null
-blocked_by: [T-243, T-245]
+blocked_by: [T-243, T-245, T-250]
 related: [T-223, T-231, T-152]
 work_package: M7
 owner: the project owner
@@ -113,5 +113,6 @@ The owner asked for it on 2026-08-23, immediately after `v0.6.0` was published, 
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | (no change) | **Ordered behind [T-250](T-250-give-the-context-registers-the-permitted-shape-for-history.md)** on the owner's instruction, 2026-08-23. T-250 rewrites three shipped binding documents, which are inside `plugin/` and therefore inside this record's subject. Auditing text already scheduled to change costs a child task per finding that T-250 would have removed anyway, and METHOD §5 forbids fixing them here. The edge is the ordering; nothing is written down to keep in step. |
 | 2026-08-23 | (no change) | **Blocked by [T-243](T-243-key-the-release-note-rule-on-what-the-release-ships-not-on-a-milestone-label.md) and [T-245](T-245-prompt-the-adopter-visible-judgement-at-the-moment-a-record-closes.md), on the owner's instruction of 2026-08-23 that both land before the audit.** **Recorded as edges rather than as a sentence**, which is this project's own lesson twice over: the ordering that put the release before its note lived in prose and was invisible to every view until somebody ran the rule. Both change something this record would audit — §7's release-note rule and the task template — so auditing first would judge a shape about to change and re-find what is already known. **This is a sequencing edge, not a scope change**: §1 is untouched, and the record is still `proposed` for the owner to start. |
 | 2026-08-23 | → proposed | **Raised on the owner's instruction of 2026-08-23**, given as a survey answer minutes after `v0.6.0` was published: raise the task, do not start it. The standing rule that a session starts no audit is unchanged, and this record is deliberately left at `proposed` for the owner to start. **Three things came with the instruction and are recorded in §1 rather than here**: `0.6.0` is to be read as a beta, `1.0.0` follows the audit and its fixes, and **the audit feature itself is under review** because it has never been run. The last is the reason this is not an ordinary audit umbrella: [T-223](T-223-ship-the-pre-release-audit-as-a-method-document.md) shipped the method to every adopter without it having been executed once, so the subject and the instrument are both on trial. **The owner also chose not to flag the published release as a prerelease** on the same exchange, because GitHub would then show `v0.5.0` as latest and point a visitor at older software. |
