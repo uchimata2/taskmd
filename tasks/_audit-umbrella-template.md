@@ -86,6 +86,8 @@ was examined — worth as much as the ones that produced work.
 | :--- | :---: | :--- |
 |  |  |  |
 
+**Adopter-visible?** <yes or no - then set adopter_visible in the front matter, per the test in docs/PUBLISHING.md section 7>
+
 **Child fix tasks raised**
 - <T-NNN or "none">
 

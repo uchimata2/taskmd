@@ -67,6 +67,8 @@ none. Do not add `children:` or `blocks:` — both are derived. After filling th
 | :--- | :---: | :--- |
 |  |  |  |
 
+**Adopter-visible?** <yes or no - then set adopter_visible in the front matter, per the test in docs/PUBLISHING.md section 7>
+
 **Child fix tasks raised**
 - <T-NNN or "none">
 

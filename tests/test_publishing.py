@@ -869,5 +869,84 @@ class TheReleaseNoteSetIsKeyedOnWhatShips(unittest.TestCase):
                                       % VERIFIED_RANGE)
 
 
+# §7 consumes `adopter_visible`, and until 2026-08-23 nothing asked for it. The field was not in
+# this project's task template, so an author copying the template never met it, and `0.6.0` reached
+# the release note with 78 unjudged records (T-242). T-245's fix is a **slot** in the template body:
+# `check` reports a closed record still carrying an unfilled slot, so a record that closes without
+# answering the prompt fails the validator.
+#
+# The test lives beside §7 rather than beside the validator because it is §7 that needs the value.
+# It asserts the prompt is a slot -- which is what makes it reportable -- and that it prompts rather
+# than carries the value, since a second copy of `adopter_visible` in the body would be the one thing
+# the fix must not do.
+
+TEMPLATE_DIR = os.path.join(ROOT, "tasks")
+SLOT_RE = re.compile(r"<[^<>\n]+>")
+PROMPT = "adopter_visible"
+
+
+def project_templates():
+    """This project's templates: the `_`-prefixed Markdown files directly in the task folder.
+
+    Derived the way the local-markdown binding derives them, so adding a template arms this test
+    with nothing edited here.
+    """
+    return sorted(name for name in os.listdir(TEMPLATE_DIR)
+                  if name.startswith("_") and name.endswith(".md"))
+
+
+class TheAdopterVisibleJudgementIsPromptedAtClose(unittest.TestCase):
+    """What stops §7's set filling up with unjudged records again (T-245).
+
+    Failing here does not mean a record is unjudged. It means the **prompt** has gone, which is the
+    thing that would let the backlog rebuild silently -- the state `0.6.0` met at 78 records.
+    """
+
+    def test_every_template_prompts_for_the_judgement(self):
+        missing = [name for name in project_templates()
+                   if PROMPT not in read(os.path.join(TEMPLATE_DIR, name))]
+        self.assertEqual(
+            missing, [],
+            "these templates no longer prompt for %s, so a record copied from one can close without "
+            "the judgement docs/PUBLISHING.md section 7 reads - which is how 78 unjudged records "
+            "reached the 0.6.0 release note: %s" % (PROMPT, missing))
+
+    def test_the_prompt_is_a_slot_so_an_abandoned_one_is_reported(self):
+        """A prompt that is not a slot is a sentence, and `check` cannot see a sentence."""
+        for name in project_templates():
+            body = read(os.path.join(TEMPLATE_DIR, name))
+            line = [ln.strip() for ln in body.splitlines() if PROMPT in ln and SLOT_RE.search(ln)]
+            self.assertTrue(
+                line,
+                "%s carries no line naming %s inside a <...> slot, so check's ABANDONED SLOT rule cannot "
+                "see it and a record closing without the judgement passes silently" % (name, PROMPT))
+
+    def test_the_prompt_does_not_carry_the_value(self):
+        """One home. The front matter holds the value; the body asks for it and stores nothing."""
+        for name in project_templates():
+            for ln in read(os.path.join(TEMPLATE_DIR, name)).splitlines():
+                self.assertNotRegex(
+                    ln.strip(), r"^%s\s*:" % PROMPT,
+                    "%s writes %s as a field in the body as well as the front matter, which is a "
+                    "second home for one fact - and the body copy is the one nothing reads"
+                    % (name, PROMPT))
+
+    def test_the_prompt_reports_readably(self):
+        """`check` blanks code spans before matching, so backticks in the slot print as gaps.
+
+        Measured 2026-08-23: with the path and the field name in backticks, the reported line read
+        `'**Adopter-visible?** <yes or no - then set        in the front matter, per        section 7>'`.
+        The message is what somebody acts on, so the slot carries no code spans.
+        """
+        for name in project_templates():
+            for ln in read(os.path.join(TEMPLATE_DIR, name)).splitlines():
+                if PROMPT in ln and SLOT_RE.search(ln):
+                    self.assertNotIn(
+                        "`", ln,
+                        "%s puts a code span in the adopter_visible slot; check blanks those before "
+                        "reporting, so the ABANDONED SLOT message would print gaps where the "
+                        "instruction should be" % name)
+
+
 if __name__ == "__main__":
     unittest.main()
