@@ -15,7 +15,6 @@ created: 2026-08-23
 updated: 2026-08-23
 adopter_visible: no
 deliverables:
-  - control/LOCAL-CONTEXT.md
   - plugin/skills/taskmd/docs/BINDING.md
   - plugin/skills/taskmd/docs/bindings/github-issues.md
   - docs/PUBLISHING.md
@@ -301,6 +300,7 @@ to do differently — they read four documents that are shorter. `docs/PUBLISHIN
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | (no status change) | **`control/LOCAL-CONTEXT.md` was produced by this task and is quarantined, and its path was removed from `deliverables` here.** The removal is not a correction of what happened: the file exists, this task made it, and `control/` is gitignored by T-013 so no clone will ever hold it. Declaring it took `check` to exit 1 for every reader but this machine, and CI red for a day. Removed under the decision recorded in the local-markdown binding, taken on the owner's answer of 2026-08-23 (T-257). **T-258 is raised to make the declaration safe again** — when `check` reports an untracked declared path as excluded rather than missing, this line can come back. |
 | 2026-08-23 | → done | **`review` done and the record closed**, under the grant below. Five criteria, five met, no child raised. The first one is the row to read: checking that no fact was dropped rather than relocated found two facts in the register with no home anywhere, and both were restored. `adopter_visible` is `no` and was judged rather than assumed — four of the five edited files ship, and what moved in them is prose about their own wording, not a rule, an operation, an assumption or a promise. Two residuals are named in §4 rather than left for a sweep: the forward rule the register now depends on, and that the one-commit-per-file answer cannot reach a gitignored file. |
 | 2026-08-23 | → in_progress | **`implement` done**, under the grant below. **25 candidates derived, 5 edited, 20 read and left**, and §3 lists all twenty because a list of hits cannot show what was examined. Three things the plan did not foresee, all in §3 as decisions: **§1's table was wrong in both directions** — `docs/PUBLISHING.md` is absent from it and carried two real passages, while `local-markdown.md` is listed with five changelog lines and has none, which is the fifth criterion earning its keep; **the register's derived trail is not equivalent to the enumeration it replaced**, so the file states its reach, lists the closed residue and adds the forward rule that completes it; and **four foreign task ids were found in the register, every one colliding with a real task here**. |
 | 2026-08-23 | → planned | **`plan` written**, under the grant below. Six steps. Two shape it: step 1 states the corpus size before anything is classified, so the sweep has a denominator; and step 3 records a verdict for every candidate, not only the ones edited, because a list of hits alone cannot show what was read. `reference/` was decided out — imported evidence, like the adopter-report copies. |

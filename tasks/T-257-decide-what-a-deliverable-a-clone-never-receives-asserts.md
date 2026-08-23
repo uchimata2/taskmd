@@ -2,8 +2,8 @@
 id: T-257
 title: Decide what a deliverable a clone never receives asserts, and get CI green
 type: decision
-status: specified
-phase: specify
+status: planned
+phase: plan
 parent: null
 blocked_by: []
 related: [T-103, T-089, T-090, T-250]
@@ -111,9 +111,25 @@ this exact file has exposed a gap in the same rule.
 
 ## 2. Plan
 
+**Ordered by the owner's answer, not by convenience.** The follow-up is step 1 because the answer
+names its own failure mode: a fix that only the pain argues for loses its constituency the moment the
+pain stops. Once step 3 lands, the gate is green and nothing is left pushing for step 1.
+
 | # | Step | Output |
 | :-- | :--- | :--- |
-| 1 |  |  |
+| 1 | Raise reading 2 as its own record: `check` learns the distinction it already draws for documents, and reports *a clone would not receive this* rather than *does not exist* for a declared output. Raised **before** step 3's edit lands. | A new task file at `proposed`, carrying a soft edge to this one |
+| 2 | Write the decision in the binding, beside T-103's *moved* and *deleted* paragraphs — the block that assigns METHOD rule 5's closing conditions, where `deliverables` is defined and where a reader chasing a `MISSING OUTPUT` lands. It says which reading was taken and what the other two cost. | A paragraph in `plugin/skills/taskmd/docs/bindings/local-markdown.md` |
+| 3 | Apply reading 1: drop `control/LOCAL-CONTEXT.md` from T-250's `deliverables`, with a Log row on that record saying the file was produced and is quarantined — so removing the declaration does not also remove the fact. | `tasks/T-250-give-the-context-registers-the-permitted-shape-for-history.md`, edited |
+| 4 | Record the survey in §3 — 374 declared paths across the 162 tasks that declare any, one absent from a clone, eight fixture *directories* that a first pass flagged and that are tracked through their contents. | The survey, in §3 |
+| 5 | Verify in a **fresh clone**, not in this tree: clone the repository, run `check --root` against the clone, capture the exit code separately from any pipe. | The command and its exit code, in §3 |
+| 6 | Push, then **read** the workflow run. A prediction is not the criterion. | The run's own verdict, in §3 |
+
+**Outputs this task will produce**
+
+- `plugin/skills/taskmd/docs/bindings/local-markdown.md`
+- `tasks/T-250-give-the-context-registers-the-permitted-shape-for-history.md`
+
+The step 1 record is a task rather than an output, so it is not listed here.
 
 ## 3. Implement
 
@@ -138,5 +154,6 @@ this exact file has exposed a gap in the same rule.
 
 | Date | Status change | Note |
 | :--- | :--- | :--- |
+| 2026-08-23 | specified → planned | Six steps, ordered so the follow-up record is raised **before** the one-line edit lands — the owner's answer names that as its own failure mode. **The owner granted `specify`, `plan`, `implement` and `review` on every task named in the handoff of 2026-08-23, in the invocation that resumed it** (*resume, all mentioned tasks with full lifecycle*). For this record that grant covers all four phases through to close. It does not reach the pre-release audit, which is gated on its own dependency and on the standing rule that a session starts no audit. |
 | 2026-08-23 | proposed → specified | **The owner chose *unblock now, fix properly after* on 2026-08-23**, from a survey of all three readings priced both ways. So: drop `control/LOCAL-CONTEXT.md` from T-250's declared outputs to recover the gate today, then teach `check` the distinction it already draws for documents. **The second half is a separate record and must be raised before the one-line edit lands** — the option the owner picked names its own failure mode, which is that a follow-up loses its constituency the moment the pain stops. **The owner also ordered this ahead of T-247 and T-255**, both of which they had chosen before the red gate was found. |
 | 2026-08-23 | → proposed | **Raised from the owner's report of failing CI notifications since 15:42 on 2026-08-23.** The session had run the suite green four times and pushed three commits against a red job without noticing, because `pytest` on the working tree and the workflow's per-module run in a clone are different instruments and only the second sees the defect. **Diagnosed by cloning rather than by reading**: the clone exits 1 and names one problem, the working tree exits 0. **Not fixed here.** The one-line unblock is available and the reading behind it is a policy question this project has already answered three times for three neighbouring cases, so choosing silently would set the fourth precedent without anyone deciding it. |
