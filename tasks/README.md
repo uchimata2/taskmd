@@ -82,6 +82,7 @@ A label says which release the work is scheduled into. It never says the release
 | [T-254](T-254-sweep-for-history-prose-living-outside-markdown.md) | Sweep for history prose living outside Markdown, which T-250's corpus could not see | `M7` | `proposed` | `specify` | - | - | - | - | T-244, T-249, T-250 |
 | [T-256](T-256-improve-the-pre-release-audit-method-from-what-its-first-run-teaches.md) | Improve the pre-release audit method from what its first run teaches | `M7` | `proposed` | `specify` | - | - | T-244 | - | T-223 |
 | [T-260](T-260-assert-that-a-project-s-config-and-the-shipped-default-still-agree.md) | Assert that this project's config and the shipped default still agree | `M7` | `proposed` | `specify` | - | - | - | - | T-106, T-247 |
+| [T-261](T-261-triage-the-claimai-adopter-report.md) | Triage the ClaimAI adopter report and decide its three findings | `M7` | `proposed` | `specify` | - | - | - | - | - |
 
 ## Closed
 
