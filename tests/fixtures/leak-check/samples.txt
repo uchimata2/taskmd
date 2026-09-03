@@ -1,15 +1,19 @@
 # Pre-publish leak-check fixture -- see CLAUDE.md 'The pre-publish check'.
 #
-# Nine lines. The first five MUST be caught by the check's pattern, one per class; the last
-# four MUST NOT be, and they are the half that matters -- two earlier drafts of the pattern
-# were wrong precisely because they tripped on safe text (T-013). Every path below is
-# fabricated: this file is evidence, not a record of anyone's machine.
+# Ten lines. The first six MUST be caught by the check's pattern: its four classes, plus the
+# second separator of the drive class -- the pattern accepts \ or /, and only \ was shown,
+# so / was covered by the code and by nothing else (2026-09-03). The last four MUST NOT be
+# caught, and they are the half that matters -- two earlier drafts of the pattern were wrong
+# precisely because they tripped on safe text (T-013). The forward-slash near-miss is the
+# URL below, which must stay ignored. Every path here is fabricated: this file is evidence,
+# not a record of anyone's machine.
 
 drive Q:\Projects\example                <- must be caught
 home /home/someone/project               <- must be caught
 users /Users/someone/project             <- must be caught
 unc \\fileserver\share\docs              <- must be caught
 ip 192.0.2.42                            <- must be caught
+slash Q:/Projects/example                <- must be caught
 
 safe https://example.com/a               <- must be ignored
 safe a python d:\n escape in a string    <- must be ignored

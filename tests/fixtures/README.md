@@ -17,7 +17,7 @@ readings agree would have passed either implementation and proved nothing (T-022
 
 `leak-check` is **not a taskmd project** — the only folder here that is not, which is worth saying
 because every neighbour is, and a reader following the convention would look for a `.taskmd/` that
-is deliberately absent. It is nine lines of text for the pre-publish grep in `docs/PUBLISHING.md`
+is deliberately absent. It is a short file of text for the pre-publish grep in `docs/PUBLISHING.md`
 §6 — moved there from `CLAUDE.md` by T-047. **Its lines say for themselves
 which must be caught and which must not**, and `tests/test_publishing.py` reads those marks rather
 than a count written here; the counts are not repeated in this document for the reason the next
